@@ -12,6 +12,7 @@ interface KanbanColumn<Card extends KanbanCardData = KanbanCardData> {
   cards: readonly Card[];
   badge?: ReactNode;
   action?: ReactNode;
+  top?: ReactNode;
 }
 
 interface KanbanPlace {

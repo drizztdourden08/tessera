@@ -3,7 +3,7 @@ import type { CSSProperties, ReactNode } from 'react';
 import type { ExtraProps } from 'react-markdown';
 import type { CodeBlockLanguage } from '../CodeBlock/CodeBlock.type';
 
-type MarkdownSize = 'sm' | 'md';
+type MarkdownSize = 'sm' | 'md' | 'inline';
 
 type MarkdownHeadingOffset = 0 | 1 | 2 | 3 | 4 | 5;
 

@@ -59,12 +59,12 @@
 
 .shortcut--lit {
   --shortcut-edge: var(--c-primary);
-  --shortcut-ink: var(--c-primary);
+  --shortcut-ink: var(--c-primary-text);
 }
 
 .shortcut--pressed {
   --shortcut-edge: var(--c-primary);
-  --shortcut-ink: var(--c-primary);
+  --shortcut-ink: var(--c-primary-text);
   --shortcut-lip: var(--c-primary);
   --shortcut-sink: var(--border-width-thick);
 }
@@ -244,7 +244,7 @@
     --shortcut-mark: var(--c-primary);
     --shortcut-lip: var(--c-primary);
     --shortcut-edge: var(--c-primary);
-    --shortcut-ink: var(--c-primary);
+    --shortcut-ink: var(--c-primary-text);
   }
 }
 
@@ -260,7 +260,7 @@
 
   56%,
   75% {
-    --shortcut-ink: var(--c-primary);
+    --shortcut-ink: var(--c-primary-text);
     --shortcut-edge: var(--c-primary);
     --shortcut-mark: var(--c-primary);
   }

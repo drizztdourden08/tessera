@@ -103,6 +103,7 @@
     --c-scrim-game:    color-mix(in srgb, var(--p-pure-black) 35%, transparent);
     --c-primary:        var(--p-primary);
     --c-primary-bright: color-mix(in oklab, var(--p-primary), var(--c-lift) 22%);
+    --c-primary-text:   var(--p-primary-text, var(--c-primary-bright));
     --c-primary-dim:    color-mix(in oklab, var(--p-primary) 18%, var(--c-bg));
     --c-primary-soft:   color-mix(in srgb, var(--p-primary) 14%, transparent);
     --c-on-primary:     var(--p-on-primary);

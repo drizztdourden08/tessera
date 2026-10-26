@@ -10,6 +10,7 @@ const PixelRow = (props: { variant: ButtonVariant }) => {
       <Button look="pixel" variant={variant}>Press start</Button>
       <Button look="pixel" variant={variant} loading>Press start</Button>
       <Button look="pixel" variant={variant} disabled>Press start</Button>
+      <Button look="pixel" variant={variant} size="lg">Press start</Button>
       <Button look="pixel" variant={variant} size="sm">Press start</Button>
       <Button look="pixel" variant={variant} size="xs">Press start</Button>
     </Flex>

@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import MarkdownTree from 'react-markdown';
 import { Box } from '../../primitives/Box';
 import { MarkdownContext } from './behavior/markdown-context';
+import { classesOf } from './behavior/classes-of';
 import { markdownParts } from './behavior/markdown-parts';
 import { remarkPlugins } from './behavior/remark-plugins';
 import { urlTransformOf } from './behavior/url-transform';
@@ -17,7 +18,7 @@ const Markdown = (props: MarkdownProps) => {
   const plugins = useMemo(() => remarkPlugins({ hideTitle, rules: [linkIds ?? []].flat(), allowPaths }), [hideTitle, linkIds, allowPaths]);
   return (
     <MarkdownContext value={settings}>
-      <Box className={className ? `markdown ${className}` : 'markdown'} data-size={size}>
+      <Box className={classesOf(size, className)} data-size={size}>
         <MarkdownTree components={markdownParts} skipHtml urlTransform={urlTransformOf(allowPaths)} remarkPlugins={plugins}>
           {children ?? source}
         </MarkdownTree>

@@ -89,7 +89,7 @@ const Overview = overviewStory({
     '`onLink` takes every link click; without it a link opens in a new tab with rel noopener.',
     '`images` is off, so an image shows its alt text; true allows http and https, a function rewrites the src.',
     '`linkIds` turns ids such as T-5 into links in text, never inside code or a link.',
-    '`headingOffset` moves headings down, `hideTitle` drops the # title, and `size` sm fits a dialog.',
+    '`headingOffset` moves headings down, `hideTitle` drops the # title, and `size` is sm, md or inline.',
   ],
   instead: '[Text] for text written in the app, or [CodeBlock] for code shown as it is.',
   playground: Playground,

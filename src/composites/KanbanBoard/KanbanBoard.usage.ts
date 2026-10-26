@@ -22,6 +22,7 @@ const usage = {
     'Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.',
     'Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.',
     'Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.',
+    'Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.',
     'Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids.',
   ],
   a11y: [

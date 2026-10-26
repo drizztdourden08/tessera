@@ -108,7 +108,7 @@
 }
 
 .stat-tile__value[data-tone='primary'] {
-  color: var(--c-primary);
+  color: var(--c-primary-text);
 }
 
 .stat-tile__value[data-tone='secondary'] {

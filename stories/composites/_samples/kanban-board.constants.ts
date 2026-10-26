@@ -35,13 +35,14 @@ const TASK_COLUMNS: readonly TaskColumn[] = [
   },
 ];
 
-const KANBAN_ARGS: KanbanArgs = { width: 'full', folded: 'none', emptyReview: false, slots: false };
+const KANBAN_ARGS: KanbanArgs = { width: 'full', folded: 'none', emptyReview: false, slots: false, addForm: false };
 
 const KANBAN_ARG_TYPES: PlaygroundArgTypes<KanbanArgs> = {
   width: { group: 'Layout', control: 'select', options: ['full', 'narrow'], description: 'A narrow box makes the board scroll sideways.' },
   folded: { group: 'State', control: 'select', options: ['none', 'todo', 'doing', 'review', 'done'], description: 'The column that starts folded to a rail.' },
   emptyReview: { group: 'Content', control: 'boolean', description: 'Take the cards out of Review.' },
   slots: { group: 'Content', control: 'boolean', description: 'Add a badge and an Add button to the header of some columns.' },
+  addForm: { group: 'Content', control: 'boolean', description: 'Put an inline add form above the cards of To do.' },
 };
 
 const KANBAN_CODE = `import { KanbanBoard, moveCard } from '@drizztdourden08/tessera';
@@ -57,6 +58,7 @@ const KANBAN_CODE = `import { KanbanBoard, moveCard } from '@drizztdourden08/tes
 
 const columns = [
   { id: 'todo', title: 'To do', cards, badge: <Badge variant="inline" value="quiet" />, action: <Button size="xs" variant="ghost">Add</Button> },
+  { id: 'doing', title: 'Doing', cards, top: <InlineCreateForm label="New card" onCreate={addCard} compact /> },
 ];`;
 
 export { KANBAN_ARG_TYPES, KANBAN_ARGS, KANBAN_CODE, TASK_COLUMNS };

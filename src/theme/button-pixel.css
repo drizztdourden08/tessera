@@ -23,6 +23,13 @@
   --pixel-cell: var(--size-2);
 }
 
+.btn.btn--pixel.btn--lg {
+  --pixel-step: var(--size-3);
+  --pixel-cell: var(--size-6);
+
+  padding-block-end: calc(3 * var(--pixel-cell));
+}
+
 .btn.btn--pixel.btn--xs {
   --pixel-far: var(--pixel-lit);
 }

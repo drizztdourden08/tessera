@@ -5,6 +5,7 @@ import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { NO_HOLES } from '../GuidedTour.constants';
 import { measureHoles } from './measure-holes';
 import { sameHoles } from './same-holes';
+import { settleLoop } from './settle-loop';
 import type { SpotHoles } from './tour-internal.type';
 import { watchSpot } from './watch-spot';
 
@@ -23,21 +24,20 @@ const useSpotHoles = (
       setHoles(NO_HOLES);
       return undefined;
     }
-    const view = ownerWindowOf(first);
-    let frame = 0;
-    const measure = (): void => {
-      frame = 0;
+    let last = measureHoles(target, kept, ringRef.current);
+    setHoles((shown) => (sameHoles(shown, last) ? shown : last));
+    const measure = (): boolean => {
       const next = measureHoles(target, kept, ringRef.current);
-      setHoles((last) => (sameHoles(last, next) ? last : next));
+      if (sameHoles(last, next)) return true;
+      last = next;
+      setHoles(next);
+      return false;
     };
-    const soon = (): void => {
-      if (frame === 0) frame = view.requestAnimationFrame(measure);
-    };
-    measure();
-    soon();
-    const stopWatch = watchSpot(view, nodes, soon);
+    const loop = settleLoop(ownerWindowOf(first), measure);
+    loop.kick();
+    const stopWatch = watchSpot(ownerWindowOf(first), nodes, loop.kick);
     return () => {
-      view.cancelAnimationFrame(frame);
+      loop.stop();
       stopWatch();
     };
   }, [target, kept, ringRef, settled]);

@@ -36,3 +36,8 @@
 .inline-edit__view:focus-visible .inline-edit__pen {
   opacity: 1;
 }
+
+.inline-edit__text--drawn {
+  display: block;
+  min-inline-size: 0;
+}

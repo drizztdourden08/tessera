@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ButtonProps } from '../../primitives/Button/Button.type';
 
-interface RetryButtonProps extends Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading'> {
+interface RetryButtonProps extends Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading' | 'href' | 'target' | 'rel' | 'download'> {
   onRetry: () => void;
   retryAt?: number | null;
   attempt?: number;

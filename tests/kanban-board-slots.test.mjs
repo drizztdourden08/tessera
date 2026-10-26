@@ -41,3 +41,18 @@ describe('KanbanBoard column header slots', () => {
     expect(html).not.toContain('data-slot="action"');
   });
 });
+
+describe('KanbanBoard top slot', () => {
+  const topped = [{ ...TODO, top: h('form', { className: 'add-form' }) }, DOING];
+
+  it('draws top above the cards of an open column and hides it when folded', () => {
+    const open = draw({ columns: topped });
+    expect(open).toContain('class="add-form"');
+    expect(open.indexOf('add-form')).toBeLessThan(open.indexOf('data-board-list="todo"'));
+    expect(draw({ columns: topped, defaultCollapsed: ['todo'] })).not.toContain('add-form');
+  });
+
+  it('does not count top as a card for the drag slots', () => {
+    expect(draw({ columns: topped }).match(/data-reorder-index="\d+"/g)).toEqual(draw().match(/data-reorder-index="\d+"/g));
+  });
+});

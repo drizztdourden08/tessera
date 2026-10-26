@@ -1,15 +1,22 @@
 /* @layer renderer-components @kind util */
+import type { ButtonFill, ButtonLook, ButtonVariant } from '../Button.type';
 import type { ButtonClassInput } from './button-class.type';
 
+const surfaceClasses = (variant: ButtonVariant, look: ButtonLook | undefined, fill: ButtonFill | undefined): string[] => {
+  if (variant === 'ghost') return [];
+  const solid = fill === 'solid' ? ['btn--solid'] : [];
+  if (look === 'pixel') return ['btn--pixel', ...solid];
+  return solid.length > 0 ? solid : ['btn--toned'];
+};
+
 const buttonClass = (input: ButtonClassInput): string => {
-  const { variant, size, look, fullWidth, active, loading, oneLine, className } = input;
-  const pixel = look === 'pixel' && variant !== 'ghost';
+  const { variant, size, look, fill, fullWidth, active, loading, oneLine, link, className } = input;
   return [
     'btn',
     `btn--${variant}`,
-    variant !== 'ghost' && !pixel && 'btn--toned',
-    pixel && 'btn--pixel',
+    ...surfaceClasses(variant, look, fill),
     `btn--${size}`,
+    link && 'btn--link',
     fullWidth && 'btn--full',
     oneLine && !fullWidth && 'btn--one-line',
     active && 'btn--active',

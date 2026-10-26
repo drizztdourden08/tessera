@@ -73,4 +73,4 @@ const FrameRateTile = ({ samples }: { samples: readonly number[] }) => (
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-info`, `--c-inset`, `--c-primary`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-muted`, `--c-warning`, `--radius-md`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-2xl`, `--text-base`, `--text-lg`, `--text-sm`, `--text-xl`, `--text-xs`, `--tracking-wide`, `--weight-semi`.
+It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-info`, `--c-inset`, `--c-primary-text`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-muted`, `--c-warning`, `--radius-md`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-2xl`, `--text-base`, `--text-lg`, `--text-sm`, `--text-xl`, `--text-xs`, `--tracking-wide`, `--weight-semi`.

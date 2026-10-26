@@ -12,6 +12,11 @@
   flex: none;
 }
 
+.kanban__top {
+  flex: none;
+  min-inline-size: 0;
+}
+
 .kanban__list {
   display: flex;
   flex: 1;

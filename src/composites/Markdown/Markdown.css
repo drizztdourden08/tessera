@@ -58,6 +58,43 @@
   margin: 0;
 }
 
+.markdown.markdown--inline {
+  display: block;
+  gap: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.markdown.markdown--inline .markdown__paragraph {
+  display: inline;
+}
+
+.markdown.markdown--inline .markdown__paragraph:not(:last-child)::after {
+  content: '';
+  display: block;
+}
+
+.markdown.markdown--inline .markdown__heading {
+  margin: 0;
+  font-size: inherit;
+  font-weight: var(--weight-bold);
+  line-height: inherit;
+}
+
+.markdown.markdown--inline .markdown__heading:not(:first-child) {
+  margin-block-start: 0;
+}
+
+.markdown.markdown--inline .list {
+  gap: 0;
+  margin: 0;
+}
+
+.markdown.markdown--inline .markdown__quote,
+.markdown.markdown--inline .markdown__rule {
+  margin: 0;
+}
+
 .markdown .markdown__image {
   max-inline-size: 100%;
 }

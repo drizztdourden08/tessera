@@ -113,7 +113,7 @@
 
 .tag-input__option--create {
   border-top: var(--border-width-thin) solid var(--c-border);
-  color: var(--c-primary);
+  color: var(--c-primary-text);
 }
 
 .tag-input__create-verb {
