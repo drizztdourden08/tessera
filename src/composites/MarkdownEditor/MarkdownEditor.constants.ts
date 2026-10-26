@@ -6,6 +6,7 @@ const MARKDOWN_EDITOR_ACTIONS: readonly MarkdownEditorActionSpec[] = [
   { id: 'italic', icon: 'italic', key: 'I' },
   { id: 'list', icon: 'list' },
   { id: 'numberedList', icon: 'list-ordered' },
+  { id: 'quote', icon: 'quote' },
   { id: 'link', icon: 'link', key: 'K' },
   { id: 'code', icon: 'code' },
   { id: 'codeBlock', icon: 'square-code' },
@@ -14,7 +15,7 @@ const MARKDOWN_EDITOR_ACTIONS: readonly MarkdownEditorActionSpec[] = [
 const MARKDOWN_EDITOR_GROUPS: readonly (readonly MarkdownEditorActionId[])[] = [
   ['bold', 'italic'],
   ['list', 'numberedList'],
-  ['link', 'code', 'codeBlock'],
+  ['quote', 'link', 'code', 'codeBlock'],
 ];
 
 const SPLIT_MIN_WIDTH = 640;

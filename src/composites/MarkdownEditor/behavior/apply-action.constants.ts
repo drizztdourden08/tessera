@@ -4,6 +4,7 @@ import type { ActionEdit } from './apply-action.type';
 import { insertCodeBlock } from './insert-code-block';
 import { insertLink } from './insert-link';
 import { prefixLines } from './prefix-lines';
+import { quoteLines } from './quote-lines';
 import { wrapSelection } from './wrap-selection';
 
 const ACTION_EDITS: Readonly<Record<MarkdownEditorActionId, ActionEdit>> = {
@@ -12,6 +13,7 @@ const ACTION_EDITS: Readonly<Record<MarkdownEditorActionId, ActionEdit>> = {
   code: (text, start, end) => wrapSelection(text, start, end, '`'),
   list: (text, start, end) => prefixLines(text, start, end, 'bullet'),
   numberedList: (text, start, end) => prefixLines(text, start, end, 'number'),
+  quote: quoteLines,
   link: insertLink,
   codeBlock: insertCodeBlock,
 };

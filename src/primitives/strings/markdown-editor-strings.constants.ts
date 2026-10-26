@@ -5,6 +5,7 @@ const MARKDOWN_EDITOR_STRINGS = {
   italic: 'Italic',
   list: 'Bulleted list',
   numberedList: 'Numbered list',
+  quote: 'Quote',
   link: 'Link',
   code: 'Inline code',
   codeBlock: 'Code block',

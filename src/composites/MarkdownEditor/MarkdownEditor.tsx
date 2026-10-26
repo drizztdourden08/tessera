@@ -4,6 +4,7 @@ import { Box } from '../../primitives/Box';
 import { Field } from '../../primitives/Field';
 import { Textarea } from '../../primitives/Textarea';
 import { counterShown } from './behavior/counter-shown';
+import { useAutoFocus } from './behavior/useAutoFocus';
 import { useEditorKeys } from './behavior/useEditorKeys';
 import { useEditorMode } from './behavior/useEditorMode';
 import { useMarkdownActions } from './behavior/useMarkdownActions';
@@ -17,11 +18,12 @@ import './MarkdownEditor.css';
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
   const {
-    value, onChange, label, hint, error, placeholder, disabled = false, layout, rows = DEFAULT_ROWS, onLink, images, linkIds, onSubmit, onEscape, maxLength, className,
+    value, onChange, label, hint, error, placeholder, disabled = false, layout, rows = DEFAULT_ROWS, onLink, images, linkIds, onSubmit, onEscape, maxLength, autoFocus = false, className,
   } = props;
   const rootRef = useRef<HTMLElement | null>(null);
   const areaRef = useRef<HTMLTextAreaElement | null>(null);
   const { mode, tabbed, pane, setPane, writing } = useEditorMode(rootRef, layout);
+  useAutoFocus(areaRef, autoFocus && !disabled, setPane);
   const off = disabled || !writing;
   const { run, onKeyDown: onShortcut } = useMarkdownActions(areaRef, off);
   const onKeyDown = useEditorKeys({ value, onSubmit, onEscape, onShortcut });

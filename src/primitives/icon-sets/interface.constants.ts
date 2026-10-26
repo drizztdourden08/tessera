@@ -68,6 +68,7 @@ import italicIcon from '@iconify-icons/lucide/italic';
 import listOrderedIcon from '@iconify-icons/lucide/list-ordered';
 import codeIcon from '@iconify-icons/lucide/code';
 import squareCodeIcon from '@iconify-icons/lucide/square-code';
+import quoteIcon from '@iconify-icons/lucide/quote';
 
 const guidesIcon = {
   width: 24,
@@ -146,6 +147,7 @@ const INTERFACE_ICONS = {
   'list-ordered': listOrderedIcon,
   'code': codeIcon,
   'square-code': squareCodeIcon,
+  'quote': quoteIcon,
 } as const;
 
 export { INTERFACE_ICONS };

@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
-  job: 'A multi-line field for writing Markdown, with a toolbar for bold, italic, lists, links and code, and a live preview drawn by Markdown.',
+  job: 'A multi-line field for writing Markdown, with a toolbar for bold, italic, lists, quotes, links and code, and a live preview drawn by Markdown.',
   useWhen: [
     'The user writes a note, a description or a release text that is stored as Markdown.',
     'The user should see how the text will look while they write it.',
@@ -23,6 +23,8 @@ const usage = {
     'Enter at the end of a list item starts the next one: a bullet, a number that counts up, or an open task; on an empty item it ends the list.',
     'Tab indents a list line by two spaces and Shift+Tab takes them back; outside a list Tab moves the focus as usual.',
     'Backspace right after an empty marker removes the marker; typing - [] and a space makes a task item.',
+    'The Quote button puts "> " before each line the selection touches, and a second press removes it.',
+    'Pass autoFocus to put the caret at the end of the text when the editor appears; on the tabs layout the Write tab shows first.',
     'Mod+B is bold, Mod+I is italic and Mod+K is a link, shown in the tooltip of each button.',
     'Pass onSubmit to send the text on Mod+Enter; it gets the current value.',
     'Pass onEscape to leave the editor on Escape; it is not called while a menu or popover is open, or when another part has taken the key.',
@@ -47,7 +49,7 @@ const NoteField = ({ openExternal }: { openExternal: (href: string) => void }) =
   return <MarkdownEditor label="Note" value={note} onChange={setNote} onLink={openExternal} />;
 };
 `,
-  propsHash: 'e657eeb4d330d26c',
+  propsHash: 'd44599d53d1104ee',
 } satisfies ComponentUsage;
 
 export { usage };

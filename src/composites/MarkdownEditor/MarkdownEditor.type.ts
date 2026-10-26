@@ -7,7 +7,7 @@ type MarkdownEditorLayout = 'split' | 'tabs';
 
 type MarkdownEditorPane = 'write' | 'preview';
 
-type MarkdownEditorActionId = 'bold' | 'italic' | 'list' | 'numberedList' | 'link' | 'code' | 'codeBlock';
+type MarkdownEditorActionId = 'bold' | 'italic' | 'list' | 'numberedList' | 'quote' | 'link' | 'code' | 'codeBlock';
 
 type MarkdownEditorListStyle = 'bullet' | 'number';
 
@@ -27,6 +27,7 @@ interface MarkdownEditorProps {
   onSubmit?: (value: string) => void;
   onEscape?: () => void;
   maxLength?: number;
+  autoFocus?: boolean;
   className?: string;
   'aria-label'?: string;
 }
