@@ -72,7 +72,7 @@ import squareCodeIcon from '@iconify-icons/lucide/square-code';
 const guidesIcon = {
   width: 24,
   height: 24,
-  body: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 3v18M3 7h18M12 3v4m6-4v4M3 12h4m-4 6h4M15 10v2m0 2v2m0 2v2M10 15h2m2 0h2m2 0h2"/>',
+  body: '<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h18M3 3v18M9 3v3m5-3v3M3 9h3m-3 5h3M17 8v2m0 3v2m0 3v2m0 3v1M9 17h2m2 0h1"/>',
 };
 
 const INTERFACE_ICONS = {
