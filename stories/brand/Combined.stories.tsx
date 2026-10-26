@@ -17,7 +17,7 @@ type CombinedArgs = {
 
 const ARG_TYPES: PlaygroundArgTypes<CombinedArgs> = {
   brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
-  size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'lg', 'xl'], description: 'The mark size; the wordmark follows it.' },
+  size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'lg', 'xl', 'xxl'], description: 'The mark size; the wordmark follows it.' },
   rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin light outline that follows the silhouette, so a dark mark reads on a dark surface.' },
   direction: { group: 'Layout', control: 'select', options: ['inline', 'stacked'] },
 };

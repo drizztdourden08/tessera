@@ -108,6 +108,7 @@ const SIZE_GROUPS: readonly SizeGroup[] = [
       { token: '--brand-mark-md' },
       { token: '--brand-mark-lg' },
       { token: '--brand-mark-xl' },
+      { token: '--brand-mark-xxl' },
       { token: '--pixel-wordmark-sm' },
       { token: '--pixel-wordmark-md' },
       { token: '--pixel-wordmark-lg' },

@@ -12,6 +12,8 @@ import { BrandMark, BrandWordmark, Mascot } from '@drizztdourden08/tessera/brand
 <PixelWordmark text="Hello" colors={['#ffe26e', '#ffd639', '#fcbb28', '#ffa200']} />
 ```
 
+`size` takes `sm`, `md`, `lg`, `xl` or `xxl`. The `xxl` step, `--brand-mark-xxl`, is 256 px, for a large mark such as an empty start page. Archipelia's mark is drawn from true circles and straight bars, so it stays smooth at any size.
+
 The path data is in `src/brand/marks/`, the names, colours and descriptions in `src/brand/family.constants.ts`. The SVG files in this folder (`tessera.svg`, `rotp.svg`, `archipelia.svg`, `brock.svg`, `bxel.svg`) are the same marks for use outside code. Every app has a wordmark set in the pixel alphabet (`PixelWordmark`): the brand data holds only its text and four gradient colours, and `brand/*-wordmark.svg` are the same wordmarks as files. Uppercase letters draw at capital size and lowercase smaller, so Relic of the Past is `RELIC of the PAST`. The alphabet's letters for RELIC OF THE PAST come from that wordmark's artwork; the others are drawn in the same stroke. The gallery shows the whole family on the **Brand / Brand** page, and each part on its own on the **Logo**, **WordMark**, **Combined** and **Mascot** pages. The brand gradients are on **Colours / Gradients**.
 
 ## Brand gradients
@@ -89,6 +91,7 @@ A dark mark such as Brock's nearly disappears on a dark title bar or taskbar. Ev
 | `--brand-rim-md` | 1.5 px | Marks at `lg`, the `md` wordmark |
 | `--brand-rim-lg` | 2 px | The `lg` wordmark |
 | `--brand-rim-xl` | 3 px | Marks at `xl` |
+| `--brand-rim-xxl` | 6 px | Marks at `xxl` |
 
 The colours live in `src/brand/rim.constants.ts` (`BRAND_RIM`) and `pnpm tokens` writes them into `src/tokens/brand.css` and `splash-tokens.css`. The files follow the same data: the rim is a fortieth of the drawn art's side (`ratio`), never under 1 pixel (`minPx`), and a whole art pixel for pixel art.
 
