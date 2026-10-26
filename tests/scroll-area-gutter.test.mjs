@@ -20,3 +20,10 @@ describe('ScrollArea slim gutter', () => {
     expect(widget).not.toMatch(/\.widget__content \{[^}]*padding-right/);
   });
 });
+
+describe('ScrollArea native gutter', () => {
+  it('keeps the width of a page that scrolls down, so a scrollbar that comes and goes cannot flip its columns', () => {
+    expect(area).toMatch(/\.scroll-area\[data-axis='y'\] \{\s*overflow: hidden auto;\s*scrollbar-gutter: stable;/);
+    expect(area).toMatch(/\.scroll-area\[data-axis='both'\] \{\s*overflow: auto;\s*scrollbar-gutter: stable;/);
+  });
+});
