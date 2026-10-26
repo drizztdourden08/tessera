@@ -9,22 +9,24 @@ import { useDocumentTabs } from './behavior/useDocumentTabs';
 import { TAB_KEYS } from './DocumentTabs.constants';
 import type { DocumentTabsProps } from './DocumentTabs.type';
 import { DocumentTab } from './sub-components/DocumentTab';
+import { DocumentTabAdd } from './sub-components/DocumentTabAdd';
 import { DocumentTabCloses } from './sub-components/DocumentTabCloses';
 import { DocumentTabsMenu } from './sub-components/DocumentTabsMenu';
 import './DocumentTabs.css';
 
 const DocumentTabs = (props: DocumentTabsProps) => {
-  const { tabs, activeId, onActivate, label, overflowMenu = false, className } = props;
+  const { tabs, activeId, onActivate, label, overflowMenu = false, onAdd, className } = props;
   const { documentTabs, fields } = useTesseraStrings();
   const hintId = useId();
   const tabIds = useId();
   const idOf = (index: number): string => `${tabIds}-${index}`;
-  const { listRef, drag, close, message, tabId, liveId, hoverId, onKeyDown, onFocus, onBlur, onPointerOver, onPointerLeave } = useDocumentTabs(props);
-  if (tabs.length === 0) return null;
+  const { listRef, drag, close, message, tabId, liveId, hoverId, onKeyDown, onContextMenu, onFocus, onBlur, onPointerOver, onPointerLeave } = useDocumentTabs(props);
+  if (tabs.length === 0) return onAdd ? <Box className={['document-tabs', className].filter(Boolean).join(' ')}><DocumentTabAdd onAdd={onAdd} /></Box> : null;
   return (
     <Box
       className={['document-tabs', className].filter(Boolean).join(' ')}
       onKeyDown={onKeyDown}
+      onContextMenu={onContextMenu}
       onFocus={onFocus}
       onBlur={onBlur}
       onPointerOver={onPointerOver}
@@ -63,6 +65,7 @@ const DocumentTabs = (props: DocumentTabsProps) => {
           </Box>
           <DocumentTabCloses tabs={tabs} hoverId={hoverId} liveId={liveId} onClose={close} />
         </Box>
+        {onAdd && <DocumentTabAdd onAdd={onAdd} />}
       </ScrollStrip>
       {overflowMenu && <DocumentTabsMenu tabs={tabs} activeId={activeId} onActivate={onActivate} />}
       <Box id={hintId} className="visually-hidden">{documentTabs.keysHint}</Box>

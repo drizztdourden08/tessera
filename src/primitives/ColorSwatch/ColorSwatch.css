@@ -48,13 +48,15 @@
   background: var(--c-primary);
 }
 
-.color-swatch--transparent {
+.color-swatch--transparent,
+.color-swatch--translucent {
   background-color: var(--c-checker-a);
   background-image:
+    linear-gradient(var(--swatch-tint, transparent), var(--swatch-tint, transparent)),
     linear-gradient(45deg, var(--c-checker-b) 25%, transparent 25% 75%, var(--c-checker-b) 75%),
     linear-gradient(45deg, var(--c-checker-b) 25%, transparent 25% 75%, var(--c-checker-b) 75%);
-  background-size: var(--checker-size) var(--checker-size);
-  background-position: 0 0, calc(var(--checker-size) / 2) calc(var(--checker-size) / 2);
+  background-size: 100% 100%, var(--checker-size) var(--checker-size), var(--checker-size) var(--checker-size);
+  background-position: 0 0, 0 0, calc(var(--checker-size) / 2) calc(var(--checker-size) / 2);
 }
 
 .color-swatch:disabled {
