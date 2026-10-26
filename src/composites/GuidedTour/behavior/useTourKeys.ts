@@ -18,7 +18,7 @@ const useTourKeys = (tour: GuidedTourApi, root: HTMLElement | null, bubble: HTML
       if (event.defaultPrevented) return;
       const { tour: api, bubble: box, waits: wait } = latest.current;
       const action = tourKeyAction(event.key, keyContext(event, box, wait));
-      if (!action || action === 'close') return;
+      if (!action || action === 'close' || (action === 'back' && api.current?.intro)) return;
       event.preventDefault();
       event.stopPropagation();
       api[action]();

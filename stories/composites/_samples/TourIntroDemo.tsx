@@ -13,7 +13,7 @@ const TourIntroDemo = (props: TourSampleProps) => {
       intro: true,
       art: <BrandMark app="archipelia" size="xl" />,
       title: 'Welcome to Archipelia',
-      body: 'A short walk through your first island. It takes a minute, and you can leave at any time with Escape.',
+      body: 'A short walk through your first island. It takes a minute. Start the tour, or skip it with the button or Escape.',
       mascot: 'wave',
     },
     { id: 'map', target: { tour: 'intro-map' }, title: 'The map', body: 'Every island you visit is pinned here.', mascot: 'point' },

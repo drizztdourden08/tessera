@@ -15,6 +15,7 @@ const usage = {
   rules: [
     'Write the steps as data and keep them in a memo, since onEnter runs each time its step shows.',
     'Set intro: true on a welcome step for a wide centred panel; pass a Logo or BrandMark as art, and the mascot grows beside it.',
+    'An intro step shows Start the tour (goes on, holds focus) and Skip (ends the tour) instead of Back and Next; translate them with tour.introStart and tour.introSkip.',
     'Give a step reveal when its target may not be drawn yet, such as a VirtualGrid item; call scrollToIndex there, and the tour finds the target after a frame.',
     'Mark a target with data-tour and point at it with { tour }, or pass a ref; a step without a target sits in the middle.',
     'Change the state of the app in onEnter, such as opening a panel or a tab, and make it safe to run twice; stop when its signal aborts.',
@@ -30,7 +31,7 @@ const usage = {
     'The bubble is a dialog named by its title; focus moves to it on each step and goes back where it was on close.',
     'A status line reads each step as Step 2 of 6 and the title.',
     'The rest of the page is inert; the kept parts, the lit part of a click or wait step and its click target stay reachable.',
-    'Right or Enter goes on, Left goes back and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.',
+    'Right or Enter goes on, Left goes back (not on an intro step) and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.',
     'A menu or popover opened during a step takes Escape first; the tour closes on the next press, before any dialog or screen.',
     'The tour scrolls the target to the centre at once, through every scrolling ancestor, and measures the lit part on the next frame.',
     'With reduced motion the highlight and the mascot move at once and nothing fades.',

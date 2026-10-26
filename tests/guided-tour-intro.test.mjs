@@ -100,7 +100,6 @@ describe('the intro step', () => {
     const html = renderToString(h(TourBubbleCard, { tour, step: intro, id: 't' }));
     expect(html.indexOf('id="logo"')).toBeGreaterThan(-1);
     expect(html.indexOf('id="logo"')).toBeLessThan(html.indexOf('Welcome'));
-    expect(html).toContain('>Next<');
     expect(html).toContain('Step 1 of 3');
   });
 
