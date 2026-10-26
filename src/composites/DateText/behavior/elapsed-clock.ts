@@ -29,7 +29,7 @@ const tick = () => {
   now = Date.now();
   [...watchers].forEach((watcher) => {
     if (watcher.due > now) return;
-    watcher.due = elapsedDue(watcher.at, now);
+    watcher.due = elapsedDue(watcher.at, now, watcher.oneUnit);
     watcher.listener();
   });
   arm();
@@ -39,19 +39,19 @@ const show = () => {
   if (hidden()) return stop();
   now = Date.now();
   watchers.forEach((watcher) => {
-    watcher.due = elapsedDue(watcher.at, now);
+    watcher.due = elapsedDue(watcher.at, now, watcher.oneUnit);
     watcher.listener();
   });
   arm();
 };
 
 const elapsedClock = {
-  subscribe: (listener: () => void, at: number): (() => void) => {
+  subscribe: (listener: () => void, at: number, oneUnit = false): (() => void) => {
     if (watchers.size === 0) {
       now = Date.now();
       if (typeof document !== 'undefined') document.addEventListener('visibilitychange', show);
     }
-    const watcher: ElapsedWatcher = { listener, at, due: elapsedDue(at, Date.now()) };
+    const watcher: ElapsedWatcher = { listener, at, oneUnit, due: elapsedDue(at, Date.now(), oneUnit) };
     watchers.add(watcher);
     arm();
     return () => {

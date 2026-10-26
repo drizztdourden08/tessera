@@ -31,6 +31,7 @@ DateText formats a moment with the browser's Intl, in the app's locale, and keep
 - Pass the raw moment as value, a Date, an ISO string or epoch ms, never text the app formatted.
 - Use relative for how long ago, calendar for a list of recent saves, date or datetime for records.
 - Use elapsed for a running job, such as running 4m 03s; set label to the word before it, already translated.
+- Set length short on elapsed for one unit, rounded down, such as 5s, 12m, 3h or 2d; it ticks by the unit shown.
 - Leave length unset first: each format starts at the length that reads best.
 - Set the locale and the words Just now, Today, Yesterday and Tomorrow once, in the dates strings.
 - For a table column, set SchemaConfig.dates; for text outside React, call formatDate with the same format.

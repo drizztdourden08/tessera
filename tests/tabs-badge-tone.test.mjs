@@ -26,6 +26,29 @@ describe('tabBadgeColor', () => {
   });
 });
 
+describe('Tabs badgeTitle', () => {
+  const render = (tab, props = {}) => renderToString(h(Tabs, { tabs: [{ id: 'jobs', label: 'Jobs', badge: 3, ...tab }], activeTab: '', onTabChange: noop, ...props }));
+
+  it('describes the tab with the title and wraps it in a Tooltip', () => {
+    const html = render({ badgeTitle: '3 jobs running' });
+    expect(html).toContain('aria-description="3 jobs running"');
+    expect(html).toContain('class="tooltip-anchor tabs__reason"');
+  });
+
+  it('adds nothing without a title, or without a badge to explain', () => {
+    expect(render({})).not.toContain('aria-description');
+    expect(render({})).not.toContain('tooltip-anchor');
+    expect(render({ badge: undefined, badgeTitle: '3 jobs running' })).not.toContain('aria-description');
+  });
+
+  it('follows the disabled reason, and keeps the label as the name when only the icon shows', () => {
+    expect(render({ badgeTitle: 'Two failed', disabled: true, disabledReason: 'Locked.' })).toContain('aria-description="Locked. Two failed"');
+    const icons = render({ badgeTitle: 'Two failed', icon: 'x' }, { iconOnly: true });
+    expect(icons).toContain('aria-label="Jobs"');
+    expect(icons).toContain('aria-description="Two failed"');
+  });
+});
+
 describe('Tabs badgeTone', () => {
   it('draws the badge with the tone class of the Badge primitive', () => {
     expect(badgeClassOf({ badgeTone: 'warn' })).toBe('badge badge--inline badge--warning badge--round');

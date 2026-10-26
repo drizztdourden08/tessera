@@ -191,7 +191,7 @@ const Overview = overviewStory({
     '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
     '`defaultExpanded` picks the groups that start open; `virtualizeFrom` draws only the rows in view.',
     '`groupActions` adds header buttons; `onRowMove` and `rowDragData` move rows; `getRects` feeds a marquee.',
-    '`renderCell`, `rowState`, `rowHeight` shape rows; `renderDetail` adds a panel; `sort`, `expanded` are yours.',
+    '`renderCell`, `rowState` (with warning), `rowHeight` shape rows; `renderDetail` adds a panel; you own `sort`.',
   ],
   instead: '[ListItemRow] for a short list of rich rows with no columns to sort.',
   playground: Players,

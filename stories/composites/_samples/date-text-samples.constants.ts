@@ -78,6 +78,7 @@ const DATE_CODE = `import { DateText, formatDate } from '@drizztdourden08/tesser
 <DateText value="2026-10-16T21:40:00Z" format="date" length="long" />
 <DateText value={Date.now()} format={{ month: 'short', day: 'numeric' }} tooltip />
 <DateText value={job.startedAt} format="elapsed" label="running" /> // running 4m 03s, ticking
+<DateText value={job.startedAt} format="elapsed" length="short" /> // 4m, one unit
 
 // The same text outside React, or for a table column
 formatDate(save.timestamp, 'calendar'); // Today, 21:40

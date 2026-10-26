@@ -114,6 +114,23 @@ const Tones = {
   ),
 } satisfies StoryLiteStoryDefinition<TabsArgs>;
 
+const TITLED_TABS: TabItem[] = [
+  { id: 'running', label: 'Running', badge: 3, badgeTone: 'info', badgeTitle: '3 jobs running' },
+  { id: 'warnings', label: 'Warnings', badge: 2, badgeTone: 'warn', badgeTitle: '2 jobs need a look' },
+  { id: 'failed', label: 'Failed', badge: 1, badgeTone: 'danger', badgeTitle: '1 job failed in the last hour' },
+  { id: 'plain', label: 'Plain', badge: 5 },
+];
+
+const Titled = {
+  name: 'Badge titles',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">badgeTitle explains the count in a Tooltip on hover and focus, and is read out as the tab description; Plain has none.</Text>
+      <StatefulTabs tabs={TITLED_TABS} />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<TabsArgs>;
+
 const Layouts = {
   name: 'Layouts',
   render: () => (
@@ -137,7 +154,7 @@ const Overview = overviewStory({
   component: 'Tabs',
   description: 'A row of tabs that switches between the views of one screen, such as the sections of a settings page.',
   points: [
-    'Each tab has a label, an optional icon and count `badge`; `badgeTone` tints it and `hideZero` hides a 0.',
+    'Each tab has a label, an optional icon and count `badge`; `badgeTone` tints it, `badgeTitle` explains it.',
     '`iconOnly` hides the labels and keeps each one as the tab title.',
     'When the tabs run out of room the strip scrolls sideways, with an arrow at each edge that has more.',
     'The arrow keys, [[Home]] and [[End]] move the selection.',
@@ -146,7 +163,7 @@ const Overview = overviewStory({
   ],
   instead: '[SegmentedControl] for a choice that sets a value instead of switching views.',
   playground: Playground,
-  variants: [Layouts, Tones, Disabled],
+  variants: [Layouts, Tones, Titled, Disabled],
   states: {
     render: renderState,
     list: [
@@ -173,4 +190,4 @@ const [active, setActive] = useState('general');
 });
 
 export default meta;
-export { Disabled, Layouts, Overview, Playground, Tones };
+export { Disabled, Layouts, Overview, Playground, Titled, Tones };

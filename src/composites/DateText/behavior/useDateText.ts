@@ -12,7 +12,7 @@ const still = (): (() => void) => () => undefined;
 const useDateText = (value: DateValue, format: DateFormat, options: DateFormatOptions): string => {
   const elapsed = format === 'elapsed';
   const at = asDate(value)?.getTime();
-  const ticking = useCallback((listener: () => void) => (at === undefined ? still() : elapsedClock.subscribe(listener, at)), [at]);
+  const ticking = useCallback((listener: () => void) => (at === undefined ? still() : elapsedClock.subscribe(listener, at, options.length === 'short')), [at, options.length]);
   const live = typeof format === 'string' && LIVE_PRESETS.has(format);
   const subscribe = live ? liveClock.subscribe : still;
   const clock = elapsed ? elapsedClock : liveClock;

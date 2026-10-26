@@ -240,6 +240,14 @@
   box-shadow: inset var(--size-2) 0 0 0 var(--c-danger);
 }
 
+.data-table__row[data-state='warning'] {
+  background: var(--c-warning-soft);
+}
+
+.data-table__row[data-state='warning']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-warning);
+}
+
 .data-table__row[data-state='muted'] .data-table__cell {
   color: var(--c-text-muted);
 }
