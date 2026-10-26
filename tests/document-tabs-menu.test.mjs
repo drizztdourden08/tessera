@@ -69,4 +69,11 @@ describe('DocumentTabs add button', () => {
     expect(draw()).not.toContain('document-tabs__add');
     expect(draw()).not.toContain('New document');
   });
+
+  it('keeps the + button when there are no tabs, and draws nothing without onAdd', () => {
+    const html = draw({ tabs: [], onAdd: ignore });
+    expect(html).toMatch(/<button[^>]*aria-label="New document"/);
+    expect(html).not.toContain('role="tablist"');
+    expect(draw({ tabs: [] })).toBe('');
+  });
 });

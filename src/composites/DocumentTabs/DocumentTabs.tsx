@@ -21,7 +21,7 @@ const DocumentTabs = (props: DocumentTabsProps) => {
   const tabIds = useId();
   const idOf = (index: number): string => `${tabIds}-${index}`;
   const { listRef, drag, close, message, tabId, liveId, hoverId, onKeyDown, onContextMenu, onFocus, onBlur, onPointerOver, onPointerLeave } = useDocumentTabs(props);
-  if (tabs.length === 0) return null;
+  if (tabs.length === 0) return onAdd ? <Box className={['document-tabs', className].filter(Boolean).join(' ')}><DocumentTabAdd onAdd={onAdd} /></Box> : null;
   return (
     <Box
       className={['document-tabs', className].filter(Boolean).join(' ')}
