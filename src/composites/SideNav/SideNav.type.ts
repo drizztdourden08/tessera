@@ -20,6 +20,7 @@ interface SideNavGroup {
 
 interface SideNavConfig {
   home?: SideNavItem;
+  top?: SideNavItem[];
   groups: SideNavGroup[];
 }
 

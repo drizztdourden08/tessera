@@ -12,6 +12,7 @@ import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { navItemStates } from './_samples/nav-states';
 import { NAV_ICONS } from './_samples/nav';
+import { SIDE_NAV_CODE } from './_samples/side-nav-story.constants';
 import { SideNavLeads } from './_samples/SideNavLeads';
 import { SideNavScroll } from './_samples/SideNavScroll';
 import type { NavIcon } from './_samples/nav';
@@ -23,6 +24,7 @@ type SideNavArgs = {
   defaultOpen: boolean;
   withSearch: boolean;
   withHome: boolean;
+  withTop: boolean;
   withBadges: boolean;
   searchPlaceholder: string;
 };
@@ -33,26 +35,29 @@ const item = (id: string, label: string, icon: NavIcon): SideNavItem => ({
 
 const HOME = item('home', 'Home', 'home');
 
+const INBOX = item('inbox', 'Inbox', 'logs');
+
 const GROUPS: SideNavConfig['groups'] = [
   { id: 'play', label: 'Play', items: [item('sessions', 'Sessions', 'sessions'), item('players', 'Players', 'players')] },
   { id: 'library', label: 'Library', items: [item('presets', 'Game presets', 'presets'), item('logs', 'Item logs', 'logs')] },
   { id: 'system', label: 'System', items: [item('servers', 'Servers', 'servers'), item('settings', 'Settings', 'settings')] },
 ];
 
-const ALL_ITEMS = [HOME, ...GROUPS.flatMap((g) => g.items)];
+const ALL_ITEMS = [HOME, INBOX, ...GROUPS.flatMap((g) => g.items)];
 
 const BADGES: Record<string, ReactNode> = { sessions: 3, players: <Badge variant="inline" color="info" value="new" />, logs: '99+' };
 
 const badged = (entry: SideNavItem): SideNavItem => ({ ...entry, badge: BADGES[entry.id] });
 
 const NavDemo = (props: SideNavArgs) => {
-  const { variant, collapsed, defaultOpen, withSearch, withHome, withBadges, searchPlaceholder } = props;
+  const { variant, collapsed, defaultOpen, withSearch, withHome, withTop, withBadges, searchPlaceholder } = props;
   const [active, setActive] = useState('sessions');
   const [query, setQuery] = useState('');
   const config = useMemo<SideNavConfig>(() => ({
     home: withHome ? HOME : undefined,
+    top: withTop ? [INBOX] : undefined,
     groups: withBadges ? GROUPS.map((group) => ({ ...group, items: group.items.map(badged) })) : GROUPS,
-  }), [withHome, withBadges]);
+  }), [withHome, withTop, withBadges]);
   const matches = ALL_ITEMS.filter((i) => matchesText(i.label, query));
   const current = ALL_ITEMS.find((i) => i.id === active);
   return (
@@ -77,11 +82,12 @@ const NavDemo = (props: SideNavArgs) => {
   );
 };
 
-const ARGS: Partial<SideNavArgs> = { variant: 'panel', collapsed: false, defaultOpen: false, withSearch: true, withHome: true, withBadges: false, searchPlaceholder: 'Search sessions and presets' };
+const ARGS: Partial<SideNavArgs> = { variant: 'panel', collapsed: false, defaultOpen: false, withSearch: true, withHome: true, withTop: false, withBadges: false, searchPlaceholder: 'Search sessions and presets' };
 
 const ARG_TYPES: PlaygroundArgTypes<SideNavArgs> = {
     withSearch: { group: 'Content', control: 'boolean' },
     withHome: { group: 'Content', control: 'boolean' },
+    withTop: { group: 'Content', control: 'boolean' },
     withBadges: { group: 'Content', control: 'boolean' },
     searchPlaceholder: { group: 'Content', control: 'text' },
     variant: { group: 'Appearance', control: 'select', options: ['panel', 'rail'] },
@@ -113,6 +119,13 @@ const GroupsOnly = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <NavDemo {...args} withSearch={false} withHome={false} />,
+} satisfies PlaygroundStory<SideNavArgs>;
+
+const TopBlock = {
+  name: 'Home and a page in the top block',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <NavDemo {...args} defaultOpen withSearch={false} withTop />,
 } satisfies PlaygroundStory<SideNavArgs>;
 
 const WithBadges = {
@@ -184,23 +197,11 @@ const renderState = (props: StateProps) => (
   />
 );
 
-const CODE = `import { SideNav } from '@drizztdourden08/tessera';
-
-const [active, setActive] = useState('sessions');
-const [query, setQuery] = useState('');
-
-<SideNav
-  config={{ home: HOME, groups: GROUPS }}
-  activeId={active}
-  onSelect={setActive}
-  search={{ value: query, onChange: setQuery, placeholder: 'Search sessions' }}
-/>`;
-
 const Overview = overviewStory({
   component: 'SideNav',
   description: 'The side nav of a window with several sections: a column of icons that a chevron on its edge opens to show the labels.',
   points: [
-    'Use it for the top-level sections of a window; `config` lists the groups, their items and an optional `home`.',
+    '`config` holds `groups`, an optional `home` and `top` pages under it; one divider ends that block.',
     'The edge toggle (CollapseToggle) opens it; `defaultOpen`, `open` or `storageKey` set and keep the choice.',
     '`badge` on an item adds a count pill at its row end, or a dot over the icon when collapsed.',
     '`search` adds a field that grows when the nav opens; the host owns the query and shows the results.',
@@ -209,7 +210,7 @@ const Overview = overviewStory({
   ],
   instead: '[SideNavLayout] for a nav beside a content pane that shows the page and the search results.',
   playground: Playground,
-  variants: [OpenWithSearch, WithBadges, BadgesCollapsed, GroupsOnly, FirstRows, ManyItems, Rail, RailCollapsed],
+  variants: [OpenWithSearch, TopBlock, WithBadges, BadgesCollapsed, GroupsOnly, FirstRows, ManyItems, Rail, RailCollapsed],
   states: {
     render: renderState,
     list: [
@@ -218,8 +219,8 @@ const Overview = overviewStory({
       STATE.disabled,
     ],
   },
-  code: CODE,
+  code: SIDE_NAV_CODE,
 });
 
 export default meta;
-export { BadgesCollapsed, FirstRows, GroupsOnly, ManyItems, OpenWithSearch, Overview, Playground, Rail, RailCollapsed, WithBadges };
+export { BadgesCollapsed, FirstRows, GroupsOnly, ManyItems, OpenWithSearch, Overview, Playground, Rail, RailCollapsed, TopBlock, WithBadges };

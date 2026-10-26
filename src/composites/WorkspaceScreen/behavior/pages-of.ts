@@ -3,6 +3,7 @@ import type { WorkspaceContent, WorkspacePage } from '../WorkspaceScreen.type';
 
 const pagesOf = (content: WorkspaceContent): WorkspacePage[] => [
   ...(content.home === undefined ? [] : [content.home]),
+  ...(content.top ?? []),
   ...content.groups.flatMap((group) => group.pages),
 ];
 

@@ -374,7 +374,9 @@
             "components": []
           },
           "between pages, from a side list": {
-            "components": []
+            "components": [
+              "SideNav"
+            ]
           },
           "between sections of one long page": {
             "components": []
@@ -11736,7 +11738,185 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "The side list of a window with several sections: a column of icons that a chevron on its edge opens to show the labels.",
+      "useWhen": [
+        "A window has several top-level sections and the user moves between them from a side list.",
+        "The list needs a top block with Home and a few pages under it, then labelled groups below."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The nav sits beside a content pane that shows the page and the search results.",
+          "use": "SideNavLayout"
+        },
+        {
+          "case": "A side panel with a heading folds beside the main view.",
+          "use": "SidePanel"
+        },
+        {
+          "case": "The pages are chosen from the header of a site.",
+          "use": "SiteHeader"
+        }
+      ],
+      "rules": [
+        "Pass config with groups, each with an id, an optional label and its items; an item has an id, a label and an icon.",
+        "Pass config.home for the Home row at the very top.",
+        "Pass config.top for more top-level pages under Home, in the same top block: no heading, and one divider after the whole block.",
+        "The top block is the search field, then Home, then the top pages; nothing else is drawn between them.",
+        "Leave the label of a group out for a group with no heading and no gap; prefer config.top for pages that belong under Home.",
+        "Pass activeId and onSelect; the host owns the active page.",
+        "Pass badge on an item for a count pill, which shows as a dot over the icon when the nav is collapsed.",
+        "Pass search to add a field that grows when the nav opens; the host owns the query and shows the results.",
+        "Pass defaultOpen, open with onOpenChange, or storageKey to set and keep the choice; overlay slides the open nav over the content.",
+        "Pass variant=\"rail\" for the screen list of an app, flush on the window edge."
+      ],
+      "a11y": [
+        "It is a nav named by ariaLabel, and each group is a group named by its label; a group with no label has no name.",
+        "The edge toggle says Show or Hide the navigation pane and reports aria-expanded.",
+        "The active item reports aria-current; a disabled item stays in the list but takes no click."
+      ],
+      "tree": {
+        "path": [
+          "navigation",
+          "between pages, from a side list"
+        ],
+        "rule": "SideNav is the one side list of a window: icons that open to labels, a top block with Home and pages, then labelled groups."
+      },
+      "example": "import { useState } from 'react';\nimport { Icon, SideNav } from '@drizztdourden08/tessera';\n\nconst HOME = { id: 'home', label: 'Home', icon: <Icon name=\"menu\" /> };\nconst PAGES = [{ id: 'inbox', label: 'Inbox', icon: <Icon name=\"list\" /> }];\nconst GROUPS = [{ id: 'play', label: 'Play', items: [{ id: 'sessions', label: 'Sessions', icon: <Icon name=\"map\" /> }] }];\n\nconst AppNav = () => {\n  const [active, setActive] = useState('home');\n  return <SideNav config={{ home: HOME, top: PAGES, groups: GROUPS }} activeId={active} onSelect={setActive} />;\n};\n",
+      "propsHash": "52f4f156ab209696",
+      "props": {
+        "own": [
+          {
+            "name": "config",
+            "optional": false,
+            "text": "SideNavConfig"
+          },
+          {
+            "name": "activeId",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "onSelect",
+            "optional": false,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "search",
+            "optional": true,
+            "text": "SideNavSearch"
+          },
+          {
+            "name": "defaultOpen",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "open",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onOpenChange",
+            "optional": true,
+            "text": "(open: boolean) => void"
+          },
+          {
+            "name": "storageKey",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "SideNavVariant",
+            "literals": [
+              "'panel'",
+              "'rail'"
+            ],
+            "default": "'panel'"
+          },
+          {
+            "name": "collapsed",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "overlay",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "ariaLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--blur",
+        "--blur-glow",
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-focus",
+        "--c-glass",
+        "--c-hover",
+        "--c-panel",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-soft",
+        "--c-sunken",
+        "--c-surface",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--collapse-toggle-d",
+        "--leading-normal",
+        "--opacity-disabled",
+        "--radius-lg",
+        "--radius-md",
+        "--radius-xl",
+        "--scrollbar-slim-rest",
+        "--shadow-lg",
+        "--side-nav-item-h",
+        "--side-nav-w",
+        "--side-nav-w-open",
+        "--size-4",
+        "--size-6",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--text-xl",
+        "--text-xs",
+        "--tracking-caps",
+        "--transition-fast",
+        "--transition-normal",
+        "--weight-semi",
+        "--z-base",
+        "--z-popover"
+      ],
+      "gallery": {
+        "title": "Composites · Navigation/SideNav",
+        "route": "#/story/composites-sidenav--overview",
+        "file": "stories/composites/SideNav.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "SideNavLayout",
@@ -14832,6 +15012,7 @@
       ],
       "rules": [
         "Describe every page in content: its id, title and icon, and either sections of SettingsRow data or content of its own.",
+        "Set content.home for the Home page at the top of the nav, and content.top for more pages under it in the same block, with no heading and one divider after the block.",
         "Every page shows the page header with its icon and title, and nothing turns it off. A screen without it is a custom screen built from ScreenWindow.",
         "The nav, the header pills, the rows and the search all come from content; never build them by hand beside it.",
         "Give options a hint, toggles hints for on and off and sliders hintOf, so the live hint says what each value does.",

@@ -6,6 +6,7 @@ const itemOf = (page: WorkspacePage): SideNavItem => ({ id: page.id, label: page
 
 const navConfigOf = (content: WorkspaceContent): SideNavConfig => ({
   home: content.home === undefined ? undefined : itemOf(content.home),
+  top: content.top?.map(itemOf),
   groups: content.groups.map((group) => ({ id: group.id, label: group.label, items: group.pages.map(itemOf) })),
 });
 
