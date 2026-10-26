@@ -80,6 +80,7 @@ interface ToolbarProps {
   orientation?: ToolbarOrientation;
   layout?: ToolbarShape;
   size?: IconButtonSize;
+  labels?: boolean;
   handle?: boolean;
   handleProps?: ToolbarHandleProps;
   className?: string;
