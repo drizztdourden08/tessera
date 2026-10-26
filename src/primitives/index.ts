@@ -84,7 +84,7 @@ export type {
   DropPanelPosition, DropPanelPositionOptions, UseAnchorTrackingParams, UseAnchorTrackingResult, UseDismissListenersParams,
 } from './Portal';
 export {
-  ScrollArea, createScrollSyncController, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition,
+  ScrollArea, createScrollSyncController, type ScrollAreaGutter, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition,
   type ScrollSyncController, type ScrollSyncNode,
 } from './ScrollArea';
 export type { PortalLayer } from './Portal';

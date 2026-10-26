@@ -31,7 +31,7 @@ PageFrame is the page of an app that keeps the root locked; PageRoot is the page
 - It is the scroller: the reset keeps html and body locked and the frame is 100dvh tall, so the page behind it never moves.
 - Set fill to take the height of its parent instead of the window, such as a page inside a pane.
 - Set width to sm, md or lg to centre the content in a column of that size; leave it out for the full width.
-- The padding is the page padding token. It is a ScrollArea, so it takes className and the other ScrollArea props except axis.
+- The padding is the page padding token. It is a ScrollArea, so it takes className and the other ScrollArea props except axis, gutter included: set gutter stable when the page reflows with width.
 - PageFrame keeps the root locked and scrolls inside one frame; PageRoot instead lets the whole document scroll.
 
 ## Accessibility
@@ -59,6 +59,7 @@ const AccountPage = () => (
 - `onScroll` (optional): `(position: ScrollPosition) => void`.
 - `fade` (optional): `boolean`.
 - `scrollbar` (optional): `ScrollAreaScrollbar`, one of `'native'`, `'slim'`.
+- `gutter` (optional): `ScrollAreaGutter`, one of `'auto'`, `'stable'`.
 - `scrollTo` (optional): `Partial<ScrollPosition>`.
 
 It also takes the 278 attributes it inherits through `Omit<ScrollAreaProps, 'axis' | 'children'>`, `Omit<ComponentPropsWithRef<'div'>, 'onScroll'>`.

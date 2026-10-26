@@ -2216,7 +2216,7 @@
         "It is the scroller: the reset keeps html and body locked and the frame is 100dvh tall, so the page behind it never moves.",
         "Set fill to take the height of its parent instead of the window, such as a page inside a pane.",
         "Set width to sm, md or lg to centre the content in a column of that size; leave it out for the full width.",
-        "The padding is the page padding token. It is a ScrollArea, so it takes className and the other ScrollArea props except axis.",
+        "The padding is the page padding token. It is a ScrollArea, so it takes className and the other ScrollArea props except axis, gutter included: set gutter stable when the page reflows with width.",
         "PageFrame keeps the root locked and scrolls inside one frame; PageRoot instead lets the whole document scroll."
       ],
       "a11y": [
@@ -2231,7 +2231,7 @@
         "rule": "PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document."
       },
       "example": "import { PageFrame, Title } from '@drizztdourden08/tessera';\n\nconst AccountPage = () => (\n  <PageFrame width=\"md\">\n    <Title>Account</Title>\n  </PageFrame>\n);\n",
-      "propsHash": "135ed98db17e24a8",
+      "propsHash": "b10190054e27f636",
       "props": {
         "own": [
           {
@@ -2272,6 +2272,15 @@
             "literals": [
               "'native'",
               "'slim'"
+            ]
+          },
+          {
+            "name": "gutter",
+            "optional": true,
+            "text": "ScrollAreaGutter",
+            "literals": [
+              "'auto'",
+              "'stable'"
             ]
           },
           {
@@ -2484,6 +2493,7 @@
         "scrollbar slim draws a thin line along the edge that widens under the pointer; native keeps the browser bar.",
         "A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.",
         "Set fade to false when the edges of the content must not melt away.",
+        "gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows.",
         "Give the box a height, through a class or its parent, or it grows with its content and never scrolls."
       ],
       "a11y": [
@@ -2498,7 +2508,7 @@
         "rule": "ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content."
       },
       "example": "import type { ReactNode } from 'react';\nimport { Grid, ScrollArea } from '@drizztdourden08/tessera';\n\nconst Library = ({ cards }: { cards: ReactNode[] }) => (\n  <ScrollArea scrollbar=\"slim\" className=\"library\">\n    <Grid minColWidth={224} gap=\"sm\">\n      {cards}\n    </Grid>\n  </ScrollArea>\n);\n",
-      "propsHash": "b09c3ee3f79ee26f",
+      "propsHash": "ae02f58aaaeaf969",
       "props": {
         "own": [
           {
@@ -2527,6 +2537,16 @@
               "'slim'"
             ],
             "default": "'native'"
+          },
+          {
+            "name": "gutter",
+            "optional": true,
+            "text": "ScrollAreaGutter",
+            "literals": [
+              "'auto'",
+              "'stable'"
+            ],
+            "default": "'auto'"
           },
           {
             "name": "onScroll",

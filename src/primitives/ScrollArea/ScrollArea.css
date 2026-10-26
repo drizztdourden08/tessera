@@ -9,7 +9,6 @@
 
 .scroll-area[data-axis='y'] {
   overflow: hidden auto;
-  scrollbar-gutter: stable;
 }
 
 .scroll-area[data-axis='x'] {
@@ -18,6 +17,9 @@
 
 .scroll-area[data-axis='both'] {
   overflow: auto;
+}
+
+.scroll-area--stable-gutter {
   scrollbar-gutter: stable;
 }
 
