@@ -36,6 +36,9 @@ MarkdownEditor writes Markdown with a toolbar and a live preview, the same way i
 - Pass label, hint, error, placeholder and disabled as for any other field; set rows to change the height of the text, 12 by default.
 - The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.
 - Mod+B is bold, Mod+I is italic and Mod+K is a link, shown in the tooltip of each button.
+- Pass onSubmit to send the text on Mod+Enter; it gets the current value.
+- Pass onEscape to leave the editor on Escape; it is not called while a menu or popover is open, or when another part has taken the key.
+- Pass maxLength to stop the text at that length; a counter shows in the last 10 percent of the limit, such as 95 / 100.
 - Edits go through the browser, so Undo and Redo keep working after a toolbar button.
 
 ## Accessibility
@@ -69,9 +72,12 @@ const NoteField = ({ openExternal }: { openExternal: (href: string) => void }) =
 - `layout` (optional): `MarkdownEditorLayout`, one of `'split'`, `'tabs'`.
 - `rows` (optional): `number`. Default `DEFAULT_ROWS`.
 - `onLink` (optional): `MarkdownLinkHandler`.
+- `onSubmit` (optional): `(value: string) => void`.
+- `onEscape` (optional): `() => void`.
+- `maxLength` (optional): `number`.
 - `className` (optional): `string`.
 - `aria-label` (optional): `string`.
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--radius-md`, `--size-192`, `--size-384`, `--space-md`, `--space-sm`, `--space-xs`.
+It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--radius-md`, `--size-192`, `--size-384`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`.

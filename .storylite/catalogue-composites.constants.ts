@@ -124,6 +124,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Forms',
       entries: [
         { name: 'InlineCreateForm', summary: 'A name field that creates one thing in place, boxed or on one line.' },
+        { name: 'InlineEdit', summary: 'Text shown as text that turns into a field on click, Enter or F2, and commits on Enter or blur.' },
         { name: 'RecordEditor', summary: 'Edits one record, form derived from its schema.' },
         { name: 'ValidationSummary', summary: 'What blocks a save, each problem a link to its field, the rest under and N more.' },
         { name: 'FormRow', summary: 'One option of a long form: name and help, its control, changed mark and reset.' },

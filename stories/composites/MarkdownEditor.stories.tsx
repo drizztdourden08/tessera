@@ -48,30 +48,41 @@ const LongDocument = {
   render: () => <MarkdownEditorDemo initial={LONG_NOTE} layout="split" rows={20} />,
 } satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
 
+const Limited = {
+  name: 'A 120 character limit, with the counter in the last 10 percent',
+  render: () => <MarkdownEditorDemo initial={'A short note that is close to the limit of the field, so the counter shows at once.'} layout="tabs" rows={4} maxLength={120} />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
+const Keys = {
+  name: 'Mod+Enter sends the text and Escape cancels',
+  render: () => <MarkdownEditorDemo initial="" layout="tabs" rows={4} keys />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
 const CODE = `import { useState } from 'react';
 import { MarkdownEditor } from '@drizztdourden08/tessera';
 
 const [note, setNote] = useState('');
 
 <MarkdownEditor label="Note" value={note} onChange={setNote} />
-<MarkdownEditor value={note} onChange={setNote} layout="tabs" onLink={openInBrowser} />`;
+<MarkdownEditor value={note} onChange={setNote} layout="tabs" onLink={openInBrowser} />
+<MarkdownEditor value={note} onChange={setNote} maxLength={500} onSubmit={send} onEscape={close} />`;
 
 const Overview = overviewStory({
   component: 'MarkdownEditor',
   description: 'A field for writing Markdown, with a formatting toolbar and a live preview drawn by Markdown.',
   points: [
     'The text is controlled with `value` and `onChange`, like any other field, with `label`, `hint` and `error`.',
-    'The toolbar wraps the selection or prefixes its lines: bold, italic, lists, link, inline code and code block.',
-    'Pressing a button again removes the mark, and the selection stays where the user expects it.',
+    'The toolbar wraps the selection or prefixes its lines, and pressing a button again removes the mark.',
     'Mod+B, Mod+I and Mod+K work in the field and are shown in each tooltip; Undo keeps working.',
-    '`layout` is split or tabs; left out, it is split on a wide container and tabs on a narrow one.',
-    'The preview uses Markdown at size sm, and `onLink` takes every link click.',
+    '`onSubmit` takes Mod+Enter, and `onEscape` takes Escape unless a menu or popover is open.',
+    '`maxLength` limits the text and shows a counter in the last 10 percent of the limit.',
+    '`layout` is split or tabs, and `onLink` takes every link click in the preview.',
   ],
   instead: '[Textarea] for plain text, or [Markdown] to only show a Markdown text.',
   playground: Playground,
-  variants: [Split, Tabs, LongDocument],
+  variants: [Split, Tabs, LongDocument, Limited, Keys],
   code: CODE,
 });
 
 export default meta;
-export { LongDocument, Overview, Playground, Split, Tabs };
+export { Keys, Limited, LongDocument, Overview, Playground, Split, Tabs };

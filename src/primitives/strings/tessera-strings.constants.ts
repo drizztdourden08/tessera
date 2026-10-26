@@ -12,6 +12,7 @@ import { FIELD_KIND_STRINGS } from './field-kinds-strings.constants';
 import { FIELD_STRINGS } from './fields-strings.constants';
 import { FILTER_OPERATOR_STRINGS } from './filter-operators-strings.constants';
 import { FILTER_STRINGS } from './filters-strings.constants';
+import { INLINE_EDIT_STRINGS } from './inline-edit-strings.constants';
 import { ITEM_STRINGS } from './items-strings.constants';
 import { KANBAN_BOARD_STRINGS } from './kanban-board-strings.constants';
 import { LIST_STRINGS } from './lists-strings.constants';
@@ -75,6 +76,7 @@ const TESSERA_STRINGS = {
   mediaViewer: MEDIA_VIEWER_STRINGS,
   controller: CONTROLLER_STRINGS,
   markdownEditor: MARKDOWN_EDITOR_STRINGS,
+  inlineEdit: INLINE_EDIT_STRINGS,
 };
 
 export { TESSERA_STRINGS };

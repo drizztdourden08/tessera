@@ -28,6 +28,14 @@
   min-inline-size: 0;
 }
 
+.markdown-editor__counter {
+  display: block;
+  margin-block-start: var(--space-2xs);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  text-align: end;
+}
+
 .markdown-editor__preview {
   box-sizing: border-box;
   border-radius: var(--radius-md);

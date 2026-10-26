@@ -111,7 +111,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus',
     CommandInput: 'square-terminal', PasswordInput: 'lock-keyhole', TagInput: 'tag', PathInput: 'folder-input',
   },
-  'Composites · Forms': { InlineCreateForm: 'square-pen', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban', RowGrid: 'rows-4', SaveBar: 'save' },
+  'Composites · Forms': { InlineCreateForm: 'square-pen', InlineEdit: 'pencil-line', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban', RowGrid: 'rows-4', SaveBar: 'save' },
   'Composites · Input devices': {
     ControllerSilhouette: 'gamepad', KeyboardLayout: 'keyboard-music', ShortcutTour: 'route',
   },

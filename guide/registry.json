@@ -130,6 +130,11 @@
                 "components": [
                   "CommandInput"
                 ]
+              },
+              "text shown as text, edited in place on click": {
+                "components": [
+                  "InlineEdit"
+                ]
               }
             }
           },
@@ -8913,6 +8918,135 @@
       "usage": false
     },
     {
+      "name": "InlineEdit",
+      "tier": "composites",
+      "source": "src/composites/InlineEdit/InlineEdit.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A piece of text that shows as text with a pen and turns into a field when the user clicks it, such as the title of a card.",
+      "useWhen": [
+        "A short text is read far more than it is changed, so a field that is always open would clutter the view.",
+        "The user renames a title, a label or a note in place, on the page that shows it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The field belongs to a form that is filled in and sent.",
+          "use": "FormRow"
+        },
+        {
+          "case": "The user creates a new thing from a name.",
+          "use": "InlineCreateForm"
+        },
+        {
+          "case": "The text is Markdown that needs a toolbar and a preview.",
+          "use": "MarkdownEditor"
+        }
+      ],
+      "rules": [
+        "Own the text in the app: pass it as value, and set the new one in onCommit; the component keeps no copy once the edit ends.",
+        "Enter or leaving the field commits through onCommit, trimmed; text that did not change is not committed.",
+        "Escape cancels, restores the text and puts focus back on the text.",
+        "Click the text, or press Enter or F2 while it has focus, to start editing.",
+        "Pass validate to return a message for text that is not allowed; it shows under the field and nothing is committed until it returns nothing.",
+        "Pass multiline for a text area, where Enter adds a line and Mod+Enter commits.",
+        "Pass label to name the text for a screen reader, placeholder to stand in for an empty text, and disabled to show the text only."
+      ],
+      "a11y": [
+        "The text is a button named Edit with the label and the text, and it says F2 in aria-keyshortcuts.",
+        "The field takes focus with its text selected, and it is named the same way as the button.",
+        "The message of validate is tied to the field, and the field is marked invalid while it shows.",
+        "A disabled text is a disabled button, so it is read but not offered for editing."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "free text or a number",
+          "text shown as text, edited in place on click"
+        ],
+        "rule": "InlineEdit starts, commits and cancels an edit in place with the same keys in every app."
+      },
+      "example": "import { useState } from 'react';\nimport { InlineEdit } from '@drizztdourden08/tessera';\n\nconst CardTitle = () => {\n  const [title, setTitle] = useState('Fix the login redirect');\n  return (\n    <InlineEdit\n      label=\"Title\"\n      value={title}\n      onCommit={setTitle}\n      placeholder=\"Add a title\"\n      validate={(text) => (text.length < 3 ? 'Use at least 3 characters.' : undefined)}\n    />\n  );\n};\n",
+      "propsHash": "4ac7059393375dd5",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "onCommit",
+            "optional": false,
+            "text": "(value: string) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "placeholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "validate",
+            "optional": true,
+            "text": "(value: string) => string | undefined"
+          },
+          {
+            "name": "multiline",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--c-focus",
+        "--c-surface",
+        "--c-text-muted",
+        "--radius-md",
+        "--space-2xs",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Forms/InlineEdit",
+        "route": "#/story/composites-inlineedit--overview",
+        "file": "stories/composites/InlineEdit.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "ItemCard",
       "tier": "composites",
       "source": "src/composites/ItemCard/ItemCard.tsx",
@@ -9668,6 +9802,8 @@
         "Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.",
         "Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.",
         "Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.",
+        "Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.",
+        "Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.",
         "Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids."
       ],
       "a11y": [
@@ -10951,6 +11087,9 @@
         "Pass label, hint, error, placeholder and disabled as for any other field; set rows to change the height of the text, 12 by default.",
         "The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.",
         "Mod+B is bold, Mod+I is italic and Mod+K is a link, shown in the tooltip of each button.",
+        "Pass onSubmit to send the text on Mod+Enter; it gets the current value.",
+        "Pass onEscape to leave the editor on Escape; it is not called while a menu or popover is open, or when another part has taken the key.",
+        "Pass maxLength to stop the text at that length; a counter shows in the last 10 percent of the limit, such as 95 / 100.",
         "Edits go through the browser, so Undo and Redo keep working after a toolbar button."
       ],
       "a11y": [
@@ -10968,7 +11107,7 @@
         "rule": "MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app."
       },
       "example": "import { useState } from 'react';\nimport { MarkdownEditor } from '@drizztdourden08/tessera';\n\nconst NoteField = ({ openExternal }: { openExternal: (href: string) => void }) => {\n  const [note, setNote] = useState('');\n  return <MarkdownEditor label=\"Note\" value={note} onChange={setNote} onLink={openExternal} />;\n};\n",
-      "propsHash": "ba63a371fc560569",
+      "propsHash": "6c040f6de1314caf",
       "props": {
         "own": [
           {
@@ -11028,6 +11167,21 @@
             "text": "MarkdownLinkHandler"
           },
           {
+            "name": "onSubmit",
+            "optional": true,
+            "text": "(value: string) => void"
+          },
+          {
+            "name": "onEscape",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "maxLength",
+            "optional": true,
+            "text": "number"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -11051,9 +11205,11 @@
         "--radius-md",
         "--size-192",
         "--size-384",
+        "--space-2xs",
         "--space-md",
         "--space-sm",
-        "--space-xs"
+        "--space-xs",
+        "--text-xs"
       ],
       "gallery": {
         "title": "Composites · Inputs/MarkdownEditor",

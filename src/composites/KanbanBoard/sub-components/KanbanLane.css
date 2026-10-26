@@ -52,3 +52,10 @@
   color: var(--c-text-dim);
   font-weight: var(--weight-semi);
 }
+
+.kanban__rail-badge {
+  max-inline-size: 100%;
+  overflow: hidden;
+  font-size: var(--text-xs);
+  text-align: center;
+}
