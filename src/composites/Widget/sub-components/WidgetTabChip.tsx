@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Pressable } from '../../../primitives/Pressable';
+import { WidgetIcon } from './WidgetIcon';
 import type { WidgetTabChipProps } from './WidgetTabChip.type';
 
 const WidgetTabChip = (props: WidgetTabChipProps) => {
@@ -11,6 +12,7 @@ const WidgetTabChip = (props: WidgetTabChipProps) => {
       aria-pressed={active}
       onClick={() => onActivate(tab.id)}
     >
+      <WidgetIcon name={tab.icon} />
       {tab.label}
     </Pressable>
   );

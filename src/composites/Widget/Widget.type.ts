@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { IconName } from '../../primitives/Icon';
 import type { DockEdge, DockTree, WidgetId } from '../DockLayout';
 
 type SnapSide = DockEdge;
@@ -58,6 +59,7 @@ interface WidgetLayout extends DockTree {
 interface WidgetDefinition extends WidgetBodyLook {
   id: string;
   label: string;
+  icon?: IconName;
   defaultVisibility: WidgetVisibility;
   defaultSide: SnapSide;
   defaultDockedSize: number;
@@ -77,6 +79,7 @@ interface WidgetDisabledState {
 interface WidgetTab {
   id: WidgetId;
   label: string;
+  icon?: IconName;
 }
 
 interface WidgetProps extends WidgetBodyLook {
