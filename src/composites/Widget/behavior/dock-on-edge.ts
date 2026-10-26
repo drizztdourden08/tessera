@@ -10,12 +10,12 @@ import { removeEverywhere } from './remove-everywhere';
 import { resizeEdge } from './resize-edge';
 
 const dockOnEdge = (layout: WidgetLayout, id: WidgetId, edge: DockEdge, place: boolean | DockPlace = true): WidgetLayout => {
-  const { makeRoom = true, size, weight } = typeof place === 'boolean' ? { makeRoom: place } : place;
+  const { makeRoom = true, size, weight, weightOf } = typeof place === 'boolean' ? { makeRoom: place } : place;
   const cleared = removeEverywhere(layout, id);
   const pane = createPane([id], makeRoom);
   const stack = edgeStack(cleared.dock, edge);
   const sized = stack && size !== undefined ? resizeEdge(cleared.dock, stack, dockedShare(edge, size)) : cleared.dock;
-  const joined = stack ? joinEdge(sized, stack, pane, { edge, weight }) : null;
+  const joined = stack ? joinEdge(sized, stack, pane, { edge, weight, weightOf }) : null;
   return { ...cleared, dock: joined ?? wrapBeside(cleared.dock, edge, pane, dockedShare(edge, size)) };
 };
 

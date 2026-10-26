@@ -64,6 +64,34 @@ describe('dockOnEdge and openWidget pass the weight on', () => {
   });
 });
 
+describe('three joins keep the weight of each widget', () => {
+  const base = { defaultVisibility: 'always', defaultSide: 'left', defaultDockedSize: 280, defaultFloatingSize: { width: 300, height: 200 } };
+  const defs = [
+    { id: 'timeline', label: 'Timeline', ...base, dockWeight: 2 },
+    { id: 'tileset', label: 'Tileset', ...base, dockWeight: 1 },
+    { id: 'project', label: 'Project', ...base, dockWeight: 1 },
+    { id: 'plain', label: 'Plain', ...base },
+  ];
+  const TABLE = [
+    { name: 'weights 2, 1, 1', order: ['timeline', 'tileset', 'project'], expected: [0.5, 0.25, 0.25] },
+    { name: 'weights 1, 2, 1', order: ['tileset', 'timeline', 'project'], expected: [0.25, 0.5, 0.25] },
+    { name: 'a widget without a weight counts as 1', order: ['timeline', 'plain', 'project'], expected: [0.5, 0.25, 0.25] },
+  ];
+  for (const { name, order, expected } of TABLE) {
+    it(name, () => {
+      const layout = order.reduce((acc, id) => openWidget(acc, id, defs), createDefaultLayout());
+      layout.dock.children[0].sizes.forEach((size, i) => expect(size).toBeCloseTo(expected[i], 9));
+    });
+  }
+
+  it('counts a child without a definition as 1', () => {
+    const known = openWidget(dockOnEdge(createDefaultLayout(), 'gone', 'left'), 'timeline', defs);
+    const sizes = known.dock.children[0].sizes;
+    expect(sizes[0]).toBeCloseTo(1 / 3, 9);
+    expect(sizes[1]).toBeCloseTo(2 / 3, 9);
+  });
+});
+
 describe('defaultDockedSize resizes the edge column a widget joins', () => {
   const widened = () => {
     const one = dockOnEdge(createDefaultLayout(), 'a', 'left', { size: 280 });
