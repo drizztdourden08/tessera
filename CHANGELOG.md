@@ -1,5 +1,19 @@
 # @drizztdourden08/tessera
 
+## 0.67.0
+
+### Minor Changes
+
+- 503ad88: DataTable takes `groupActions` for icon buttons on a group header, `onRowMove(fromKey, target)` for a grip that reorders rows by drag or by Up and Down, and `rowDragData` to drag rows out to an app drop target. The move target gives the shown index, the keys of the rows the drop lands between and the group it lands in, and a `ref` on DataTable gives `getRects()` with a rect for every row in the layout so `useMarqueeSelect` can pick rows of a windowed table; `useReorderDrag` also takes an optional `locate`.
+- ad1dc4f: FoldText takes `overflow="clip"`: it clamps to its lines with no More control and no hint mark. FormRow and SettingsRow pass it through as `descriptionOverflow`.
+- e03d9f8: WidgetDefinition and WidgetTab take an optional `icon` that the widget title bar and tab chip draw before the label, as a decorative Icon.
+
+### Patch Changes
+
+- 43385ce: DockLayout corner handles are a 24 by 24 square at the panel corner, below the title bar, instead of a strip along the whole edge, so they no longer cover buttons and swatches in the panel. The widget title bar buttons are 24 px across, so they pass the axe target size check, and the title bar height and icon sizes stay the same.
+- 309d5f0: DocumentTabs keeps the unsaved dot visible beside the close button when a tab is hovered or focused.
+- 9ca5bca: Anchored popups, and so every DropdownMenu opened from a toolbar, flip to the other side of their button and then clamp inside the view with a small margin on all four edges, in the native and in the fallback placement. A Toolbar takes menuSide and the ToolbarDock slot hands it over, so the menu of a vertical toolbar opens beside it (right of a left bar, left of a right bar) with the same border, radius and animation as a menu from a top bar.
+
 ## 0.66.0
 
 ### Minor Changes
