@@ -20,6 +20,24 @@ html, body, #root {
   -webkit-font-smoothing: antialiased;
 }
 
+html[data-scroll='document'] {
+  height: auto;
+  overflow: hidden auto;
+  scrollbar-gutter: stable;
+}
+
+html[data-scroll='document'] body {
+  height: auto;
+  min-height: 100%;
+  overflow: visible;
+}
+
+html[data-scroll='document'] #root {
+  height: auto;
+  min-height: 100vh;
+  overflow: visible;
+}
+
 button {
   font: inherit;
   color: inherit;

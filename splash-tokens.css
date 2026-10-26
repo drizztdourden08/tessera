@@ -289,6 +289,12 @@
   --hero-h-tall: calc(560 * 1px);
   --hero-intro-w: calc(200 * 1px);
   --hero-art-h: 256px;
+  --hero-full-offset: 64px;
+  --hero-pan-w: 125%;
+  --hero-pan-run: -20%;
+  --page-frame-w-sm: 640px;
+  --page-frame-w-md: 896px;
+  --page-frame-w-lg: 1024px;
   --hero-aside-w: calc(360 * 1px);
   --hero-aside-min: 320px;
   --facts-panel-value-max-w: calc(220 * 1px);
@@ -371,6 +377,7 @@
   --duration-step-skip-flip: calc(0.4s * 0.4);
   --duration-volume-morph: calc(0.26s * 1.5);
   --duration-armed-loop: 1.4s;
+  --duration-hero-pan: 60s;
   --duration-step-skip: calc(calc(0.52s * 0.4) + calc(0.38s * 0.4) + calc(0.46s * 0.4));
   --ease-standard: ease;
   --ease-in-out: ease-in-out;

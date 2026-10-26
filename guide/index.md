@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 91 of 202 have their usage written; a linked name opens its page.
+One line per component. 93 of 204 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -44,6 +44,8 @@ One line per component. 91 of 202 have their usage written; a linked name opens 
 - [List](components/List.md): A bulleted or numbered list of short items, with a nested list drawn one step in. Import from `@drizztdourden08/tessera`.
 - `NumberInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [PageFrame](components/PageFrame.md): A full-height, padded page that scrolls inside its own frame, for a web app whose html and body stay locked. Import from `@drizztdourden08/tessera`.
+- [PageRoot](components/PageRoot.md): The root of a website page: it lets the whole document scroll, which a desktop app screen locks, and puts the page inside one box. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Pressable`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ProgressBar`: usage not written yet. Import from `@drizztdourden08/tessera`.

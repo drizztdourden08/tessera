@@ -443,6 +443,11 @@
               "ScrollArea"
             ]
           },
+          "a full-height page that scrolls inside one frame": {
+            "components": [
+              "PageFrame"
+            ]
+          },
           "more content behind a line that shows or hides it": {
             "components": [
               "Disclosure"
@@ -557,6 +562,11 @@
               "the line at the foot": {
                 "components": [
                   "SiteFooter"
+                ]
+              },
+              "the root of the page": {
+                "components": [
+                  "PageRoot"
                 ]
               }
             }
@@ -2162,6 +2172,203 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "PageFrame",
+      "tier": "primitives",
+      "source": "src/primitives/PageFrame/PageFrame.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A full-height, padded page that scrolls inside its own frame, for a web app whose html and body stay locked.",
+      "useWhen": [
+        "A web app screen is longer than the window and the frame, not the document, should scroll, such as a settings or account page.",
+        "The content should sit in a column of a set width, centred in a wide window."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A website page should scroll with the document, with its own scrollbar and a full-bleed Hero.",
+          "use": "PageRoot"
+        },
+        {
+          "case": "Only a box inside a screen scrolls, such as a list or a log.",
+          "use": "ScrollArea"
+        }
+      ],
+      "rules": [
+        "It is the scroller: the reset keeps html and body locked and the frame is 100dvh tall, so the page behind it never moves.",
+        "Set fill to take the height of its parent instead of the window, such as a page inside a pane.",
+        "Set width to sm, md or lg to centre the content in a column of that size; leave it out for the full width.",
+        "The padding is the page padding token. It is a ScrollArea, so it takes className and the other ScrollArea props except axis.",
+        "PageFrame keeps the root locked and scrolls inside one frame; PageRoot instead lets the whole document scroll."
+      ],
+      "a11y": [
+        "It adds no role, so put a main landmark inside it.",
+        "The frame is a scrolling region the keyboard can scroll once it has focus; give it tabIndex 0 when it holds no focusable content."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "a full-height page that scrolls inside one frame"
+        ],
+        "rule": "PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document."
+      },
+      "example": "import { PageFrame, Title } from '@drizztdourden08/tessera';\n\nconst AccountPage = () => (\n  <PageFrame width=\"md\">\n    <Title>Account</Title>\n  </PageFrame>\n);\n",
+      "propsHash": "135ed98db17e24a8",
+      "props": {
+        "own": [
+          {
+            "name": "width",
+            "optional": true,
+            "text": "PageFrameWidth",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ]
+          },
+          {
+            "name": "fill",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "onScroll",
+            "optional": true,
+            "text": "(position: ScrollPosition) => void"
+          },
+          {
+            "name": "fade",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "scrollbar",
+            "optional": true,
+            "text": "ScrollAreaScrollbar",
+            "literals": [
+              "'native'",
+              "'slim'"
+            ]
+          },
+          {
+            "name": "scrollTo",
+            "optional": true,
+            "text": "Partial<ScrollPosition>"
+          }
+        ],
+        "inherited": {
+          "count": 278,
+          "from": [
+            "AriaAttributes",
+            "Attributes",
+            "DOMAttributes",
+            "HTMLAttributes",
+            "RefAttributes"
+          ],
+          "extends": [
+            "Omit<ScrollAreaProps, 'axis' | 'children'>",
+            "Omit<ComponentPropsWithRef<'div'>, 'onScroll'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--page-frame-w-lg",
+        "--page-frame-w-md",
+        "--page-frame-w-sm",
+        "--space-xl"
+      ],
+      "gallery": {
+        "title": "Primitives · Layout/PageFrame",
+        "route": "#/story/primitives-pageframe--overview",
+        "file": "stories/primitives/PageFrame.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "PageRoot",
+      "tier": "primitives",
+      "source": "src/primitives/PageRoot/PageRoot.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "The root of a website page: it lets the whole document scroll, which a desktop app screen locks, and puts the page inside one box.",
+      "useWhen": [
+        "A website page is longer than the window and the browser should scroll the page itself, with its own scrollbar.",
+        "A page has a full-bleed Hero or a sticky header that needs the document to scroll under it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A desktop app screen scrolls inside its panes and the window stays fixed.",
+          "use": "ScrollArea"
+        },
+        {
+          "case": "A web app keeps the root locked and scrolls inside one padded frame.",
+          "use": "PageFrame"
+        },
+        {
+          "case": "A list or a table scrolls inside a box on the page.",
+          "use": "ScrollArea"
+        }
+      ],
+      "rules": [
+        "Mount one PageRoot at the top of the page; it sets data-scroll=\"document\" on the html element and restores the old value when it unmounts.",
+        "Without a PageRoot the reset still locks html and body, so desktop apps stay exactly as they are.",
+        "Open dialogs lock the page again while they are shown, so the page behind does not scroll.",
+        "It renders a plain box and takes the props of a div, such as className and children.",
+        "PageRoot lets the whole document scroll; PageFrame keeps the root locked and scrolls inside one frame."
+      ],
+      "a11y": [
+        "It adds no role, so give the page a main landmark inside it.",
+        "The browser scrolls the document, so the keys, the scrollbar and find in page work as on any website."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "website chrome",
+          "the root of the page"
+        ],
+        "rule": "PageRoot is the one part that turns document scrolling on; everything inside it is built from the usual parts."
+      },
+      "example": "import { Hero, PageRoot, SiteHeader } from '@drizztdourden08/tessera';\nimport type { SiteHeaderProps } from '@drizztdourden08/tessera';\n\ninterface HomePageProps {\n  header: SiteHeaderProps;\n}\n\nconst HomePage = ({ header }: HomePageProps) => (\n  <PageRoot>\n    <SiteHeader {...header} />\n    <Hero size=\"full\" title=\"Relic of the Past\" art={{ kind: 'image', src: '/art/hills.png', motion: 'pan' }} />\n  </PageRoot>\n);\n",
+      "propsHash": "5fd9a46cb23cc3ab",
+      "props": {
+        "own": [
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 277,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes"
+          ],
+          "extends": [
+            "HTMLAttributes<HTMLElement>"
+          ]
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Primitives · Layout/PageRoot",
+        "route": "#/story/primitives-pageroot--overview",
+        "file": "stories/primitives/PageRoot.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Portal",

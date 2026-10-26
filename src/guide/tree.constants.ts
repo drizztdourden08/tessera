@@ -105,7 +105,7 @@ const LAYOUT = {
   answers: {
     'a plain block': null, 'items in a row or a column': null, 'blocks stacked in a column': null, 'items on a grid': null,
     'one item in the centre': null, 'one raised item': null, 'empty space': null, 'a line between sections': null,
-    'content that scrolls': null, 'more content behind a line that shows or hides it': null, 'a list beside its detail': null, 'two panes the user resizes': null,
+    'content that scrolls': null, 'a full-height page that scrolls inside one frame': null, 'more content behind a line that shows or hides it': null, 'a list beside its detail': null, 'two panes the user resizes': null,
     'a side panel the user drags wider': null, 'a side panel with a heading that folds to a rail': null, 'the button that folds a panel to its edge': null,
     'one slide at a time from a set': null,
     'a list beside an editor, with unsaved edits guarded': null, 'a list, an editor and an inspector side by side': null, 'a frame with a toolbar on its top edge': null,
@@ -116,7 +116,7 @@ const LAYOUT = {
       answers: { 'the whole page': null, 'one section of rows': null, 'a list of groups': null },
     },
     'window chrome': { question: 'Which part of the window?', answers: { 'the title bar': null, 'a header inside the window': null, 'the status line at the foot': null } },
-    'website chrome': { question: 'Which part of the site?', answers: { 'the band at the top': null, 'the line at the foot': null } },
+    'website chrome': { question: 'Which part of the site?', answers: { 'the band at the top': null, 'the line at the foot': null, 'the root of the page': null } },
     'a ready-made app panel': { question: 'Which panel?', answers: { 'facts in groups': null, 'an opening banner with art': null } },
     'the app root': null,
   },
