@@ -51,6 +51,8 @@ import skullIcon from '@iconify-icons/lucide/skull';
 import shovelIcon from '@iconify-icons/lucide/shovel';
 import treeDeciduousIcon from '@iconify-icons/lucide/tree-deciduous';
 import wavesIcon from '@iconify-icons/lucide/waves';
+import githubIcon from '@iconify-icons/lucide/github';
+import gitForkIcon from '@iconify-icons/lucide/git-fork';
 import { armedIconData } from '../ArmedIcon/behavior/armed-icon-data';
 
 const APP_ICONS = {
@@ -110,6 +112,9 @@ const APP_ICONS = {
   'tree': treeDeciduousIcon,
   'waves': wavesIcon,
   'water': wavesIcon,
+  'github': githubIcon,
+  'git-fork': gitForkIcon,
+  'fork': gitForkIcon,
 } as const;
 
 export { APP_ICONS };

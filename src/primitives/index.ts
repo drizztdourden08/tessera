@@ -23,7 +23,7 @@ export { Table, TableCell, TableRow, TableSection } from './Table';
 export type { TableAlign, TableCellProps, TableProps, TableRowProps, TableSectionProps } from './Table';
 export { Spacer, type SpacerProps } from './Spacer';
 export { Button } from './Button';
-export type { ButtonProps, ButtonSize, ButtonVariant } from './Button/Button.type';
+export type { ButtonLook, ButtonProps, ButtonSize, ButtonVariant } from './Button/Button.type';
 export { IconButton } from './IconButton';
 export type { IconButtonProps, IconButtonSize, IconButtonTone, IconButtonVariant } from './IconButton/IconButton.type';
 export { Pressable } from './Pressable';

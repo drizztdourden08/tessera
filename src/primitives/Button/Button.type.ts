@@ -6,9 +6,12 @@ type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning'
 
 type ButtonSize = 'xs' | 'sm' | 'md';
 
+type ButtonLook = 'flat' | 'pixel';
+
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, HintTargetProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
+  look?: ButtonLook;
   fullWidth?: boolean;
   active?: boolean;
   loading?: boolean;
@@ -19,5 +22,6 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, HintTarge
 export type {
   ButtonVariant,
   ButtonSize,
+  ButtonLook,
   ButtonProps,
 };
