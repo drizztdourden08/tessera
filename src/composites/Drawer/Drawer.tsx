@@ -8,7 +8,7 @@ import { useDialogEscape } from '../DialogShell/behavior/useDialogEscape';
 import { useDialogFocus } from '../DialogShell/behavior/useDialogFocus';
 import { WindowHeader } from '../WindowHeader';
 import './Drawer.css';
-import { drawerClass } from './drawer-class';
+import { drawerClass } from './behavior/drawer-class';
 import type { DrawerProps } from './Drawer.type';
 
 const Drawer = (props: DrawerProps) => {
