@@ -2,7 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { overviewStory } from '../_template/overview-story';
 import { ToolbarDockDemo } from './_samples/ToolbarDockDemo';
-import { TRANSFORM_MENU } from './_samples/toolbar-edge.constants';
+import { DESCRIBED_MENU, TRANSFORM_MENU } from './_samples/toolbar-edge.constants';
 import {
   TOOLBAR_DOCK_HINT, TOOLBAR_DOCK_RAIL_FULL_HEIGHT, TOOLBAR_DOCK_RAIL_UNDER_TOP, TOOLBAR_DOCK_TWO_IN_LANE,
 } from './_samples/toolbar-dock-layouts.constants';
@@ -41,6 +41,11 @@ const LeftMenu = {
   render: () => <ToolbarDockDemo menu={TRANSFORM_MENU} />,
 } satisfies StoryLiteStoryDefinition<ToolbarDockArgs>;
 
+const ClickMenu = {
+  name: 'A left toolbar item that opens on click: long descriptions and shortcuts wrap inside the menu',
+  render: () => <ToolbarDockDemo menu={DESCRIBED_MENU} />,
+} satisfies StoryLiteStoryDefinition<ToolbarDockArgs>;
+
 const Playground = {
   name: 'Playground: end handles, corner take and drop all work live',
   render: () => <ToolbarDockDemo hint={TOOLBAR_DOCK_HINT} />,
@@ -57,9 +62,9 @@ const Overview = overviewStory({
     '`useToolbarLayout` gives `move`, `show`, `hide`, `toggle` and `reset`, and calls `onChange` once per edit.',
     '`toolbarMenuGroups` builds the Toolbars menu: a check item per toolbar and Reset toolbars.',
   ],
-  variants: [Around, RailUnderTop, RailFullHeight, TwoInLane, LeftMenu, Playground],
+  variants: [Around, RailUnderTop, RailFullHeight, TwoInLane, LeftMenu, ClickMenu, Playground],
   code: TOOLBAR_DOCK_CODE,
 });
 
 export default meta;
-export { Around, LeftMenu, Overview, Playground, RailFullHeight, RailUnderTop, TwoInLane };
+export { Around, ClickMenu, LeftMenu, Overview, Playground, RailFullHeight, RailUnderTop, TwoInLane };

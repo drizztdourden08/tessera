@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind style */
 .dropdown__menu .dropdown__item {
   display: grid;
-  grid-template-columns: auto auto 1fr auto;
+  grid-template-columns: auto auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 0;
 }
@@ -38,6 +38,9 @@
 
 .dropdown__menu .dropdown__description {
   grid-area: 2 / 3 / auto / span 2;
+  min-inline-size: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 
 .dropdown__menu :is(.dropdown__shortcut, .dropdown__chevron) {
