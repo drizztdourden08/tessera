@@ -21,7 +21,7 @@ const Playground = {
 } satisfies PlaygroundStory<DocumentTabsArgs>;
 
 const ThreeDocuments = {
-  name: 'Three documents, one with unsaved changes: its dot becomes the close button on hover',
+  name: 'Three documents, one with unsaved changes: its dot stays beside the close button on hover',
   render: () => <DocumentTabsDemo />,
 } satisfies StoryLiteStoryDefinition<DocumentTabsArgs>;
 
@@ -38,6 +38,7 @@ const Reorder = {
 const STATE_SETS: readonly { name: string; documents: DocumentSet }[] = [
   { name: 'three', documents: 'three' },
   { name: 'many', documents: 'many' },
+  { name: 'unsaved', documents: 'unsaved' },
   { name: 'none', documents: 'none' },
 ];
 
@@ -47,7 +48,7 @@ const Overview = overviewStory({
   points: [
     'The app keeps `tabs` and `activeId`; the strip calls `onActivate`, `onClose` and `onMove`.',
     '`onClose` only asks: the app can refuse, such as to ask about unsaved changes first.',
-    'An unsaved tab shows a dot that becomes the close button on hover or focus. Middle click closes.',
+    'An unsaved tab keeps its dot beside the close button on hover and focus. Middle click closes.',
     'Drag a tab, or press [[Alt+Left]] or [[Alt+Right]]. [[Delete]] or [[Ctrl+W]] closes the focused tab.',
     'Too many tabs scroll with the active one in view; `overflowMenu` adds a menu that lists them all.',
   ],

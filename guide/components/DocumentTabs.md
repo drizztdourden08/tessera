@@ -33,7 +33,7 @@ DocumentTabs is the strip of open documents the user switches, closes and reorde
 - Keep the tabs and the active id in the app; the strip only draws them and calls onActivate, onClose and onMove.
 - OnClose only asks to close. The app may refuse, for example to confirm unsaved changes first; the tab stays until the app removes it from tabs.
 - OnMove gets the old and the new index; change the order of tabs there.
-- Set unsaved on a tab to show a dot that turns into the close button on hover or focus.
+- Set unsaved on a tab to show a dot that stays beside the close button on hover and focus.
 - Title is the text on the tab, cut with an ellipsis; tooltip is the hover text and defaults to the title.
 - When the tabs do not fit, the strip scrolls and keeps the active tab in view. Pass overflowMenu to add a menu that lists every tab.
 - Show the document of the active tab beside the strip; DocumentTabs draws no panel.
