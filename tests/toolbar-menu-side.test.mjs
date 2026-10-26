@@ -90,6 +90,15 @@ describe('a menu joins the bar it opens from, whatever the dock side', () => {
     expect(placeOf('right')).toBe('left-start');
   });
 
+  it('starts a side menu at the top of its button whatever the align of the item', () => {
+    for (const popup of [false, true]) {
+      const left = menuProps('vertical', 'right', { popup });
+      const right = menuProps('vertical', 'left', { popup });
+      expect(menuPlacement(left.side, left.align)).toBe('right-start');
+      expect(menuPlacement(right.side, right.align)).toBe('left-start');
+    }
+  });
+
   it('joins on the right edge of a left bar and the left edge of a right bar', () => {
     const corners = { topLeft: 1, topRight: 2, bottomLeft: 3, bottomRight: 4 };
     expect(sideCorners({ parentCorners: corners }, 'right')).toEqual([2, 4]);
@@ -105,6 +114,23 @@ describe('a menu joins the bar it opens from, whatever the dock side', () => {
     expect(css).toMatch(/\[data-anchor-place\^='left'\] \{\s+animation-name: dropdown-in-left;/);
     expect(css).toMatch(/@keyframes dropdown-in-right \{\s+from \{\s+opacity: 0;\s+transform: translateX\(calc\(-1 \* var\(--size-4\)\)\);/);
     expect(css).toMatch(/@keyframes dropdown-in-left \{\s+from \{\s+opacity: 0;\s+transform: translateX\(var\(--size-4\)\);/);
+  });
+});
+
+describe('a side menu opens down from the top of its button in CSS', () => {
+  const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
+
+  it('tries the start-aligned place first and flips up only when it overflows', () => {
+    const anchored = read('../src/primitives/Anchored/Anchored.css');
+    expect(anchored).toMatch(/\.anchored\[data-anchor-place='right-start'\],\s+\.anchored\[data-anchor-place='left-start'\] \{\s+top: anchor\(top\);/);
+    expect(anchored).toMatch(/\[data-anchor-place\^='left'\] \{\s+position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline,/);
+    expect(anchored).toContain('@position-try --anchored-fill-block');
+  });
+
+  it('does not pick the side with the most room when the menu fits below', () => {
+    const css = read('../src/theme/dropdown-menu.css');
+    expect(css).toMatch(/\[data-anchor-place='right-start'\], \[data-anchor-place='left-start'\]\) \{\s+max-block-size: none;\s+position-try-order: normal;/);
+    expect(css).toMatch(/\.dropdown-menu\[data-anchored\] \{[^}]*position-try-order: most-height;/);
   });
 });
 

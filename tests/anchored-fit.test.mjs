@@ -86,6 +86,22 @@ describe('fitInView', () => {
   });
 });
 
+describe('fitInView for a menu beside a toolbar button', () => {
+  it.each([
+    ['left', box(36, 520, 32, 32), box(68, 520, 380, 500)],
+    ['right', box(932, 520, 32, 32), box(552, 520, 380, 500)],
+  ])('keeps a menu beside a %s toolbar button starting at the top of the button when it fits below', (_side, button, popup) => {
+    expect(fitInView(popup, button, { width: 1000, height: 1038 }, MARGIN)).toEqual({ x: 0, y: 0 });
+  });
+
+  it('flips a side menu to end on its button only when it does not fit below', () => {
+    const button = box(36, 520, 32, 32);
+    const popup = box(68, 520, 380, 500);
+    const shift = fitInView(popup, button, { width: 1000, height: 978 }, MARGIN);
+    expect(popup.bottom + shift.y).toBe(button.bottom);
+  });
+});
+
 describe('Anchored margin in CSS', () => {
   const css = readFileSync(new URL('../src/primitives/Anchored/Anchored.css', import.meta.url), 'utf8');
 
