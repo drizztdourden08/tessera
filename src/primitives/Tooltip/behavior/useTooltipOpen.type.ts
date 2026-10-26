@@ -8,7 +8,7 @@ interface TooltipOpen {
   hover: boolean;
   handlers: {
     onMouseEnter: MouseEventHandler<HTMLElement>;
-    onMouseMove: TooltipPointer | undefined;
+    onMouseMove: MouseEventHandler<HTMLElement>;
     onMouseLeave: MouseEventHandler<HTMLElement>;
     onMouseDown: MouseEventHandler<HTMLElement>;
     onFocus: FocusEventHandler<HTMLElement>;
