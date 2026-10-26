@@ -8,7 +8,7 @@ import type { GuidedTourOptions } from '../GuidedTour.type';
 import { enterStep } from './enter-step';
 import { findTarget } from './find-target';
 import { nextFrame } from './next-frame';
-import { scrollToCenter } from './scroll-to-center';
+import { scrollToTarget } from './scroll-to-target';
 import type { EnteredStep, TourPosition } from './tour-internal.type';
 
 const useTourEntry = (at: TourPosition, id: string | undefined, latest: RefObject<{ options: GuidedTourOptions }>): EnteredStep | null => {
@@ -22,7 +22,7 @@ const useTourEntry = (at: TourPosition, id: string | undefined, latest: RefObjec
     const doc = provided ?? ownerDocumentOf(null);
     const control = new AbortController();
     const find = () => findTarget(doc, step.target);
-    void enterStep({ step, find, frame: nextFrame(doc.defaultView ?? window), tries: TARGET_TRIES, signal: control.signal, scroll: scrollToCenter }).then((target) => {
+    void enterStep({ step, find, frame: nextFrame(doc.defaultView ?? window), tries: TARGET_TRIES, signal: control.signal, scroll: scrollToTarget }).then((target) => {
       if (!control.signal.aborted) setEntered({ index, id: step.id, target });
     });
     return () => {
