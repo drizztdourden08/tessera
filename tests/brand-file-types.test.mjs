@@ -15,8 +15,20 @@ const { fileTypes } = BRAND_FAMILY.bxel;
 const BRAND = path.resolve('brand');
 
 describe('the Bxel file types', () => {
-  it('covers the six kinds Bxel saves and its older format, each with its own extension', () => {
-    expect(fileTypes.types.map((type) => type.ext)).toEqual(['bxsprite', 'bxsheet', 'bxpalette', 'bxtiles', 'bxmap', 'bxproject', 'bxel']);
+  it('covers the seven kinds Bxel saves and its older format, each with its own extension', () => {
+    expect(fileTypes.types.map((type) => type.ext)).toEqual(['bxsprite', 'bxsheet', 'bxanim', 'bxpalette', 'bxtiles', 'bxmap', 'bxproject', 'bxel']);
+  });
+
+  it('draws the animation as a film strip on every grid, with sprocket holes and frames', () => {
+    const type = fileTypes.types.find((entry) => entry.ext === 'bxanim');
+    expect(type).toMatchObject({ kind: 'animation', name: 'Animation', icon: 'pixel-animation' });
+    for (const grid of FILE_TYPE_GRIDS) {
+      const glyph = fileTypeGlyph(type, grid);
+      expect(glyph.length, `animation ${grid}`).toBeGreaterThan(6);
+      expect(glyph[0], `animation ${grid}`).toMatch(/^#+$/);
+      expect(glyph[1], `animation ${grid}`).toContain('.');
+    }
+    expect(fileTypeArt(fileTypes.look, type, 32).paths.length).toBeGreaterThan(0);
   });
 
   it('names a pixel icon for every glyph', () => {
