@@ -1,9 +1,10 @@
 /* @layer renderer-components @kind types */
 import type { IconButtonSize } from '../../../primitives/IconButton/IconButton.type';
-import type { ToolbarShape, ToolbarOrientation } from '../Toolbar.type';
+import type { ToolbarMenuSide, ToolbarShape, ToolbarOrientation } from '../Toolbar.type';
 
 interface ToolbarContextValue {
   orientation: ToolbarOrientation;
+  menuSide: ToolbarMenuSide;
   layout: ToolbarShape;
   size: IconButtonSize;
   stop: string | undefined;

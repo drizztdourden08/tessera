@@ -32,6 +32,8 @@ const Anchored = (props: AnchoredProps) => {
     return (
       <AnchoredFallback
         nodeRef={attach}
+        anchorRef={anchorRef}
+        fit={flip}
         layer={layer}
         portal={portal}
         fallback={fallback === undefined ? own : fallback}

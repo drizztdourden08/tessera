@@ -21,6 +21,7 @@ const usage = {
     'icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.',
     'Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button.',
     'options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.',
+    'menuSide right or left says which side of a vertical toolbar its menus open on; a ToolbarDock slot hands it over, so a left bar opens right and a right bar opens left. Menus flip and stay inside the view near any edge, and look the same on every side.',
     'layout list draws each item as a row with its icon, name, description and shortcut, a group as a labelled set of rows and a number as a row with its field. Use it in a wide panel; it never folds and has no handle or caption.',
     'Items that do not fit fold into More, in order; a group becomes a labelled set of choices and a number becomes a slider.',
     'handle draws a grip at the start. A dock wires its own pointer handlers through handleProps; the toolbar has no drag logic.',
@@ -56,7 +57,7 @@ const ToolRail = ({ tool, pick, undo }: ToolRailProps) => {
   return <Toolbar label="Drawing tools" orientation="vertical" items={items} />;
 };
 `,
-  propsHash: '1673dacb4afda2b3',
+  propsHash: 'b3a2cebbb6bc30a1',
 } satisfies ComponentUsage;
 
 export { usage };

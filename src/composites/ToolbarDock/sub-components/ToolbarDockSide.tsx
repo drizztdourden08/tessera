@@ -3,6 +3,7 @@ import type { CSSProperties } from 'react';
 import { Box } from '../../../primitives/Box';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { toolbarHandle } from '../behavior/toolbar-handle';
+import { toolbarMenuSide } from '../behavior/toolbar-menu-side';
 import { toolbarOrientation } from '../behavior/toolbar-orientation';
 import { ToolbarDockEnd } from './ToolbarDockEnd';
 import { TOOLBAR_ENDS } from './ToolbarDockSide.constants';
@@ -36,7 +37,7 @@ const ToolbarDockSide = ({ side, lanes, dragId, definitions, renderToolbar, resi
         >
           {bars.map(({ id, track, label }) => (
             <Box key={id} className="toolbar-dock__bar" style={{ '--toolbar-dock-track': track } as CSSProperties}>
-              {renderToolbar(id, { orientation, handle: toolbarHandle(id, toolbars.move(label)), side })}
+              {renderToolbar(id, { orientation, handle: toolbarHandle(id, toolbars.move(label)), side, menuSide: toolbarMenuSide(side) })}
               {TOOLBAR_ENDS.map((end) => (
                 <ToolbarDockEnd key={end} id={id} label={label} end={end} side={side} layout={resize.layout} metrics={resize.metrics} handlers={resize.handlersFor(id, end)} />
               ))}

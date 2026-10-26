@@ -13499,6 +13499,7 @@
         "icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.",
         "Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button.",
         "options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.",
+        "menuSide right or left says which side of a vertical toolbar its menus open on; a ToolbarDock slot hands it over, so a left bar opens right and a right bar opens left. Menus flip and stay inside the view near any edge, and look the same on every side.",
         "layout list draws each item as a row with its icon, name, description and shortcut, a group as a labelled set of rows and a number as a row with its field. Use it in a wide panel; it never folds and has no handle or caption.",
         "Items that do not fit fold into More, in order; a group becomes a labelled set of choices and a number becomes a slider.",
         "handle draws a grip at the start. A dock wires its own pointer handlers through handleProps; the toolbar has no drag logic.",
@@ -13520,7 +13521,7 @@
         "rule": "Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them."
       },
       "example": "import { Toolbar } from '@drizztdourden08/tessera';\nimport type { ToolbarItem } from '@drizztdourden08/tessera';\n\ninterface ToolRailProps {\n  tool: string;\n  pick: (tool: string) => void;\n  undo: () => void;\n}\n\nconst ToolRail = ({ tool, pick, undo }: ToolRailProps) => {\n  const items: ToolbarItem[] = [\n    { kind: 'toggle', id: 'pencil', label: 'Pencil', icon: 'pencil', description: 'Draw one pixel at a time.', shortcut: 'P', pressed: tool === 'pencil', onChange: () => pick('pencil') },\n    { kind: 'toggle', id: 'eraser', label: 'Eraser', icon: 'eraser', description: 'Clear pixels.', shortcut: 'E', pressed: tool === 'eraser', onChange: () => pick('eraser') },\n    { kind: 'separator', id: 'tools-end' },\n    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', shortcut: 'Ctrl+Z', onSelect: undo },\n  ];\n  return <Toolbar label=\"Drawing tools\" orientation=\"vertical\" items={items} />;\n};\n",
-      "propsHash": "1673dacb4afda2b3",
+      "propsHash": "b3a2cebbb6bc30a1",
       "props": {
         "own": [
           {
@@ -13570,6 +13571,15 @@
             "name": "handleProps",
             "optional": true,
             "text": "ToolbarHandleProps"
+          },
+          {
+            "name": "menuSide",
+            "optional": true,
+            "text": "ToolbarMenuSide",
+            "literals": [
+              "'right'",
+              "'left'"
+            ]
           },
           {
             "name": "className",
