@@ -1,10 +1,12 @@
 /* @layer renderer-components @kind logic */
-import { MASCOT_CLEAR, RING_WIDTH } from '../GuidedTour.constants';
+import { RING_CLEARANCE } from '../GuidedTour.constants';
 import type { TourBox } from './tour-internal.type';
 
-const ringRoom = (hole: TourBox): TourBox => {
-  const inset = RING_WIDTH + MASCOT_CLEAR;
-  return { x: hole.x + inset, y: hole.y + inset, width: hole.width - 2 * inset, height: hole.height - 2 * inset };
-};
+const ringRoom = (hole: TourBox): TourBox => ({
+  x: hole.x + RING_CLEARANCE,
+  y: hole.y + RING_CLEARANCE,
+  width: hole.width - 2 * RING_CLEARANCE,
+  height: hole.height - 2 * RING_CLEARANCE,
+});
 
 export { ringRoom };

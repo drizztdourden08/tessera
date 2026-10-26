@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest';
 import { bubblePlace } from '../src/composites/GuidedTour/behavior/bubble-place';
 import { mascotClear } from '../src/composites/GuidedTour/behavior/mascot-clear';
 import { mascotSpot } from '../src/composites/GuidedTour/behavior/mascot-spot';
-import { MASCOT_BOX, MASCOT_CLEAR, MASCOT_GAP, RING_WIDTH } from '../src/composites/GuidedTour/GuidedTour.constants';
+import { INTRO_MASCOT_BOX, MASCOT_BOX, MASCOT_CLEAR, MASCOT_GAP, RING_WIDTH } from '../src/composites/GuidedTour/GuidedTour.constants';
 
 const VIEW = { width: 1000, height: 800 };
 const SIZE = { width: 300, height: 150 };
@@ -70,13 +70,42 @@ describe('the mascot keeps clear of the ring when the hole fills the view', () =
 
 });
 
+describe('the mascot stands outside the hole whenever it can', () => {
+  const view = { width: 1280, height: 720 };
+  const hole = { x: 304, y: 106, width: 922, height: 560 };
+  const bubble = { x: 317, y: 478, width: 320, height: 175 };
+
+  for (const [name, mascot] of [['small', MASCOT_BOX], ['large', INTRO_MASCOT_BOX]]) {
+    it(`puts the ${name} mascot in the strip left of the hole though the bubble is inside`, () => {
+      const spot = mascotSpot({ bubble, hole }, view, mascot, MASCOT_GAP);
+      expect(spot).not.toBeNull();
+      const at = { x: spot.x - mascot.width / 2, y: spot.y, ...mascot };
+      expect(at.x).toBeGreaterThanOrEqual(0);
+      expect(at.x + at.width).toBeLessThanOrEqual(hole.x - MASCOT_CLEAR - RING_WIDTH);
+      expect(inView(at, view)).toBe(true);
+      expect(spot.face).toBe('right');
+    });
+  }
+
+  it('goes inside only when no outside stand fits and the bubble is inside', () => {
+    const tight = { width: 400, height: 300 };
+    const filledHole = { x: -8, y: -8, width: 416, height: 316 };
+    const inside = { x: 200, y: 120, width: 180, height: 100 };
+    const spot = mascotSpot({ bubble: inside, hole: filledHole }, tight, MASCOT_BOX, MASCOT_GAP);
+    expect(spot).not.toBeNull();
+    expect(insideClear(box(spot), filledHole)).toBe(true);
+    const away = { x: 1000, y: 0, width: 180, height: 100 };
+    expect(mascotSpot({ bubble: away, hole: filledHole }, tight, MASCOT_BOX, MASCOT_GAP)).toBeNull();
+  });
+});
+
 describe('the clearance rule', () => {
   it('refuses a box that straddles the ring or sits closer than the clearance', () => {
     const hole = { x: 200, y: 200, width: 400, height: 300 };
     const inside = { x: 300, y: 350, width: 200, height: 100 };
     const beyond = { x: 650, y: 350, width: 200, height: 100 };
-    expect(mascotClear({ x: 100, y: 250, width: 100 - MASCOT_CLEAR, height: 128 }, hole, inside)).toBe(true);
-    expect(mascotClear({ x: 100, y: 250, width: 100 - MASCOT_CLEAR + 1, height: 128 }, hole, inside)).toBe(false);
+    expect(mascotClear({ x: 100, y: 250, width: 100 - GAP, height: 128 }, hole, inside)).toBe(true);
+    expect(mascotClear({ x: 100, y: 250, width: 100 - GAP + 1, height: 128 }, hole, inside)).toBe(false);
     expect(mascotClear({ x: 150, y: 250, width: 128, height: 128 }, hole, inside)).toBe(false);
     expect(mascotClear({ x: 200 + GAP, y: 300, width: 128, height: 128 }, hole, inside)).toBe(true);
     expect(mascotClear({ x: 200 + GAP - 1, y: 300, width: 128, height: 128 }, hole, inside)).toBe(false);
