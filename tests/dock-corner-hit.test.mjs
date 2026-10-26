@@ -25,6 +25,20 @@ const tokenPx = (name) => {
   return ref ? Number(read('scale.css').match(new RegExp(`${ref}:\\s*(\\d+)px`))?.[1]) : Number.NaN;
 };
 
+const GAP = Number(read('../composites/DockLayout/DockLayout.constants.ts').match(/const GAP = (\d+);/)?.[1]);
+const SPACE_XS = Number(read('scale.css').match(/--size-4:\s*(\d+)px/)?.[1]);
+const overlaps = (one, two) => one.x < two.x + two.width && two.x < one.x + one.width && one.y < two.y + two.height && two.y < one.y + one.height;
+const titlebarOf = (panel) => ({ x: panel.x, y: panel.y, width: panel.width, height: CORNER_HEADER });
+const centreOf = (box) => ({ x: box.x + box.width / 2, y: box.y + box.height / 2 });
+const distanceTo = (point, box) => Math.hypot(Math.max(box.x - point.x, 0, point.x - box.x - box.width), Math.max(box.y - point.y, 0, point.y - box.y - box.height));
+const buttonsOf = (panel, count) =>
+  Array.from({ length: count }, (_, index) => ({
+    x: panel.x + panel.width - SPACE_XS - (index + 1) * CORNER_HIT - index * SPACE_XS,
+    y: panel.y + (CORNER_HEADER - CORNER_HIT) / 2,
+    width: CORNER_HIT,
+    height: CORNER_HIT,
+  }));
+
 describe('corner handle hit box', () => {
   const laid = layoutTree(tree, STAGE);
   const handles = cornerEnds(laid, tree);
@@ -34,41 +48,106 @@ describe('corner handle hit box', () => {
     expect(handles.length).toBeGreaterThan(0);
   });
 
-  it('is at least 24 px across and along on every handle', () => {
-    for (const { rect, along, end } of handles) {
-      const hit = cornerHitOf(rect, along, end);
+  const cornerOf = (handle) => handle.takeCorner ?? handle.giveCorner;
+
+  const rows = handles.filter((handle) => handle.along === 'row');
+  const columns = handles.filter((handle) => handle.along === 'column');
+
+  it('has row and column handles to check', () => {
+    expect(rows.length).toBeGreaterThan(0);
+    expect(columns.length).toBeGreaterThan(0);
+  });
+
+  it('is a 24 by 24 square on every row handle', () => {
+    for (const handle of rows) {
+      const hit = cornerHitOf(handle);
+      expect(hit.width).toBe(24);
+      expect(hit.height).toBe(24);
+    }
+  });
+
+  it('keeps a row handle below the header of its panel, on its corner', () => {
+    for (const handle of rows) {
+      const panel = leafOf(handle.key).rect;
+      const corner = cornerOf(handle);
+      const hit = cornerHitOf(handle);
+      expect(hit.x).toBeCloseTo(corner.endsWith('left') ? panel.x : panel.x + panel.width - 24, 9);
+      expect(hit.y).toBeCloseTo(corner.startsWith('top') ? panel.y + CORNER_HEADER : panel.y + panel.height - 24, 9);
+    }
+  });
+
+  it('does not cover the middle of the panel edge', () => {
+    for (const handle of rows) {
+      expect(cornerHitOf(handle).height).toBeLessThanOrEqual(leafOf(handle.key).rect.height / 2);
+    }
+  });
+
+  it('keeps a column handle on the upper side of the seam, clear of every title bar', () => {
+    for (const handle of columns) {
+      const hit = cornerHitOf(handle);
       expect(hit.width).toBeGreaterThanOrEqual(24);
-      expect(hit.height).toBeGreaterThanOrEqual(24);
+      expect(hit.height).toBeLessThanOrEqual(GAP);
+      for (const item of laid.leaves) expect(overlaps(hit, titlebarOf(item.rect))).toBe(false);
     }
   });
 
-  it('never covers the header of its panel, where the buttons sit', () => {
-    for (const { key, rect, along, end } of handles) {
-      expect(cornerHitOf(rect, along, end).y).toBeGreaterThanOrEqual(leafOf(key).rect.y + CORNER_HEADER);
-    }
-  });
-
-  it('stays on the edge of the panel it turns', () => {
-    for (const { key, rect, along, end } of handles) {
-      const hit = cornerHitOf(rect, along, end);
-      const leaf = leafOf(key).rect;
-      if (along === 'row') {
-        expect(end === 'start' ? hit.x : hit.x + hit.width).toBeCloseTo(end === 'start' ? leaf.x : leaf.x + leaf.width, 9);
-      } else {
-        expect(hit.x).toBe(leaf.x);
-        expect(hit.width).toBe(leaf.width);
+  it('keeps a column handle at least 12 px from every title bar button, six or fewer', () => {
+    for (const handle of columns) {
+      const hit = cornerHitOf(handle);
+      for (const item of laid.leaves) {
+        for (const box of buttonsOf(item.rect, 6)) expect(distanceTo(centreOf(hit), box)).toBeGreaterThanOrEqual(12);
       }
     }
-  });
-
-  it('puts the handle of a short panel below the header', () => {
-    const hit = cornerHitOf({ x: 0, y: 100, width: 8, height: 40 }, 'row', 'end');
-    expect(hit.y).toBe(130);
-    expect(hit.height).toBe(24);
   });
 
   it('matches the hit area and titlebar tokens', () => {
     expect(CORNER_HIT).toBe(tokenPx('--hit-area-min'));
     expect(CORNER_HEADER).toBe(tokenPx('--widget-titlebar-h'));
+  });
+});
+
+describe('corner handle hit placement', () => {
+  const rect = { x: 10, y: 20, width: 300, height: 200 };
+  const at = (along, end, takeCorner, strip = rect) => cornerHitOf({ rect: strip, along, end, takeCorner, giveCorner: null });
+
+  it('puts the row handle of a short panel below the header', () => {
+    const hit = at('row', 'end', 'bottom-right', { x: 0, y: 100, width: 8, height: 40 });
+    expect(hit.y).toBe(130);
+    expect(hit.height).toBe(24);
+  });
+
+  it('places each row handle at its own corner', () => {
+    expect(at('row', 'start', 'top-left')).toEqual({ x: 10, y: 50, width: 24, height: 24 });
+    expect(at('row', 'start', 'bottom-left')).toEqual({ x: 10, y: 196, width: 24, height: 24 });
+    expect(at('row', 'end', 'top-right')).toEqual({ x: 286, y: 50, width: 24, height: 24 });
+    expect(at('row', 'end', 'bottom-right')).toEqual({ x: 286, y: 196, width: 24, height: 24 });
+  });
+
+  it('puts a column handle on the upper side of the seam, whatever the panel height', () => {
+    expect(at('column', 'start', 'top-left', { x: 10, y: 108, width: 300, height: 8 })).toEqual({ x: 10, y: 92, width: 24, height: 8 });
+    expect(at('column', 'end', 'bottom-left', { x: 10, y: 92, width: 300, height: 8 })).toEqual({ x: 10, y: 92, width: 24, height: 8 });
+    expect(at('column', 'end', 'bottom-right', { x: 10, y: 92, width: 300, height: 8 })).toEqual({ x: 286, y: 92, width: 24, height: 8 });
+  });
+
+  it('keeps the spacing circle clear of the buttons below the seam, whatever their count', () => {
+    const below = { x: 10, y: 108, width: 300, height: 200 };
+    const strips = [['start', 'top-left', below], ['start', 'top-right', below], ['end', 'bottom-left', { x: 10, y: 92, width: 300, height: 8 }], ['end', 'bottom-right', { x: 10, y: 92, width: 300, height: 8 }]];
+    for (const [end, corner, strip] of strips) {
+      const hit = at('column', end, corner, strip);
+      expect(overlaps(hit, titlebarOf(below))).toBe(false);
+      for (const count of [0, 1, 2, 4, 6, 9]) {
+        for (const box of buttonsOf(below, count)) expect(distanceTo(centreOf(hit), box)).toBeGreaterThanOrEqual(12);
+      }
+    }
+  });
+
+  it('measures the vertical clearance from the real constants', () => {
+    const clearance = GAP / 2 + GAP + (CORNER_HEADER - CORNER_HIT) / 2;
+    expect(clearance).toBeGreaterThanOrEqual(12);
+  });
+
+  it('never leaves the panel to the left of a narrow one', () => {
+    const hit = at('column', 'end', 'bottom-right', { x: 10, y: 92, width: 20, height: 8 });
+    expect(hit.x).toBe(10);
   });
 });

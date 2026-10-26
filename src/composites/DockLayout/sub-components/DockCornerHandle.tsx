@@ -11,8 +11,8 @@ import '../../../theme/focus-ring.css';
 
 const DockCornerHandle = (props: DockCornerHandleProps) => {
   const { handle, label, hint, onTurn } = props;
-  const { along, end, rect } = handle;
-  const style = useMemo(() => rectStyle(cornerHitOf(rect, along, end)), [rect, along, end]);
+  const { along, end } = handle;
+  const style = useMemo(() => rectStyle(cornerHitOf(handle)), [handle]);
   const press = useRef<{ from: number; done: boolean } | null>(null);
   const coordOf = (event: PointerEvent<HTMLElement>) => (along === 'row' ? event.clientX : event.clientY);
 
