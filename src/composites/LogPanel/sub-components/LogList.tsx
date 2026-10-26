@@ -12,15 +12,15 @@ import { LogLine } from './LogLine';
 import type { LogListProps } from './LogList.type';
 
 const LogList = (props: LogListProps) => {
-  const { rows, kinds, selectedIds, onSelectionChange } = props;
+  const { rows, kinds, selectedIds, onSelectionChange, ansi, follow = true, terminal = false } = props;
   const { panels } = useTesseraStrings();
   const kindById = useMemo(() => new Map(kinds?.map((kind) => [kind.id, kind])), [kinds]);
-  const win = useLogWindow(rows);
+  const win = useLogWindow(rows, follow);
   const first = rows.length - win.shownCount;
   const order = useMemo(() => rows.map((row) => row.id), [rows]);
   const mounted = useMemo(() => order.slice(first), [order, first]);
   const selection = useLogSelection({ order, mounted, selectedIds, onSelectionChange });
-  const lines = rows.slice(first).map((row) => <LogLine key={row.id} row={row} kind={kindById.get(row.kind)} selection={selection} />);
+  const lines = rows.slice(first).map((row) => <LogLine key={row.id} row={row} kind={kindById.get(row.kind)} selection={selection} ansi={ansi} />);
 
   return (
     <Box className="log-panel__scroll">
@@ -43,7 +43,7 @@ const LogList = (props: LogListProps) => {
       </Box>
       {!win.pinned && (
         <Button variant="secondary" size="sm" className="log-panel__to-bottom" icon={<Icon name="arrow-down" />} onClick={win.jumpToBottom}>
-          {panels.newest}
+          {terminal ? panels.jumpToBottom : panels.newest}
         </Button>
       )}
     </Box>

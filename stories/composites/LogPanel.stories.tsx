@@ -15,6 +15,8 @@ import { CHANNEL_KINDS, CHANNEL_ROWS } from './_samples/data-log-channels';
 import { SIM_KINDS, SIM_ROWS } from './_samples/data-log-kinds';
 import { LogArrivalDemo } from './_samples/LogArrivalDemo';
 import { LogSelectionDemo } from './_samples/LogSelectionDemo';
+import { LogShellDemo } from './_samples/LogShellDemo';
+import { LogTerminalDemo } from './_samples/LogTerminalDemo';
 import './LogPanel.stories.css';
 
 type LogPanelArgs = {
@@ -105,6 +107,10 @@ const Selecting = {
   ),
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
+const BuildLog = { name: 'Coloured build log, streaming', render: () => <LogTerminalDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const Shell = { name: 'Terminal with an input row', render: () => <LogShellDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
 const Bare = {
   name: 'Without a toolbar',
   render: () => <LogDemo {...(ARGS as LogPanelArgs)} toolbar={false} rows={LOG_ROWS} />,
@@ -171,12 +177,12 @@ const Overview = overviewStory({
     'Each of the `rows` has a gutter, a tag, a `kind` and a message; `indent` nests it under a guide.',
     'The toolbar is a [FilterBar]: search, filters on type, tag or message, a line count and Copy all.',
     '`kinds` give each type a `tone`, tint or hex colour; `toneMessage`, `strong` and `uppercase` set the message.',
-    'Only the newest lines are mounted, older ones load on demand, and Newest jumps back to the end.',
+    'Only the newest lines are mounted; the end stays in view until a scroll up, then a button returns to it.',
     '`selectedIds` with `onSelectionChange` picks rows: a click, [[Shift]] and a click, [[Up]] and [[Down]].',
-    '`height="fill"` takes the height of its parent; a number fixes it in pixels.',
+    '`ansi` colours escape codes with tokens; `onInput` adds a prompt row, and [[Up]] and [[Down]] walk its history.',
   ],
   playground: ServerLog,
-  variants: [Filtered, LongSession, Arriving, Selecting, Bare, Heights, Kinds, Channels],
+  variants: [Filtered, LongSession, Arriving, Selecting, BuildLog, Shell, Bare, Heights, Kinds, Channels],
   states: {
     render: renderState,
     list: [
@@ -189,4 +195,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Arriving, Bare, Channels, Filtered, Heights, Kinds, LongSession, Overview, Selecting, ServerLog };
+export { Arriving, Bare, BuildLog, Channels, Filtered, Heights, Kinds, LongSession, Overview, Selecting, ServerLog, Shell };

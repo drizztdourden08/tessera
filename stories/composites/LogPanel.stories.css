@@ -43,3 +43,13 @@
 .channel-log {
   --log-tag-w: 12ch;
 }
+
+.terminal-log {
+  --log-gutter-w: 0ch;
+  --log-tag-w: 0ch;
+}
+
+.terminal-log .log-panel__row,
+.terminal-log .log-panel__content {
+  column-gap: 0;
+}

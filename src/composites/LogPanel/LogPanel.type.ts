@@ -41,6 +41,10 @@ interface LogPanelProps {
   height?: LogPanelHeight;
   selectedIds?: ReadonlySet<string>;
   onSelectionChange?: (ids: ReadonlySet<string>) => void;
+  ansi?: boolean;
+  follow?: boolean;
+  onInput?: (text: string) => void;
+  prompt?: string;
   className?: string;
 }
 

@@ -2,12 +2,14 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import type { LogRow } from '../LogPanel.type';
 import { appendedSince } from './appended-since';
+import { isAtBottom } from './is-at-bottom';
+import { isFollowing } from './is-following';
 import { nextLogWindow } from './next-log-window';
 import { BOTTOM_SLACK, CHUNK } from './useLogWindow.constants';
 
 const newest = (rows: readonly LogRow[]) => ({ id: rows[rows.length - 1]?.id, total: rows.length });
 
-const useLogWindow = (rows: readonly LogRow[]) => {
+const useLogWindow = (rows: readonly LogRow[], follow = true) => {
   const total = rows.length;
   const scrollRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(CHUNK);
@@ -21,8 +23,8 @@ const useLogWindow = (rows: readonly LogRow[]) => {
     last.current = newest(rows);
     if (before.id === last.current.id && before.total === total) return;
     const appended = appendedSince(rows, before.id, before.total);
-    setVisible((v) => nextLogWindow(v, appended, total, atBottom.current));
-  }, [rows, total]);
+    setVisible((v) => nextLogWindow(v, appended, total, isFollowing(follow, atBottom.current)));
+  }, [rows, total, follow]);
 
   const loadOlder = useCallback(() => {
     const el = scrollRef.current;
@@ -39,7 +41,7 @@ const useLogWindow = (rows: readonly LogRow[]) => {
 
   const jumpToBottom = useCallback(() => {
     const el = scrollRef.current;
-    if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'smooth' });
+    if (el) el.scrollTo({ top: el.scrollHeight, behavior: 'instant' });
     atBottom.current = true;
     setPinned(true);
   }, []);
@@ -47,14 +49,14 @@ const useLogWindow = (rows: readonly LogRow[]) => {
   const handleScroll = useCallback(() => {
     const el = scrollRef.current;
     if (!el) return;
-    atBottom.current = el.scrollHeight - el.scrollTop - el.clientHeight <= BOTTOM_SLACK;
+    atBottom.current = isAtBottom(el, BOTTOM_SLACK);
     setPinned(atBottom.current);
   }, []);
 
   useEffect(() => {
     const el = scrollRef.current;
-    if (el && atBottom.current && pendingAnchor.current === null) el.scrollTop = el.scrollHeight;
-  }, [total, visible]);
+    if (el && isFollowing(follow, atBottom.current) && pendingAnchor.current === null) el.scrollTop = el.scrollHeight;
+  }, [total, visible, follow]);
 
   const shownCount = Math.min(visible, total);
   return { scrollRef, shownCount, hiddenOlder: total - shownCount, pinned, loadOlder, jumpToBottom, handleScroll };

@@ -1,0 +1,112 @@
+/* @layer renderer-components @kind style */
+.log-panel__ansi--bold {
+  font-weight: var(--weight-bold);
+}
+
+.log-panel__ansi--dim {
+  opacity: var(--opacity-muted);
+}
+
+.log-panel__ansi--italic {
+  font-style: italic;
+}
+
+.log-panel__ansi--underline {
+  text-decoration: underline;
+}
+
+.log-panel__ansi--fg-black {
+  color: var(--c-term-black);
+}
+
+.log-panel__ansi--fg-red {
+  color: var(--c-term-red);
+}
+
+.log-panel__ansi--fg-green {
+  color: var(--c-term-green);
+}
+
+.log-panel__ansi--fg-yellow {
+  color: var(--c-term-yellow);
+}
+
+.log-panel__ansi--fg-blue {
+  color: var(--c-term-blue);
+}
+
+.log-panel__ansi--fg-magenta {
+  color: var(--c-term-magenta);
+}
+
+.log-panel__ansi--fg-cyan {
+  color: var(--c-term-cyan);
+}
+
+.log-panel__ansi--fg-white {
+  color: var(--c-term-white);
+}
+
+.log-panel__ansi--fg-bright-black {
+  color: var(--c-term-bright-black);
+}
+
+.log-panel__ansi--fg-bright-red {
+  color: var(--c-term-bright-red);
+}
+
+.log-panel__ansi--fg-bright-green {
+  color: var(--c-term-bright-green);
+}
+
+.log-panel__ansi--fg-bright-yellow {
+  color: var(--c-term-bright-yellow);
+}
+
+.log-panel__ansi--fg-bright-blue {
+  color: var(--c-term-bright-blue);
+}
+
+.log-panel__ansi--fg-bright-magenta {
+  color: var(--c-term-bright-magenta);
+}
+
+.log-panel__ansi--fg-bright-cyan {
+  color: var(--c-term-bright-cyan);
+}
+
+.log-panel__ansi--fg-bright-white {
+  color: var(--c-term-bright-white);
+}
+
+.log-panel__ansi--bg-black {
+  background: var(--c-term-bg-black);
+}
+
+.log-panel__ansi--bg-red {
+  background: var(--c-term-bg-red);
+}
+
+.log-panel__ansi--bg-green {
+  background: var(--c-term-bg-green);
+}
+
+.log-panel__ansi--bg-yellow {
+  background: var(--c-term-bg-yellow);
+}
+
+.log-panel__ansi--bg-blue {
+  background: var(--c-term-bg-blue);
+}
+
+.log-panel__ansi--bg-magenta {
+  background: var(--c-term-bg-magenta);
+}
+
+.log-panel__ansi--bg-cyan {
+  background: var(--c-term-bg-cyan);
+}
+
+.log-panel__ansi--bg-white {
+  background: var(--c-term-bg-white);
+}

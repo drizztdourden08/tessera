@@ -6,6 +6,7 @@ interface LogLineProps {
   row: LogRow;
   kind?: LogKindDef;
   selection?: LogSelection | null;
+  ansi?: boolean;
 }
 
 export type { LogLineProps };

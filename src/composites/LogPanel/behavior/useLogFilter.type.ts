@@ -3,7 +3,7 @@ import type { FilterClause } from '../../../data/filter/clause';
 import type { FieldDescriptor } from '../../../data/schema/field-descriptor';
 import type { LogPanelProps, LogRow } from '../LogPanel.type';
 
-type LogFilterInput = Pick<LogPanelProps, 'rows' | 'kinds' | 'search' | 'onSearchChange' | 'filters' | 'onFiltersChange'>;
+type LogFilterInput = Pick<LogPanelProps, 'rows' | 'kinds' | 'ansi' | 'search' | 'onSearchChange' | 'filters' | 'onFiltersChange'>;
 
 interface LogFilter {
   schema: readonly FieldDescriptor[];

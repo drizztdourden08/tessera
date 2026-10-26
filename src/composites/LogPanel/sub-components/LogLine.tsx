@@ -4,10 +4,11 @@ import { REVIEW_MASK } from '../../../primitives/dom/review-mask.constants';
 import { logInk } from '../behavior/log-ink';
 import { messageTone } from '../behavior/message-tone';
 import { rowSelectionProps } from '../behavior/row-selection-props';
+import { AnsiText } from './AnsiText';
 import type { LogLineProps } from './LogLine.type';
 
 const LogLine = (props: LogLineProps) => {
-  const { row, kind, selection } = props;
+  const { row, kind, selection, ansi = false } = props;
   const level = row.indent ?? 0;
   const tag = logInk(kind?.tone, 'muted');
   const message = logInk(messageTone(kind));
@@ -25,7 +26,7 @@ const LogLine = (props: LogLineProps) => {
         <Span tone={tag.tone} style={tag.style} className={[`log-panel__tag log-panel__tag--${row.kind}`, tag.className].filter(Boolean).join(' ')}>
           {row.tag}
         </Span>
-        <Span tone={message.tone} style={message.style} className={msgClass}>{row.message}</Span>
+        <Span tone={message.tone} style={message.style} className={msgClass}>{ansi ? <AnsiText text={row.message} /> : row.message}</Span>
       </Box>
     </Box>
   );
