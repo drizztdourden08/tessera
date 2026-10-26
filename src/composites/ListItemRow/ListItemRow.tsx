@@ -23,12 +23,13 @@ const ListItemRow = (props: ListItemRowProps) => {
   const mediaStyle = useMediaWidth(rowRef, { media, aspect: props.mediaAspect, width: props.mediaWidth });
   const anchorStyle = useNameAnchor(nameAction != null);
   const style = mediaStyle || anchorStyle ? { ...frame.style, ...mediaStyle, ...anchorStyle } : frame.style;
+  const drag = { draggable: props.draggable, onDragStart: props.onDragStart, onDragEnd: props.onDragEnd };
   const body = <ListItemBody name={name} meta={meta} icon={icon} media={media} columns={columns} />;
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => rowActivate({ onClick, onDoubleClick }, event.detail);
 
   return (
-    <Box ref={rowRef} className={frame.className} role={frame.role} style={style} {...(interactive ? {} : { onContextMenu, onKeyDown })} {...data}>
+    <Box ref={rowRef} className={frame.className} role={frame.role} style={style} {...(interactive ? {} : { onContextMenu, onKeyDown })} {...drag} {...data}>
       {interactive ? (
         <Pressable
           className="list-item-row__main row-inset"
