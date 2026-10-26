@@ -34,41 +34,66 @@ describe('corner handle hit box', () => {
     expect(handles.length).toBeGreaterThan(0);
   });
 
-  it('is at least 24 px across and along on every handle', () => {
-    for (const { rect, along, end } of handles) {
-      const hit = cornerHitOf(rect, along, end);
-      expect(hit.width).toBeGreaterThanOrEqual(24);
-      expect(hit.height).toBeGreaterThanOrEqual(24);
+  const cornerOf = (handle) => handle.takeCorner ?? handle.giveCorner;
+
+  it('is a 24 by 24 square on every handle', () => {
+    for (const handle of handles) {
+      const hit = cornerHitOf(handle);
+      expect(hit.width).toBe(24);
+      expect(hit.height).toBe(24);
     }
   });
 
   it('never covers the header of its panel, where the buttons sit', () => {
-    for (const { key, rect, along, end } of handles) {
-      expect(cornerHitOf(rect, along, end).y).toBeGreaterThanOrEqual(leafOf(key).rect.y + CORNER_HEADER);
+    for (const handle of handles) {
+      expect(cornerHitOf(handle).y).toBeGreaterThanOrEqual(leafOf(handle.key).rect.y + CORNER_HEADER);
     }
   });
 
-  it('stays on the edge of the panel it turns', () => {
-    for (const { key, rect, along, end } of handles) {
-      const hit = cornerHitOf(rect, along, end);
-      const leaf = leafOf(key).rect;
-      if (along === 'row') {
-        expect(end === 'start' ? hit.x : hit.x + hit.width).toBeCloseTo(end === 'start' ? leaf.x : leaf.x + leaf.width, 9);
-      } else {
-        expect(hit.x).toBe(leaf.x);
-        expect(hit.width).toBe(leaf.width);
-      }
+  it('sits on the corner of the panel it turns', () => {
+    for (const handle of handles) {
+      const panel = leafOf(handle.key).rect;
+      const corner = cornerOf(handle);
+      const hit = cornerHitOf(handle);
+      expect(hit.x).toBeCloseTo(corner.endsWith('left') ? panel.x : panel.x + panel.width - 24, 9);
+      expect(hit.y).toBeCloseTo(corner.startsWith('top') ? panel.y + CORNER_HEADER : panel.y + panel.height - 24, 9);
     }
   });
 
-  it('puts the handle of a short panel below the header', () => {
-    const hit = cornerHitOf({ x: 0, y: 100, width: 8, height: 40 }, 'row', 'end');
-    expect(hit.y).toBe(130);
-    expect(hit.height).toBe(24);
+  it('does not cover the middle of the panel edge', () => {
+    for (const handle of handles) {
+      const hit = cornerHitOf(handle);
+      const panel = leafOf(handle.key).rect;
+      const span = handle.along === 'row' ? panel.height : panel.width;
+      const size = handle.along === 'row' ? hit.height : hit.width;
+      expect(size).toBeLessThanOrEqual(span / 2);
+    }
   });
 
   it('matches the hit area and titlebar tokens', () => {
     expect(CORNER_HIT).toBe(tokenPx('--hit-area-min'));
     expect(CORNER_HEADER).toBe(tokenPx('--widget-titlebar-h'));
+  });
+});
+
+describe('corner handle hit placement', () => {
+  it('puts the handle of a short panel below the header', () => {
+    const short = { rect: { x: 0, y: 100, width: 8, height: 40 }, along: 'row', end: 'end', takeCorner: 'bottom-right', giveCorner: null };
+    const hit = cornerHitOf(short);
+    expect(hit.y).toBe(130);
+    expect(hit.height).toBe(24);
+  });
+
+  it('places each end of each axis at its own corner', () => {
+    const rect = { x: 10, y: 20, width: 300, height: 200 };
+    const at = (along, end, takeCorner) => cornerHitOf({ rect, along, end, takeCorner, giveCorner: null });
+    expect(at('row', 'start', 'top-left')).toEqual({ x: 10, y: 50, width: 24, height: 24 });
+    expect(at('row', 'start', 'bottom-left')).toEqual({ x: 10, y: 196, width: 24, height: 24 });
+    expect(at('row', 'end', 'top-right')).toEqual({ x: 286, y: 50, width: 24, height: 24 });
+    expect(at('row', 'end', 'bottom-right')).toEqual({ x: 286, y: 196, width: 24, height: 24 });
+    expect(at('column', 'start', 'top-left')).toEqual({ x: 10, y: 50, width: 24, height: 24 });
+    expect(at('column', 'start', 'top-right')).toEqual({ x: 286, y: 50, width: 24, height: 24 });
+    expect(at('column', 'end', 'bottom-left')).toEqual({ x: 10, y: 196, width: 24, height: 24 });
+    expect(at('column', 'end', 'bottom-right')).toEqual({ x: 286, y: 196, width: 24, height: 24 });
   });
 });

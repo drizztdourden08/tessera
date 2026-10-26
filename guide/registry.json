@@ -14733,6 +14733,7 @@
         "--duration-normal",
         "--ease-standard",
         "--font-mono",
+        "--hit-area-min",
         "--radius-lg",
         "--radius-md",
         "--radius-sm",

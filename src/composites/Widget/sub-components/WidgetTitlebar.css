@@ -71,6 +71,11 @@
   touch-action: none;
 }
 
+.widget__btn {
+  min-inline-size: var(--hit-area-min);
+  min-block-size: var(--hit-area-min);
+}
+
 .widget__grip:active {
   cursor: grabbing;
 }
