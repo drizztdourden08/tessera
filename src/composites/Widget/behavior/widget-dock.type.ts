@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
+import type { IconName } from '../../../primitives/Icon';
 import type { LayoutEdit, Rect, ScreenPoint, WidgetId } from '../../DockLayout';
 import type { WidgetDefinition, WidgetDisabledState, WidgetLayout } from '../Widget.type';
 import type { WidgetManagerProps } from '../sub-components/WidgetManager.type';
@@ -10,6 +11,7 @@ interface WidgetDockApi {
   peek: boolean;
   definitionOf: (id: WidgetId) => WidgetDefinition | undefined;
   labelOf: (id: WidgetId) => string;
+  iconOf: (id: WidgetId) => IconName | undefined;
   contentOf: (id: WidgetId) => ReactNode;
   actionsOf: (id: WidgetId) => ReactNode;
   disabledOf: (id: WidgetId) => WidgetDisabledState | null;

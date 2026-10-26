@@ -16,6 +16,7 @@ import './Widget.stories.css';
 
 type WidgetArgs = {
   tabbed: boolean;
+  icons: boolean;
   chrome: WidgetChrome;
   mode: 'in' | 'out';
   square: boolean;
@@ -35,6 +36,7 @@ const FrameDemo = (props: WidgetArgs & { optionsOpen?: boolean }) => <WidgetFram
 
 const ARGS: Partial<WidgetArgs> = {
   tabbed: false,
+  icons: false,
   chrome: 'full',
   mode: 'in',
   square: false,
@@ -52,6 +54,7 @@ const ARGS: Partial<WidgetArgs> = {
 
 const ARG_TYPES: PlaygroundArgTypes<WidgetArgs> = {
   tabbed: { group: 'Content', control: 'boolean', description: 'The pane holds two widgets, shown as tab chips.' },
+  icons: { group: 'Content', control: 'boolean', description: 'Each widget gives an icon, drawn before its title or tab label; the label still names it.' },
   titleBarActions: { group: 'Content', control: 'boolean', description: 'The widget adds a button of its own through titleBarActions: a spoiler toggle before the built-in buttons.' },
   disabledMessage: { group: 'Content', control: 'text', description: 'The reason on the disabled state, as disabled takes it.' },
   makeRoomHint: { group: 'Content', control: 'text', description: 'Dock only: the hint under Make room in each widget\'s options' },
@@ -82,6 +85,8 @@ const story = (name: string, patch: Partial<WidgetArgs>) => ({
 const Playground = story('Playground', {});
 const Single = story('One widget, a region named by its title', {});
 const Tabbed = story('Tabbed pane, a region named by its open tab', { tabbed: true });
+const IconSingle = story('With an icon, one widget', { icons: true });
+const IconTabbed = story('With icons, tabbed pane', { icons: true, tabbed: true });
 const OwnWindow = story('Own window', { mode: 'out' });
 const OwnActions = story('Own window, with a title bar action', { mode: 'out', titleBarActions: true });
 const Fullscreen = story('Own window, fullscreen', { mode: 'out', square: true });
@@ -142,7 +147,7 @@ const CODE = `import { Widget, WidgetOptions } from '@drizztdourden08/tessera';
 
 <Widget
   id="hints"
-  tabs={[{ id: 'hints', label: 'Hints' }, { id: 'players', label: 'Players' }]}
+  tabs={[{ id: 'hints', label: 'Hints', icon: 'circle-help' }, { id: 'players', label: 'Players', icon: 'users' }]}
   activeId={active}
   paneKey={pane.key}
   opacity={0.92}
@@ -166,14 +171,14 @@ const Overview = overviewStory({
   points: [
     'The title bar drags it and names the region, by its title or open tab; each button names the widget too.',
     '`chrome` is `full`, a 20 px `compact` strip, or `none`: a grip and the buttons over the body on hover or focus.',
-    '`titleBarActions` adds buttons; in its own window `pin` keeps it on top and `dragRegion` lets the strip move it.',
+    'An `icon` draws before the label; `titleBarActions` adds buttons; `pin` and `dragRegion` serve its own window.',
     'The body scrolls in its gutter with `padding`, `sm` by default, or `none` or `md`; `fill` makes a full height column.',
     '`options` puts [WidgetOptions] on the gear; `WidgetManager` lays out a dock and hides widgets out of context.',
     '`disabled` covers the body, a string as the reason; docked or in its own window, the look is the same.',
   ],
   playground: Playground,
   variants: [
-    Single, Tabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, OffInWindow, Folded, Chromes, ChromeWindows, ChromeDock, Bodies, Dock, PerWidget,
+    Single, Tabbed, IconSingle, IconTabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, OffInWindow, Folded, Chromes, ChromeWindows, ChromeDock, Bodies, Dock, PerWidget,
     Performance,
   ],
   states: {
@@ -189,4 +194,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Bodies, ChromeDock, ChromeWindows, Chromes, Dock, DragStrip, Folded, Fullscreen, OffInWindow, OwnActions, OwnWindow, Overview, PerWidget, Performance, Playground, Single, Tabbed };
+export { Bodies, ChromeDock, ChromeWindows, Chromes, Dock, DragStrip, Folded, Fullscreen, IconSingle, IconTabbed, OffInWindow, OwnActions, OwnWindow, Overview, PerWidget, Performance, Playground, Single, Tabbed };

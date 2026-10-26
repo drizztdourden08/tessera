@@ -85,3 +85,14 @@
     transition: none;
   }
 }
+
+.widget__icon {
+  flex-shrink: 0;
+  margin-inline-end: var(--space-2xs);
+  vertical-align: middle;
+}
+
+.widget--chrome-compact .widget__icon {
+  inline-size: var(--widget-title-compact-font);
+  block-size: var(--widget-title-compact-font);
+}
