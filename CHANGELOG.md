@@ -1,5 +1,12 @@
 # @drizztdourden08/tessera
 
+## 0.71.0
+
+### Minor Changes
+
+- df77b53: LogPanel takes `order="newest-first"`, which shows the latest line at the top, follows the top and jumps to it, and a row takes its own `tone`. Tabs items take `badgeTone` (`neutral`, `warn`, `danger`, `success` or `info`) to tint the count badge like Badge. A number field takes a `unit`, or `units` in the schema config, so DataTable writes 12.4 MB while sort, group and filter keep reading the number.
+- b8ba74f: ListItemList takes a `header` with `icon`, `main`, `columns` and `action` labels, drawn as a sticky row on the same tracks as the rows and hidden from assistive technology. A click on a button, link, input or Tooltip trigger inside a DataTable cell no longer selects the row, and `data-cell-control` marks any other element the row should leave alone.
+
 ## 0.70.0
 
 ### Minor Changes
