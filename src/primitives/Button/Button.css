@@ -31,6 +31,14 @@
   font-size: var(--text-xs);
 }
 
+.btn--lg:not(.btn--pixel) .btn__label {
+  font-weight: var(--weight-bold);
+}
+
+.btn--lg:not(.btn--pixel) .btn__caption {
+  font-size: var(--text-base);
+}
+
 .btn--xs:has(.icon--pixel),
 .btn--sm:has(.icon--pixel) {
   min-block-size: var(--control-h-pixel);
@@ -42,6 +50,16 @@
 
 .btn--full {
   width: 100%;
+}
+
+.btn--wide {
+  min-inline-size: var(--control-w-wide);
+  justify-content: center;
+  text-align: center;
+}
+
+.btn--wide .btn__stack {
+  align-items: center;
 }
 
 .btn--one-line {

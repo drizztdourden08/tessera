@@ -8,13 +8,16 @@ type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 
 type ButtonLook = 'flat' | 'pixel';
 
-type ButtonFill = 'tonal' | 'solid';
+type ButtonFill = 'tonal' | 'solid' | 'gradient';
+
+type ButtonWidth = 'auto' | 'wide';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, HintTargetProps {
   variant?: ButtonVariant;
   size?: ButtonSize;
   look?: ButtonLook;
   fill?: ButtonFill;
+  width?: ButtonWidth;
   fullWidth?: boolean;
   active?: boolean;
   loading?: boolean;
@@ -32,5 +35,6 @@ export type {
   ButtonSize,
   ButtonLook,
   ButtonFill,
+  ButtonWidth,
   ButtonProps,
 };

@@ -31,6 +31,7 @@
   --control-pad-sm: var(--space-sm);
   --control-pad-md: var(--space-md);
   --control-pad-lg: var(--space-lg);
+  --control-w-wide: var(--size-336);
   --row-inset: var(--control-pad-md);
   --dropzone-inline-w: var(--size-288);
   --table-select-w: var(--size-28);

@@ -2,12 +2,13 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Flex, Icon, Text } from '../../src/primitives';
-import type { ButtonFill, ButtonLook, ButtonSize, ButtonVariant } from '../../src/primitives/Button/Button.type';
+import type { ButtonFill, ButtonLook, ButtonSize, ButtonVariant, ButtonWidth } from '../../src/primitives/Button/Button.type';
 import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
 import type { StateEntry, StateProps } from '../_template/states/states.type';
 import { ButtonHints } from './_samples/ButtonHints';
 import { ButtonCta } from './_samples/button-cta';
+import { ButtonGradient } from './_samples/button-gradient';
 import { ButtonLoading } from './_samples/button-loading';
 import { ButtonPixel } from './_samples/button-pixel';
 import { BUTTON_STATES } from './_samples/button-states';
@@ -22,6 +23,7 @@ type ButtonArgs = {
   size: ButtonSize;
   look: ButtonLook;
   fill: ButtonFill;
+  width: ButtonWidth;
   caption: string;
   disabled: boolean;
   loading: boolean;
@@ -30,7 +32,7 @@ type ButtonArgs = {
 
 const VARIANTS: readonly ButtonVariant[] = ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'info', 'success', 'ghost'];
 
-const ARGS: Partial<ButtonArgs> = { label: 'Save changes', variant: 'primary', size: 'md', look: 'flat', fill: 'tonal', caption: '', disabled: false, loading: false, active: false };
+const ARGS: Partial<ButtonArgs> = { label: 'Save changes', variant: 'primary', size: 'md', look: 'flat', fill: 'tonal', width: 'auto', caption: '', disabled: false, loading: false, active: false };
 
 const meta = {
   title: 'Primitives · Actions/Button',
@@ -46,13 +48,14 @@ const Playground = {
     variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
     size: { group: 'Appearance', control: 'select', options: ['xs', 'sm', 'md', 'lg'] },
     look: { group: 'Appearance', control: 'select', options: ['flat', 'pixel'], description: 'pixel draws a dithered fill, a stepped frame and the game font; it has no ghost form.' },
-    fill: { group: 'Appearance', control: 'select', options: ['tonal', 'solid'], description: 'solid fills the button with the bright tone and sets dark text, for a call to action.' },
+    fill: { group: 'Appearance', control: 'select', options: ['tonal', 'solid', 'gradient'], description: 'solid fills the button with the bright tone, for a call to action; gradient adds a glow and is for primary.' },
+    width: { group: 'Appearance', control: 'select', options: ['auto', 'wide'], description: 'wide sets a minimum width, so a lone call to action does not shrink to its label.' },
     disabled: { group: 'State', control: 'boolean' },
     loading: { group: 'State', control: 'boolean', description: 'Shows the spinner in place of the icon, or over the label, and disables the button.' },
     active: { group: 'State', control: 'boolean' },
   },
   render: (args) => (
-    <Button variant={args.variant} size={args.size} look={args.look} fill={args.fill} caption={args.caption || undefined} disabled={args.disabled} loading={args.loading} active={args.active}>
+    <Button variant={args.variant} size={args.size} look={args.look} fill={args.fill} width={args.width} caption={args.caption || undefined} disabled={args.disabled} loading={args.loading} active={args.active}>
       {args.label}
     </Button>
   ),
@@ -129,6 +132,11 @@ const CallToAction = {
   render: () => <ButtonCta />,
 } satisfies StoryLiteStoryDefinition<ButtonArgs>;
 
+const GradientCta = {
+  name: 'Gradient call to action',
+  render: () => <ButtonGradient />,
+} satisfies StoryLiteStoryDefinition<ButtonArgs>;
+
 const TightRow = {
   name: 'In a tight row',
   render: () => (
@@ -164,14 +172,14 @@ const Overview = overviewStory({
     '`danger`, `warning`, `info` and `success` carry an urgency.',
     '`lg` is 56 px tall, `md` 39 px, `sm` 28 px and `xs` 20 px; a compact [DensityScope] makes `sm` the default.',
     '`active` marks a toggle button as on, announced as pressed; `hint` reports to a [HintScope], as on [IconButton].',
-    '`look="pixel"` draws a dithered fill and a stepped frame; `fill="solid"` makes it a bright call to action.',
-    '`icon`, `caption` and `loading` shape the label; `href` renders a [Link] that looks the same.',
+    '`look="pixel"` draws a dithered frame; `fill="solid"` or `"gradient"` makes a bright call to action.',
+    '`icon`, `caption` and `loading` shape the label; `href` renders a [Link]; `width="wide"` suits a lone one.',
   ],
   instead: '[IconButton] for an icon alone, or [Pressable] for a clickable surface with a look of its own.',
   playground: Playground,
-  variants: [AllVariants, Icons, EveryIcon, Loading, PixelLook, CallToAction, TightRow, Hints],
+  variants: [AllVariants, Icons, EveryIcon, Loading, PixelLook, CallToAction, GradientCta, TightRow, Hints],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, CallToAction, EveryIcon, Hints, Icons, Loading, Overview, PixelLook, Playground, TightRow };
+export { AllVariants, CallToAction, EveryIcon, GradientCta, Hints, Icons, Loading, Overview, PixelLook, Playground, TightRow };
