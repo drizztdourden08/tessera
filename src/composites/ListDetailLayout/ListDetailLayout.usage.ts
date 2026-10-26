@@ -24,7 +24,7 @@ const usage = {
     'Pass listRatio, such as 0.6, to give the list a share of the room in place of a width in pixels; the divider then drags the share, from 0.2 to 0.8.',
     'Pass detailCollapsible to let the detail fold to a rail the same way, or detailCollapsed with onDetailCollapsedChange to hold it.',
     'The divider always resizes; pulling the list about 32 px narrower than its minimum folds it to a rail, and dragging the rail outward opens it. With detailCollapsible, pulling the divider past the largest list folds the detail the same way.',
-    'Pass listScroll={false} or detailScroll={false} when the content scrolls by itself, such as a DataTable or a tab strip over its own scroll area.',
+    'Pass listScroll={false} or detailScroll={false} when the content scrolls by itself, such as a DataTable or a tab strip over its own scroll area; each list container then fills the pane.',
     'Put a SaveBar last in the detail: it sits flush with the foot of the pane.',
     'Name the panes with listLabel and detailLabel, in lower case, such as presets and preset editor.',
     'A folded pane is the rail of SidePanel, drawn by the same part: sunken, 60 px wide, its label written sideways, reading up on the left and down on the right. The fold buttons overlap the dashed outside border, with the list button on its detail side and the detail button on its list side.',

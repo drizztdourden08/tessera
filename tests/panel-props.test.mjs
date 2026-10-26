@@ -3,6 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { LogPanel } from '../src/composites/LogPanel';
+import { PanelContainer } from '../src/composites/PanelContainer';
 import { SearchResults } from '../src/composites/SearchResults';
 import { EmptyState } from '../src/primitives/EmptyState';
 import { ProgressBar } from '../src/primitives/ProgressBar';
@@ -14,6 +15,17 @@ describe('LogPanel height', () => {
     expect(renderToString(h(LogPanel, { rows: ROWS, height: 'fill', toolbar: false }))).toContain('class="box--sunken tool-frame log-panel log-panel--fill"');
     expect(renderToString(h(LogPanel, { rows: ROWS, height: 160, toolbar: false }))).toContain('class="box--sunken tool-frame log-panel log-panel--fixed" style="block-size:160px"');
     expect(renderToString(h(LogPanel, { rows: ROWS, toolbar: false, className: 'host' }))).toContain('class="box--sunken tool-frame log-panel host"');
+  });
+});
+
+describe('PanelContainer fill', () => {
+  it('fills the room left only when asked', () => {
+    const fill = renderToString(h(PanelContainer, { title: 'Rows', fill: true }, 'x'));
+    expect(fill).toContain('class="panel-container panel-container--fill"');
+    expect(fill).toContain('class="panel-container__body panel-container__body--fill"');
+    const plain = renderToString(h(PanelContainer, { title: 'Rows' }, 'x'));
+    expect(plain).toContain('class="panel-container"');
+    expect(plain).not.toContain('--fill');
   });
 });
 

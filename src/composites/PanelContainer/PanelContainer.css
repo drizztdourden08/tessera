@@ -6,6 +6,16 @@
   gap: var(--space-sm);
 }
 
+.panel-container--fill {
+  flex: 1;
+  min-block-size: 0;
+}
+
+.panel-container__body--fill {
+  flex: 1;
+  min-block-size: 0;
+}
+
 .panel-container__body {
   display: flex;
   min-inline-size: 0;

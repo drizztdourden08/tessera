@@ -17,6 +17,17 @@ describe('the ListDetailLayout list width', () => {
   });
 });
 
+describe('ListDetailLayout list fill', () => {
+  it('lets the list containers fill the pane only when the list does not scroll', () => {
+    const fixed = draw({ listScroll: false });
+    expect(fixed).toContain('panel-container panel-container--fill');
+    expect(fixed).toContain('panel-container__body panel-container__body--fill');
+    const scrolling = draw();
+    expect(scrolling).not.toContain('panel-container--fill');
+    expect(scrolling).not.toContain('panel-container__body--fill');
+  });
+});
+
 describe('ListDetailLayout', () => {
   it('draws the list pane, the pane edge with the divider and the fold button, and the detail pane', () => {
     const html = draw();

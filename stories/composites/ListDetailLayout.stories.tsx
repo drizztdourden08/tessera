@@ -8,6 +8,7 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { NAV_ICONS } from './_samples/nav';
+import { ListTableDemo } from './_samples/ListTableDemo';
 import { SessionDetail } from './_samples/SessionDetail';
 import { SESSIONS } from './_samples/sessions';
 import './ListDetail.stories.css';
@@ -116,6 +117,11 @@ const Stacked = {
   render: () => <LayoutDemo startSelected={false} narrow />,
 } satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
 
+const TableFill = {
+  name: 'A table that scrolls itself: listScroll false, the table fills the list pane',
+  render: () => <ListTableDemo />,
+} satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
+
 const renderState = (props: StateProps) => <LayoutDemo startSelected={props.empty !== true} />;
 
 const CODE = `import { ListDetailLayout, ListItemList, ListItemRow } from '@drizztdourden08/tessera';
@@ -151,7 +157,7 @@ const Overview = overviewStory({
   ],
   instead: '[ListDetail] for an editor that asks before unsaved edits are lost, or [SplitPane] for two equal panes.',
   playground: Playground,
-  variants: [Resizable, Collapsed, RatioColumns, BothFoldable, BothListFolded, DetailFolded, Stacked],
+  variants: [Resizable, Collapsed, RatioColumns, BothFoldable, BothListFolded, DetailFolded, Stacked, TableFill],
   states: {
     render: renderState,
     list: [
@@ -163,4 +169,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { BothFoldable, BothListFolded, Collapsed, DetailFolded, Overview, Playground, RatioColumns, Resizable, Stacked };
+export { BothFoldable, BothListFolded, Collapsed, DetailFolded, Overview, Playground, RatioColumns, Resizable, Stacked, TableFill };

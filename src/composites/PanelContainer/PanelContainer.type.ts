@@ -6,6 +6,7 @@ interface PanelContainerProps {
   title: ReactNode;
   action?: ReactNode;
   level?: HeadingLevel;
+  fill?: boolean;
   children: ReactNode;
   className?: string;
 }
