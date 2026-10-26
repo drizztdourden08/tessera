@@ -51,7 +51,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   },
   'Primitives · Display': {
     SectionHeader: 'heading-1', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
-    EmptyState: 'inbox', Disclosure: 'list-collapse', Image: 'image', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
+    EmptyState: 'inbox', Disclosure: 'list-collapse', List: 'list', Table: 'table', Image: 'image', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', ToolGroups: 'group', Pressable: 'pointer', Link: 'link' },
   'Primitives · Inputs': {

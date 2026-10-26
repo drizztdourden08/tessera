@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 import type { ExtraProps } from 'react-markdown';
 import type { CodeBlockLanguage } from '../CodeBlock/CodeBlock.type';
 
@@ -22,6 +22,7 @@ interface MarkdownProps {
 interface MarkdownSettings {
   onLink?: MarkdownLinkHandler;
   headingOffset: MarkdownHeadingOffset;
+  size: MarkdownSize;
 }
 
 interface MarkdownPartProps extends ExtraProps {
@@ -36,11 +37,22 @@ interface MarkdownListProps extends MarkdownPartProps {
   start?: number;
 }
 
+interface MarkdownCellProps extends MarkdownPartProps {
+  style?: CSSProperties;
+}
+
 interface MarkdownImageProps extends ExtraProps {
   alt?: string;
 }
 
 type MarkdownNode = NonNullable<ExtraProps['node']>;
+
+type MarkdownChild = MarkdownNode['children'][number];
+
+interface TaskParts {
+  label: ReactNode[];
+  nested: ReactNode[];
+}
 
 interface MarkdownCode {
   code: string;
@@ -52,6 +64,6 @@ interface MarkdownTree {
 }
 
 export type {
-  MarkdownCode, MarkdownHeadingOffset, MarkdownImageProps, MarkdownLinkHandler, MarkdownLinkProps, MarkdownListProps, MarkdownNode,
-  MarkdownPartProps, MarkdownProps, MarkdownSettings, MarkdownSize, MarkdownTree,
+  MarkdownCellProps, MarkdownChild, MarkdownCode, MarkdownHeadingOffset, MarkdownImageProps, MarkdownLinkHandler, MarkdownLinkProps, MarkdownListProps, MarkdownNode,
+  MarkdownPartProps, MarkdownProps, MarkdownSettings, MarkdownSize, MarkdownTree, TaskParts,
 };

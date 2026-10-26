@@ -5,7 +5,7 @@ import { Markdown } from '../../src/composites';
 import type { MarkdownHeadingOffset, MarkdownSize } from '../../src/composites';
 import { Box } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { HTML_NOTE, NOTE_SAMPLES, RELEASE_NOTE } from './_samples/markdown-notes.constants';
+import { HTML_NOTE, NOTE_SAMPLES, README_NOTE, RELEASE_NOTE } from './_samples/markdown-notes.constants';
 import { MarkdownLinkDemo } from './_samples/MarkdownLinkDemo';
 import { MarkdownSourcePair } from './_samples/MarkdownSourcePair';
 import { NarrowNoteDialog } from './_samples/NarrowNoteDialog';
@@ -23,7 +23,7 @@ type MarkdownArgs = {
 const ARGS: Partial<MarkdownArgs> = { note: 'Release note', size: 'md', headingOffset: 1, hideTitle: false };
 
 const ARG_TYPES: PlaygroundArgTypes<MarkdownArgs> = {
-  note: { group: 'Content', control: 'select', options: ['Release note', 'Raw HTML', 'Long note'] },
+  note: { group: 'Content', control: 'select', options: ['Release note', 'Raw HTML', 'Long note', 'README'] },
   size: { group: 'Appearance', control: 'select', options: ['sm', 'md'], description: 'sm for a dialog or a notes box.' },
   headingOffset: { group: 'Content', control: 'select', options: [0, 1, 2, 3, 4, 5], description: 'Levels added to each heading: 1 makes # an h2.' },
   hideTitle: { group: 'Content', control: 'boolean', description: 'Drops the # title when the frame already names the version.' },
@@ -46,6 +46,11 @@ const Playground = {
 const ReleaseNote = {
   name: 'A release note',
   render: () => <MarkdownSourcePair source={RELEASE_NOTE} />,
+} satisfies StoryLiteStoryDefinition<MarkdownArgs>;
+
+const Readme = {
+  name: 'A README with a table, tasks and strikethrough',
+  render: () => <MarkdownSourcePair source={README_NOTE} />,
 } satisfies StoryLiteStoryDefinition<MarkdownArgs>;
 
 const RawHtml = {
@@ -72,18 +77,18 @@ const Overview = overviewStory({
   component: 'Markdown',
   description: 'Shows a Markdown text, such as a release note, drawn with Tessera parts. Raw HTML is dropped.',
   points: [
-    'Headings, paragraphs, lists, bold, italic, links, inline code, code blocks, quotes and rules are drawn.',
-    'Raw HTML is dropped; an image shows its alt text and a table stays plain text.',
-    'Only http, https and mailto links stay links; any other link becomes plain text.',
+    'Headings, lists, bold, italic, links, code, quotes and rules are drawn with Tessera parts, not styled HTML.',
+    'GitHub tables, task lists, strikethrough and autolinks are drawn; a task item is a read-only Checkbox.',
+    'Raw HTML is dropped, an image shows its alt text, and only http, https and mailto links stay links.',
     '`onLink` takes every link click; without it a link opens in a new tab with rel noopener.',
     '`headingOffset` moves headings down, 1 by default, so # is an h2; `hideTitle` drops the # title.',
     '`size` sm fits a dialog or a notes box; md fits a page.',
   ],
   instead: '[Text] for text written in the app, or [CodeBlock] for code shown as it is.',
   playground: Playground,
-  variants: [ReleaseNote, RawHtml, NarrowDialog, LinksInApp],
+  variants: [ReleaseNote, Readme, RawHtml, NarrowDialog, LinksInApp],
   code: CODE,
 });
 
 export default meta;
-export { LinksInApp, NarrowDialog, Overview, Playground, RawHtml, ReleaseNote };
+export { LinksInApp, NarrowDialog, Overview, Playground, RawHtml, Readme, ReleaseNote };

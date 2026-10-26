@@ -30,10 +30,6 @@ A fix release. The <b>bold</b> tags here are dropped, and their word stays.
 - [A web link](https://example.com/brock) stays a link.
 - [A script link](javascript:void(0)) and a [file link](file:///C:/notes.txt) become plain text.
 - An image becomes its text: ![the new update dialog](https://example.com/dialog.png)
-
-| Table | Plain |
-| --- | --- |
-| shown | as text |
 `;
 
 const LONG_NOTE = `# Relic of the Past v0.15.0
@@ -76,6 +72,35 @@ A controllers release. Every pad now goes through one input layer, and a pad tha
 - Read the [hosting guide](https://example.com/rotp/hosting) for the other options.
 `;
 
-const NOTE_SAMPLES = { 'Release note': RELEASE_NOTE, 'Raw HTML': HTML_NOTE, 'Long note': LONG_NOTE } as const;
+const README_NOTE = `# Star Raiders
 
-export { HTML_NOTE, LONG_NOTE, NOTE_SAMPLES, RELEASE_NOTE };
+A small **arcade** game. ~~Beta~~ Version 1.0 is out, and the project page is https://example.com/star-raiders.
+
+## Controls
+
+| Key | Action | Uses per run |
+|:----|:------:|-------------:|
+| W, S | Move up or down | 120 |
+| Space | **Fire** | 305 |
+| Esc | Pause | 4 |
+
+## Roadmap
+
+- [x] Keyboard and pad input
+- [x] Saved scores
+- [ ] Online boards
+  - [ ] Weekly reset
+  - [x] Friends list
+- [ ] Mod support
+
+## Install
+
+1. Download the zip.
+2. Unpack it anywhere.
+   - Keep the folder name short.
+3. Run \`star-raiders\`.
+`;
+
+const NOTE_SAMPLES = { 'Release note': RELEASE_NOTE, 'Raw HTML': HTML_NOTE, 'Long note': LONG_NOTE, README: README_NOTE } as const;
+
+export { HTML_NOTE, LONG_NOTE, NOTE_SAMPLES, README_NOTE, RELEASE_NOTE };

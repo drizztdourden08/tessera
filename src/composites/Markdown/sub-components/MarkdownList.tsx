@@ -1,15 +1,7 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives/Box';
+import { List } from '../../../primitives/List';
 import type { MarkdownListProps } from '../Markdown.type';
 
-const MarkdownList = ({ node, start, children }: MarkdownListProps) => {
-  const numbered = node?.tagName === 'ol';
-  const first = numbered && start !== undefined ? { start } : {};
-  return (
-    <Box as={numbered ? 'ol' : 'ul'} className={`markdown__list markdown__list--${numbered ? 'numbers' : 'bullets'}`} {...first}>
-      {children}
-    </Box>
-  );
-};
+const MarkdownList = ({ node, start, children }: MarkdownListProps) => <List ordered={node?.tagName === 'ol'} start={start}>{children}</List>;
 
 export { MarkdownList };

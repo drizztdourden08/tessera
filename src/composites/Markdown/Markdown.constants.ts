@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind data */
 import type { HeadingTag } from '../../primitives/Title/Title.type';
 import type { CodeBlockLanguage } from '../CodeBlock/CodeBlock.type';
-import type { MarkdownHeadingOffset } from './Markdown.type';
+import type { TableAlign } from '../../primitives/Table';
+import type { MarkdownHeadingOffset, MarkdownSize } from './Markdown.type';
 
 const LINK_PROTOCOLS: ReadonlySet<string> = new Set(['http:', 'https:', 'mailto:']);
 
@@ -11,6 +12,14 @@ const LANGUAGE_PREFIX = 'language-';
 
 const DEFAULT_HEADING_OFFSET: MarkdownHeadingOffset = 1;
 
+const DEFAULT_SIZE: MarkdownSize = 'md';
+
+const TABLE_ALIGNS: readonly string[] = ['left', 'center', 'right'] satisfies TableAlign[];
+
+const TASK_CLASS = 'task-list-item';
+
+const NO_CHANGE = (): void => undefined;
+
 const HEADING_TAGS: readonly HeadingTag[] = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
-export { CODE_LANGUAGES, DEFAULT_HEADING_OFFSET, HEADING_TAGS, LANGUAGE_PREFIX, LINK_PROTOCOLS };
+export { CODE_LANGUAGES, DEFAULT_HEADING_OFFSET, DEFAULT_SIZE, HEADING_TAGS, LANGUAGE_PREFIX, LINK_PROTOCOLS, NO_CHANGE, TABLE_ALIGNS, TASK_CLASS };

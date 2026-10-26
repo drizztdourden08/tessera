@@ -168,8 +168,10 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A block of code: no component yet.
   - Words that draw the eye, animated: no component yet.
   - Formatted text from Markdown, such as release notes: [Markdown](components/Markdown.md). Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsafe links dropped.
+  - A bulleted or numbered list of short items: [List](components/List.md). List is the bulleted or numbered list; ListItem is one item, and a nested List inside it is drawn one step in.
 - Data. **What data are you showing?**
   - Rows and columns to sort and filter: [DataTable](components/DataTable.md). DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long.
+  - A small table of facts that is only read: [Table](components/Table.md). Table draws a static table from TableSection, TableRow and TableCell; DataTable is the table the user sorts and filters.
   - Filters over a collection: no component yet.
   - A list the user adds to, renames and deletes from: [ItemList](components/ItemList.md). ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
   - A list the user reorders, with on and off icons on each row: no component yet.
