@@ -7,6 +7,7 @@ import { Box } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { HTML_NOTE, NOTE_SAMPLES, README_NOTE, RELEASE_NOTE } from './_samples/markdown-notes.constants';
 import { MarkdownExtrasDemo } from './_samples/MarkdownExtrasDemo';
+import { MarkdownImageClickDemo } from './_samples/MarkdownImageClickDemo';
 import { MarkdownLinkDemo } from './_samples/MarkdownLinkDemo';
 import { MarkdownSourcePair } from './_samples/MarkdownSourcePair';
 import { NarrowNoteDialog } from './_samples/NarrowNoteDialog';
@@ -74,7 +75,12 @@ const ImagesAndIds = {
   render: () => <MarkdownExtrasDemo />,
 } satisfies StoryLiteStoryDefinition<MarkdownArgs>;
 
-const CODE = `import { Markdown } from '@drizztdourden08/tessera';
+const ImageClick = {
+  name: 'Base64 images and a click handler',
+  render: () => <MarkdownImageClickDemo />,
+} satisfies StoryLiteStoryDefinition<MarkdownArgs>;
+
+const CODE =`import { Markdown } from '@drizztdourden08/tessera';
 
 <Markdown source={note} />
 <Markdown source={note} size="sm" headingOffset={3} hideTitle onLink={openInBrowser} />
@@ -87,15 +93,15 @@ const Overview = overviewStory({
     'GitHub tables, task lists and strikethrough, with headings, lists, code and quotes, use Tessera parts.',
     'Raw HTML is dropped, and only http, https and mailto links stay links, plus app paths with `onLink`.',
     '`onLink` takes every link click; without it a link opens in a new tab with rel noopener.',
-    '`images` is off, so an image shows its alt text; true allows http and https, a function rewrites the src.',
+    '`images` draws http, https and base64 png, jpeg, gif and webp, never svg; `onImage` makes each a button.',
     '`linkIds` turns ids such as T-5 into links in text, never inside code or a link.',
     '`headingOffset` moves headings down, `hideTitle` drops the # title, and `size` is sm, md or inline.',
   ],
   instead: '[Text] for text written in the app, or [CodeBlock] for code shown as it is.',
   playground: Playground,
-  variants: [ReleaseNote, Readme, RawHtml, NarrowDialog, LinksInApp, ImagesAndIds],
+  variants: [ReleaseNote, Readme, RawHtml, NarrowDialog, LinksInApp, ImagesAndIds, ImageClick],
   code: CODE,
 });
 
 export default meta;
-export { ImagesAndIds, LinksInApp, NarrowDialog, Overview, Playground, RawHtml, Readme, ReleaseNote };
+export { ImageClick, ImagesAndIds, LinksInApp, NarrowDialog, Overview, Playground, RawHtml, Readme, ReleaseNote };
