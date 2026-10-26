@@ -39,9 +39,11 @@ const SubMenu = (props: SubMenuProps) => {
   return (
     <Box ref={ref} className="dropdown__submenu-trigger" onMouseEnter={() => !item.disabled && setStart(start ?? 'none')} onMouseLeave={leave}>
       <Pressable
+        {...item.data}
         {...highlight}
         ref={triggerRef}
         role="menuitem"
+        aria-description={item.ariaDescription}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-controls={open ? menuId : undefined}
