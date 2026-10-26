@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind types */
+import type { TextEdit } from '../MarkdownEditor.type';
+
 interface ListLine {
   indent: string;
   marker: string;
@@ -15,4 +17,6 @@ interface ListKeyEvent {
   shiftKey: boolean;
 }
 
-export type { ListKeyEvent, ListLine };
+type ListEdit = (text: string, start: number, end: number) => TextEdit | null;
+
+export type { ListEdit, ListKeyEvent, ListLine };

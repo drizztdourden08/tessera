@@ -1,7 +1,6 @@
 /* @layer renderer-components @kind logic */
 import type { ListLine } from './list-line.type';
-
-const LIST_LINE = /^([ \t]*)([-*+]|\d+\.)([ \t]+)(\[[ xX]\][ \t]+)?(.*)$/;
+import { LIST_LINE } from './parse-list-line.constants';
 
 const parseListLine = (line: string): ListLine | null => {
   const found = LIST_LINE.exec(line);

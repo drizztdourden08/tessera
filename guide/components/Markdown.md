@@ -40,6 +40,11 @@ Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsaf
 - Set size inline inside a card or an InlineEdit display: no block margins, paragraphs as runs, tight lists, and headings as bold text at the text size.
 - Pass onLink in a desktop app to open a link in the system browser; without it a link opens in a new tab.
 - Only http, https and mailto links are kept. Any other link and raw HTML become plain text or nothing, and an image shows its alt text.
+- Pass images to draw images: true allows http and https addresses, and a function gets each src and returns the address to load, or nothing to drop the image.
+- An image is drawn with Image, with its alt text, lazy loading and no wider than the text; it stays off by default.
+- Pass linkIds, a rule or a list of rules with a pattern and an href function, so plain ids such as T-5 become links; they are made in text only, never in code or inside a link.
+- A link that starts with a slash, such as /files/notes.md, is an app path: it is kept only when onLink is passed, and goes to onLink like any link.
+- Whatever an href function gives still has to be an http, https or mailto address, or an app path with onLink; javascript and data addresses are always dropped.
 
 ## Accessibility
 
@@ -67,6 +72,8 @@ const UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (
 - `headingOffset` (optional): `MarkdownHeadingOffset`, one of `0`, `1`, `2`, `3`, `4`, `5`. Default `DEFAULT_HEADING_OFFSET`.
 - `hideTitle` (optional): `boolean`. Default `false`.
 - `size` (optional): `MarkdownSize`, one of `'sm'`, `'md'`, `'inline'`. Default `'md'`.
+- `images` (optional): `MarkdownImages`.
+- `linkIds` (optional): `MarkdownLinkId | MarkdownLinkId[]`.
 - `className` (optional): `string`.
 
 ## Tokens

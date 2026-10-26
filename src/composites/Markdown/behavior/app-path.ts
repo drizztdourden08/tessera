@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind util */
-const APP_PATH = /^\/(?![/\\])[^\t\n\r\\]*$/;
+import { APP_PATH } from './app-path.constants';
 
 const isAppPath = (url: string): boolean => APP_PATH.test(url);
 

@@ -7,7 +7,7 @@ const clearEmptyItem = (text: string, start: number, end: number): TextEdit | nu
   if (start !== end) return null;
   const { from, to, line } = currentLine(text, start);
   const item = parseListLine(line);
-  if (!item || item.content.trim() !== '' || start !== to) return null;
+  if (item?.content.trim() !== '' || start !== to) return null;
   return { from, to, insert: '', selectStart: from, selectEnd: from };
 };
 

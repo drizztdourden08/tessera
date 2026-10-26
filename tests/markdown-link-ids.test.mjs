@@ -20,7 +20,7 @@ describe('Markdown linkIds', () => {
     expect(html).toContain('>T-5</a>');
   });
 
-  it('takes a single rule as well as a list', () => {
+  it('takes a single rule and a list', () => {
     expect(draw({ onLink, linkIds: TASK }, 'T-5')).toContain('href="/items/T-5"');
   });
 

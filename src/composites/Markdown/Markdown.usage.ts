@@ -47,7 +47,7 @@ const UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (
   <Markdown source={source} size="sm" headingOffset={2} hideTitle onLink={openExternal} />
 );
 `,
-  propsHash: '62f539ff5b5486fb',
+  propsHash: '9d1c8f56a130fc78',
 } satisfies ComponentUsage;
 
 export { usage };

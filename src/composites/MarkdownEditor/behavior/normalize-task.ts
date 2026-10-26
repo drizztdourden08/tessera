@@ -1,8 +1,7 @@
 /* @layer renderer-components @kind logic */
 import type { TextEdit } from '../MarkdownEditor.type';
 import { currentLine } from './current-line';
-
-const TASK_START = /^([ \t]*)([-*+]) \[ ?\]$/;
+import { TASK_START } from './normalize-task.constants';
 
 const normalizeTask = (text: string, start: number, end: number): TextEdit | null => {
   if (start !== end) return null;

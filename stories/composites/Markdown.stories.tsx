@@ -78,7 +78,7 @@ const CODE = `import { Markdown } from '@drizztdourden08/tessera';
 
 <Markdown source={note} />
 <Markdown source={note} size="sm" headingOffset={3} hideTitle onLink={openInBrowser} />
-<Markdown source={note} images linkIds={{ pattern: /\b[TI]-\d+\b/, href: (id) => `/items/${id}` }} onLink={open} />`;
+<Markdown source={note} images linkIds={{ pattern: /\\b[TI]-\\d+\\b/, href: itemPath }} onLink={open} />`;
 
 const Overview = overviewStory({
   component: 'Markdown',
