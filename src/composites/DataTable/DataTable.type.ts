@@ -44,6 +44,9 @@ interface DataTableProps<T> extends RowFeatureProps<T> {
   onSortChange?: (sort: readonly SortEntry[]) => void;
   expanded?: ReadonlySet<string>;
   onExpandedChange?: (ids: ReadonlySet<string>) => void;
+  detailRowId?: string | null;
+  renderDetail?: (row: T) => ReactNode;
+  onDetailClose?: () => void;
 }
 
 interface ColumnActions {
@@ -123,6 +126,10 @@ interface RowRenderContext<T> {
   groupActions?: RowFeatureProps<T>['groupActions'];
   renderCell?: DataTableProps<T>['renderCell'];
   rowState?: DataTableProps<T>['rowState'];
+  detailRowId?: string | null;
+  renderDetail?: DataTableProps<T>['renderDetail'];
+  onDetailClose?: () => void;
+  onDetailHeight?: (height: number) => void;
 }
 
 interface TrackOverride {

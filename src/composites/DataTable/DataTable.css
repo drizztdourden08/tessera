@@ -28,13 +28,15 @@
 .data-table__body {
   position: relative;
   inline-size: 100%;
-  block-size: calc(var(--dt-count) * var(--dt-row-h));
+  block-size: calc(var(--dt-count) * var(--dt-row-h) + var(--dt-detail-h));
 }
 
 .data-table__body > .data-table__row,
 .data-table__body > .data-table__group {
   position: absolute;
-  inset-block-start: calc(var(--dt-index) * var(--dt-row-h));
+  inset-block-start: calc(
+    var(--dt-index) * var(--dt-row-h) + var(--dt-detail-h) * clamp(0, calc(var(--dt-index) - var(--dt-detail-at)), 1)
+  );
   inset-inline-start: 0;
   box-sizing: border-box;
   block-size: var(--dt-row-h);

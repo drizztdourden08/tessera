@@ -26,6 +26,7 @@ const usage = {
     'Pass rowState(row) to mark a row active, pending, error or muted; the row shows it as an edge, a tint or a lower contrast, and a selected row keeps the selection background.',
     'Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.',
     'A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.',
+    'Pass detailRowId with renderDetail(row) to open a panel under one row, such as an inline confirm or a small form; it spans every column, works in groups and with sort, and the app keeps the id and clears it from onDetailClose.',
     'Give ref and call getRects() for a rect of every row from the layout, drawn or not, with the rows of collapsed groups left out, for useMarqueeSelect({ getRects }); pass scrollRef, bind and overlay as on VirtualGrid.',
   ],
   a11y: [
@@ -34,6 +35,7 @@ const usage = {
     'A group header is a button that says whether the group is expanded.',
     'A group action is a button named by its label, after the group button in the tab order, and a click on it does not toggle the group.',
     'The grip of a row is a button; Up and Down move the row by one place, focus stays on the grip, and a polite live region says where the row went.',
+    'The detail is a row with one cell that spans the columns, placed after its row in the tab order; Escape inside it calls onDetailClose unless a field already used the key.',
     'A checkbox in a row that scrolls out of view stays drawn while it has focus, so the keys keep working.',
   ],
   tree: {
@@ -67,7 +69,7 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
   />
 );
 `,
-  propsHash: '6e42042fef8d0b7f',
+  propsHash: '1d03c477fa6af319',
 } satisfies ComponentUsage;
 
 export { usage };

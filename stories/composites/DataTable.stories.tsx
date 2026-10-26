@@ -9,6 +9,8 @@ import { PLAYERS, PLAYER_SCHEMA } from './_samples/data-players';
 import type { PlayerRow } from './_samples/data-players';
 import { resolveSlotDefault } from './_samples/data-hints';
 import { DataTableControlled } from './_samples/DataTableControlled';
+import { DataTableDetailConfirm } from './_samples/DataTableDetailConfirm';
+import { DataTableDetailForm } from './_samples/DataTableDetailForm';
 import { DataTableGroupActions } from './_samples/DataTableGroupActions';
 import { DataTableRowDrag } from './_samples/DataTableRowDrag';
 import { DataTableRowMarquee } from './_samples/DataTableRowMarquee';
@@ -131,6 +133,16 @@ const Controlled = {
   render: () => <DataTableControlled />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
+const DetailConfirm = {
+  name: 'Row detail: inline delete confirm',
+  render: () => <DataTableDetailConfirm />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const DetailForm = {
+  name: 'Row detail: small edit form, inside groups',
+  render: () => <DataTableDetailForm />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
 const AllVariants = {
   name: 'All variants',
   render: () => (
@@ -167,7 +179,7 @@ const Overview = overviewStory({
     '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
     '`defaultExpanded` picks the groups that start open; `virtualizeFrom` draws only the rows in view.',
     '`groupActions` adds header buttons; `onRowMove` and `rowDragData` move rows; `getRects` feeds a marquee.',
-    '`renderCell`, `rowState` and `rowHeight` shape cells and rows; `sort` and `expanded` let the app own the view.',
+    '`renderCell`, `rowState`, `rowHeight` shape rows; `renderDetail` adds a panel; `sort`, `expanded` are yours.',
   ],
   instead: '[ListItemRow] for a short list of rich rows with no columns to sort.',
   playground: Players,
@@ -187,5 +199,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  AllVariants, Controlled, GroupActions, LongGroups, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail,
+  AllVariants, Controlled, DetailConfirm, DetailForm, GroupActions, LongGroups, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail,
 };
