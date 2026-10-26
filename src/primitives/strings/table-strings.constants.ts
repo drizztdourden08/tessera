@@ -52,6 +52,8 @@ const TABLE_STRINGS = {
   sortByNamed: (label: string) => `Sort by ${label}`,
   selectRow: 'Select row',
   selectAllShown: 'Select all shown rows',
+  moveRow: 'Move row',
+  rowMoved: (position: number, total: number) => `Row moved to ${position} of ${total}`,
   collapseGroup: 'Collapse group',
   expandGroup: 'Expand group',
 };

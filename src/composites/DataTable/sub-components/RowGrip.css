@@ -1,0 +1,48 @@
+/* @layer renderer-components @kind style */
+.data-table--reorderable .data-table__header,
+.data-table--reorderable .data-table__row,
+.data-table--reorderable .data-table__group {
+  grid-template-columns: var(--table-select-w) var(--dt-tracks);
+}
+
+.data-table--reorderable.data-table--selectable .data-table__header,
+.data-table--reorderable.data-table--selectable .data-table__row,
+.data-table--reorderable.data-table--selectable .data-table__group {
+  grid-template-columns: var(--table-select-w) var(--table-select-w) var(--dt-tracks);
+}
+
+.data-table__grip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  cursor: default;
+}
+
+.data-table .data-table__grip-handle {
+  color: var(--c-text-muted);
+  cursor: grab;
+  touch-action: none;
+}
+
+.data-table__row:hover .data-table__grip-handle,
+.data-table .data-table__grip-handle:focus-visible {
+  color: var(--c-text-dim);
+}
+
+.data-table__row[data-dragging='yes'] {
+  background: var(--c-primary-soft);
+  opacity: var(--opacity-muted);
+}
+
+.data-table__row[data-dragging='yes'] .data-table__grip-handle {
+  cursor: grabbing;
+}
+
+.data-table__row[data-drop='before'] {
+  box-shadow: inset 0 var(--size-2) 0 0 var(--c-primary-bright);
+}
+
+.data-table__row[data-drop='after'] {
+  box-shadow: inset 0 calc(-1 * var(--size-2)) 0 0 var(--c-primary-bright);
+}

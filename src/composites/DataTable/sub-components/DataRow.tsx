@@ -3,7 +3,9 @@ import { Box } from '../../../primitives/Box';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { cellContent } from '../behavior/cell-content';
 import { placeProps } from '../behavior/place-props';
+import { rowAttrs } from '../behavior/row-attrs';
 import { DataCell } from './DataCell';
+import { RowGrip } from './RowGrip';
 import { SelectCell } from './SelectCell';
 import type { MouseEvent } from 'react';
 import type { DataRowProps } from './DataRow.type';
@@ -12,7 +14,7 @@ const DataRow = <T,>(props: DataRowProps<T>) => {
   const { row, context, index } = props;
   const {
     columns, schema, draggingPath, getRowId, selectedId, onSelect, selection,
-    onCellDragOver, onCellDrop, resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
+    onCellDragOver, onCellDrop, resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref, reorder,
   } = context;
   const { table } = useTesseraStrings();
   const id = getRowId(row);
@@ -28,7 +30,9 @@ const DataRow = <T,>(props: DataRowProps<T>) => {
       aria-selected={selected}
       onClick={handleClick}
       onMouseDown={selection?.onRowMouseDown}
+      {...rowAttrs(row, id, context)}
     >
+      {reorder && <RowGrip id={id} reorder={reorder} />}
       {selection?.selectable && (
         <SelectCell
           role="gridcell"

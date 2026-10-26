@@ -4,19 +4,13 @@ import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
 import { Tooltip } from '../../../primitives/Tooltip';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { reorderStep } from '../../reorder/reorder-step';
+import { gripKeyDown } from '../../reorder/grip-key-down';
 import type { RowHandleProps } from '../RowGrid.type';
 import './RowHandle.css';
 
 const RowHandle = ({ name, index, total, drag, onStep }: RowHandleProps) => {
   const { rowGrid } = useTesseraStrings();
-  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>): void => {
-    if (event.key === 'Escape') drag.cancel();
-    const to = reorderStep(event, { axis: 'vertical', chord: 'plain', index, total });
-    if (to === undefined) return;
-    event.preventDefault();
-    onStep(to);
-  };
+  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>): void => gripKeyDown(event, { drag, index, total, onStep });
   return (
     <Tooltip content={rowGrid.moveHint} className="row-grid__grip">
       <IconButton

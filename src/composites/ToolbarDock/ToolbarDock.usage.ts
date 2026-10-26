@@ -20,7 +20,7 @@ const usage = {
     'layout.sides[side] is a list of lanes, and a lane is a list of places { id, start, size }. start and size are fractions of the lane, from 0 to 1, so a lane can hold several toolbars with gaps between them. layout.corners says which side claims each corner. Read the ids of a side with toolbarIdsOf(layout, side), never by indexing sides.',
     'migrateToolbarLayout(saved, definitions) reads a saved layout of any version, upgrades a v1 layout to v2 and cleans a v2 one. Pass every saved layout through it.',
     'definitions names each toolbar. A toolbar in the layout without a definition is not drawn, and a hidden toolbar is not drawn.',
-    'renderToolbar draws one toolbar and gets its orientation, its side, the handle and labels. Pass the orientation, the handle and labels to Toolbar.',
+    'renderToolbar draws one toolbar and gets its orientation, its side, menuSide, the handle and labels. Pass the orientation, menuSide, the handle and labels to Toolbar.',
     'layout.labels is optional and maps a toolbar id to true or false. Missing means the default of the app, and the slot then has no labels. setToolbarLabels(layout, id, on) sets it and returns the same layout when nothing changes. The layout version stays 2, and migrateToolbarLayout keeps valid entries and drops the rest.',
     'moveToolbarToSide(layout, id, side) moves a shown toolbar to a side, placed as showToolbar places it: its last spot on that side if free, else a new lane, else the largest gap. With no room, or when the toolbar is already on that side, it returns the same layout. last is kept as it was.',
     'The orientation comes from the side: horizontal on top and bottom, vertical on left and right. It is never stored.',
@@ -66,8 +66,8 @@ const Editor = ({ layout, setLayout, itemsOf, definitions, children }: EditorPro
     layout={layout}
     onLayoutChange={setLayout}
     definitions={definitions}
-    renderToolbar={(id, { orientation, handle, labels }) => (
-      <Toolbar label={id} items={itemsOf(id)} orientation={orientation} labels={labels} handle handleProps={handle} />
+    renderToolbar={(id, { orientation, menuSide, handle, labels }) => (
+      <Toolbar label={id} items={itemsOf(id)} orientation={orientation} menuSide={menuSide} labels={labels} handle handleProps={handle} />
     )}
   >
     {children}

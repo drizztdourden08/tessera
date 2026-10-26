@@ -5,6 +5,7 @@ import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import { ToolbarDemo } from './_samples/ToolbarDemo';
+import { ToolbarEdgeDemo } from './_samples/ToolbarEdgeDemo';
 import { TOOLBAR_ARG_TYPES, TOOLBAR_ARGS, TOOLBAR_CODE } from './_samples/toolbar-story.constants';
 import type { ToolbarArgs } from './_samples/toolbar-story.type';
 import './Toolbar.stories.css';
@@ -87,6 +88,11 @@ const List = {
   render: () => <ToolbarDemo layout="list" handle={false} readout />,
 } satisfies StoryLiteStoryDefinition<ToolbarArgs>;
 
+const RightEdge = {
+  name: 'Near the right edge: the long Transform menu and its sub-menu stay inside the view',
+  render: () => <ToolbarEdgeDemo />,
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
 const Overview = overviewStory({
   component: 'Toolbar',
   description: 'A row or a column of tools: buttons, toggles, groups and a number, with a hint on each and More for the rest.',
@@ -100,7 +106,7 @@ const Overview = overviewStory({
   ],
   instead: '[ActionBar] for the buttons of one item, or [DropdownMenu] for actions that need no button of their own.',
   playground: Playground,
-  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List],
+  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List, RightEdge],
   states: {
     render: (props: StateProps) => <ToolbarDemo {...props} />,
     list: [
@@ -114,4 +120,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { ClickOpen, Horizontal, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, TwoShortcuts, Vertical };
+export { ClickOpen, Horizontal, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, RightEdge, TwoShortcuts, Vertical };

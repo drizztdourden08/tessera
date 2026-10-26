@@ -10,6 +10,8 @@ import { useColumnDrag } from './useColumnDrag';
 import { useColumnSizing } from './useColumnSizing';
 import { useExpandedGroups } from './useExpandedGroups';
 import { useRowContext } from './useRowContext';
+import { useRowFeatures } from './useRowFeatures';
+import { useTableHandle } from './useTableHandle';
 import { useRowSelection } from './useRowSelection';
 import { useTableView } from './useTableView';
 import { useVirtualRows } from './useVirtualRows';
@@ -19,7 +21,7 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
   const {
     rows, schema, getRowId, viewKey, viewStorage, fallbackColumns, fallbackGroupBy,
     defaultExpanded, virtualizeFrom = VIRTUALIZE_FROM, onSelect, selectedId, selectedIds, onSelectionChange, selectable = false,
-    resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
+    resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref, onRowMove, rowDragData, groupActions,
   } = props;
 
   const { table, sessionView, setSessionView } = useTableView({
@@ -47,6 +49,11 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
     nodes: table.groupedRows, isExpanded: groups.isExpanded, getRowId, rootRef: sizing.rootRef,
   });
 
+  const active = windowed ? virtual : null;
+  const { getRects, reorder } = useRowFeatures({
+    onRowMove, virtual: active, rootRef: sizing.rootRef, nodes: table.groupedRows, isExpanded: groups.isExpanded, getRowId,
+  });
+
   const fieldNodes = useMemo(
     () => buildPickerNodes(schema, table.columns.map((column) => column.path)),
     [schema, table.columns],
@@ -66,12 +73,14 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
 
   const context = useRowContext({
     columns: table.columns, schema: index, drag, getRowId, selectedId, onSelect, selection, groups,
-    resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
+    resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref, reorder, rowDragData, groupActions,
   });
 
   return {
     table, index, selection, drag, sizing, fieldNodes, ghostRows, labels, context,
-    virtual: windowed ? virtual : null,
+    virtual: active,
+    rootRef: useTableHandle({ ref: props.ref, getRects, rootRef: sizing.rootRef, scrollRef: props.scrollRef }),
+    reorder,
     checkboxes: selection?.selectable ?? false,
   };
 };

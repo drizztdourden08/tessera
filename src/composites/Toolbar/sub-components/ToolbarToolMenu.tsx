@@ -2,17 +2,17 @@
 import { useContext } from 'react';
 import { DropdownMenu } from '../../DropdownMenu';
 import { ToolbarContext } from '../behavior/toolbar-context';
-import { MENU_SIDE } from '../Toolbar.constants';
+import { toolMenuSide } from '../behavior/tool-menu-side';
 import type { ToolbarToolMenuProps } from './ToolbarToolMenu.type';
 
 const ToolbarToolMenu = (props: ToolbarToolMenuProps) => {
   const { groups, anchorRef, tool, label, hoverOpen, popup } = props;
-  const { orientation } = useContext(ToolbarContext);
+  const { orientation, menuSide } = useContext(ToolbarContext);
   return (
     <DropdownMenu
       groups={groups}
       anchorRef={anchorRef}
-      side={MENU_SIDE[orientation]}
+      side={toolMenuSide(orientation, menuSide)}
       align={popup ? 'end' : 'start'}
       label={label}
       focusOnOpen={tool.mode === 'focus'}

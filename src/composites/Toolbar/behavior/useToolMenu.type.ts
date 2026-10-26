@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent, RefObject } from 'react';
 import type { MenuHover } from '../../DropdownMenu/DropdownMenu.type';
-import type { ToolbarOrientation } from '../Toolbar.type';
+import type { ToolbarMenuSide, ToolbarOrientation } from '../Toolbar.type';
 
 type ToolMenuMode = 'closed' | 'hover' | 'focus';
 
@@ -11,6 +11,7 @@ interface ToolMenuParams {
   hoverOpen: boolean;
   disabled: boolean | undefined;
   orientation: ToolbarOrientation;
+  menuSide: ToolbarMenuSide;
 }
 
 interface ToolMenu {

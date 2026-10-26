@@ -9,6 +9,12 @@ const THREE_DOCUMENTS: readonly DocumentTab[] = [
   { id: 'logo', title: 'logo-16px.bxl', icon: 'image', tooltip: 'art/ui/logo-16px.bxl' },
 ];
 
+const UNSAVED_DOCUMENTS: readonly DocumentTab[] = [
+  { id: 'hero', title: 'hero-idle.bxl', icon: 'image', unsaved: true },
+  { id: 'tiles', title: 'forest-tiles.bxl', icon: 'layers', unsaved: true },
+  { id: 'logo', title: 'logo-16px.bxl', icon: 'image' },
+];
+
 const MANY_DOCUMENTS: readonly DocumentTab[] = Array.from({ length: 24 }, (_, index) => ({
   id: `sprite-${String(index + 1)}`,
   title: `sprite-sheet-${String(index + 1)}.bxl`,
@@ -16,12 +22,12 @@ const MANY_DOCUMENTS: readonly DocumentTab[] = Array.from({ length: 24 }, (_, in
   unsaved: index % 6 === 2,
 }));
 
-const DOCUMENT_SETS: Readonly<Record<DocumentSet, readonly DocumentTab[]>> = { three: THREE_DOCUMENTS, many: MANY_DOCUMENTS, none: [] };
+const DOCUMENT_SETS: Readonly<Record<DocumentSet, readonly DocumentTab[]>> = { three: THREE_DOCUMENTS, many: MANY_DOCUMENTS, unsaved: UNSAVED_DOCUMENTS, none: [] };
 
 const DOCUMENT_TABS_ARGS: DocumentTabsArgs = { documents: 'three', menu: false };
 
 const DOCUMENT_TABS_ARG_TYPES: PlaygroundArgTypes<DocumentTabsArgs> = {
-  documents: { group: 'Content', control: 'select', options: ['three', 'many', 'none'], description: 'How many documents the strip starts with.' },
+  documents: { group: 'Content', control: 'select', options: ['three', 'many', 'unsaved', 'none'], description: 'How many documents the strip starts with.' },
   menu: { group: 'Content', control: 'boolean', description: 'The menu that lists every open document.' },
 };
 

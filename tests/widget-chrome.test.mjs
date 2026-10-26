@@ -115,7 +115,7 @@ describe('a docked widget', () => {
       defaultFloatingSize: { width: 200, height: 200 }, chrome: 'compact',
     };
     const api = {
-      layout: { frame: {} }, peek: false, definitionOf: () => definition, labelOf: () => 'Players', contentOf: () => 'Four online',
+      layout: { frame: {} }, peek: false, definitionOf: () => definition, labelOf: () => 'Players', iconOf: () => undefined, contentOf: () => 'Four online',
       actionsOf: () => null, disabledOf: () => null, canPopOut: () => false, change: noop, apply: noop, close: noop, popOut: noop,
     };
     const html = renderToString(h(WidgetPane, { api, widgets: ['players'], activeId: 'players', paneKey: 'p1', options: null }));

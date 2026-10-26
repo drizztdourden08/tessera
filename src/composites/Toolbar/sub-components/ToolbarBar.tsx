@@ -15,7 +15,7 @@ import { ToolbarMeasure } from './ToolbarMeasure';
 import { ToolbarMore } from './ToolbarMore';
 
 const ToolbarBar = (props: ToolbarProps) => {
-  const { items, label, orientation = 'horizontal', size = 'sm', handle = false, handleProps, labels = true, className } = props;
+  const { items, label, orientation = 'horizontal', size = 'sm', handle = false, handleProps, labels = true, menuSide = 'right', className } = props;
   const barRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const fit = useAxisFit({
@@ -23,7 +23,7 @@ const ToolbarBar = (props: ToolbarProps) => {
   });
   const { shown, folded } = splitItems(items, fit);
   const { stop, onFocus } = useToolbarStop(stopIds(shown, handle, folded.length > 0));
-  const context = useMemo(() => ({ orientation, layout: 'bar' as const, size, labels, stop, measure: false }), [orientation, size, labels, stop]);
+  const context = useMemo(() => ({ orientation, menuSide, layout: 'bar' as const, size, labels, stop, measure: false }), [orientation, menuSide, size, labels, stop]);
 
   return (
     <ToolbarContext value={context}>

@@ -18,7 +18,7 @@ const useLayerDrag = (onMove: (from: number, to: number) => void) => {
   return { listRef, drag: useReorderDrag({ listRef, selector: REORDER_ITEM_SELECTOR, onDrop: onMove }) };
 };
 `,
-  propsHash: 'd655b8687fd38d91',
+  propsHash: '0b90624d3248f2f5',
 };
 
 export { usage };

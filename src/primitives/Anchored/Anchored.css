@@ -1,4 +1,15 @@
 /* @layer renderer-components @kind style */
+:where(.anchored, .anchored-fallback) {
+  --anchored-margin: var(--space-xs);
+}
+
+@position-try --anchored-pin-inline {
+  right: var(--anchored-margin);
+  left: var(--anchored-margin);
+  justify-self: start;
+  max-inline-size: stretch;
+}
+
 :where(.anchored) {
   inset: auto;
   margin: 0;
@@ -58,16 +69,17 @@
 }
 
 .anchored[data-flip] {
-  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline;
+  position-try-fallbacks: flip-block, flip-inline, flip-block flip-inline, --anchored-pin-inline, flip-block --anchored-pin-inline;
 }
 
 .anchored[data-flip][data-anchor-place^='right'],
 .anchored[data-flip][data-anchor-place^='left'] {
-  position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline;
+  position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline, --anchored-pin-inline, flip-block --anchored-pin-inline;
 }
 
 .anchored-fallback {
   position: fixed;
+  translate: var(--anchored-shift-x, 0%) var(--anchored-shift-y, 0%);
   pointer-events: auto;
 }
 
@@ -80,7 +92,7 @@
 }
 
 .anchored-fallback[data-anchor-place$='-center'] {
-  translate: -50% 0;
+  translate: calc(-50% + var(--anchored-shift-x, 0%)) var(--anchored-shift-y, 0%);
 }
 
 .anchored-fallback[data-anchor-place^='right'] {
@@ -93,5 +105,5 @@
 
 .anchored-fallback[data-anchor-place='right-center'],
 .anchored-fallback[data-anchor-place='left-center'] {
-  translate: 0 -50%;
+  translate: var(--anchored-shift-x, 0%) calc(-50% + var(--anchored-shift-y, 0%));
 }
