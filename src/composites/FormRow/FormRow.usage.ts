@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
-  job: 'One option of a long form: its name and help on the left, its control in the middle, a changed mark and a reset at the end.',
+  job: 'One option of a long form: its name and help on the left, its control on the right edge, a changed mark and a reset after the name.',
   useWhen: [
     'A form lists many options built from a schema, such as the options of a game preset, each with a default to go back to.',
     'The user needs to see at a glance which options differ from their default.',
@@ -12,7 +12,8 @@ const usage = {
     { case: 'A short form needs a label, a hint and an error around each input.', use: 'Field' },
   ],
   rules: [
-    'Set changed when the value differs from its default, and pass onReset to put the default back.',
+    'Set changed when the value differs from its default, and pass onReset to put the default back; the reset sits after the name and is absent while the value is the default.',
+    'The control column is end-aligned, so every control of a list of rows shares one right edge.',
     'Write problem as what blocks the save and what to do, such as Not saved: fix the JSON first.',
     'Tag rare options with advanced, and hide them behind Show advanced in FormGroupTabs.',
     'Write the whole description: past descriptionLines lines, 2 by default, it folds behind More and Less, so the app needs no fold of its own.',

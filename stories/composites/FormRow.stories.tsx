@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { FormRow } from '../../src/composites';
-import { Box, TextInput } from '../../src/primitives';
+import { Box, Slider, TextInput, Toggle } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import type { StateProps } from '../_template/states/states.type';
@@ -21,7 +21,7 @@ const ARG_TYPES: PlaygroundArgTypes<FormRowArgs> = {
   label: { group: 'Content', control: 'text' },
   description: { group: 'Content', control: 'text' },
   descriptionOverflow: { group: 'Content', control: 'select', options: ['more', 'hint'], description: 'more folds a long description behind More; hint keeps the row height and offers the full text in a tip.' },
-  changed: { group: 'State', control: 'boolean', description: 'Marks the row as changed and turns on its reset button.' },
+  changed: { group: 'State', control: 'boolean', description: 'Marks the row as changed and shows its reset button after the name.' },
   advanced: { group: 'Content', control: 'boolean', description: 'An advanced tag after the label.' },
   problem: { group: 'State', control: 'text', description: 'A line under the control in the danger tone.' },
 };
@@ -79,6 +79,23 @@ const Help = {
   ),
 } satisfies StoryLiteStoryDefinition<FormRowArgs>;
 
+const Edge = {
+  name: 'Controls of different widths share one right edge, and only the changed row has a reset',
+  render: () => (
+    <Box className="option-editor-story option-editor-story--wide">
+      <FormRow label="Player Name" description="The name other players see.">
+        <TextInput defaultValue="Bram" />
+      </FormRow>
+      <FormRow label="Death Link" help="When you die, everyone in the room with Death Link on dies too." changed onReset={() => {}}>
+        <Toggle checked onChange={() => {}} />
+      </FormRow>
+      <FormRow label="Progression Balancing" description="Moves progression earlier.">
+        <Slider value={65} onChange={() => {}} min={0} max={99} input />
+      </FormRow>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<FormRowArgs>;
+
 const Editor = {
   name: 'Preset editor with FormGroupTabs and FormRow: changed counts per tab, reset per row',
   render: () => <PresetOptionsDemo />,
@@ -97,18 +114,18 @@ const CODE = `import { FormRow, KeyValueEditor } from '@drizztdourden08/tessera'
 
 const Overview = overviewStory({
   component: 'FormRow',
-  description: 'One option of a long form: its name and help on the left, its control in the middle, a reset at the end.',
+  description: 'One option of a long form: its name, help and reset on the left, its control on the right.',
   points: [
-    '`changed` marks the row and turns on the reset button, which calls `onReset`.',
+    '`changed` marks the row and shows a reset button after the name; it calls `onReset` and is absent when unchanged.',
     '`advanced` tags an option most people leave alone; `problem` writes an alert under the control.',
     'The control gets the id, label and notes of the row, as inside a [Field].',
-    'Under 640 px the control goes under the name, with the reset kept on the first line.',
+    'The control column is end-aligned, so every control in a list of rows shares one right edge.',
     'A description past `descriptionLines` lines folds behind More; `descriptionOverflow="hint"` keeps the height.',
     '`help` puts a ? after the name that shows its note on hover, focus or click, for help kept off the page.',
   ],
   instead: '[SettingsRow] for an app setting with a live hint, or [Field] for a plain form.',
   playground: Playground,
-  variants: [Editor, Folded, Hint, Help],
+  variants: [Edge, Editor, Folded, Hint, Help],
   states: {
     render: (props: StateProps) => row(props as Partial<FormRowArgs>),
     list: [
@@ -122,4 +139,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Editor, Folded, Help, Hint, Overview, Playground };
+export { Edge, Editor, Folded, Help, Hint, Overview, Playground };

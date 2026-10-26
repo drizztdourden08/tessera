@@ -124,7 +124,7 @@ One line per component. 85 of 200 have their usage written; a linked name opens 
 - [FloatingPrompt](components/FloatingPrompt.md): A bar at the foot of a region that asks a question with actions such as Apply and Cancel, and blocks the region until the user answers. Import from `@drizztdourden08/tessera`.
 - `FloatingSwitch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [FormGroupTabs](components/FormGroupTabs.md): The top of a long form split into groups: a search over the options, Show advanced, and a tab per group with how many options changed. Import from `@drizztdourden08/tessera`.
-- [FormRow](components/FormRow.md): One option of a long form: its name and help on the left, its control in the middle, a changed mark and a reset at the end. Import from `@drizztdourden08/tessera`.
+- [FormRow](components/FormRow.md): One option of a long form: its name and help on the left, its control on the right edge, a changed mark and a reset after the name. Import from `@drizztdourden08/tessera`.
 - `GroupTree`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [GuidedTour](components/GuidedTour.md): A tour of a screen, step by step: one part stays lit with a glow while the rest dims and blurs, a bubble explains it and the mascot presents it. Import from `@drizztdourden08/tessera`.
 - `HeaderAnchorNav`: usage not written yet. Import from `@drizztdourden08/tessera`.

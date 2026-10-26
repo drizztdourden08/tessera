@@ -1,6 +1,6 @@
 # FormRow
 
-One option of a long form: its name and help on the left, its control in the middle, a changed mark and a reset at the end.
+One option of a long form: its name and help on the left, its control on the right edge, a changed mark and a reset after the name.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -28,7 +28,8 @@ FormRow lays out the name, the control, the changed mark and the reset of an opt
 
 ## Rules
 
-- Set changed when the value differs from its default, and pass onReset to put the default back.
+- Set changed when the value differs from its default, and pass onReset to put the default back; the reset sits after the name and is absent while the value is the default.
+- The control column is end-aligned, so every control of a list of rows shares one right edge.
 - Write problem as what blocks the save and what to do, such as Not saved: fix the JSON first.
 - Tag rare options with advanced, and hide them behind Show advanced in FormGroupTabs.
 - Write the whole description: past descriptionLines lines, 2 by default, it folds behind More and Less, so the app needs no fold of its own.
@@ -75,4 +76,4 @@ const BalancingRow = ({ value, onChange }: { value: number; onChange: (value: nu
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-hairline`, `--size-32`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-semi`.
+It draws on `--border-width-thin`, `--c-hairline`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-semi`.

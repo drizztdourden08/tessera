@@ -29,6 +29,7 @@ interface FormRowHeadProps {
   descriptionId: string;
   changed: boolean;
   advanced: boolean;
+  onReset?: () => void;
 }
 
 export type { FormRowHeadProps, FormRowProps };
