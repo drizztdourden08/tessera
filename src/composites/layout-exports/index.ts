@@ -25,7 +25,7 @@ export type {
 } from '../UtilityScreen';
 export { StageScreen, type StageScreenDone, type StageScreenProps } from '../StageScreen';
 export { Hero } from '../Hero';
-export type { HeroArt, HeroProps, HeroShade, HeroSize } from '../Hero';
+export type { HeroArt, HeroArtMotion, HeroProps, HeroShade, HeroSize } from '../Hero';
 export { FactsPanel, type FactsPanelFact, type FactsPanelGroup, type FactsPanelLayout, type FactsPanelProps } from '../FactsPanel';
 export { ContentHeader } from '../ContentHeader';
 export type { ContentHeaderLevel, ContentHeaderProps } from '../ContentHeader';

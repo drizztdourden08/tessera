@@ -1,0 +1,41 @@
+/* @layer renderer-components @kind style */
+.hero.hero--full .hero__art--node {
+  inset: 0;
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  height: 100%;
+  filter: none;
+}
+
+.hero.hero--full .hero__art--node > * {
+  flex: 1 1 auto;
+  width: 100%;
+  pointer-events: none;
+}
+
+.hero .hero__art.hero__art--pan {
+  inset: 0;
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+  width: var(--hero-pan-w);
+  height: 100%;
+  filter: none;
+  animation: hero-pan var(--duration-hero-pan) var(--ease-in-out) infinite alternate;
+}
+
+.hero .hero__art.hero__art--pan .image__img {
+  object-fit: cover;
+  object-position: center;
+}
+
+@keyframes hero-pan {
+  from { translate: 0 0; }
+  to { translate: var(--hero-pan-run) 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .hero__art.hero__art--pan {
+    width: 100%;
+    animation: none;
+  }
+}

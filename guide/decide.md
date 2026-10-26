@@ -114,6 +114,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Empty space: no component yet.
   - A line between sections: no component yet.
   - Content that scrolls: [ScrollArea](components/ScrollArea.md). ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content.
+  - A full-height page that scrolls inside one frame: [PageFrame](components/PageFrame.md). PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document.
   - More content behind a line that shows or hides it: [Disclosure](components/Disclosure.md). Disclosure shows or hides what is under one line with the browser details element, with one look for every app.
   - A list beside its detail: [ListDetailLayout](components/ListDetailLayout.md). ListDetailLayout draws the panes, the resize, the fold and the small window of every list and detail screen the same way.
   - Two panes the user resizes: no component yet.
@@ -140,6 +141,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Website chrome. **Which part of the site?**
     - The band at the top: [SiteHeader](components/SiteHeader.md). SiteHeader is the one site-only part on top of the page; everything under it is an app part.
     - The line at the foot: [SiteFooter](components/SiteFooter.md). SiteFooter is the one line at the foot of a website page, under the app parts.
+    - The root of the page: [PageRoot](components/PageRoot.md). PageRoot is the one part that turns document scrolling on; everything inside it is built from the usual parts.
   - A ready-made app panel. **Which panel?**
     - Facts in groups: no component yet.
     - An opening banner with art: no component yet.

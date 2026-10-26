@@ -10,6 +10,10 @@
   animation: dialog-fade-in 0.15s ease-out;
 }
 
+html[data-scroll='document']:has(.dialog-backdrop) {
+  overflow: hidden;
+}
+
 .dialog {
   background: var(--c-surface);
   border: var(--border-width-thin) solid var(--c-border);

@@ -1,0 +1,5 @@
+/* @layer stories @kind style */
+.page-frame-story {
+  block-size: var(--size-384);
+  border: var(--border-width-thin) solid var(--c-border);
+}
