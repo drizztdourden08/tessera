@@ -1,5 +1,21 @@
 # @drizztdourden08/tessera
 
+## 0.68.0
+
+### Minor Changes
+
+- e30591d: ContextMenu now returns focus to its opener after any close, including when the parent sets `open` false, and leaves focus alone when the user clicked into another focusable element. Menu items take `data` (data attributes) and `ariaDescription`, passed to the item, slider and sub-menu trigger.
+- 7f56c9f: Dialog and DialogShell take `size` (sm, md or lg): the width follows the content between a min and a max from tokens, never passes the window minus a margin, and the height grows to the window with only the body scrolling. `steady` pins the width to the max of the size, which JobDialog, CreateRecordDialog and DeleteGuardDialog use to keep today's width.
+- 2a113e7: Markdown draws GitHub tables, task lists, strikethrough and autolinks with `remark-gfm`, and every piece now renders through a Tessera part: lists with the new `List` and `ListItem`, tables with the new `Table`, `TableSection`, `TableRow` and `TableCell`, and a task item as a read-only `Checkbox`. `List` and `Table` are new primitives that any screen can use.
+- d83d933: DocumentTabs takes `onTabContextMenu(tabId, event)` and `onAdd`, which draws a + button after the last tab. StatusBar takes `onItemContextMenu(itemId, event)`, and ListItemRow takes `onContextMenu` and `onKeyDown`, so right click, Menu and Shift+F10 reach the app. ColorSwatch draws a checkerboard behind a colour with alpha below 1.
+- abeb960: ToolbarLayout gains an optional `labels` map with `setToolbarLabels`, Toolbar takes `labels`, and `moveToolbarToSide` moves a toolbar to a side with the placement rules of showToolbar.
+- 5956636: TourStep takes `intro: true` with an `art` slot for a wide centred welcome panel beside a large mascot, and `reveal()` to bring a target in before the tour looks for it. The tour now scrolls a target to the centre at once, through every scrolling ancestor, and measures the lit part on the next frame, so the hole lands in the right place.
+
+### Patch Changes
+
+- 82eb303: A ListItemRow outside a ListItemList, such as inside a VirtualList item, now stretches to the full item width.
+- 9719d8e: A menu opened from a left or right docked toolbar now flows in sideways out of the bar, as a top bar menu flows in downward, with the same border, radius and shadow.
+
 ## 0.67.0
 
 ### Minor Changes
