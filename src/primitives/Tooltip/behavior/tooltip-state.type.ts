@@ -5,6 +5,6 @@ interface TooltipState {
   dismissed: boolean;
 }
 
-type TooltipEvent = 'enter' | 'leave' | 'press' | 'focus' | 'blur' | 'dismiss';
+type TooltipEvent = 'enter' | 'leave' | 'press' | 'focus' | 'blur' | 'dismiss' | 'scroll';
 
 export type { TooltipEvent, TooltipState };
