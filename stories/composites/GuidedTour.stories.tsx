@@ -3,7 +3,9 @@ import type { StoryLiteMeta } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { TourDemo } from './_samples/TourDemo';
+import { TourIntroDemo } from './_samples/TourIntroDemo';
 import { TourMenuDemo } from './_samples/TourMenuDemo';
+import { TourNestedDemo } from './_samples/TourNestedDemo';
 import { TourSpotDemo } from './_samples/TourSpotDemo';
 import { TourWaitDemo } from './_samples/TourWaitDemo';
 import './GuidedTour.stories.css';
@@ -61,6 +63,20 @@ const MenuClick = {
   render: (args) => <TourMenuDemo mascot={args.mascot === 'none' ? false : args.mascot} />,
 } satisfies PlaygroundStory<TourArgs>;
 
+const IntroStep = {
+  name: 'Intro step with art',
+  args: { mascot: 'archipelia' },
+  argTypes: ARG_TYPES,
+  render: (args) => <TourIntroDemo mascot={args.mascot === 'none' ? false : args.mascot} />,
+} satisfies PlaygroundStory<TourArgs>;
+
+const NestedScrollers = {
+  name: 'Target deep in nested scrollers',
+  args: { mascot: 'brock' },
+  argTypes: ARG_TYPES,
+  render: (args) => <TourNestedDemo mascot={args.mascot === 'none' ? false : args.mascot} />,
+} satisfies PlaygroundStory<TourArgs>;
+
 const SpotAlone = {
   name: 'TourSpot alone',
   args: { mascot: 'none' },
@@ -68,14 +84,18 @@ const SpotAlone = {
   render: () => <TourSpotDemo />,
 } satisfies PlaygroundStory<TourArgs>;
 
-const CODE = `import { GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';
-import type { TourStep } from '@drizztdourden08/tessera';
+const CODE = `import { createRef } from 'react';
+import { GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';
+import type { TourStep, VirtualGridHandle } from '@drizztdourden08/tessera';
+
+const gridRef = createRef<VirtualGridHandle>();
 
 const steps: TourStep[] = [
-  { id: 'welcome', title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },
+  { id: 'welcome', intro: true, art: <Logo brand="archipelia" />, title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },
   { id: 'nav', target: { tour: 'nav' }, placement: 'right-start', title: 'Pages', body: 'Every page lives here.' },
   { id: 'gear', target: { tour: 'gear' }, advance: 'click', title: 'Settings', body: 'Click the gear.' },
   { id: 'panel', target: { tour: 'settings' }, title: 'Settings', body: 'Changes apply at once.', onEnter: () => openSettings() },
+  { id: 'tile', target: { tour: 'tile-90' }, reveal: () => gridRef.current?.scrollToIndex(90), title: 'A tile', body: 'Brought in first.' },
   { id: 'save', target: { tour: 'form' }, advance: 'wait', hint: 'Save the form to go on.', title: 'Save', body: 'Name it, then save.' },
 ];
 
@@ -102,14 +122,14 @@ const Overview = overviewStory({
     '`onEnter` runs before its step shows, with a signal that aborts when the step is left; it may be async.',
     "`advance: 'click'` goes on from a click on the lit part, or on its `clickTarget` when one is set.",
     "`advance: 'wait'` hides Next until the app calls `tour.next()`; `hint` says what to do.",
-    '`keep` leaves parts such as the title bar lit and usable; `TourSpot` draws the spotlight alone.',
-    '`onStepShown` and `onStepLeave` follow each step; the keys of the tour go ahead of the keys of the app.',
+    '`intro` shows a wide centred panel with an `art` slot; `reveal` brings a target in before it scrolls.',
+    '`keep` leaves parts lit and usable; `TourSpot` draws the spotlight alone; `onStepShown` follows each step.',
   ],
   instead: '[ShortcutTour] to teach one shortcut on a drawn keyboard.',
   playground: Playground,
-  variants: [ClickStep, KeptTitle, WaitStep, MenuClick, SpotAlone],
+  variants: [ClickStep, KeptTitle, WaitStep, MenuClick, IntroStep, NestedScrollers, SpotAlone],
   code: CODE,
 });
 
 export default meta;
-export { ClickStep, KeptTitle, MenuClick, Overview, Playground, SpotAlone, WaitStep };
+export { ClickStep, IntroStep, KeptTitle, MenuClick, NestedScrollers, Overview, Playground, SpotAlone, WaitStep };

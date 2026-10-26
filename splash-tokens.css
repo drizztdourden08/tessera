@@ -298,6 +298,9 @@
   --field-w-inline: 256px;
   --field-w-inline-min: 160px;
   --stat-row-max-w: 512px;
+  --tour-intro-w: 640px;
+  --tour-intro-art-h: 96px;
+  --tour-intro-mascot: 256px;
   --settings-row-compact-h: 40px;
   --settings-row-compact-control-w: 160px;
   --radius-sm: 4px;

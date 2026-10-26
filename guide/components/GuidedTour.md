@@ -30,6 +30,8 @@ GuidedTour lights one target per step, runs the step onEnter first, and lets the
 ## Rules
 
 - Write the steps as data and keep them in a memo, since onEnter runs each time its step shows.
+- Set intro: true on a welcome step for a wide centred panel; pass a Logo or BrandMark as art, and the mascot grows beside it.
+- Give a step reveal when its target may not be drawn yet, such as a VirtualGrid item; call scrollToIndex there, and the tour finds the target after a frame.
 - Mark a target with data-tour and point at it with { tour }, or pass a ref; a step without a target sits in the middle.
 - Change the state of the app in onEnter, such as opening a panel or a tab, and make it safe to run twice; stop when its signal aborts.
 - Use advance: 'click' only when the click itself does what the step teaches; add clickTarget when one entry of the lit part goes on.
@@ -47,18 +49,19 @@ GuidedTour lights one target per step, runs the step onEnter first, and lets the
 - The rest of the page is inert; the kept parts, the lit part of a click or wait step and its click target stay reachable.
 - Right or Enter goes on, Left goes back and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.
 - A menu or popover opened during a step takes Escape first; the tour closes on the next press, before any dialog or screen.
+- The tour scrolls the target to the centre at once, through every scrolling ancestor, and measures the lit part on the next frame.
 - With reduced motion the highlight and the mascot move at once and nothing fades.
 
 ## Example
 
 ```tsx
 import { useMemo } from 'react';
-import { Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';
+import { BrandMark, Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';
 import type { TourStep } from '@drizztdourden08/tessera';
 
 const HomeTour = ({ openSettings }: { openSettings: () => void }) => {
   const steps = useMemo<TourStep[]>(() => [
-    { id: 'welcome', title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },
+    { id: 'welcome', intro: true, art: <BrandMark app="archipelia" size="xl" />, title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },
     { id: 'pages', target: { tour: 'pages' }, placement: 'right-start', title: 'Pages', body: 'Every page lives here.' },
     { id: 'gear', target: { tour: 'gear' }, advance: 'click', title: 'Settings', body: 'Click the gear to open the settings.' },
     { id: 'panel', target: { tour: 'settings' }, title: 'Settings', body: 'Changes apply at once.', onEnter: openSettings },
@@ -82,7 +85,7 @@ const HomeTour = ({ openSettings }: { openSettings: () => void }) => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--c-primary`, `--c-primary-bright`, `--c-text-dim`, `--duration-drawer`, `--duration-normal`, `--duration-slow`, `--ease-emphasized`, `--ease-standard`, `--leading-normal`, `--radius-lg`, `--radius-xl`, `--shadow-lg`, `--size-1`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--weight-medium`, `--z-floating`, `--z-popover`.
+It draws on `--border-width-thick`, `--c-primary`, `--c-primary-bright`, `--c-text-dim`, `--duration-drawer`, `--duration-normal`, `--duration-slow`, `--ease-emphasized`, `--ease-standard`, `--leading-normal`, `--radius-lg`, `--radius-xl`, `--shadow-lg`, `--size-1`, `--size-320`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xl`, `--text-xs`, `--tour-intro-art-h`, `--tour-intro-w`, `--weight-medium`, `--z-floating`, `--z-popover`.
 
 ## Also exported from this folder
 
