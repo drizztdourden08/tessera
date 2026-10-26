@@ -6,7 +6,7 @@ const DATE_PRESETS: readonly DatePreset[] = ['relative', 'elapsed', 'calendar', 
 const DATE_LENGTHS: readonly DateLength[] = ['short', 'medium', 'long'];
 
 const DEFAULT_LENGTHS: Readonly<Record<DatePreset, DateLength>> = {
-  relative: 'long', elapsed: 'short', calendar: 'medium', date: 'medium', time: 'short',
+  relative: 'long', elapsed: 'medium', calendar: 'medium', date: 'medium', time: 'short',
   datetime: 'medium', weekday: 'medium', month: 'medium', iso: 'medium',
 };
 

@@ -9,6 +9,7 @@ interface TabItem {
   icon?: ReactNode;
   badge?: string | number;
   badgeTone?: TabBadgeTone;
+  badgeTitle?: string;
   disabled?: boolean;
   disabledReason?: string;
 }
@@ -22,7 +23,7 @@ interface TabsProps {
 }
 
 interface TabLabels {
-  reason?: string;
+  description?: string;
   title?: string;
   name?: string;
 }

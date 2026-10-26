@@ -16,7 +16,11 @@ const STATES: Readonly<Record<PlayerRow['status'], RowState>> = {
 };
 
 const playerId = (player: PlayerRow): string => player.id;
-const stateOf = (player: PlayerRow): RowState => STATES[player.status];
+const SLOW_PING = 90;
+
+const stateOf = (player: PlayerRow): RowState => (
+  player.status === 'playing' && player.connection.ping >= SLOW_PING ? 'warning' : STATES[player.status]
+);
 
 const DataTableRowStates = () => {
   const [selectedId, setSelectedId] = useState<string | null>('slot-3');
@@ -24,7 +28,7 @@ const DataTableRowStates = () => {
   return (
     <Box className="data-table-story">
       <Text className="story-label">
-        Playing is active, goal is pending, offline is error and idle is muted. The selected row keeps its selection background and shows its state as an edge.
+        Playing is active, goal is pending, offline is error, idle is muted and a playing row with a slow ping is warning. The selected row keeps its selection background and shows its state as an edge.
       </Text>
       <DataTable
         rows={PLAYERS}

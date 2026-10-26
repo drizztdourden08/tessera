@@ -41,7 +41,7 @@ DataTable gives every collection the same columns, menus and grouping, and draws
 - Pass renderCell(row, path) to draw a cell yourself, such as a thumbnail beside a name; return undefined to keep the schema rendering of that cell.
 - A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.
 - Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.
-- Pass rowState(row) to mark a row active, pending, error or muted; the row shows it as an edge, a tint or a lower contrast, and a selected row keeps the selection background.
+- Pass rowState(row) to mark a row active, pending, error, warning or muted; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar, and a selected row keeps the selection background.
 - Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.
 - A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.
 - Pass detailRowId with renderDetail(row) to open a panel under one row, such as an inline confirm or a small form; it spans every column, works in groups and with sort, and the app keeps the id and clears it from onDetailClose.
@@ -130,7 +130,7 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-danger`, `--c-danger-dim`, `--c-danger-soft`, `--c-hairline`, `--c-hover`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-secondary-soft`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-xs`, `--dt-count`, `--dt-detail-at`, `--dt-detail-h`, `--dt-group-indent`, `--dt-index`, `--dt-tracks`, `--duration-normal`, `--ease-standard`, `--opacity-muted`, `--radius-lg`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-128`, `--size-16`, `--size-192`, `--size-2`, `--size-40`, `--size-80`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--table-select-w`, `--text-sm`, `--text-xs`, `--transition-fast`, `--z-floating`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-danger`, `--c-danger-dim`, `--c-danger-soft`, `--c-hairline`, `--c-hover`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-secondary-soft`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--c-warning-soft`, `--control-h-xs`, `--dt-count`, `--dt-detail-at`, `--dt-detail-h`, `--dt-group-indent`, `--dt-index`, `--dt-tracks`, `--duration-normal`, `--ease-standard`, `--opacity-muted`, `--radius-lg`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-128`, `--size-16`, `--size-192`, `--size-2`, `--size-40`, `--size-80`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--table-select-w`, `--text-sm`, `--text-xs`, `--transition-fast`, `--z-floating`, `--z-sticky`.
 
 ## Also exported from this folder
 

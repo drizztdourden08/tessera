@@ -39,6 +39,26 @@ describe('elapsed text', () => {
   });
 });
 
+describe('short elapsed text', () => {
+  const short = (offset, options) => since(offset, { length: 'short', ...options });
+
+  it('keeps one unit, rounded down, at every boundary', () => {
+    expect([short(0), short(5 * SECOND), short(59 * SECOND), short(60 * SECOND)]).toEqual(['0s', '5s', '59s', '1m']);
+    expect([short(12 * MINUTE + 59 * SECOND), short(HOUR - SECOND), short(HOUR)]).toEqual(['12m', '59m', '1h']);
+    expect([short(3 * HOUR + 59 * MINUTE), short(DAY - SECOND), short(DAY)]).toEqual(['3h', '23h', '1d']);
+    expect([short(2 * DAY + 23 * HOUR), short(40 * DAY)]).toEqual(['2d', '40d']);
+  });
+
+  it('reads 0s before the start, keeps the label and the units of the dates strings, and leaves medium and long alone', () => {
+    expect(short(-5 * MINUTE)).toBe('0s');
+    expect(short(12 * MINUTE, { label: 'running' })).toBe('running 12m');
+    const strings = { elapsedUnits: { second: ' s', minute: ' min', hour: ' h', day: ' j' } };
+    expect(short(3 * HOUR, { strings })).toBe('3 h');
+    expect(since(4 * MINUTE + 3 * SECOND, { length: 'long' })).toBe('4m 03s');
+    expect(since(4 * MINUTE + 3 * SECOND, { length: 'medium' })).toBe('4m 03s');
+  });
+});
+
 describe('elapsed due time', () => {
   it('is the next second under an hour, the next minute under a day, then the next hour', () => {
     expect(elapsedDue(START, START + 12_400)).toBe(START + 13 * SECOND);
@@ -49,6 +69,32 @@ describe('elapsed due time', () => {
     expect(elapsedDue(START, START + DAY)).toBe(START + DAY + HOUR);
     expect(elapsedDue(START, START + 2 * DAY + 30 * MINUTE)).toBe(START + 2 * DAY + HOUR);
     expect(elapsedDue(START, START - HOUR)).toBe(START + SECOND);
+  });
+});
+
+describe('short elapsed due time', () => {
+  it('ticks by the unit shown: second, minute, hour, then day', () => {
+    expect(elapsedDue(START, START + 12_400, true)).toBe(START + 13 * SECOND);
+    expect(elapsedDue(START, START + 59 * SECOND, true)).toBe(START + MINUTE);
+    expect(elapsedDue(START, START + MINUTE, true)).toBe(START + 2 * MINUTE);
+    expect(elapsedDue(START, START + 5 * MINUTE + 20 * SECOND, true)).toBe(START + 6 * MINUTE);
+    expect(elapsedDue(START, START + HOUR, true)).toBe(START + 2 * HOUR);
+    expect(elapsedDue(START, START + DAY - 1, true)).toBe(START + DAY);
+    expect(elapsedDue(START, START + DAY, true)).toBe(START + 2 * DAY);
+    expect(elapsedDue(START, START - HOUR, true)).toBe(START + SECOND);
+  });
+
+  it('gives the clock a watcher that ticks by minutes once a minute has passed', () => {
+    vi.useFakeTimers();
+    const now = Date.now();
+    const listener = vi.fn();
+    const stop = elapsedClock.subscribe(listener, now - 5 * MINUTE, true);
+    vi.advanceTimersByTime(30 * SECOND);
+    expect(listener).not.toHaveBeenCalled();
+    vi.advanceTimersByTime(MINUTE);
+    expect(listener).toHaveBeenCalledTimes(1);
+    stop();
+    expect(elapsedClock.watchers()).toBe(0);
   });
 });
 
@@ -116,6 +162,11 @@ describe('DateText elapsed', () => {
     expect(html).toMatch(/>running 1[2-3]s<\/time>/);
     expect(html).not.toContain('aria-live');
     expect(renderToString(h(DateText, { value: Date.now(), format: 'elapsed', tooltip: false }))).toMatch(/^<time /);
+  });
+
+  it('draws the short style as one unit', () => {
+    const html = renderToString(h(DateText, { value: Date.now() - 4 * MINUTE - 3 * SECOND, format: 'elapsed', length: 'short', tooltip: false }));
+    expect(html).toMatch(/>4m<\/time>/);
   });
 
   it('takes the label joiner from the dates strings', () => {

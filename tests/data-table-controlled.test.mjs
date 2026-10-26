@@ -1,4 +1,5 @@
 /* @layer tooling-scripts @kind test */
+import fs from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
@@ -41,6 +42,14 @@ describe('rowState', () => {
     expect(html).toContain('data-state="active"');
     expect(html).toContain('data-state="error"');
     expect((html.match(/data-state=/g) ?? []).length).toBe(2);
+  });
+
+  it('writes the warning state and draws it from the warning tone tokens', () => {
+    const html = draw({ rowState: (row) => (row.id === 'r1' ? 'warning' : undefined) });
+    expect((html.match(/data-state="warning"/g) ?? []).length).toBe(1);
+    const css = fs.readFileSync('src/composites/DataTable/DataTable.css', 'utf8');
+    expect(css).toMatch(/\[data-state='warning'\]\s*\{\s*background: var\(--c-warning-soft\);/);
+    expect(css).toMatch(/\[data-state='warning'\]:not\(\[data-drop\]\)\s*\{\s*box-shadow: inset var\(--size-2\) 0 0 0 var\(--c-warning\);/);
   });
 
   it('keeps the selected class beside the state', () => {
