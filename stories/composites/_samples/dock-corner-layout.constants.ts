@@ -52,4 +52,8 @@ const CORNER_ONE_HINT = 'The left panel has taken the top left corner and runs d
 
 const CORNER_HINT = 'The left panel owns both left corners. Drag the left end of Hints or the log outward, or press the left arrow on it, to take a corner; drag or press the right arrow to give it back.';
 
-export { CORNER_HINT, CORNER_LAYOUT, CORNER_ONE_HINT, CORNER_ONE_LAYOUT };
+const CORNER_HEADER_HINT = 'Each title bar keeps its buttons clear: a corner handle is 24 px wide and starts below the title bar, so Pop out, Options and Close stay easy to hit.';
+
+const WEIGHTED_HINT = 'Hints joined Players on the left edge with dockWeight 2, so it takes two thirds of the column and Players one third.';
+
+export { CORNER_HEADER_HINT, CORNER_HINT, CORNER_LAYOUT, CORNER_ONE_HINT, CORNER_ONE_LAYOUT, WEIGHTED_HINT };

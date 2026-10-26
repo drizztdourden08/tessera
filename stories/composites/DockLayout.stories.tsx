@@ -7,7 +7,7 @@ import type { StateProps } from '../_template/states/states.type';
 import type { DockMainGrip } from '../../src/composites';
 import { DockDemo } from './_samples/DockDemo';
 import { CHROMES_HINT, DOCK_CHROMES } from './_samples/dock-demo.constants';
-import { CORNER_HINT, CORNER_ONE_HINT } from './_samples/dock-corner-layout.constants';
+import { CORNER_HEADER_HINT, CORNER_HINT, CORNER_ONE_HINT, WEIGHTED_HINT } from './_samples/dock-corner-layout.constants';
 import { SAVED_HINT } from './_samples/dock-saved-layout.constants';
 import './DockLayout.stories.css';
 
@@ -107,6 +107,16 @@ const TakenCorner = {
   render: () => <DockDemo start="corner-one" hint={CORNER_ONE_HINT} />,
 } satisfies StoryLiteStoryDefinition<DockArgs>;
 
+const CornerHeader = {
+  name: 'Corner handles beside title bar buttons',
+  render: () => <DockDemo start="corner-header" hint={CORNER_HEADER_HINT} />,
+} satisfies StoryLiteStoryDefinition<DockArgs>;
+
+const Weighted = {
+  name: 'An edge sized by weight',
+  render: () => <DockDemo start="weighted" hint={WEIGHTED_HINT} />,
+} satisfies StoryLiteStoryDefinition<DockArgs>;
+
 const renderState = (props: StateProps) => (
   <DockDemo className="dock-story--state" floating={false} peek={props.peek === true} />
 );
@@ -136,11 +146,11 @@ const Overview = overviewStory({
     '**It owns no data:** every change leaves through `onEdit` as a `LayoutEdit` for the host to apply.',
     'Drag a title bar to dock, tab or float the widget, or past the window edge to pop it out through `onPopOut`.',
     'A small hint beside the pointer lists the keys: [[Shift]] swaps panes, [[Ctrl]] overlays, [[Esc]] cancels.',
-    'Drag a divider to resize; drag a pane end or press an arrow on it to turn a corner. `floatSnap` snaps.',
+    'Drag a divider to resize. A 24 px handle at a pane end, below its title bar, turns a corner by drag or arrow.',
     '`canDrop` refuses a drop and its hint; WidgetManager uses it to keep each widget `group` in its own panes.',
   ],
   playground: Playground,
-  variants: [Tiled, Floating, Peek, Kit, Snap, Chromes, Saved, Corners, TakenCorner],
+  variants: [Tiled, Floating, Peek, Kit, Snap, Chromes, Saved, Corners, TakenCorner, CornerHeader, Weighted],
   states: {
     render: renderState,
     list: [
@@ -154,4 +164,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Chromes, Corners, Floating, Kit, Overview, Peek, Playground, Saved, Snap, TakenCorner, Tiled };
+export { Chromes, CornerHeader, Corners, Floating, Kit, Overview, Peek, Playground, Saved, Snap, TakenCorner, Tiled, Weighted };

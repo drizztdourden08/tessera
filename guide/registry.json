@@ -14256,6 +14256,7 @@
         "Give a log or a chart fill in its definition, and leave the other widgets on the default padding.",
         "Give every widget of a kit, such as developer tools, the same group: it then never tabs or splits with a widget outside it.",
         "A widget in its own window takes disabled, with the reason as a string, so it shows the state WidgetManager draws when docked.",
+        "Give a definition dockWeight to size it on an edge: weight 2 takes twice the room of 1, and none counts as 1.",
         "Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.",
         "Give the widgets of a kit chrome compact or none in their definition, and pass the same chrome to a Widget in its own window.",
         "To tell the options panel and its sub-panels, such as Shortcuts, from other menus, match the WIDGET_OPTIONS_ATTRIBUTE attribute with closest."

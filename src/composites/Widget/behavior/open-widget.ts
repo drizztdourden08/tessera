@@ -2,11 +2,12 @@
 import type { WidgetDefinition, WidgetLayout } from '../Widget.type';
 import { dockOnEdge } from './dock-on-edge';
 import { getWidgetDefinition } from './get-widget-definition';
+import { weightLookup } from './weight-lookup';
 import { isWidgetOpen } from './is-widget-open';
 
 const openWidget = (layout: WidgetLayout, id: string, definitions: readonly WidgetDefinition[]): WidgetLayout => {
   const def = getWidgetDefinition(definitions, id);
-  return def && !isWidgetOpen(layout, id) ? dockOnEdge(layout, id, def.defaultSide, { size: def.defaultDockedSize }) : layout;
+  return def && !isWidgetOpen(layout, id) ? dockOnEdge(layout, id, def.defaultSide, { size: def.defaultDockedSize, weight: def.dockWeight, weightOf: weightLookup(definitions) }) : layout;
 };
 
 export { openWidget };
