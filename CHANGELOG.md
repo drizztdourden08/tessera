@@ -1,5 +1,18 @@
 # @drizztdourden08/tessera
 
+## 0.78.0
+
+### Minor Changes
+
+- e8b99ae: Button has `fill="gradient"`, a vertical gradient with a soft primary glow for a call to action, and `width="wide"`, a minimum width so a lone button does not shrink to its label. At `lg` the flat label is bold, and a palette can set `--p-primary-gradient-from` to keep the label readable on the lighter end.
+- 23000f6: ListItemRow takes `draggable` with `onDragStart` and `onDragEnd`, so a whole row can be dragged onto an app drop target.
+- 240c312: Markdown with `images` on also draws base64 png, jpeg, gif and webp images (never svg), and has an `onImage` callback that turns each drawn image into a button for a lightbox. It also strips control, private-use and lone surrogate characters from the source before parsing.
+
+### Patch Changes
+
+- 7e4716a: ScreenPage and SideNavLayout content keep a stable scrollbar gutter, so a page whose layout reflows with width no longer flips as the scrollbar comes and goes.
+- 6f0ce99: ScrollArea takes `gutter="stable"` so a page body that reflows with width cannot flip its columns as its scrollbar comes and goes, and GuidedTour settles in bounded time at any frame rate, with a mascot walk timed by the clock and a stand that ignores small changes.
+
 ## 0.77.0
 
 ### Minor Changes
