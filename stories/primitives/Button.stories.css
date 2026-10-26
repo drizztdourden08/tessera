@@ -6,3 +6,12 @@
   border: var(--border-width-thin) dashed var(--c-border);
   border-radius: var(--radius-md);
 }
+
+.button-pixel-demo__ground {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  background: var(--c-bg);
+  color: var(--c-text);
+}

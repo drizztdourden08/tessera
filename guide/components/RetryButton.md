@@ -59,6 +59,7 @@ const Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () =
 - `hint` (optional): `Hint`.
 - `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`. Default `'secondary'`.
 - `size` (optional): `ButtonSize`, one of `'xs'`, `'sm'`, `'md'`. Default `'sm'`.
+- `look` (optional): `ButtonLook`, one of `'flat'`, `'pixel'`.
 - `fullWidth` (optional): `boolean`.
 - `active` (optional): `boolean`.
 - `iconEnd` (optional): `ReactNode`.
