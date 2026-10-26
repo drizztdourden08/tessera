@@ -17,7 +17,7 @@ const MenuSliderItem = (props: MenuEntryProps) => {
   const { min = 0, max = 100, step = 1, value = min } = item;
 
   return (
-    <Box className="dropdown__item dropdown__slider" onKeyDown={keepOwnKeys}>
+    <Box {...item.data} aria-description={item.ariaDescription} className="dropdown__item dropdown__slider" onKeyDown={keepOwnKeys}>
       <MenuMark kind="slider" checked={false} />
       <MenuIcon icon={item.icon} />
       <Span className="dropdown__label">{item.label}</Span>
