@@ -12,6 +12,9 @@ import {
   HINTS, HINT_SCHEMA, resolveSlotDefault, resolveSlotField, resolveTargetFields,
 } from './_samples/data-hints';
 import type { HintRow } from './_samples/data-hints';
+import { DataTableGroupActions } from './_samples/DataTableGroupActions';
+import { DataTableRowDrag } from './_samples/DataTableRowDrag';
+import { DataTableRowMarquee } from './_samples/DataTableRowMarquee';
 import { LongGroupsDemo } from './_samples/LongGroupsDemo';
 import { LinkSandbox } from '../primitives/_samples/LinkSandbox';
 import { axis } from '../_template/axis';
@@ -123,6 +126,21 @@ const LongGroups = {
   render: () => <LongGroupsDemo />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
+const GroupActions = {
+  name: 'Group header actions: select every player of a game',
+  render: () => <DataTableGroupActions />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const RowDrag = {
+  name: 'Row drag: reorder by the grip or Up and Down, drag a row out to the folder',
+  render: () => <DataTableRowDrag />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const RowMarquee = {
+  name: 'Marquee over rows, in groups, with rows drawn as you scroll',
+  render: () => <DataTableRowMarquee />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
 const AllVariants = {
   name: 'All variants',
   render: () => (
@@ -178,11 +196,11 @@ const Overview = overviewStory({
   description: 'A table of records whose columns come from a schema, for any collection the user browses, sorts and picks from.',
   points: [
     'Give it `rows`, a `schema` and `getRowId`; the columns come from the schema.',
-    'Column menus sort, group, rename, resize and remove columns, and columns reorder by drag.',
-    '`viewKey` keeps that layout between visits.',
+    'Column menus sort, group, rename, resize and remove columns; `viewKey` keeps the layout between visits.',
     '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
     'A reference column shows its target by a field the user picks from the column menu.',
     '`defaultExpanded` picks the groups that start open; `virtualizeFrom` draws only the rows in view.',
+    '`groupActions` adds header buttons; `onRowMove` and `rowDragData` move rows; `getRects` feeds a marquee.',
   ],
   instead: '[ListItemRow] for a short list of rich rows with no columns to sort.',
   playground: Players,
@@ -201,4 +219,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, LongGroups, Overview, Players, References };
+export { AllVariants, GroupActions, LongGroups, Overview, Players, References, RowDrag, RowMarquee };

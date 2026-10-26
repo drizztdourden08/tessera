@@ -29,6 +29,7 @@ The source is `src/composites/reorder/index.ts`.
 - Pass REORDER_ITEM_SELECTOR as the selector of useReorderDrag, and spread handlers(index) on the control the user grabs, not on the whole item.
 - Set axis to horizontal, vertical or grid to match the layout; onDrop gets the old and the new position and the app moves the item.
 - Move by keys with reorderStep: pass the key event, the axis, the chord (alt or plain), the index and the total; it returns the new position, or undefined for any other key.
+- When only some items are drawn, such as a windowed list, pass locate(point) to give the position from your own item model; it replaces the measure of the drawn items.
 - For a grid, pass columns from columnsOf(list, REORDER_ITEM_SELECTOR) so up and down move by a row.
 - Call expect(id) of useMoveFocus before the move so focus follows the item, and announce a sentence such as Layer moved to 3 of 8 in a live region that shows its message.
 - Draw the drop mark and the dragging state from dropMark(index, total) and dragging; the hook sets no style.
@@ -87,7 +88,7 @@ const LayerList = ({ layers, onMove }: { layers: Layer[]; onMove: (from: number,
 - `REORDER_ITEM_SELECTOR`, a constant: `":scope > [data-reorder-index]"`.
 - `reorderStep`, a function: `(event: ReorderKeyEvent, options: ReorderStepOptions) => number | undefined`.
 - `useMoveFocus`, a hook: `(listRef: RefObject<HTMLElement | null>) => MoveFocus`.
-- `useReorderDrag`, a hook: `({ listRef, selector, axis, onDrop }: ReorderDragOptions) => ReorderDrag`.
+- `useReorderDrag`, a hook: `({ listRef, selector, axis, locate, onDrop }: ReorderDragOptions) => ReorderDrag`.
 
 ## Types
 
@@ -111,6 +112,7 @@ interface ReorderDragOptions {
   listRef: RefObject<HTMLElement | null>;
   selector: string;
   axis?: ReorderAxis;
+  locate?: (point: { clientX: number; clientY: number }) => number;
   onDrop: (from: number, to: number) => void;
 }
 

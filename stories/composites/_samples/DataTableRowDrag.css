@@ -1,0 +1,20 @@
+/* @layer stories @kind style */
+.data-table-row-drag {
+  display: flex;
+  flex: 1;
+  gap: var(--space-md);
+  min-height: 0;
+}
+
+.data-table-row-drag__folder {
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  gap: var(--space-sm);
+  inline-size: var(--size-192);
+  padding: var(--space-md);
+  border: var(--border-width-thick) dashed var(--c-primary);
+  border-radius: var(--radius-lg);
+  background: var(--c-surface);
+  font-size: var(--text-sm);
+}

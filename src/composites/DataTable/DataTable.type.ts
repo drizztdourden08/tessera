@@ -9,10 +9,11 @@ import type {
   IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver, IdRefTargetFieldResolver,
 } from './behavior/display-substitution.type';
 import type { GrowFallback } from './behavior/overflow-probe.type';
+import type { RowFeatureProps, RowReorderBinding } from './behavior/row-features.type';
 
 type DefaultExpanded = readonly string[] | ((groupKey: string, path: string) => boolean);
 
-interface DataTableProps<T> {
+interface DataTableProps<T> extends RowFeatureProps<T> {
   rows: readonly T[];
   schema: readonly FieldDescriptor[];
   getRowId: (row: T) => string;
@@ -107,6 +108,9 @@ interface RowRenderContext<T> {
   resolveIdRefHref?: IdRefHrefResolver;
   onCellDragOver?: (index: number, event: DragEvent<HTMLElement>) => void;
   onCellDrop?: (index: number, event: DragEvent<HTMLElement>) => void;
+  reorder?: RowReorderBinding | null;
+  rowDragData?: RowFeatureProps<T>['rowDragData'];
+  groupActions?: RowFeatureProps<T>['groupActions'];
 }
 
 interface TrackOverride {

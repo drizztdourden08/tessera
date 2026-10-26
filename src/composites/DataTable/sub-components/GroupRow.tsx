@@ -6,6 +6,7 @@ import { Pressable } from '../../../primitives/Pressable';
 import { Text } from '../../../primitives/Text';
 import { Span } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { IconActions } from '../../ActionBar/sub-components/IconActions';
 import { groupKeyContent } from '../behavior/group-key-content';
 import { placeProps } from '../behavior/place-props';
 import { INDENT_PROPERTY, INDENT_STEP } from './GroupRow.constants';
@@ -14,7 +15,7 @@ import type { GroupRowProps } from './GroupRow.type';
 import './GroupRow.css';
 
 const GroupRow = (props: GroupRowProps) => {
-  const { level, groupKey, field, count, expanded, onToggle, display, index } = props;
+  const { level, groupKey, field, count, expanded, onToggle, display, index, actions } = props;
   const strings = useTesseraStrings();
   const { table } = strings;
   const indent = { [INDENT_PROPERTY]: `calc(${INDENT_STEP} * ${level + 1})` } as CSSProperties;
@@ -35,6 +36,7 @@ const GroupRow = (props: GroupRowProps) => {
         <Box className="data-table__group-total">
           {field && <Span tone="muted" className="data-table__group-field">{field.label}</Span>}
           <Badge variant="inline" color="primary" value={count} />
+          <IconActions actions={actions} className="data-table__group-actions" />
         </Box>
       </Box>
     </Box>
