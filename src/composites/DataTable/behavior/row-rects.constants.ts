@@ -1,4 +1,4 @@
 /* @layer renderer-components @kind constants */
-const ROW_RECT_SELECTOR = '.data-table__row';
+const ITEM_RECT_SELECTOR = '.data-table__row, .data-table__group';
 
-export { ROW_RECT_SELECTOR };
+export { ITEM_RECT_SELECTOR };

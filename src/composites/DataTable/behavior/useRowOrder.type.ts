@@ -12,6 +12,7 @@ interface UseRowOrderInput<T> {
 
 interface RowOrder {
   keys: readonly string[];
+  groups: readonly (string | undefined)[];
   indexOf: (id: string) => number;
 }
 

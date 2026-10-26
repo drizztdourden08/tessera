@@ -3,10 +3,13 @@ import { describe, expect, it, vi } from 'vitest';
 import { flattenRows } from '../src/composites/DataTable/behavior/flatten-rows';
 import { groupActionItems } from '../src/composites/DataTable/behavior/group-action-items';
 import { groupUid } from '../src/composites/DataTable/behavior/group-uid';
+import { itemGroups } from '../src/composites/DataTable/behavior/item-groups';
+import { moveTarget } from '../src/composites/DataTable/behavior/move-target';
 import { rowAttrs } from '../src/composites/DataTable/behavior/row-attrs';
 import { rowDragStart } from '../src/composites/DataTable/behavior/row-drag-start';
 import { rowInsertion } from '../src/composites/DataTable/behavior/row-insertion';
 import { rowRects } from '../src/composites/DataTable/behavior/row-rects';
+import { slotDrop } from '../src/composites/DataTable/behavior/slot-drop';
 
 const leaf = (id) => ({ kind: 'row', row: { id } });
 const group = (key, children, level = 0, path = 'state') => ({
@@ -99,6 +102,48 @@ describe('drop index under virtualization', () => {
   it('follows a collapsed group', () => {
     const shown = rectsOf(open(UID.known));
     expect(rowInsertion(shown, shown[10].rect.y + 30)).toBe(11);
+  });
+});
+
+describe('key based drop target', () => {
+  const FOLDERS = [group('Mine', ids('m', 3)), group('Shared', ids('s', 2)), group('Empty', [])];
+  const items = flattenRows({ nodes: FOLDERS, isExpanded: () => true, getRowId });
+  const keys = items.flatMap((item) => (item.kind === 'row' ? [item.row.id] : []));
+
+  it('gives the group of every shown item, headers included', () => {
+    expect(itemGroups(items)).toEqual(['Mine', 'Mine', 'Mine', 'Mine', 'Shared', 'Shared', 'Shared', 'Empty']);
+  });
+
+  it('puts a drop in the upper half of a header at the end of the group above', () => {
+    expect(slotDrop(items, 4)).toEqual({ before: 3, groupKey: 'Mine' });
+  });
+
+  it('puts a drop just below a header at the top of that group', () => {
+    expect(slotDrop(items, 5)).toEqual({ before: 3, groupKey: 'Shared' });
+  });
+
+  it('puts a drop below an empty group header in that group', () => {
+    expect(slotDrop(items, 8)).toEqual({ before: 5, groupKey: 'Empty' });
+  });
+
+  it('names the rows the drop lands between and the group, after the moved row leaves', () => {
+    expect(moveTarget(keys, 0, 2, 'Mine')).toEqual({ index: 2, afterKey: 'm2', beforeKey: 's0', groupKey: 'Mine' });
+    expect(moveTarget(keys, 4, 0, 'Mine')).toEqual({ index: 0, beforeKey: 'm0', groupKey: 'Mine' });
+    expect(moveTarget(keys, 1, 4, 'Shared')).toEqual({ index: 4, afterKey: 's1', groupKey: 'Shared' });
+  });
+
+  it('gives the other group when a drop moves a row into another folder', () => {
+    const slot = 6;
+    const { before, groupKey } = slotDrop(items, slot);
+    const from = keys.indexOf('m1');
+    const to = before > from ? before - 1 : before;
+    expect(moveTarget(keys, from, to, groupKey)).toEqual({ index: 3, afterKey: 's0', beforeKey: 's1', groupKey: 'Shared' });
+  });
+
+  it('keeps the group when a row moves to the first place of an ungrouped table', () => {
+    const flat = flattenRows({ nodes: ids('u', 3), isExpanded: () => true, getRowId });
+    expect(itemGroups(flat)).toEqual([undefined, undefined, undefined]);
+    expect(moveTarget(['u0', 'u1', 'u2'], 2, 0, undefined)).toEqual({ index: 0, beforeKey: 'u0' });
   });
 });
 

@@ -12,9 +12,16 @@ interface DataTableBind {
   onPointerDown?: (event: PointerEvent<HTMLElement>) => void;
 }
 
+interface RowMoveTarget {
+  index: number;
+  beforeKey?: string;
+  afterKey?: string;
+  groupKey?: string;
+}
+
 interface RowFeatureProps<T> {
   groupActions?: (groupKey: string, rows: readonly T[]) => readonly ActionItem[];
-  onRowMove?: (fromKey: string, toIndex: number) => void;
+  onRowMove?: (fromKey: string, target: RowMoveTarget) => void;
   rowDragData?: (row: T) => Record<string, string>;
   scrollRef?: Ref<HTMLElement>;
   bind?: DataTableBind;
@@ -26,9 +33,9 @@ interface RowReorderBinding {
   total: number;
   indexOf: (id: string) => number;
   drag: ReorderDrag;
-  drop: (from: number, to: number) => void;
+  handlers: (index: number) => ReturnType<ReorderDrag['handlers']>;
   step: (from: number, to: number) => void;
   message: string;
 }
 
-export type { DataTableBind, DataTableHandle, RowFeatureProps, RowReorderBinding };
+export type { DataTableBind, DataTableHandle, RowFeatureProps, RowMoveTarget, RowReorderBinding };

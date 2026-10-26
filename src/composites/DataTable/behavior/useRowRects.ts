@@ -1,29 +1,36 @@
 /* @layer renderer-components @kind hook */
 import { useCallback } from 'react';
-import { marqueeItemRects } from '../../marquee/marquee-item-rects';
 import { bodyOrigin } from '../../virtual/body-origin';
-import { ROW_RECT_SELECTOR } from './row-rects.constants';
-import { rowRects } from './row-rects';
-import type { MarqueeItem } from '../../marquee';
-import type { UseRowRectsInput } from './useRowRects.type';
+import { domFlatRects } from './dom-flat-rects';
+import { flatRects } from './flat-rects';
+import { flattenRows } from './flatten-rows';
+import { rowsOfRects } from './rows-of-rects';
+import type { FlatRects, RowRects, UseRowRectsInput } from './useRowRects.type';
 
-const useRowRects = <T,>(input: UseRowRectsInput<T>): (() => readonly MarqueeItem[]) => {
-  const { rootRef, virtual, getRowId } = input;
-  return useCallback(() => {
+const useRowRects = <T,>(input: UseRowRectsInput<T>): RowRects<T> => {
+  const { rootRef, virtual, nodes, isExpanded, getRowId } = input;
+
+  const getFlat = useCallback((): FlatRects<T> => {
+    const items = virtual ? virtual.items : flattenRows({ nodes, isExpanded, getRowId });
     const root = rootRef.current;
-    if (!root) return [];
-    if (!virtual) return marqueeItemRects(root, ROW_RECT_SELECTOR);
-    const body = virtual.bodyRef.current;
-    if (!body) return [];
+    const body = virtual?.bodyRef.current;
+    if (!root) return { items, rects: [] };
+    if (!virtual) {
+      const rects = domFlatRects(root);
+      return { items, rects: rects.length === items.length ? rects : [] };
+    }
+    if (!body) return { items, rects: [] };
     const origin = bodyOrigin(root, body);
-    return rowRects({
-      items: virtual.items,
-      rowHeight: virtual.metrics.rowHeight,
-      origin,
-      width: Math.max(0, root.scrollWidth - origin.x),
-      getRowId,
-    });
-  }, [rootRef, virtual, getRowId]);
+    const width = Math.max(0, root.scrollWidth - origin.x);
+    return { items, rects: flatRects({ items, rowHeight: virtual.metrics.rowHeight, origin, width }) };
+  }, [rootRef, virtual, nodes, isExpanded, getRowId]);
+
+  const getRects = useCallback(() => {
+    const { items, rects } = getFlat();
+    return rowsOfRects(items, rects, getRowId);
+  }, [getFlat, getRowId]);
+
+  return { getRects, getFlat };
 };
 
 export { useRowRects };

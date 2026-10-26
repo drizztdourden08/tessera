@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind constants */
 const NO_KEYS: readonly string[] = [];
 
-export { NO_KEYS };
+const NO_GROUPS: readonly (string | undefined)[] = [];
+
+export { NO_GROUPS, NO_KEYS };

@@ -14,7 +14,7 @@ const RowGrip = ({ id, reorder }: RowGripProps) => {
   const { table } = useTesseraStrings();
   const { drag, total, step } = reorder;
   const index = reorder.indexOf(id);
-  const handlers = drag.handlers(index);
+  const handlers = reorder.handlers(index);
 
   const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>) => gripKeyDown(event, { drag, index, total, onStep: (to) => step(index, to) });
 
