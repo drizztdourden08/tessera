@@ -9,6 +9,7 @@ type SampleDrawerProps = {
   open: boolean;
   close: () => void;
   side: 'left' | 'right' | 'top';
+  size?: 'md' | 'lg' | 'xl';
   label?: string;
 };
 

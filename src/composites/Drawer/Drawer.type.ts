@@ -3,10 +3,13 @@ import type { ReactNode } from 'react';
 
 type DrawerSide = 'left' | 'right' | 'top';
 
+type DrawerSize = 'md' | 'lg' | 'xl';
+
 interface DrawerProps {
   open: boolean;
   onClose: () => void;
   side?: DrawerSide;
+  size?: DrawerSize;
   label?: string;
   title?: ReactNode;
   subtitle?: ReactNode;
@@ -14,4 +17,4 @@ interface DrawerProps {
   children: ReactNode;
 }
 
-export type { DrawerProps };
+export type { DrawerProps, DrawerSize };
