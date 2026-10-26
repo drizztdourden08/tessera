@@ -1,0 +1,46 @@
+/* @layer renderer-components @kind style */
+.kanban__item {
+  flex: none;
+  list-style: none;
+}
+
+.kanban__item[data-drop='before'] {
+  box-shadow: 0 calc(-1 * var(--size-2)) 0 0 var(--c-primary-bright);
+}
+
+.kanban__item[data-drop='after'] {
+  box-shadow: 0 var(--size-2) 0 0 var(--c-primary-bright);
+}
+
+.kanban__card[data-dragging='yes'] {
+  background: var(--c-primary-soft);
+  opacity: var(--opacity-muted);
+}
+
+.kanban__card-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-xs);
+}
+
+.kanban__card-body {
+  flex: 1;
+  min-inline-size: 0;
+  padding-block: var(--space-xs);
+}
+
+.kanban .kanban__grip {
+  flex: none;
+  color: var(--c-text-muted);
+  cursor: grab;
+  touch-action: none;
+}
+
+.kanban__card:hover .kanban__grip,
+.kanban .kanban__grip:focus-visible {
+  color: var(--c-text-dim);
+}
+
+.kanban__card[data-dragging='yes'] .kanban__grip {
+  cursor: grabbing;
+}

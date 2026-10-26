@@ -1,0 +1,77 @@
+/* @layer renderer-components @kind types */
+import type { KeyboardEvent, ReactNode } from 'react';
+import type { ReorderDrag } from '../reorder/reorder.type';
+
+interface KanbanCardData {
+  id: string;
+}
+
+interface KanbanColumn<Card extends KanbanCardData = KanbanCardData> {
+  id: string;
+  title: string;
+  cards: readonly Card[];
+}
+
+interface KanbanPlace {
+  columnId: string;
+  index: number;
+}
+
+interface KanbanMove {
+  cardId: string;
+  from: KanbanPlace;
+  to: KanbanPlace;
+}
+
+interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
+  columns: readonly KanbanColumn<Card>[];
+  renderCard: (card: Card) => ReactNode;
+  onMove: (move: KanbanMove) => void;
+  cardLabel?: (card: Card) => string;
+  label?: string;
+  collapsed?: readonly string[];
+  defaultCollapsed?: readonly string[];
+  onCollapsedChange?: (columnId: string, collapsed: boolean) => void;
+  className?: string;
+}
+
+interface KanbanShared<Card extends KanbanCardData> {
+  columns: readonly KanbanColumn<Card>[];
+  renderCard: (card: Card) => ReactNode;
+  cardLabel: (card: Card) => string;
+  drag: ReorderDrag;
+  onCardKeyDown: (event: KeyboardEvent<HTMLElement>, card: Card) => void;
+  onToggle: (columnId: string) => void;
+}
+
+interface KanbanColumnProps<Card extends KanbanCardData> {
+  column: KanbanColumn<Card>;
+  index: number;
+  collapsed: boolean;
+  shared: KanbanShared<Card>;
+}
+
+interface KanbanCardProps<Card extends KanbanCardData> {
+  card: Card;
+  slot: number;
+  last: boolean;
+  shared: KanbanShared<Card>;
+}
+
+interface KanbanToggleProps {
+  columnId: string;
+  title: string;
+  collapsed: boolean;
+  controls: string | undefined;
+  onToggle: (columnId: string) => void;
+}
+
+interface CardPlace {
+  column: number;
+  index: number;
+}
+
+export type {
+  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardProps, KanbanColumn, KanbanColumnProps, KanbanMove, KanbanPlace, KanbanShared,
+  KanbanToggleProps,
+};

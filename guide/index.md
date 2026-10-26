@@ -136,6 +136,7 @@ One line per component. 92 of 203 have their usage written; a linked name opens 
 - [ItemCard](components/ItemCard.md): One item of a catalogue as a card: media, a small line above the title, a status, the title, tags, details and its actions. Import from `@drizztdourden08/tessera`.
 - [ItemList](components/ItemList.md): The list side of a list and editor screen: a title with its count, New, a filter, groups, rename, delete and the loading, empty and error states. Import from `@drizztdourden08/tessera`.
 - [JobDialog](components/JobDialog.md): A long job in a dialog: its TaskProgress, with Cancel and Hide while it runs and Close once it ends. Import from `@drizztdourden08/tessera`.
+- [KanbanBoard](components/KanbanBoard.md): A board of cards in named columns, such as tasks by state, where the user drags a card within a column or to another one. Import from `@drizztdourden08/tessera`.
 - `KeyboardLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [KeyValueEditor](components/KeyValueEditor.md): A map of names to values, row by row: a name, a value control and Remove, then an add row, with a check for names listed twice. Import from `@drizztdourden08/tessera`.
 - [ListDetail](components/ListDetail.md): An ItemList beside the editor of the picked item, that asks before a pick, New or Back throws unsaved edits away. Import from `@drizztdourden08/tessera`.
