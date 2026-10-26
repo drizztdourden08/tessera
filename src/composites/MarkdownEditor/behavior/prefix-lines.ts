@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind logic */
 import type { MarkdownEditorListStyle, TextEdit } from '../MarkdownEditor.type';
 import { lineBounds } from './line-bounds';
+import { linesEdit } from './lines-edit';
 import { LIST_MARKERS } from './prefix-lines.constants';
 
 const stripMarkers = (line: string): string => line.replace(LIST_MARKERS.bullet, '$1').replace(LIST_MARKERS.number, '$1');
@@ -22,10 +23,7 @@ const prefixLines = (text: string, start: number, end: number, style: MarkdownEd
     position += 1;
     return marked ? line.replace(LIST_MARKERS[style], '$1') : addMarker(line, style, position);
   });
-  const insert = changed.join('\n');
-  if (start !== end) return { from, to, insert, selectStart: from, selectEnd: from + insert.length };
-  const caret = Math.max(from, start + (changed[0] ?? '').length - (lines[0] ?? '').length);
-  return { from, to, insert, selectStart: caret, selectEnd: caret };
+  return linesEdit({ from, to, start, end, lines, changed });
 };
 
 export { prefixLines };

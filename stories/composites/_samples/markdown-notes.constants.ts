@@ -101,6 +101,17 @@ A small **arcade** game. ~~Beta~~ Version 1.0 is out, and the project page is ht
 3. Run \`star-raiders\`.
 `;
 
+const EXTRAS_NOTE = `# Argus status
+
+Work on T-5 moved to I-3 today. \`T-5\` in code stays as it is, and so does [T-7](https://example.com/t-7).
+
+- A [file in the app](/files/notes.md) goes to \`onLink\`.
+- A [script link](javascript:void(0)) is dropped.
+
+![The dunes picture, shown because images is on](dunes.svg)
+![A picture the resolver drops](other.svg)
+`;
+
 const NOTE_SAMPLES = { 'Release note': RELEASE_NOTE, 'Raw HTML': HTML_NOTE, 'Long note': LONG_NOTE, README: README_NOTE } as const;
 
-export { HTML_NOTE, LONG_NOTE, NOTE_SAMPLES, README_NOTE, RELEASE_NOTE };
+export { EXTRAS_NOTE, HTML_NOTE, LONG_NOTE, NOTE_SAMPLES, README_NOTE, RELEASE_NOTE };

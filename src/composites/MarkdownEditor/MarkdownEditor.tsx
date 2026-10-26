@@ -17,7 +17,7 @@ import './MarkdownEditor.css';
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
   const {
-    value, onChange, label, hint, error, placeholder, disabled = false, layout, rows = DEFAULT_ROWS, onLink, onSubmit, onEscape, maxLength, className,
+    value, onChange, label, hint, error, placeholder, disabled = false, layout, rows = DEFAULT_ROWS, onLink, images, linkIds, onSubmit, onEscape, maxLength, className,
   } = props;
   const rootRef = useRef<HTMLElement | null>(null);
   const areaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -46,7 +46,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
             />
             {maxLength !== undefined && counterShown(value.length, maxLength) && <MarkdownEditorCounter count={value.length} max={maxLength} />}
           </Box>
-          <MarkdownEditorPreview value={value} onLink={onLink} hidden={tabbed && pane !== 'preview'} />
+          <MarkdownEditorPreview value={value} onLink={onLink} images={images} linkIds={linkIds} hidden={tabbed && pane !== 'preview'} />
         </Box>
       </Box>
     </Field>

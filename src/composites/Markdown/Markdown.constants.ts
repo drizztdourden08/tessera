@@ -6,6 +6,10 @@ import type { MarkdownHeadingOffset, MarkdownSize } from './Markdown.type';
 
 const LINK_PROTOCOLS: ReadonlySet<string> = new Set(['http:', 'https:', 'mailto:']);
 
+const IMAGE_PROTOCOLS: ReadonlySet<string> = new Set(['http:', 'https:']);
+
+const LINK_ID_SKIP: ReadonlySet<string> = new Set(['link', 'linkReference', 'definition', 'image', 'imageReference', 'code', 'inlineCode', 'html']);
+
 const CODE_LANGUAGES: Partial<Record<string, CodeBlockLanguage>> = { ts: 'typescript', typescript: 'typescript', tsx: 'tsx', json: 'json' };
 
 const LANGUAGE_PREFIX = 'language-';
@@ -22,4 +26,4 @@ const NO_CHANGE = (): void => undefined;
 
 const HEADING_TAGS: readonly HeadingTag[] = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
 
-export { CODE_LANGUAGES, DEFAULT_HEADING_OFFSET, DEFAULT_SIZE, HEADING_TAGS, LANGUAGE_PREFIX, LINK_PROTOCOLS, NO_CHANGE, TABLE_ALIGNS, TASK_CLASS };
+export { CODE_LANGUAGES, DEFAULT_HEADING_OFFSET, DEFAULT_SIZE, HEADING_TAGS, IMAGE_PROTOCOLS, LANGUAGE_PREFIX, LINK_ID_SKIP, LINK_PROTOCOLS, NO_CHANGE, TABLE_ALIGNS, TASK_CLASS };

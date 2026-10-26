@@ -94,3 +94,7 @@
 .markdown.markdown--inline .markdown__rule {
   margin: 0;
 }
+
+.markdown .markdown__image {
+  max-inline-size: 100%;
+}

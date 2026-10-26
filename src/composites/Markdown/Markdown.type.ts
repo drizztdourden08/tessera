@@ -9,6 +9,15 @@ type MarkdownHeadingOffset = 0 | 1 | 2 | 3 | 4 | 5;
 
 type MarkdownLinkHandler = (href: string) => void;
 
+type MarkdownImageResolver = (src: string) => string | undefined;
+
+type MarkdownImages = boolean | MarkdownImageResolver;
+
+interface MarkdownLinkId {
+  pattern: RegExp;
+  href: (match: string) => string | undefined;
+}
+
 interface MarkdownProps {
   children?: string;
   source?: string;
@@ -16,6 +25,8 @@ interface MarkdownProps {
   headingOffset?: MarkdownHeadingOffset;
   hideTitle?: boolean;
   size?: MarkdownSize;
+  images?: MarkdownImages;
+  linkIds?: MarkdownLinkId | MarkdownLinkId[];
   className?: string;
 }
 
@@ -23,6 +34,7 @@ interface MarkdownSettings {
   onLink?: MarkdownLinkHandler;
   headingOffset: MarkdownHeadingOffset;
   size: MarkdownSize;
+  images?: MarkdownImages;
 }
 
 interface MarkdownPartProps extends ExtraProps {
@@ -43,6 +55,7 @@ interface MarkdownCellProps extends MarkdownPartProps {
 
 interface MarkdownImageProps extends ExtraProps {
   alt?: string;
+  src?: string;
 }
 
 type MarkdownNode = NonNullable<ExtraProps['node']>;
@@ -63,7 +76,29 @@ interface MarkdownTree {
   children?: { type: string; depth?: number }[];
 }
 
+interface MarkdownTextNode {
+  type: string;
+  value?: string;
+  url?: string;
+  title?: string | null;
+  children?: MarkdownTextNode[];
+}
+
+interface MarkdownTextTree {
+  children?: MarkdownTextNode[];
+}
+
+interface LinkIdsOptions {
+  rules: MarkdownLinkId[];
+  allowPaths: boolean;
+}
+
+interface RemarkPluginOptions extends LinkIdsOptions {
+  hideTitle: boolean;
+}
+
 export type {
-  MarkdownCellProps, MarkdownChild, MarkdownCode, MarkdownHeadingOffset, MarkdownImageProps, MarkdownLinkHandler, MarkdownLinkProps, MarkdownListProps, MarkdownNode,
-  MarkdownPartProps, MarkdownProps, MarkdownSettings, MarkdownSize, MarkdownTree, TaskParts,
+  LinkIdsOptions, MarkdownCellProps, MarkdownChild, MarkdownCode, MarkdownHeadingOffset, MarkdownImageProps, MarkdownImageResolver, MarkdownImages, MarkdownLinkHandler,
+  MarkdownLinkId, MarkdownLinkProps, MarkdownListProps, MarkdownNode, MarkdownPartProps, MarkdownProps, MarkdownSettings, MarkdownSize, MarkdownTextNode, MarkdownTextTree,
+  MarkdownTree, RemarkPluginOptions, TaskParts,
 };

@@ -10971,7 +10971,12 @@
         "Set size sm in a dialog or a notes box.",
         "Set size inline inside a card or an InlineEdit display: no block margins, paragraphs as runs, tight lists, and headings as bold text at the text size.",
         "Pass onLink in a desktop app to open a link in the system browser; without it a link opens in a new tab.",
-        "Only http, https and mailto links are kept. Any other link and raw HTML become plain text or nothing, and an image shows its alt text."
+        "Only http, https and mailto links are kept. Any other link and raw HTML become plain text or nothing, and an image shows its alt text.",
+        "Pass images to draw images: true allows http and https addresses, and a function gets each src and returns the address to load, or nothing to drop the image.",
+        "An image is drawn with Image, with its alt text, lazy loading and no wider than the text; it stays off by default.",
+        "Pass linkIds, a rule or a list of rules with a pattern and an href function, so plain ids such as T-5 become links; they are made in text only, never in code or inside a link.",
+        "A link that starts with a slash, such as /files/notes.md, is an app path: it is kept only when onLink is passed, and goes to onLink like any link.",
+        "Whatever an href function gives still has to be an http, https or mailto address, or an app path with onLink; javascript and data addresses are always dropped."
       ],
       "a11y": [
         "Headings keep their order, moved down by headingOffset, so a screen reader can jump between sections.",
@@ -10988,7 +10993,7 @@
         "rule": "Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsafe links dropped."
       },
       "example": "import { Markdown } from '@drizztdourden08/tessera';\n\nconst UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (href: string) => void }) => (\n  <Markdown source={source} size=\"sm\" headingOffset={2} hideTitle onLink={openExternal} />\n);\n",
-      "propsHash": "62f539ff5b5486fb",
+      "propsHash": "9d1c8f56a130fc78",
       "props": {
         "own": [
           {
@@ -11036,6 +11041,16 @@
               "'inline'"
             ],
             "default": "'md'"
+          },
+          {
+            "name": "images",
+            "optional": true,
+            "text": "MarkdownImages"
+          },
+          {
+            "name": "linkIds",
+            "optional": true,
+            "text": "MarkdownLinkId | MarkdownLinkId[]"
           },
           {
             "name": "className",
@@ -11102,8 +11117,12 @@
         "Leave layout out to get split on a wide container and Write and Preview tabs on a narrow one.",
         "Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.",
         "Pass onLink in a desktop app so a link in the preview opens in the system browser.",
+        "Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.",
         "Pass label, hint, error, placeholder and disabled as for any other field; set rows to change the height of the text, 12 by default.",
         "The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.",
+        "Enter at the end of a list item starts the next one: a bullet, a number that counts up, or an open task; on an empty item it ends the list.",
+        "Tab indents a list line by two spaces and Shift+Tab takes them back; outside a list Tab moves the focus as usual.",
+        "Backspace right after an empty marker removes the marker; typing - [] and a space makes a task item.",
         "Mod+B is bold, Mod+I is italic and Mod+K is a link, shown in the tooltip of each button.",
         "Pass onSubmit to send the text on Mod+Enter; it gets the current value.",
         "Pass onEscape to leave the editor on Escape; it is not called while a menu or popover is open, or when another part has taken the key.",
@@ -11125,7 +11144,7 @@
         "rule": "MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app."
       },
       "example": "import { useState } from 'react';\nimport { MarkdownEditor } from '@drizztdourden08/tessera';\n\nconst NoteField = ({ openExternal }: { openExternal: (href: string) => void }) => {\n  const [note, setNote] = useState('');\n  return <MarkdownEditor label=\"Note\" value={note} onChange={setNote} onLink={openExternal} />;\n};\n",
-      "propsHash": "6c040f6de1314caf",
+      "propsHash": "e657eeb4d330d26c",
       "props": {
         "own": [
           {
@@ -11183,6 +11202,16 @@
             "name": "onLink",
             "optional": true,
             "text": "MarkdownLinkHandler"
+          },
+          {
+            "name": "images",
+            "optional": true,
+            "text": "MarkdownImages"
+          },
+          {
+            "name": "linkIds",
+            "optional": true,
+            "text": "MarkdownLinkId | MarkdownLinkId[]"
           },
           {
             "name": "onSubmit",

@@ -33,8 +33,12 @@ MarkdownEditor writes Markdown with a toolbar and a live preview, the same way i
 - Leave layout out to get split on a wide container and Write and Preview tabs on a narrow one.
 - Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.
 - Pass onLink in a desktop app so a link in the preview opens in the system browser.
+- Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.
 - Pass label, hint, error, placeholder and disabled as for any other field; set rows to change the height of the text, 12 by default.
 - The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.
+- Enter at the end of a list item starts the next one: a bullet, a number that counts up, or an open task; on an empty item it ends the list.
+- Tab indents a list line by two spaces and Shift+Tab takes them back; outside a list Tab moves the focus as usual.
+- Backspace right after an empty marker removes the marker; typing - [] and a space makes a task item.
 - Mod+B is bold, Mod+I is italic and Mod+K is a link, shown in the tooltip of each button.
 - Pass onSubmit to send the text on Mod+Enter; it gets the current value.
 - Pass onEscape to leave the editor on Escape; it is not called while a menu or popover is open, or when another part has taken the key.
@@ -72,6 +76,8 @@ const NoteField = ({ openExternal }: { openExternal: (href: string) => void }) =
 - `layout` (optional): `MarkdownEditorLayout`, one of `'split'`, `'tabs'`.
 - `rows` (optional): `number`. Default `DEFAULT_ROWS`.
 - `onLink` (optional): `MarkdownLinkHandler`.
+- `images` (optional): `MarkdownImages`.
+- `linkIds` (optional): `MarkdownLinkId | MarkdownLinkId[]`.
 - `onSubmit` (optional): `(value: string) => void`.
 - `onEscape` (optional): `() => void`.
 - `maxLength` (optional): `number`.
