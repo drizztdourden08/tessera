@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { cornerEnds, layoutTree } from '../src/composites/DockLayout';
-import { CORNER_BUTTON_GAP, CORNER_BUTTONS, CORNER_HEADER, CORNER_HIT, CORNER_TITLE_END } from '../src/composites/DockLayout/behavior/corner.constants';
+import { CORNER_HEADER, CORNER_HIT } from '../src/composites/DockLayout/behavior/corner.constants';
 import { cornerHitOf } from '../src/composites/DockLayout/behavior/corner-hit-of';
 
 const leaf = (key) => ({ kind: 'pane', key, widgets: [key], active: key, makeRoom: false });
@@ -25,14 +25,15 @@ const tokenPx = (name) => {
   return ref ? Number(read('scale.css').match(new RegExp(`${ref}:\\s*(\\d+)px`))?.[1]) : Number.NaN;
 };
 
-const GAP = 8;
+const GAP = Number(read('../composites/DockLayout/DockLayout.constants.ts').match(/const GAP = (\d+);/)?.[1]);
+const SPACE_XS = Number(read('scale.css').match(/--size-4:\s*(\d+)px/)?.[1]);
 const overlaps = (one, two) => one.x < two.x + two.width && two.x < one.x + one.width && one.y < two.y + two.height && two.y < one.y + one.height;
 const titlebarOf = (panel) => ({ x: panel.x, y: panel.y, width: panel.width, height: CORNER_HEADER });
 const centreOf = (box) => ({ x: box.x + box.width / 2, y: box.y + box.height / 2 });
 const distanceTo = (point, box) => Math.hypot(Math.max(box.x - point.x, 0, point.x - box.x - box.width), Math.max(box.y - point.y, 0, point.y - box.y - box.height));
-const buttonsOf = (panel) =>
-  Array.from({ length: CORNER_BUTTONS }, (_, index) => ({
-    x: panel.x + panel.width - CORNER_TITLE_END - (index + 1) * CORNER_HIT - index * CORNER_BUTTON_GAP,
+const buttonsOf = (panel, count) =>
+  Array.from({ length: count }, (_, index) => ({
+    x: panel.x + panel.width - SPACE_XS - (index + 1) * CORNER_HIT - index * SPACE_XS,
     y: panel.y + (CORNER_HEADER - CORNER_HIT) / 2,
     width: CORNER_HIT,
     height: CORNER_HIT,
@@ -81,7 +82,7 @@ describe('corner handle hit box', () => {
     }
   });
 
-  it('keeps a column handle in the seam, clear of every title bar', () => {
+  it('keeps a column handle on the upper side of the seam, clear of every title bar', () => {
     for (const handle of columns) {
       const hit = cornerHitOf(handle);
       expect(hit.width).toBeGreaterThanOrEqual(24);
@@ -90,11 +91,11 @@ describe('corner handle hit box', () => {
     }
   });
 
-  it('keeps a column handle at least 12 px from every title bar button', () => {
+  it('keeps a column handle at least 12 px from every title bar button, six or fewer', () => {
     for (const handle of columns) {
       const hit = cornerHitOf(handle);
       for (const item of laid.leaves) {
-        for (const box of buttonsOf(item.rect)) expect(distanceTo(centreOf(hit), box)).toBeGreaterThanOrEqual(12);
+        for (const box of buttonsOf(item.rect, 6)) expect(distanceTo(centreOf(hit), box)).toBeGreaterThanOrEqual(12);
       }
     }
   });
@@ -122,24 +123,31 @@ describe('corner handle hit placement', () => {
     expect(at('row', 'end', 'bottom-right')).toEqual({ x: 286, y: 196, width: 24, height: 24 });
   });
 
-  it('puts a column handle in the seam above or below the strip, whatever the panel height', () => {
-    const strip = { x: 10, y: 100, width: 300, height: 8 };
-    expect(at('column', 'start', 'top-left', strip)).toEqual({ x: 10, y: 92, width: 24, height: 8 });
-    expect(at('column', 'end', 'bottom-left', strip)).toEqual({ x: 10, y: 108, width: 24, height: 8 });
+  it('puts a column handle on the upper side of the seam, whatever the panel height', () => {
+    expect(at('column', 'start', 'top-left', { x: 10, y: 108, width: 300, height: 8 })).toEqual({ x: 10, y: 92, width: 24, height: 8 });
+    expect(at('column', 'end', 'bottom-left', { x: 10, y: 92, width: 300, height: 8 })).toEqual({ x: 10, y: 92, width: 24, height: 8 });
+    expect(at('column', 'end', 'bottom-right', { x: 10, y: 92, width: 300, height: 8 })).toEqual({ x: 286, y: 92, width: 24, height: 8 });
   });
 
-  it('insets a right column handle past the title bar buttons, clear of them by 12 px', () => {
+  it('keeps the spacing circle clear of the buttons below the seam, whatever their count', () => {
     const below = { x: 10, y: 108, width: 300, height: 200 };
-    for (const [end, corner, strip] of [['start', 'top-right', { ...below, height: 8 }], ['end', 'bottom-right', { x: 10, y: 92, width: 300, height: 8 }]]) {
+    const strips = [['start', 'top-left', below], ['start', 'top-right', below], ['end', 'bottom-left', { x: 10, y: 92, width: 300, height: 8 }], ['end', 'bottom-right', { x: 10, y: 92, width: 300, height: 8 }]];
+    for (const [end, corner, strip] of strips) {
       const hit = at('column', end, corner, strip);
-      expect(hit.x + hit.width).toBeLessThan(below.x + below.width - CORNER_TITLE_END - CORNER_BUTTONS * CORNER_HIT);
       expect(overlaps(hit, titlebarOf(below))).toBe(false);
-      for (const box of buttonsOf(below)) expect(distanceTo(centreOf(hit), box)).toBeGreaterThanOrEqual(12);
+      for (const count of [0, 1, 2, 4, 6, 9]) {
+        for (const box of buttonsOf(below, count)) expect(distanceTo(centreOf(hit), box)).toBeGreaterThanOrEqual(12);
+      }
     }
   });
 
-  it('never leaves the seam to the left of a narrow panel', () => {
-    const hit = at('column', 'end', 'bottom-right', { x: 10, y: 92, width: 60, height: 8 });
+  it('measures the vertical clearance from the real constants', () => {
+    const clearance = GAP / 2 + GAP + (CORNER_HEADER - CORNER_HIT) / 2;
+    expect(clearance).toBeGreaterThanOrEqual(12);
+  });
+
+  it('never leaves the panel to the left of a narrow one', () => {
+    const hit = at('column', 'end', 'bottom-right', { x: 10, y: 92, width: 20, height: 8 });
     expect(hit.x).toBe(10);
   });
 });
