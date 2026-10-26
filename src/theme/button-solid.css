@@ -1,0 +1,40 @@
+/* @layer renderer-components @kind style */
+.btn.btn--solid {
+  background: var(--tone);
+  border-color: var(--tone);
+  color: var(--tone-ink);
+}
+
+.btn.btn--solid:hover:not(:disabled, [aria-disabled='true']) {
+  border-color: var(--tone-bright);
+}
+
+.btn.btn--solid.btn--loading > .btn__spinner {
+  color: var(--tone-ink);
+}
+
+.btn.btn--pixel.btn--solid {
+  --pixel-lit: var(--tone);
+  --pixel-shade: var(--tone-dim);
+  --pixel-edge: var(--tone-bright);
+  --pixel-gloss: var(--tone-bright);
+
+  color: var(--tone-ink);
+}
+
+.btn.btn--pixel.btn--solid:hover:not(:disabled, [aria-disabled='true']) {
+  --pixel-shade: var(--tone-dim);
+  --pixel-edge: var(--c-text);
+  --pixel-gloss: var(--tone-bright);
+}
+
+.btn.btn--pixel.btn--solid:active:not(:disabled, [aria-disabled='true']) {
+  --pixel-shade: var(--tone-dim);
+  --pixel-edge: var(--tone);
+  --pixel-gloss: var(--tone-dim);
+}
+
+.btn--pixel.btn--solid .spinner {
+  border-color: var(--pixel-shade);
+  border-top-color: var(--tone-ink);
+}

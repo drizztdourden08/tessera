@@ -1,9 +1,8 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { ActionBar, ListItemRow } from '../../src/composites';
-import type { ActionBarAlign, ActionItem } from '../../src/composites';
+import type { ActionBarAlign, ActionBarProps, ActionItem } from '../../src/composites';
 import { Box } from '../../src/primitives';
-import type { ButtonSize } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
@@ -13,7 +12,7 @@ import './ActionBar.stories.css';
 
 type ActionBarArgs = {
   width: string;
-  size: ButtonSize;
+  size: NonNullable<ActionBarProps['size']>;
   keep: number;
   align: ActionBarAlign;
   danger: boolean;

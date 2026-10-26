@@ -61,4 +61,12 @@ describe('a pixel Button', () => {
       }
     }
   });
+
+  it.each(Object.entries(palettes))('keeps the on-colour text readable on a solid fill in the %s palette', (_palette, seeds) => {
+    const tokens = resolveTokens([...base, ...seeds]);
+    const lum = (name) => relativeLuminance(parseColour(tokens.get(name)).rgb);
+    for (const tone of TONES) {
+      expect(luminanceRatio(lum(`--c-on-${tone}`), lum(`--c-${tone}`)), tone).toBeGreaterThanOrEqual(TEXT_MINIMUM);
+    }
+  });
 });
