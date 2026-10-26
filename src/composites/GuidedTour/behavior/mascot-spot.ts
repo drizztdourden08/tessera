@@ -33,10 +33,12 @@ const mascotSpot = (around: { bubble: TourBox; hole: TourBox | null }, view: Tou
   const boxAt = ([x, y]: MascotStand): TourBox => ({ x: x - half, y, width: box.width, height: box.height });
   const placed = stands(around, view, box, gap).filter(([x, y]) =>
     x - half >= 0 && x + half <= view.width && y >= 0 && y + box.height <= view.height && boxGap(boxAt([x, y]), bubble) > 0);
-  const outside = placed.filter((stand) => mascotOutside(boxAt(stand), hole))
-    .sort((a, b) => boxGap(boxAt(a), bubble) - boxGap(boxAt(b), bubble));
-  const spot = outside[0] ?? placed.find((stand) => mascotClear(boxAt(stand), hole, bubble));
-  return spot ? { x: spot[0], y: spot[1], face: faceToward(spot[0], hole ?? bubble) } : null;
+  const outside = placed
+    .map((stand, order) => ({ stand, order, gap: boxGap(boxAt(stand), bubble) }))
+    .filter(({ stand }) => mascotOutside(boxAt(stand), hole))
+    .sort((a, b) => a.gap - b.gap || a.order - b.order);
+  const spot = outside[0]?.stand ?? placed.find((stand) => mascotClear(boxAt(stand), hole, bubble));
+  return spot ? { x: Math.round(spot[0]), y: Math.round(spot[1]), face: faceToward(spot[0], hole ?? bubble) } : null;
 };
 
 export { mascotSpot };
