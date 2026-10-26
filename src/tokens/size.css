@@ -65,6 +65,7 @@
   --tour-intro-w: var(--size-640);
   --tour-intro-art-h: var(--size-96);
   --tour-intro-mascot: var(--size-256);
+  --tour-mascot-clear: var(--size-8);
   --settings-row-compact-h: var(--size-40);
   --settings-row-compact-control-w: var(--size-160);
 
