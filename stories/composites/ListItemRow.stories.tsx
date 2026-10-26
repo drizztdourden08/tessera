@@ -13,6 +13,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { NAV_ICONS } from './_samples/nav';
 import { SESSIONS, STATUS_LABEL } from './_samples/sessions';
 import type { SampleSession } from './_samples/sessions';
+import { ListItemRowHeader } from './_samples/ListItemRowHeader';
 import { ListItemRowInsetDemo } from './_samples/ListItemRowInsetDemo';
 import { ListItemRowMediaDemo } from './_samples/ListItemRowMediaDemo';
 import { ListItemRowMenu } from './_samples/ListItemRowMenu';
@@ -31,7 +32,6 @@ type RowArgs = {
 };
 
 const sessionIcon = <Icon name={NAV_ICONS.sessions} />;
-
 const sessionColumns = (session: SampleSession, count: number, twoLines: boolean): ListItemColumn[] => [
   { primary: `${session.players} players`, secondary: twoLines ? session.preset : undefined, align: 'end' as const },
   { primary: session.server, secondary: twoLines ? `host ${session.host}` : undefined },
@@ -138,6 +138,11 @@ const Selectable = {
   render: () => <SessionList selectable />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
+const HeaderRow = {
+  name: 'Column header on the same tracks, sticky while the list scrolls',
+  render: () => <ListItemRowHeader />,
+} satisfies StoryLiteStoryDefinition<RowArgs>;
+
 const ButtonInset = {
   name: 'Rows start where a button above them starts, in the usual size and in a compact panel',
   render: () => <ListItemRowInsetDemo />,
@@ -153,7 +158,7 @@ const MenuKeys = {
   render: () => <ListItemRowMenu />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
-const renderState =(props: StateProps) => (
+const renderState = (props: StateProps) => (
   <ListItemRow
     name="Friday async"
     meta="8 players, eu-west-2"
@@ -169,7 +174,7 @@ const Overview = overviewStory({
   component: 'ListItemRow',
   description: 'One row of a list: an icon, a name with a meta line under it, extra columns, and an action on the right.',
   points: [
-    'Each of the `columns` takes `primary`, `secondary` and `align`; in a `ListItemList` they line up.',
+    'Each of the `columns` takes `primary`, `secondary` and `align`; a `ListItemList` lines them up under a `header`.',
     '`onContextMenu` and `onKeyDown` reach the row button, so [[Menu]] and [[Shift+F10]] open an app menu.',
     '`onClick` picks a row on a click, [[Enter]] or [[Space]]; `onDoubleClick` opens it.',
     'The `action` always shows; `actionVisibility="hover"` waits for hover or focus, except on touch.',
@@ -178,7 +183,7 @@ const Overview = overviewStory({
   ],
   instead: '[DataTable] for many rows the user sorts and filters by column.',
   playground: Playground,
-  variants: [AllVariants, AlignedList, Selectable, ButtonInset, MediaAndPen, MenuKeys],
+  variants: [AllVariants, AlignedList, Selectable, HeaderRow, ButtonInset, MediaAndPen, MenuKeys],
   states: {
     render: renderState,
     list: [
@@ -192,4 +197,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AlignedList, AllVariants, ButtonInset, MediaAndPen, MenuKeys, Overview, Playground, Selectable };
+export { AlignedList, AllVariants, ButtonInset, HeaderRow, MediaAndPen, MenuKeys, Overview, Playground, Selectable };

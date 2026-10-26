@@ -36,8 +36,21 @@ interface ListItemRowProps {
   className?: string;
 }
 
+interface ListItemHeaderColumn {
+  label: ReactNode;
+  align?: ListItemColumnAlign;
+}
+
+interface ListItemHeader {
+  icon?: ReactNode;
+  main?: ReactNode;
+  columns?: readonly ListItemHeaderColumn[];
+  action?: ReactNode;
+}
+
 interface ListItemListProps {
   children: ReactNode;
+  header?: ListItemHeader;
   label?: string;
   heading?: ReactNode;
   count?: number;
@@ -52,6 +65,6 @@ interface ListItemShape {
 }
 
 export type {
-  ListItemColumn, ListItemColumnAlign, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps,
+  ListItemColumn, ListItemColumnAlign, ListItemHeader, ListItemHeaderColumn, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps,
   ListItemRowRole, ListItemShape,
 };

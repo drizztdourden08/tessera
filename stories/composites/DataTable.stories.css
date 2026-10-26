@@ -13,6 +13,12 @@
   height: 9rem;
 }
 
+.data-table-cell-tags {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
 .data-table-thumb-cell {
   display: flex;
   align-items: center;
