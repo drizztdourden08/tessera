@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 89 of 202 have their usage written; a linked name opens its page.
+One line per component. 91 of 202 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -111,8 +111,8 @@ One line per component. 89 of 202 have their usage written; a linked name opens 
 - [DataTable](components/DataTable.md): Records as rows and columns the user sorts, groups and picks from, such as the players of a session, with the columns taken from a schema. Import from `@drizztdourden08/tessera`.
 - [DateText](components/DateText.md): A date or a time in any common format, such as 5 minutes ago, Today, 21:40 or 16 October 2026, with the full date on hover. Import from `@drizztdourden08/tessera`.
 - `DeleteGuardDialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Dialog`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `DialogShell`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Dialog](components/Dialog.md): A modal that asks one question, with a message, a confirm button and a cancel button, and room for a short body. Import from `@drizztdourden08/tessera`.
+- [DialogShell](components/DialogShell.md): The frame of a modal: a backdrop, a panel with a header and a close button, a scrolling body and a row of actions. Import from `@drizztdourden08/tessera`.
 - `DisabledOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DockLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DocumentTabs](components/DocumentTabs.md): The strip of open documents above an editor: a tab per document with an unsaved mark and a close button, put in order by drag or keys, scrolling when they do not fit. Import from `@drizztdourden08/tessera`.
