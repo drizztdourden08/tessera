@@ -3,6 +3,7 @@ import { Box } from '../../primitives/Box';
 import { ToolFrame } from '../../primitives/ToolFrame';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { defaultCopy } from './behavior/default-copy';
+import { hasInputRow } from './behavior/has-input-row';
 import { logPanelClass } from './behavior/log-panel-class';
 import { useLogFilter } from './behavior/useLogFilter';
 import { LogInput } from './sub-components/LogInput';
@@ -15,11 +16,12 @@ import './LogPanel.css';
 const LogPanel = (props: LogPanelProps) => {
   const { panels } = useTesseraStrings();
   const {
-    rows, kinds, className, toolbar = true, ansi, onInput, prompt,
+    rows, kinds, className, toolbar = true, ansi, onInput, prompt, inputDisabled, inputPlaceholder,
     countLabel, emptyLabel = panels.logEmpty, toolbarExtra, height, selectedIds, onSelectionChange, follow, order,
   } = props;
   const copyText = defaultCopy(props);
   const filter = useLogFilter(props);
+  const hasInput = hasInputRow(props);
   const empty = rows.length === 0 ? emptyLabel : panels.logNoMatch;
 
   return (
@@ -41,10 +43,10 @@ const LogPanel = (props: LogPanelProps) => {
             ansi={ansi}
             follow={follow}
             order={order}
-            terminal={ansi === true || onInput !== undefined}
+            terminal={ansi === true || hasInput}
           />
         )}
-      {onInput && <LogInput onInput={onInput} prompt={prompt} />}
+      {hasInput && <LogInput onInput={onInput} prompt={prompt} disabled={inputDisabled} placeholder={inputPlaceholder} />}
     </ToolFrame>
   );
 };

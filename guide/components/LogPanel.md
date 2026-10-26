@@ -42,6 +42,9 @@ LogPanel shows a running log with search, filters, the newest lines first in vie
 - Set order="newest-first" to show the latest line at the top; follow then sticks to the top and Jump to top returns to it.
 - Set follow={false} to leave the view where the reader put it; set onInput to add a prompt row for a process that reads lines.
 - OnInput gets each line on Enter; Up and Down walk the lines sent. Echo the line back as a row yourself.
+- Return false, or a promise that resolves false or rejects, to keep the text in the field and out of the history; true or nothing clears it.
+- While a returned promise is pending a second Enter is ignored, so one line is never sent twice.
+- Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.
 - Pass height="fill" inside a box that sets the height, or a number for a fixed height in pixels.
 
 ## Accessibility
@@ -93,8 +96,10 @@ const ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lin
 - `ansi` (optional): `boolean`.
 - `follow` (optional): `boolean`.
 - `order` (optional): `LogOrder`, one of `'oldest-first'`, `'newest-first'`.
-- `onInput` (optional): `(text: string) => void`.
+- `onInput` (optional): `(text: string) => boolean | void | Promise<boolean | void>`.
 - `prompt` (optional): `string`.
+- `inputDisabled` (optional): `boolean`.
+- `inputPlaceholder` (optional): `string`.
 - `className` (optional): `string`.
 
 ## Tokens

@@ -47,8 +47,10 @@ interface LogPanelProps {
   ansi?: boolean;
   follow?: boolean;
   order?: LogOrder;
-  onInput?: (text: string) => void;
+  onInput?: (text: string) => boolean | void | Promise<boolean | void>;
   prompt?: string;
+  inputDisabled?: boolean;
+  inputPlaceholder?: string;
   className?: string;
 }
 

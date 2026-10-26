@@ -2,12 +2,13 @@
 import { Box, Span, TextInput } from '../../../primitives';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useLogInput } from '../behavior/useLogInput';
+import { NO_INPUT } from './LogInput.constants';
 import type { LogInputProps } from './LogInput.type';
 
 const LogInput = (props: LogInputProps) => {
-  const { onInput, prompt = '>' } = props;
+  const { onInput, prompt = '>', disabled, placeholder } = props;
   const { panels } = useTesseraStrings();
-  const input = useLogInput(onInput);
+  const input = useLogInput(onInput ?? NO_INPUT);
 
   return (
     <Box className="log-panel__input-row">
@@ -15,6 +16,8 @@ const LogInput = (props: LogInputProps) => {
       <TextInput
         className="log-panel__input"
         aria-label={panels.logInput}
+        disabled={disabled}
+        placeholder={placeholder}
         autoComplete="off"
         spellCheck={false}
         value={input.value}
