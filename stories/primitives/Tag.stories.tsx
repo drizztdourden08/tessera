@@ -107,7 +107,7 @@ const Removable = {
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
 const PillIcons = {
-  name: 'Pill shape and a leading icon',
+  name: 'Pill shape, a leading icon and a 24 px size',
   render: () => (
     <Flex gap="md" align="center" wrap>
       <Tag pill>Pill</Tag>
@@ -115,6 +115,7 @@ const PillIcons = {
       <Tag pill icon="robot" variant="urgency" color="info">Automated</Tag>
       <Tag icon="flask" variant="category" color="teal">Lab</Tag>
       <Tag pill icon="robot" onRemove={noop}>agent:argus</Tag>
+      <Tag size="lg" pill icon="flask" color="primary">Large, 24 px</Tag>
     </Flex>
   ),
 } satisfies StoryLiteStoryDefinition<TagArgs>;
@@ -199,7 +200,7 @@ const Overview = overviewStory({
     '`onRemove` adds a remove button, as in [TagInput]: a 16 px glyph that takes clicks on 24 by 24 px.',
     '`selected` with `onSelect` makes a toggle chip, as in [TagPicker]; `selectedTone="neutral"` fills it grey.',
     '`variant="custom"` fills it with a hex colour from app data, with black or white text, whichever reads best.',
-    '`pill` rounds it, `dot` leads with a dot, `icon` with an icon, `outlined` clears the fill; `href` links.',
+    '`pill` rounds it, `dot` and `icon` lead, `outlined` clears the fill, `size="lg"` is 24 px; `href` links.',
   ],
   instead: '[Status] for a word that names a state.',
   playground: Playground,

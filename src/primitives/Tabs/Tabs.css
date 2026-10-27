@@ -51,3 +51,7 @@
 .tabs__label {
   line-height: var(--leading-tight);
 }
+
+.tabs--neutral .tabs__tab--active {
+  color: var(--c-text);
+}

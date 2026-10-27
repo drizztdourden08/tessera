@@ -2,6 +2,7 @@
 import { itemKind } from '../behavior/item-kind';
 import { tidyNodes } from '../behavior/tidy-nodes';
 import { MenuItemButton } from './MenuItemButton';
+import { MenuSelectItem } from './MenuSelectItem';
 import { MenuSliderItem } from './MenuSliderItem';
 import { SubMenu } from './SubMenu';
 import type { MenuEntryProps } from './MenuEntry.type';
@@ -9,6 +10,7 @@ import type { MenuEntryProps } from './MenuEntry.type';
 const MenuEntry = (props: MenuEntryProps) => {
   const { item } = props;
   if (itemKind(item) === 'slider') return <MenuSliderItem item={item} />;
+  if (itemKind(item) === 'select') return <MenuSelectItem item={item} />;
   const children = tidyNodes(item.children ?? []);
   return children.length > 0 ? <SubMenu item={item} nodes={children} /> : <MenuItemButton item={item} />;
 };

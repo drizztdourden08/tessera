@@ -47,13 +47,13 @@ const meta = {
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<TabsArgs>;
 
-const StatefulTabs = (props: { tabs: TabItem[]; iconOnly?: boolean; size?: 'md' | 'lg' }) => {
-  const { tabs, iconOnly, size } = props;
+const StatefulTabs = (props: { tabs: TabItem[]; iconOnly?: boolean; size?: 'md' | 'lg'; selectedTone?: 'accent' | 'neutral' }) => {
+  const { tabs, iconOnly, size, selectedTone } = props;
   const [active, setActive] = useState(tabs[0]?.id ?? '');
   const current = tabs.find((tab) => tab.id === active);
   return (
     <Box className="story-column">
-      <Tabs tabs={tabs} activeTab={active} onTabChange={setActive} iconOnly={iconOnly} size={size} />
+      <Tabs tabs={tabs} activeTab={active} onTabChange={setActive} iconOnly={iconOnly} size={size} selectedTone={selectedTone} />
       <Text className="story-label">Active: {current?.label}</Text>
     </Box>
   );
@@ -142,6 +142,17 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<TabsArgs>;
 
+const ActiveTone = {
+  name: 'Active label in the text colour',
+  render: () => (
+    <Demonstrator
+      rows={axis(['accent', 'neutral'] as const)}
+      align="stretch"
+      cell={(tone) => <StatefulTabs tabs={withBadges(SETTINGS_TABS)} selectedTone={tone} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TabsArgs>;
+
 const Layouts = {
   name: 'Layouts',
   render: () => (
@@ -166,7 +177,7 @@ const Overview = overviewStory({
   description: 'A row of tabs that switches between the views of one screen, such as the sections of a settings page.',
   points: [
     'Each tab has a label, an optional icon and count `badge`; `badgeTone` tints it, `badgeTitle` explains it.',
-    '`iconOnly` hides the labels and keeps each as the title; `size="lg"` makes the tabs 40 px tall.',
+    '`iconOnly` keeps labels as titles; `size="lg"` is 40 px tall; `selectedTone="neutral"` shows it in text colour.',
     'When the tabs run out of room the strip scrolls sideways, with an arrow at each edge that has more.',
     'The arrow keys, [[Home]] and [[End]] move the selection.',
     '`disabled` greys a tab out and the arrows skip it; `disabledReason` shows on hover and focus and is read out.',
@@ -174,7 +185,7 @@ const Overview = overviewStory({
   ],
   instead: '[SegmentedControl] for a choice that sets a value instead of switching views.',
   playground: Playground,
-  variants: [Layouts, Sizes, Tones, Titled, Disabled],
+  variants: [Layouts, Sizes, ActiveTone, Tones, Titled, Disabled],
   states: {
     render: renderState,
     list: [
@@ -201,4 +212,4 @@ const [active, setActive] = useState('general');
 });
 
 export default meta;
-export { Disabled, Layouts, Overview, Playground, Sizes, Titled, Tones };
+export { ActiveTone, Disabled, Layouts, Overview, Playground, Sizes, Titled, Tones };

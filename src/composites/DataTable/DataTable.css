@@ -252,6 +252,10 @@
   background: var(--c-info-soft);
 }
 
+.data-table__row[data-state='edge']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-primary);
+}
+
 .data-table__row[data-state='muted'] .data-table__cell {
   color: var(--c-text-muted);
 }

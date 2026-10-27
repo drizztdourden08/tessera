@@ -2,6 +2,7 @@
 import type { KeyboardEvent } from 'react';
 import { typeaheadIndex } from '../../../primitives/listbox/typeahead-index';
 import { useTypeaheadText } from '../../../primitives/listbox/useTypeaheadText';
+import { inOpenSelect } from './in-open-select';
 import { isTypingKey } from './is-typing-key';
 import { MENU_LABEL_SELECTOR } from './menu-items-of.constants';
 import { menuItemsOf } from './menu-items-of';
@@ -30,7 +31,7 @@ const useMenuKeys = (params: UseMenuKeysParams) => {
 
   return (event: KeyboardEvent<HTMLElement>): void => {
     const menu = params.menuRef.current;
-    if (!menu) return;
+    if (!menu || inOpenSelect(event.target)) return;
     if (event.key === 'Tab') {
       params.onExit?.();
       return;

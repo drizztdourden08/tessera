@@ -17,6 +17,7 @@ import { TAG_PICKER_COLOURS } from './_samples/tag-picker-colours.constants';
 type TagPickerArgs = {
   label: string;
   single: boolean;
+  pill: boolean;
   disabled: boolean;
   size: ControlSize;
 };
@@ -54,12 +55,13 @@ const GOALS: TagPickerGroup[] = [
   },
 ];
 
-const ARGS: Partial<TagPickerArgs> = { label: 'Games in the multiworld', single: false, disabled: false, size: 'md' };
+const ARGS: Partial<TagPickerArgs> = { label: 'Games in the multiworld', single: false, pill: false, disabled: false, size: 'md' };
 
 const ARG_TYPES: PlaygroundArgTypes<TagPickerArgs> = {
     label: { group: 'Content', control: 'text' },
     disabled: { group: 'State', control: 'boolean' },
     single: { group: 'Behaviour', control: 'boolean', description: 'One pick at a time, the tags act as radios.' },
+    pill: { group: 'Appearance', control: 'boolean', description: 'Round chips, as the Tag pill option.' },
     size: SIZE_ARG,
   };
 
@@ -71,11 +73,11 @@ const meta = {
 type StatefulPickerProps = { initial: string[]; groups: TagPickerGroup[] } & Partial<TagPickerArgs>;
 
 const StatefulPicker = (props: StatefulPickerProps) => {
-  const { initial, groups, label, single, disabled, size } = props;
+  const { initial, groups, label, single, pill, disabled, size } = props;
   const [value, setValue] = useState(initial);
   return (
     <ValueReadout value={value}>
-      <TagPicker value={value} groups={groups} onChange={setValue} label={label} single={single} disabled={disabled} size={size} />
+      <TagPicker value={value} groups={groups} onChange={setValue} label={label} single={single} pill={pill} disabled={disabled} size={size} />
     </ValueReadout>
   );
 };
@@ -108,6 +110,16 @@ const Colours = {
   ),
 } satisfies StoryLiteStoryDefinition<TagPickerArgs>;
 
+const Pills = {
+  name: 'Pill chips',
+  render: () => (
+    <Demonstrator
+      rows={axis(['square', 'pill'] as const)}
+      cell={(row) => <StatefulPicker initial={['ganon', 'dungeons']} groups={GOALS} pill={row === 'pill'} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TagPickerArgs>;
+
 const Sizes = sizesStory<TagPickerArgs>((size) => <StatefulPicker initial={['alttp']} groups={GAME_GROUPS} label="Games in the multiworld" size={size} />);
 
 const Goals = (props: { initial: string[]; disabled: boolean }) => {
@@ -128,10 +140,11 @@ const Overview = overviewStory({
     'Each click adds or removes a value; `single` holds at most one pick.',
     'The value is an array either way.',
     'An option keeps the `variant` and `color` of its [Tag] once picked; one with neither turns primary.',
+    '`pill` rounds every chip.',
   ],
   instead: '[TagInput] when the user can type new values.',
   playground: Playground,
-  variants: [Layouts, Colours, Sizes],
+  variants: [Layouts, Colours, Pills, Sizes],
   states: {
     render: renderState,
     list: [
@@ -159,4 +172,4 @@ const [goals, setGoals] = useState(['ganon']);
 });
 
 export default meta;
-export { Colours, Layouts, Overview, Playground, Sizes };
+export { Colours, Layouts, Overview, Pills, Playground, Sizes };

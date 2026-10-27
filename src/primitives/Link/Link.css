@@ -53,3 +53,10 @@
 :where(.link[data-variant="subtle"]:hover) {
   text-decoration: underline;
 }
+
+:where(.link[data-tone="info"]) {
+  --link-ink: var(--c-info-bright);
+  --link-ink-hover: var(--c-info);
+
+  text-decoration: underline;
+}

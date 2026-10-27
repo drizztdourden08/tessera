@@ -15,6 +15,7 @@ import { ChoiceDemo, MenuDemo } from './_samples/menu-demos';
 import { DANGER_MENU } from './_samples/data-menu-danger';
 import { MenuConfirmDemo } from './_samples/MenuConfirmDemo';
 import { MenuRoomyDemo } from './_samples/MenuRoomyDemo';
+import { MenuSelectDemo } from './_samples/MenuSelectDemo';
 import { MenuSliderDemo } from './_samples/MenuSliderDemo';
 import { JoinDemos, MarksDemo, NestedDemo } from './_samples/menu-join-demos';
 import { MarkMorphDemo } from './_samples/menu-mark-demos';
@@ -191,6 +192,8 @@ const groups: MenuGroup[] = [
 
 const Sliders = { name: 'A slider row, moved with Left and Right', render: () => <MenuSliderDemo /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
+const Selects = { name: 'Select rows beside actions, kept open while you pick', render: () => <MenuSelectDemo /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
 const Overview = overviewStory({
   component: 'DropdownMenu',
   description: 'A menu of actions, checks and sub-menus, built from data, that hangs from its own button.',
@@ -198,13 +201,13 @@ const Overview = overviewStory({
     '`groups` lists the items: a `label`, an `icon` (a name, iconify data, path data or an element), `onSelect`.',
     '`trigger` draws a [Button], or an [IconButton] with `iconOnly`; its icon keeps its shape while open.',
     '`checked` or `kind="radio"` shows a faint dot that turns into a check or radio; `children` opens a sub-menu.',
-    '`tone="danger"` draws Delete in red, `kind="confirm"` asks Click again to, `kind="slider"` sets a level.',
+    '`tone="danger"` draws Delete red, `kind="confirm"` asks, `kind="slider"` sets a level, `kind="select"` picks.',
     'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
     '`filter` adds a search field; `anchorRef` hangs it from a row; `itemSize="roomy"` sets 13 px text.',
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, RoomyRows, Inside, IconSources, Commands, MarkMorph, Confirm, Sliders, Danger, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, RoomyRows, Inside, IconSources, Commands, MarkMorph, Confirm, Sliders, Selects, Danger, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -219,4 +222,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Commands, Confirm, Danger, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SubMenus, Triggers, Variants };
+export { Commands, Confirm, Danger, Selects, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SubMenus, Triggers, Variants };
