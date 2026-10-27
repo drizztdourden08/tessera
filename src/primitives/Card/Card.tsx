@@ -1,13 +1,13 @@
 /* @layer renderer-components @kind component */
 import './Card.css';
 import { CardHeader } from './sub-components/CardHeader';
+import { cardClass } from './behavior/card-class';
 import type { CardProps } from './Card.type';
 
 const Card = (props: CardProps) => {
-  const { variant = 'default', edgeTone, edge = 'left', fill = false, flush = false, title, subtitle, actions, count, hideZero, tone, level, children, className = '', ...rest } = props;
+  const { variant, edgeTone, edge, fill, flush, title, subtitle, actions, count, hideZero, tone, level, children, className, ...rest } = props;
   const headed = title !== undefined && title !== null;
-  const edged = edgeTone === undefined ? [] : [`card--edge-${edge}`, `card--edge-${edgeTone}`];
-  const classes = ['card', `card--${variant}`, ...edged, headed && 'card--headed', fill && 'card--fill', flush && 'card--flush', className].filter(Boolean).join(' ');
+  const classes = cardClass(props, headed);
 
   if (!headed) return <div className={classes} {...rest}>{children}</div>;
   return (
