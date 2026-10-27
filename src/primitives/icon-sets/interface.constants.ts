@@ -71,6 +71,7 @@ import squareCodeIcon from '@iconify-icons/lucide/square-code';
 import quoteIcon from '@iconify-icons/lucide/quote';
 import flaskConicalIcon from '@iconify-icons/lucide/flask-conical';
 import botIcon from '@iconify-icons/lucide/bot';
+import bookIcon from '@iconify-icons/lucide/book';
 
 const guidesIcon = {
   width: 24,
@@ -152,6 +153,7 @@ const INTERFACE_ICONS = {
   'quote': quoteIcon,
   'flask': flaskConicalIcon,
   'robot': botIcon,
+  'book': bookIcon,
 } as const;
 
 export { INTERFACE_ICONS };

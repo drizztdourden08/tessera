@@ -35,7 +35,7 @@ const TriggerMenu = (props: TriggerMenuProps) => {
   };
   const hover = useHoverOpen({ open: drop.open, byHover: start === 'none', anchorRef: drop.anchorRef, enabled: openOnHover && !disabled, onOpen: () => openAt('none'), onClose: drop.close });
   if (shown.length === 0) return null;
-  const look = menuLookClass(variant, intensity);
+  const look = menuLookClass(variant, intensity, props.itemSize);
 
   return (
     <>

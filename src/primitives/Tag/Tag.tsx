@@ -10,7 +10,7 @@ import './Tag.css';
 
 const Tag = (props: TagProps) => {
   const {
-    variant, color, pill, dot, icon, selected, onSelect, role, onRemove, name, disabled = false, title, className, children,
+    variant, color, pill, outlined, selectedTone, dot, icon, selected, onSelect, role, onRemove, name, disabled = false, title, className, children,
     href, navigate, onClick, target, rel, ...data
   } = props;
   const frame = {
