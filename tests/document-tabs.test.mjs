@@ -192,3 +192,22 @@ describe('DocumentTabs look', () => {
     expect(draw({ look: 'raised' })).toContain('document-tabs document-tabs--raised');
   });
 });
+
+describe('DocumentTabs status', () => {
+  const withStatus = [
+    { id: 'a', title: 'a.bxl', status: { label: 'Running', tone: 'success', pulse: true }, unsaved: true },
+    { id: 'b', title: 'b.bxl' },
+  ];
+
+  it('draws a toned Status dot with a hidden label before the title, only on the tab that has one', () => {
+    const html = draw({ tabs: withStatus, activeId: 'a' });
+    expect(html.match(/status__dot/g)).toHaveLength(1);
+    expect(html).toContain('status--success');
+    expect(html).toContain('status--pulse');
+    expect(html).toMatch(/status__dot[\s\S]*visually-hidden">Running<[\s\S]*document-tabs__title/);
+  });
+
+  it('keeps the unsaved dot beside the close button', () => {
+    expect(draw({ tabs: withStatus })).toContain('document-tabs__dot');
+  });
+});

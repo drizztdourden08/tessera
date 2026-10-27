@@ -59,6 +59,10 @@
   flex: none;
 }
 
+.document-tabs__phase {
+  flex: none;
+}
+
 .document-tabs__title {
   min-inline-size: 0;
   overflow: hidden;

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind barrel */
 export { GroupTree, type GroupTreeProps, type TreeNode } from '../GroupTree';
-export { DocumentTabs,type DocumentTab, type DocumentTabsProps } from '../DocumentTabs';
+export { DocumentTabs,type DocumentTab, type DocumentTabStatus, type DocumentTabsProps } from '../DocumentTabs';
 export { SearchResults } from '../SearchResults';
 export type { SearchResultsGroup, SearchResultsHit, SearchResultsJump, SearchResultsProps } from '../SearchResults';
 export { SearchResultGroup } from '../SearchResultGroup';

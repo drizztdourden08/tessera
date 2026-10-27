@@ -34,6 +34,7 @@ DocumentTabs is the strip of open documents the user switches, closes and reorde
 - OnClose only asks to close. The app may refuse, for example to confirm unsaved changes first; the tab stays until the app removes it from tabs.
 - OnMove gets the old and the new index; change the order of tabs there.
 - Set unsaved on a tab to show a dot that stays beside the close button on hover and focus.
+- Set status on a tab to show where it is, as a small dot before the title: a tone (info, success, warning, danger and the rest of the Status tones), a label and an optional pulse. It is not the unsaved mark; a tab can have both.
 - Title is the text on the tab, cut with an ellipsis; tooltip is the hover text and defaults to the title.
 - When the tabs do not fit, the strip scrolls and keeps the active tab in view. Pass overflowMenu to add a menu that lists every tab.
 - Show the document of the active tab beside the strip; DocumentTabs draws no panel.
@@ -47,7 +48,7 @@ DocumentTabs is the strip of open documents the user switches, closes and reorde
 - Left and Right move focus from tab to tab and wrap, Home and End go to the first and the last. Enter or Space activates the focused tab.
 - Delete or Ctrl and W asks to close the focused tab. The close button of each tab is named Close and the title, and is not a tab stop.
 - Alt and Left or Right moves the focused tab. Focus stays on the tab, and the move is announced.
-- A tab with unsaved changes says so to screen readers. Middle click closes a tab.
+- A tab with unsaved changes says so to screen readers, and so does the label of its status. The dot is never the only signal: pick a label that names the phase. Middle click closes a tab.
 - The Menu key and Shift+F10 on a focused tab call onTabContextMenu with the tab id. The add button is a named button and a tab stop of its own.
 - The drop line follows the pointer while a tab is dragged, and the strip adds no motion when the user asks for less.
 

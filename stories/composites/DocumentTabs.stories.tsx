@@ -41,6 +41,11 @@ const Reorder = {
   render: () => <DocumentTabsDemo showOrder />,
 } satisfies StoryLiteStoryDefinition<DocumentTabsArgs>;
 
+const Phases = {
+  name: 'Phase dots: a status on a tab draws a tone dot before the title, apart from the unsaved dot beside the close button',
+  render: () => <DocumentTabsDemo documents="phases" />,
+} satisfies StoryLiteStoryDefinition<DocumentTabsArgs>;
+
 const MenuAndAdd = {
   name: 'Menu hook and add button: right click, Menu or Shift+F10 on a tab, and + after the last tab',
   render: () => <DocumentTabsMenuDemo />,
@@ -50,6 +55,7 @@ const STATE_SETS: readonly { name: string; documents: DocumentSet }[] = [
   { name: 'three', documents: 'three' },
   { name: 'many', documents: 'many' },
   { name: 'unsaved', documents: 'unsaved' },
+  { name: 'phases', documents: 'phases' },
   { name: 'none', documents: 'none' },
 ];
 
@@ -61,12 +67,12 @@ const Overview = overviewStory({
     'An unsaved tab keeps its dot beside the close button on hover and focus. Middle click closes.',
     'Drag a tab, or press [[Alt+Left]] or [[Alt+Right]]. [[Delete]] or [[Ctrl+W]] closes the focused tab.',
     'Too many tabs scroll with the active one in view; `overflowMenu` adds a menu that lists them all.',
-    '`look="raised"` fills the tabs and lifts the selected one; `--document-tab-bg` sets the fill.',
+    '`status` puts a phase dot before the title; `look="raised"` fills the tabs and lifts the selected one.',
     '`onTabContextMenu` gets the tab id on right click or [[Menu]]; `onAdd` draws a + button.',
   ],
   instead: '[Tabs] for fixed views of one area, or [RowGrid] for a short list of rows the user edits and puts in order.',
   playground: Playground,
-  variants: [ThreeDocuments, ManyTabs, Raised, Reorder, MenuAndAdd],
+  variants: [ThreeDocuments, ManyTabs, Raised, Reorder, Phases, MenuAndAdd],
   states: {
     render: (props: StateProps) => <DocumentTabsDemo documents={(props.documents as DocumentSet | undefined) ?? 'three'} />,
     list: STATE_SETS.map(({ name, documents }) => ({ name, props: { documents } })),
@@ -75,4 +81,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { ManyTabs, MenuAndAdd, Overview, Playground, Raised, Reorder, ThreeDocuments };
+export { ManyTabs, MenuAndAdd, Overview, Phases, Playground, Raised, Reorder, ThreeDocuments };
