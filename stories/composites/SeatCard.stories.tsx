@@ -55,7 +55,7 @@ const Overview = overviewStory({
     '`state="attention"` is a filled seat that waits on you: a warning edge and a `reason` that says why.',
     '`state="empty"` is a quiet open seat with a `label` and a `hint`; it is not clickable.',
     '`state="add"` is a dashed button; `onSelect` only asks, the app adds the seat.',
-    'Give `onSelect` to a filled seat and its name becomes the one button; a click anywhere on the card goes through it.',
+    'With `onSelect`, the name of a filled seat is its one button; a click on the card goes through it.',
     'Put the cards in a [SeatGrid] so they share one size and wrap.',
   ],
   instead: '[ItemCard] for items of a catalogue with media, tags and details.',
