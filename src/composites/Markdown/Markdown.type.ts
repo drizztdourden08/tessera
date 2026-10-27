@@ -38,6 +38,7 @@ interface MarkdownProps {
   linkIds?: MarkdownLinkId | MarkdownLinkId[];
   smartTimes?: boolean;
   linkTone?: LinkTone;
+  idLinkTone?: LinkTone;
   className?: string;
 }
 
@@ -48,6 +49,7 @@ interface MarkdownSettings {
   images?: MarkdownImages;
   onImage?: MarkdownImageHandler;
   linkTone?: LinkTone;
+  idLinkTone?: LinkTone;
 }
 
 interface MarkdownPartProps extends ExtraProps {
@@ -56,6 +58,7 @@ interface MarkdownPartProps extends ExtraProps {
 
 interface MarkdownLinkProps extends MarkdownPartProps {
   href?: string;
+  'data-id-link'?: string;
 }
 
 interface MarkdownListProps extends MarkdownPartProps {
@@ -94,6 +97,7 @@ interface MarkdownTextNode {
   value?: string;
   url?: string;
   title?: string | null;
+  data?: { hProperties: Record<string, string> };
   children?: MarkdownTextNode[];
 }
 

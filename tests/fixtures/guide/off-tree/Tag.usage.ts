@@ -16,7 +16,7 @@ const usage = {
 
 const Genre = ({ name }: { name: string }) => <Tag variant="category" color="teal">{name}</Tag>;
 `,
-  propsHash: '03d932f83b62e320',
+  propsHash: '74bcc05d4c8fcc9e',
 } satisfies ComponentUsage;
 
 export { usage };

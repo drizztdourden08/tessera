@@ -462,6 +462,7 @@ input, select {
   --field-w-inline: var(--size-256);
   --field-w-inline-min: var(--size-160);
   --field-w-narrow: calc(220 * var(--size-1));
+  --field-w-fill-below: calc(420 * var(--size-1));
   --stat-row-max-w: var(--size-512);
   --tour-intro-w: var(--size-640);
   --tour-intro-art-h: var(--size-96);

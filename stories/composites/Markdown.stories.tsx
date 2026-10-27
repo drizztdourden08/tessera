@@ -106,6 +106,18 @@ const NeutralLinks = {
   ),
 } satisfies StoryLiteStoryDefinition<MarkdownArgs>;
 
+const ID_LINKS_NOTE = 'Fixed T-5, see [the notes](https://example.com/notes).';
+
+const IdLinkTone = {
+  name: 'Id links in their own tone',
+  render: () => (
+    <Box className="story-column">
+      <Markdown source={ID_LINKS_NOTE} size="inline" linkIds={LINK_IDS} linkTone="info" />
+      <Markdown source={ID_LINKS_NOTE} size="inline" linkIds={LINK_IDS} linkTone="info" idLinkTone="neutral" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<MarkdownArgs>;
+
 const CODE =`import { Markdown } from '@drizztdourden08/tessera';
 
 <Markdown source={note} />
@@ -120,14 +132,14 @@ const Overview = overviewStory({
     'Raw HTML is dropped, and only http, https and mailto links stay links, plus app paths with `onLink`.',
     '`onLink` takes every link click; without it a link opens in a new tab with rel noopener.',
     '`images` draws http, https and base64 png, jpeg, gif and webp, never svg; `onImage` makes each a button.',
-    '`linkIds` makes ids such as T-5 links; `linkTone` and `smartTimes` set link colour and 1920x1080 signs.',
+    '`linkIds` makes ids such as T-5 links; `linkTone`, `idLinkTone` set link colours, `smartTimes` adds 1920x1080.',
     '`headingOffset` moves headings down, `hideTitle` drops the # title, and `size` is sm, md or inline.',
   ],
   instead: '[Text] for text written in the app, or [CodeBlock] for code shown as it is.',
   playground: Playground,
-  variants: [ReleaseNote, Readme, RawHtml, NarrowDialog, LinksInApp, ImagesAndIds, ImageClick, TimesSign, NeutralLinks],
+  variants: [ReleaseNote, Readme, RawHtml, NarrowDialog, LinksInApp, ImagesAndIds, ImageClick, TimesSign, NeutralLinks, IdLinkTone],
   code: CODE,
 });
 
 export default meta;
-export { ImageClick, ImagesAndIds, LinksInApp, NarrowDialog, NeutralLinks, Overview, Playground, RawHtml, Readme, ReleaseNote, TimesSign };
+export { IdLinkTone, ImageClick, ImagesAndIds, LinksInApp, NarrowDialog, NeutralLinks, Overview, Playground, RawHtml, Readme, ReleaseNote, TimesSign };

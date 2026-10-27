@@ -1,0 +1,15 @@
+/* @layer stories @kind style */
+.narrow-fill-row {
+  container-type: inline-size;
+  max-inline-size: 100%;
+  padding: var(--space-sm);
+  border: var(--border-width-thin) dashed var(--c-border);
+}
+
+.narrow-fill-row--wide {
+  inline-size: var(--size-512);
+}
+
+.narrow-fill-row--tight {
+  inline-size: var(--size-320);
+}

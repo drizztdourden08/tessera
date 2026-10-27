@@ -6,6 +6,7 @@ const statusLook = (given: StatusLookInput, drawn: DrawnStatus): StatusClassLook
   size: given.size ?? 'md',
   dotSize: given.dotSize ?? 'md',
   halo: given.halo ?? false,
+  reasoned: given.reason !== undefined,
   withDot: (given.dot === true || given.halo === true) && !drawn.icon,
 });
 

@@ -56,6 +56,7 @@ interface TagBase {
   size?: TagSize;
   dot?: boolean;
   icon?: IconName;
+  reason?: string;
   disabled?: boolean;
   title?: string;
   className?: string;

@@ -27,9 +27,10 @@ interface StatusLook extends HTMLAttributes<HTMLSpanElement> {
   dot?: boolean;
   dotSize?: StatusDotSize;
   halo?: boolean;
+  reason?: string;
 }
 
-type StatusLookInput = Pick<StatusLook, 'variant' | 'size' | 'dot' | 'dotSize' | 'halo'>;
+type StatusLookInput = Pick<StatusLook, 'variant' | 'size' | 'dot' | 'dotSize' | 'halo' | 'reason'>;
 
 interface StatusWordProps extends StatusLook {
   tone?: StatusTone;
@@ -57,6 +58,7 @@ interface StatusClassLook {
   withDot: boolean;
   dotSize: StatusDotSize;
   halo: boolean;
+  reasoned: boolean;
 }
 
 interface DrawnStatus {

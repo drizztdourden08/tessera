@@ -356,6 +356,7 @@
   --field-w-inline: 256px;
   --field-w-inline-min: 160px;
   --field-w-narrow: calc(220 * 1px);
+  --field-w-fill-below: calc(420 * 1px);
   --stat-row-max-w: 512px;
   --tour-intro-w: 640px;
   --tour-intro-art-h: 96px;

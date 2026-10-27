@@ -6,6 +6,7 @@ import type { StatusKey, StatusTone, StatusVariant } from '../../src/primitives'
 import { overviewStory } from '../_template/overview-story';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
+import { FaultStatuses } from './_samples/FaultChips';
 import { StatusPalettes } from './_samples/StatusPalettes';
 import { ENGINE_STATES, PLAYER_STATUSES, SESSION_STATUSES } from './_samples/status-tables.constants';
 
@@ -180,6 +181,11 @@ const Fallback = {
   ),
 } satisfies StoryLiteStoryDefinition<StatusArgs>;
 
+const Fault = {
+  name: 'Fault word: a reason in the tone',
+  render: () => <FaultStatuses />,
+} satisfies StoryLiteStoryDefinition<StatusArgs>;
+
 const Overview = overviewStory({
   component: 'Status',
   description: 'A read-only word that says what state something is in, such as connected, syncing or draft.',
@@ -187,14 +193,14 @@ const Overview = overviewStory({
     '`text` draws the word in its tone; `pill` draws it in capitals on a filled pill, for a record header.',
     'Pass the word as children with its `tone`, `neutral` by default, and `pulse` for a state still changing.',
     'Or pass `map`, a table from `defineStatuses`, and `value`, one of its keys: the table gives the word and tone.',
-    '`size="sm"` shrinks it to 18 px tall, for a table cell or a dense row.',
-    '`fallback` names the key drawn while `value` is missing or not in the table.',
+    '`size="sm"` shrinks it to 18 px tall; `fallback` names the key drawn when `value` is missing.',
     '`dot` leads the word with a dot; `dotSize="lg"` makes it 8 px and `halo` rings it in the tone.',
+    '`reason` adds a cause after the word; the word keeps the text colour and the reason takes the tone.',
   ],
   instead: '[Badge] for a count, or [Tag] for a value that sorts an item into a group.',
   playground: Playground,
-  variants: [Tones, Sizes, NodeDots, EveryPalette, Pulsing, ScreenList, OneTable, WithIcons, Fallback],
+  variants: [Tones, Sizes, NodeDots, EveryPalette, Pulsing, ScreenList, OneTable, WithIcons, Fallback, Fault],
 });
 
 export default meta;
-export { EveryPalette, Fallback, NodeDots, OneTable, Overview, Playground, Pulsing, ScreenList, Sizes, Tones, WithIcons };
+export { EveryPalette, Fallback, Fault, NodeDots, OneTable, Overview, Playground, Pulsing, ScreenList, Sizes, Tones, WithIcons };
