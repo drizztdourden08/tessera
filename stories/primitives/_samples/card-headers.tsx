@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react';
 import { ContentHeader } from '../../../src/composites';
 import { Box, Button, Card, IconButton, Icon, SectionHeader, Stack, StatRow, Status, Text } from '../../../src/primitives';
-import type { CardTone } from '../../../src/primitives';
+import type { CardEdge, CardTone } from '../../../src/primitives';
 
 const TONES: readonly CardTone[] = ['neutral', 'primary', 'info', 'success', 'warning', 'danger'];
 
@@ -17,6 +17,12 @@ const TONE_SAMPLES: Readonly<Record<CardTone, { title: string; body: string }>> 
 
 const toneCard = (tone: CardTone): ReactNode => (
   <Card title={TONE_SAMPLES[tone].title} tone={tone}>
+    <Text variant="caption">{TONE_SAMPLES[tone].body}</Text>
+  </Card>
+);
+
+const edgeCard = (tone: CardTone, edge: CardEdge): ReactNode => (
+  <Card title={TONE_SAMPLES[tone].title} edgeTone={tone} edge={edge}>
     <Text variant="caption">{TONE_SAMPLES[tone].body}</Text>
   </Card>
 );
@@ -52,4 +58,4 @@ const PageWithCards = () => (
   </Box>
 );
 
-export { PageWithCards, toneCard, TONES };
+export { edgeCard, PageWithCards, toneCard, TONES };

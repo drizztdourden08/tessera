@@ -6,15 +6,14 @@ import { Overlay } from '../../primitives/Overlay';
 import { ScrollArea } from '../../primitives/ScrollArea';
 import { useDialogEscape } from '../DialogShell/behavior/useDialogEscape';
 import { useDialogFocus } from '../DialogShell/behavior/useDialogFocus';
-import { WindowHeader } from '../WindowHeader';
 import './Drawer.css';
 import { drawerClass } from './behavior/drawer-class';
+import { DrawerHeader } from './sub-components/DrawerHeader';
 import type { DrawerProps } from './Drawer.type';
 
 const Drawer = (props: DrawerProps) => {
-  const { open, onClose, side = 'right', size, label, title, subtitle, actions, children } = props;
+  const { open, onClose, side = 'right', size, label, eyebrow, title, titleWrap, subtitle, headerActions, actions, children } = props;
   const titleId = useId();
-  const headed = title !== undefined || subtitle !== undefined;
   const labelledBy = label === undefined && title !== undefined ? titleId : undefined;
   const focus = useDialogFocus({ open, initialFocus: 'first', headingId: title === undefined ? undefined : titleId });
   useDialogEscape(open ? focus.node : null, true, onClose);
@@ -32,7 +31,15 @@ const Drawer = (props: DrawerProps) => {
         tabIndex={-1}
         onKeyDown={focus.onKeyDown}
       >
-        {headed && <WindowHeader title={title} titleId={titleId} subtitle={subtitle} onClose={onClose} className="drawer__header" />}
+        <DrawerHeader
+          eyebrow={eyebrow}
+          title={title}
+          titleWrap={titleWrap}
+          titleId={titleId}
+          subtitle={subtitle}
+          headerActions={headerActions}
+          onClose={onClose}
+        />
         <ScrollArea className="drawer__body">{children}</ScrollArea>
         {actions !== undefined && <ButtonRow className="drawer__actions">{actions}</ButtonRow>}
       </Box>

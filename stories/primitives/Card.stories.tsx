@@ -3,13 +3,13 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, ButtonRow, Card, Flex, Stack, Status, Text } from '../../src/primitives';
-import type { CardProps, CardTone } from '../../src/primitives';
+import type { CardEdge, CardProps, CardTone } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import './_samples/CardFill.css';
-import { PageWithCards, toneCard, TONES } from './_samples/card-headers';
+import { edgeCard, PageWithCards, toneCard, TONES } from './_samples/card-headers';
 
 type CardVariant = NonNullable<CardProps['variant']>;
 
@@ -109,6 +109,13 @@ const HeaderTones = {
   render: () => <Demonstrator rows={axis(TONES)} align="stretch" cell={toneCard} />,
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
+const EDGES: readonly CardEdge[] = ['left', 'border'];
+
+const EdgeTones = {
+  name: 'Edge tones',
+  render: () => <Demonstrator rows={axis(TONES)} columns={axis(EDGES)} align="stretch" cell={edgeCard} />,
+} satisfies StoryLiteStoryDefinition<CardArgs>;
+
 const OnAPage = {
   name: 'Under a ContentHeader and a SectionHeader',
   render: () => <PageWithCards />,
@@ -171,14 +178,14 @@ const Overview = overviewStory({
   points: [
     '`default` is the plain panel; `danger` frames a destructive choice.',
     '`title` draws a header row in the [SectionHeader] look, with `subtitle`, `count`, `hideZero` and `actions`.',
-    '`tone` tints the header row, such as `warning` for a card of problems.',
+    '`tone` tints the header row; `edgeTone` colours the left edge, or the border with `edge="border"`.',
     '`fill` makes the body take the card height left under the header, and scroll when its child is taller.',
     '`interactive` lights the border on hover for a card clicked whole; **give it a `tabIndex` and a `role`**.',
     'It sets no inner layout: put a [Stack] or [Flex] inside.',
   ],
   instead: '[ContentHeader] for the header of a whole page, or [SectionHeader] for a heading outside a card.',
   playground: Playground,
-  variants: [AllVariants, HeaderTones, OnAPage, FillingBody],
+  variants: [AllVariants, HeaderTones, EdgeTones, OnAPage, FillingBody],
   states: {
     render: renderState,
     list: [
@@ -190,4 +197,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, FillingBody, HeaderTones, Interactive, OnAPage, Overview, Playground };
+export { AllVariants, EdgeTones, FillingBody, HeaderTones, Interactive, OnAPage, Overview, Playground };
