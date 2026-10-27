@@ -3,6 +3,7 @@ import type { StoryLiteMeta } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { TourDemo } from './_samples/TourDemo';
+import { TourDropdownDemo } from './_samples/TourDropdownDemo';
 import { TourIntroDemo } from './_samples/TourIntroDemo';
 import { TourMenuDemo } from './_samples/TourMenuDemo';
 import { TourNestedDemo } from './_samples/TourNestedDemo';
@@ -61,6 +62,13 @@ const MenuClick = {
   args: { mascot: 'rotp' },
   argTypes: ARG_TYPES,
   render: (args) => <TourMenuDemo mascot={args.mascot === 'none' ? false : args.mascot} />,
+} satisfies PlaygroundStory<TourArgs>;
+
+const DropdownEntry = {
+  name: 'Lights an entry of an open dropdown menu',
+  args: { mascot: 'brock' },
+  argTypes: ARG_TYPES,
+  render: (args) => <TourDropdownDemo mascot={args.mascot === 'none' ? false : args.mascot} />,
 } satisfies PlaygroundStory<TourArgs>;
 
 const IntroStep = {
@@ -127,9 +135,9 @@ const Overview = overviewStory({
   ],
   instead: '[ShortcutTour] to teach one shortcut on a drawn keyboard.',
   playground: Playground,
-  variants: [ClickStep, KeptTitle, WaitStep, MenuClick, IntroStep, NestedScrollers, SpotAlone],
+  variants: [ClickStep, KeptTitle, WaitStep, MenuClick, DropdownEntry, IntroStep, NestedScrollers, SpotAlone],
   code: CODE,
 });
 
 export default meta;
-export { ClickStep, IntroStep, KeptTitle, MenuClick, NestedScrollers, Overview, Playground, SpotAlone, WaitStep };
+export { ClickStep, DropdownEntry, IntroStep, KeptTitle, MenuClick, NestedScrollers, Overview, Playground, SpotAlone, WaitStep };

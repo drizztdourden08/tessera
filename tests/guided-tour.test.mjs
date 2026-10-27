@@ -209,7 +209,7 @@ describe('the spotlight and the mascot', () => {
     expect(mascotSpot({ bubble: wide, hole: null }, view, { width: 80, height: 80 }, 10)).toMatchObject({ x: 60, y: 210 });
   });
 
-  it('draws the mascot and the ring above the dim layer, and the centred bubble above both', () => {
+  it('draws the mascot above the dim layer, the ring above the mascot and the bubble above both', () => {
     const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
     const tokens = Object.fromEntries([...read('../src/tokens/z-index.css').matchAll(/--(z-[a-z-]+):\s*(\d+);/g)].map((m) => [m[1], Number(m[2])]));
     const zOf = (css, selector) => {
@@ -221,8 +221,9 @@ describe('the spotlight and the mascot', () => {
     const veil = zOf(read('../src/primitives/Overlay/Overlay.css'), '.overlay');
     expect(veil).toBeGreaterThan(0);
     expect(zOf(tour, '.guided-tour__mascot')).toBeGreaterThan(veil);
-    expect(zOf(read('../src/composites/GuidedTour/sub-components/TourSpotlight.css'), '.tour-spotlight__ring')).toBeGreaterThan(veil);
-    expect(zOf(tour, '.guided-tour__bubble--center')).toBeGreaterThan(zOf(tour, '.guided-tour__mascot'));
+    const ring = zOf(read('../src/composites/GuidedTour/sub-components/TourSpotlight.css'), '.tour-spotlight__ring');
+    expect(ring).toBeGreaterThan(zOf(tour, '.guided-tour__mascot'));
+    expect(zOf(tour, '.guided-tour__bubble')).toBeGreaterThan(ring);
     expect(tour.slice(tour.indexOf('.guided-tour {'), tour.indexOf('}'))).toContain('isolation: isolate');
   });
 });

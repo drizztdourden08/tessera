@@ -5,9 +5,9 @@ import { CardHeader } from './sub-components/CardHeader';
 import type { CardProps } from './Card.type';
 
 const Card = (props: CardProps) => {
-  const { variant = 'default', edgeTone, edge = 'left', fill = false, header, title, subtitle, actions, count, hideZero, tone, level, children, className = '', ...rest } = props;
+  const { variant, edgeTone, edge, fill, flush, header, title, subtitle, actions, count, hideZero, tone, level, children, className, ...rest } = props;
   const headed = (header ?? title) != null;
-  const classes = cardClass({ variant, edgeTone, edge, headed, fill, className });
+  const classes = cardClass(props, headed);
 
   if (!headed) return <div className={classes} {...rest}>{children}</div>;
   return (

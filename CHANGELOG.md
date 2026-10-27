@@ -1,5 +1,23 @@
 # @drizztdourden08/tessera
 
+## 0.81.0
+
+### Minor Changes
+
+- e043a08: Tag takes `pill` for a fully rounded shape and `icon` for a leading icon.
+  Badge takes `icon` to lead a count with an icon.
+  Status takes `size="sm"`, a row 18 px tall.
+  DataTable `rowState` takes `'fresh'`, a soft info tint for new rows that selection still overrides.
+  New `flask` and `robot` icons in the interface set.
+  DataTable takes `headerCase="upper"` for capital column labels with wide letter spacing.
+  ContentHeader takes `variant="plain"`, a title row with no backdrop, gradient or border.
+  PageFrame takes `padding="md"` for 16 px of page padding; the default stays 24 px.
+  Tag takes `href` with `navigate` or `onClick` and renders as a link that keeps its chip look, focus ring and 24 px target.
+  New `git-branch` icon beside `git-fork`.
+  SectionHeader takes `size="lg"` for a larger plain title and `wrap` so a long title wraps with its count inline.
+- 8782694: Card takes `flush`: no padding in the body, so a table or a list runs edge to edge, with the border and radius kept and the children clipped to the radius. ListItemRow takes `lead`, an id or a code in the first column before the name (it shares that column with `icon`), and `flat`, a dense row with no fill or border until hover or selection. Disclosure takes `end`, a slot at the right of the summary for a count or a Button; a click inside it never toggles the disclosure. InlineCreateForm takes `dashed`, which draws the box border dashed in the same colour and width. A filter chip that toggles is the existing Tag with `selected` and `onSelect`, and `grow={false}` on TextInput, SearchInput, Select and Combobox is the existing fixed-width prop, now written in the Select usage rules.
+- c378845: Callout takes a `title`, a bold first line above the text, so a banner is a Callout with a title.
+
 ## 0.80.0
 
 ### Minor Changes

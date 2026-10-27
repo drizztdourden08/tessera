@@ -33,6 +33,7 @@ Disclosure shows or hides what is under one line with the browser details elemen
 - Pass defaultOpen to start it open, and onOpenChange to hear each toggle, such as to load a log only once it opens.
 - A later change to defaultOpen opens or closes it, so a part can open it when a job fails.
 - Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.
+- Pass end for something at the right of the line, such as a count or a Button; a click inside it never opens or closes the disclosure.
 - Use size sm for a line in small text, such as inside a settings row.
 - Pass bodyClassName to lay out the body, such as a column of rows with a gap, in place of a selector on its class.
 
@@ -56,6 +57,7 @@ const ReleaseNotes = ({ notes }: { notes: string }) => (
 ## Props
 
 - `summary`: `ReactNode`.
+- `end` (optional): `ReactNode`.
 - `children`: `ReactNode`.
 - `open` (optional): `boolean`.
 - `defaultOpen` (optional): `boolean`. Default `false`.

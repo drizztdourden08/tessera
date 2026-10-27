@@ -1,14 +1,16 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Button, ButtonRow, Card, Flex, Stack, Status, Tag, Text } from '../../src/primitives';
+import { Box, Button, ButtonRow, Card, Stack, Text } from '../../src/primitives';
 import type { CardEdge, CardProps, CardTone } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import './_samples/CardFill.css';
+import { CardFlush } from './_samples/CardFlush';
+import { CardFreeHeader } from './_samples/CardFreeHeader';
+import { SessionPickerDemo } from './_samples/CardSessionPicker';
 import { edgeCard, PageWithCards, toneCard, TONES } from './_samples/card-headers';
 
 type CardVariant = NonNullable<CardProps['variant']>;
@@ -31,12 +33,6 @@ const SAMPLES: Record<CardVariant, { title: string; body: string }> = {
   interactive: { title: 'Saturday multiworld', body: 'Click to open the session.' },
   danger: { title: 'Delete profile', body: 'Removes every save state and setting in this profile.' },
 };
-
-const SESSIONS = [
-  { id: 'sat', name: 'Saturday multiworld', players: 4, status: 'Running' },
-  { id: 'relay', name: 'Relay practice', players: 2, status: 'Paused' },
-  { id: 'solo', name: 'Solo seed 48213', players: 1, status: 'Finished' },
-];
 
 const ARGS: Partial<CardArgs> = { variant: 'default', header: true, subtitle: '', count: 4, tone: 'neutral', actions: true, ...SAMPLES.default };
 
@@ -118,25 +114,7 @@ const EdgeTones = {
 
 const FreeHeader = {
   name: 'A free header row',
-  render: () => (
-    <Box className="story-column">
-      <Card
-        header={(
-          <Flex justify="between" align="center" gap="md">
-            <Flex gap="sm" align="center">
-              <Status tone="success" dot dotSize="lg" halo>Online</Status>
-              <Text>Saturday multiworld</Text>
-              <Tag pill dot color="primary">4 players</Tag>
-            </Flex>
-            <Button size="sm" variant="secondary">Open</Button>
-          </Flex>
-        )}
-      >
-        <Text variant="subtitle">The header takes any content, laid out by the caller.</Text>
-      </Card>
-      <Card tone="info" header={<Text>With a tone, the row is tinted like a titled header.</Text>}>212 of 640 checks found.</Card>
-    </Box>
-  ),
+  render: () => <CardFreeHeader />,
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
 const OnAPage = {
@@ -159,27 +137,10 @@ const FillingBody = {
   ),
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
-const SessionPickerDemo = () => {
-  const [picked, setPicked] = useState<string | null>(null);
-  const current = SESSIONS.find((session) => session.id === picked);
-
-  return (
-    <Box className="story-column">
-      {SESSIONS.map((session) => (
-        <Card key={session.id} variant="interactive" onClick={() => setPicked(session.id)}>
-          <Flex justify="between" align="center" gap="md">
-            <Box>
-              <Text as="div">{session.name}</Text>
-              <Text variant="caption">{`${session.players} players`}</Text>
-            </Box>
-            <Status tone={session.status === 'Running' ? 'success' : 'neutral'}>{session.status}</Status>
-          </Flex>
-        </Card>
-      ))}
-      <Text variant="caption">{current ? `Opened: ${current.name}` : 'Pick a session.'}</Text>
-    </Box>
-  );
-};
+const Flush = {
+  name: 'Flush, a table edge to edge',
+  render: () => <CardFlush />,
+} satisfies StoryLiteStoryDefinition<CardArgs>;
 
 const Interactive = {
   name: 'Interactive list',
@@ -203,12 +164,12 @@ const Overview = overviewStory({
     '`title` draws a header row in the [SectionHeader] look; `header` swaps it for any content you lay out.',
     '`tone` tints the header row; `edgeTone` colours the left edge, or the border with `edge="border"`.',
     '`fill` makes the body take the card height left under the header, and scroll when its child is taller.',
+    '`flush` drops the body padding so a table or list runs edge to edge; border and radius stay, children clip.',
     '`interactive` lights the border on hover for a card clicked whole; **give it a `tabIndex` and a `role`**.',
-    'It sets no inner layout: put a [Stack] or [Flex] inside.',
   ],
   instead: '[ContentHeader] for the header of a whole page, or [SectionHeader] for a heading outside a card.',
   playground: Playground,
-  variants: [AllVariants, HeaderTones, FreeHeader, EdgeTones, OnAPage, FillingBody],
+  variants: [AllVariants, HeaderTones, FreeHeader, EdgeTones, OnAPage, FillingBody, Flush],
   states: {
     render: renderState,
     list: [
@@ -220,4 +181,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, EdgeTones, FillingBody, FreeHeader, HeaderTones, Interactive, OnAPage, Overview, Playground };
+export { AllVariants, EdgeTones, FillingBody, FreeHeader, Flush, HeaderTones, Interactive, OnAPage, Overview, Playground };

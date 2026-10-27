@@ -24,6 +24,7 @@ interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>, CardH
   edgeTone?: CardTone;
   edge?: CardEdge;
   fill?: boolean;
+  flush?: boolean;
   children: ReactNode;
 }
 
