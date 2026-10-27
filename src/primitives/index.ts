@@ -116,6 +116,8 @@ export { SectionHeader } from './SectionHeader';
 export type { SectionHeaderProps } from './SectionHeader';
 export { Callout } from './Callout';
 export type { CalloutProps, CalloutTone, CalloutVariant } from './Callout';
+export { FoldText } from './FoldText';
+export type { FoldOverflow, FoldTextProps } from './FoldText';
 export { SpeechBubble } from './SpeechBubble';
 export type { SpeechBubblePointer, SpeechBubbleProps } from './SpeechBubble';
 export { Disclosure } from './Disclosure';

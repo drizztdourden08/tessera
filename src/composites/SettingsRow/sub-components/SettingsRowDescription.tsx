@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { FoldText } from '../../../primitives/fold-text/FoldText';
+import { FoldText } from '../../../primitives/FoldText';
 import { Small } from '../../../primitives/text-elements';
 import type { SettingsRowDescriptionProps } from './SettingsRowDescription.type';
 

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind logic */
 import type { FoldState } from './fold-state.type';
-import type { FoldOverflow } from './fold-text.type';
+import type { FoldOverflow } from '../FoldText.type';
 
 const foldState = (lines: number | undefined, overflow: FoldOverflow, open: boolean, clamped: boolean): FoldState => {
   if (lines === undefined || lines <= 0) return { clamp: undefined, more: false, hint: false };

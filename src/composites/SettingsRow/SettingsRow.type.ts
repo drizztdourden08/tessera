@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { ActionData } from '../../primitives/action-data';
-import type { FoldOverflow } from '../../primitives/fold-text/fold-text.type';
+import type { FoldOverflow } from '../../primitives/FoldText';
 import type { ShortcutKey } from '../../primitives/Shortcut/Shortcut.type';
 import type { PatternSetup, PatternValue } from '../DynamicInput/DynamicInput.type';
 import type { LoadErrorProps } from '../LoadError/LoadError.type';

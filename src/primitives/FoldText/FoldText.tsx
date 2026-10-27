@@ -4,10 +4,10 @@ import { Box } from '../Box';
 import { HelpTip } from '../field-control/HelpTip';
 import { Pressable } from '../Pressable';
 import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
-import { measures } from './fold-measures';
-import { foldState } from './fold-state';
-import type { FoldTextProps } from './fold-text.type';
-import { useClamped } from './useClamped';
+import { measures } from './behavior/fold-measures';
+import { foldState } from './behavior/fold-state';
+import type { FoldTextProps } from './FoldText.type';
+import { useClamped } from './behavior/useClamped';
 import './FoldText.css';
 
 const FoldText = (props: FoldTextProps) => {

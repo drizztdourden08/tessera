@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { FoldOverflow } from '../../primitives/fold-text/fold-text.type';
+import type { FoldOverflow } from '../../primitives/FoldText';
 
 interface FormRowProps {
   label: string;
