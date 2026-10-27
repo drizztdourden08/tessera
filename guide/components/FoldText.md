@@ -34,6 +34,8 @@ FoldText is the one clamp for long text. FormRow and SettingsRow draw their desc
 - Set overflow to hint to keep the text clamped and show a hint beside it, which holds the full text unless hint is passed.
 - Set overflow to clip to cut the text at lines with no control at all, for text whose full form is shown elsewhere.
 - The control and the hint only appear when the text runs past lines, so short text shows nothing extra.
+- Pass fill to give the text the full width of its parent and contain it, so a table cell holding long text keeps the width the table gives it.
+- Pass truncate middle with a string to keep one line, the start and the end of it, and an ellipsis between, such as a file path; the full text, or hint, shows in a tip while it is cut.
 
 ## Accessibility
 
@@ -54,11 +56,13 @@ const Notes = ({ text }: { text: string }) => (
 ## Props
 
 - `lines` (optional): `number`.
-- `overflow` (optional): `FoldOverflow`, one of `'more'`, `'hint'`, `'clip'`. Default `'more'`.
+- `overflow` (optional): `FoldOverflow`, one of `'more'`, `'hint'`, `'clip'`.
+- `truncate` (optional): `FoldTruncate`.
+- `fill` (optional): `boolean`.
 - `hint` (optional): `ReactNode`.
 - `className` (optional): `string`.
 - `children`: `ReactNode`.
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-primary-bright`, `--radius-sm`, `--space-2xs`, `--text-xs`, `--weight-medium`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-primary-bright`, `--radius-sm`, `--size-1`, `--space-2xs`, `--text-xs`, `--weight-medium`.

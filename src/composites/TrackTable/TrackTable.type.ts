@@ -13,6 +13,7 @@ interface TrackColumn<Row> {
   label: ReactNode;
   cell: (row: Row, index: number) => ReactNode;
   fr?: number;
+  width?: string;
   drop?: TrackDrop;
   align?: TrackAlign;
 }

@@ -17,13 +17,14 @@ interface DrawerProps {
   eyebrow?: ReactNode;
   title?: ReactNode;
   titleWrap?: boolean;
+  stackNarrow?: boolean;
   subtitle?: ReactNode;
   headerActions?: ReactNode;
   actions?: ReactNode;
   children: ReactNode;
 }
 
-type DrawerHeaderProps = Pick<DrawerProps, 'look' | 'eyebrow' | 'title' | 'titleWrap' | 'subtitle' | 'headerActions' | 'onClose'> & {
+type DrawerHeaderProps = Pick<DrawerProps, 'look' | 'eyebrow' | 'title' | 'titleWrap' | 'stackNarrow' | 'subtitle' | 'headerActions' | 'onClose'> & {
   titleId: string;
 };
 

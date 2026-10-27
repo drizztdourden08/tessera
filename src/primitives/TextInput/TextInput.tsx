@@ -11,10 +11,11 @@ import '../../theme/field-surface.css';
 import './TextInput.css';
 import { enterKeyDown } from './behavior/enter-key-down';
 import { frameClass } from './behavior/frame-class';
+import { inputClass } from './behavior/input-class';
 import { type TextInputProps } from './TextInput.type';
 
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
-  const { className: ownClass, grow, width, id, invalid, size, start, end, onEnter, onKeyDown, 'aria-describedby': ownDescribedBy, ...rest } = props;
+  const { className: ownClass, grow, mono, width, id, invalid, size, start, end, onEnter, onKeyDown, 'aria-describedby': ownDescribedBy, ...rest } = props;
   const control = useFieldControl(id, ownDescribedBy);
   const className = widthClass(width, growClass(grow, ownClass));
   const controlSize = useControlSize(size);
@@ -25,7 +26,7 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
   const input = (
     <input
       ref={ref}
-      className={framed ? 'text-input' : `text-input control-size--${controlSize} ${className}`}
+      className={inputClass(framed, controlSize, className, mono)}
       id={control.id}
       aria-describedby={control.describedBy}
       aria-invalid={isInvalid ? true : undefined}

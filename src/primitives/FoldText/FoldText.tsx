@@ -1,36 +1,21 @@
 /* @layer renderer-components @kind component */
-import { useId, useRef, useState } from 'react';
 import { Box } from '../Box';
-import { HelpTip } from '../field-control/HelpTip';
-import { Pressable } from '../Pressable';
-import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
-import { measures } from './behavior/fold-measures';
-import { foldState } from './behavior/fold-state';
+import { foldClass } from './behavior/fold-class';
+import { FoldLines } from './sub-components/FoldLines';
+import { FoldMiddle } from './sub-components/FoldMiddle';
 import type { FoldTextProps } from './FoldText.type';
-import { useClamped } from './behavior/useClamped';
 import './FoldText.css';
 
 const FoldText = (props: FoldTextProps) => {
-  const { lines, overflow = 'more', hint, className, children } = props;
-  const { settings } = useTesseraStrings();
-  const textRef = useRef<HTMLElement>(null);
-  const id = useId();
-  const [open, setOpen] = useState(false);
-  const clamped = useClamped(textRef, measures(lines, overflow, open));
-  const { clamp, more, hint: hinted } = foldState(lines, overflow, open, clamped);
+  const { truncate, fill, className, hint, children } = props;
+  const middle = truncate === 'middle' && typeof children === 'string';
 
   return (
-    <Box className={['fold-text', className].filter(Boolean).join(' ')}>
-      <Box className="fold-text__body">
-        <Box ref={textRef} id={id} className="fold-text__text" data-folded={clamp !== undefined || undefined} style={clamp !== undefined ? { WebkitLineClamp: clamp } : undefined}>
-          {children}
-        </Box>
-        {hinted && <HelpTip help={hint ?? children} />}
-      </Box>
-      {more && (
-        <Pressable className="fold-text__more" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
-          {open ? settings.showLess : settings.showMore}
-        </Pressable>
+    <Box className={foldClass(fill === true || middle, className)}>
+      {middle ? (
+        <Box className="fold-text__body"><FoldMiddle text={children} hint={hint} /></Box>
+      ) : (
+        <FoldLines lines={props.lines} overflow={props.overflow} hint={hint}>{children}</FoldLines>
       )}
     </Box>
   );

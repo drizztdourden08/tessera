@@ -12,6 +12,7 @@ type SampleDrawerProps = {
   size?: 'md' | 'lg' | 'wide' | 'xl';
   label?: string;
   look?: 'default' | 'record';
+  stackNarrow?: boolean;
 };
 
 const ItemDetailsDrawer = (props: SampleDrawerProps) => {

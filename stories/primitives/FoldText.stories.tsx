@@ -4,6 +4,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { Box, FoldText } from '../../src/primitives';
 import type { FoldOverflow } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
+import { FoldTextCells } from './_samples/FoldTextCells';
 
 type FoldTextArgs = {
   text: string;
@@ -79,6 +80,16 @@ const OwnHint = {
   ),
 } satisfies StoryLiteStoryDefinition<FoldTextArgs>;
 
+const Fill = {
+  name: 'fill: a long cell keeps its column width and shows a tip',
+  render: () => <FoldTextCells middle={false} />,
+} satisfies StoryLiteStoryDefinition<FoldTextArgs>;
+
+const Middle = {
+  name: 'truncate="middle": a path keeps its start and end',
+  render: () => <FoldTextCells middle />,
+} satisfies StoryLiteStoryDefinition<FoldTextArgs>;
+
 const Overview = overviewStory({
   component: 'FoldText',
   description: 'A block of text clamped to a few lines, with a More control or a hint that reveals the rest.',
@@ -87,13 +98,13 @@ const Overview = overviewStory({
     '`overflow="more"` adds a More control that opens the text, and Less folds it again.',
     '`overflow="hint"` keeps the height and shows a tip beside the text; `hint` can give it other text.',
     '`overflow="clip"` cuts the text at `lines` with no control.',
-    'The control and the tip only show when the text runs past `lines`.',
-    '[FormRow] and [SettingsRow] draw their descriptions with it.',
+    '`fill` contains the width, so a table cell holding the text does not widen.',
+    '`truncate="middle"` keeps one line of a string, cuts the middle and shows the full text in a tip.',
   ],
   instead: '[Disclosure] when a whole section hides behind a summary line.',
   playground: Playground,
-  variants: [Lines, Clip, Hint, OwnHint],
+  variants: [Lines, Clip, Hint, OwnHint, Fill, Middle],
 });
 
 export default meta;
-export { Clip, Hint, Lines, Overview, OwnHint, Playground };
+export { Clip, Fill, Hint, Lines, Middle, Overview, OwnHint, Playground };

@@ -33,6 +33,28 @@
   -webkit-box-orient: vertical;
 }
 
+.fold-text--fill {
+  align-items: stretch;
+  inline-size: 100%;
+  contain: inline-size;
+}
+
+.fold-text--fill > .fold-text__body {
+  inline-size: 100%;
+}
+
+.fold-text__tip {
+  flex: 1 1 0;
+  min-inline-size: 0;
+}
+
+.fold-text__text--middle {
+  display: block;
+  flex: 1 1 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .fold-text__more {
   color: var(--c-primary-bright);
   font-size: var(--text-xs);
