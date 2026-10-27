@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.83.0
+
+### Minor Changes
+
+- 5ac7251: FoldText is a public primitive. It clamps text to `lines` lines, and `overflow` picks what happens past them: `more` adds the More and Less control, `hint` keeps the height and shows the full text in a tip beside it (or the node passed as `hint`), and `clip` cuts the text with no control. The control and the tip only show when the text runs past the lines. FormRow and SettingsRow draw their descriptions with it. The package exports `FoldText`, `FoldTextProps` and `FoldOverflow`.
+
 ## 0.82.0
 
 ### Minor Changes
