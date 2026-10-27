@@ -19,6 +19,11 @@
   --brand-rim-width: var(--brand-rim-md);
 }
 
+.pixel-wordmark--fill {
+  display: block;
+  inline-size: 100%;
+}
+
 .pixel-wordmark--lg {
   --pixel-wordmark-size: var(--pixel-wordmark-lg);
   --brand-rim-width: var(--brand-rim-lg);

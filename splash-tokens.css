@@ -291,6 +291,9 @@
   --brand-rim-lg: 2px;
   --brand-rim-xl: calc(3 * 1px);
   --brand-rim-xxl: calc(6 * 1px);
+  --brand-rim-fill: 2.5%;
+  --brand-rim-fill-fine: 1.25%;
+  --brand-mark-fill-max: none;
   --pixel-wordmark-sm: calc(29 * 1px);
   --pixel-wordmark-md: calc(58 * 1px);
   --pixel-wordmark-lg: calc(87 * 1px);
