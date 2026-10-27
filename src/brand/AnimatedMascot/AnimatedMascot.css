@@ -5,6 +5,12 @@
 .animated-mascot--xl { block-size: var(--brand-mark-xl); }
 .animated-mascot--xxl { block-size: var(--brand-mark-xxl); }
 
+.animated-mascot--fill {
+  inline-size: 100%;
+  max-inline-size: var(--brand-mark-fill-max);
+  block-size: auto;
+}
+
 .animated-mascot-auto {
   display: contents;
 }

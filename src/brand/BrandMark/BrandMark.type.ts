@@ -2,7 +2,7 @@
 import type { BrandApp } from '../brand.type';
 import type { BrandRim } from '../rim.type';
 
-type BrandMarkSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl';
+type BrandMarkSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'fill';
 
 type BrandMarkVariant = 'mark' | 'app-icon';
 

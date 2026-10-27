@@ -15,3 +15,25 @@
   flex-direction: column;
   gap: var(--space-xs);
 }
+
+.logo-combined--fill {
+  display: flex;
+  inline-size: 100%;
+  max-inline-size: var(--brand-mark-fill-max);
+}
+
+.logo-combined--fill.logo-combined--inline > .brand-mark {
+  flex: 1 1 0;
+  inline-size: auto;
+  min-inline-size: 0;
+}
+
+.logo-combined--fill.logo-combined--inline > .pixel-wordmark {
+  flex: 3 1 0;
+  inline-size: auto;
+}
+
+.logo-combined--fill.logo-combined--stacked > .brand-mark,
+.logo-combined--fill.logo-combined--stacked > .pixel-wordmark {
+  inline-size: 100%;
+}

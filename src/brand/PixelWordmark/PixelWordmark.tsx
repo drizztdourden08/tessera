@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import { BrandRimPaths } from '../BrandRimPaths';
 import { Svg, SvgPath } from '../../primitives/Svg';
 import { buildPixelWordmark } from './behavior/build-pixel-wordmark';
+import { wordmarkStyle } from './behavior/wordmark-style';
 import type { PixelWordmarkProps } from './PixelWordmark.type';
 import './PixelWordmark.css';
 
@@ -15,7 +16,7 @@ const PixelWordmark = (props: PixelWordmarkProps) => {
     <Svg
       className={cls}
       viewBox={art.viewBox}
-      style={{ aspectRatio: `${art.width} / ${art.height}`, inlineSize: `calc(var(--pixel-wordmark-size) * ${art.width / art.height})` }}
+      style={wordmarkStyle(art, size)}
       shapeRendering="crispEdges"
       role={label ? 'img' : undefined}
       aria-label={label || undefined}

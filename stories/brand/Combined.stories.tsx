@@ -4,6 +4,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { BRAND_APPS, Logo } from '../../src/brand';
 import type { BrandApp, BrandMarkSize, BrandRim, LogoDirection } from '../../src/brand';
 import { overviewStory } from '../_template/overview-story';
+import { FillBoxes } from './_samples/FillBoxes';
 import { RimGrid } from './_samples/RimGrid';
 import { RIMS } from './_samples/RimGrid.constants';
 import { VariantGrid } from './_samples/VariantGrid';
@@ -17,7 +18,7 @@ type CombinedArgs = {
 
 const ARG_TYPES: PlaygroundArgTypes<CombinedArgs> = {
   brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
-  size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'lg', 'xl', 'xxl'], description: 'The mark size; the wordmark follows it.' },
+  size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'lg', 'xl', 'xxl', 'fill'], description: 'The mark size; the wordmark follows it. `fill` fills the parent width.' },
   rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin light outline that follows the silhouette, so a dark mark reads on a dark surface.' },
   direction: { group: 'Layout', control: 'select', options: ['inline', 'stacked'] },
 };
@@ -44,6 +45,19 @@ const Stacked = {
   render: () => <VariantGrid min="xl" items={BRAND_APPS.map((brand) => ({ key: brand, label: brand, node: <Logo.Combined brand={brand} direction="stacked" size="xl" /> }))} />,
 } satisfies StoryLiteStoryDefinition<CombinedArgs>;
 
+const Fill = {
+  name: 'Fill',
+  render: () => (
+    <FillBoxes draw={() => (
+      <>
+        <Logo.Combined brand="archipelia" direction="stacked" size="fill" />
+        <Logo.Combined brand="archipelia" size="fill" />
+      </>
+    )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<CombinedArgs>;
+
 const Rims = {
   name: 'Rims',
   render: () => <RimGrid min="md" draw={(brand, rim) => <Logo.Combined brand={brand} size="md" rim={rim} />} />,
@@ -55,12 +69,13 @@ const Overview = overviewStory({
   points: [
     '`direction="inline"`, the default, sets the name beside the mark; `stacked` sets it under the mark.',
     '`brand` picks the app, `tessera` by default; `size` sizes the mark and the wordmark follows it.',
+    '`size="fill"` fills the width of the parent: the mark stays square and the wordmark scales with it.',
     '`variant="app-icon"` draws the app icon in place of the mark.',
     '`rim` outlines both the mark and the name. Screen readers read the pair as one image named after the brand.',
   ],
   instead: '[Logo] for the mark alone, or [WordMark] for the name alone.',
   playground: Playground,
-  variants: [Inline, Stacked, Rims],
+  variants: [Inline, Stacked, Fill, Rims],
   code: `import { Logo } from '@drizztdourden08/tessera';
 
 <Logo.Combined brand="rotp" />
@@ -69,4 +84,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Inline, Overview, Playground, Rims, Stacked };
+export { Fill, Inline, Overview, Playground, Rims, Stacked };
