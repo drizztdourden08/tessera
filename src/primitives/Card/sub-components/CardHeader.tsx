@@ -4,7 +4,9 @@ import type { CardHeaderProps } from './CardHeader.type';
 import './CardHeader.css';
 
 const CardHeader = (props: CardHeaderProps) => {
-  const { title, subtitle, actions, count, hideZero, tone = 'neutral', level } = props;
+  const { header, title, subtitle, actions, count, hideZero, tone = 'neutral', level } = props;
+  const className = `card__header card__header--${tone}`;
+  if (header != null) return <div className={`${className} card__header--free`}>{header}</div>;
   return (
     <SectionHeader
       title={title}
@@ -13,7 +15,7 @@ const CardHeader = (props: CardHeaderProps) => {
       count={count}
       hideZero={hideZero}
       level={level}
-      className={`card__header card__header--${tone}`}
+      className={className}
     />
   );
 };

@@ -1,18 +1,18 @@
 /* @layer renderer-components @kind component */
 import './Card.css';
+import { cardClass } from './behavior/card-class';
 import { CardHeader } from './sub-components/CardHeader';
 import type { CardProps } from './Card.type';
 
 const Card = (props: CardProps) => {
-  const { variant = 'default', edgeTone, edge = 'left', fill = false, title, subtitle, actions, count, hideZero, tone, level, children, className = '', ...rest } = props;
-  const headed = title !== undefined && title !== null;
-  const edged = edgeTone === undefined ? [] : [`card--edge-${edge}`, `card--edge-${edgeTone}`];
-  const classes = ['card', `card--${variant}`, ...edged, headed && 'card--headed', fill && 'card--fill', className].filter(Boolean).join(' ');
+  const { variant = 'default', edgeTone, edge = 'left', fill = false, header, title, subtitle, actions, count, hideZero, tone, level, children, className = '', ...rest } = props;
+  const headed = (header ?? title) != null;
+  const classes = cardClass({ variant, edgeTone, edge, headed, fill, className });
 
   if (!headed) return <div className={classes} {...rest}>{children}</div>;
   return (
     <div className={classes} {...rest}>
-      <CardHeader title={title} subtitle={subtitle} actions={actions} count={count} hideZero={hideZero} tone={tone} level={level} />
+      <CardHeader header={header} title={title} subtitle={subtitle} actions={actions} count={count} hideZero={hideZero} tone={tone} level={level} />
       <div className="card__body">{children}</div>
     </div>
   );

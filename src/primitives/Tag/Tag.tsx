@@ -10,7 +10,7 @@ import './Tag.css';
 
 const Tag = (props: TagProps) => {
   const {
-    variant, color, pill, icon, selected, onSelect, role, onRemove, name, disabled = false, title, className, children,
+    variant, color, pill, dot, icon, selected, onSelect, role, onRemove, name, disabled = false, title, className, children,
     href, navigate, onClick, target, rel, ...data
   } = props;
   const frame = {
@@ -19,7 +19,7 @@ const Tag = (props: TagProps) => {
     title,
     disabled,
     data,
-    body: <TagBody variant={variant} icon={icon}>{children}</TagBody>,
+    body: <TagBody variant={variant} dot={dot} icon={icon}>{children}</TagBody>,
   };
 
   if (onSelect !== undefined) return <TagToggle {...frame} role={role} selected={selected} onSelect={onSelect} />;

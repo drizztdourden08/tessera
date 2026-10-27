@@ -5,6 +5,17 @@
   border-bottom: var(--border-width-thin) solid var(--c-border);
 }
 
+.card__header--free {
+  display: flex;
+  align-items: center;
+  padding-inline: var(--space-md);
+}
+
+.card__header--free > * {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
 .card__header:not(:has(.section-header__action)) {
   padding-inline-end: var(--space-md);
 }

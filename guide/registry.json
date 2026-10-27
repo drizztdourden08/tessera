@@ -718,6 +718,11 @@
               "Table"
             ]
           },
+          "a flat table of rows that drops columns as it narrows": {
+            "components": [
+              "TrackTable"
+            ]
+          },
           "filters over a collection": {
             "components": []
           },
@@ -3686,6 +3691,7 @@
         "Declare each table once with defineStatuses, in a constants file beside the model it describes, and import it where the state shows.",
         "Give every word in sentence case; the pill variant sets it in capitals itself.",
         "Set size to sm for a row 18px tall, such as inside a table cell; leave it out for the normal size.",
+        "Set dotSize to lg for an 8px dot, and halo for a soft ring in the tone behind it, such as a node that is up; halo draws the dot even without dot.",
         "Set pulse only on states that are still moving, such as starting or syncing.",
         "Pass fallback for a value that can be missing, such as a state not fetched yet."
       ],
@@ -3702,7 +3708,7 @@
         "rule": "Status draws one word in the tone of its state; with a table from defineStatuses, a state reads the same on every screen."
       },
       "example": "import { defineStatuses, Status } from '@drizztdourden08/tessera';\n\nconst ENGINE_STATES = defineStatuses({\n  ready: { label: 'Ready', tone: 'success' },\n  building: { label: 'Setting up', tone: 'warning', pulse: true },\n  failed: { label: 'Broken', tone: 'danger' },\n  unknown: { label: 'Checking', tone: 'neutral' },\n});\n\nconst Sync = () => <Status tone=\"warning\" dot pulse>Syncing</Status>;\n\nconst EngineState = ({ state }: { state?: 'ready' | 'building' | 'failed' }) => (\n  <Status map={ENGINE_STATES} value={state} fallback=\"unknown\" dot />\n);\n",
-      "propsHash": "a6a4c391c8eb379b",
+      "propsHash": "e6c93de8125d4d10",
       "props": {
         "own": [
           {
@@ -3752,8 +3758,7 @@
             "literals": [
               "'text'",
               "'pill'"
-            ],
-            "default": "'text'"
+            ]
           },
           {
             "name": "size",
@@ -3762,14 +3767,26 @@
             "literals": [
               "'sm'",
               "'md'"
-            ],
-            "default": "'md'"
+            ]
           },
           {
             "name": "dot",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
+          },
+          {
+            "name": "dotSize",
+            "optional": true,
+            "text": "StatusDotSize",
+            "literals": [
+              "'md'",
+              "'lg'"
+            ]
+          },
+          {
+            "name": "halo",
+            "optional": true,
+            "text": "boolean"
           }
         ],
         "inherited": {
@@ -3820,7 +3837,9 @@
         "--c-warning-soft",
         "--radius-pill",
         "--radius-round",
+        "--size-3",
         "--size-6",
+        "--size-8",
         "--space-sm",
         "--space-xs",
         "--status-h-sm",
@@ -15498,6 +15517,123 @@
         "toolbarOrientation",
         "useToolbarLayout"
       ]
+    },
+    {
+      "name": "TrackTable",
+      "tier": "composites",
+      "source": "src/composites/TrackTable/TrackTable.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A flat, read-only table whose columns share the width in fractions and drop out, least needed first, as the table narrows.",
+      "useWhen": [
+        "A few rows with a few cells each, such as the agents of a node, sit on a page or inside a card with no frame of their own.",
+        "The table lives in a pane or a drawer whose width changes, and the least needed columns may leave when it is narrow."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user sorts, groups, resizes or selects among many records.",
+          "use": "DataTable"
+        },
+        {
+          "case": "The user edits the rows in place.",
+          "use": "RowGrid"
+        },
+        {
+          "case": "Each row is a label and a value, with no columns to compare.",
+          "use": "StatRow"
+        }
+      ],
+      "rules": [
+        "Give each column a fr, its share of the width; leave it out for 1.",
+        "Mark a column drop 1, 2 or 3 to hide it below 768, 640 or 480 px of table width; 1 leaves first.",
+        "Never mark the column that names the row: it stays at every width.",
+        "Draw state with Status and groups with Tag inside cell; the table sets no look for them.",
+        "Put the table in a Card when it needs a frame; it draws no border or background.",
+        "Pass empty for the message shown when there are no rows."
+      ],
+      "a11y": [
+        "The table is named by label, and each cell is read in its row; a dropped column is removed from the reading order too.",
+        "Give a column whose label would be a symbol a text label, since the header is the only name of its cells."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a flat table of rows that drops columns as it narrows"
+        ],
+        "rule": "TrackTable shares the width by fractions and drops the least needed columns by the width of the table, not the window."
+      },
+      "example": "import { Status, TrackTable } from '@drizztdourden08/tessera';\nimport type { TrackColumn } from '@drizztdourden08/tessera';\n\ninterface Agent {\n  id: string;\n  name: string;\n  online: boolean;\n  seen: string;\n}\n\nconst COLUMNS: TrackColumn<Agent>[] = [\n  { id: 'name', label: 'Agent', fr: 2, cell: (agent) => agent.name },\n  { id: 'state', label: 'State', cell: (agent) => <Status tone={agent.online ? 'success' : 'danger'} dot halo>{agent.online ? 'Online' : 'Offline'}</Status> },\n  { id: 'seen', label: 'Last seen', drop: 1, cell: (agent) => agent.seen },\n];\n\nconst Agents = ({ agents }: { agents: Agent[] }) => (\n  <TrackTable label=\"Agents\" rows={agents} columns={COLUMNS} rowKey={(agent) => agent.id} />\n);\n",
+      "propsHash": "830c80514f84ab18",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "rows",
+            "optional": false,
+            "text": "readonly Row[]"
+          },
+          {
+            "name": "columns",
+            "optional": false,
+            "text": "readonly TrackColumn<Row>[]"
+          },
+          {
+            "name": "rowKey",
+            "optional": false,
+            "text": "(row: Row) => string"
+          },
+          {
+            "name": "head",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "empty",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-text-muted",
+        "--size-32",
+        "--size-40",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-xs",
+        "--track-cols-0",
+        "--track-cols-1",
+        "--track-cols-2",
+        "--track-cols-3",
+        "--tracking-wide"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/TrackTable",
+        "route": "#/story/composites-tracktable--overview",
+        "file": "stories/composites/TrackTable.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "UtilityScreen",

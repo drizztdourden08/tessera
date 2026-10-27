@@ -10,4 +10,4 @@ Read in this order:
 4. `components/<Name>.md`: one page per component, with its rules, an example and its props.
 5. [registry.json](registry.json): the same facts as data.
 
-97 of 208 components have their usage written. A component without one is listed in the index with its import path only.
+98 of 209 components have their usage written. A component without one is listed in the index with its import path only.

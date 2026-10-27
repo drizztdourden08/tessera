@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Button, ButtonRow, Card, Flex, Stack, Status, Text } from '../../src/primitives';
+import { Box, Button, ButtonRow, Card, Flex, Stack, Status, Tag, Text } from '../../src/primitives';
 import type { CardEdge, CardProps, CardTone } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -116,6 +116,29 @@ const EdgeTones = {
   render: () => <Demonstrator rows={axis(TONES)} columns={axis(EDGES)} align="stretch" cell={edgeCard} />,
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
+const FreeHeader = {
+  name: 'A free header row',
+  render: () => (
+    <Box className="story-column">
+      <Card
+        header={(
+          <Flex justify="between" align="center" gap="md">
+            <Flex gap="sm" align="center">
+              <Status tone="success" dot dotSize="lg" halo>Online</Status>
+              <Text>Saturday multiworld</Text>
+              <Tag pill dot color="primary">4 players</Tag>
+            </Flex>
+            <Button size="sm" variant="secondary">Open</Button>
+          </Flex>
+        )}
+      >
+        <Text variant="subtitle">The header takes any content, laid out by the caller.</Text>
+      </Card>
+      <Card tone="info" header={<Text>With a tone, the row is tinted like a titled header.</Text>}>212 of 640 checks found.</Card>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<CardArgs>;
+
 const OnAPage = {
   name: 'Under a ContentHeader and a SectionHeader',
   render: () => <PageWithCards />,
@@ -177,7 +200,7 @@ const Overview = overviewStory({
   description: 'A bordered surface that groups related content, such as a summary, a list entry or a settings block.',
   points: [
     '`default` is the plain panel; `danger` frames a destructive choice.',
-    '`title` draws a header row in the [SectionHeader] look, with `subtitle`, `count`, `hideZero` and `actions`.',
+    '`title` draws a header row in the [SectionHeader] look; `header` swaps it for any content you lay out.',
     '`tone` tints the header row; `edgeTone` colours the left edge, or the border with `edge="border"`.',
     '`fill` makes the body take the card height left under the header, and scroll when its child is taller.',
     '`interactive` lights the border on hover for a card clicked whole; **give it a `tabIndex` and a `role`**.',
@@ -185,7 +208,7 @@ const Overview = overviewStory({
   ],
   instead: '[ContentHeader] for the header of a whole page, or [SectionHeader] for a heading outside a card.',
   playground: Playground,
-  variants: [AllVariants, HeaderTones, EdgeTones, OnAPage, FillingBody],
+  variants: [AllVariants, HeaderTones, FreeHeader, EdgeTones, OnAPage, FillingBody],
   states: {
     render: renderState,
     list: [
@@ -197,4 +220,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, EdgeTones, FillingBody, HeaderTones, Interactive, OnAPage, Overview, Playground };
+export { AllVariants, EdgeTones, FillingBody, FreeHeader, HeaderTones, Interactive, OnAPage, Overview, Playground };
