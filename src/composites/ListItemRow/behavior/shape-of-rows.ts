@@ -7,8 +7,8 @@ const shapeOfRows = (children: ReactNode): ListItemShape => {
   const shape: ListItemShape = { icon: false, columns: 0, action: false };
   Children.forEach(children, (child) => {
     if (!isValidElement<Partial<ListItemRowProps>>(child)) return;
-    const { icon, columns, action } = child.props;
-    shape.icon ||= icon != null;
+    const { icon, lead, columns, action } = child.props;
+    shape.icon ||= icon != null || lead != null;
     shape.action ||= action != null;
     shape.columns = Math.max(shape.columns, columns?.length ?? 0);
   });

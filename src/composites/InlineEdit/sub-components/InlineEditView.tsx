@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { guardCellControl } from '../../DataTable/behavior/guard-cell-control';
+import { guardCellControl } from '../../../primitives/dom/guard-cell-control';
 import { drawnValue } from '../behavior/drawn-value';
 import { Icon } from '../../../primitives/Icon';
 import { Pressable } from '../../../primitives/Pressable';

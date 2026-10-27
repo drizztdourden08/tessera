@@ -617,7 +617,9 @@
             ]
           },
           "a note that stays on the page": {
-            "components": []
+            "components": [
+              "Callout"
+            ]
           },
           "a note in a bubble with a tail": {
             "components": [
@@ -1139,7 +1141,141 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A short note set apart from the text around it, such as a pre-release notice, a banner with a title and an action, or the fine print of a dialog.",
+      "useWhen": [
+        "A note must stay on the page until the cause is gone, such as a pre-release notice or a failed install.",
+        "A banner needs a bold first line, a short sentence and one action, such as Get the package."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The message comes and goes on its own.",
+          "use": "Toast"
+        },
+        {
+          "case": "The note floats over the page and points at one thing.",
+          "use": "SpeechBubble"
+        },
+        {
+          "case": "Something failed to load and can be tried again.",
+          "use": "LoadError"
+        }
+      ],
+      "rules": [
+        "A banner is a Callout with a title: pass title for the bold first line and keep the children to one short sentence.",
+        "Pick tone for the meaning: danger for a failure, warning for a risk, info for news, success for a thing that worked.",
+        "Pass action for the one button the banner offers, and icon to lead the line; both are optional.",
+        "Use variant footnote for fine print under a hairline; it takes no fill and is not for banners.",
+        "Put long text or a raw error in details, which sits under the line across the whole box."
+      ],
+      "a11y": [
+        "It is a note and adds no alert, so a screen reader reads it in place, title first and then the text.",
+        "The title is a plain line, not a heading, so it does not change the outline of the page.",
+        "The icon is decoration and is not announced; the tone is never the only carrier of the meaning."
+      ],
+      "tree": {
+        "path": [
+          "feedback",
+          "a note that stays on the page"
+        ],
+        "rule": "Callout is the one note in the flow of the page. A banner is a Callout with a title, and LoadError and ValidationSummary draw on it."
+      },
+      "example": "import { Button, Callout, Icon } from '@drizztdourden08/tessera';\n\nconst PackageBanner = ({ onGet }: { onGet: () => void }) => (\n  <Callout\n    tone=\"danger\"\n    title=\"The package could not be installed\"\n    icon={<Icon name=\"triangle-alert\" size={16} />}\n    action={<Button size=\"sm\" variant=\"danger\" onClick={onGet}>Get the package</Button>}\n  >\n    Check your connection and try again.\n  </Callout>\n);\n",
+      "propsHash": "a4b0ec17aa363e4f",
+      "props": {
+        "own": [
+          {
+            "name": "tone",
+            "optional": true,
+            "text": "CalloutTone",
+            "literals": [
+              "'primary'",
+              "'secondary'",
+              "'info'",
+              "'success'",
+              "'warning'",
+              "'danger'"
+            ],
+            "default": "'primary'"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "CalloutVariant",
+            "literals": [
+              "'box'",
+              "'footnote'"
+            ],
+            "default": "'box'"
+          },
+          {
+            "name": "title",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "icon",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "action",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "details",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-danger",
+        "--c-danger-soft",
+        "--c-info",
+        "--c-info-soft",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-secondary",
+        "--c-secondary-soft",
+        "--c-success",
+        "--c-success-soft",
+        "--c-text",
+        "--c-warning",
+        "--c-warning-soft",
+        "--radius-md",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--text-xs",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Primitives · Feedback/Callout",
+        "route": "#/story/primitives-callout--overview",
+        "file": "stories/primitives/Callout.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Canvas",
@@ -1414,6 +1550,7 @@
         "Pass defaultOpen to start it open, and onOpenChange to hear each toggle, such as to load a log only once it opens.",
         "A later change to defaultOpen opens or closes it, so a part can open it when a job fails.",
         "Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.",
+        "Pass end for something at the right of the line, such as a count or a Button; a click inside it never opens or closes the disclosure.",
         "Use size sm for a line in small text, such as inside a settings row.",
         "Pass bodyClassName to lay out the body, such as a column of rows with a gap, in place of a selector on its class."
       ],
@@ -1429,12 +1566,17 @@
         "rule": "Disclosure shows or hides what is under one line with the browser details element, with one look for every app."
       },
       "example": "import { Disclosure, Paragraph } from '@drizztdourden08/tessera';\n\nconst ReleaseNotes = ({ notes }: { notes: string }) => (\n  <Disclosure summary=\"What is new\">\n    <Paragraph tone=\"dim\">{notes}</Paragraph>\n  </Disclosure>\n);\n",
-      "propsHash": "962e5c6e4acd7bf9",
+      "propsHash": "11001f6a74ac4af7",
       "props": {
         "own": [
           {
             "name": "summary",
             "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "end",
+            "optional": true,
             "text": "ReactNode"
           },
           {
@@ -2846,6 +2988,7 @@
         "When options and groups are both given, the options come first with no heading, then each group under its label. A group never hides the options.",
         "An option that sits in a group is not repeated in options; put it in one place only.",
         "The app owns the value: pass value and onChange for one choice, values and onValuesChange for several.",
+        "Pass grow={false} to keep a fixed width (the token --field-w-inline, 256 px, shrinking to 160 px) beside other tools in a toolbar; TextInput, SearchInput and Combobox take the same prop.",
         "Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen."
       ],
       "a11y": [
