@@ -2,7 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DropdownMenu } from '../../src/composites';
-import type { MenuGroup, MenuIntensity, MenuSize, MenuTrigger, MenuVariant } from '../../src/composites';
+import type { MenuIntensity, MenuSize, MenuTrigger, MenuVariant } from '../../src/composites';
 import { overviewStory } from '../_template/overview-story';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -12,7 +12,9 @@ import { buildTitleMenu } from './_samples/data-title-menu';
 import { ICON_SOURCE_MENU } from './_samples/data-menu-icon-sources';
 import { CATEGORY_MENU, EDIT_MENU, NESTED_MENU, SUBTITLE_MENU } from './_samples/data-menu-features';
 import { ChoiceDemo, MenuDemo } from './_samples/menu-demos';
+import { DANGER_MENU } from './_samples/data-menu-danger';
 import { MenuConfirmDemo } from './_samples/MenuConfirmDemo';
+import { MenuRoomyDemo } from './_samples/MenuRoomyDemo';
 import { MenuSliderDemo } from './_samples/MenuSliderDemo';
 import { JoinDemos, MarksDemo, NestedDemo } from './_samples/menu-join-demos';
 import { MarkMorphDemo } from './_samples/menu-mark-demos';
@@ -34,17 +36,6 @@ const INSIDE = {
   'Subtitles and shortcuts': SUBTITLE_MENU,
 } as const;
 const ignore = (): void => undefined;
-
-const DANGER_MENU: MenuGroup[] = [{
-  id: 'session',
-  items: [
-    { id: 'rename', icon: 'pencil', label: 'Rename' },
-    { id: 'duplicate', icon: 'copy', label: 'Duplicate' },
-    { id: 'reset', icon: 'rotate-ccw', label: 'Reset options', kind: 'confirm' },
-    { separator: true },
-    { id: 'delete', icon: 'trash-2', label: 'Delete session', tone: 'danger', shortcut: 'Del' },
-  ],
-}];
 
 const ARGS: Partial<MenuDemoArgs> = {
   variant: 'primary', intensity: 'strong', size: 'sm', iconOnly: true, iconSide: 'end', filter: false, closeOnSelect: true,
@@ -101,6 +92,11 @@ const Triggers = {
       cell={(size, kind) => <DropdownMenu trigger={TRIGGERS[kind] ?? { label: 'Menu' }} size={size} groups={buildTitleMenu(ignore)} />}
     />
   ),
+} satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
+const RoomyRows = {
+  name: 'Roomy rows: 13 px text and taller items',
+  render: () => <MenuRoomyDemo />,
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const Inside = {
@@ -204,11 +200,11 @@ const Overview = overviewStory({
     '`checked` or `kind="radio"` shows a faint dot that turns into a check or radio; `children` opens a sub-menu.',
     '`tone="danger"` draws Delete in red, `kind="confirm"` asks Click again to, `kind="slider"` sets a level.',
     'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
-    '`filter` adds a search field over every level; `anchorRef` hangs the menu from a table header or a row.',
+    '`filter` adds a search field; `anchorRef` hangs it from a row; `itemSize="roomy"` sets 13 px text.',
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, Inside, IconSources, Commands, MarkMorph, Confirm, Sliders, Danger, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, RoomyRows, Inside, IconSources, Commands, MarkMorph, Confirm, Sliders, Danger, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -223,4 +219,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Commands, Confirm, Danger, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, SubMenus, Triggers, Variants };
+export { Commands, Confirm, Danger, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SubMenus, Triggers, Variants };

@@ -80,6 +80,18 @@ const ImageClick = {
   render: () => <MarkdownImageClickDemo />,
 } satisfies StoryLiteStoryDefinition<MarkdownArgs>;
 
+const TIMES_NOTE = 'Renders at 1920x1080 or 16x9, in a 3x4x5 box. Code keeps `1920x1080`, and 0x1F stays a hex value.';
+
+const TimesSign = {
+  name: 'Smart times between digits',
+  render: () => (
+    <Box className="story-column">
+      <Markdown source={TIMES_NOTE} size="inline" />
+      <Markdown source={TIMES_NOTE} size="inline" smartTimes />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<MarkdownArgs>;
+
 const CODE =`import { Markdown } from '@drizztdourden08/tessera';
 
 <Markdown source={note} />
@@ -94,14 +106,14 @@ const Overview = overviewStory({
     'Raw HTML is dropped, and only http, https and mailto links stay links, plus app paths with `onLink`.',
     '`onLink` takes every link click; without it a link opens in a new tab with rel noopener.',
     '`images` draws http, https and base64 png, jpeg, gif and webp, never svg; `onImage` makes each a button.',
-    '`linkIds` turns ids such as T-5 into links in text, never inside code or a link.',
+    '`linkIds` turns ids such as T-5 into links; `smartTimes` draws 1920x1080 with a multiplication sign.',
     '`headingOffset` moves headings down, `hideTitle` drops the # title, and `size` is sm, md or inline.',
   ],
   instead: '[Text] for text written in the app, or [CodeBlock] for code shown as it is.',
   playground: Playground,
-  variants: [ReleaseNote, Readme, RawHtml, NarrowDialog, LinksInApp, ImagesAndIds, ImageClick],
+  variants: [ReleaseNote, Readme, RawHtml, NarrowDialog, LinksInApp, ImagesAndIds, ImageClick, TimesSign],
   code: CODE,
 });
 
 export default meta;
-export { ImageClick, ImagesAndIds, LinksInApp, NarrowDialog, Overview, Playground, RawHtml, Readme, ReleaseNote };
+export { ImageClick, ImagesAndIds, LinksInApp, NarrowDialog, Overview, Playground, RawHtml, Readme, ReleaseNote, TimesSign };

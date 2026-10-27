@@ -8,6 +8,7 @@
   --size-8: 8px;
   --size-10: 10px;
   --size-12: 12px;
+  --size-13: 13px;
   --size-14: 14px;
   --size-16: 16px;
   --size-20: 20px;
@@ -370,6 +371,7 @@
   --font-emoji: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
   --text-xs: 12px;
   --text-sm: 12px;
+  --text-md: 13px;
   --text-base: 14px;
   --text-lg: 16px;
   --text-xl: 20px;

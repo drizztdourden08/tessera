@@ -4,10 +4,11 @@ import remarkGfm from 'remark-gfm';
 import type { RemarkPluginOptions } from '../Markdown.type';
 import { dropTitle } from './drop-title';
 import { linkIds } from './link-ids';
+import { smartTimes } from './smart-times';
 
 const remarkPlugins = (options: RemarkPluginOptions): NonNullable<Options['remarkPlugins']> => {
-  const { hideTitle, rules, allowPaths } = options;
-  return [remarkGfm, ...(hideTitle ? [dropTitle] : []), [linkIds, { rules, allowPaths }]];
+  const { hideTitle, rules, allowPaths, smart } = options;
+  return [remarkGfm, ...(hideTitle ? [dropTitle] : []), [linkIds, { rules, allowPaths }], ...(smart ? [smartTimes] : [])];
 };
 
 export { remarkPlugins };

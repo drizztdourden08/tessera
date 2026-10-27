@@ -47,13 +47,13 @@ const meta = {
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<TabsArgs>;
 
-const StatefulTabs = (props: { tabs: TabItem[]; iconOnly?: boolean }) => {
-  const { tabs, iconOnly } = props;
+const StatefulTabs = (props: { tabs: TabItem[]; iconOnly?: boolean; size?: 'md' | 'lg' }) => {
+  const { tabs, iconOnly, size } = props;
   const [active, setActive] = useState(tabs[0]?.id ?? '');
   const current = tabs.find((tab) => tab.id === active);
   return (
     <Box className="story-column">
-      <Tabs tabs={tabs} activeTab={active} onTabChange={setActive} iconOnly={iconOnly} />
+      <Tabs tabs={tabs} activeTab={active} onTabChange={setActive} iconOnly={iconOnly} size={size} />
       <Text className="story-label">Active: {current?.label}</Text>
     </Box>
   );
@@ -131,6 +131,17 @@ const Titled = {
   ),
 } satisfies StoryLiteStoryDefinition<TabsArgs>;
 
+const Sizes = {
+  name: 'Sizes',
+  render: () => (
+    <Demonstrator
+      rows={axis(['md', 'lg'] as const)}
+      align="stretch"
+      cell={(size) => <StatefulTabs tabs={withBadges(SETTINGS_TABS)} size={size} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TabsArgs>;
+
 const Layouts = {
   name: 'Layouts',
   render: () => (
@@ -155,7 +166,7 @@ const Overview = overviewStory({
   description: 'A row of tabs that switches between the views of one screen, such as the sections of a settings page.',
   points: [
     'Each tab has a label, an optional icon and count `badge`; `badgeTone` tints it, `badgeTitle` explains it.',
-    '`iconOnly` hides the labels and keeps each one as the tab title.',
+    '`iconOnly` hides the labels and keeps each as the title; `size="lg"` makes the tabs 40 px tall.',
     'When the tabs run out of room the strip scrolls sideways, with an arrow at each edge that has more.',
     'The arrow keys, [[Home]] and [[End]] move the selection.',
     '`disabled` greys a tab out and the arrows skip it; `disabledReason` shows on hover and focus and is read out.',
@@ -163,7 +174,7 @@ const Overview = overviewStory({
   ],
   instead: '[SegmentedControl] for a choice that sets a value instead of switching views.',
   playground: Playground,
-  variants: [Layouts, Tones, Titled, Disabled],
+  variants: [Layouts, Sizes, Tones, Titled, Disabled],
   states: {
     render: renderState,
     list: [
@@ -190,4 +201,4 @@ const [active, setActive] = useState('general');
 });
 
 export default meta;
-export { Disabled, Layouts, Overview, Playground, Titled, Tones };
+export { Disabled, Layouts, Overview, Playground, Sizes, Titled, Tones };

@@ -17,7 +17,7 @@ const usage = {
     'Wrap the target in ContextMenu and pass groups; the menu opens at the pointer on right-click and on a long press with touch.',
     'Never make the context menu the only way to an action; repeat each action in a button or a menu button.',
     'Shift+F10 and the menu key open the menu under the focused element, so the target must hold or contain something focusable.',
-    'Items, groups, kinds and sub-menus are those of DropdownMenu; the menu flips to stay in the window.',
+    'Items, groups, kinds, itemSize and sub-menus are those of DropdownMenu; the menu flips to stay in the window.',
     'To drive it yourself, pass open, point and onClose; add onOpen to learn where a gesture asked for the menu.',
     'Set disabled to leave the browser menu in place, and longPress off when a long press already means something on the target.',
   ],
@@ -51,7 +51,7 @@ const Tab = ({ name, onRename, onClose }: TabProps) => {
   return <ContextMenu groups={groups} label={name}>{name}</ContextMenu>;
 };
 `,
-  propsHash: '14ade5956c87808a',
+  propsHash: '153b35ddd0639740',
 } satisfies ComponentUsage;
 
 export { usage };

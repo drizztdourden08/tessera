@@ -73,10 +73,10 @@ const meta = {
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<SegmentedControlArgs>;
 
-type StatefulSegmentsProps<T extends string> = { initial: T; options: SegmentOption<T>[]; tooltipPlacement?: TooltipPlacement } & Partial<SegmentedControlArgs>;
+type StatefulSegmentsProps<T extends string> = { initial: T; options: SegmentOption<T>[]; tooltipPlacement?: TooltipPlacement; selectedTone?: 'accent' | 'neutral' } & Partial<SegmentedControlArgs>;
 
 const StatefulSegments = <T extends string>(props: StatefulSegmentsProps<T>) => {
-  const { initial, options, label, description, disabled, deselectable, size, tooltipPlacement } = props;
+  const { initial, options, label, description, disabled, deselectable, size, tooltipPlacement, selectedTone } = props;
   const [value, setValue] = useState<T | ''>(initial);
   return (
     <Box className="story-column">
@@ -89,6 +89,7 @@ const StatefulSegments = <T extends string>(props: StatefulSegmentsProps<T>) => 
         description={description}
         disabled={disabled}
         size={size}
+        selectedTone={selectedTone}
         tooltipPlacement={tooltipPlacement}
       />
       <Text className="story-label">Value: {value === '' ? '(unset)' : value}</Text>
@@ -129,6 +130,17 @@ const Sizes = {
         ? <StatefulSegments<Scale> initial="2x" options={SCALES} size={size} />
         : <StatefulSegments initial="right" options={DOCK_OPTIONS} size={size} />)}
     />
+  ),
+} satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
+
+const NeutralTone = {
+  name: 'Neutral selection',
+  render: () => (
+    <Box className="story-column">
+      <StatefulSegments<Scale> initial="2x" options={SCALES} label="Accent, the default" />
+      <StatefulSegments<Scale> initial="2x" options={SCALES} label="Neutral grey fill" selectedTone="neutral" />
+      <StatefulSegments<Align> initial="center" options={ALIGN_ICONS} label="Neutral, icons" selectedTone="neutral" />
+    </Box>
   ),
 } satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
 
@@ -179,14 +191,14 @@ const Overview = overviewStory({
   points: [
     'Use it for short settings where every choice fits on one line, such as a scale or an alignment.',
     'Options can be text, or an icon: a name from the set or any node, such as a Glyph, named by its hint.',
-    '`onDeselect` lets a second click on the active option clear the value.',
+    '`onDeselect` clears the value on a second click; `selectedTone="neutral"` fills the pick grey, not accent.',
     'Each option can carry a `hint` that a [HintLine] shows, or a `tooltip` with a description and a shortcut.',
     'The arrow keys pick; an option `disabled` with a string shows why in a tooltip, and the arrows skip it.',
     'A compact [DensityScope] draws it at `sm` with a tighter gap; `className` lands on its root.',
   ],
   instead: '[ToggleGroup] to switch several options on, or [Tabs] to switch views.',
   playground: Playground,
-  variants: [Kinds, IconNodes, Sizes, OptionTooltips, HintOutput],
+  variants: [Kinds, IconNodes, Sizes, NeutralTone, OptionTooltips, HintOutput],
   states: {
     render: renderState,
     list: [
@@ -201,4 +213,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { HintOutput, IconNodes, Kinds, OptionTooltips, Overview, Playground, Sizes };
+export { HintOutput, IconNodes, Kinds, NeutralTone, OptionTooltips, Overview, Playground, Sizes };

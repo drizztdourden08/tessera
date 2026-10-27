@@ -8,6 +8,7 @@
   --font-emoji: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
   --text-xs:    var(--size-12);
   --text-sm:    var(--size-12);
+  --text-md:    var(--size-13);
   --text-base:  var(--size-14);
   --text-lg:    var(--size-16);
   --text-xl:    var(--size-20);

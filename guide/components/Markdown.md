@@ -46,6 +46,7 @@ Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsaf
 - Pass onImage to make each drawn image a button, focusable and pressed with Enter or Space, named by its alt text; it gets { src, alt }, so the app can open a lightbox. Without it images stay inert.
 - Control characters (except tab and line breaks), private-use characters and lone surrogates are removed from the source before it is parsed; emoji and normal text stay.
 - Pass linkIds, a rule or a list of rules with a pattern and an href function, so plain ids such as T-5 become links; they are made in text only, never in code or inside a link.
+- Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; it works in text only, never in code, a link or a hex value such as 0x1F, and no other punctuation changes.
 - A link that starts with a slash, such as /files/notes.md, is an app path: it is kept only when onLink is passed, and goes to onLink like any link.
 - Whatever an href function gives still has to be an http, https or mailto address, or an app path with onLink; javascript addresses are always dropped, and data addresses only pass as the image types above.
 
@@ -78,6 +79,7 @@ const UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (
 - `images` (optional): `MarkdownImages`.
 - `onImage` (optional): `MarkdownImageHandler`.
 - `linkIds` (optional): `MarkdownLinkId | MarkdownLinkId[]`.
+- `smartTimes` (optional): `boolean`. Default `false`.
 - `className` (optional): `string`.
 
 ## Tokens

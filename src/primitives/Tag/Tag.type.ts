@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { MouseEventHandler, ReactNode } from 'react';
+import type { SelectedTone } from '../field-control/selected-tone.type';
 import type { IconName } from '../Icon/Icon.type';
 
 type TagVariant = 'normal' | 'urgency' | 'category' | 'custom';
@@ -29,8 +30,8 @@ interface TagNoLink {
 }
 
 type TagAction =
-  | (TagNoLink & { onRemove?: () => void; name?: string; selected?: never; onSelect?: never; role?: never })
-  | (TagNoLink & { selected: boolean; onSelect: () => void; role?: 'radio'; onRemove?: never; name?: never })
+  | (TagNoLink & { onRemove?: () => void; name?: string; selected?: never; selectedTone?: never; onSelect?: never; role?: never })
+  | (TagNoLink & { selected: boolean; selectedTone?: SelectedTone; onSelect: () => void; role?: 'radio'; onRemove?: never; name?: never })
   | {
     href: string;
     navigate?: (href: string) => void;
@@ -38,6 +39,7 @@ type TagAction =
     target?: string;
     rel?: string;
     selected?: never;
+    selectedTone?: never;
     onSelect?: never;
     role?: never;
     onRemove?: never;
@@ -48,6 +50,7 @@ type TagData = Partial<Record<`data-${string}`, string | number>>;
 
 interface TagBase {
   pill?: boolean;
+  outlined?: boolean;
   dot?: boolean;
   icon?: IconName;
   disabled?: boolean;

@@ -240,3 +240,25 @@
   --tag-fill: var(--c-tag-pink-soft);
   --tag-dot: var(--c-tag-pink);
 }
+
+.tag.tag--outlined {
+  background: none;
+  border-color: var(--tag-edge);
+}
+
+.tag--outlined.tag--category {
+  --tag-edge: var(--tag-dot);
+}
+
+.tag--outlined.tag--custom {
+  --tag-ink: var(--tag-paint);
+}
+
+.tag--selected-neutral.tag--selected {
+  --tag-ink: var(--c-text);
+  --tag-fill: var(--c-border-strong);
+  --tag-edge: var(--c-border-strong);
+  --tag-dot: var(--c-text);
+
+  background: var(--tag-fill);
+}

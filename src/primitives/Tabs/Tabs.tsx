@@ -12,7 +12,7 @@ import type { KeyboardEvent } from 'react';
 import { isHTMLElement } from '../dom/is-html-element';
 
 const Tabs = (props: TabsProps) => {
-  const { tabs, activeTab, onTabChange, iconOnly = false, hideZero = false } = props;
+  const { tabs, activeTab, onTabChange, iconOnly = false, hideZero = false, size = 'md' } = props;
   const trackRef = useRef<HTMLElement | null>(null);
   const { fields } = useTesseraStrings();
 
@@ -31,7 +31,7 @@ const Tabs = (props: TabsProps) => {
   return (
     <ScrollStrip
       as="nav"
-      className="tabs"
+      className={size === 'lg' ? 'tabs tabs--lg' : 'tabs'}
       trackClassName="tabs__strip"
       trackRole="tablist"
       trackRef={trackRef}
