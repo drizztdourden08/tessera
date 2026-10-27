@@ -20,6 +20,7 @@
     --p-gradient-dark-from: #130926;
     --p-gradient-dark-to: #080410;
     --p-on-primary: var(--p-pure-white);
+    --p-primary-gradient-from: #e0245e;
     --p-on-secondary: var(--p-pure-white);
     --p-on-tertiary: var(--p-black);
     --p-danger: #fa90a1;

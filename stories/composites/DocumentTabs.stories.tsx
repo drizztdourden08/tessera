@@ -33,7 +33,7 @@ const ManyTabs = {
 
 const Raised = {
   name: 'Raised look: tabs with a surface fill and a lifted selected tab, tinted by --document-tab-bg and --document-tab-bg-selected',
-    '`look="raised"` fills the tabs and lifts the selected one; `--document-tab-bg` sets the fill.',
+  render: () => <DocumentTabsDemo look="raised" />,
 } satisfies StoryLiteStoryDefinition<DocumentTabsArgs>;
 
 const Reorder = {

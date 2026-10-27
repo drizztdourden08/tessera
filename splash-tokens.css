@@ -879,7 +879,7 @@
   --c-primary-text: #ed647f;
   --c-primary-dim: #250e13;
   --c-primary-soft: #e0245e24;
-  --c-primary-gradient-from: #ed647f;
+  --c-primary-gradient-from: #e0245e;
   --c-primary-gradient-to: #e0245e;
   --c-primary-glow: #e0245e66;
   --c-primary-glow-strong: #e0245ea6;
@@ -911,6 +911,7 @@
   --p-text-dim: #d4d4d7;
   --p-text-muted: #b5b5b9;
   --p-text-faint: #a6a6aa;
+  --p-primary-gradient-from: #e0245e;
 }
 
 [data-palette="rotp"] {

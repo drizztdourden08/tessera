@@ -14,7 +14,7 @@ import { BrandMark, BrandWordmark, Mascot } from '@drizztdourden08/tessera/brand
 
 `size` takes `sm`, `md`, `lg`, `xl` or `xxl`. The `xxl` step, `--brand-mark-xxl`, is 256 px, for a large mark such as an empty start page. Archipelia's mark is drawn from true circles and straight bars, so it stays smooth at any size.
 
-### The fill size
+## The fill size
 
 `size="fill"` is the fluid step, for a mark that follows its parent, such as an idle backdrop that grows with the window. The mark takes the full inline size of its parent and stays square (`aspect-ratio: 1`). An optional cap comes from `--brand-mark-fill-max`, which is `none` by default; set it on the parent or the mark to stop the mark at a size, for example `--brand-mark-fill-max: var(--size-512)`.
 
