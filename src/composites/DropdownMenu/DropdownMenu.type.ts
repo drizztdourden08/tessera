@@ -4,10 +4,11 @@ import type { IconifyIcon } from '@iconify/types';
 import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 import type { ButtonVariant } from '../../primitives/Button/Button.type';
 import type { IconName, IconPath } from '../../primitives/Icon';
+import type { SelectOption } from '../../primitives/Select';
 import type { DropAlign } from '../../primitives/listbox/drop-placement.type';
 import type { ShortcutKey } from '../../primitives/Shortcut';
 
-type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm' | 'slider';
+type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm' | 'slider' | 'select';
 
 type MenuItemTone = 'danger';
 
@@ -32,6 +33,9 @@ interface MenuItem {
   step?: number;
   formatValue?: (value: number) => string;
   onChange?: (value: number) => void;
+  options?: readonly SelectOption[];
+  selected?: string;
+  onPick?: (value: string) => void;
   children?: readonly MenuNode[];
   onSelect?: () => void;
   onCancel?: () => void;

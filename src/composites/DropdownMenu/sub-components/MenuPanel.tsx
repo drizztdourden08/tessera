@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 import { Box } from '../../../primitives/Box';
 import { MenuColumnsContext } from '../behavior/menu-columns-context';
+import { MenuKeysContext } from '../behavior/menu-keys-context';
 import { useMenuFocus } from '../behavior/useMenuFocus';
 import { useMenuKeys } from '../behavior/useMenuKeys';
 import type { MenuPanelProps } from './MenuPanel.type';
@@ -28,7 +29,9 @@ const MenuPanel = (props: MenuPanelProps) => {
       onMouseEnter={hover?.onMouseEnter}
       onMouseLeave={hover?.onMouseLeave}
     >
-      <MenuColumnsContext value={columns}>{children}</MenuColumnsContext>
+      <MenuKeysContext value={onKeyDown}>
+        <MenuColumnsContext value={columns}>{children}</MenuColumnsContext>
+      </MenuKeysContext>
     </Box>
   );
 };

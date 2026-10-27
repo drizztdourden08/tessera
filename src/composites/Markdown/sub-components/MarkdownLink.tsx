@@ -4,12 +4,13 @@ import { useMarkdownSettings } from '../behavior/useMarkdownSettings';
 import type { MarkdownLinkProps } from '../Markdown.type';
 
 const MarkdownLink = ({ href, children }: MarkdownLinkProps) => {
-  const { onLink } = useMarkdownSettings();
+  const { onLink, linkTone } = useMarkdownSettings();
   if (!href) return <>{children}</>;
-  if (!onLink) return <Link href={href} external>{children}</Link>;
+  if (!onLink) return <Link href={href} tone={linkTone} external>{children}</Link>;
   return (
     <Link
       href={href}
+      tone={linkTone}
       onClick={(event) => {
         event.preventDefault();
         onLink(href);

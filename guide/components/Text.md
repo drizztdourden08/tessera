@@ -32,6 +32,7 @@ Text sets interface copy in a role from the scale, and its members draw each tex
 - Colour it with tone, as on Span: muted for quiet captions, danger for an error.
 - Use the faint tone for the quietest text, such as a keyboard hint beside a field. It stays at or above 4.5:1 on the main ground, but it is dimmer than muted, so keep it to short secondary hints.
 - Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.
+- Set size md for the 13 px step between the small and base sizes, such as a dense row of values; with no size the variant sets it.
 - Set mono for file names, seeds and addresses, and numeric for times and counts that line up.
 
 ## Accessibility
@@ -56,6 +57,7 @@ const SyncLine = () => (
 
 - `as` (optional): `ElementType`.
 - `variant` (optional): `TextVariant`, one of `'body'`, `'label'`, `'title'`, `'subtitle'`, `'caption'`, `'overline'`.
+- `size` (optional): `TextSize`.
 - `tone` (optional): `TextTone | 'faint'`, one of `'danger'`, `'dim'`, `'faint'`, `'info'`, `'muted'`, `'primary'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
 - `mono` (optional): `boolean`.
 - `numeric` (optional): `boolean`.
@@ -69,7 +71,7 @@ It also takes the 277 attributes it inherits through `HTMLAttributes<HTMLElement
 
 ## Tokens
 
-It draws on `--c-danger`, `--c-info`, `--c-primary-text`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--c-warning`, `--font-mono`, `--text-base`, `--text-lg`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--weight-semi`.
+It draws on `--c-danger`, `--c-info`, `--c-primary-text`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--c-warning`, `--font-mono`, `--text-base`, `--text-lg`, `--text-md`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--weight-semi`.
 
 ## Also exported from this folder
 

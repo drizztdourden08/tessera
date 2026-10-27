@@ -14,7 +14,7 @@ import type { RowFeatureProps, RowReorderBinding } from './behavior/row-features
 
 type DefaultExpanded = readonly string[] | ((groupKey: string, path: string) => boolean);
 
-type RowState = 'active' | 'pending' | 'error' | 'warning' | 'muted' | 'fresh';
+type RowState = 'active' | 'pending' | 'error' | 'warning' | 'muted' | 'fresh' | 'edge';
 
 type HeaderCase = 'normal' | 'upper';
 

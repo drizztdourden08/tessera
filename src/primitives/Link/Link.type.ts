@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { AnchorHTMLAttributes, Ref } from 'react';
 
-type LinkTone = 'primary' | 'secondary' | 'neutral' | 'danger';
+type LinkTone = 'primary' | 'secondary' | 'neutral' | 'danger' | 'info';
 
 type LinkVariant = 'inline' | 'subtle';
 

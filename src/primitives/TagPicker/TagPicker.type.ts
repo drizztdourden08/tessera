@@ -21,6 +21,7 @@ interface TagPickerProps<T extends string = string> extends ControlName {
   label?: string;
   disabled?: boolean;
   single?: boolean;
+  pill?: boolean;
   size?: ControlSize;
 }
 
