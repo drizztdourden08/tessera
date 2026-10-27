@@ -51,6 +51,11 @@ const Compact = {
   render: () => <MarkdownEditorDemo initial={'A short note for a card.'} compact />,
 } satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
 
+const WriteOnly = {
+  name: 'Write only: preview false hides the eye, the tabs and the preview',
+  render: () => <MarkdownEditorDemo initial={'A note with no preview.'} compact preview={false} decide />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
 const LongDocument = {
   name: 'A long document',
   render: () => <MarkdownEditorDemo initial={LONG_NOTE} layout="split" rows={20} />,
@@ -84,6 +89,7 @@ const [note, setNote] = useState('');
 <MarkdownEditor label="Note" value={note} onChange={setNote} />
 <MarkdownEditor value={note} onChange={setNote} layout="tabs" onLink={openInBrowser} />
 <MarkdownEditor value={note} onChange={setNote} compact />
+<MarkdownEditor value={note} onChange={setNote} preview={false} />
 <MarkdownEditor value={note} onChange={setNote} toolbarEnd={<Button size="sm">Decide</Button>} />
 <MarkdownEditor value={note} onChange={setNote} maxLength={500} onSubmit={send} onEscape={close} />`;
 
@@ -96,13 +102,13 @@ const Overview = overviewStory({
     'Mod+B, Mod+I and Mod+K work in the field; Enter, Tab and Backspace carry a list on; Undo keeps working.',
     '`onSubmit` takes Mod+Enter, `onEscape` takes Escape, and `maxLength` shows a counter near the limit.',
     '`layout` is split or tabs, `onLink` takes preview link clicks, `toolbarEnd` adds a node at the toolbar end.',
-    '`compact` is a slim toolbar and a 3 row box that grows; the preview opens from a toggle.',
+    '`compact` is a slim toolbar and a 3 row box that grows; `preview={false}` drops the preview for write only.',
   ],
   instead: '[Textarea] for plain text, or [Markdown] to only show a Markdown text.',
   playground: Playground,
-  variants: [Split, Tabs, Compact, ToolbarEnd, LongDocument, Limited, Keys, ListKeys],
+  variants: [Split, Tabs, Compact, WriteOnly, ToolbarEnd, LongDocument, Limited, Keys, ListKeys],
   code: CODE,
 });
 
 export default meta;
-export { Compact, Keys, Limited, ListKeys, LongDocument, Overview, Playground, Split, Tabs, ToolbarEnd };
+export { Compact, Keys, Limited, ListKeys, LongDocument, Overview, Playground, Split, Tabs, ToolbarEnd, WriteOnly };
