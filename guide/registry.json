@@ -1792,7 +1792,9 @@
         "Leave overflow on more for a More control that opens the text in place, and show less to fold it again.",
         "Set overflow to hint to keep the text clamped and show a hint beside it, which holds the full text unless hint is passed.",
         "Set overflow to clip to cut the text at lines with no control at all, for text whose full form is shown elsewhere.",
-        "The control and the hint only appear when the text runs past lines, so short text shows nothing extra."
+        "The control and the hint only appear when the text runs past lines, so short text shows nothing extra.",
+        "Pass fill to give the text the full width of its parent and contain it, so a table cell holding long text keeps the width the table gives it.",
+        "Pass truncate middle with a string to keep one line, the start and the end of it, and an ellipsis between, such as a file path; the full text, or hint, shows in a tip while it is cut."
       ],
       "a11y": [
         "The More control is a button that says whether the text is open and names the text it opens.",
@@ -1807,7 +1809,7 @@
         "rule": "FoldText is the one clamp for long text. FormRow and SettingsRow draw their descriptions with it."
       },
       "example": "import { FoldText } from '@drizztdourden08/tessera';\n\nconst Notes = ({ text }: { text: string }) => (\n  <FoldText lines={3}>{text}</FoldText>\n);\n",
-      "propsHash": "b9516cb85200581c",
+      "propsHash": "43ee055b8264d67a",
       "props": {
         "own": [
           {
@@ -1823,8 +1825,17 @@
               "'more'",
               "'hint'",
               "'clip'"
-            ],
-            "default": "'more'"
+            ]
+          },
+          {
+            "name": "truncate",
+            "optional": true,
+            "text": "FoldTruncate"
+          },
+          {
+            "name": "fill",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "hint",
@@ -1854,6 +1865,7 @@
         "--c-focus",
         "--c-primary-bright",
         "--radius-sm",
+        "--size-1",
         "--space-2xs",
         "--text-xs",
         "--weight-medium"
@@ -16230,6 +16242,7 @@
       ],
       "rules": [
         "Give each column a fr, its share of the width; leave it out for 1.",
+        "Pass width on a column for a fixed size instead of a share: a size or space token name such as size-96, or a CSS length such as 6rem; it wins over fr.",
         "Mark a column drop 1, 2 or 3 to hide it below 768, 640 or 480 px of table width; 1 leaves first.",
         "Never mark the column that names the row: it stays at every width.",
         "Draw state with Status and groups with Tag inside cell; the table sets no look for them.",

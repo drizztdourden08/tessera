@@ -16,6 +16,7 @@ interface TrackTableAgentsProps {
   clickable?: boolean;
   tones?: boolean;
   details?: boolean;
+  fixed?: boolean;
 }
 
 export type { TrackAgent, TrackTableAgentsProps, TrackWidth };

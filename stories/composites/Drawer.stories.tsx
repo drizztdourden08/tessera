@@ -18,10 +18,10 @@ type DrawerArgs = {
   look: 'default' | 'record';
 };
 
-type DrawerDemoProps = DrawerArgs & { openLabel: string; Sample: ComponentType<SampleDrawerProps> };
+type DrawerDemoProps = DrawerArgs & { stackNarrow?: boolean; openLabel: string; Sample: ComponentType<SampleDrawerProps> };
 
 const DrawerDemo = (props: DrawerDemoProps) => {
-  const { side, size, look, label, openLabel, Sample } = props;
+  const { side, size, look, label, stackNarrow, openLabel, Sample } = props;
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
   return (
@@ -33,7 +33,7 @@ const DrawerDemo = (props: DrawerDemoProps) => {
           <Button variant="secondary" onClick={() => setOpen(true)}>{openLabel}</Button>
         </Box>
       </Box>
-      <Sample open={open} close={close} side={side} size={size} look={look} label={label} />
+      <Sample open={open} close={close} side={side} size={size} look={look} label={label} stackNarrow={stackNarrow} />
     </Box>
   );
 };
@@ -103,6 +103,15 @@ const RecordLook = {
   ),
 } satisfies PlaygroundStory<DrawerArgs>;
 
+const StackedHeader = {
+  name: 'stackNarrow: the header tools drop under the title when the drawer is narrow',
+  args: { ...ARGS, label: 'Incident' },
+  argTypes: ARG_TYPES,
+  render: (args) => (
+    <DrawerDemo {...args} stackNarrow openLabel="Open record" Sample={RecordDrawer} />
+  ),
+} satisfies PlaygroundStory<DrawerArgs>;
+
 const SearchSheet = {
   name: 'Search from the top',
   args: ARGS,
@@ -129,17 +138,17 @@ const Overview = overviewStory({
   description: 'A panel that slides in from one edge over a scrim, for details, filters or a quick search that should not take a whole page.',
   points: [
     '`side` picks the edge: `right` by default, `left` or `top`.',
-    '`title`, `subtitle` and an `eyebrow` line fill the header; `actions` sit in a footer row.',
+    '`title`, `subtitle` and `eyebrow` fill the header and wrap when long; `actions` sit in a footer row.',
     '`look="record"` keeps eyebrow chips as written and a plain sentence-case title.',
+    '`stackNarrow` moves the header actions and close button under a long title when the drawer is narrow.',
     '`size` runs `md`, `lg`, `wide` and `xl`; any size is full width under 480 px.',
-    'A tap on the scrim, the close button or [[Esc]] calls `onClose`; focus stays inside while it is open.',
-    'A long `title` wraps instead of cutting. The body pads and scrolls; `label` names a panel with no `title`.',
+    '[[Esc]], the scrim or the close button calls `onClose`; focus stays inside. `label` names a panel with no `title`.',
   ],
   instead: '[DialogShell] for a modal that waits for an answer.',
   playground: Playground,
-  variants: [Record, RecordLook, FilterPanel, Notifications, SearchSheet],
+  variants: [Record, RecordLook, StackedHeader, FilterPanel, Notifications, SearchSheet],
   code: CODE,
 });
 
 export default meta;
-export { FilterPanel, Notifications, Overview, Playground, Record, RecordLook, SearchSheet };
+export { FilterPanel, Notifications, Overview, Playground, Record, RecordLook, SearchSheet, StackedHeader };

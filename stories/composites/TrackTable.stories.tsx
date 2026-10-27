@@ -51,11 +51,16 @@ const Toned = {
   render: () => <TrackTableAgents width="wide" tones />,
 } satisfies StoryLiteStoryDefinition<TrackTableArgs>;
 
+const FixedWidths = {
+  name: 'Fixed widths: State, Tasks and Last seen keep a set size, Agent and Node share the rest',
+  render: () => <TrackTableAgents width="wide" fixed />,
+} satisfies StoryLiteStoryDefinition<TrackTableArgs>;
+
 const Overview = overviewStory({
   component: 'TrackTable',
   description: 'A flat, read-only table that lays its columns out in fractions of the width and drops the least needed ones as it narrows.',
   points: [
-    'Each column takes `fr`, its share of the width; the default is 1.',
+    'Each column takes `fr`, its share of the width (default 1), or `width`, a fixed size token name or CSS length.',
     'Mark a column `drop` 1, 2 or 3 to hide it when the table is narrower than 768, 640 or 480 px. 1 leaves first.',
     'The narrowing follows the width of the table itself, not the window, so it works in a pane or a drawer.',
     'No card, border or background: put it in a [Card] or on the page; `head={false}` hides the header.',
@@ -64,8 +69,8 @@ const Overview = overviewStory({
   ],
   instead: '[DataTable] to sort, group, resize or select many rows, or [RowGrid] to edit rows in place.',
   playground: Playground,
-  variants: [AsItNarrows, Interactive, Toned],
+  variants: [AsItNarrows, FixedWidths, Interactive, Toned],
 });
 
 export default meta;
-export { AsItNarrows, Interactive, Overview, Playground, Toned };
+export { AsItNarrows, FixedWidths, Interactive, Overview, Playground, Toned };

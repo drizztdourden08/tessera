@@ -18,6 +18,8 @@ const usage = {
     'Set overflow to hint to keep the text clamped and show a hint beside it, which holds the full text unless hint is passed.',
     'Set overflow to clip to cut the text at lines with no control at all, for text whose full form is shown elsewhere.',
     'The control and the hint only appear when the text runs past lines, so short text shows nothing extra.',
+    'Pass fill to give the text the full width of its parent and contain it, so a table cell holding long text keeps the width the table gives it.',
+    'Pass truncate middle with a string to keep one line, the start and the end of it, and an ellipsis between, such as a file path; the full text, or hint, shows in a tip while it is cut.',
   ],
   a11y: [
     'The More control is a button that says whether the text is open and names the text it opens.',
@@ -34,7 +36,7 @@ const Notes = ({ text }: { text: string }) => (
   <FoldText lines={3}>{text}</FoldText>
 );
 `,
-  propsHash: 'b9516cb85200581c',
+  propsHash: '43ee055b8264d67a',
 } satisfies ComponentUsage;
 
 export { usage };

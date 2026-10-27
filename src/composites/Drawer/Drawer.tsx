@@ -12,7 +12,7 @@ import { DrawerHeader } from './sub-components/DrawerHeader';
 import type { DrawerProps } from './Drawer.type';
 
 const Drawer = (props: DrawerProps) => {
-  const { open, onClose, side = 'right', size, look, label, eyebrow, title, titleWrap, subtitle, headerActions, actions, children } = props;
+  const { open, onClose, side = 'right', size, look, label, eyebrow, title, titleWrap, stackNarrow, subtitle, headerActions, actions, children } = props;
   const titleId = useId();
   const labelledBy = label === undefined && title !== undefined ? titleId : undefined;
   const focus = useDialogFocus({ open, initialFocus: 'first', headingId: title === undefined ? undefined : titleId });
@@ -36,6 +36,7 @@ const Drawer = (props: DrawerProps) => {
           eyebrow={eyebrow}
           title={title}
           titleWrap={titleWrap}
+          stackNarrow={stackNarrow}
           titleId={titleId}
           subtitle={subtitle}
           headerActions={headerActions}

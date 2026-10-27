@@ -1,0 +1,7 @@
+/* @layer stories @kind style */
+.fold-story__frame {
+  inline-size: var(--size-384);
+  max-inline-size: 100%;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+}

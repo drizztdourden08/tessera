@@ -8,6 +8,7 @@ interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'si
   invalid?: boolean;
   size?: ControlSize;
   grow?: boolean;
+  mono?: boolean;
   width?: FieldWidth;
   start?: InputAdornment;
   end?: InputAdornment;

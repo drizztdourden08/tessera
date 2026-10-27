@@ -15,14 +15,18 @@ const COLUMNS: readonly TrackColumn<TrackAgent>[] = [
   { id: 'seen', label: 'Last seen', fr: 1.4, drop: 1, cell: (agent) => <Text variant="caption">{agent.seen}</Text> },
 ];
 
-const TrackTableAgents = ({ width, clickable = false, tones = false, details = false }: TrackTableAgentsProps) => {
+const FIXED_WIDTHS: Readonly<Record<string, string>> = { state: 'size-96', tasks: 'size-64', seen: '8rem' };
+
+const FIXED_COLUMNS: readonly TrackColumn<TrackAgent>[] = COLUMNS.map((column) => ({ ...column, width: FIXED_WIDTHS[column.id] }));
+
+const TrackTableAgents = ({ width, clickable = false, tones = false, details = false, fixed = false }: TrackTableAgentsProps) => {
   const [opened, setOpened] = useState<string | null>(null);
   return (
     <Box className={`track-story track-story--${width}`}>
       <TrackTable
         label="Agents"
         rows={TRACK_AGENTS}
-        columns={COLUMNS}
+        columns={fixed ? FIXED_COLUMNS : COLUMNS}
         rowKey={(agent) => agent.id}
         onRowClick={clickable ? (agent) => setOpened(opened === agent.id ? null : agent.id) : undefined}
         rowDetail={details ? (agent) => (opened === agent.id ? <Text variant="caption">{`${agent.name} runs ${agent.tasks} tasks on ${agent.node}.`}</Text> : null) : undefined}

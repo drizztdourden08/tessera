@@ -7,4 +7,6 @@ const TEMPLATE_PROPERTY = '--track-cols-';
 
 const DEFAULT_FR = 1;
 
-export { DEFAULT_FR, DROP_LEVELS, TEMPLATE_PROPERTY };
+const TOKEN_NAME = /^(size|space)-[a-z0-9]+$/;
+
+export { DEFAULT_FR, DROP_LEVELS, TEMPLATE_PROPERTY, TOKEN_NAME };
