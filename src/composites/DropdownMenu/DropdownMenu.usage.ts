@@ -27,6 +27,7 @@ const usage = {
     'The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.',
     'size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.',
     'itemSize roomy sets the items at 13 px with taller rows, for a menu that reads as a list of choices; default keeps the compact rows. Sub-menus follow their parent.',
+    'Give an item kind select, with options, selected and onPick, to put a labelled Select inside the menu beside the action rows; picking a value never closes the menu, and the arrow keys walk through the select row like any other row.',
     'align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge.',
     'Anchored menus take side: below or above a button, right or left of a tool in a rail. Right and left line up with the top of the anchor and flip to the other side when there is no room.',
     'openOnHover on a trigger opens the menu after a short delay and closes it a moment after the pointer leaves both; click and the arrow keys still work. An anchored menu takes the same through hover, with focusOnOpen off so a hover does not take focus.',

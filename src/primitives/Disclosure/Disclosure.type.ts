@@ -6,6 +6,7 @@ type DisclosureSize = 'sm' | 'md';
 interface DisclosureProps {
   summary: ReactNode;
   end?: ReactNode;
+  wrapEnd?: boolean;
   children: ReactNode;
   open?: boolean;
   defaultOpen?: boolean;

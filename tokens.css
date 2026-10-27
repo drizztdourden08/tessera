@@ -423,6 +423,7 @@ input, select {
   --track-drop-1: var(--size-768);
   --track-drop-2: var(--size-640);
   --track-drop-3: calc(480 * var(--size-1));
+  --disclosure-wrap: var(--size-384);
   --sort-caret-width: var(--size-8);
   --avatar-d: var(--size-40);
   --side-nav-w: calc(var(--side-nav-item-h) + 2 * (var(--space-sm) + 2 * var(--border-width-thin)));

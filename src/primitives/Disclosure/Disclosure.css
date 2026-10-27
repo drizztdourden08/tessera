@@ -69,3 +69,18 @@
     transition: none;
   }
 }
+
+.disclosure--wrap-end {
+  container: disclosure / inline-size;
+}
+
+.disclosure--wrap-end > .disclosure__summary {
+  flex-wrap: wrap;
+}
+
+@container disclosure (width < 384px) {
+  .disclosure--wrap-end > .disclosure__summary > .disclosure__end {
+    flex-basis: 100%;
+    margin-inline-start: 0;
+  }
+}

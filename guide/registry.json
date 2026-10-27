@@ -1567,6 +1567,7 @@
         "A later change to defaultOpen opens or closes it, so a part can open it when a job fails.",
         "Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.",
         "Pass end for something at the right of the line, such as a count or a Button; a click inside it never opens or closes the disclosure.",
+        "Add wrapEnd when the row can get narrow: below 384 px the end slot drops under the summary instead of squeezing it.",
         "Use size sm for a line in small text, such as inside a settings row.",
         "Pass bodyClassName to lay out the body, such as a column of rows with a gap, in place of a selector on its class."
       ],
@@ -1582,7 +1583,7 @@
         "rule": "Disclosure shows or hides what is under one line with the browser details element, with one look for every app."
       },
       "example": "import { Disclosure, Paragraph } from '@drizztdourden08/tessera';\n\nconst ReleaseNotes = ({ notes }: { notes: string }) => (\n  <Disclosure summary=\"What is new\">\n    <Paragraph tone=\"dim\">{notes}</Paragraph>\n  </Disclosure>\n);\n",
-      "propsHash": "11001f6a74ac4af7",
+      "propsHash": "68a13a7709975ab9",
       "props": {
         "own": [
           {
@@ -1594,6 +1595,12 @@
             "name": "end",
             "optional": true,
             "text": "ReactNode"
+          },
+          {
+            "name": "wrapEnd",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
           },
           {
             "name": "children",
@@ -4316,6 +4323,7 @@
         "Colour it with tone, as on Span: muted for quiet captions, danger for an error.",
         "Use the faint tone for the quietest text, such as a keyboard hint beside a field. It stays at or above 4.5:1 on the main ground, but it is dimmer than muted, so keep it to short secondary hints.",
         "Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.",
+        "Set size md for the 13 px step between the small and base sizes, such as a dense row of values; with no size the variant sets it.",
         "Set mono for file names, seeds and addresses, and numeric for times and counts that line up."
       ],
       "a11y": [
@@ -4330,7 +4338,7 @@
         "rule": "Text sets interface copy in a role from the scale, and its members draw each text element."
       },
       "example": "import { Text } from '@drizztdourden08/tessera';\n\nconst SyncLine = () => (\n  <Text.P>\n    <Text variant=\"caption\" tone=\"muted\">Last synced 12 seconds ago</Text>\n    <Text variant=\"caption\" tone=\"faint\"> · Hold Shift to snap</Text>\n  </Text.P>\n);\n",
-      "propsHash": "f727b6a67ffcbd3d",
+      "propsHash": "6b648c5b5217056d",
       "props": {
         "own": [
           {
@@ -4350,6 +4358,11 @@
               "'caption'",
               "'overline'"
             ]
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "TextSize"
           },
           {
             "name": "tone",
@@ -4431,6 +4444,7 @@
         "--font-mono",
         "--text-base",
         "--text-lg",
+        "--text-md",
         "--text-sm",
         "--text-xs",
         "--tracking-caps",
@@ -7044,7 +7058,7 @@
         "Pass renderCell(row, path) to draw a cell yourself, such as a thumbnail beside a name; return undefined to keep the schema rendering of that cell.",
         "A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.",
         "Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.",
-        "Pass rowState(row) to mark a row active, pending, error, warning, muted or fresh; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar and fresh a soft info tint for rows that just arrived, and a selected row keeps the selection background.",
+        "Pass rowState(row) to mark a row active, pending, error, warning, muted, fresh or edge; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar, fresh a soft info tint for rows that just arrived and edge only the left bar with no tint, and a selected row keeps the selection background.",
         "Set headerCase to upper for capital column labels with wide letter spacing; the labels you pass keep their case in the data.",
         "Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.",
         "A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.",
@@ -8026,6 +8040,7 @@
         "The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.",
         "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.",
         "itemSize roomy sets the items at 13 px with taller rows, for a menu that reads as a list of choices; default keeps the compact rows. Sub-menus follow their parent.",
+        "Give an item kind select, with options, selected and onPick, to put a labelled Select inside the menu beside the action rows; picking a value never closes the menu, and the arrow keys walk through the select row like any other row.",
         "align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge.",
         "Anchored menus take side: below or above a button, right or left of a tool in a rail. Right and left line up with the top of the anchor and flip to the other side when there is no room.",
         "openOnHover on a trigger opens the menu after a short delay and closes it a moment after the pointer leaves both; click and the arrow keys still work. An anchored menu takes the same through hover, with focusOnOpen off so a hover does not take focus.",
@@ -11401,6 +11416,7 @@
         "Pass onImage to make each drawn image a button, focusable and pressed with Enter or Space, named by its alt text; it gets { src, alt }, so the app can open a lightbox. Without it images stay inert.",
         "Control characters (except tab and line breaks), private-use characters and lone surrogates are removed from the source before it is parsed; emoji and normal text stay.",
         "Pass linkIds, a rule or a list of rules with a pattern and an href function, so plain ids such as T-5 become links; they are made in text only, never in code or inside a link.",
+        "Set linkTone to neutral to draw links, such as the ids made by linkIds, in the text colour with an underline instead of the link accent; the other link tones are available too.",
         "Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; it works in text only, never in code, a link or a hex value such as 0x1F, and no other punctuation changes.",
         "A link that starts with a slash, such as /files/notes.md, is an app path: it is kept only when onLink is passed, and goes to onLink like any link.",
         "Whatever an href function gives still has to be an http, https or mailto address, or an app path with onLink; javascript addresses are always dropped, and data addresses only pass as the image types above."
@@ -11420,7 +11436,7 @@
         "rule": "Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsafe links dropped."
       },
       "example": "import { Markdown } from '@drizztdourden08/tessera';\n\nconst UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (href: string) => void }) => (\n  <Markdown source={source} size=\"sm\" headingOffset={2} hideTitle onLink={openExternal} />\n);\n",
-      "propsHash": "3e83712627203ace",
+      "propsHash": "c1076fcab1a7da40",
       "props": {
         "own": [
           {
@@ -11489,6 +11505,18 @@
             "optional": true,
             "text": "boolean",
             "default": "false"
+          },
+          {
+            "name": "linkTone",
+            "optional": true,
+            "text": "LinkTone",
+            "literals": [
+              "'primary'",
+              "'secondary'",
+              "'neutral'",
+              "'danger'",
+              "'info'"
+            ]
           },
           {
             "name": "className",

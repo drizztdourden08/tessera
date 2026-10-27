@@ -26,7 +26,7 @@ const usage = {
     'Pass renderCell(row, path) to draw a cell yourself, such as a thumbnail beside a name; return undefined to keep the schema rendering of that cell.',
     'A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.',
     'Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.',
-    'Pass rowState(row) to mark a row active, pending, error, warning, muted or fresh; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar and fresh a soft info tint for rows that just arrived, and a selected row keeps the selection background.',
+    'Pass rowState(row) to mark a row active, pending, error, warning, muted, fresh or edge; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar, fresh a soft info tint for rows that just arrived and edge only the left bar with no tint, and a selected row keeps the selection background.',
     'Set headerCase to upper for capital column labels with wide letter spacing; the labels you pass keep their case in the data.',
     'Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.',
     'A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.',
