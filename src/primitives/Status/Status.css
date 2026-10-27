@@ -51,6 +51,19 @@
   background: var(--status-ink);
 }
 
+.status--dot-lg .status__dot {
+  width: var(--size-8);
+  height: var(--size-8);
+}
+
+.status--halo .status__dot {
+  box-shadow: 0 0 0 var(--size-3) var(--status-edge);
+}
+
+.status--halo {
+  gap: var(--space-sm);
+}
+
 .status--success {
   --status-ink: var(--c-success);
   --status-strong: var(--c-success-bright);

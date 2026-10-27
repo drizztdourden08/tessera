@@ -21,7 +21,7 @@ const BuildState = ({ failed }: { failed: boolean }) => (
   <Status tone={failed ? 'danger' : 'success'}>{failed ? 'Failed' : 'Passed'}</Status>
 );
 `,
-  propsHash: 'a6a4c391c8eb379b',
+  propsHash: 'e6c93de8125d4d10',
 } satisfies ComponentUsage;
 
 export { usage };

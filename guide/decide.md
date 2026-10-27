@@ -176,6 +176,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 - Data. **What data are you showing?**
   - Rows and columns to sort and filter: [DataTable](components/DataTable.md). DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long.
   - A small table of facts that is only read: [Table](components/Table.md). Table draws a static table from TableSection, TableRow and TableCell; DataTable is the table the user sorts and filters.
+  - A flat table of rows that drops columns as it narrows: [TrackTable](components/TrackTable.md). TrackTable shares the width by fractions and drops the least needed columns by the width of the table, not the window.
   - Filters over a collection: no component yet.
   - A list the user adds to, renames and deletes from: [ItemList](components/ItemList.md). ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
   - A list the user reorders, with on and off icons on each row: no component yet.
