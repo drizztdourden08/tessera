@@ -83,14 +83,15 @@ describe('the mascot stays off the lit part', () => {
 });
 
 describe('the ring over a kept part', () => {
-  it('draws the ring and the bubble in the top layer, so a kept part lifted above the tour never covers the glow', () => {
+  it('draws the tour in one top layer root, so a kept part lifted above the tour never covers the glow', () => {
     const spot = { hole: { x: 0, y: 0, width: 1000, height: 40, radius: 12 }, kept: [], view: VIEW, ringRef: createRef() };
     const ring = renderToString(h(TourSpotlight, { spot }));
-    expect(ring).toMatch(/<div popover="manual" class="tour-spotlight__ring"/);
+    expect(ring).toMatch(/<div class="tour-spotlight__ring"/);
     const css = read('../src/composites/GuidedTour/sub-components/TourSpotlight.css');
     const rule = css.slice(css.indexOf('.tour-spotlight__ring {'), css.indexOf('}', css.indexOf('.tour-spotlight__ring {')));
     expect(rule).toContain('pointer-events: none;');
     expect(rule).toContain('background: none;');
-    expect(read('../src/composites/GuidedTour/sub-components/TourBubble.tsx')).toContain('popover="manual"');
+    expect(read('../src/composites/GuidedTour/sub-components/TourLayer.tsx')).toContain('popover="manual"');
+    expect(read('../src/composites/GuidedTour/sub-components/TourSpot.tsx')).toContain('popover="manual"');
   });
 });

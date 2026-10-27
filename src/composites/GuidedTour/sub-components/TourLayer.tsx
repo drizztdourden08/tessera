@@ -20,7 +20,8 @@ const TourLayer = (props: GuidedTourProps) => {
     <Portal layer="modal">
       <Box
         ref={stage.attach}
-        className={['guided-tour', className].filter(Boolean).join(' ')}
+        popover="manual"
+        className={['tour-layer guided-tour', className].filter(Boolean).join(' ')}
         data-step={step?.id}
         data-shown={tour.shown ? 'true' : undefined}
       >
