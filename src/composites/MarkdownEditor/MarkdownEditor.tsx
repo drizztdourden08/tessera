@@ -18,11 +18,11 @@ import './MarkdownEditor.css';
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
   const {
-    value, onChange, label, hint, error, placeholder, disabled = false, layout, compact, toolbarEnd, rows, onLink, images, linkIds, onSubmit, onEscape, maxLength, autoFocus = false, className,
+    value, onChange, label, hint, error, placeholder, disabled = false, layout, compact, preview, toolbarEnd, rows, onLink, images, linkIds, onSubmit, onEscape, maxLength, autoFocus = false, className,
   } = props;
   const rootRef = useRef<HTMLElement | null>(null);
   const areaRef = useRef<HTMLTextAreaElement | null>(null);
-  const { mode, tabbed, pane, setPane, writing, previewShown, previewDrawn, toggle } = useEditorMode(rootRef, layout, compact, disabled);
+  const { mode, tabbed, pane, setPane, writing, previewShown, previewDrawn, toggle } = useEditorMode(rootRef, { layout, compact, disabled, preview });
   useAutoFocus(areaRef, autoFocus && !disabled, setPane);
   const off = disabled || !writing;
   const { run, onKeyDown: onShortcut } = useMarkdownActions(areaRef, off);

@@ -29,6 +29,25 @@ describe('MarkdownEditor compact', () => {
     expect(draw({ compact: true, rows: 5 })).toContain('rows="5"');
   });
 
+  it('draws no eye and no preview with preview off, in every layout', () => {
+    const none = (html) => {
+      expect(html).not.toMatch(/aria-label="Preview"/);
+      expect(html).not.toContain('markdown-editor__toggle');
+      expect(html).not.toContain('markdown-editor__preview');
+      expect(html).not.toContain('role="tab"');
+      expect(html).not.toContain('role="region"');
+      expect(html).toContain('<textarea');
+    };
+    none(draw({ compact: true, preview: false }));
+    none(draw({ preview: false }));
+    none(draw({ preview: false, layout: 'split' }));
+    none(draw({ preview: false, layout: 'tabs' }));
+  });
+
+  it('still draws toolbarEnd with preview off', () => {
+    expect(draw({ compact: true, preview: false, toolbarEnd: h('b', null, 'Decide') })).toContain('Decide');
+  });
+
   it('keeps the other layouts as they were', () => {
     const html = draw({ layout: 'split' });
     expect(html).toContain('data-layout="split"');
