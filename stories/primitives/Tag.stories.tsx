@@ -1,5 +1,4 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Card, Flex, Stack, Tag, Text } from '../../src/primitives';
@@ -7,6 +6,8 @@ import type {
   TagCategoryColor, TagColor, TagCustomColor, TagLook, TagNormalColor, TagUrgencyColor, TagVariant,
 } from '../../src/primitives';
 import { axis } from '../_template/axis';
+import { TagNeutralRow } from './_samples/TagNeutralRow';
+import { TagSelectableRow } from './_samples/TagSelectableRow';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
@@ -118,6 +119,19 @@ const PillIcons = {
   ),
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
+const Outlined = {
+  name: 'Outlined: an edge and no fill',
+  render: () => (
+    <Flex gap="md" align="center" wrap>
+      <Tag outlined pill icon="book">Docs</Tag>
+      <Tag outlined pill icon="flask" color="primary">Experiment</Tag>
+      <Tag outlined pill icon="robot" variant="urgency" color="info">Automated</Tag>
+      <Tag outlined pill icon="flask" variant="category" color="teal">Lab</Tag>
+      <Tag outlined variant="custom" color="#2e8b57">Custom</Tag>
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
 const AsLinks = {
   name: 'As a link: href, with navigate or onClick',
   render: () => (
@@ -144,22 +158,14 @@ const Dotted = {
   ),
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
-const SelectableRow = () => {
-  const [picked, setPicked] = useState<readonly string[]>(['Defeat Ganon']);
-  const toggle = (goal: string) => setPicked((now) => (now.includes(goal) ? now.filter((g) => g !== goal) : [...now, goal]));
-  return (
-    <Flex gap="md" align="center" wrap>
-      {['Defeat Ganon', 'Triforce hunt', 'Pedestal'].map((goal) => (
-        <Tag key={goal} color="primary" selected={picked.includes(goal)} onSelect={() => toggle(goal)}>{goal}</Tag>
-      ))}
-      <Tag variant="category" color="teal" selected={picked.includes('Teal')} onSelect={() => toggle('Teal')}>Teal</Tag>
-    </Flex>
-  );
-};
+const NeutralSelected = {
+  name: 'Neutral selection: a grey fill when on',
+  render: () => <TagNeutralRow />,
+} satisfies StoryLiteStoryDefinition<TagArgs>;
 
 const Selectable = {
   name: 'Selectable, as in TagPicker',
-  render: () => <SelectableRow />,
+  render: () => <TagSelectableRow />,
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
 const OnItems = {
@@ -191,13 +197,13 @@ const Overview = overviewStory({
     'Every tag shares one shape, so the tags of a field, a picker and a list read as one family.',
     '`variant` picks the palette and `color` picks from it: `normal`, `urgency` or `category`.',
     '`onRemove` adds a remove button, as in [TagInput]: a 16 px glyph that takes clicks on 24 by 24 px.',
-    '`selected` with `onSelect` makes it a toggle chip for a filter row, as in [TagPicker]: grey until picked.',
+    '`selected` with `onSelect` makes a toggle chip, as in [TagPicker]; `selectedTone="neutral"` fills it grey.',
     '`variant="custom"` fills it with a hex colour from app data, with black or white text, whichever reads best.',
-    '`pill` rounds the chip fully, `dot` leads with a tone dot, `icon` with an icon; `href` makes it a link.',
+    '`pill` rounds it, `dot` leads with a dot, `icon` with an icon, `outlined` clears the fill; `href` links.',
   ],
   instead: '[Status] for a word that names a state.',
   playground: Playground,
-  variants: [Variants, Custom, PillIcons, Dotted, AsLinks, Removable, Selectable, OnItems],
+  variants: [Variants, Custom, PillIcons, Outlined, Dotted, AsLinks, Removable, Selectable, NeutralSelected, OnItems],
   states: {
     render: renderState,
     list: [
@@ -219,4 +225,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AsLinks, Custom, Dotted, OnItems, Overview, PillIcons, Playground, Removable, Selectable, Variants };
+export { AsLinks, Custom, Dotted, NeutralSelected, OnItems, Outlined, Overview, PillIcons, Playground, Removable, Selectable, Variants };

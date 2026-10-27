@@ -198,3 +198,8 @@
 .dropdown__submenu-trigger {
   position: relative;
 }
+
+.dropdown-look--roomy .dropdown__item {
+  padding-block: var(--space-sm);
+  font-size: var(--text-md);
+}

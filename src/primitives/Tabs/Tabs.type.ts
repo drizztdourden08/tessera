@@ -20,6 +20,7 @@ interface TabsProps {
   onTabChange: (tabId: string) => void;
   iconOnly?: boolean;
   hideZero?: boolean;
+  size?: 'md' | 'lg';
 }
 
 interface TabLabels {

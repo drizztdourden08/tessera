@@ -9,7 +9,7 @@ export { SearchResultHit } from '../SearchResultHit';
 export type { SearchResultHitProps } from '../SearchResultHit';
 export { DropdownMenu, useHoverOpen } from '../DropdownMenu';
 export type {
-  DropdownMenuProps, HoverOpenParams, MenuAlign, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
+  DropdownMenuProps, HoverOpenParams, MenuAlign, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemSize, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
   MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
 } from '../DropdownMenu';
 export { ContextMenu, type ContextMenuPoint, type ContextMenuProps } from '../ContextMenu';

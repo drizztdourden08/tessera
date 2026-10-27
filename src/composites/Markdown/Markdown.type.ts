@@ -35,6 +35,7 @@ interface MarkdownProps {
   images?: MarkdownImages;
   onImage?: MarkdownImageHandler;
   linkIds?: MarkdownLinkId | MarkdownLinkId[];
+  smartTimes?: boolean;
   className?: string;
 }
 
@@ -104,6 +105,7 @@ interface LinkIdsOptions {
 
 interface RemarkPluginOptions extends LinkIdsOptions {
   hideTitle: boolean;
+  smart: boolean;
 }
 
 export type {
