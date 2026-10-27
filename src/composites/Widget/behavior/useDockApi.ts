@@ -24,6 +24,7 @@ const useDockApi = <D extends WidgetDefinition>(params: DockApiParams<D>): Widge
       layout, peek, definitionOf, canPopOut, change, onOpenSettings,
       labelOf: (id) => definitionOf(id)?.label ?? id,
       iconOf: (id) => definitionOf(id)?.icon,
+      sublabelOf: (id) => definitionOf(id)?.sublabel,
       contentOf: (id) => children[id],
       actionsOf: (id) => widgetActions?.(id),
       disabledOf: (id) => {

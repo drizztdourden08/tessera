@@ -6,7 +6,7 @@ import type { WidgetPaneProps } from './WidgetPane.type';
 
 const WidgetPane = (props: WidgetPaneProps) => {
   const { api, widgets, activeId, paneKey, options } = props;
-  const tabs = useMemo(() => widgets.map((id) => ({ id, label: api.labelOf(id), icon: api.iconOf(id) })), [widgets, api]);
+  const tabs = useMemo(() => widgets.map((id) => ({ id, label: api.labelOf(id), icon: api.iconOf(id), sublabel: api.sublabelOf(id) })), [widgets, api]);
   const disabled = api.disabledOf(activeId);
   const definition = api.definitionOf(activeId);
   const openSettings = api.onOpenSettings;

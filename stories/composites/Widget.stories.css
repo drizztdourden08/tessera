@@ -103,3 +103,20 @@
   gap: var(--space-xs);
   min-inline-size: 0;
 }
+
+.widget-story__sublabels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+}
+
+.widget-story__sublabel-cell {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.widget-story__sublabel-frame {
+  inline-size: var(--size-224);
+  block-size: var(--size-128);
+}
