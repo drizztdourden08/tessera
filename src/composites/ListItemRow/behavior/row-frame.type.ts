@@ -16,6 +16,7 @@ interface RowClassParts {
   shown: boolean;
   media: boolean;
   nameAction: boolean;
+  flat: boolean;
   className: string;
 }
 

@@ -9,6 +9,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import './_samples/CardFill.css';
+import { CardFlush } from './_samples/CardFlush';
 import { PageWithCards, toneCard, TONES } from './_samples/card-headers';
 
 type CardVariant = NonNullable<CardProps['variant']>;
@@ -129,6 +130,11 @@ const FillingBody = {
   ),
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
+const Flush = {
+  name: 'Flush, a table edge to edge',
+  render: () => <CardFlush />,
+} satisfies StoryLiteStoryDefinition<CardArgs>;
+
 const SessionPickerDemo = () => {
   const [picked, setPicked] = useState<string | null>(null);
   const current = SESSIONS.find((session) => session.id === picked);
@@ -173,12 +179,12 @@ const Overview = overviewStory({
     '`title` draws a header row in the [SectionHeader] look, with `subtitle`, `count`, `hideZero` and `actions`.',
     '`tone` tints the header row, such as `warning` for a card of problems.',
     '`fill` makes the body take the card height left under the header, and scroll when its child is taller.',
+    '`flush` drops the body padding so a table or list runs edge to edge; border and radius stay, children clip.',
     '`interactive` lights the border on hover for a card clicked whole; **give it a `tabIndex` and a `role`**.',
-    'It sets no inner layout: put a [Stack] or [Flex] inside.',
   ],
   instead: '[ContentHeader] for the header of a whole page, or [SectionHeader] for a heading outside a card.',
   playground: Playground,
-  variants: [AllVariants, HeaderTones, OnAPage, FillingBody],
+  variants: [AllVariants, HeaderTones, OnAPage, FillingBody, Flush],
   states: {
     render: renderState,
     list: [
@@ -190,4 +196,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, FillingBody, HeaderTones, Interactive, OnAPage, Overview, Playground };
+export { AllVariants, FillingBody, Flush, HeaderTones, Interactive, OnAPage, Overview, Playground };

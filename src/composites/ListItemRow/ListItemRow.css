@@ -59,6 +59,15 @@
   font-size: var(--text-xl);
 }
 
+.list-item-row__lead {
+  gap: var(--space-xs);
+  margin-inline-end: 0;
+  color: var(--c-text-dim);
+  font-size: var(--text-xs);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
 .list-item-row__cell {
   display: flex;
   flex-direction: column;
@@ -158,4 +167,24 @@
   .list-item-row--action-inline:not(:hover, :focus-within, .list-item-row--action-shown) .list-item-row__action {
     display: none;
   }
+}
+
+.list-item-row--flat:not(.list-item-row--interactive),
+.list-item-row--flat .list-item-row__main {
+  padding-block: var(--space-2xs);
+}
+
+.list-item-row--flat {
+  background: transparent;
+  border-color: transparent;
+}
+
+.list-item-row--flat:hover {
+  background: var(--c-hover);
+  border-color: transparent;
+}
+
+.list-item-row--flat.list-item-row--selected {
+  background: var(--c-selected);
+  border-color: transparent;
 }

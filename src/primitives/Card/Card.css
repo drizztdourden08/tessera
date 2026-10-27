@@ -38,6 +38,15 @@
   padding: var(--space-sm) var(--space-md);
 }
 
+.card--flush,
+.card--flush > .card__body {
+  padding: 0;
+}
+
+.card--flush {
+  overflow: hidden;
+}
+
 .card--fill {
   display: flex;
   flex-direction: column;

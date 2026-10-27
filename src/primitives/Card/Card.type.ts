@@ -19,6 +19,7 @@ interface CardHeading {
 interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>, CardHeading {
   variant?: CardVariant;
   fill?: boolean;
+  flush?: boolean;
   children: ReactNode;
 }
 

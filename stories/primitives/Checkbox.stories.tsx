@@ -162,7 +162,7 @@ const Overview = overviewStory({
     '`help` puts a ? after the label that shows its note on hover, focus or click, without checking the box.',
     '`tooltip` takes a string or a description and shortcut; `title` goes to the input as a native hint.',
   ],
-  instead: '[Toggle] for a setting that takes effect at once.',
+  instead: '[Toggle] for a setting that takes effect at once, or a [Tag] with `selected` and `onSelect` for a chip.',
   playground: Playground,
   variants: [Labels, Sizes, LabelSizes, WithTooltip],
   states: {

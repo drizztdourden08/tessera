@@ -18,6 +18,7 @@ type FormArgs = {
   submitLabel: string;
   cancellable: boolean;
   compact: boolean;
+  dashed: boolean;
   size: ControlSize;
   error: string;
 };
@@ -28,7 +29,7 @@ const GAMES = [
 ];
 
 const FormDemo = (props: FormArgs) => {
-  const { placeholder, submitLabel, cancellable, compact, size, error } = props;
+  const { placeholder, submitLabel, cancellable, compact, dashed, size, error } = props;
   const [created, setCreated] = useState('');
   return (
     <Box className="story-column">
@@ -36,6 +37,7 @@ const FormDemo = (props: FormArgs) => {
         placeholder={placeholder}
         submitLabel={submitLabel}
         compact={compact}
+        dashed={dashed}
         size={size}
         onCreate={setCreated}
         onCancel={cancellable ? () => setCreated('') : undefined}
@@ -58,12 +60,13 @@ const ExtraFieldsDemo = () => {
   );
 };
 
-const ARGS: Partial<FormArgs> = { placeholder: 'Profile name', submitLabel: 'Create', cancellable: true, compact: false, size: 'md', error: '' };
+const ARGS: Partial<FormArgs> = { placeholder: 'Profile name', submitLabel: 'Create', cancellable: true, compact: false, dashed: false, size: 'md', error: '' };
 
 const ARG_TYPES: PlaygroundArgTypes<FormArgs> = {
   placeholder: { group: 'Content', control: 'text' },
   submitLabel: { group: 'Content', control: 'text' },
   compact: { group: 'Appearance', control: 'boolean', description: 'One line, unboxed: the fields, then icon buttons to create and cancel.' },
+  dashed: { group: 'Appearance', control: 'boolean', description: 'Draws the box border dashed, in the same colour and width.' },
   cancellable: { group: 'Behaviour', control: 'boolean' },
   size: SIZE_ARG,
   error: { group: 'State', control: 'text' },
@@ -97,6 +100,7 @@ const renderState = (props: StateProps) => (
   <InlineCreateForm
     placeholder="Profile name"
     compact={props.compact === true}
+    dashed={props.dashed === true}
     defaultValue={typeof props.value === 'string' ? props.value : ''}
     onCreate={() => undefined}
     onCancel={() => undefined}
@@ -131,7 +135,7 @@ const Overview = overviewStory({
     'Create stays off until there is a name and `canSubmit` holds.',
     '`extraFields` sit under the name; `error` shows under them and marks the field.',
     '`onCancel` adds a Cancel button, and [[Escape]] in the name field calls it too.',
-    '`compact` draws it on one line, unboxed, with icon buttons to create and cancel.',
+    '`compact` draws one line, unboxed, with icon buttons; `dashed` draws the box border dashed.',
     'Without `size`, it follows the size of the [Field] around it.',
   ],
   instead: '[CreateRecordDialog] for a record with more than a few fields.',
@@ -143,6 +147,7 @@ const Overview = overviewStory({
       { ...STATE.idle, name: 'Empty' },
       { name: 'Filled', props: { value: 'Mira' } },
       { name: 'Error', props: { value: 'Mira', error: 'A profile named Mira already exists.' } },
+      { name: 'Dashed', props: { dashed: true } },
       { name: 'Compact', props: { compact: true, value: 'Mira' } },
       { name: 'Compact error', props: { compact: true, value: 'Mira', error: 'A profile named Mira already exists.' } },
     ],

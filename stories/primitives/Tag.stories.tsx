@@ -152,7 +152,7 @@ const Overview = overviewStory({
     'Every tag shares one shape, so the tags of a field, a picker and a list read as one family.',
     '`variant` picks the palette and `color` picks from it: `normal`, `urgency` or `category`.',
     '`onRemove` adds a remove button, as in [TagInput]: a 16 px glyph that takes clicks on 24 by 24 px.',
-    '`selected` with `onSelect` makes it a toggle, as in [TagPicker]: grey until it is picked.',
+    '`selected` with `onSelect` makes it a toggle chip for a filter row, as in [TagPicker]: grey until picked.',
     '`variant="custom"` fills it with a hex colour from app data, with black or white text, whichever reads best.',
   ],
   instead: '[Status] for a word that names a state.',
