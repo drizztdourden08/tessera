@@ -59,7 +59,7 @@ describe('FormRow description', () => {
   });
 
   it('shares the fold of SettingsRow, with More and Less drawn by the same part', () => {
-    const sheet = readFileSync(new URL('../src/primitives/fold-text/FoldText.css', import.meta.url), 'utf8');
+    const sheet = readFileSync(new URL('../src/primitives/FoldText/FoldText.css', import.meta.url), 'utf8');
     expect(sheet).toMatch(/\.fold-text__text\[data-folded\] \{\s*display: -webkit-box;/);
     expect(readFileSync(new URL('../src/composites/SettingsRow/SettingsRow.css', import.meta.url), 'utf8')).not.toContain('data-folded');
   });

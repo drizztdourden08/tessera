@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 101 of 211 have their usage written; a linked name opens its page.
+One line per component. 102 of 212 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -30,6 +30,7 @@ One line per component. 101 of 211 have their usage written; a linked name opens
 - `FieldControlBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Flex`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Floating`: usage not written yet. Not exported; Tessera uses it inside.
+- [FoldText](components/FoldText.md): A block of text clamped to a few lines, with a More control or a hint that reveals the rest, such as the description under a form row. Import from `@drizztdourden08/tessera`.
 - [Gauge](components/Gauge.md): A small round meter that shows one value against its limit, coloured by the zone the value is in. Import from `@drizztdourden08/tessera`.
 - `Glyph`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Grid](components/Grid.md): Lays items out in equal columns, such as file tiles, a gallery or the Cards of a dashboard. Import from `@drizztdourden08/tessera`.
