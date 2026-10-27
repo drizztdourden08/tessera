@@ -8,6 +8,7 @@ type CalloutVariant = 'box' | 'footnote';
 interface CalloutProps {
   tone?: CalloutTone;
   variant?: CalloutVariant;
+  title?: ReactNode;
   icon?: ReactNode;
   action?: ReactNode;
   details?: ReactNode;
