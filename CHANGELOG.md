@@ -1,5 +1,12 @@
 # @drizztdourden08/tessera
 
+## 0.85.0
+
+### Minor Changes
+
+- 6afb5e6: Five opt-in options for the Argus Node design; every default look stays the same. `Select`, `Combobox`, `TextInput` and `SearchInput` take `width="narrow-fill"`, the 220 px control that fills its row when the nearest container is under 420 px wide, set by the `--field-w-fill-below` token. Tabs takes `badgeFill="solid"` to draw the count as a solid Badge in its tone instead of the tinted one, and the package exports `TabBadgeFill`. Tag and Status take `reason`, a short cause drawn after the name in the tone while the name stays in the text colour. Markdown takes `idLinkTone`, a tone for the links made by `linkIds` apart from the web links, which keep `linkTone`. The DropdownMenu `select` item already draws its label above the Select, so it needs no option.
+- bcf0df1: Four opt-in options for dense data screens. Drawer takes `stackNarrow`, passed to its header. A TrackTable column takes `width`, a fixed size from a size or space token name or a CSS length. FoldText takes `fill`, which contains the text width so a table cell does not widen, and `truncate="middle"`, which keeps the start and end of a string such as a path and shows the full text in a tip. TextInput takes `mono` for the monospace face, so a read only command line can grow beside Copy and Run buttons.
+
 ## 0.84.0
 
 ### Minor Changes
