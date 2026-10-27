@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { WizardDialog } from './WizardDialog';
-export type { WizardDialogProps } from './WizardDialog.type';
+export type { WizardDialogProps, WizardDialogSize } from './WizardDialog.type';
