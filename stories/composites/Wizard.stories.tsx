@@ -117,9 +117,8 @@ const Overview = overviewStory({
   points: [
     '`useWizard` holds the steps, the input, the errors and the finish; pass what it returns as `wizard`.',
     'Each step definition sets its label, its `validate` check, its `hint` and the look of its buttons.',
-    'Next stays off until the step is valid, and a step with `when` shows only when it applies.',
-    'A failed finish keeps every input and shows the error on the last step.',
-    '`busy` holds Back, Next and the steps while the app works, and `wizard.goTo(id, { force: true })` moves on when it is done, past the usual checks.',
+    'Next stays off until the step is valid; a failed finish keeps every input and shows the error.',
+    '`busy` holds the buttons while the app works; `goTo(id, { force: true })` then moves past the checks.',
     '`orientation` puts the [Stepper] on top or down the left.',
     'Leaving with unsaved input asks first, through [WizardExitGuard].',
   ],
