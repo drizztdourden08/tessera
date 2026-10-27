@@ -23,7 +23,7 @@ SpeechBubble is the one bubble with a tail: GuidedTour draws its step card on it
 
 ## Use something else when
 
-- A note that sits in the flow of the page. Use `Callout` instead.
+- A note that sits in the flow of the page. Use [Callout](Callout.md) instead.
 - A hint for the control under the pointer or focus. Use `Tooltip` instead.
 - A walk through the screen, one part at a time. Use [GuidedTour](GuidedTour.md) instead.
 

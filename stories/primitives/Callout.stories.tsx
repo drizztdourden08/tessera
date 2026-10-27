@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Callout, Disclosure, Icon, IconButton, Paragraph } from '../../src/primitives';
+import { Box, Button, Callout, Disclosure, Icon, IconButton, Paragraph } from '../../src/primitives';
 import type { CalloutTone, CalloutVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -90,6 +90,24 @@ const WithDetails = {
   ),
 } satisfies StoryLiteStoryDefinition<CalloutArgs>;
 
+const Banner = {
+  name: 'Banner, with a title',
+  render: () => (
+    <Box className="story-column">
+      <Callout
+        tone="danger"
+        title="The package could not be installed"
+        icon={<Icon name="triangle-alert" size={16} />}
+        action={<Button size="sm" variant="danger">Get the package</Button>}
+      >
+        Check your connection and try again.
+      </Callout>
+      <Callout tone="info" title="A new version is out" icon={<Icon name="info" size={16} />}>Restart the app to use it.</Callout>
+      <Callout tone="success" title="Package installed" icon={<Icon name="circle-check" size={16} />}>It is ready to use.</Callout>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<CalloutArgs>;
+
 const Overview = overviewStory({
   component: 'Callout',
   description: 'A short note set apart from the text around it, such as a pre-release notice or the fine print of a dialog.',
@@ -98,12 +116,13 @@ const Overview = overviewStory({
     '`footnote` is small muted text under a hairline, for the fine print at the end of a dialog.',
     'Either can lead with an `icon` and end with an `action`, such as a report a bug button.',
     '`details` sits under the line across the whole box, such as a [Disclosure]; [LoadError] puts its Details there.',
-    'Screen readers read it out as a note.',
+    '`title` adds a bold first line, so a banner is a Callout with a title.',
+    'Screen readers read it out as a note, title first.',
   ],
   instead: '[Toast] for a message that comes and goes on its own.',
   playground: Playground,
-  variants: [Tones, WithIcon, WithDetails, Footnote],
+  variants: [Tones, WithIcon, Banner, WithDetails, Footnote],
 });
 
 export default meta;
-export { Footnote, Overview, Playground, Tones, WithDetails, WithIcon };
+export { Banner, Footnote, Overview, Playground, Tones, WithDetails, WithIcon };
