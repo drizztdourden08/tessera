@@ -36,6 +36,7 @@ KanbanBoard keeps the move, the keys, the counts and the fold the same in every 
 - Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.
 - Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.
 - Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.
+- Set columnWidth to fill so the columns share the board width instead of a fixed width; each keeps a minimum, and the board scrolls sideways when the minimums do not fit.
 - Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.
 - Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.
 - Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.
@@ -93,6 +94,7 @@ const Tasks = () => {
 - `renderCard`: `(card: Card) => ReactNode`.
 - `onMove`: `(move: KanbanMove) => void`.
 - `cardLabel` (optional): `(card: Card) => string`.
+- `columnWidth` (optional): `KanbanColumnWidth`, one of `'fixed'`, `'fill'`. Default `'fixed'`.
 - `label` (optional): `string`.
 - `collapsed` (optional): `readonly string[]`.
 - `defaultCollapsed` (optional): `readonly string[]`.
@@ -101,7 +103,7 @@ const Tasks = () => {
 
 ## Tokens
 
-It draws on `--c-primary-bright`, `--c-primary-soft`, `--c-text-dim`, `--c-text-muted`, `--opacity-muted`, `--size-1`, `--size-2`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
+It draws on `--c-primary-bright`, `--c-primary-soft`, `--c-text-dim`, `--c-text-muted`, `--opacity-muted`, `--size-1`, `--size-2`, `--size-224`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
 
 ## Also exported from this folder
 

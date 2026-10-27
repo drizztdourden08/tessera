@@ -6,6 +6,7 @@ import type { BrandApp, BrandMarkSize, BrandMarkVariant, BrandRim, IconArtFiles,
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+import { FillBoxes } from './_samples/FillBoxes';
 import { IconFileRows } from './_samples/IconFileRows';
 import { MarkOnGround } from './_samples/MarkOnGround';
 import { RimGrid } from './_samples/RimGrid';
@@ -22,6 +23,8 @@ const SIZES: readonly BrandMarkSize[] = ['sm', 'md', 'lg', 'xl'];
 
 const ALL_SIZES: readonly BrandMarkSize[] = [...SIZES, 'xxl'];
 
+const PLAYGROUND_SIZES: readonly BrandMarkSize[] = [...ALL_SIZES, 'fill'];
+
 const VARIANTS: readonly BrandMarkVariant[] = ['mark', 'app-icon'];
 
 const APPS_WITH_ICONS = BRAND_APPS.filter((app) => BRAND_FAMILY[app].appIcon !== null);
@@ -31,7 +34,7 @@ const isBrandFile = (app: BrandApp, files: IconArtFiles): boolean =>
 
 const ARG_TYPES: PlaygroundArgTypes<LogoArgs> = {
   brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
-  size: { group: 'Appearance', control: 'select', options: [...ALL_SIZES] },
+  size: { group: 'Appearance', control: 'select', options: [...PLAYGROUND_SIZES], description: '`fill` makes the mark fill the width of its parent and stay square.' },
   variant: { group: 'Appearance', control: 'select', options: ['mark', 'app-icon'], description: 'The app icon as the brand data describes it: straight or on its tile. A brand with no app icon draws its mark.' },
   rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin light outline that follows the silhouette, so a dark mark reads on a dark surface.' },
 };
@@ -72,6 +75,11 @@ const ExtraLarge = {
   ),
 } satisfies StoryLiteStoryDefinition<LogoArgs>;
 
+const Fill = {
+  name: 'Fill',
+  render: () => <FillBoxes draw={() => <Logo brand="archipelia" size="fill" rim="light" title="" />} />,
+} satisfies StoryLiteStoryDefinition<LogoArgs>;
+
 const AppIcon = {
   name: 'App icon',
   render: () => sizeGrid(APPS_WITH_ICONS, { variant: 'app-icon' }),
@@ -108,7 +116,7 @@ const Overview = overviewStory({
   component: 'Logo',
   description: 'An app\'s mark alone, sharp at any size, for a title bar, a tab or a list of projects.',
   points: [
-    '`size` takes `sm` to `xxl`, the large step for an empty start page; `variant="app-icon"` draws the app icon.',
+    '`size` takes `sm` to `xxl`, or `fill` to follow the parent width; `variant="app-icon"` draws the app icon.',
     'Tessera has no app icon, because it is not an app.',
     '`rim="light"` outlines the silhouette, so a dark mark reads on a dark title bar.',
     '`pnpm icons` writes every mark and app icon as PNG files from 16 to 512 and a Windows `.ico`.',
@@ -117,8 +125,8 @@ const Overview = overviewStory({
   ],
   instead: '[Combined] for the mark with the app name.',
   playground: Playground,
-  variants: [Sizes, ExtraLarge, AppIcon, Rims, OnGradients, IconFiles, RimFiles],
+  variants: [Sizes, ExtraLarge, Fill, AppIcon, Rims, OnGradients, IconFiles, RimFiles],
 });
 
 export default meta;
-export { AppIcon, ExtraLarge, IconFiles, OnGradients, Overview, Playground, RimFiles, Rims, Sizes };
+export { AppIcon, ExtraLarge, Fill, IconFiles, OnGradients, Overview, Playground, RimFiles, Rims, Sizes };

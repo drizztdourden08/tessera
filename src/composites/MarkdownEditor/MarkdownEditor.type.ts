@@ -20,6 +20,7 @@ interface MarkdownEditorProps {
   placeholder?: string;
   disabled?: boolean;
   layout?: MarkdownEditorLayout;
+  compact?: boolean;
   rows?: number;
   onLink?: MarkdownLinkHandler;
   images?: MarkdownImages;
@@ -69,9 +70,20 @@ interface MarkdownEditorActionSpec {
   key?: string;
 }
 
+interface MarkdownEditorPreviewToggle {
+  active: boolean;
+  disabled: boolean;
+  onToggle: () => void;
+}
+
 interface MarkdownEditorToolbarProps {
   disabled: boolean;
   onAction: (id: MarkdownEditorActionId) => void;
+  toggle?: MarkdownEditorPreviewToggle;
+}
+
+interface MarkdownEditorPreviewToggleProps {
+  toggle: MarkdownEditorPreviewToggle;
 }
 
 interface MarkdownEditorActionButtonProps {
@@ -81,11 +93,14 @@ interface MarkdownEditorActionButtonProps {
 }
 
 interface MarkdownEditorMode {
-  mode: MarkdownEditorLayout;
+  mode: MarkdownEditorLayout | 'compact';
   tabbed: boolean;
   pane: MarkdownEditorPane;
   setPane: (pane: MarkdownEditorPane) => void;
   writing: boolean;
+  previewShown: boolean;
+  previewDrawn: boolean;
+  toggle: MarkdownEditorPreviewToggle | undefined;
 }
 
 interface MarkdownEditorTabsProps {
@@ -104,5 +119,5 @@ interface MarkdownEditorPreviewProps {
 export type {
   MarkdownEditorActionButtonProps, MarkdownEditorActionId, MarkdownEditorActionSpec, MarkdownEditorLayout, MarkdownEditorListStyle,
   MarkdownEditorCounterProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode,
-  MarkdownEditorPreviewProps, MarkdownEditorProps, MarkdownEditorTabsProps, MarkdownEditorToolbarProps, TextEdit,
+  MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorPreviewToggleProps, MarkdownEditorProps, MarkdownEditorTabsProps, MarkdownEditorToolbarProps, TextEdit,
 };

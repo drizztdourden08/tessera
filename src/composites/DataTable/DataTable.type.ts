@@ -34,6 +34,7 @@ interface DataTableProps<T> extends RowFeatureProps<T> {
   onSelectionChange?: (ids: ReadonlySet<string>) => void;
   selectable?: boolean;
   countLabel?: readonly [one: string, many: string];
+  footer?: boolean;
   emptyMessage?: string;
   resolveTargetFields?: IdRefTargetFieldResolver;
   resolveIdRefDisplay?: IdRefDisplayResolver;

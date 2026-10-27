@@ -18,7 +18,7 @@ const Playground = {
   args: KANBAN_ARGS,
   argTypes: KANBAN_ARG_TYPES,
   render: (args) => (
-    <KanbanDemo key={`${args.folded}-${String(args.emptyReview)}`} width={args.width} folded={args.folded} emptyReview={args.emptyReview} slots={args.slots} addForm={args.addForm} />
+    <KanbanDemo key={`${args.folded}-${String(args.emptyReview)}`} width={args.width} columnWidth={args.columnWidth} folded={args.folded} emptyReview={args.emptyReview} slots={args.slots} addForm={args.addForm} />
   ),
 } satisfies PlaygroundStory<KanbanArgs>;
 
@@ -35,6 +35,16 @@ const Folded = {
 const Narrow = {
   name: 'In a narrow box the board scrolls sideways, each column on its own',
   render: () => <KanbanDemo width="narrow" />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
+const Fill = {
+  name: 'Fill: the columns share the width; in a narrow box they keep a minimum and the board scrolls',
+  render: () => (
+    <>
+      <KanbanDemo columnWidth="fill" />
+      <KanbanDemo columnWidth="fill" width="narrow" />
+    </>
+  ),
 } satisfies StoryLiteStoryDefinition<KanbanArgs>;
 
 const Empty = {
@@ -63,11 +73,11 @@ const Overview = overviewStory({
     'Each move is announced, and focus stays on the card, even in its new column.',
     'A header has the count, `badge`, `action` and a fold button; `top` adds a form above the cards.',
     '`renderCard` draws the inside of a card, such as a title and tags, in a standard frame.',
-    'Each column scrolls on its own and the board scrolls sideways when it is narrow.',
+    'Each column scrolls on its own; `columnWidth="fill"` shares the width, and a narrow board scrolls.',
   ],
   instead: '[RowGrid] for one list edited in place, or [DataTable] for many records to sort and filter.',
   playground: Playground,
-  variants: [Live, HeaderSlots, AddForm, Folded, Narrow, Empty],
+  variants: [Live, Fill, HeaderSlots, AddForm, Folded, Narrow, Empty],
   states: {
     render: (props: StateProps) => <KanbanDemo folded={(props.folded as FoldedColumn | undefined) ?? 'none'} />,
     list: FOLDS.map((folded) => ({ name: folded === 'none' ? 'all open' : 'one folded', props: { folded } })),
@@ -76,4 +86,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AddForm, Empty, Folded, HeaderSlots, Live, Narrow, Overview, Playground };
+export { AddForm, Empty, Fill, Folded, HeaderSlots, Live, Narrow, Overview, Playground };

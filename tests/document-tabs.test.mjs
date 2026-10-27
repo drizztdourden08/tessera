@@ -185,3 +185,10 @@ describe('DocumentTabs keys', () => {
     expect(calls).toEqual(['stopped 1', 'stopped 1', 'closed']);
   });
 });
+
+describe('DocumentTabs look', () => {
+  it('draws flat tabs by default and raised tabs on look', () => {
+    expect(draw()).not.toContain('document-tabs--raised');
+    expect(draw({ look: 'raised' })).toContain('document-tabs document-tabs--raised');
+  });
+});

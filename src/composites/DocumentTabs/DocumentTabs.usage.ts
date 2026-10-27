@@ -22,6 +22,7 @@ const usage = {
     'When the tabs do not fit, the strip scrolls and keeps the active tab in view. Pass overflowMenu to add a menu that lists every tab.',
     'Show the document of the active tab beside the strip; DocumentTabs draws no panel.',
     'Pass onTabContextMenu to open the app menu of a tab. It gets the tab id and the event, from a right click, the Menu key or Shift+F10 on a focused tab. Call preventDefault on a mouse event to hide the browser menu.',
+    'Pass look="raised" for tabs with a surface fill and a lifted selected tab. Any look takes the fills from --document-tab-bg and --document-tab-bg-selected, which default to no fill.',
     'Pass onAdd to draw a + icon button after the last tab, inside the strip. Its label is translated from the strings, and onAdd only asks: the app adds the document to tabs.',
   ],
   a11y: [
@@ -60,7 +61,7 @@ const OpenDrawings = ({ drawings, activeId, open, askToClose, move }: OpenDrawin
   />
 );
 `,
-  propsHash: '5ea96320c5e0adda',
+  propsHash: 'b461d1a39275fdbf',
 } satisfies ComponentUsage;
 
 export { usage };

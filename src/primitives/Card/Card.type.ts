@@ -6,6 +6,8 @@ type CardVariant = 'default' | 'interactive' | 'danger';
 
 type CardTone = 'neutral' | 'primary' | 'info' | 'success' | 'warning' | 'danger';
 
+type CardEdge = 'left' | 'border';
+
 interface CardHeading {
   title?: ReactNode;
   subtitle?: ReactNode;
@@ -18,10 +20,12 @@ interface CardHeading {
 
 interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>, CardHeading {
   variant?: CardVariant;
+  edgeTone?: CardTone;
+  edge?: CardEdge;
   fill?: boolean;
   children: ReactNode;
 }
 
 export type {
-  CardHeading, CardProps, CardTone, CardVariant,
+  CardEdge, CardHeading, CardProps, CardTone, CardVariant,
 };

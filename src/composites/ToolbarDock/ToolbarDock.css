@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind style */
 .toolbar-dock {
-  --toolbar-dock-bar-bg: var(--c-surface);
-  --toolbar-dock-bar-border: var(--c-border);
+  --toolbar-dock-bar-bg: var(--c-chrome);
+  --toolbar-dock-bar-border: var(--c-chrome-border);
   --toolbar-dock-bar-radius: var(--radius-md);
   --toolbar-dock-gap: var(--space-2xs);
 
