@@ -4,7 +4,7 @@ import type { HintTargetProps } from '../hint/hint.type';
 
 type IconButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'info' | 'success' | 'ghost';
 
-type IconButtonTone = 'danger';
+type IconButtonTone = 'danger' | 'info' | 'accent';
 
 type IconButtonSize = 'xs' | 'sm' | 'md';
 

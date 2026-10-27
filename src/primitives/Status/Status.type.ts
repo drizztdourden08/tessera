@@ -8,6 +8,8 @@ type StatusVariant = 'text' | 'pill';
 
 type StatusSize = 'sm' | 'md';
 
+type StatusDotSize = 'md' | 'lg';
+
 interface StatusDef {
   label: string;
   tone: StatusTone;
@@ -23,7 +25,11 @@ interface StatusLook extends HTMLAttributes<HTMLSpanElement> {
   variant?: StatusVariant;
   size?: StatusSize;
   dot?: boolean;
+  dotSize?: StatusDotSize;
+  halo?: boolean;
 }
+
+type StatusLookInput = Pick<StatusLook, 'variant' | 'size' | 'dot' | 'dotSize' | 'halo'>;
 
 interface StatusWordProps extends StatusLook {
   tone?: StatusTone;
@@ -49,6 +55,8 @@ interface StatusClassLook {
   variant: StatusVariant;
   size: StatusSize;
   withDot: boolean;
+  dotSize: StatusDotSize;
+  halo: boolean;
 }
 
 interface DrawnStatus {
@@ -59,4 +67,4 @@ interface DrawnStatus {
   key?: string;
 }
 
-export type { DrawnStatus, StatusClassLook, StatusDef, StatusKey, StatusMap, StatusMapProps, StatusProps, StatusTone, StatusVariant };
+export type { DrawnStatus, StatusClassLook, StatusDef, StatusKey, StatusLookInput, StatusMap, StatusMapProps, StatusProps, StatusTone, StatusVariant };

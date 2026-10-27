@@ -313,6 +313,9 @@
   --filter-clause-width: 192px;
   --badge-d-xs: 20px;
   --status-h-sm: calc(18 * 1px);
+  --track-drop-1: 768px;
+  --track-drop-2: 640px;
+  --track-drop-3: calc(480 * 1px);
   --sort-caret-width: 8px;
   --avatar-d: 40px;
   --side-nav-w: calc(40px + 2 * (8px + 2 * 1px));

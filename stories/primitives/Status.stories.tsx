@@ -16,6 +16,8 @@ type StatusArgs = {
   tone: StatusTone;
   variant: StatusVariant;
   dot: boolean;
+  dotSize: 'md' | 'lg';
+  halo: boolean;
   pulse: boolean;
   source: 'word' | 'map';
   value: SessionKey;
@@ -47,7 +49,7 @@ const SESSION_KEYS = Object.keys(SESSION_STATUSES) as SessionKey[];
 
 const ENGINE_KEYS = Object.keys(ENGINE_STATES) as StatusKey<typeof ENGINE_STATES>[];
 
-const ARGS: Partial<StatusArgs> = { label: 'Connected', tone: 'success', variant: 'text', dot: false, pulse: false, source: 'word', value: 'hosting' };
+const ARGS: Partial<StatusArgs> = { label: 'Connected', tone: 'success', variant: 'text', dot: false, dotSize: 'md', halo: false, pulse: false, source: 'word', value: 'hosting' };
 
 const ARG_TYPES: PlaygroundArgTypes<StatusArgs> = {
   source: { group: 'Content', control: 'select', options: ['word', 'map'], description: 'A word with its tone, or a key of a table declared with defineStatuses.' },
@@ -56,6 +58,8 @@ const ARG_TYPES: PlaygroundArgTypes<StatusArgs> = {
   tone: { group: 'Appearance', control: 'select', options: [...TONES] },
   variant: { group: 'Appearance', control: 'select', options: ['text', 'pill'] },
   dot: { group: 'Appearance', control: 'boolean', description: 'Leads the word with a dot in its tone.' },
+  dotSize: { group: 'Appearance', control: 'select', options: ['md', 'lg'], description: 'md is a 6 px dot; lg is 8 px.' },
+  halo: { group: 'Appearance', control: 'boolean', description: 'A soft ring in the tone around the dot. Draws the dot even when dot is off.' },
   pulse: { group: 'Motion', control: 'boolean', description: 'Fades in and out, for a state that is still changing. With a dot, only the dot fades.' },
 };
 
@@ -69,8 +73,8 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (args.source === 'map'
-    ? <Status map={SESSION_STATUSES} value={args.value} variant={args.variant} dot={args.dot} />
-    : <Status tone={args.tone} variant={args.variant} dot={args.dot} pulse={args.pulse}>{args.label}</Status>),
+    ? <Status map={SESSION_STATUSES} value={args.value} variant={args.variant} dot={args.dot} dotSize={args.dotSize} halo={args.halo} />
+    : <Status tone={args.tone} variant={args.variant} dot={args.dot} dotSize={args.dotSize} halo={args.halo} pulse={args.pulse}>{args.label}</Status>),
 } satisfies PlaygroundStory<StatusArgs>;
 
 const Tones = {
@@ -93,6 +97,19 @@ const Sizes = {
       rows={axis(['md', 'sm'] as const)}
       columns={axis(['text', 'pill'] as const)}
       cell={(size, variant) => <Status tone="success" size={size} variant={variant} dot={variant === 'text'}>Connected</Status>}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<StatusArgs>;
+
+const NodeDots = {
+  name: 'Dot size and halo, as a node',
+  render: () => (
+    <Demonstrator
+      rows={axis(['success', 'warning', 'danger', 'info', 'neutral'] as const)}
+      columns={axis(['6 px dot', '8 px dot', '8 px with halo'] as const)}
+      cell={(tone, look) => (
+        <Status tone={tone} dot dotSize={look === '6 px dot' ? 'md' : 'lg'} halo={look.endsWith('halo')}>{LABELS[tone]}</Status>
+      )}
     />
   ),
 } satisfies StoryLiteStoryDefinition<StatusArgs>;
@@ -172,12 +189,12 @@ const Overview = overviewStory({
     'Or pass `map`, a table from `defineStatuses`, and `value`, one of its keys: the table gives the word and tone.',
     '`size="sm"` shrinks it to 18 px tall, for a table cell or a dense row.',
     '`fallback` names the key drawn while `value` is missing or not in the table.',
-    '`dot` leads the word with a dot; a table entry with an `icon` draws the icon there instead.',
+    '`dot` leads the word with a dot; `dotSize="lg"` makes it 8 px and `halo` rings it in the tone.',
   ],
   instead: '[Badge] for a count, or [Tag] for a value that sorts an item into a group.',
   playground: Playground,
-  variants: [Tones, Sizes, EveryPalette, Pulsing, ScreenList, OneTable, WithIcons, Fallback],
+  variants: [Tones, Sizes, NodeDots, EveryPalette, Pulsing, ScreenList, OneTable, WithIcons, Fallback],
 });
 
 export default meta;
-export { EveryPalette, Fallback, OneTable, Overview, Playground, Pulsing, ScreenList, Sizes, Tones, WithIcons };
+export { EveryPalette, Fallback, NodeDots, OneTable, Overview, Playground, Pulsing, ScreenList, Sizes, Tones, WithIcons };

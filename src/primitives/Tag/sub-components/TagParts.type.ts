@@ -5,6 +5,7 @@ import type { TagData, TagVariant } from '../Tag.type';
 
 interface TagBodyProps {
   variant?: TagVariant;
+  dot?: boolean;
   icon?: IconName;
   children: ReactNode;
 }

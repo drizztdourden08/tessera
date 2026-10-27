@@ -130,6 +130,20 @@ const AsLinks = {
   ),
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
+const Dotted = {
+  name: 'A tone-coloured dot before the label',
+  render: () => (
+    <Flex gap="md" align="center" wrap>
+      <Tag dot>Idle</Tag>
+      <Tag dot color="primary">Featured</Tag>
+      <Tag dot pill variant="urgency" color="success">Online</Tag>
+      <Tag dot pill variant="urgency" color="danger">Offline</Tag>
+      <Tag dot variant="urgency" color="warning" onRemove={noop}>Syncing</Tag>
+      <Tag dot variant="custom" color="#2e8b57">Link</Tag>
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
 const SelectableRow = () => {
   const [picked, setPicked] = useState<readonly string[]>(['Defeat Ganon']);
   const toggle = (goal: string) => setPicked((now) => (now.includes(goal) ? now.filter((g) => g !== goal) : [...now, goal]));
@@ -179,11 +193,11 @@ const Overview = overviewStory({
     '`onRemove` adds a remove button, as in [TagInput]: a 16 px glyph that takes clicks on 24 by 24 px.',
     '`selected` with `onSelect` makes it a toggle chip for a filter row, as in [TagPicker]: grey until picked.',
     '`variant="custom"` fills it with a hex colour from app data, with black or white text, whichever reads best.',
-    '`pill` rounds the chip fully and `icon` leads the text with an icon; `href` makes it a link.',
+    '`pill` rounds the chip fully, `dot` leads with a tone dot, `icon` with an icon; `href` makes it a link.',
   ],
   instead: '[Status] for a word that names a state.',
   playground: Playground,
-  variants: [Variants, Custom, PillIcons, AsLinks, Removable, Selectable, OnItems],
+  variants: [Variants, Custom, PillIcons, Dotted, AsLinks, Removable, Selectable, OnItems],
   states: {
     render: renderState,
     list: [
@@ -205,4 +219,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AsLinks, Custom, OnItems, Overview, PillIcons, Playground, Removable, Selectable, Variants };
+export { AsLinks, Custom, Dotted, OnItems, Overview, PillIcons, Playground, Removable, Selectable, Variants };

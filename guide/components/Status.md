@@ -33,6 +33,7 @@ Status draws one word in the tone of its state; with a table from defineStatuses
 - Declare each table once with defineStatuses, in a constants file beside the model it describes, and import it where the state shows.
 - Give every word in sentence case; the pill variant sets it in capitals itself.
 - Set size to sm for a row 18px tall, such as inside a table cell; leave it out for the normal size.
+- Set dotSize to lg for an 8px dot, and halo for a soft ring in the tone behind it, such as a node that is up; halo draws the dot even without dot.
 - Set pulse only on states that are still moving, such as starting or syncing.
 - Pass fallback for a value that can be missing, such as a state not fetched yet.
 
@@ -69,15 +70,17 @@ const EngineState = ({ state }: { state?: 'ready' | 'building' | 'failed' }) => 
 - `map` (optional): `Map`.
 - `value` (optional): `StatusKey<Map> | null | undefined`.
 - `fallback` (optional): `StatusKey<Map>`.
-- `variant` (optional): `StatusVariant`, one of `'text'`, `'pill'`. Default `'text'`.
-- `size` (optional): `StatusSize`, one of `'sm'`, `'md'`. Default `'md'`.
-- `dot` (optional): `boolean`. Default `false`.
+- `variant` (optional): `StatusVariant`, one of `'text'`, `'pill'`.
+- `size` (optional): `StatusSize`, one of `'sm'`, `'md'`.
+- `dot` (optional): `boolean`.
+- `dotSize` (optional): `StatusDotSize`, one of `'md'`, `'lg'`.
+- `halo` (optional): `boolean`.
 
 It also takes the 277 attributes it inherits through `HTMLAttributes<HTMLSpanElement>`.
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-bright`, `--c-danger-dim`, `--c-danger-soft`, `--c-info`, `--c-info-bright`, `--c-info-dim`, `--c-info-soft`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-primary-text`, `--c-secondary`, `--c-secondary-bright`, `--c-secondary-dim`, `--c-secondary-soft`, `--c-success`, `--c-success-bright`, `--c-success-dim`, `--c-success-soft`, `--c-sunken`, `--c-tertiary`, `--c-tertiary-bright`, `--c-tertiary-dim`, `--c-tertiary-soft`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--c-warning-bright`, `--c-warning-dim`, `--c-warning-soft`, `--radius-pill`, `--radius-round`, `--size-6`, `--space-sm`, `--space-xs`, `--status-h-sm`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--weight-semi`.
+It draws on `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-bright`, `--c-danger-dim`, `--c-danger-soft`, `--c-info`, `--c-info-bright`, `--c-info-dim`, `--c-info-soft`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-primary-text`, `--c-secondary`, `--c-secondary-bright`, `--c-secondary-dim`, `--c-secondary-soft`, `--c-success`, `--c-success-bright`, `--c-success-dim`, `--c-success-soft`, `--c-sunken`, `--c-tertiary`, `--c-tertiary-bright`, `--c-tertiary-dim`, `--c-tertiary-soft`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--c-warning-bright`, `--c-warning-dim`, `--c-warning-soft`, `--radius-pill`, `--radius-round`, `--size-3`, `--size-6`, `--size-8`, `--space-sm`, `--space-xs`, `--status-h-sm`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--weight-semi`.
 
 ## Also exported from this folder
 

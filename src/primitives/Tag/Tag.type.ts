@@ -48,6 +48,7 @@ type TagData = Partial<Record<`data-${string}`, string | number>>;
 
 interface TagBase {
   pill?: boolean;
+  dot?: boolean;
   icon?: IconName;
   disabled?: boolean;
   title?: string;

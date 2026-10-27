@@ -9,6 +9,7 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import './_samples/CardFill.css';
 import { CardFlush } from './_samples/CardFlush';
+import { CardFreeHeader } from './_samples/CardFreeHeader';
 import { SessionPickerDemo } from './_samples/CardSessionPicker';
 import { edgeCard, PageWithCards, toneCard, TONES } from './_samples/card-headers';
 
@@ -111,6 +112,11 @@ const EdgeTones = {
   render: () => <Demonstrator rows={axis(TONES)} columns={axis(EDGES)} align="stretch" cell={edgeCard} />,
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
+const FreeHeader = {
+  name: 'A free header row',
+  render: () => <CardFreeHeader />,
+} satisfies StoryLiteStoryDefinition<CardArgs>;
+
 const OnAPage = {
   name: 'Under a ContentHeader and a SectionHeader',
   render: () => <PageWithCards />,
@@ -155,7 +161,7 @@ const Overview = overviewStory({
   description: 'A bordered surface that groups related content, such as a summary, a list entry or a settings block.',
   points: [
     '`default` is the plain panel; `danger` frames a destructive choice.',
-    '`title` draws a header row in the [SectionHeader] look, with `subtitle`, `count`, `hideZero` and `actions`.',
+    '`title` draws a header row in the [SectionHeader] look; `header` swaps it for any content you lay out.',
     '`tone` tints the header row; `edgeTone` colours the left edge, or the border with `edge="border"`.',
     '`fill` makes the body take the card height left under the header, and scroll when its child is taller.',
     '`flush` drops the body padding so a table or list runs edge to edge; border and radius stay, children clip.',
@@ -163,7 +169,7 @@ const Overview = overviewStory({
   ],
   instead: '[ContentHeader] for the header of a whole page, or [SectionHeader] for a heading outside a card.',
   playground: Playground,
-  variants: [AllVariants, HeaderTones, EdgeTones, OnAPage, FillingBody, Flush],
+  variants: [AllVariants, HeaderTones, FreeHeader, EdgeTones, OnAPage, FillingBody, Flush],
   states: {
     render: renderState,
     list: [
@@ -175,4 +181,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, EdgeTones, FillingBody, Flush, HeaderTones, Interactive, OnAPage, Overview, Playground };
+export { AllVariants, EdgeTones, FillingBody, FreeHeader, Flush, HeaderTones, Interactive, OnAPage, Overview, Playground };

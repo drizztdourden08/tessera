@@ -419,6 +419,9 @@ input, select {
   --filter-clause-width: var(--size-192);
   --badge-d-xs: var(--size-20);
   --status-h-sm: calc(18 * var(--size-1));
+  --track-drop-1: var(--size-768);
+  --track-drop-2: var(--size-640);
+  --track-drop-3: calc(480 * var(--size-1));
   --sort-caret-width: var(--size-8);
   --avatar-d: var(--size-40);
   --side-nav-w: calc(var(--side-nav-item-h) + 2 * (var(--space-sm) + 2 * var(--border-width-thin)));
