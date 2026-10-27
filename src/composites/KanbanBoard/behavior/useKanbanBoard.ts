@@ -16,7 +16,7 @@ import { slotAt } from './slot-at';
 import { useCollapsedColumns } from './useCollapsedColumns';
 
 const useKanbanBoard = <Card extends KanbanCardData>(props: KanbanBoardProps<Card>) => {
-  const { columns, renderCard, onMove, cardLabel = (card: Card) => card.id } = props;
+  const { columns, renderCard, onMove, cardLabel = (card: Card) => card.id, cardEdgeTone } = props;
   const { kanbanBoard } = useTesseraStrings();
   const boardRef = useRef<HTMLElement>(null);
   const landingRef = useRef<HTMLElement | null>(null);
@@ -67,7 +67,7 @@ const useKanbanBoard = <Card extends KanbanCardData>(props: KanbanBoardProps<Car
     commit(across, true);
   };
 
-  const shared: KanbanShared<Card> = { columns, renderCard, cardLabel, drag, onCardKeyDown, onToggle: fold.toggle };
+  const shared: KanbanShared<Card> = { columns, renderCard, cardLabel, cardEdgeTone, drag, onCardKeyDown, onToggle: fold.toggle };
   return { boardRef, shared, collapsed: fold.shown, message: focus.message };
 };
 

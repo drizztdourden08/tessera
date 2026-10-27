@@ -107,3 +107,14 @@
   flex-shrink: 0;
   color: var(--c-text-dim);
 }
+
+.window-header--record .window-header__title {
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--c-text);
+}
+
+.window-header--record .window-header__eyebrow {
+  letter-spacing: normal;
+  text-transform: none;
+}

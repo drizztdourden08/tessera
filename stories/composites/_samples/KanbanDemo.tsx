@@ -6,6 +6,10 @@ import { TASK_COLUMNS } from './kanban-board.constants';
 import type { KanbanDemoProps, Task, TaskColumn } from './kanban-board.type';
 import { TaskCard } from './TaskCard';
 
+const NEEDS_YOU: readonly string[] = ['login', 'cache'];
+
+const edgeToneOf = (edges: boolean | undefined) => (edges ? (task: Task) => (NEEDS_YOU.includes(task.id) ? 'danger' as const : undefined) : undefined);
+
 const withSlots = (column: TaskColumn): TaskColumn => {
   if (column.id === 'todo') {
     return { ...column, badge: <Badge variant="inline" value="quiet" color="info" />, action: <Button size="xs" variant="ghost">Add</Button> };
@@ -13,7 +17,7 @@ const withSlots = (column: TaskColumn): TaskColumn => {
   return column.id === 'doing' ? { ...column, action: <Button size="xs" variant="ghost">Add</Button> } : column;
 };
 
-const KanbanDemo = ({ width = 'full', columnWidth = 'fixed', folded = 'none', emptyReview = false, slots = false, addForm = false }: KanbanDemoProps) => {
+const KanbanDemo = ({ width = 'full', columnWidth = 'fixed', folded = 'none', emptyReview = false, slots = false, addForm = false, edges }: KanbanDemoProps) => {
   const [columns, setColumns] = useState(() => TASK_COLUMNS.map((column) => (emptyReview && column.id === 'review' ? { ...column, cards: [] } : column)));
   const addCard = (title: string): void =>
     setColumns((now) => now.map((column) => (column.id === 'todo' ? { ...column, cards: [{ id: `new-${title}-${column.cards.length}`, title, tags: [] }, ...column.cards] } : column)));
@@ -28,6 +32,7 @@ const KanbanDemo = ({ width = 'full', columnWidth = 'fixed', folded = 'none', em
         columns={shown}
         cardLabel={(task) => task.title}
         renderCard={(task) => <TaskCard task={task} />}
+        cardEdgeTone={edgeToneOf(edges)}
         onMove={(move) => setColumns((now) => moveCard(now, move))}
         defaultCollapsed={folded === 'none' ? [] : [folded]}
       />
