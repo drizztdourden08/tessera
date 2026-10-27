@@ -27,3 +27,16 @@ describe('KanbanBoard column width', () => {
     expect(draw({ columnWidth: 'fill', className: 'mine' })).toMatch(/class="kanban kanban--fill mine"/);
   });
 });
+
+
+describe('KanbanBoard card edge tone', () => {
+  it('draws an edge only on the cards the callback gives a tone', () => {
+    const html = draw({ cardEdgeTone: (card) => (card.id === 'a' ? 'danger' : undefined) });
+    expect(html.match(/card--edge-danger/g)).toHaveLength(1);
+    expect(html.match(/card--edge-left/g)).toHaveLength(1);
+  });
+
+  it('draws no edge without the callback', () => {
+    expect(draw({})).not.toContain('card--edge');
+  });
+});
