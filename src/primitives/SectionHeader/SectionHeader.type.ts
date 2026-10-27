@@ -2,6 +2,8 @@
 import type { ReactNode } from 'react';
 import type { HeadingLevel } from '../Title/Title.type';
 
+type SectionHeaderSize = 'md' | 'lg';
+
 interface SectionHeaderProps {
   title: ReactNode;
   subtitle?: ReactNode;
@@ -10,7 +12,9 @@ interface SectionHeaderProps {
   badge?: ReactNode;
   hideZero?: boolean;
   level?: HeadingLevel;
+  size?: SectionHeaderSize;
+  wrap?: boolean;
   className?: string;
 }
 
-export type { SectionHeaderProps };
+export type { SectionHeaderProps, SectionHeaderSize };

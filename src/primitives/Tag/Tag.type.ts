@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode } from 'react';
+import type { MouseEventHandler, ReactNode } from 'react';
+import type { IconName } from '../Icon/Icon.type';
 
 type TagVariant = 'normal' | 'urgency' | 'category' | 'custom';
 
@@ -19,13 +20,35 @@ type TagLook =
   | { variant: 'category'; color: TagCategoryColor }
   | { variant: 'custom'; color: TagCustomColor };
 
+interface TagNoLink {
+  href?: never;
+  navigate?: never;
+  onClick?: never;
+  target?: never;
+  rel?: never;
+}
+
 type TagAction =
-  | { onRemove?: () => void; name?: string; selected?: never; onSelect?: never; role?: never }
-  | { selected: boolean; onSelect: () => void; role?: 'radio'; onRemove?: never; name?: never };
+  | (TagNoLink & { onRemove?: () => void; name?: string; selected?: never; onSelect?: never; role?: never })
+  | (TagNoLink & { selected: boolean; onSelect: () => void; role?: 'radio'; onRemove?: never; name?: never })
+  | {
+    href: string;
+    navigate?: (href: string) => void;
+    onClick?: MouseEventHandler<HTMLAnchorElement>;
+    target?: string;
+    rel?: string;
+    selected?: never;
+    onSelect?: never;
+    role?: never;
+    onRemove?: never;
+    name?: never;
+  };
 
 type TagData = Partial<Record<`data-${string}`, string | number>>;
 
 interface TagBase {
+  pill?: boolean;
+  icon?: IconName;
   disabled?: boolean;
   title?: string;
   className?: string;
@@ -35,5 +58,5 @@ interface TagBase {
 type TagProps = TagLook & TagAction & TagBase & TagData;
 
 export type {
-  TagCategoryColor, TagColor, TagCustomColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
+  TagCategoryColor, TagColor, TagCustomColor, TagData, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
 };

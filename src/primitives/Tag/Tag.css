@@ -24,6 +24,30 @@
   vertical-align: middle;
 }
 
+.tag--pill {
+  border-radius: var(--radius-pill);
+}
+
+.tag--link,
+.tag--link:hover {
+  color: var(--tag-ink);
+  text-decoration: none;
+}
+
+.tag--link:not([aria-disabled]):hover {
+  --tag-edge: var(--c-border-strong);
+}
+
+.tag--link:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-focus);
+  outline-offset: var(--size-1);
+}
+
+.tag--link[aria-disabled] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
 .tag__text {
   min-width: 0;
   line-height: var(--leading-tight);

@@ -33,6 +33,16 @@
   text-transform: uppercase;
 }
 
+.status--sm {
+  box-sizing: border-box;
+  height: var(--status-h-sm);
+  font-size: var(--text-xs);
+}
+
+.status--pill.status--sm {
+  padding-block: 0;
+}
+
 .status__dot {
   flex: none;
   width: var(--size-6);

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { IconName } from '../Icon/Icon.type';
 
 type BadgeVariant = 'inline' | 'number' | 'dot';
 
@@ -30,6 +31,7 @@ interface BadgeCount<S extends string> extends BadgeLook {
   value: BadgeValue<S>;
   max?: number;
   hideZero?: boolean;
+  icon?: IconName;
 }
 
 interface BadgeInlineProps<S extends string> extends BadgeCount<S> {
@@ -49,6 +51,7 @@ interface BadgeDotProps extends BadgeLook {
   value?: never;
   max?: never;
   hideZero?: never;
+  icon?: never;
   anchor?: BadgeAnchor;
   children?: ReactNode;
 }

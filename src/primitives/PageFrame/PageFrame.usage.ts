@@ -15,6 +15,7 @@ const usage = {
     'It is the scroller: the reset keeps html and body locked and the frame is 100dvh tall, so the page behind it never moves.',
     'Set fill to take the height of its parent instead of the window, such as a page inside a pane.',
     'Set width to sm, md or lg to centre the content in a column of that size; leave it out for the full width.',
+    'Set padding to md for a 16px page padding in place of the 24px default.',
     'The padding is the page padding token. It is a ScrollArea, so it takes className and the other ScrollArea props except axis, gutter included: set gutter stable when the page reflows with width.',
     'PageFrame keeps the root locked and scrolls inside one frame; PageRoot instead lets the whole document scroll.',
   ],
@@ -34,7 +35,7 @@ const AccountPage = () => (
   </PageFrame>
 );
 `,
-  propsHash: 'b10190054e27f636',
+  propsHash: '24f23bbef9a5f7cd',
 } satisfies ComponentUsage;
 
 export { usage };

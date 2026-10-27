@@ -3,7 +3,7 @@ import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { ContentHeader, HeaderAnchorNav } from '../../src/composites';
-import type { ContentHeaderLevel } from '../../src/composites';
+import type { ContentHeaderLevel, ContentHeaderVariant } from '../../src/composites';
 import { Box, Button, Card, Icon, Paragraph, Status } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -21,6 +21,7 @@ type ContentHeaderArgs = {
   actions: boolean;
   back: boolean;
   compact: boolean;
+  variant: ContentHeaderVariant;
   level: ContentHeaderLevel;
 };
 
@@ -41,7 +42,7 @@ const SUB_PAGE_WIDTHS = ['wide', 'narrow'] as const;
 
 const ACTIONS = <Button size="sm" variant="secondary" icon={<Icon name="rotate-ccw" size={14} />}>Reset</Button>;
 
-const ARGS: ContentHeaderArgs = { title: 'General', icon: true, backdrop: true, strip: 'pills', actions: false, back: false, compact: false, level: 2 };
+const ARGS: ContentHeaderArgs = { title: 'General', icon: true, backdrop: true, strip: 'pills', actions: false, back: false, compact: false, variant: 'panel', level: 2 };
 
 const ignore = () => undefined;
 
@@ -55,6 +56,7 @@ const ARG_TYPES: PlaygroundArgTypes<ContentHeaderArgs> = {
   back: { group: 'Content', control: 'boolean', description: 'A way back to the parent page, Settings, before the icon.' },
   backdrop: { group: 'Appearance', control: 'boolean', description: 'The default art. Off passes null for a plain header.' },
   compact: { group: 'Appearance', control: 'boolean', description: 'The slim look, once the content under it scrolls.' },
+  variant: { group: 'Appearance', control: 'select', options: ['panel', 'plain'], description: 'plain is a title row with no panel, gradient or border.' },
   level: { group: 'Content', control: 'select', options: [1, 2, 3, 4], description: 'The heading tag of the title.' },
 };
 
@@ -67,6 +69,7 @@ const header = (args: ContentHeaderArgs) => (
     strip={STRIPS[args.strip]}
     actions={args.actions ? ACTIONS : undefined}
     compact={args.compact}
+    variant={args.variant}
     level={args.level}
   />
 );
@@ -103,6 +106,15 @@ const Looks = {
       align="stretch"
       cell={(look) => <Box className="content-header-story__strip">{header(LOOKS[look])}</Box>}
     />
+  ),
+} satisfies StoryLiteStoryDefinition<ContentHeaderArgs>;
+
+const PlainVariant = {
+  name: 'Plain variant: a title row with no panel',
+  render: () => (
+    <Box className="content-header-story__strip">
+      {header({ ...ARGS, title: 'Overview', strip: 'status', actions: true, variant: 'plain' })}
+    </Box>
   ),
 } satisfies StoryLiteStoryDefinition<ContentHeaderArgs>;
 
@@ -143,14 +155,14 @@ const Overview = overviewStory({
     '`strip` holds a few controls right after the title, such as [HeaderAnchorNav] pills or a [Status].',
     '`back` names the parent of a sub-page: a Back to button before the icon, an arrow with a tooltip when narrow.',
     '`actions` sit at the far end; `compact` shrinks it to a slim row once the content under it scrolls.',
-    'Leave `backdrop` out for the default art, pass a scene of your own, or `null` for a plain header.',
+    'Leave `backdrop` out for the default art, or pass a scene or `null`; `variant="plain"` drops the panel.',
     '`level` sets the heading tag, `h2` by default; `titleId` lets the container name itself after it.',
     '[ScreenPage] and every screen kind use it, so a page header and a card header look the same.',
   ],
   instead: '[SectionHeader] for a small heading row inside a panel, or [WindowHeader] for a window title bar.',
   playground: Playground,
-  variants: [WithPills, Looks, StatusAndActions, SubPage, OnCard],
+  variants: [WithPills, Looks, PlainVariant, StatusAndActions, SubPage, OnCard],
 });
 
 export default meta;
-export { Looks, OnCard, Overview, Playground, StatusAndActions, SubPage, WithPills };
+export { Looks, OnCard, Overview, PlainVariant, Playground, StatusAndActions, SubPage, WithPills };

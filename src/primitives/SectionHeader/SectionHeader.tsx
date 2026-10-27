@@ -3,14 +3,15 @@ import './SectionHeader.css';
 import { Badge } from '../Badge';
 import { TextElement } from '../TextElement';
 import { Span } from '../text-elements';
+import { sectionHeaderClass } from './behavior/section-header-class';
 import type { SectionHeaderProps } from './SectionHeader.type';
 
 const SectionHeader = (props: SectionHeaderProps) => {
-  const { title, subtitle, action, count, badge, hideZero, level = 3, className = '' } = props;
+  const { title, subtitle, action, count, badge, hideZero, level = 3, size = 'md', wrap = false, className = '' } = props;
   return (
-    <div className={`section-header${className ? ` ${className}` : ''}`}>
+    <div className={sectionHeaderClass(size, wrap, className)}>
       <div className="section-header__text">
-        <TextElement as={`h${level}`} tone="dim" className="section-header__title">
+        <TextElement as={`h${level}`} tone={size === 'lg' ? undefined : 'dim'} className="section-header__title">
           {title}
           {count !== undefined && <Badge variant="inline" value={count} hideZero={hideZero} color="tame" className="section-header__count" />}
           {badge != null && <Span className="section-header__badge">{badge}</Span>}
