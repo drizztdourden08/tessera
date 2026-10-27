@@ -7,6 +7,7 @@ const ITEM_ROLES: Readonly<Record<MenuItemKind, 'menuitem' | 'menuitemcheckbox' 
   radio: 'menuitemradio',
   confirm: 'menuitem',
   slider: 'menuitem',
+  select: 'menuitem',
 };
 
 export { ITEM_ROLES };

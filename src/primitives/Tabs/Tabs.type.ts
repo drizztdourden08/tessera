@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent, ReactNode } from 'react';
+import type { SelectedTone } from '../field-control/selected-tone.type';
 
 type TabBadgeTone = 'neutral' | 'warn' | 'danger' | 'success' | 'info';
 
@@ -21,6 +22,7 @@ interface TabsProps {
   iconOnly?: boolean;
   hideZero?: boolean;
   size?: 'md' | 'lg';
+  selectedTone?: SelectedTone;
 }
 
 interface TabLabels {

@@ -6,13 +6,14 @@ import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings
 import { rovingIndex } from '../field-control/roving-index';
 import { ScrollStrip } from '../scroll-strip/ScrollStrip';
 import { STEP_BY_KEY } from './behavior/tab-steps.constants';
+import { tabsClass } from './behavior/tabs-class';
 import type { TabsProps } from './Tabs.type';
 import { TabsTab } from './sub-components/TabsTab';
 import type { KeyboardEvent } from 'react';
 import { isHTMLElement } from '../dom/is-html-element';
 
 const Tabs = (props: TabsProps) => {
-  const { tabs, activeTab, onTabChange, iconOnly = false, hideZero = false, size = 'md' } = props;
+  const { tabs, activeTab, onTabChange, iconOnly = false, hideZero = false, size = 'md', selectedTone = 'accent' } = props;
   const trackRef = useRef<HTMLElement | null>(null);
   const { fields } = useTesseraStrings();
 
@@ -31,7 +32,7 @@ const Tabs = (props: TabsProps) => {
   return (
     <ScrollStrip
       as="nav"
-      className={size === 'lg' ? 'tabs tabs--lg' : 'tabs'}
+      className={tabsClass(size, selectedTone)}
       trackClassName="tabs__strip"
       trackRole="tablist"
       trackRef={trackRef}

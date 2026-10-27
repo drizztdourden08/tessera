@@ -424,6 +424,7 @@ input, select {
   --track-drop-1: var(--size-768);
   --track-drop-2: var(--size-640);
   --track-drop-3: calc(480 * var(--size-1));
+  --disclosure-wrap: var(--size-384);
   --window-header-narrow: calc(420 * var(--size-1));
   --sort-caret-width: var(--size-8);
   --avatar-d: var(--size-40);

@@ -46,11 +46,14 @@ type TagAction =
     name?: never;
   };
 
+type TagSize = 'md' | 'lg';
+
 type TagData = Partial<Record<`data-${string}`, string | number>>;
 
 interface TagBase {
   pill?: boolean;
   outlined?: boolean;
+  size?: TagSize;
   dot?: boolean;
   icon?: IconName;
   disabled?: boolean;

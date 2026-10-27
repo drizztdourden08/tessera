@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { CSSProperties, ReactNode } from 'react';
 import type { ExtraProps } from 'react-markdown';
+import type { LinkTone } from '../../primitives/Link/Link.type';
 import type { CodeBlockLanguage } from '../CodeBlock/CodeBlock.type';
 
 type MarkdownSize = 'sm' | 'md' | 'inline';
@@ -36,6 +37,7 @@ interface MarkdownProps {
   onImage?: MarkdownImageHandler;
   linkIds?: MarkdownLinkId | MarkdownLinkId[];
   smartTimes?: boolean;
+  linkTone?: LinkTone;
   className?: string;
 }
 
@@ -45,6 +47,7 @@ interface MarkdownSettings {
   size: MarkdownSize;
   images?: MarkdownImages;
   onImage?: MarkdownImageHandler;
+  linkTone?: LinkTone;
 }
 
 interface MarkdownPartProps extends ExtraProps {

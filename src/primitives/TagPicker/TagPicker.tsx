@@ -9,7 +9,7 @@ import { optionLook } from './behavior/option-look';
 import type { TagPickerProps } from './TagPicker.type';
 
 const TagPicker = <T extends string = string>(props: TagPickerProps<T>) => {
-  const { value, groups, onChange, label, disabled = false, single = false, size } = props;
+  const { value, groups, onChange, label, disabled = false, single = false, pill = false, size } = props;
   const controlSize = useControlSize(size);
 
   const toggle = (tag: T) => onChange(single ? toggleValue(value.filter((v) => v === tag), tag) : toggleValue(value, tag));
@@ -26,6 +26,7 @@ const TagPicker = <T extends string = string>(props: TagPickerProps<T>) => {
                 key={opt.value}
                 {...optionLook(opt)}
                 selected={value.includes(opt.value)}
+                pill={pill}
                 role={single ? 'radio' : undefined}
                 disabled={disabled}
                 onSelect={() => toggle(opt.value)}

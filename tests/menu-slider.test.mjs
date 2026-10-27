@@ -26,7 +26,7 @@ describe('a slider row in a menu', () => {
     expect(html).toContain('class="dropdown__item dropdown__slider"');
     expect(html).toContain('aria-label="Music"');
     expect(html).toContain('value="40"');
-    expect(MENU_ITEM_SELECTOR).toBe('[role^="menuitem"], .dropdown__slider .slider__input');
+    expect(MENU_ITEM_SELECTOR).toBe('[role^="menuitem"], .dropdown__slider .slider__input, .dropdown__select .select-trigger');
   });
 
   it('keeps Left, Right, Page Up and Page Down for the value and leaves Up and Down to the menu', () => {

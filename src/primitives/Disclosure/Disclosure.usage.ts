@@ -18,6 +18,7 @@ const usage = {
     'A later change to defaultOpen opens or closes it, so a part can open it when a job fails.',
     'Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.',
     'Pass end for something at the right of the line, such as a count or a Button; a click inside it never opens or closes the disclosure.',
+    'Add wrapEnd when the row can get narrow: below 384 px the end slot drops under the summary instead of squeezing it.',
     'Use size sm for a line in small text, such as inside a settings row.',
     'Pass bodyClassName to lay out the body, such as a column of rows with a gap, in place of a selector on its class.',
   ],
@@ -37,7 +38,7 @@ const ReleaseNotes = ({ notes }: { notes: string }) => (
   </Disclosure>
 );
 `,
-  propsHash: '11001f6a74ac4af7',
+  propsHash: '68a13a7709975ab9',
 } satisfies ComponentUsage;
 
 export { usage };
