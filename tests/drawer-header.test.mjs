@@ -62,3 +62,16 @@ describe('WindowHeader eyebrow and actions', () => {
     expect(css('WindowHeader')).toContain('.window-header__eyebrow {\n  flex: 0 0 100%;');
   });
 });
+
+describe('Drawer record look', () => {
+  it('adds the record header class only for look record', () => {
+    expect(render({ look: 'record' })).toContain('window-header--record');
+    expect(render({})).not.toContain('window-header--record');
+  });
+
+  it('keeps the eyebrow case and the title colour from the text tokens', () => {
+    const source = css('WindowHeader');
+    expect(source).toContain('.window-header--record .window-header__title {\n  letter-spacing: normal;\n  text-transform: none;\n  color: var(--c-text);');
+    expect(source).toContain('.window-header--record .window-header__eyebrow {\n  letter-spacing: normal;\n  text-transform: none;');
+  });
+});

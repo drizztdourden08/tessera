@@ -13,12 +13,12 @@ import './WindowHeader.css';
 import { type WindowHeaderProps } from './WindowHeader.type';
 
 const WindowHeader = (props: WindowHeaderProps) => {
-  const { eyebrow, title, titleWrap, titleId, subtitle, onClose, back, extra, actions, className = '' } = props;
+  const { look, eyebrow, title, titleWrap, titleId, subtitle, onClose, back, extra, actions, className = '' } = props;
   const { common } = useTesseraStrings();
   const headerRef = useRef<HTMLElement>(null);
   const extraFits = useExtraFit(headerRef, extra != null);
   return (
-    <Box ref={headerRef} className={headerClass(titleWrap, className)}>
+    <Box ref={headerRef} className={headerClass(titleWrap, className, look)}>
       {back && <WindowHeaderBack back={back} />}
       <WindowHeaderTitles eyebrow={eyebrow} title={title} titleId={titleId} subtitle={subtitle} />
       {extra != null && (

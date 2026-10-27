@@ -10,7 +10,7 @@ export { ResizeHandle, usePaneSize, type PaneSize, type PaneSizeHandle, type Pan
 export { SideNavLayout, type SideNavLayoutPaneScroll, type SideNavLayoutProps } from '../SideNavLayout';
 export { SiteHeader, type SiteHeaderBrand, type SiteHeaderProps, type SiteLink } from '../SiteHeader';
 export { SiteFooter, type SiteFooterProps } from '../SiteFooter';
-export { Drawer, type DrawerProps, type DrawerSize } from '../Drawer';
+export { Drawer, type DrawerLook, type DrawerProps, type DrawerSize } from '../Drawer';
 export { ScreenLayer } from '../ScreenLayer';
 export type { ScreenLayerMove, ScreenLayerProps, ScreenLayerSize } from '../ScreenLayer';
 export { ScreenWindow } from '../ScreenWindow';

@@ -5,11 +5,14 @@ type DrawerSide = 'left' | 'right' | 'top';
 
 type DrawerSize = 'md' | 'lg' | 'wide' | 'xl';
 
+type DrawerLook = 'default' | 'record';
+
 interface DrawerProps {
   open: boolean;
   onClose: () => void;
   side?: DrawerSide;
   size?: DrawerSize;
+  look?: DrawerLook;
   label?: string;
   eyebrow?: ReactNode;
   title?: ReactNode;
@@ -20,8 +23,8 @@ interface DrawerProps {
   children: ReactNode;
 }
 
-type DrawerHeaderProps = Pick<DrawerProps, 'eyebrow' | 'title' | 'titleWrap' | 'subtitle' | 'headerActions' | 'onClose'> & {
+type DrawerHeaderProps = Pick<DrawerProps, 'look' | 'eyebrow' | 'title' | 'titleWrap' | 'subtitle' | 'headerActions' | 'onClose'> & {
   titleId: string;
 };
 
-export type { DrawerHeaderProps, DrawerProps, DrawerSize };
+export type { DrawerHeaderProps, DrawerLook, DrawerProps, DrawerSize };

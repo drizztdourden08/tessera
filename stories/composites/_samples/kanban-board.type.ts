@@ -21,6 +21,7 @@ type KanbanArgs = {
   emptyReview: boolean;
   slots: boolean;
   addForm: boolean;
+  edges: boolean;
 };
 
 interface KanbanDemoProps {
@@ -30,6 +31,7 @@ interface KanbanDemoProps {
   emptyReview?: boolean;
   slots?: boolean;
   addForm?: boolean;
+  edges?: boolean;
 }
 
 export type { FoldedColumn, KanbanArgs, KanbanDemoProps, Task, TaskColumn, TaskTag };

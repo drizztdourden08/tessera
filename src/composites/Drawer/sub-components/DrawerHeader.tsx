@@ -3,10 +3,11 @@ import { WindowHeader } from '../../WindowHeader';
 import type { DrawerHeaderProps } from '../Drawer.type';
 
 const DrawerHeader = (props: DrawerHeaderProps) => {
-  const { eyebrow, title, titleWrap = true, titleId, subtitle, headerActions, onClose } = props;
+  const { look, eyebrow, title, titleWrap = true, titleId, subtitle, headerActions, onClose } = props;
   if (title === undefined && subtitle === undefined && eyebrow === undefined) return null;
   return (
     <WindowHeader
+      look={look === 'record' ? 'record' : undefined}
       eyebrow={eyebrow}
       title={title}
       titleWrap={titleWrap}

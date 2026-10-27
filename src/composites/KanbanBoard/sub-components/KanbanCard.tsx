@@ -10,7 +10,7 @@ import './KanbanCard.css';
 
 const KanbanCard = <Item extends KanbanCardData>({ card, slot, last, shared }: KanbanCardProps<Item>) => {
   const { kanbanBoard } = useTesseraStrings();
-  const { drag, cardLabel, renderCard, onCardKeyDown } = shared;
+  const { drag, cardLabel, cardEdgeTone, renderCard, onCardKeyDown } = shared;
   return (
     <Box
       as="li"
@@ -19,7 +19,7 @@ const KanbanCard = <Item extends KanbanCardData>({ card, slot, last, shared }: K
       data-reorder-key={card.id}
       data-drop={last ? 'after' : drag.dropMark(slot, NO_END)}
     >
-      <Card className="kanban__card" data-dragging={drag.dragging === slot ? 'yes' : undefined}>
+      <Card className="kanban__card" edgeTone={cardEdgeTone?.(card)} data-dragging={drag.dragging === slot ? 'yes' : undefined}>
         <Box className="kanban__card-row">
           <IconButton
             label={kanbanBoard.move(cardLabel(card))}

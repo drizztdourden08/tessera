@@ -11,6 +11,7 @@ type SampleDrawerProps = {
   side: 'left' | 'right' | 'top';
   size?: 'md' | 'lg' | 'wide' | 'xl';
   label?: string;
+  look?: 'default' | 'record';
 };
 
 const ItemDetailsDrawer = (props: SampleDrawerProps) => {
@@ -33,13 +34,20 @@ const ItemDetailsDrawer = (props: SampleDrawerProps) => {
   );
 };
 
+const RECORD_CHIPS = (
+  <>
+    <Badge variant="inline" value="Done" color="success" />
+    <Badge variant="inline" value="Sonnet" color="info" />
+  </>
+);
+
 const RecordDrawer = (props: SampleDrawerProps) => {
   const { close, ...drawer } = props;
   return (
     <Drawer
       {...drawer}
       onClose={close}
-      eyebrow="Incident INC-20481"
+      eyebrow={drawer.look === 'record' ? RECORD_CHIPS : 'Incident INC-20481'}
       title="Checkout requests time out for customers paying with a saved card in the Nordic region"
       subtitle="Opened 3 days ago"
       headerActions={(

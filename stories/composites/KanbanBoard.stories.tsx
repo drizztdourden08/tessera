@@ -18,7 +18,7 @@ const Playground = {
   args: KANBAN_ARGS,
   argTypes: KANBAN_ARG_TYPES,
   render: (args) => (
-    <KanbanDemo key={`${args.folded}-${String(args.emptyReview)}`} width={args.width} columnWidth={args.columnWidth} folded={args.folded} emptyReview={args.emptyReview} slots={args.slots} addForm={args.addForm} />
+    <KanbanDemo key={`${args.folded}-${String(args.emptyReview)}`} width={args.width} columnWidth={args.columnWidth} folded={args.folded} emptyReview={args.emptyReview} slots={args.slots} addForm={args.addForm} edges={args.edges} />
   ),
 } satisfies PlaygroundStory<KanbanArgs>;
 
@@ -62,6 +62,11 @@ const AddForm = {
   render: () => <KanbanDemo addForm />,
 } satisfies StoryLiteStoryDefinition<KanbanArgs>;
 
+const CardEdges = {
+  name: 'cardEdgeTone: a danger edge on the cards that need the user',
+  render: () => <KanbanDemo edges />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
 const FOLDS: readonly FoldedColumn[] = ['none', 'doing'];
 
 const Overview = overviewStory({
@@ -72,12 +77,13 @@ const Overview = overviewStory({
     'Drag the grip, or press [[Up]] and [[Down]] to move within a column and [[Left]] and [[Right]] to change column.',
     'Each move is announced, and focus stays on the card, even in its new column.',
     'A header has the count, `badge`, `action` and a fold button; `top` adds a form above the cards.',
+    '`cardEdgeTone` returns a tone for a card, such as `danger` for one that needs the user, and draws a coloured edge on it.',
     '`renderCard` draws the inside of a card, such as a title and tags, in a standard frame.',
     'Each column scrolls on its own; `columnWidth="fill"` shares the width, and a narrow board scrolls.',
   ],
   instead: '[RowGrid] for one list edited in place, or [DataTable] for many records to sort and filter.',
   playground: Playground,
-  variants: [Live, Fill, HeaderSlots, AddForm, Folded, Narrow, Empty],
+  variants: [Live, Fill, HeaderSlots, AddForm, CardEdges, Folded, Narrow, Empty],
   states: {
     render: (props: StateProps) => <KanbanDemo folded={(props.folded as FoldedColumn | undefined) ?? 'none'} />,
     list: FOLDS.map((folded) => ({ name: folded === 'none' ? 'all open' : 'one folded', props: { folded } })),
@@ -86,4 +92,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AddForm, Empty, Fill, Folded, HeaderSlots, Live, Narrow, Overview, Playground };
+export { AddForm, CardEdges, Empty, Fill, Folded, HeaderSlots, Live, Narrow, Overview, Playground };

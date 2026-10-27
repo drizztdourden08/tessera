@@ -2,7 +2,10 @@
 import type { ReactNode } from 'react';
 import type { BackAction } from '../../primitives/action-data';
 
+type WindowHeaderLook = 'record';
+
 interface WindowHeaderProps {
+  look?: WindowHeaderLook;
   eyebrow?: ReactNode;
   title?: ReactNode;
   titleWrap?: boolean;
@@ -21,4 +24,4 @@ interface WindowHeaderBackProps {
   back: BackAction;
 }
 
-export type { WindowHeaderBackProps, WindowHeaderProps, WindowHeaderTitlesProps };
+export type { WindowHeaderBackProps, WindowHeaderLook, WindowHeaderProps, WindowHeaderTitlesProps };

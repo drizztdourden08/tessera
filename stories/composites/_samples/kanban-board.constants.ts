@@ -35,7 +35,7 @@ const TASK_COLUMNS: readonly TaskColumn[] = [
   },
 ];
 
-const KANBAN_ARGS: KanbanArgs = { width: 'full', columnWidth: 'fixed', folded: 'none', emptyReview: false, slots: false, addForm: false };
+const KANBAN_ARGS: KanbanArgs = { width: 'full', columnWidth: 'fixed', folded: 'none', emptyReview: false, slots: false, addForm: false, edges: false };
 
 const KANBAN_ARG_TYPES: PlaygroundArgTypes<KanbanArgs> = {
   width: { group: 'Layout', control: 'select', options: ['full', 'narrow'], description: 'A narrow box makes the board scroll sideways.' },
@@ -44,6 +44,7 @@ const KANBAN_ARG_TYPES: PlaygroundArgTypes<KanbanArgs> = {
   emptyReview: { group: 'Content', control: 'boolean', description: 'Take the cards out of Review.' },
   slots: { group: 'Content', control: 'boolean', description: 'Add a badge and an Add button to the header of some columns.' },
   addForm: { group: 'Content', control: 'boolean', description: 'Put an inline add form above the cards of To do.' },
+  edges: { group: 'Content', control: 'boolean', description: 'Draw a danger edge on the cards that need the user, with cardEdgeTone.' },
 };
 
 const KANBAN_CODE = `import { KanbanBoard, moveCard } from '@drizztdourden08/tessera';
@@ -55,6 +56,7 @@ const KANBAN_CODE = `import { KanbanBoard, moveCard } from '@drizztdourden08/tes
   renderCard={(task) => <TaskCard task={task} />}
   onMove={(move) => setColumns((now) => moveCard(now, move))}
   defaultCollapsed={['done']}
+  cardEdgeTone={(task) => (task.needsYou ? 'danger' : undefined)}
 />
 
 const columns = [

@@ -15,12 +15,13 @@ type DrawerArgs = {
   side: DrawerSide;
   size: 'md' | 'lg' | 'wide' | 'xl';
   label: string;
+  look: 'default' | 'record';
 };
 
 type DrawerDemoProps = DrawerArgs & { openLabel: string; Sample: ComponentType<SampleDrawerProps> };
 
 const DrawerDemo = (props: DrawerDemoProps) => {
-  const { side, size, label, openLabel, Sample } = props;
+  const { side, size, look, label, openLabel, Sample } = props;
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
   return (
@@ -32,16 +33,17 @@ const DrawerDemo = (props: DrawerDemoProps) => {
           <Button variant="secondary" onClick={() => setOpen(true)}>{openLabel}</Button>
         </Box>
       </Box>
-      <Sample open={open} close={close} side={side} size={size} label={label} />
+      <Sample open={open} close={close} side={side} size={size} look={look} label={label} />
     </Box>
   );
 };
 
-const ARGS: Partial<DrawerArgs> = { side: 'right', size: 'md', label: 'File details' };
+const ARGS: Partial<DrawerArgs> = { side: 'right', size: 'md', look: 'default', label: 'File details' };
 
 const ARG_TYPES: PlaygroundArgTypes<DrawerArgs> = {
   label: { group: 'Content', control: 'text' },
   side: { group: 'Layout', control: 'select', options: ['left', 'right', 'top'] },
+  look: { group: 'Layout', control: 'select', options: ['default', 'record'], description: 'record keeps chips in the eyebrow as authored and draws the title in the text colour, in sentence case.' },
   size: { group: 'Layout', control: 'select', options: ['md', 'lg', 'wide', 'xl'], description: 'md is 384 px, lg 640 px, wide 768 px, xl 1024 px, each capped by the window; under 480 px every size is full width. A top drawer ignores it.' },
 };
 
@@ -92,6 +94,15 @@ const Record = {
   ),
 } satisfies PlaygroundStory<DrawerArgs>;
 
+const RecordLook = {
+  name: 'look="record": chips as authored and a white sentence-case title',
+  args: { ...ARGS, size: 'wide', look: 'record', label: 'Node' },
+  argTypes: ARG_TYPES,
+  render: (args) => (
+    <DrawerDemo {...args} openLabel="Open node" Sample={RecordDrawer} />
+  ),
+} satisfies PlaygroundStory<DrawerArgs>;
+
 const SearchSheet = {
   name: 'Search from the top',
   args: ARGS,
@@ -119,6 +130,7 @@ const Overview = overviewStory({
   points: [
     '`side` picks the edge: `right` by default, `left` or `top`.',
     '`title` and `subtitle` fill a header with a close button; `actions` sit in a footer row.',
+    '`look="record"` keeps chips in the eyebrow as authored and draws the title in the text colour, in sentence case.',
     '`eyebrow` adds a small line above the title; `headerActions` put icon buttons beside close.',
     '`size` runs `md`, `lg`, `wide` and `xl`; any size is full width under 480 px.',
     'A tap on the scrim, the close button or [[Esc]] calls `onClose`; focus stays inside while it is open.',
@@ -126,9 +138,9 @@ const Overview = overviewStory({
   ],
   instead: '[DialogShell] for a modal that waits for an answer.',
   playground: Playground,
-  variants: [Record, FilterPanel, Notifications, SearchSheet],
+  variants: [Record, RecordLook, FilterPanel, Notifications, SearchSheet],
   code: CODE,
 });
 
 export default meta;
-export { FilterPanel, Notifications, Overview, Playground, Record, SearchSheet };
+export { FilterPanel, Notifications, Overview, Playground, Record, RecordLook, SearchSheet };

@@ -19,6 +19,7 @@ const usage = {
     'Read to.index as the place the card has after the move, in its new column; moveCard applies a move to the columns for you.',
     'Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.',
     'Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.',
+    'Pass cardEdgeTone to draw a coloured edge on some cards, such as danger for a card that needs the user; return undefined for a card with no edge.',
     'Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.',
     'Set columnWidth to fill so the columns share the board width instead of a fixed width; each keeps a minimum, and the board scrolls sideways when the minimums do not fit.',
     'Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.',
@@ -71,7 +72,7 @@ const Tasks = () => {
   );
 };
 `,
-  propsHash: '1b7204ea15831381',
+  propsHash: 'd54308a4e11234fe',
 } satisfies ComponentUsage;
 
 export { usage };
