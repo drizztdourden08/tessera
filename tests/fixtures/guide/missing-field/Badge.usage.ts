@@ -14,7 +14,7 @@ const usage = {
 
 const Unread = ({ count }: { count: number }) => <Badge value={count} max={99} />;
 `,
-  propsHash: 'ba763f930780e037',
+  propsHash: '3f15ba9ab825878f',
 // @ts-expect-error a11y is left out on purpose: the missing-field fixture
 } satisfies ComponentUsage;
 

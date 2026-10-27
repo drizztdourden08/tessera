@@ -43,6 +43,7 @@
   --open-entry-width: var(--size-128);
   --filter-clause-width: var(--size-192);
   --badge-d-xs: var(--size-20);
+  --status-h-sm: calc(18 * var(--size-1));
   --sort-caret-width: var(--size-8);
   --avatar-d: var(--size-40);
   --side-nav-w: calc(var(--side-nav-item-h) + 2 * (var(--space-sm) + 2 * var(--border-width-thin)));

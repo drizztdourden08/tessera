@@ -86,6 +86,17 @@ const Tones = {
   ),
 } satisfies StoryLiteStoryDefinition<StatusArgs>;
 
+const Sizes = {
+  name: 'Normal and sm, 18 px tall',
+  render: () => (
+    <Demonstrator
+      rows={axis(['md', 'sm'] as const)}
+      columns={axis(['text', 'pill'] as const)}
+      cell={(size, variant) => <Status tone="success" size={size} variant={variant} dot={variant === 'text'}>Connected</Status>}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<StatusArgs>;
+
 const EveryPalette = {
   name: 'Status tones in every palette',
   render: () => <StatusPalettes />,
@@ -159,13 +170,14 @@ const Overview = overviewStory({
     '`text` draws the word in its tone; `pill` draws it in capitals on a filled pill, for a record header.',
     'Pass the word as children with its `tone`, `neutral` by default, and `pulse` for a state still changing.',
     'Or pass `map`, a table from `defineStatuses`, and `value`, one of its keys: the table gives the word and tone.',
+    '`size="sm"` shrinks it to 18 px tall, for a table cell or a dense row.',
     '`fallback` names the key drawn while `value` is missing or not in the table.',
     '`dot` leads the word with a dot; a table entry with an `icon` draws the icon there instead.',
   ],
   instead: '[Badge] for a count, or [Tag] for a value that sorts an item into a group.',
   playground: Playground,
-  variants: [Tones, EveryPalette, Pulsing, ScreenList, OneTable, WithIcons, Fallback],
+  variants: [Tones, Sizes, EveryPalette, Pulsing, ScreenList, OneTable, WithIcons, Fallback],
 });
 
 export default meta;
-export { EveryPalette, Fallback, OneTable, Overview, Playground, Pulsing, ScreenList, Tones, WithIcons };
+export { EveryPalette, Fallback, OneTable, Overview, Playground, Pulsing, ScreenList, Sizes, Tones, WithIcons };

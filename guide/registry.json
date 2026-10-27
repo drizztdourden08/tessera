@@ -2360,6 +2360,7 @@
         "It is the scroller: the reset keeps html and body locked and the frame is 100dvh tall, so the page behind it never moves.",
         "Set fill to take the height of its parent instead of the window, such as a page inside a pane.",
         "Set width to sm, md or lg to centre the content in a column of that size; leave it out for the full width.",
+        "Set padding to md for a 16px page padding in place of the 24px default.",
         "The padding is the page padding token. It is a ScrollArea, so it takes className and the other ScrollArea props except axis, gutter included: set gutter stable when the page reflows with width.",
         "PageFrame keeps the root locked and scrolls inside one frame; PageRoot instead lets the whole document scroll."
       ],
@@ -2375,7 +2376,7 @@
         "rule": "PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document."
       },
       "example": "import { PageFrame, Title } from '@drizztdourden08/tessera';\n\nconst AccountPage = () => (\n  <PageFrame width=\"md\">\n    <Title>Account</Title>\n  </PageFrame>\n);\n",
-      "propsHash": "b10190054e27f636",
+      "propsHash": "24f23bbef9a5f7cd",
       "props": {
         "own": [
           {
@@ -2387,6 +2388,16 @@
               "'md'",
               "'lg'"
             ]
+          },
+          {
+            "name": "padding",
+            "optional": true,
+            "text": "PageFramePadding",
+            "literals": [
+              "'md'",
+              "'lg'"
+            ],
+            "default": "'lg'"
           },
           {
             "name": "fill",
@@ -2452,6 +2463,7 @@
         "--page-frame-w-lg",
         "--page-frame-w-md",
         "--page-frame-w-sm",
+        "--space-lg",
         "--space-xl"
       ],
       "gallery": {
@@ -3816,6 +3828,7 @@
         "Pass a word and a tone for a state that shows in one place; pass map and value for a kind of state that shows on several screens.",
         "Declare each table once with defineStatuses, in a constants file beside the model it describes, and import it where the state shows.",
         "Give every word in sentence case; the pill variant sets it in capitals itself.",
+        "Set size to sm for a row 18px tall, such as inside a table cell; leave it out for the normal size.",
         "Set pulse only on states that are still moving, such as starting or syncing.",
         "Pass fallback for a value that can be missing, such as a state not fetched yet."
       ],
@@ -3832,7 +3845,7 @@
         "rule": "Status draws one word in the tone of its state; with a table from defineStatuses, a state reads the same on every screen."
       },
       "example": "import { defineStatuses, Status } from '@drizztdourden08/tessera';\n\nconst ENGINE_STATES = defineStatuses({\n  ready: { label: 'Ready', tone: 'success' },\n  building: { label: 'Setting up', tone: 'warning', pulse: true },\n  failed: { label: 'Broken', tone: 'danger' },\n  unknown: { label: 'Checking', tone: 'neutral' },\n});\n\nconst Sync = () => <Status tone=\"warning\" dot pulse>Syncing</Status>;\n\nconst EngineState = ({ state }: { state?: 'ready' | 'building' | 'failed' }) => (\n  <Status map={ENGINE_STATES} value={state} fallback=\"unknown\" dot />\n);\n",
-      "propsHash": "0f2e7a81aebe29c7",
+      "propsHash": "a6a4c391c8eb379b",
       "props": {
         "own": [
           {
@@ -3884,6 +3897,16 @@
               "'pill'"
             ],
             "default": "'text'"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "StatusSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ],
+            "default": "'md'"
           },
           {
             "name": "dot",
@@ -3943,6 +3966,7 @@
         "--size-6",
         "--space-sm",
         "--space-xs",
+        "--status-h-sm",
         "--text-sm",
         "--text-xs",
         "--tracking-wide",
@@ -5898,6 +5922,7 @@
       "rules": [
         "Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header. For an image or a colour, pass a BackdropLayer.",
         "Use strip for a few controls after the title, such as HeaderAnchorNav pills, and actions for the end.",
+        "Set variant to plain for a title row with no panel: no backdrop, no gradient and no bottom border.",
         "Set compact once the content under it scrolls; it shrinks to a slim row.",
         "On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, or Back alone with no label, before the icon, and folds to an arrow when the row has no room for it.",
         "level sets the heading tag, h2 by default; pick the level that fits the page outline."
@@ -5916,7 +5941,7 @@
         "rule": "ContentHeader is the header with an icon, a title and a backdrop that any container can carry."
       },
       "example": "import { ContentHeader, HeaderAnchorNav, Icon } from '@drizztdourden08/tessera';\n\nconst GeneralHeader = ({ section, onSection }: { section: string; onSection: (id: string) => void }) => (\n  <ContentHeader\n    icon={<Icon name=\"settings\" />}\n    title=\"General\"\n    strip={<HeaderAnchorNav items={[{ id: 'startup', label: 'Startup' }, { id: 'tray', label: 'Tray' }]} activeId={section} onSelect={onSection} ariaLabel=\"General sections\" />}\n  />\n);\n",
-      "propsHash": "5ce7aa90f11760b4",
+      "propsHash": "bc6ef7432d73439d",
       "props": {
         "own": [
           {
@@ -5954,6 +5979,15 @@
             "optional": true,
             "text": "boolean",
             "default": "false"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "ContentHeaderVariant",
+            "literals": [
+              "'panel'",
+              "'plain'"
+            ]
           },
           {
             "name": "level",
@@ -6852,7 +6886,8 @@
         "Pass renderCell(row, path) to draw a cell yourself, such as a thumbnail beside a name; return undefined to keep the schema rendering of that cell.",
         "A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.",
         "Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.",
-        "Pass rowState(row) to mark a row active, pending, error, warning or muted; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar, and a selected row keeps the selection background.",
+        "Pass rowState(row) to mark a row active, pending, error, warning, muted or fresh; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar and fresh a soft info tint for rows that just arrived, and a selected row keeps the selection background.",
+        "Set headerCase to upper for capital column labels with wide letter spacing; the labels you pass keep their case in the data.",
         "Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.",
         "A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.",
         "Pass detailRowId with renderDetail(row) to open a panel under one row, such as an inline confirm or a small form; it spans every column, works in groups and with sort, and the app keeps the id and clears it from onDetailClose.",
@@ -6875,7 +6910,7 @@
         "rule": "DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long."
       },
       "example": "import { DataTable } from '@drizztdourden08/tessera';\nimport type { FieldDescriptor } from '@drizztdourden08/tessera';\n\ninterface Peer {\n  id: string;\n  name: string;\n  state: string;\n}\n\nconst openGroups = ['Connected'];\n\ninterface PeerTableProps {\n  peers: Peer[];\n  schema: FieldDescriptor[];\n}\n\nconst PeerTable = ({ peers, schema }: PeerTableProps) => (\n  <DataTable\n    rows={peers}\n    schema={schema}\n    getRowId={(peer) => peer.id}\n    fallbackGroupBy={['state']}\n    defaultExpanded={openGroups}\n    countLabel={['peer', 'peers']}\n  />\n);\n",
-      "propsHash": "e1ab5b31f0cc68f2",
+      "propsHash": "1b533b6d9fa991ac",
       "props": {
         "own": [
           {
@@ -6995,6 +7030,15 @@
             "text": "(row: T) => RowState | undefined"
           },
           {
+            "name": "headerCase",
+            "optional": true,
+            "text": "HeaderCase",
+            "literals": [
+              "'normal'",
+              "'upper'"
+            ]
+          },
+          {
             "name": "rowHeight",
             "optional": true,
             "text": "VirtualSize"
@@ -7086,6 +7130,7 @@
         "--c-danger-soft",
         "--c-hairline",
         "--c-hover",
+        "--c-info-soft",
         "--c-primary",
         "--c-primary-bright",
         "--c-primary-dim",
@@ -7128,6 +7173,7 @@
         "--table-select-w",
         "--text-sm",
         "--text-xs",
+        "--tracking-caps",
         "--transition-fast",
         "--z-floating",
         "--z-sticky"

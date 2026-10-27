@@ -20,6 +20,7 @@
 
 .badge--number,
 .badge--inline {
+  gap: var(--space-2xs);
   min-width: var(--size-16);
   height: var(--size-16);
   padding-inline: var(--space-xs);
@@ -37,7 +38,7 @@
   font-weight: var(--weight-medium);
 }
 
-.badge--round {
+.badge--round:not(.badge--iconed) {
   width: var(--size-16);
   padding-inline: 0;
 }

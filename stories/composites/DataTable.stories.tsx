@@ -11,6 +11,7 @@ import { resolveSlotDefault } from './_samples/data-hints';
 import { DataTableCellControls } from './_samples/DataTableCellControls';
 import { DataTableControlled } from './_samples/DataTableControlled';
 import { DataTableDetailConfirm } from './_samples/DataTableDetailConfirm';
+import { DataTableFreshRows } from './_samples/DataTableFreshRows';
 import { DataTableDetailForm } from './_samples/DataTableDetailForm';
 import { DataTableGroupActions } from './_samples/DataTableGroupActions';
 import { DataTableNoFooter } from './_samples/DataTableNoFooter';
@@ -146,6 +147,11 @@ const RowStates = {
   render: () => <DataTableRowStates />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
+const FreshRows = {
+  name: 'Fresh rows and capital headers',
+  render: () => <DataTableFreshRows />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
 const Controlled = {
   name: 'Controlled sort and expand, driven by buttons',
   render: () => <DataTableControlled />,
@@ -197,7 +203,7 @@ const Overview = overviewStory({
     '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
     '`defaultExpanded` picks open groups, `virtualizeFrom` limits drawn rows, `footer={false}` hides the footer.',
     '`groupActions` adds header buttons; `onRowMove` and `rowDragData` move rows; `getRects` feeds a marquee.',
-    '`renderCell`, `rowState` (with warning), `rowHeight` shape rows; `renderDetail` adds a panel; you own `sort`.',
+    '`renderCell`, `rowState` (with fresh), `rowHeight`, `headerCase` shape it; `renderDetail` adds a panel.',
   ],
   instead: '[ListItemRow] for a short list of rich rows with no columns to sort.',
   playground: Players,
@@ -217,5 +223,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, GroupActions, LongGroups, NoFooter, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail, Units,
+  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, FreshRows, GroupActions, LongGroups, NoFooter, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail, Units,
 };

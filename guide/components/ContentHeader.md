@@ -31,6 +31,7 @@ ContentHeader is the header with an icon, a title and a backdrop that any contai
 
 - Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header. For an image or a colour, pass a BackdropLayer.
 - Use strip for a few controls after the title, such as HeaderAnchorNav pills, and actions for the end.
+- Set variant to plain for a title row with no panel: no backdrop, no gradient and no bottom border.
 - Set compact once the content under it scrolls; it shrinks to a slim row.
 - On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, or Back alone with no label, before the icon, and folds to an arrow when the row has no room for it.
 - Level sets the heading tag, h2 by default; pick the level that fits the page outline.
@@ -65,6 +66,7 @@ const GeneralHeader = ({ section, onSection }: { section: string; onSection: (id
 - `strip` (optional): `ReactNode`.
 - `actions` (optional): `ReactNode`.
 - `compact` (optional): `boolean`. Default `false`.
+- `variant` (optional): `ContentHeaderVariant`, one of `'panel'`, `'plain'`.
 - `level` (optional): `ContentHeaderLevel`, one of `1`, `2`, `3`, `4`. Default `2`.
 - `titleId` (optional): `string`.
 - `live` (optional): `boolean`. Default `false`.

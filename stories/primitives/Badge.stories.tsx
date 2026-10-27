@@ -129,6 +129,18 @@ const Anchors = {
   ),
 } satisfies StoryLiteStoryDefinition<BadgeArgs>;
 
+const WithIcon = {
+  name: 'A leading icon',
+  render: () => (
+    <Flex gap="md" align="center" wrap>
+      <Badge variant="inline" icon="flask" value={3} color="info" />
+      <Badge variant="inline" icon="robot" value="Bot" color="primary" />
+      <Badge icon="bell" value={12} />
+      <Badge icon="flask" value={120} max={99} color="success" />
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<BadgeArgs>;
+
 const ZERO_LOOKS = ['inline', 'number on an icon'] as const;
 
 const Zero = {
@@ -153,14 +165,14 @@ const Overview = overviewStory({
   points: [
     '`inline` sits after text, `number` is a solid count on a corner of its host, and `dot` is a plain dot.',
     'A `number` or a `dot` wraps its host, such as an icon; `anchor` picks the corner.',
-    '`max` caps a count, so 120 with a `max` of 99 reads 99+.',
+    '`max` caps a count, so 120 with a `max` of 99 reads 99+; `icon` leads a count with a small icon.',
     '**It renders nothing** when the value is empty or undefined, a count is below 0, or 0 with `hideZero`.',
     '`normal`, a pastel red, is the default colour; `tame` is the quiet one.',
     '[Tabs], [Card], [SectionHeader] and [HeaderAnchorNav] take `hideZero` too and pass it to their counts.',
   ],
   instead: '[Status] for a word that names a state, or [Tag] for a group.',
   playground: Playground,
-  variants: [Shapes, Colors, Anchors, Zero],
+  variants: [Shapes, Colors, Anchors, WithIcon, Zero],
   code: `import { Badge, Icon } from '@drizztdourden08/tessera';
 
 <Badge variant="inline" value={3} color="tame" />
@@ -175,4 +187,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Anchors, Colors, Overview, Playground, Shapes, Zero };
+export { Anchors, Colors, Overview, Playground, Shapes, WithIcon, Zero };
