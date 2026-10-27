@@ -11,7 +11,7 @@ export { SettingsPage, type SettingsPageAnchor, type SettingsPageProps, type Set
 export { InlineCreateForm } from '../InlineCreateForm';
 export type { InlineCreateFormProps } from '../InlineCreateForm';
 export { InlineEdit } from '../InlineEdit';
-export type { InlineEditProps } from '../InlineEdit';
+export type { InlineEditLook, InlineEditProps } from '../InlineEdit';
 export { KeyValueEditor } from '../KeyValueEditor';
 export type { KeyValueEditorProps, KeyValueEntry, KeyValueKind, KeyValueRecord } from '../KeyValueEditor';
 export { FormRow } from '../FormRow';

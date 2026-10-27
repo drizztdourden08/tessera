@@ -15,6 +15,7 @@ interface WindowHeaderProps {
   back?: BackAction;
   extra?: ReactNode;
   actions?: ReactNode;
+  stackNarrow?: boolean;
   className?: string;
 }
 

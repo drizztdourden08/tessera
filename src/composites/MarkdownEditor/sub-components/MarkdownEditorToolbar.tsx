@@ -8,7 +8,7 @@ import { MarkdownEditorActionButton } from './MarkdownEditorActionButton';
 import { MarkdownEditorPreviewToggle } from './MarkdownEditorPreviewToggle';
 
 const MarkdownEditorToolbar = (props: MarkdownEditorToolbarProps) => {
-  const { disabled, onAction, toggle } = props;
+  const { disabled, onAction, toggle, end } = props;
   const { markdownEditor } = useTesseraStrings();
   return (
     <Flex className="markdown-editor__toolbar" role="toolbar" aria-label={markdownEditor.toolbar} gap="xs" align="center" wrap>
@@ -21,6 +21,7 @@ const MarkdownEditorToolbar = (props: MarkdownEditorToolbarProps) => {
         </Flex>
       ))}
       {toggle && <MarkdownEditorPreviewToggle toggle={toggle} />}
+      {end != null && <Flex className="markdown-editor__toolbar-end" gap="xs" align="center">{end}</Flex>}
     </Flex>
   );
 };

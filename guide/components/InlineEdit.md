@@ -36,6 +36,7 @@ InlineEdit starts, commits and cancels an edit in place with the same keys in ev
 - Pass validate to return a message for text that is not allowed; it shows under the field and nothing is committed until it returns nothing.
 - Pass multiline for a text area, where Enter adds a line and Mod+Enter commits.
 - Pass renderValue to draw the text when it is not edited, such as Markdown; the click, Enter and F2, and the name stay the same, and the field is unchanged.
+- Pass look link to draw the text with a dashed underline and in italic, for a value that reads as a link to change; the default look is unchanged.
 - A link or a control inside the drawn text does not start the edit when clicked; only a click on the rest of the text does.
 - Pass label to name the text for a screen reader, placeholder to stand in for an empty text, and disabled to show the text only.
 
@@ -77,8 +78,9 @@ const CardTitle = () => {
 - `multiline` (optional): `boolean`. Default `false`.
 - `size` (optional): `ControlSize`, one of `'sm'`, `'md'`.
 - `renderValue` (optional): `(value: string) => ReactNode`.
+- `look` (optional): `InlineEditLook`, one of `'field'`, `'link'`. Default `'field'`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--c-focus`, `--c-surface`, `--c-text-muted`, `--radius-md`, `--space-2xs`, `--space-xs`.
+It draws on `--border-width-thick`, `--c-border-strong`, `--c-focus`, `--c-surface`, `--c-text-muted`, `--radius-md`, `--space-2xs`, `--space-xs`.
