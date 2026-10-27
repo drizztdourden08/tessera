@@ -21,6 +21,7 @@ interface MarkdownEditorProps {
   disabled?: boolean;
   layout?: MarkdownEditorLayout;
   compact?: boolean;
+  toolbarEnd?: ReactNode;
   rows?: number;
   onLink?: MarkdownLinkHandler;
   images?: MarkdownImages;
@@ -80,6 +81,7 @@ interface MarkdownEditorToolbarProps {
   disabled: boolean;
   onAction: (id: MarkdownEditorActionId) => void;
   toggle?: MarkdownEditorPreviewToggle;
+  end?: ReactNode;
 }
 
 interface MarkdownEditorPreviewToggleProps {

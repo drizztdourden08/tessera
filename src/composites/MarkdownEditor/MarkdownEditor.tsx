@@ -18,7 +18,7 @@ import './MarkdownEditor.css';
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
   const {
-    value, onChange, label, hint, error, placeholder, disabled = false, layout, compact, rows, onLink, images, linkIds, onSubmit, onEscape, maxLength, autoFocus = false, className,
+    value, onChange, label, hint, error, placeholder, disabled = false, layout, compact, toolbarEnd, rows, onLink, images, linkIds, onSubmit, onEscape, maxLength, autoFocus = false, className,
   } = props;
   const rootRef = useRef<HTMLElement | null>(null);
   const areaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -31,7 +31,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   return (
     <Field label={label} hint={hint} error={error} width="full">
       <Box ref={rootRef} className={['markdown-editor', className].filter(Boolean).join(' ')} data-layout={mode}>
-        <MarkdownEditorToolbar disabled={off} onAction={run} toggle={toggle} />
+        <MarkdownEditorToolbar disabled={off} onAction={run} toggle={toggle} end={toolbarEnd} />
         {tabbed && <MarkdownEditorTabs pane={pane} onPane={setPane} />}
         <Box className="markdown-editor__panes">
           <Box className="markdown-editor__write" hidden={!writing}>

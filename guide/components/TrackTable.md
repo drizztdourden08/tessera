@@ -35,10 +35,14 @@ TrackTable shares the width by fractions and drops the least needed columns by t
 - Draw state with Status and groups with Tag inside cell; the table sets no look for them.
 - Put the table in a Card when it needs a frame; it draws no border or background.
 - Pass empty for the message shown when there are no rows.
+- Pass onRowClick to make each row a target: it takes focus with a ring, and a click or Enter calls it with the row; a click on a control inside a cell does not.
+- Pass rowDetail to draw a full width row right under its row; return nothing for a row with no detail, and own the open state in the app.
+- Pass rowTone to tint a row with a state: active, pending, error, warning, muted or fresh, the same names as rowState of DataTable.
 
 ## Accessibility
 
 - The table is named by label, and each cell is read in its row; a dropped column is removed from the reading order too.
+- A row with onRowClick is reached by Tab and used with Enter; tell the state in a cell too, since a tone is colour only.
 - Give a column whose label would be a symbol a text label, since the header is the only name of its cells.
 
 ## Example
@@ -73,8 +77,11 @@ const Agents = ({ agents }: { agents: Agent[] }) => (
 - `rowKey`: `(row: Row) => string`.
 - `head` (optional): `boolean`. Default `true`.
 - `empty` (optional): `ReactNode`.
+- `onRowClick` (optional): `(row: Row) => void`.
+- `rowDetail` (optional): `(row: Row) => ReactNode`.
+- `rowTone` (optional): `(row: Row) => TrackRowTone | undefined`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-text-muted`, `--size-32`, `--size-40`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--track-cols-0`, `--track-cols-1`, `--track-cols-2`, `--track-cols-3`, `--tracking-wide`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-soft`, `--c-focus`, `--c-info-soft`, `--c-primary`, `--c-primary-soft`, `--c-secondary-soft`, `--c-text-muted`, `--c-warning`, `--c-warning-soft`, `--opacity-muted`, `--size-2`, `--size-32`, `--size-40`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--track-cols-0`, `--track-cols-1`, `--track-cols-2`, `--track-cols-3`, `--tracking-wide`.

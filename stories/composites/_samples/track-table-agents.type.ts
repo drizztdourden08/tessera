@@ -6,8 +6,16 @@ interface TrackAgent {
   node: string;
   tasks: number;
   seen: string;
+  age: 'fresh' | 'stale' | 'stalled';
 }
 
 type TrackWidth = 'wide' | 'medium' | 'narrow' | 'tiny';
 
-export type { TrackAgent, TrackWidth };
+interface TrackTableAgentsProps {
+  width: TrackWidth;
+  clickable?: boolean;
+  tones?: boolean;
+  details?: boolean;
+}
+
+export type { TrackAgent, TrackTableAgentsProps, TrackWidth };
