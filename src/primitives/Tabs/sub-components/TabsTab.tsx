@@ -7,7 +7,7 @@ import { tabLabels } from '../behavior/tab-labels';
 import type { TabsTabProps } from '../Tabs.type';
 
 const TabsTab = (props: TabsTabProps) => {
-  const { tab, active, iconOnly, hideZero, onTabChange, onKeyDown } = props;
+  const { tab, active, iconOnly, hideZero, badgeFill, onTabChange, onKeyDown } = props;
   const disabled = tab.disabled === true;
   const { description, title, name } = tabLabels(tab, iconOnly);
   const button = (
@@ -25,7 +25,7 @@ const TabsTab = (props: TabsTabProps) => {
     >
       {tab.icon && <span className="tabs__icon">{tab.icon}</span>}
       {!iconOnly && <Span className="tabs__label">{tab.label}</Span>}
-      {tab.badge != null && <Badge variant="inline" color={tabBadgeColor(tab.badgeTone, active)} value={tab.badge} hideZero={hideZero} />}
+      {tab.badge != null && <Badge variant={badgeFill === 'solid' ? 'number' : 'inline'} color={tabBadgeColor(tab.badgeTone, active)} value={tab.badge} hideZero={hideZero} />}
     </button>
   );
   return description ? <Tooltip content={description} placement="bottom" className="tabs__reason">{button}</Tooltip> : button;

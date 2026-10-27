@@ -36,6 +36,7 @@ Select is the field that opens a list of options, plain or grouped, and picks on
 - The app owns the value: pass value and onChange for one choice, values and onValuesChange for several.
 - Pass grow={false} to keep a fixed width (the token --field-w-inline, 256 px, shrinking to 160 px) beside other tools in a toolbar; TextInput, SearchInput and Combobox take the same prop.
 - Pass width="fit" to size the control to its content, or width="narrow" for a 220 px control; TextInput, SearchInput and Combobox take the same prop.
+- Pass width="narrow-fill" for the 220 px control that fills its row when the nearest container is under 420 px wide; it needs an ancestor with a container type, such as a drawer or a window header.
 - Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen.
 
 ## Accessibility
@@ -92,7 +93,7 @@ const TintPicker = ({ tint, onTint }: TintPickerProps) => (
 - `inline` (optional): `boolean`.
 - `size` (optional): `ControlSize`, one of `'sm'`, `'md'`.
 - `grow` (optional): `boolean`.
-- `width` (optional): `FieldWidth`, one of `'fit'`, `'narrow'`.
+- `width` (optional): `FieldWidth`, one of `'fit'`, `'narrow'`, `'narrow-fill'`.
 - `className` (optional): `string`.
 - `id` (optional): `string`.
 - `aria-label` (optional): `string`.

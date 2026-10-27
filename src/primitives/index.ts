@@ -73,7 +73,7 @@ export { SegmentedControl } from './SegmentedControl';
 export type { SegmentIcon, SegmentIconOption, SegmentOption, SegmentTextOption, SegmentedControlProps } from './SegmentedControl';
 export { ToggleGroup } from './ToggleGroup';
 export type { ToggleOption, ToggleGroupProps } from './ToggleGroup';
-export { Tabs, type TabBadgeTone, type TabItem } from './Tabs';
+export { Tabs, type TabBadgeFill, type TabBadgeTone, type TabItem } from './Tabs';
 export { Anchored, useAnchorSupport } from './Anchored';
 export { Overlay } from './Overlay';
 export type { OverlayProps, OverlayTone } from './Overlay';

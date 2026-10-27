@@ -1,11 +1,13 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Card, Flex, Stack, Tag, Text } from '../../src/primitives';
+import { Flex, Tag } from '../../src/primitives';
 import type {
   TagCategoryColor, TagColor, TagCustomColor, TagLook, TagNormalColor, TagUrgencyColor, TagVariant,
 } from '../../src/primitives';
 import { axis } from '../_template/axis';
+import { FaultTags } from './_samples/FaultChips';
+import { TagOnItems } from './_samples/TagOnItems';
 import { TagNeutralRow } from './_samples/TagNeutralRow';
 import { TagSelectableRow } from './_samples/TagSelectableRow';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -30,12 +32,6 @@ const URGENCY: readonly TagUrgencyColor[] = ['success', 'warning', 'danger', 'in
 const CATEGORY: readonly TagCategoryColor[] = ['rose', 'orange', 'amber', 'lime', 'green', 'teal', 'cyan', 'blue', 'violet', 'pink'];
 
 const COLORS: Readonly<Record<NamedVariant, readonly TagColor[]>> = { normal: NORMAL, urgency: URGENCY, category: CATEGORY };
-
-const GAMES: readonly { name: string; tags: readonly { label: string; look: TagLook }[] }[] = [
-  { name: 'A Link to the Past', tags: [{ label: 'Zelda', look: { variant: 'category', color: 'green' } }, { label: 'Stable', look: { variant: 'urgency', color: 'success' } }] },
-  { name: 'Super Metroid', tags: [{ label: 'Metroid', look: { variant: 'category', color: 'violet' } }, { label: 'Beta', look: { variant: 'urgency', color: 'warning' } }] },
-  { name: 'Pokemon Red', tags: [{ label: 'Pokemon', look: { variant: 'category', color: 'rose' } }, { label: 'Featured', look: { color: 'primary' } }] },
-];
 
 const ARGS: Partial<TagArgs> = { label: 'Zelda', variant: 'category', color: 'green', removable: false, disabled: false };
 
@@ -159,6 +155,11 @@ const Dotted = {
   ),
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
+const Fault = {
+  name: 'Fault chip: a reason in the tone',
+  render: () => <FaultTags />,
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
 const NeutralSelected = {
   name: 'Neutral selection: a grey fill when on',
   render: () => <TagNeutralRow />,
@@ -171,20 +172,7 @@ const Selectable = {
 
 const OnItems = {
   name: 'Categorising items',
-  render: () => (
-    <Box className="story-column">
-      <Card>
-        <Stack gap="sm">
-          {GAMES.map((game) => (
-            <Flex key={game.name} justify="between" align="center" gap="md">
-              <Text>{game.name}</Text>
-              <Flex gap="xs">{game.tags.map((tag) => <Tag key={tag.label} {...tag.look}>{tag.label}</Tag>)}</Flex>
-            </Flex>
-          ))}
-        </Stack>
-      </Card>
-    </Box>
-  ),
+  render: () => <TagOnItems />,
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
 const renderState = (props: StateProps) => (
@@ -200,11 +188,11 @@ const Overview = overviewStory({
     '`onRemove` adds a remove button, as in [TagInput]: a 16 px glyph that takes clicks on 24 by 24 px.',
     '`selected` with `onSelect` makes a toggle chip, as in [TagPicker]; `selectedTone="neutral"` fills it grey.',
     '`variant="custom"` fills it with a hex colour from app data, with black or white text, whichever reads best.',
-    '`pill` rounds it, `dot` and `icon` lead, `outlined` clears the fill, `size="lg"` is 24 px; `href` links.',
+    '`pill` rounds it, `dot` and `icon` lead, `outlined` clears the fill, `size="lg"` is 24 px, `reason` adds a cause.',
   ],
   instead: '[Status] for a word that names a state.',
   playground: Playground,
-  variants: [Variants, Custom, PillIcons, Outlined, Dotted, AsLinks, Removable, Selectable, NeutralSelected, OnItems],
+  variants: [Variants, Custom, PillIcons, Outlined, Dotted, AsLinks, Removable, Selectable, NeutralSelected, Fault, OnItems],
   states: {
     render: renderState,
     list: [
@@ -226,4 +214,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AsLinks, Custom, Dotted, NeutralSelected, OnItems, Outlined, Overview, PillIcons, Playground, Removable, Selectable, Variants };
+export { AsLinks, Custom, Dotted, Fault, NeutralSelected, OnItems, Outlined, Overview, PillIcons, Playground, Removable, Selectable, Variants };

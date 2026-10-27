@@ -4,6 +4,8 @@ import type { SelectedTone } from '../field-control/selected-tone.type';
 
 type TabBadgeTone = 'neutral' | 'warn' | 'danger' | 'success' | 'info';
 
+type TabBadgeFill = 'tint' | 'solid';
+
 interface TabItem {
   id: string;
   label: string;
@@ -23,6 +25,7 @@ interface TabsProps {
   hideZero?: boolean;
   size?: 'md' | 'lg';
   selectedTone?: SelectedTone;
+  badgeFill?: TabBadgeFill;
 }
 
 interface TabLabels {
@@ -36,11 +39,13 @@ interface TabsTabProps {
   active: boolean;
   iconOnly: boolean;
   hideZero: boolean;
+  badgeFill: TabBadgeFill;
   onTabChange: (tabId: string) => void;
   onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
 }
 
 export type {
+  TabBadgeFill,
   TabBadgeTone,
   TabItem,
   TabLabels,

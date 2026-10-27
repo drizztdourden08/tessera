@@ -43,6 +43,18 @@
   padding-block: 0;
 }
 
+.status--reasoned {
+  color: var(--c-text);
+}
+
+.status__reason {
+  color: var(--status-ink);
+}
+
+.status--pill .status__reason {
+  color: var(--status-strong);
+}
+
 .status__dot {
   flex: none;
   width: var(--size-6);

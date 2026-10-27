@@ -6,7 +6,7 @@ const globalOf = (pattern: RegExp): RegExp => new RegExp(pattern.source, pattern
 
 const textOf = (value: string): MarkdownTextNode => ({ type: 'text', value });
 
-const linkOf = (url: string, value: string): MarkdownTextNode => ({ type: 'link', url, title: null, children: [textOf(value)] });
+const linkOf = (url: string, value: string): MarkdownTextNode => ({ type: 'link', url, title: null, children: [textOf(value)], data: { hProperties: { dataIdLink: 'true' } } });
 
 const splitIds = (value: string, rule: MarkdownLinkId, allowPaths: boolean): MarkdownTextNode[] => {
   const nodes: MarkdownTextNode[] = [];

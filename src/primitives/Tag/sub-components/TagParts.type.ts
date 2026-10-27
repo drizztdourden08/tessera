@@ -7,6 +7,7 @@ interface TagBodyProps {
   variant?: TagVariant;
   dot?: boolean;
   icon?: IconName;
+  reason?: string;
   children: ReactNode;
 }
 

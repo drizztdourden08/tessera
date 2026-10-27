@@ -55,6 +55,15 @@
   text-overflow: ellipsis;
 }
 
+.tag--reasoned {
+  color: var(--c-text);
+}
+
+.tag__reason {
+  flex: none;
+  color: var(--tag-ink);
+}
+
 .tag__dot {
   flex: none;
   width: var(--size-6);
