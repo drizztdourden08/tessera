@@ -52,7 +52,7 @@ describe('the widget chrome', () => {
     expect(rootClass(html)).toBe('widget widget--chrome-none');
     expect(html).toMatch(/class="widget__titlebar window-chrome" data-pane-key="p1"/);
     expect(html).toMatch(/<div class="widget__grip" data-drag-widget="players" title="Drag to move Players" aria-hidden="true">/);
-    const titleId = html.match(/<span class="[^"]*widget__title visually-hidden" id="([^"]+)">Players</)?.[1];
+    const titleId = html.match(/<span class="[^"]*widget__title visually-hidden" id="([^"]+)">(?:<[^>]+>)*Players</)?.[1];
     expect(titleId).toMatch(/\S/);
     expect(html).toMatch(new RegExp(`role="region"[^>]*aria-labelledby="${titleId}"`));
   });
@@ -115,7 +115,7 @@ describe('a docked widget', () => {
       defaultFloatingSize: { width: 200, height: 200 }, chrome: 'compact',
     };
     const api = {
-      layout: { frame: {} }, peek: false, definitionOf: () => definition, labelOf: () => 'Players', iconOf: () => undefined, contentOf: () => 'Four online',
+      layout: { frame: {} }, peek: false, definitionOf: () => definition, labelOf: () => 'Players', iconOf: () => undefined, sublabelOf: () => undefined, contentOf: () => 'Four online',
       actionsOf: () => null, disabledOf: () => null, canPopOut: () => false, change: noop, apply: noop, close: noop, popOut: noop,
     };
     const html = renderToString(h(WidgetPane, { api, widgets: ['players'], activeId: 'players', paneKey: 'p1', options: null }));

@@ -12,6 +12,7 @@ import { CHROME_DEFINITIONS } from './_samples/data-widgets';
 import { WidgetBodyDemo } from './_samples/WidgetBodyDemo';
 import { WidgetChromeRow } from './_samples/WidgetChromeRow';
 import { WidgetFrameDemo } from './_samples/WidgetFrameDemo';
+import { WidgetSublabelDemo } from './_samples/WidgetSublabelDemo';
 import './Widget.stories.css';
 
 type WidgetArgs = {
@@ -129,6 +130,11 @@ const ChromeDock = {
   render: (args) => <WidgetDock {...args} disabledWidget="console" definitions={CHROME_DEFINITIONS} />,
 } satisfies PlaygroundStory<WidgetArgs>;
 
+const Sublabels = {
+  name: 'Sublabel, short and very long in a narrow widget',
+  render: () => <WidgetSublabelDemo />,
+} satisfies StoryLiteStoryDefinition<WidgetArgs>;
+
 const Bodies = {
   name: 'Body padding and fill',
   render: () => <WidgetBodyDemo />,
@@ -171,14 +177,14 @@ const Overview = overviewStory({
   points: [
     'The title bar drags it and names the region, by its title or open tab; each button names the widget too.',
     '`chrome` is `full`, a 20 px `compact` strip, or `none`: a grip and the buttons over the body on hover or focus.',
-    'An `icon` draws before the label; `titleBarActions` adds buttons; `pin` and `dragRegion` serve its own window.',
+    'An `icon` leads the title and a muted `sublabel` follows it; a clipped title shows in full in a tooltip.',
     'The body scrolls in its gutter with `padding`, `sm` by default, or `none` or `md`; `fill` makes a full height column.',
     '`options` puts [WidgetOptions] on the gear; `WidgetManager` lays out a dock and hides widgets out of context.',
     '`disabled` covers the body, a string as the reason; docked or in its own window, the look is the same.',
   ],
   playground: Playground,
   variants: [
-    Single, Tabbed, IconSingle, IconTabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, OffInWindow, Folded, Chromes, ChromeWindows, ChromeDock, Bodies, Dock, PerWidget,
+    Single, Tabbed, IconSingle, IconTabbed, OwnWindow, OwnActions, DragStrip, Fullscreen, OffInWindow, Folded, Chromes, ChromeWindows, ChromeDock, Bodies, Sublabels, Dock, PerWidget,
     Performance,
   ],
   states: {
@@ -194,4 +200,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Bodies, ChromeDock, ChromeWindows, Chromes, Dock, DragStrip, Folded, Fullscreen, IconSingle, IconTabbed, OffInWindow, OwnActions, OwnWindow, Overview, PerWidget, Performance, Playground, Single, Tabbed };
+export { Bodies, Sublabels, ChromeDock, ChromeWindows, Chromes, Dock, DragStrip, Folded, Fullscreen, IconSingle, IconTabbed, OffInWindow, OwnActions, OwnWindow, Overview, PerWidget, Performance, Playground, Single, Tabbed };

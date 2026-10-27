@@ -69,6 +69,7 @@ interface WidgetDefinition extends WidgetBodyLook {
   popOut?: boolean;
   group?: string;
   chrome?: WidgetChrome;
+  sublabel?: string;
 }
 
 interface WidgetDisabledState {
@@ -80,6 +81,7 @@ interface WidgetTab {
   id: WidgetId;
   label: string;
   icon?: IconName;
+  sublabel?: string;
 }
 
 interface WidgetProps extends WidgetBodyLook {

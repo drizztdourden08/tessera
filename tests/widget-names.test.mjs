@@ -40,7 +40,7 @@ describe('test hooks', () => {
 describe('the widget region', () => {
   it('makes the widget a region named by its title, or by its open tab in a tabbed pane', () => {
     const one = widget();
-    const titleId = one.match(/<span class="[^"]*widget__title" id="([^"]+)">Players</)?.[1];
+    const titleId = one.match(/<span class="[^"]*widget__title" id="([^"]+)">(?:<[^>]+>)*Players</)?.[1];
     expect(titleId).toMatch(/\S/);
     expect(one).toMatch(new RegExp(`<div[^>]*role="region"[^>]*aria-labelledby="${titleId}"`));
     const tabbed = widget({ tabs: [{ id: 'players', label: 'Players' }, { id: 'hints', label: 'Hints' }], activeId: 'hints' });
