@@ -41,6 +41,10 @@ KanbanBoard keeps the move, the keys, the counts and the fold the same in every 
 - Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.
 - Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.
 - Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.
+- Pass columnHeight="fit" to size each column to its cards instead of the board height; a column taller than the board still scrolls its cards.
+- Pass grip={false} to hide the drag grip: the cards no longer drag by pointer, and the arrow keys still move a card from a hidden grip button that shows a focus ring on the card.
+- Pass foldable={false} to remove the fold chevron from every column; a column listed in collapsed or defaultCollapsed then stays open.
+- Pass stack to stack the columns top to bottom when the board is under 420 px wide, through a container query on a wrapper; the default board scrolls sideways at any width.
 - Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids.
 
 ## Accessibility
@@ -97,6 +101,10 @@ const Tasks = () => {
 - `cardLabel` (optional): `(card: Card) => string`.
 - `cardEdgeTone` (optional): `(card: Card) => CardTone | undefined`.
 - `columnWidth` (optional): `KanbanColumnWidth`, one of `'fixed'`, `'fill'`. Default `'fixed'`.
+- `columnHeight` (optional): `KanbanColumnHeight`, one of `'stretch'`, `'fit'`. Default `'stretch'`.
+- `grip` (optional): `boolean`. Default `true`.
+- `foldable` (optional): `boolean`.
+- `stack` (optional): `boolean`. Default `false`.
 - `label` (optional): `string`.
 - `collapsed` (optional): `readonly string[]`.
 - `defaultCollapsed` (optional): `readonly string[]`.
@@ -105,7 +113,7 @@ const Tasks = () => {
 
 ## Tokens
 
-It draws on `--c-primary-bright`, `--c-primary-soft`, `--c-text-dim`, `--c-text-muted`, `--opacity-muted`, `--size-1`, `--size-2`, `--size-224`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-primary-bright`, `--c-primary-soft`, `--c-text-dim`, `--c-text-muted`, `--opacity-muted`, `--size-1`, `--size-2`, `--size-224`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
 
 ## Also exported from this folder
 

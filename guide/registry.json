@@ -3111,6 +3111,7 @@
         "An option that sits in a group is not repeated in options; put it in one place only.",
         "The app owns the value: pass value and onChange for one choice, values and onValuesChange for several.",
         "Pass grow={false} to keep a fixed width (the token --field-w-inline, 256 px, shrinking to 160 px) beside other tools in a toolbar; TextInput, SearchInput and Combobox take the same prop.",
+        "Pass width=\"fit\" to size the control to its content, or width=\"narrow\" for a 220 px control; TextInput, SearchInput and Combobox take the same prop.",
         "Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen."
       ],
       "a11y": [
@@ -3126,7 +3127,7 @@
         "rule": "Select is the field that opens a list of options, plain or grouped, and picks one or several."
       },
       "example": "import { Select } from '@drizztdourden08/tessera';\n\ninterface TintPickerProps {\n  tint: string;\n  onTint: (tint: string) => void;\n}\n\nconst TintPicker = ({ tint, onTint }: TintPickerProps) => (\n  <Select\n    value={tint}\n    onChange={onTint}\n    options={[{ value: 'none', label: 'No tint' }]}\n    groups={[\n      { label: 'Warm', options: [{ value: 'red', label: 'Red' }, { value: 'amber', label: 'Amber' }] },\n      { label: 'Cool', options: [{ value: 'blue', label: 'Blue' }, { value: 'teal', label: 'Teal' }] },\n    ]}\n  />\n);\n",
-      "propsHash": "542d397cacd3e04d",
+      "propsHash": "599be7e5e1a07cfb",
       "props": {
         "own": [
           {
@@ -3262,6 +3263,15 @@
             "text": "boolean"
           },
           {
+            "name": "width",
+            "optional": true,
+            "text": "FieldWidth",
+            "literals": [
+              "'fit'",
+              "'narrow'"
+            ]
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -3361,6 +3371,7 @@
         "--control-pad-sm",
         "--field-w-inline",
         "--field-w-inline-min",
+        "--field-w-narrow",
         "--leading-normal",
         "--listbox-attach",
         "--listbox-columns",
@@ -10193,6 +10204,10 @@
         "Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.",
         "Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.",
         "Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.",
+        "Pass columnHeight=\"fit\" to size each column to its cards instead of the board height; a column taller than the board still scrolls its cards.",
+        "Pass grip={false} to hide the drag grip: the cards no longer drag by pointer, and the arrow keys still move a card from a hidden grip button that shows a focus ring on the card.",
+        "Pass foldable={false} to remove the fold chevron from every column; a column listed in collapsed or defaultCollapsed then stays open.",
+        "Pass stack to stack the columns top to bottom when the board is under 420 px wide, through a container query on a wrapper; the default board scrolls sideways at any width.",
         "Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids."
       ],
       "a11y": [
@@ -10210,7 +10225,7 @@
         "rule": "KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards."
       },
       "example": "import { useState } from 'react';\nimport { Badge, KanbanBoard, Text, moveCard } from '@drizztdourden08/tessera';\nimport type { KanbanColumn } from '@drizztdourden08/tessera';\n\ninterface Task {\n  id: string;\n  title: string;\n  tag: string;\n}\n\nconst START: KanbanColumn<Task>[] = [\n  { id: 'todo', title: 'To do', cards: [{ id: 't1', title: 'Fix login', tag: 'bug' }] },\n  { id: 'doing', title: 'Doing', cards: [] },\n  { id: 'done', title: 'Done', cards: [] },\n];\n\nconst Tasks = () => {\n  const [columns, setColumns] = useState(START);\n  return (\n    <KanbanBoard\n      label=\"Sprint\"\n      columns={columns}\n      cardLabel={(task) => task.title}\n      renderCard={(task) => (\n        <>\n          <Text>{task.title}</Text>\n          <Badge variant=\"inline\" value={task.tag} color=\"info\" />\n        </>\n      )}\n      onMove={(move) => setColumns((now) => moveCard(now, move))}\n    />\n  );\n};\n",
-      "propsHash": "d54308a4e11234fe",
+      "propsHash": "83aeff1e1122a7c5",
       "props": {
         "own": [
           {
@@ -10249,6 +10264,33 @@
             "default": "'fixed'"
           },
           {
+            "name": "columnHeight",
+            "optional": true,
+            "text": "KanbanColumnHeight",
+            "literals": [
+              "'stretch'",
+              "'fit'"
+            ],
+            "default": "'stretch'"
+          },
+          {
+            "name": "grip",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "foldable",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "stack",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
             "name": "label",
             "optional": true,
             "text": "string"
@@ -10281,6 +10323,9 @@
         }
       },
       "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-focus",
         "--c-primary-bright",
         "--c-primary-soft",
         "--c-text-dim",

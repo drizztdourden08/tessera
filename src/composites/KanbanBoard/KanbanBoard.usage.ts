@@ -25,6 +25,10 @@ const usage = {
     'Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.',
     'Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.',
     'Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.',
+    'Pass columnHeight="fit" to size each column to its cards instead of the board height; a column taller than the board still scrolls its cards.',
+    'Pass grip={false} to hide the drag grip: the cards no longer drag by pointer, and the arrow keys still move a card from a hidden grip button that shows a focus ring on the card.',
+    'Pass foldable={false} to remove the fold chevron from every column; a column listed in collapsed or defaultCollapsed then stays open.',
+    'Pass stack to stack the columns top to bottom when the board is under 420 px wide, through a container query on a wrapper; the default board scrolls sideways at any width.',
     'Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids.',
   ],
   a11y: [
@@ -72,7 +76,7 @@ const Tasks = () => {
   );
 };
 `,
-  propsHash: 'd54308a4e11234fe',
+  propsHash: '83aeff1e1122a7c5',
 } satisfies ComponentUsage;
 
 export { usage };

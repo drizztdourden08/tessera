@@ -19,7 +19,7 @@ const KanbanLane = <Item extends KanbanCardData>({ column, index, collapsed, sha
   const listId = useId();
   const { id, title, cards, badge, action, top } = column;
   const start = slotOf(sizesOf(shared.columns), index, 0);
-  const toggle = <KanbanToggle columnId={id} title={title} collapsed={collapsed} controls={collapsed ? undefined : listId} onToggle={shared.onToggle} />;
+  const toggle = !shared.foldable ? null : <KanbanToggle columnId={id} title={title} collapsed={collapsed} controls={collapsed ? undefined : listId} onToggle={shared.onToggle} />;
   const name = kanbanBoard.column(title, cards.length);
   if (collapsed) {
     return (

@@ -44,3 +44,14 @@
 .kanban__card[data-dragging='yes'] .kanban__grip {
   cursor: grabbing;
 }
+
+.kanban--no-grip .kanban__grip {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.kanban--no-grip .kanban__card:has(.kanban__grip:focus-visible) {
+  outline: var(--border-width-thick) solid var(--c-focus);
+  outline-offset: var(--border-width-thin);
+}
