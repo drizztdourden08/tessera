@@ -81,7 +81,7 @@ const UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (
 - `onImage` (optional): `MarkdownImageHandler`.
 - `linkIds` (optional): `MarkdownLinkId | MarkdownLinkId[]`.
 - `smartTimes` (optional): `boolean`. Default `false`.
-- `linkTone` (optional): `LinkTone`, one of `'primary'`, `'secondary'`, `'neutral'`, `'danger'`, `'info'`.
+- `linkTone` (optional): `LinkTone`, one of `'primary'`, `'secondary'`, `'neutral'`, `'danger'`, `'info'`, `'link'`.
 - `className` (optional): `string`.
 
 ## Tokens

@@ -48,6 +48,7 @@
   --p-danger: #ec6279;
   --p-warning: #e0b341;
   --p-info: #5b9bd5;
+  --p-link: #9e9eff;
   --p-success: #5cb87a;
   --p-tag-rose: #f0718a;
   --p-tag-orange: #f59a5b;
@@ -153,6 +154,8 @@
   --c-info-soft: #5b9bd524;
   --c-info-bright: #80b1df;
   --c-on-info: #000;
+  --c-link: #9e9eff;
+  --c-link-hover: #b2b4ff;
   --c-success: #5cb87a;
   --c-success-dim: #232d28;
   --c-success-soft: #5cb87a24;

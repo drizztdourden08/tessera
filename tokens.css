@@ -129,6 +129,7 @@ input, select {
     --p-danger:       #ec6279;
     --p-warning:      #e0b341;
     --p-info:         #5b9bd5;
+    --p-link:         #9e9eff;
     --p-success:      #5cb87a;
     --p-tag-rose:     #f0718a;
     --p-tag-orange:   #f59a5b;
@@ -246,6 +247,8 @@ input, select {
     --c-info-soft:   color-mix(in srgb, var(--p-info) 14%, transparent);
     --c-info-bright: color-mix(in oklch, var(--p-info), var(--c-lift) 22%);
     --c-on-info:     var(--p-pure-black);
+    --c-link:        var(--p-link);
+    --c-link-hover:  color-mix(in oklch, var(--p-link), var(--c-lift) 22%);
     --c-success:        var(--p-success);
     --c-success-dim:    color-mix(in oklab, var(--p-success) 16%, var(--c-surface));
     --c-success-soft:   color-mix(in srgb, var(--p-success) 14%, transparent);
