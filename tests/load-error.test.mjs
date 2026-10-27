@@ -28,7 +28,7 @@ describe('Callout details', () => {
     expect(renderToString(h(Callout, { tone: 'danger' }, 'Note'))).toMatch(/^<div role="note" class="callout callout--box callout--danger">/);
     const html = renderToString(h(Callout, { tone: 'info', details: h('p', null, 'More') }, 'Note'));
     expect(html).toContain('class="callout callout--box callout--info callout--details"');
-    expect(html).toMatch(/callout__text">Note<\/p><div class="callout__details"><p>More<\/p><\/div><\/div>$/);
+    expect(html).toMatch(/callout__text">Note<\/div><div class="callout__details"><p>More<\/p><\/div><\/div>$/);
   });
 });
 
