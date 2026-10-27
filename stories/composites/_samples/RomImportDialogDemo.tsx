@@ -2,12 +2,13 @@
 import { useState } from 'react';
 import { Box, Button, Icon, Span } from '../../../src/primitives';
 import type { StepperOrientation } from '../../../src/primitives';
+import type { WizardDialogSize } from '../../../src/composites';
 import { RomImportWizard } from './RomImportWizard';
 
-type RomImportDialogDemoProps = { title: string; orientation: StepperOrientation; compact: boolean };
+type RomImportDialogDemoProps = { title: string; orientation: StepperOrientation; compact: boolean; size?: WizardDialogSize };
 
 const RomImportDialogDemo = (props: RomImportDialogDemoProps) => {
-  const { title, orientation, compact } = props;
+  const { title, orientation, compact, size } = props;
   const [run, setRun] = useState(0);
   const [open, setOpen] = useState(false);
   const [note, setNote] = useState('No ROM imported yet.');
@@ -26,6 +27,7 @@ const RomImportDialogDemo = (props: RomImportDialogDemoProps) => {
         title={title}
         orientation={orientation}
         compact={compact}
+        size={size}
         open={open}
         onExit={() => restart('Left without importing.')}
         onOpened={(label) => restart(`${label} is imported and its assets are extracted.`)}

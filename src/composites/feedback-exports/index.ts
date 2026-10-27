@@ -8,8 +8,8 @@ export {
   Wizard, WizardDialog, WizardExitGuard, WizardNav, WizardReview, WizardStep, useWizard, useWizardExit,
 } from '../Wizard';
 export type {
-  WizardApi, WizardButtonLook, WizardDialogProps, WizardExit, WizardExitGuardProps, WizardExitOptions, WizardNavProps,
-  WizardOptions, WizardProblem, WizardProps, WizardReviewProps, WizardReviewSection, WizardStepButtons, WizardStepDef, WizardStepProps, WizardValues,
+  WizardApi, WizardButtonLook, WizardDialogProps, WizardDialogSize, WizardExit, WizardExitGuardProps, WizardExitOptions, WizardNavProps,
+  WizardGoOptions, WizardOptions, WizardProblem, WizardProps, WizardReviewProps, WizardReviewSection, WizardStepButtons, WizardStepDef, WizardStepProps, WizardValues,
 } from '../Wizard';
 export { DisabledOverlay } from '../DisabledOverlay';
 export type { DisabledOverlayPlacement, DisabledOverlayProps, DisabledOverlayTone } from '../DisabledOverlay';

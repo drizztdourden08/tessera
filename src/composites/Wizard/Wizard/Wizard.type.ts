@@ -5,6 +5,7 @@ import type { WizardApi, WizardValues } from '../wizard.type';
 
 interface WizardProps<V extends WizardValues> {
   wizard: WizardApi<V>;
+  busy?: boolean;
   onExit: () => void;
   title?: string;
   orientation?: StepperOrientation;
