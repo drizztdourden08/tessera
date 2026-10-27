@@ -1,5 +1,5 @@
 /* @layer stories @kind types */
-type DocumentSet = 'three' | 'many' | 'unsaved' | 'none';
+type DocumentSet = 'three' | 'many' | 'unsaved' | 'phases' | 'none';
 
 type DocumentTabsArgs = {
   documents: DocumentSet;

@@ -1,13 +1,21 @@
 /* @layer renderer-components @kind types */
 import type { MenuEvent } from '../../primitives/dom/menu-event.type';
 import type { IconName } from '../../primitives/Icon';
+import type { StatusTone } from '../../primitives/Status';
 import type { ReorderDrag } from '../reorder/reorder.type';
+
+interface DocumentTabStatus {
+  label: string;
+  tone: StatusTone;
+  pulse?: boolean;
+}
 
 interface DocumentTab {
   id: string;
   title: string;
   icon?: IconName;
   unsaved?: boolean;
+  status?: DocumentTabStatus;
   tooltip?: string;
 }
 
@@ -75,4 +83,4 @@ interface ClosedTab {
   index: number;
 }
 
-export type { ClosedTab, DocumentTab, DocumentTabAddProps, DocumentTabCloseProps, DocumentTabClosesProps, DocumentTabProps, DocumentTabsMenuProps, DocumentTabsProps, TabKeysInput };
+export type { ClosedTab, DocumentTab, DocumentTabAddProps, DocumentTabCloseProps, DocumentTabClosesProps, DocumentTabProps, DocumentTabStatus, DocumentTabsMenuProps, DocumentTabsProps, TabKeysInput };

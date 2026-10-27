@@ -1,0 +1,29 @@
+/* @layer renderer-components @kind style */
+.seat-grid {
+  --seat-grid-min: var(--size-224);
+  --seat-grid-gap: var(--space-md);
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--seat-grid-min)), 1fr));
+  gap: var(--seat-grid-gap);
+}
+
+.seat-grid[data-min='sm'] {
+  --seat-grid-min: var(--size-160);
+}
+
+.seat-grid[data-min='lg'] {
+  --seat-grid-min: var(--size-288);
+}
+
+.seat-grid[data-gap='xs'] {
+  --seat-grid-gap: var(--space-xs);
+}
+
+.seat-grid[data-gap='sm'] {
+  --seat-grid-gap: var(--space-sm);
+}
+
+.seat-grid[data-gap='lg'] {
+  --seat-grid-gap: var(--space-lg);
+}
