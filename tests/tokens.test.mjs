@@ -64,7 +64,7 @@ describe('the text colours', () => {
   it('keeps the old faint grey as a disabled text colour under the readable ones', () => {
     const css = committed('src/tokens/canonical.css');
     expect(css).toContain('--c-text-disabled: var(--p-tertiary-800);');
-    expect(css).toContain('--c-text-faint:    var(--p-tertiary-600);');
+    expect(css).toContain('--c-text-faint:    var(--p-text-faint, var(--p-tertiary-600));');
   });
 });
 
