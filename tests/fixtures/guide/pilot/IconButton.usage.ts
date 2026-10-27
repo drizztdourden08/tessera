@@ -35,7 +35,7 @@ const EditRow = ({ onEdit }: { onEdit: () => void }) => (
   </IconButton>
 );
 `,
-  propsHash: 'fa013d776dd7e6b1',
+  propsHash: '0156c5d1c590dda3',
 } satisfies ComponentUsage;
 
 export { usage };

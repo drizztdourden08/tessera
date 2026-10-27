@@ -1,66 +1,30 @@
 /* @layer renderer-components @kind component */
-import { HIT_AREA_CLASS } from '../dom/hit-area.constants';
-import { Icon } from '../Icon';
-import { IconButton } from '../IconButton';
-import { Pressable } from '../Pressable';
-import { Span } from '../text-elements';
-import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { tagClass } from './behavior/tag-class';
 import { tagPaint } from './behavior/tag-paint';
+import { TagAnchor } from './sub-components/TagAnchor';
+import { TagBody } from './sub-components/TagBody';
+import { TagChip } from './sub-components/TagChip';
+import { TagToggle } from './sub-components/TagToggle';
 import type { TagProps } from './Tag.type';
 import './Tag.css';
 
 const Tag = (props: TagProps) => {
   const {
-    variant, color, selected, onSelect, role, onRemove, name, disabled = false, title, className, children, ...data
+    variant, color, pill, dot, icon, selected, onSelect, role, onRemove, name, disabled = false, title, className, children,
+    href, navigate, onClick, target, rel, ...data
   } = props;
-  const cls = tagClass(props);
-  const paint = tagPaint(props);
-  const { common } = useTesseraStrings();
-  const body = (
-    <>
-      {variant === 'category' && <span className="tag__dot" aria-hidden />}
-      <Span className="tag__text">{children}</Span>
-    </>
-  );
+  const frame = {
+    cls: tagClass(props),
+    paint: tagPaint(props),
+    title,
+    disabled,
+    data,
+    body: <TagBody variant={variant} dot={dot} icon={icon}>{children}</TagBody>,
+  };
 
-  if (onSelect !== undefined) {
-    const radio = role === 'radio';
-    return (
-      <Pressable
-        className={cls}
-        style={paint}
-        role={role}
-        aria-pressed={radio ? undefined : selected}
-        aria-checked={radio ? selected : undefined}
-        disabled={disabled}
-        title={title}
-        onClick={onSelect}
-        {...data}
-      >
-        {body}
-      </Pressable>
-    );
-  }
-
-  return (
-    <span className={cls} style={paint} title={title} {...data}>
-      {body}
-      {onRemove !== undefined && (
-        <IconButton
-          className={`tag__remove ${HIT_AREA_CLASS}`}
-          variant="ghost"
-          size="sm"
-          label={common.removeNamed(name ?? String(children))}
-          disabled={disabled}
-          tabIndex={disabled ? -1 : 0}
-          onClick={onRemove}
-        >
-          <Icon name="x" />
-        </IconButton>
-      )}
-    </span>
-  );
+  if (onSelect !== undefined) return <TagToggle {...frame} role={role} selected={selected} onSelect={onSelect} />;
+  if (href !== undefined) return <TagAnchor {...frame} href={href} navigate={navigate} onClick={onClick} target={target} rel={rel} />;
+  return <TagChip {...frame} label={name ?? String(children)} onRemove={onRemove} />;
 };
 
 export { Tag };

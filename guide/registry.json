@@ -720,6 +720,11 @@
               "Table"
             ]
           },
+          "a flat table of rows that drops columns as it narrows": {
+            "components": [
+              "TrackTable"
+            ]
+          },
           "filters over a collection": {
             "components": []
           },
@@ -2366,6 +2371,7 @@
         "It is the scroller: the reset keeps html and body locked and the frame is 100dvh tall, so the page behind it never moves.",
         "Set fill to take the height of its parent instead of the window, such as a page inside a pane.",
         "Set width to sm, md or lg to centre the content in a column of that size; leave it out for the full width.",
+        "Set padding to md for a 16px page padding in place of the 24px default.",
         "The padding is the page padding token. It is a ScrollArea, so it takes className and the other ScrollArea props except axis, gutter included: set gutter stable when the page reflows with width.",
         "PageFrame keeps the root locked and scrolls inside one frame; PageRoot instead lets the whole document scroll."
       ],
@@ -2381,7 +2387,7 @@
         "rule": "PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document."
       },
       "example": "import { PageFrame, Title } from '@drizztdourden08/tessera';\n\nconst AccountPage = () => (\n  <PageFrame width=\"md\">\n    <Title>Account</Title>\n  </PageFrame>\n);\n",
-      "propsHash": "b10190054e27f636",
+      "propsHash": "24f23bbef9a5f7cd",
       "props": {
         "own": [
           {
@@ -2393,6 +2399,16 @@
               "'md'",
               "'lg'"
             ]
+          },
+          {
+            "name": "padding",
+            "optional": true,
+            "text": "PageFramePadding",
+            "literals": [
+              "'md'",
+              "'lg'"
+            ],
+            "default": "'lg'"
           },
           {
             "name": "fill",
@@ -2458,6 +2474,7 @@
         "--page-frame-w-lg",
         "--page-frame-w-md",
         "--page-frame-w-sm",
+        "--space-lg",
         "--space-xl"
       ],
       "gallery": {
@@ -3822,6 +3839,8 @@
         "Pass a word and a tone for a state that shows in one place; pass map and value for a kind of state that shows on several screens.",
         "Declare each table once with defineStatuses, in a constants file beside the model it describes, and import it where the state shows.",
         "Give every word in sentence case; the pill variant sets it in capitals itself.",
+        "Set size to sm for a row 18px tall, such as inside a table cell; leave it out for the normal size.",
+        "Set dotSize to lg for an 8px dot, and halo for a soft ring in the tone behind it, such as a node that is up; halo draws the dot even without dot.",
         "Set pulse only on states that are still moving, such as starting or syncing.",
         "Pass fallback for a value that can be missing, such as a state not fetched yet."
       ],
@@ -3838,7 +3857,7 @@
         "rule": "Status draws one word in the tone of its state; with a table from defineStatuses, a state reads the same on every screen."
       },
       "example": "import { defineStatuses, Status } from '@drizztdourden08/tessera';\n\nconst ENGINE_STATES = defineStatuses({\n  ready: { label: 'Ready', tone: 'success' },\n  building: { label: 'Setting up', tone: 'warning', pulse: true },\n  failed: { label: 'Broken', tone: 'danger' },\n  unknown: { label: 'Checking', tone: 'neutral' },\n});\n\nconst Sync = () => <Status tone=\"warning\" dot pulse>Syncing</Status>;\n\nconst EngineState = ({ state }: { state?: 'ready' | 'building' | 'failed' }) => (\n  <Status map={ENGINE_STATES} value={state} fallback=\"unknown\" dot />\n);\n",
-      "propsHash": "0f2e7a81aebe29c7",
+      "propsHash": "e6c93de8125d4d10",
       "props": {
         "own": [
           {
@@ -3888,14 +3907,35 @@
             "literals": [
               "'text'",
               "'pill'"
-            ],
-            "default": "'text'"
+            ]
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "StatusSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
           },
           {
             "name": "dot",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
+          },
+          {
+            "name": "dotSize",
+            "optional": true,
+            "text": "StatusDotSize",
+            "literals": [
+              "'md'",
+              "'lg'"
+            ]
+          },
+          {
+            "name": "halo",
+            "optional": true,
+            "text": "boolean"
           }
         ],
         "inherited": {
@@ -3946,9 +3986,12 @@
         "--c-warning-soft",
         "--radius-pill",
         "--radius-round",
+        "--size-3",
         "--size-6",
+        "--size-8",
         "--space-sm",
         "--space-xs",
+        "--status-h-sm",
         "--text-sm",
         "--text-xs",
         "--tracking-wide",
@@ -5904,6 +5947,7 @@
       "rules": [
         "Leave backdrop out for the default art, pass a scene of your own, or pass null for a plain header. For an image or a colour, pass a BackdropLayer.",
         "Use strip for a few controls after the title, such as HeaderAnchorNav pills, and actions for the end.",
+        "Set variant to plain for a title row with no panel: no backdrop, no gradient and no bottom border.",
         "Set compact once the content under it scrolls; it shrinks to a slim row.",
         "On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, or Back alone with no label, before the icon, and folds to an arrow when the row has no room for it.",
         "level sets the heading tag, h2 by default; pick the level that fits the page outline."
@@ -5922,7 +5966,7 @@
         "rule": "ContentHeader is the header with an icon, a title and a backdrop that any container can carry."
       },
       "example": "import { ContentHeader, HeaderAnchorNav, Icon } from '@drizztdourden08/tessera';\n\nconst GeneralHeader = ({ section, onSection }: { section: string; onSection: (id: string) => void }) => (\n  <ContentHeader\n    icon={<Icon name=\"settings\" />}\n    title=\"General\"\n    strip={<HeaderAnchorNav items={[{ id: 'startup', label: 'Startup' }, { id: 'tray', label: 'Tray' }]} activeId={section} onSelect={onSection} ariaLabel=\"General sections\" />}\n  />\n);\n",
-      "propsHash": "5ce7aa90f11760b4",
+      "propsHash": "bc6ef7432d73439d",
       "props": {
         "own": [
           {
@@ -5960,6 +6004,15 @@
             "optional": true,
             "text": "boolean",
             "default": "false"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "ContentHeaderVariant",
+            "literals": [
+              "'panel'",
+              "'plain'"
+            ]
           },
           {
             "name": "level",
@@ -6858,7 +6911,8 @@
         "Pass renderCell(row, path) to draw a cell yourself, such as a thumbnail beside a name; return undefined to keep the schema rendering of that cell.",
         "A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.",
         "Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.",
-        "Pass rowState(row) to mark a row active, pending, error, warning or muted; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar, and a selected row keeps the selection background.",
+        "Pass rowState(row) to mark a row active, pending, error, warning, muted or fresh; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar and fresh a soft info tint for rows that just arrived, and a selected row keeps the selection background.",
+        "Set headerCase to upper for capital column labels with wide letter spacing; the labels you pass keep their case in the data.",
         "Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.",
         "A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.",
         "Pass detailRowId with renderDetail(row) to open a panel under one row, such as an inline confirm or a small form; it spans every column, works in groups and with sort, and the app keeps the id and clears it from onDetailClose.",
@@ -6881,7 +6935,7 @@
         "rule": "DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long."
       },
       "example": "import { DataTable } from '@drizztdourden08/tessera';\nimport type { FieldDescriptor } from '@drizztdourden08/tessera';\n\ninterface Peer {\n  id: string;\n  name: string;\n  state: string;\n}\n\nconst openGroups = ['Connected'];\n\ninterface PeerTableProps {\n  peers: Peer[];\n  schema: FieldDescriptor[];\n}\n\nconst PeerTable = ({ peers, schema }: PeerTableProps) => (\n  <DataTable\n    rows={peers}\n    schema={schema}\n    getRowId={(peer) => peer.id}\n    fallbackGroupBy={['state']}\n    defaultExpanded={openGroups}\n    countLabel={['peer', 'peers']}\n  />\n);\n",
-      "propsHash": "e1ab5b31f0cc68f2",
+      "propsHash": "1b533b6d9fa991ac",
       "props": {
         "own": [
           {
@@ -7001,6 +7055,15 @@
             "text": "(row: T) => RowState | undefined"
           },
           {
+            "name": "headerCase",
+            "optional": true,
+            "text": "HeaderCase",
+            "literals": [
+              "'normal'",
+              "'upper'"
+            ]
+          },
+          {
             "name": "rowHeight",
             "optional": true,
             "text": "VirtualSize"
@@ -7092,6 +7155,7 @@
         "--c-danger-soft",
         "--c-hairline",
         "--c-hover",
+        "--c-info-soft",
         "--c-primary",
         "--c-primary-bright",
         "--c-primary-dim",
@@ -7134,6 +7198,7 @@
         "--table-select-w",
         "--text-sm",
         "--text-xs",
+        "--tracking-caps",
         "--transition-fast",
         "--z-floating",
         "--z-sticky"
@@ -8960,7 +9025,8 @@
         "--tour-intro-w",
         "--weight-medium",
         "--z-floating",
-        "--z-popover"
+        "--z-popover",
+        "--z-title-bar"
       ],
       "gallery": {
         "title": "Composites · Overlays/GuidedTour",
@@ -15872,6 +15938,123 @@
         "toolbarOrientation",
         "useToolbarLayout"
       ]
+    },
+    {
+      "name": "TrackTable",
+      "tier": "composites",
+      "source": "src/composites/TrackTable/TrackTable.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A flat, read-only table whose columns share the width in fractions and drop out, least needed first, as the table narrows.",
+      "useWhen": [
+        "A few rows with a few cells each, such as the agents of a node, sit on a page or inside a card with no frame of their own.",
+        "The table lives in a pane or a drawer whose width changes, and the least needed columns may leave when it is narrow."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user sorts, groups, resizes or selects among many records.",
+          "use": "DataTable"
+        },
+        {
+          "case": "The user edits the rows in place.",
+          "use": "RowGrid"
+        },
+        {
+          "case": "Each row is a label and a value, with no columns to compare.",
+          "use": "StatRow"
+        }
+      ],
+      "rules": [
+        "Give each column a fr, its share of the width; leave it out for 1.",
+        "Mark a column drop 1, 2 or 3 to hide it below 768, 640 or 480 px of table width; 1 leaves first.",
+        "Never mark the column that names the row: it stays at every width.",
+        "Draw state with Status and groups with Tag inside cell; the table sets no look for them.",
+        "Put the table in a Card when it needs a frame; it draws no border or background.",
+        "Pass empty for the message shown when there are no rows."
+      ],
+      "a11y": [
+        "The table is named by label, and each cell is read in its row; a dropped column is removed from the reading order too.",
+        "Give a column whose label would be a symbol a text label, since the header is the only name of its cells."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a flat table of rows that drops columns as it narrows"
+        ],
+        "rule": "TrackTable shares the width by fractions and drops the least needed columns by the width of the table, not the window."
+      },
+      "example": "import { Status, TrackTable } from '@drizztdourden08/tessera';\nimport type { TrackColumn } from '@drizztdourden08/tessera';\n\ninterface Agent {\n  id: string;\n  name: string;\n  online: boolean;\n  seen: string;\n}\n\nconst COLUMNS: TrackColumn<Agent>[] = [\n  { id: 'name', label: 'Agent', fr: 2, cell: (agent) => agent.name },\n  { id: 'state', label: 'State', cell: (agent) => <Status tone={agent.online ? 'success' : 'danger'} dot halo>{agent.online ? 'Online' : 'Offline'}</Status> },\n  { id: 'seen', label: 'Last seen', drop: 1, cell: (agent) => agent.seen },\n];\n\nconst Agents = ({ agents }: { agents: Agent[] }) => (\n  <TrackTable label=\"Agents\" rows={agents} columns={COLUMNS} rowKey={(agent) => agent.id} />\n);\n",
+      "propsHash": "830c80514f84ab18",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "rows",
+            "optional": false,
+            "text": "readonly Row[]"
+          },
+          {
+            "name": "columns",
+            "optional": false,
+            "text": "readonly TrackColumn<Row>[]"
+          },
+          {
+            "name": "rowKey",
+            "optional": false,
+            "text": "(row: Row) => string"
+          },
+          {
+            "name": "head",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "empty",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-text-muted",
+        "--size-32",
+        "--size-40",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-xs",
+        "--track-cols-0",
+        "--track-cols-1",
+        "--track-cols-2",
+        "--track-cols-3",
+        "--tracking-wide"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/TrackTable",
+        "route": "#/story/composites-tracktable--overview",
+        "file": "stories/composites/TrackTable.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "UtilityScreen",

@@ -13,6 +13,7 @@ import { useSpotlight } from './useSpotlight';
 import { useTourFocus } from './useTourFocus';
 import { useTourInert } from './useTourInert';
 import { useTourKeys } from './useTourKeys';
+import { useTopLayer } from './useTopLayer';
 
 const useTourStage = (tour: GuidedTourApi, keep: readonly TourTarget[] | undefined) => {
   const rootRef = useRef<HTMLElement | null>(null);
@@ -30,6 +31,7 @@ const useTourStage = (tour: GuidedTourApi, keep: readonly TourTarget[] | undefin
   const reachable = useSameNodes(reach.reachable);
   const spot = useSpotlight(root, stage.target, useSameNodes(reach.holes), held && `${held.index} ${held.id}`);
   const bubbled = useBubblePlace(bubble, stage.step, stage.target, spot);
+  useTopLayer(root);
   useTourInert(root, reachable);
   useTourFocus(root, bubble);
   useTourKeys(tour, root, bubble, stage.waits);

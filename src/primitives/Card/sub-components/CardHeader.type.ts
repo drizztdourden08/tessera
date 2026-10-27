@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import type { CardHeading } from '../Card.type';
 
 interface CardHeaderProps extends CardHeading {
-  title: ReactNode;
+  header?: ReactNode;
 }
 
 export type { CardHeaderProps };

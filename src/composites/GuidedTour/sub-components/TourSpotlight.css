@@ -1,4 +1,15 @@
 /* @layer renderer-components @kind style */
+.tour-layer {
+  inline-size: 100%;
+  block-size: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow: visible;
+  background: none;
+  color: inherit;
+}
+
 .tour-spotlight__veil {
   pointer-events: auto;
   transition: clip-path var(--duration-drawer) var(--ease-emphasized);
@@ -6,7 +17,7 @@
 
 .tour-spotlight__ring {
   position: fixed;
-  z-index: var(--z-floating);
+  z-index: var(--z-title-bar);
   inset: 0 auto auto 0;
   box-sizing: border-box;
   margin: 0;

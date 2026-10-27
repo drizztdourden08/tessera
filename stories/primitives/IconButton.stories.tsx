@@ -60,7 +60,7 @@ const ARG_TYPES: PlaygroundArgTypes<IconButtonArgs> = {
     label: { group: 'Content', control: 'text', description: 'Accessible name, read by screen readers.' },
     glyph: { group: 'Content', control: 'select', options: Object.keys(GLYPHS) as GlyphName[], optionView: (name) => <Icon name={GLYPHS[name]} size={16} /> },
     variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
-    tone: { group: 'Appearance', control: 'select', options: ['none', 'danger'], description: 'Draws a ghost button in a status colour with a soft glow.' },
+    tone: { group: 'Appearance', control: 'select', options: ['none', 'danger', 'info', 'accent'], description: 'Draws a ghost button in a status colour with a soft glow; accent is the brand colour.' },
     size: { group: 'Appearance', control: 'select', options: ['xs', 'sm', 'md'] },
     active: { group: 'State', control: 'boolean' },
     loading: { group: 'State', control: 'boolean', description: 'Shows the spinner in place of the icon and disables the button.' },
@@ -110,14 +110,18 @@ const AllVariants = {
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
-const DangerTone = {
-  name: 'Danger tone',
+const TONES: readonly IconButtonTone[] = ['danger', 'info', 'accent'];
+
+const Tones = {
+  name: 'Danger, info and accent tones',
   render: () => (
-    <Flex gap="sm" align="center">
-      {SIZES.map((size) => (
-        <IconButton key={size} label={`${LABELS.bug}, ${size}`} tone="danger" size={size}>{glyph('bug', size)}</IconButton>
-      ))}
-    </Flex>
+    <Demonstrator
+      rows={axis(TONES)}
+      columns={axis(SIZES)}
+      cell={(tone, size) => (
+        <IconButton label={`${LABELS.bug}, ${tone} ${size}`} tone={tone} size={size}>{glyph('bug', size)}</IconButton>
+      )}
+    />
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
@@ -182,14 +186,14 @@ const Overview = overviewStory({
     'It takes the variants and sizes of [Button]: `md` 39, `sm` 28 and `xs` 20 px. Header back and close buttons are `md`.',
     '`xs` is for dense rows, compact panels and widget title bars. An unsized icon draws at 16 px in `md`, 12 px below.',
     '`active` marks a toggle as on; `loading` swaps the icon for a [Spinner] and stops clicks.',
-    '`tone="danger"` draws a ghost button in red, for a remove or a report a bug button.',
+    '`tone` tints a ghost button with a soft glow: `danger`, `info`, or `accent` in the brand colour.',
     '`hint` reports a one-line description to the [HintScope] around it, for a [HintLine] to show.',
   ],
   instead: '[Button] when a word fits.',
   playground: Playground,
-  variants: [AllVariants, DangerTone, Loading],
+  variants: [AllVariants, Tones, Loading],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, DangerTone, Loading, Overview, Playground, Toolbar };
+export { AllVariants, Loading, Overview, Playground, Tones, Toolbar };

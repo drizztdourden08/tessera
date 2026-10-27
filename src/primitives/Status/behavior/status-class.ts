@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind util */
-import type { DrawnStatus, StatusVariant } from '../Status.type';
+import type { DrawnStatus, StatusClassLook } from '../Status.type';
 
-const statusClass = (drawn: DrawnStatus, variant: StatusVariant, withDot: boolean, className: string): string => [
-  'status', `status--${variant}`, `status--${drawn.tone}`, withDot && 'status--dot', drawn.pulse && 'status--pulse', className,
+const statusClass = (drawn: DrawnStatus, look: StatusClassLook, className: string): string => [
+  'status', `status--${look.variant}`, `status--${drawn.tone}`, look.size === 'sm' && 'status--sm', look.withDot && 'status--dot', look.withDot && look.dotSize === 'lg' && 'status--dot-lg', look.withDot && look.halo && 'status--halo', drawn.pulse && 'status--pulse', className,
 ].filter(Boolean).join(' ');
 
 export { statusClass };
