@@ -18,6 +18,7 @@ const usage = {
     'When options and groups are both given, the options come first with no heading, then each group under its label. A group never hides the options.',
     'An option that sits in a group is not repeated in options; put it in one place only.',
     'The app owns the value: pass value and onChange for one choice, values and onValuesChange for several.',
+    'Pass grow={false} to keep a fixed width (the token --field-w-inline, 256 px, shrinking to 160 px) beside other tools in a toolbar; TextInput, SearchInput and Combobox take the same prop.',
     'Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen.',
   ],
   a11y: [

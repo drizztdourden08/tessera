@@ -4,7 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { InlineEdit } from '../src/composites/InlineEdit';
 import { useInlineEditField } from '../src/composites/InlineEdit/behavior/useInlineEditField';
-import { guardCellControl } from '../src/composites/DataTable/behavior/guard-cell-control';
+import { guardCellControl } from '../src/primitives/dom/guard-cell-control';
 import { nameEditKey } from '../src/primitives/field-control/name-edit-key';
 
 const noop = () => undefined;

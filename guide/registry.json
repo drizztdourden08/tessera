@@ -1550,6 +1550,7 @@
         "Pass defaultOpen to start it open, and onOpenChange to hear each toggle, such as to load a log only once it opens.",
         "A later change to defaultOpen opens or closes it, so a part can open it when a job fails.",
         "Pass open with onOpenChange when the app holds the state, such as Open all over a list of groups; a click then only asks.",
+        "Pass end for something at the right of the line, such as a count or a Button; a click inside it never opens or closes the disclosure.",
         "Use size sm for a line in small text, such as inside a settings row.",
         "Pass bodyClassName to lay out the body, such as a column of rows with a gap, in place of a selector on its class."
       ],
@@ -1565,12 +1566,17 @@
         "rule": "Disclosure shows or hides what is under one line with the browser details element, with one look for every app."
       },
       "example": "import { Disclosure, Paragraph } from '@drizztdourden08/tessera';\n\nconst ReleaseNotes = ({ notes }: { notes: string }) => (\n  <Disclosure summary=\"What is new\">\n    <Paragraph tone=\"dim\">{notes}</Paragraph>\n  </Disclosure>\n);\n",
-      "propsHash": "962e5c6e4acd7bf9",
+      "propsHash": "11001f6a74ac4af7",
       "props": {
         "own": [
           {
             "name": "summary",
             "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "end",
+            "optional": true,
             "text": "ReactNode"
           },
           {
@@ -2970,6 +2976,7 @@
         "When options and groups are both given, the options come first with no heading, then each group under its label. A group never hides the options.",
         "An option that sits in a group is not repeated in options; put it in one place only.",
         "The app owns the value: pass value and onChange for one choice, values and onValuesChange for several.",
+        "Pass grow={false} to keep a fixed width (the token --field-w-inline, 256 px, shrinking to 160 px) beside other tools in a toolbar; TextInput, SearchInput and Combobox take the same prop.",
         "Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen."
       ],
       "a11y": [

@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { guardCellControl } from '../behavior/guard-cell-control';
+import { guardCellControl } from '../../../primitives/dom/guard-cell-control';
 import { placeProps } from '../behavior/place-props';
 import { rowAttrs } from '../behavior/row-attrs';
 import { rowCell } from '../behavior/row-cell';

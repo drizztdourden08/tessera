@@ -9,6 +9,10 @@
   background: var(--c-inset);
 }
 
+.inline-create-form--dashed {
+  border-style: dashed;
+}
+
 .inline-create-form__error {
   font-size: var(--control-font-dense);
 }

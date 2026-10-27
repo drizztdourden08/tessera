@@ -18,6 +18,8 @@ interface ListItemRowProps {
   name: ReactNode;
   meta?: ReactNode;
   icon?: ReactNode;
+  lead?: ReactNode;
+  flat?: boolean;
   media?: ReactNode;
   mediaAspect?: number;
   mediaWidth?: number;

@@ -5,6 +5,7 @@ import { FieldControlContext } from '../../primitives/field-control/field-contro
 import { useControlSize } from '../../primitives/field-control/useControlSize';
 import { useNameEdit } from '../../primitives/field-control/useNameEdit';
 import { Span } from '../../primitives/text-elements';
+import { formClass } from './behavior/form-class';
 import { InlineCreateActions } from './sub-components/InlineCreateActions';
 import { InlineCreateCompactRow } from './sub-components/InlineCreateCompactRow';
 import { InlineCreateName } from './sub-components/InlineCreateName';
@@ -15,15 +16,14 @@ import './InlineCreateForm.css';
 const InlineCreateForm = (props: InlineCreateFormProps) => {
   const {
     onCreate, onCancel, extraFields, canSubmit = true, error, placeholder, label, defaultValue = '',
-    submitLabel, cancelLabel, compact = false, size, className = '',
+    submitLabel, cancelLabel, compact = false, dashed = false, size, className = '',
   } = props;
   const edit = useNameEdit({ name: defaultValue, onKeep: onCreate, onUndo: onCancel, canKeep: canSubmit });
   const errorId = useId();
   const controlSize = useControlSize(size);
   const control = useMemo(() => ({ size: controlSize }), [controlSize]);
   const invalid = error != null;
-  const classes = ['inline-create-form', `control-size--${controlSize}`, compact && 'inline-create-form--compact', className]
-    .filter(Boolean).join(' ');
+  const classes = formClass({ size: controlSize, compact, dashed, className });
 
   const nameInput = (
     <InlineCreateName
