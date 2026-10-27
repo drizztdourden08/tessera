@@ -129,9 +129,8 @@ const Overview = overviewStory({
   description: 'A panel that slides in from one edge over a scrim, for details, filters or a quick search that should not take a whole page.',
   points: [
     '`side` picks the edge: `right` by default, `left` or `top`.',
-    '`title` and `subtitle` fill a header with a close button; `actions` sit in a footer row.',
-    '`look="record"` keeps chips in the eyebrow as authored and draws the title in the text colour, in sentence case.',
-    '`eyebrow` adds a small line above the title; `headerActions` put icon buttons beside close.',
+    '`title`, `subtitle` and an `eyebrow` line fill the header; `actions` sit in a footer row.',
+    '`look="record"` keeps eyebrow chips as written and a plain sentence-case title.',
     '`size` runs `md`, `lg`, `wide` and `xl`; any size is full width under 480 px.',
     'A tap on the scrim, the close button or [[Esc]] calls `onClose`; focus stays inside while it is open.',
     'A long `title` wraps instead of cutting. The body pads and scrolls; `label` names a panel with no `title`.',
