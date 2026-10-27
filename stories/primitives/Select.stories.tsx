@@ -9,6 +9,7 @@ import { overviewStory } from '../_template/overview-story';
 import { REGION_OPTIONS } from './_samples/picker-data';
 import { SELECT_CODE } from './_samples/picker-emoji';
 import { PICKER_ARG_TYPES, pickerSizes, pickerStates, pickerVariant } from './_samples/picker-story';
+import { FitSelect } from './_samples/width-demos';
 import { SelectPlayground } from './_samples/select-playground';
 import { TagsCount, TagsFit, TagsOverflow } from './_samples/select-tags';
 import {
@@ -91,6 +92,11 @@ const StatefulNativeSelect = (props: { disabled?: boolean; size?: ControlSize })
   );
 };
 
+const FitWidth = {
+  name: 'width fit: the trigger is as wide as its content',
+  render: () => <FitSelect />,
+} satisfies Story;
+
 const Native = {
   name: 'NativeSelect',
   render: () => (
@@ -108,17 +114,17 @@ const Overview = overviewStory({
   points: [
     '`items` takes strings, `{ value, label }` objects or any object; `getKey` names what identifies one.',
     'Object items draw as rows of columns, or with your own `itemComponent`.',
-    '`groupBy` and `categories` split the list under headers.',
+    '`groupBy` and `categories` split the list under headers; `width="fit"` sizes the trigger to its label.',
     '`max` above 1 adds a checkbox per row, and `min={0}` lets the user clear the field.',
     'Arrow keys move and typing jumps to a label; [[Space]] or [[Enter]] picks.',
     '`NativeSelect` wraps the browser select, for a form or a touch screen.',
   ],
   instead: '[Combobox] to narrow a long list by typing.',
   playground: Playground,
-  variants: VARIANTS,
+  variants: [...VARIANTS, FitWidth],
   states: pickerStates('select', {}),
   code: SELECT_CODE,
 });
 
 export default meta;
-export { Native, Overview, Playground };
+export { FitWidth, Native, Overview, Playground };

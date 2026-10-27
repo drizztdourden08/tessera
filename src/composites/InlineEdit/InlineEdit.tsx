@@ -6,7 +6,7 @@ import { InlineEditField } from './sub-components/InlineEditField';
 import { InlineEditView } from './sub-components/InlineEditView';
 
 const InlineEdit = (props: InlineEditProps) => {
-  const { value, onCommit, label, placeholder, disabled = false, validate, multiline = false, size, renderValue, className } = props;
+  const { value, onCommit, label, placeholder, disabled = false, validate, multiline = false, size, renderValue, look = 'field', className } = props;
   const { inlineEdit } = useTesseraStrings();
   const { editing, buttonRef, start, done } = useInlineEditing();
   const name = label ?? (value === '' ? (placeholder ?? inlineEdit.fallbackName) : value);
@@ -34,6 +34,7 @@ const InlineEdit = (props: InlineEditProps) => {
       disabled={disabled}
       multiline={multiline}
       renderValue={renderValue}
+      look={look}
       buttonRef={buttonRef}
       className={className}
       onStart={start}

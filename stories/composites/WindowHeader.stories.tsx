@@ -146,6 +146,19 @@ const TitleOnly = {
   render: (args) => <SaveFilesWindow {...args} subtitle="" withClose={false} withExtra={false} />,
 } satisfies PlaygroundStory<WindowHeaderArgs>;
 
+const StackedNarrow = {
+  name: 'Stacked: under 420 px the close button joins the tools row under the title',
+  render: () => (
+    <Box className="story-column">
+      {NARROW_WIDTHS.map((width) => (
+        <Box key={width} className={`window-header-story__strip window-header-story__strip--${width}`}>
+          <WindowHeader title="Save files" subtitle="Mira's profile" extra={HEADER_EXTRA} onClose={ignoreClose} stackNarrow />
+        </Box>
+      ))}
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<WindowHeaderArgs>;
+
 const Overview = overviewStory({
   component: 'WindowHeader',
   description: 'The title bar of windows, dialogs and drawers: a title, an optional subtitle, extra content and a close button.',
@@ -154,12 +167,13 @@ const Overview = overviewStory({
     '`extra` takes content such as a [Status] or a button, before the close button.',
     '`back` draws a back button before the title; the host wires [[Alt+Left]] and the mouse back button.',
     'It stays one row: the subtitle shortens first, then `extra` hides, then the title shortens.',
+    '`stackNarrow` moves the close button under the title, in a tools row, when the header is under 420 px.',
     '`titleWrap` lets a long title run onto more lines in place of the ellipsis, such as a save name.',
   ],
   instead: '[WindowTitleBar] for the title bar of a whole app window.',
   playground: Playground,
-  variants: [InWindow, Narrow, WithBack, NarrowBack, Wrapped, TitleOnly],
+  variants: [InWindow, Narrow, WithBack, NarrowBack, StackedNarrow, Wrapped, TitleOnly],
 });
 
 export default meta;
-export { InWindow, Narrow, NarrowBack, Overview, Playground, TitleOnly, WithBack, Wrapped };
+export { InWindow, Narrow, NarrowBack, Overview, Playground, StackedNarrow, TitleOnly, WithBack, Wrapped };

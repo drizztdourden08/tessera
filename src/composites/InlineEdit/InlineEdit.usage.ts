@@ -20,6 +20,7 @@ const usage = {
     'Pass validate to return a message for text that is not allowed; it shows under the field and nothing is committed until it returns nothing.',
     'Pass multiline for a text area, where Enter adds a line and Mod+Enter commits.',
     'Pass renderValue to draw the text when it is not edited, such as Markdown; the click, Enter and F2, and the name stay the same, and the field is unchanged.',
+    'Pass look link to draw the text with a dashed underline and in italic, for a value that reads as a link to change; the default look is unchanged.',
     'A link or a control inside the drawn text does not start the edit when clicked; only a click on the rest of the text does.',
     'Pass label to name the text for a screen reader, placeholder to stand in for an empty text, and disabled to show the text only.',
   ],
@@ -49,7 +50,7 @@ const CardTitle = () => {
   );
 };
 `,
-  propsHash: '16e99e2a183ff159',
+  propsHash: 'b1247452d5edfd81',
 } satisfies ComponentUsage;
 
 export { usage };

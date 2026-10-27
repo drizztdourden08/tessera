@@ -1,9 +1,10 @@
 /* @layer stories @kind component */
+import { useState } from 'react';
 import { TrackTable } from '../../../src/composites';
 import type { TrackColumn } from '../../../src/composites';
 import { Box, Status, Tag, Text } from '../../../src/primitives';
-import { TRACK_AGENTS, TRACK_STATES } from './track-table-agents.constants';
-import type { TrackAgent, TrackWidth } from './track-table-agents.type';
+import { TRACK_AGENTS, TRACK_STATES, TRACK_TONES } from './track-table-agents.constants';
+import type { TrackAgent, TrackTableAgentsProps } from './track-table-agents.type';
 import '../TrackTable.stories.css';
 
 const COLUMNS: readonly TrackColumn<TrackAgent>[] = [
@@ -14,10 +15,21 @@ const COLUMNS: readonly TrackColumn<TrackAgent>[] = [
   { id: 'seen', label: 'Last seen', fr: 1.4, drop: 1, cell: (agent) => <Text variant="caption">{agent.seen}</Text> },
 ];
 
-const TrackTableAgents = ({ width }: { width: TrackWidth }) => (
-  <Box className={`track-story track-story--${width}`}>
-    <TrackTable label="Agents" rows={TRACK_AGENTS} columns={COLUMNS} rowKey={(agent) => agent.id} />
-  </Box>
-);
+const TrackTableAgents = ({ width, clickable = false, tones = false, details = false }: TrackTableAgentsProps) => {
+  const [opened, setOpened] = useState<string | null>(null);
+  return (
+    <Box className={`track-story track-story--${width}`}>
+      <TrackTable
+        label="Agents"
+        rows={TRACK_AGENTS}
+        columns={COLUMNS}
+        rowKey={(agent) => agent.id}
+        onRowClick={clickable ? (agent) => setOpened(opened === agent.id ? null : agent.id) : undefined}
+        rowDetail={details ? (agent) => (opened === agent.id ? <Text variant="caption">{`${agent.name} runs ${agent.tasks} tasks on ${agent.node}.`}</Text> : null) : undefined}
+        rowTone={tones ? (agent) => TRACK_TONES[agent.age] : undefined}
+      />
+    </Box>
+  );
+};
 
 export { TrackTableAgents };

@@ -3130,6 +3130,7 @@
         "An option that sits in a group is not repeated in options; put it in one place only.",
         "The app owns the value: pass value and onChange for one choice, values and onValuesChange for several.",
         "Pass grow={false} to keep a fixed width (the token --field-w-inline, 256 px, shrinking to 160 px) beside other tools in a toolbar; TextInput, SearchInput and Combobox take the same prop.",
+        "Pass width=\"fit\" to size the control to its content, or width=\"narrow\" for a 220 px control; TextInput, SearchInput and Combobox take the same prop.",
         "Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen."
       ],
       "a11y": [
@@ -3145,7 +3146,7 @@
         "rule": "Select is the field that opens a list of options, plain or grouped, and picks one or several."
       },
       "example": "import { Select } from '@drizztdourden08/tessera';\n\ninterface TintPickerProps {\n  tint: string;\n  onTint: (tint: string) => void;\n}\n\nconst TintPicker = ({ tint, onTint }: TintPickerProps) => (\n  <Select\n    value={tint}\n    onChange={onTint}\n    options={[{ value: 'none', label: 'No tint' }]}\n    groups={[\n      { label: 'Warm', options: [{ value: 'red', label: 'Red' }, { value: 'amber', label: 'Amber' }] },\n      { label: 'Cool', options: [{ value: 'blue', label: 'Blue' }, { value: 'teal', label: 'Teal' }] },\n    ]}\n  />\n);\n",
-      "propsHash": "542d397cacd3e04d",
+      "propsHash": "599be7e5e1a07cfb",
       "props": {
         "own": [
           {
@@ -3281,6 +3282,15 @@
             "text": "boolean"
           },
           {
+            "name": "width",
+            "optional": true,
+            "text": "FieldWidth",
+            "literals": [
+              "'fit'",
+              "'narrow'"
+            ]
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -3380,6 +3390,7 @@
         "--control-pad-sm",
         "--field-w-inline",
         "--field-w-inline-min",
+        "--field-w-narrow",
         "--leading-normal",
         "--listbox-attach",
         "--listbox-columns",
@@ -9380,6 +9391,7 @@
         "Pass validate to return a message for text that is not allowed; it shows under the field and nothing is committed until it returns nothing.",
         "Pass multiline for a text area, where Enter adds a line and Mod+Enter commits.",
         "Pass renderValue to draw the text when it is not edited, such as Markdown; the click, Enter and F2, and the name stay the same, and the field is unchanged.",
+        "Pass look link to draw the text with a dashed underline and in italic, for a value that reads as a link to change; the default look is unchanged.",
         "A link or a control inside the drawn text does not start the edit when clicked; only a click on the rest of the text does.",
         "Pass label to name the text for a screen reader, placeholder to stand in for an empty text, and disabled to show the text only."
       ],
@@ -9398,7 +9410,7 @@
         "rule": "InlineEdit starts, commits and cancels an edit in place with the same keys in every app."
       },
       "example": "import { useState } from 'react';\nimport { InlineEdit } from '@drizztdourden08/tessera';\n\nconst CardTitle = () => {\n  const [title, setTitle] = useState('Fix the login redirect');\n  return (\n    <InlineEdit\n      label=\"Title\"\n      value={title}\n      onCommit={setTitle}\n      placeholder=\"Add a title\"\n      validate={(text) => (text.length < 3 ? 'Use at least 3 characters.' : undefined)}\n    />\n  );\n};\n",
-      "propsHash": "16e99e2a183ff159",
+      "propsHash": "b1247452d5edfd81",
       "props": {
         "own": [
           {
@@ -9453,6 +9465,16 @@
             "text": "(value: string) => ReactNode"
           },
           {
+            "name": "look",
+            "optional": true,
+            "text": "InlineEditLook",
+            "literals": [
+              "'field'",
+              "'link'"
+            ],
+            "default": "'field'"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -9466,6 +9488,7 @@
       },
       "tokens": [
         "--border-width-thick",
+        "--c-border-strong",
         "--c-focus",
         "--c-surface",
         "--c-text-muted",
@@ -10241,6 +10264,10 @@
         "Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.",
         "Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.",
         "Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.",
+        "Pass columnHeight=\"fit\" to size each column to its cards instead of the board height; a column taller than the board still scrolls its cards.",
+        "Pass grip={false} to hide the drag grip: the cards no longer drag by pointer, and the arrow keys still move a card from a hidden grip button that shows a focus ring on the card.",
+        "Pass foldable={false} to remove the fold chevron from every column; a column listed in collapsed or defaultCollapsed then stays open.",
+        "Pass stack to stack the columns top to bottom when the board is under 420 px wide, through a container query on a wrapper; the default board scrolls sideways at any width.",
         "Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids."
       ],
       "a11y": [
@@ -10258,7 +10285,7 @@
         "rule": "KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards."
       },
       "example": "import { useState } from 'react';\nimport { Badge, KanbanBoard, Text, moveCard } from '@drizztdourden08/tessera';\nimport type { KanbanColumn } from '@drizztdourden08/tessera';\n\ninterface Task {\n  id: string;\n  title: string;\n  tag: string;\n}\n\nconst START: KanbanColumn<Task>[] = [\n  { id: 'todo', title: 'To do', cards: [{ id: 't1', title: 'Fix login', tag: 'bug' }] },\n  { id: 'doing', title: 'Doing', cards: [] },\n  { id: 'done', title: 'Done', cards: [] },\n];\n\nconst Tasks = () => {\n  const [columns, setColumns] = useState(START);\n  return (\n    <KanbanBoard\n      label=\"Sprint\"\n      columns={columns}\n      cardLabel={(task) => task.title}\n      renderCard={(task) => (\n        <>\n          <Text>{task.title}</Text>\n          <Badge variant=\"inline\" value={task.tag} color=\"info\" />\n        </>\n      )}\n      onMove={(move) => setColumns((now) => moveCard(now, move))}\n    />\n  );\n};\n",
-      "propsHash": "d54308a4e11234fe",
+      "propsHash": "83aeff1e1122a7c5",
       "props": {
         "own": [
           {
@@ -10297,6 +10324,33 @@
             "default": "'fixed'"
           },
           {
+            "name": "columnHeight",
+            "optional": true,
+            "text": "KanbanColumnHeight",
+            "literals": [
+              "'stretch'",
+              "'fit'"
+            ],
+            "default": "'stretch'"
+          },
+          {
+            "name": "grip",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "foldable",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "stack",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
             "name": "label",
             "optional": true,
             "text": "string"
@@ -10329,6 +10383,9 @@
         }
       },
       "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-focus",
         "--c-primary-bright",
         "--c-primary-soft",
         "--c-text-dim",
@@ -11589,6 +11646,7 @@
         "Pass compact for a note box inside a card: a slim toolbar, a 3 row textarea that grows with its text up to a cap, and no split or tabs; rows still sets the starting height.",
         "In compact the preview stays out until the Preview button at the end of the toolbar is pressed; it then takes the place of the text, and a second press brings the text back.",
         "Pass label, hint, error, placeholder and disabled as for any other field; set rows to change the height of the text, 12 by default.",
+        "Pass toolbarEnd to draw a node, such as a Decide button, at the right end of the toolbar; the formatting buttons stay as they are.",
         "The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.",
         "Enter at the end of a list item starts the next one: a bullet, a number that counts up, or an open task; on an empty item it ends the list.",
         "Tab indents a list line by two spaces and Shift+Tab takes them back; outside a list Tab moves the focus as usual.",
@@ -11616,7 +11674,7 @@
         "rule": "MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app."
       },
       "example": "import { useState } from 'react';\nimport { MarkdownEditor } from '@drizztdourden08/tessera';\n\nconst NoteField = ({ openExternal }: { openExternal: (href: string) => void }) => {\n  const [note, setNote] = useState('');\n  return <MarkdownEditor label=\"Note\" value={note} onChange={setNote} onLink={openExternal} />;\n};\n",
-      "propsHash": "d681f7597fa5958b",
+      "propsHash": "397a775fdfa6c5ca",
       "props": {
         "own": [
           {
@@ -11668,6 +11726,11 @@
             "name": "compact",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "toolbarEnd",
+            "optional": true,
+            "text": "ReactNode"
           },
           {
             "name": "rows",
@@ -16164,10 +16227,14 @@
         "Never mark the column that names the row: it stays at every width.",
         "Draw state with Status and groups with Tag inside cell; the table sets no look for them.",
         "Put the table in a Card when it needs a frame; it draws no border or background.",
-        "Pass empty for the message shown when there are no rows."
+        "Pass empty for the message shown when there are no rows.",
+        "Pass onRowClick to make each row a target: it takes focus with a ring, and a click or Enter calls it with the row; a click on a control inside a cell does not.",
+        "Pass rowDetail to draw a full width row right under its row; return nothing for a row with no detail, and own the open state in the app.",
+        "Pass rowTone to tint a row with a state: active, pending, error, warning, muted or fresh, the same names as rowState of DataTable."
       ],
       "a11y": [
         "The table is named by label, and each cell is read in its row; a dropped column is removed from the reading order too.",
+        "A row with onRowClick is reached by Tab and used with Enter; tell the state in a cell too, since a tone is colour only.",
         "Give a column whose label would be a symbol a text label, since the header is the only name of its cells."
       ],
       "tree": {
@@ -16178,7 +16245,7 @@
         "rule": "TrackTable shares the width by fractions and drops the least needed columns by the width of the table, not the window."
       },
       "example": "import { Status, TrackTable } from '@drizztdourden08/tessera';\nimport type { TrackColumn } from '@drizztdourden08/tessera';\n\ninterface Agent {\n  id: string;\n  name: string;\n  online: boolean;\n  seen: string;\n}\n\nconst COLUMNS: TrackColumn<Agent>[] = [\n  { id: 'name', label: 'Agent', fr: 2, cell: (agent) => agent.name },\n  { id: 'state', label: 'State', cell: (agent) => <Status tone={agent.online ? 'success' : 'danger'} dot halo>{agent.online ? 'Online' : 'Offline'}</Status> },\n  { id: 'seen', label: 'Last seen', drop: 1, cell: (agent) => agent.seen },\n];\n\nconst Agents = ({ agents }: { agents: Agent[] }) => (\n  <TrackTable label=\"Agents\" rows={agents} columns={COLUMNS} rowKey={(agent) => agent.id} />\n);\n",
-      "propsHash": "830c80514f84ab18",
+      "propsHash": "e37ef4ee4cd198f1",
       "props": {
         "own": [
           {
@@ -16213,6 +16280,21 @@
             "text": "ReactNode"
           },
           {
+            "name": "onRowClick",
+            "optional": true,
+            "text": "(row: Row) => void"
+          },
+          {
+            "name": "rowDetail",
+            "optional": true,
+            "text": "(row: Row) => ReactNode"
+          },
+          {
+            "name": "rowTone",
+            "optional": true,
+            "text": "(row: Row) => TrackRowTone | undefined"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -16225,9 +16307,21 @@
         }
       },
       "tokens": [
+        "--border-width-thick",
         "--border-width-thin",
         "--c-border",
+        "--c-danger",
+        "--c-danger-soft",
+        "--c-focus",
+        "--c-info-soft",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-secondary-soft",
         "--c-text-muted",
+        "--c-warning",
+        "--c-warning-soft",
+        "--opacity-muted",
+        "--size-2",
         "--size-32",
         "--size-40",
         "--space-md",

@@ -19,6 +19,7 @@ const usage = {
     'An option that sits in a group is not repeated in options; put it in one place only.',
     'The app owns the value: pass value and onChange for one choice, values and onValuesChange for several.',
     'Pass grow={false} to keep a fixed width (the token --field-w-inline, 256 px, shrinking to 160 px) beside other tools in a toolbar; TextInput, SearchInput and Combobox take the same prop.',
+    'Pass width="fit" to size the control to its content, or width="narrow" for a 220 px control; TextInput, SearchInput and Combobox take the same prop.',
     'Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen.',
   ],
   a11y: [
@@ -48,7 +49,7 @@ const TintPicker = ({ tint, onTint }: TintPickerProps) => (
   />
 );
 `,
-  propsHash: '542d397cacd3e04d',
+  propsHash: '599be7e5e1a07cfb',
 } satisfies ComponentUsage;
 
 export { usage };

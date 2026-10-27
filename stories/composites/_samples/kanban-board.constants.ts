@@ -35,10 +35,14 @@ const TASK_COLUMNS: readonly TaskColumn[] = [
   },
 ];
 
-const KANBAN_ARGS: KanbanArgs = { width: 'full', columnWidth: 'fixed', folded: 'none', emptyReview: false, slots: false, addForm: false, edges: false };
+const KANBAN_ARGS: KanbanArgs = { width: 'full', columnWidth: 'fixed', folded: 'none', emptyReview: false, slots: false, addForm: false, edges: false, columnHeight: 'stretch', grip: true, foldable: true, stack: false };
 
 const KANBAN_ARG_TYPES: PlaygroundArgTypes<KanbanArgs> = {
-  width: { group: 'Layout', control: 'select', options: ['full', 'narrow'], description: 'A narrow box makes the board scroll sideways.' },
+  width: { group: 'Layout', control: 'select', options: ['full', 'narrow', 'phone'], description: 'A narrow box makes the board scroll sideways; phone is under 420 px, where stack applies.' },
+  columnHeight: { group: 'Layout', control: 'select', options: ['stretch', 'fit'], description: 'fit sizes each column to its cards instead of the board height.' },
+  stack: { group: 'Layout', control: 'boolean', description: 'Stack the columns top to bottom when the board is under 420 px wide.' },
+  grip: { group: 'Behaviour', control: 'boolean', description: 'Off hides the drag grip; the arrow keys still move a card.' },
+  foldable: { group: 'Behaviour', control: 'boolean', description: 'Off removes the fold chevron from every column.' },
   columnWidth: { group: 'Layout', control: 'select', options: ['fixed', 'fill'], description: 'fill shares the board width between the columns, down to a minimum.' },
   folded: { group: 'State', control: 'select', options: ['none', 'todo', 'doing', 'review', 'done'], description: 'The column that starts folded to a rail.' },
   emptyReview: { group: 'Content', control: 'boolean', description: 'Take the cards out of Review.' },
@@ -57,6 +61,10 @@ const KANBAN_CODE = `import { KanbanBoard, moveCard } from '@drizztdourden08/tes
   onMove={(move) => setColumns((now) => moveCard(now, move))}
   defaultCollapsed={['done']}
   cardEdgeTone={(task) => (task.needsYou ? 'danger' : undefined)}
+  columnHeight="fit"
+  grip={false}
+  foldable={false}
+  stack
 />
 
 const columns = [

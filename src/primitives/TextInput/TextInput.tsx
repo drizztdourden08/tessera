@@ -5,6 +5,7 @@ import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { growClass } from '../field-control/grow-class';
 import { InputAdornmentSlot } from '../field-control/InputAdornmentSlot';
 import { useControlSize } from '../field-control/useControlSize';
+import { widthClass } from '../field-control/width-class';
 import '../../theme/control-size.css';
 import '../../theme/field-surface.css';
 import './TextInput.css';
@@ -13,9 +14,9 @@ import { frameClass } from './behavior/frame-class';
 import { type TextInputProps } from './TextInput.type';
 
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
-  const { className: ownClass, grow, id, invalid, size, start, end, onEnter, onKeyDown, 'aria-describedby': ownDescribedBy, ...rest } = props;
+  const { className: ownClass, grow, width, id, invalid, size, start, end, onEnter, onKeyDown, 'aria-describedby': ownDescribedBy, ...rest } = props;
   const control = useFieldControl(id, ownDescribedBy);
-  const className = growClass(grow, ownClass);
+  const className = widthClass(width, growClass(grow, ownClass));
   const controlSize = useControlSize(size);
   const isInvalid = invalid ?? control.invalid ?? false;
   const framed = start !== undefined || end !== undefined;

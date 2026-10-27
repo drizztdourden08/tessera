@@ -19,9 +19,13 @@ const usage = {
     'Draw state with Status and groups with Tag inside cell; the table sets no look for them.',
     'Put the table in a Card when it needs a frame; it draws no border or background.',
     'Pass empty for the message shown when there are no rows.',
+    'Pass onRowClick to make each row a target: it takes focus with a ring, and a click or Enter calls it with the row; a click on a control inside a cell does not.',
+    'Pass rowDetail to draw a full width row right under its row; return nothing for a row with no detail, and own the open state in the app.',
+    'Pass rowTone to tint a row with a state: active, pending, error, warning, muted or fresh, the same names as rowState of DataTable.',
   ],
   a11y: [
     'The table is named by label, and each cell is read in its row; a dropped column is removed from the reading order too.',
+    'A row with onRowClick is reached by Tab and used with Enter; tell the state in a cell too, since a tone is colour only.',
     'Give a column whose label would be a symbol a text label, since the header is the only name of its cells.',
   ],
   tree: {
@@ -48,7 +52,7 @@ const Agents = ({ agents }: { agents: Agent[] }) => (
   <TrackTable label="Agents" rows={agents} columns={COLUMNS} rowKey={(agent) => agent.id} />
 );
 `,
-  propsHash: '830c80514f84ab18',
+  propsHash: 'e37ef4ee4cd198f1',
 } satisfies ComponentUsage;
 
 export { usage };

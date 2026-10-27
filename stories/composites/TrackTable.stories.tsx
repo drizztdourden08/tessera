@@ -10,10 +10,16 @@ import type { TrackWidth } from './_samples/track-table-agents.type';
 
 type TrackTableArgs = {
   width: TrackWidth;
+  clickable: boolean;
+  tones: boolean;
+  details: boolean;
 };
 
 const ARG_TYPES: PlaygroundArgTypes<TrackTableArgs> = {
   width: { group: 'Layout', control: 'select', options: [...TRACK_WIDTHS], description: 'The width of the table. Columns marked drop leave as it narrows: Last seen, then Tasks, then Node.' },
+  clickable: { group: 'Behaviour', control: 'boolean', description: 'Pass onRowClick: each row takes focus, and Enter or a click opens its detail.' },
+  tones: { group: 'Appearance', control: 'boolean', description: 'Pass rowTone: a stale agent is muted and a stalled one is warning.' },
+  details: { group: 'Behaviour', control: 'boolean', description: 'Pass rowDetail: the opened row shows a full width line under it. Needs clickable.' },
 };
 
 const meta = {
@@ -23,9 +29,9 @@ const meta = {
 
 const Playground = {
   name: 'Playground',
-  args: { width: 'wide' },
+  args: { width: 'wide', clickable: false, tones: false, details: false },
   argTypes: ARG_TYPES,
-  render: (args) => <TrackTableAgents width={args.width} />,
+  render: (args) => <TrackTableAgents width={args.width} clickable={args.clickable} tones={args.tones} details={args.details} />,
 } satisfies PlaygroundStory<TrackTableArgs>;
 
 const AsItNarrows = {
@@ -35,6 +41,16 @@ const AsItNarrows = {
   ),
 } satisfies StoryLiteStoryDefinition<TrackTableArgs>;
 
+const Interactive = {
+  name: 'Rows you can open: focus a row, press Enter, and its detail shows under it',
+  render: () => <TrackTableAgents width="wide" clickable details />,
+} satisfies StoryLiteStoryDefinition<TrackTableArgs>;
+
+const Toned = {
+  name: 'Row tones: a stale agent is muted, a stalled one is warning',
+  render: () => <TrackTableAgents width="wide" tones />,
+} satisfies StoryLiteStoryDefinition<TrackTableArgs>;
+
 const Overview = overviewStory({
   component: 'TrackTable',
   description: 'A flat, read-only table that lays its columns out in fractions of the width and drops the least needed ones as it narrows.',
@@ -42,13 +58,14 @@ const Overview = overviewStory({
     'Each column takes `fr`, its share of the width; the default is 1.',
     'Mark a column `drop` 1, 2 or 3 to hide it when the table is narrower than 768, 640 or 480 px. 1 leaves first.',
     'The narrowing follows the width of the table itself, not the window, so it works in a pane or a drawer.',
-    'There is no card, border or background: put it in a [Card] or on the page.',
-    '`head={false}` hides the header row; `empty` shows when there are no rows.',
+    'No card, border or background: put it in a [Card] or on the page; `head={false}` hides the header.',
+    '`onRowClick(row)` makes a row a focus target that Enter and a click both use.',
+    '`rowDetail(row)` draws a full width row under its row; `rowTone(row)` tints it like `rowState` of [DataTable].',
   ],
   instead: '[DataTable] to sort, group, resize or select many rows, or [RowGrid] to edit rows in place.',
   playground: Playground,
-  variants: [AsItNarrows],
+  variants: [AsItNarrows, Interactive, Toned],
 });
 
 export default meta;
-export { AsItNarrows, Overview, Playground };
+export { AsItNarrows, Interactive, Overview, Playground, Toned };

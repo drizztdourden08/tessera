@@ -71,6 +71,11 @@ const ListKeys = {
   render: () => <MarkdownListKeysDemo />,
 } satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
 
+const ToolbarEnd = {
+  name: 'A toolbar end slot: a Decide button at the right end of the toolbar',
+  render: () => <MarkdownEditorDemo initial="" layout="tabs" rows={4} decide />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
 const CODE = `import { useState } from 'react';
 import { MarkdownEditor } from '@drizztdourden08/tessera';
 
@@ -79,6 +84,7 @@ const [note, setNote] = useState('');
 <MarkdownEditor label="Note" value={note} onChange={setNote} />
 <MarkdownEditor value={note} onChange={setNote} layout="tabs" onLink={openInBrowser} />
 <MarkdownEditor value={note} onChange={setNote} compact />
+<MarkdownEditor value={note} onChange={setNote} toolbarEnd={<Button size="sm">Decide</Button>} />
 <MarkdownEditor value={note} onChange={setNote} maxLength={500} onSubmit={send} onEscape={close} />`;
 
 const Overview = overviewStory({
@@ -89,14 +95,14 @@ const Overview = overviewStory({
     'The toolbar wraps the selection or prefixes its lines, and pressing a button again removes the mark.',
     'Mod+B, Mod+I and Mod+K work in the field; Enter, Tab and Backspace carry a list on; Undo keeps working.',
     '`onSubmit` takes Mod+Enter, `onEscape` takes Escape, and `maxLength` shows a counter near the limit.',
-    '`layout` is split or tabs, and `onLink` takes every link click in the preview.',
+    '`layout` is split or tabs, `onLink` takes preview link clicks, `toolbarEnd` adds a node at the toolbar end.',
     '`compact` is a slim toolbar and a 3 row box that grows; the preview opens from a toggle.',
   ],
   instead: '[Textarea] for plain text, or [Markdown] to only show a Markdown text.',
   playground: Playground,
-  variants: [Split, Tabs, Compact, LongDocument, Limited, Keys, ListKeys],
+  variants: [Split, Tabs, Compact, ToolbarEnd, LongDocument, Limited, Keys, ListKeys],
   code: CODE,
 });
 
 export default meta;
-export { Compact, Keys, Limited, ListKeys, LongDocument, Overview, Playground, Split, Tabs };
+export { Compact, Keys, Limited, ListKeys, LongDocument, Overview, Playground, Split, Tabs, ToolbarEnd };

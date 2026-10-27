@@ -2,6 +2,8 @@
 import type { KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { ControlSize } from '../../primitives/field-control/field-control.type';
 
+type InlineEditLook = 'field' | 'link';
+
 interface InlineEditProps {
   value: string;
   onCommit: (value: string) => void;
@@ -12,6 +14,7 @@ interface InlineEditProps {
   multiline?: boolean;
   size?: ControlSize;
   renderValue?: (value: string) => ReactNode;
+  look?: InlineEditLook;
   className?: string;
 }
 
@@ -23,6 +26,7 @@ interface InlineEditViewProps {
   disabled: boolean;
   multiline: boolean;
   renderValue: ((value: string) => ReactNode) | undefined;
+  look: InlineEditLook;
   buttonRef: RefObject<HTMLButtonElement | null>;
   className: string | undefined;
   onStart: () => void;
@@ -63,4 +67,4 @@ interface InlineEditing {
   done: (focusBack: boolean) => void;
 }
 
-export type { InlineEditFieldInput, InlineEditFieldProps, InlineEditFieldState, InlineEditing, InlineEditProps, InlineEditViewProps };
+export type { InlineEditFieldInput, InlineEditFieldProps, InlineEditFieldState, InlineEditing, InlineEditLook, InlineEditProps, InlineEditViewProps };

@@ -44,10 +44,12 @@
   --filter-clause-width: var(--size-192);
   --badge-d-xs: var(--size-20);
   --status-h-sm: calc(18 * var(--size-1));
+  --board-stack-w: calc(420 * var(--size-1));
   --track-drop-1: var(--size-768);
   --track-drop-2: var(--size-640);
   --track-drop-3: calc(480 * var(--size-1));
   --disclosure-wrap: var(--size-384);
+  --window-header-narrow: calc(420 * var(--size-1));
   --sort-caret-width: var(--size-8);
   --avatar-d: var(--size-40);
   --side-nav-w: calc(var(--side-nav-item-h) + 2 * (var(--space-sm) + 2 * var(--border-width-thin)));
@@ -80,6 +82,7 @@
   --field-w-md: var(--size-512);
   --field-w-inline: var(--size-256);
   --field-w-inline-min: var(--size-160);
+  --field-w-narrow: calc(220 * var(--size-1));
   --stat-row-max-w: var(--size-512);
   --tour-intro-w: var(--size-640);
   --tour-intro-art-h: var(--size-96);

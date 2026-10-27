@@ -10,7 +10,7 @@ import './KanbanCard.css';
 
 const KanbanCard = <Item extends KanbanCardData>({ card, slot, last, shared }: KanbanCardProps<Item>) => {
   const { kanbanBoard } = useTesseraStrings();
-  const { drag, cardLabel, cardEdgeTone, renderCard, onCardKeyDown } = shared;
+  const { drag, grip, cardLabel, cardEdgeTone, renderCard, onCardKeyDown } = shared;
   return (
     <Box
       as="li"
@@ -27,7 +27,7 @@ const KanbanCard = <Item extends KanbanCardData>({ card, slot, last, shared }: K
             aria-keyshortcuts={MOVE_KEYS}
             className="kanban__grip"
             onKeyDown={(event) => onCardKeyDown(event, card)}
-            {...drag.handlers(slot)}
+            {...(grip ? drag.handlers(slot) : {})}
           >
             <Icon name="grip-vertical" size={GRIP_ICON_SIZE} />
           </IconButton>
