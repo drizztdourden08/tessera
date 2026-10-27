@@ -177,8 +177,7 @@ const Overview = overviewStory({
   points: [
     'The title bar drags it and names the region, by its title or open tab; each button names the widget too.',
     '`chrome` is `full`, a 20 px `compact` strip, or `none`: a grip and the buttons over the body on hover or focus.',
-    'A `sublabel` draws muted right after the title, shrinks first and shows the full text in a tooltip when clipped.',
-    'An `icon` draws before the label; `titleBarActions` adds buttons; `pin` and `dragRegion` serve its own window.',
+    'An `icon` leads the title and a muted `sublabel` follows it; a clipped title shows in full in a tooltip.',
     'The body scrolls in its gutter with `padding`, `sm` by default, or `none` or `md`; `fill` makes a full height column.',
     '`options` puts [WidgetOptions] on the gear; `WidgetManager` lays out a dock and hides widgets out of context.',
     '`disabled` covers the body, a string as the reason; docked or in its own window, the look is the same.',
