@@ -2,6 +2,8 @@
 import type { KeyboardEvent, ReactNode } from 'react';
 import type { ReorderDrag } from '../reorder/reorder.type';
 
+type KanbanColumnWidth = 'fixed' | 'fill';
+
 interface KanbanCardData {
   id: string;
 }
@@ -31,6 +33,7 @@ interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
   renderCard: (card: Card) => ReactNode;
   onMove: (move: KanbanMove) => void;
   cardLabel?: (card: Card) => string;
+  columnWidth?: KanbanColumnWidth;
   label?: string;
   collapsed?: readonly string[];
   defaultCollapsed?: readonly string[];
@@ -75,6 +78,6 @@ interface CardPlace {
 }
 
 export type {
-  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardProps, KanbanColumn, KanbanColumnProps, KanbanMove, KanbanPlace, KanbanShared,
+  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardProps, KanbanColumn, KanbanColumnProps, KanbanColumnWidth, KanbanMove, KanbanPlace, KanbanShared,
   KanbanToggleProps,
 };

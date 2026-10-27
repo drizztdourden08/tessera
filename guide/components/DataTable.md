@@ -31,6 +31,7 @@ DataTable gives every collection the same columns, menus and grouping, and draws
 
 - Give it rows, a schema and getRowId; the columns come from the schema, and viewKey keeps the layout between visits.
 - Pass fallbackGroupBy to open grouped, and defaultExpanded, a list of group keys or a function of the key and its field, to choose the groups that start open; leave it out to open them all.
+- Set footer to false to leave out the bar at the bottom: the sort and group line, the row count and the options menu with its add column, clear sort, clear group, fit and reset actions.
 - Set a unit on a number field, or units in the schema config, to write 12.4 MB in the cell; sort, group and filter still read the number.
 - Keep the rows in the app and pass them whole; from virtualizeFrom rows, 200 by default, the table draws only the rows in view.
 - Set virtualizeFrom lower for rows that are costly to draw, or to Infinity to draw every row.
@@ -105,6 +106,7 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
 - `onSelectionChange` (optional): `(ids: ReadonlySet<string>) => void`.
 - `selectable` (optional): `boolean`.
 - `countLabel` (optional): `readonly [one: string, many: string]`.
+- `footer` (optional): `boolean`. Default `true`.
 - `emptyMessage` (optional): `string`.
 - `resolveTargetFields` (optional): `IdRefTargetFieldResolver`.
 - `resolveIdRefDisplay` (optional): `IdRefDisplayResolver`.
