@@ -57,3 +57,27 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+.markdown-editor[data-layout='compact'] {
+  gap: var(--space-xs);
+}
+
+.markdown-editor[data-layout='compact'] .markdown-editor__toolbar {
+  padding-block-end: 0;
+}
+
+.markdown-editor[data-layout='compact'] .markdown-editor__toggle {
+  margin-inline-start: auto;
+}
+
+.markdown-editor[data-layout='compact'] .textarea {
+  field-sizing: content;
+  min-block-size: 0;
+  max-block-size: var(--size-192);
+  resize: none;
+}
+
+.markdown-editor[data-layout='compact'] .markdown-editor__preview {
+  min-block-size: var(--size-96);
+  max-block-size: var(--size-192);
+}

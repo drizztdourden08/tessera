@@ -7,13 +7,14 @@ import { Box, Text } from '../../../src/primitives';
 interface MarkdownEditorDemoProps {
   initial: string;
   layout?: MarkdownEditorLayout;
+  compact?: boolean;
   disabled?: boolean;
   rows?: number;
   maxLength?: number;
   keys?: boolean;
 }
 
-const MarkdownEditorDemo = ({ initial, layout, disabled, rows, maxLength, keys = false }: MarkdownEditorDemoProps) => {
+const MarkdownEditorDemo = ({ initial, layout, compact, disabled, rows, maxLength, keys = false }: MarkdownEditorDemoProps) => {
   const [value, setValue] = useState(initial);
   const [last, setLast] = useState('Press Mod+Enter to send, or Escape to cancel');
   return (
@@ -23,6 +24,7 @@ const MarkdownEditorDemo = ({ initial, layout, disabled, rows, maxLength, keys =
         value={value}
         onChange={setValue}
         layout={layout}
+        compact={compact}
         disabled={disabled}
         rows={rows}
         maxLength={maxLength}

@@ -16,7 +16,7 @@ import '../../theme/visually-hidden.css';
 import './DataTable.css';
 
 const DataTable = <T,>(props: DataTableProps<T>) => {
-  const { rows, countLabel, emptyMessage, resolveTargetFields, bind, overlay, rowHeight } = props;
+  const { rows, countLabel, emptyMessage, resolveTargetFields, bind, overlay, rowHeight, footer = true } = props;
   const {
     table, index, selection, drag, sizing, fieldNodes, ghostRows, labels, context, virtual, checkboxes, rootRef, reorder,
   } = useTableModel(props);
@@ -64,15 +64,12 @@ const DataTable = <T,>(props: DataTableProps<T>) => {
         onRemove={actions.onRemove}
         onDragEnd={drag.onDragEnd}
       />
-      <TableFooter
-        count={rows.length}
-        countLabel={countLabel}
-        sortActive={table.sort.length > 0}
-        groupActive={table.groupBy.length > 0}
-        fieldNodes={fieldNodes}
-        actions={tableActions}
-        summary={labels.summary}
-      />
+      {footer && (
+        <TableFooter
+          count={rows.length} countLabel={countLabel} sortActive={table.sort.length > 0} groupActive={table.groupBy.length > 0}
+          fieldNodes={fieldNodes} actions={tableActions} summary={labels.summary}
+        />
+      )}
     </Box>
   );
 };
