@@ -4,15 +4,15 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ListItemList, ListItemRow } from '../../src/composites';
 import type { ListItemColumn } from '../../src/composites';
-import { Box, Button, Icon, Status, Text } from '../../src/primitives';
+import { Box, Button, Status, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
-import { NAV_ICONS } from './_samples/nav';
 import { SESSIONS, STATUS_LABEL } from './_samples/sessions';
-import type { SampleSession } from './_samples/sessions';
+import { sessionColumns, sessionIcon } from './_samples/SessionColumns';
+import { ListItemRowFlat } from './_samples/ListItemRowFlat';
 import { ListItemRowHeader } from './_samples/ListItemRowHeader';
 import { ListItemRowInsetDemo } from './_samples/ListItemRowInsetDemo';
 import { ListItemRowMediaDemo } from './_samples/ListItemRowMediaDemo';
@@ -30,13 +30,6 @@ type RowArgs = {
   withAction: boolean;
   actionVisibility: 'always' | 'hover';
 };
-
-const sessionIcon = <Icon name={NAV_ICONS.sessions} />;
-const sessionColumns = (session: SampleSession, count: number, twoLines: boolean): ListItemColumn[] => [
-  { primary: `${session.players} players`, secondary: twoLines ? session.preset : undefined, align: 'end' as const },
-  { primary: session.server, secondary: twoLines ? `host ${session.host}` : undefined },
-  { primary: session.started, secondary: twoLines ? STATUS_LABEL[session.status] : undefined, align: 'end' as const },
-].slice(0, count);
 
 const SessionList = ({ selectable }: { selectable: boolean }) => {
   const [selectedId, setSelectedId] = useState(SESSIONS[0].id);
@@ -143,6 +136,11 @@ const HeaderRow = {
   render: () => <ListItemRowHeader />,
 } satisfies StoryLiteStoryDefinition<RowArgs>;
 
+const FlatDense = {
+  name: 'Flat and dense, with an id before the name',
+  render: () => <ListItemRowFlat />,
+} satisfies StoryLiteStoryDefinition<RowArgs>;
+
 const ButtonInset = {
   name: 'Rows start where a button above them starts, in the usual size and in a compact panel',
   render: () => <ListItemRowInsetDemo />,
@@ -175,15 +173,15 @@ const Overview = overviewStory({
   description: 'One row of a list: an icon, a name with a meta line under it, extra columns, and an action on the right.',
   points: [
     'Each of the `columns` takes `primary`, `secondary` and `align`; a `ListItemList` lines them up under a `header`.',
-    '`onContextMenu` and `onKeyDown` reach the row button, so [[Menu]] and [[Shift+F10]] open an app menu.',
-    '`onClick` picks a row on a click, [[Enter]] or [[Space]]; `onDoubleClick` opens it.',
+    '`onClick` picks a row on a click, [[Enter]] or [[Space]]; `onDoubleClick` opens it; [[Menu]] reaches the app.',
     'The `action` always shows; `actionVisibility="hover"` waits for hover or focus, except on touch.',
     'Content starts at the inset of a [Button] of the same size; a compact [DensityScope] uses the sm inset.',
     '`media` fills the left of the row at full height; `nameAction` sits after the name on hover.',
+    '`lead` puts an id before the name, and `flat` draws a dense row with no fill or border until hover.',
   ],
   instead: '[DataTable] for many rows the user sorts and filters by column.',
   playground: Playground,
-  variants: [AllVariants, AlignedList, Selectable, HeaderRow, ButtonInset, MediaAndPen, MenuKeys],
+  variants: [AllVariants, AlignedList, Selectable, HeaderRow, FlatDense, ButtonInset, MediaAndPen, MenuKeys],
   states: {
     render: renderState,
     list: [
@@ -197,4 +195,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AlignedList, AllVariants, ButtonInset, HeaderRow, MediaAndPen, MenuKeys, Overview, Playground, Selectable };
+export { AlignedList, AllVariants, ButtonInset, FlatDense, HeaderRow, MediaAndPen, MenuKeys, Overview, Playground, Selectable };

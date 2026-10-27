@@ -131,6 +131,7 @@ const Overview = overviewStory({
     '`invalid`, or a [Field] with an error, draws the error look.',
     '`start` and `end` put an icon at either end; one with `onClick` becomes a button that needs a label.',
     'With an icon set, the input sits in a frame that takes the `className`.',
+    '`grow={false}` fixes the width to a token that can shrink, for a toolbar, as on [Select] and [SearchInput].',
     '`onEnter` gets the value when Enter is pressed, as do [PasswordInput] and [SearchInput].',
   ],
   instead: '[SearchInput] for a search, [PasswordInput] for a password, or [Textarea] for longer text.',

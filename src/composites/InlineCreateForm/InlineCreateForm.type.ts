@@ -14,6 +14,7 @@ interface InlineCreateFormProps {
   submitLabel?: string;
   cancelLabel?: string;
   compact?: boolean;
+  dashed?: boolean;
   size?: ControlSize;
   className?: string;
 }
