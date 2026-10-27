@@ -1,5 +1,20 @@
 # @drizztdourden08/tessera
 
+## 0.84.0
+
+### Minor Changes
+
+- d2000d5: Nine more opt-in options for the Argus Node design; every default look stays the same. DropdownMenu takes an item `kind="select"` with `options`, `selected` and `onPick` for a labelled Select row beside the action rows, which keeps the menu open and the arrow keys working. Markdown takes `linkTone` to draw links, including id links, in the text colour with `neutral`. DataTable `rowState` takes `edge` for a left bar with no tint. Link takes `tone="info"`, underlined in the info colour. Disclosure takes `wrapEnd` to drop the end slot under the summary below 384 px, which adds the `--disclosure-wrap` token. Tabs takes `selectedTone="neutral"` for the active label in the text colour. TagPicker takes `pill` for round chips. Tag takes `size="lg"` for 24 px. Text takes `size="md"` for the 13 px step.
+- 006f171: Eight opt-in options for the Argus Node design; every default look stays the same. Tabs takes `size="lg"` for 40 px tabs. SegmentedControl and a selectable Tag take `selectedTone="neutral"` for a grey selected fill instead of the accent. Tag takes `outlined` for an edge with no fill. DropdownMenu takes `itemSize="roomy"` for 13 px text and taller rows, which adds the `--size-13` and `--text-md` tokens. The `book` icon joins `robot` and `flask`. Markdown takes `smartTimes` to draw a multiplication sign for an x between two digits, as in 1920x1080.
+- b0f6601: KanbanBoard has four opt-in layout props. `grip={false}` hides the drag grip, and the keyboard moves stay on a hidden grip button that shows a focus ring on the card. `foldable={false}` removes the fold chevron from every column. `columnHeight="fit"` sizes each column to its cards instead of the board height. `stack` stacks the columns when the board is under 420 px wide, through a container query. `Select`, `Combobox` and `TextInput` take `width`: `fit` sizes the control to its content and `narrow` fixes it at 220 px, and `SearchInput` takes the same prop. The package exports `KanbanColumnHeight`.
+- 42bc94f: Link takes `tone="link"`, underlined at rest in the lavender link colour #9e9eff with a lighter hover. It adds the `--p-link` seed and the `--c-link` and `--c-link-hover` tokens, which every palette inherits.
+- bdf48d0: MarkdownEditor takes `preview={false}` for a write only editor. The Preview eye, the Write and Preview tabs and the preview pane are all left out in every layout. The toolbar and `toolbarEnd` still draw. The default stays `true`.
+- 99686d8: Four composites gain opt-in options, and every default stays. TrackTable takes `onRowClick(row)` to make each row a focus target that Enter and a click use, `rowDetail(row)` to draw a full width row under its row, and `rowTone(row)` to tint a row with the names of the DataTable `rowState`. InlineEdit takes `look="link"` for a dashed underline in italic. WindowHeader takes `stackNarrow`, which moves the close button into a tools row under the title when the header is under 420 px, set by the `--window-header-narrow` token. MarkdownEditor takes `toolbarEnd`, a node drawn at the right end of the toolbar. The package exports `TrackRowTone`.
+
+### Patch Changes
+
+- fd9ba3f: Callout draws its text in a div instead of a paragraph, so block children such as a Stack of rows or buttons are valid inside it.
+
 ## 0.83.0
 
 ### Minor Changes
