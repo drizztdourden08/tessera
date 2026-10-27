@@ -16,12 +16,13 @@ import { slotAt } from './slot-at';
 import { useCollapsedColumns } from './useCollapsedColumns';
 
 const useKanbanBoard = <Card extends KanbanCardData>(props: KanbanBoardProps<Card>) => {
-  const { columns, renderCard, onMove, cardLabel = (card: Card) => card.id, cardEdgeTone } = props;
+  const { columns, renderCard, onMove, cardLabel = (card: Card) => card.id, cardEdgeTone, grip = true, foldable = true } = props;
   const { kanbanBoard } = useTesseraStrings();
   const boardRef = useRef<HTMLElement>(null);
   const landingRef = useRef<HTMLElement | null>(null);
   const focus = useMoveFocus(landingRef);
   const fold = useCollapsedColumns(boardRef, props);
+  const folded = foldable ? fold.shown : [];
 
   const commit = (move: KanbanMove, follow: boolean): void => {
     const target = columns.find((column) => column.id === move.to.columnId);
@@ -61,14 +62,14 @@ const useKanbanBoard = <Card extends KanbanCardData>(props: KanbanBoardProps<Car
         if (move) commit(move, true);
       },
     });
-    const across = sideMove(columns, fold.shown, card.id, event);
+    const across = sideMove(columns, folded, card.id, event);
     if (!across) return;
     event.preventDefault();
     commit(across, true);
   };
 
-  const shared: KanbanShared<Card> = { columns, renderCard, cardLabel, cardEdgeTone, drag, onCardKeyDown, onToggle: fold.toggle };
-  return { boardRef, shared, collapsed: fold.shown, message: focus.message };
+  const shared: KanbanShared<Card> = { columns, renderCard, cardLabel, cardEdgeTone, grip, foldable, drag, onCardKeyDown, onToggle: fold.toggle };
+  return { boardRef, shared, collapsed: folded, message: focus.message };
 };
 
 export { useKanbanBoard };

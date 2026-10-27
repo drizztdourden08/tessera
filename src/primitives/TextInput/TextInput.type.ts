@@ -1,12 +1,14 @@
 /* @layer renderer-components @kind types */
 import type { InputHTMLAttributes } from 'react';
 import type { ControlSize } from '../field-control/field-control.type';
+import type { FieldWidth } from '../field-control/field-width.type';
 import type { InputAdornment } from '../field-control/input-adornment.type';
 
 interface TextInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
   invalid?: boolean;
   size?: ControlSize;
   grow?: boolean;
+  width?: FieldWidth;
   start?: InputAdornment;
   end?: InputAdornment;
   onEnter?: (value: string) => void;

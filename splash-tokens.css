@@ -314,6 +314,7 @@
   --filter-clause-width: 192px;
   --badge-d-xs: 20px;
   --status-h-sm: calc(18 * 1px);
+  --board-stack-w: calc(420 * 1px);
   --track-drop-1: 768px;
   --track-drop-2: 640px;
   --track-drop-3: calc(480 * 1px);
@@ -349,6 +350,7 @@
   --field-w-md: 512px;
   --field-w-inline: 256px;
   --field-w-inline-min: 160px;
+  --field-w-narrow: calc(220 * 1px);
   --stat-row-max-w: 512px;
   --tour-intro-w: 640px;
   --tour-intro-art-h: 96px;

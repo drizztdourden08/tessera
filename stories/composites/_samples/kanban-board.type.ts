@@ -1,5 +1,5 @@
 /* @layer stories @kind types */
-import type { KanbanCardData, KanbanColumn, KanbanColumnWidth } from '../../../src/composites';
+import type { KanbanCardData, KanbanColumn, KanbanColumnHeight, KanbanColumnWidth } from '../../../src/composites';
 
 type TaskTag = 'bug' | 'design' | 'docs' | 'api';
 
@@ -10,7 +10,7 @@ interface Task extends KanbanCardData {
 
 type TaskColumn = KanbanColumn<Task>;
 
-type BoardWidth = 'full' | 'narrow';
+type BoardWidth = 'full' | 'narrow' | 'phone';
 
 type FoldedColumn = 'none' | 'todo' | 'doing' | 'review' | 'done';
 
@@ -22,6 +22,10 @@ type KanbanArgs = {
   slots: boolean;
   addForm: boolean;
   edges: boolean;
+  columnHeight: KanbanColumnHeight;
+  grip: boolean;
+  foldable: boolean;
+  stack: boolean;
 };
 
 interface KanbanDemoProps {
@@ -32,6 +36,10 @@ interface KanbanDemoProps {
   slots?: boolean;
   addForm?: boolean;
   edges?: boolean;
+  columnHeight?: KanbanColumnHeight;
+  grip?: boolean;
+  foldable?: boolean;
+  stack?: boolean;
 }
 
 export type { FoldedColumn, KanbanArgs, KanbanDemoProps, Task, TaskColumn, TaskTag };

@@ -2,6 +2,7 @@
 import type { ComponentType, ReactNode } from 'react';
 import type { TextTone } from '../TextElement/TextElement.type';
 import type { ControlSize } from '../field-control/field-control.type';
+import type { FieldWidth } from '../field-control/field-width.type';
 import type { DatePreset } from '../date-format/date-format.type';
 
 type FieldOf<T> = T extends object ? Extract<keyof T, string> : never;
@@ -106,6 +107,7 @@ interface ListboxFieldProps {
   inline?: boolean;
   size?: ControlSize;
   grow?: boolean;
+  width?: FieldWidth;
   className?: string;
   id?: string;
   'aria-label'?: string;
