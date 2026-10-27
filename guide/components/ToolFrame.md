@@ -69,4 +69,4 @@ It also takes the 279 attributes it inherits through `HTMLAttributes<HTMLElement
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--space-md`, `--space-sm`.
+It draws on `--border-width-thin`, `--c-chrome`, `--c-chrome-border`, `--space-md`, `--space-sm`.

@@ -35,10 +35,11 @@ const TASK_COLUMNS: readonly TaskColumn[] = [
   },
 ];
 
-const KANBAN_ARGS: KanbanArgs = { width: 'full', folded: 'none', emptyReview: false, slots: false, addForm: false };
+const KANBAN_ARGS: KanbanArgs = { width: 'full', columnWidth: 'fixed', folded: 'none', emptyReview: false, slots: false, addForm: false };
 
 const KANBAN_ARG_TYPES: PlaygroundArgTypes<KanbanArgs> = {
   width: { group: 'Layout', control: 'select', options: ['full', 'narrow'], description: 'A narrow box makes the board scroll sideways.' },
+  columnWidth: { group: 'Layout', control: 'select', options: ['fixed', 'fill'], description: 'fill shares the board width between the columns, down to a minimum.' },
   folded: { group: 'State', control: 'select', options: ['none', 'todo', 'doing', 'review', 'done'], description: 'The column that starts folded to a rail.' },
   emptyReview: { group: 'Content', control: 'boolean', description: 'Take the cards out of Review.' },
   slots: { group: 'Content', control: 'boolean', description: 'Add a badge and an Add button to the header of some columns.' },

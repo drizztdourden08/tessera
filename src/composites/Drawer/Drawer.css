@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind style */
 
 .drawer {
+  container: drawer / inline-size;
   position: fixed;
   inset: 0;
   z-index: var(--z-modal);
@@ -32,6 +33,7 @@
 
 .drawer__header {
   flex: none;
+  align-items: flex-start;
   padding: var(--space-md) var(--space-lg);
   border-bottom: var(--border-width-thin) solid var(--c-border);
 }
@@ -59,8 +61,18 @@
   width: min(86vw, var(--size-640));
 }
 
+.drawer--wide .drawer__panel {
+  width: min(90vw, var(--size-768));
+}
+
 .drawer--xl .drawer__panel {
   width: min(92vw, var(--size-1024));
+}
+
+@container drawer (width < 480px) {
+  .drawer .drawer__panel {
+    width: 100%;
+  }
 }
 
 .drawer--right .drawer__panel {

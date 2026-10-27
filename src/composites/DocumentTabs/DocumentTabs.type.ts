@@ -11,6 +11,8 @@ interface DocumentTab {
   tooltip?: string;
 }
 
+type DocumentTabsLook = 'flat' | 'raised';
+
 interface DocumentTabsProps {
   tabs: readonly DocumentTab[];
   activeId?: string;
@@ -21,6 +23,7 @@ interface DocumentTabsProps {
   overflowMenu?: boolean;
   onTabContextMenu?: (tabId: string, event: MenuEvent) => void;
   onAdd?: () => void;
+  look?: DocumentTabsLook;
   className?: string;
 }
 

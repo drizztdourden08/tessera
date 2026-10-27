@@ -20,6 +20,7 @@ const usage = {
     'Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.',
     'Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.',
     'Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.',
+    'Set columnWidth to fill so the columns share the board width instead of a fixed width; each keeps a minimum, and the board scrolls sideways when the minimums do not fit.',
     'Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.',
     'Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.',
     'Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.',
@@ -70,7 +71,7 @@ const Tasks = () => {
   );
 };
 `,
-  propsHash: '571541c4fd1c5f3e',
+  propsHash: '1b7204ea15831381',
 } satisfies ComponentUsage;
 
 export { usage };

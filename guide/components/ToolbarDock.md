@@ -102,7 +102,7 @@ const Editor = ({ layout, setLayout, itemsOf, definitions, children }: EditorPro
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--c-text-muted`, `--duration-fast`, `--ease-standard`, `--opacity-faint`, `--radius-md`, `--space-2xs`, `--space-sm`, `--toolbar-dock-column`, `--toolbar-dock-row`, `--toolbar-dock-track`, `--toolbar-dock-tracks`, `--z-modal`.
+It draws on `--border-width-thin`, `--c-chrome`, `--c-chrome-border`, `--c-text-muted`, `--duration-fast`, `--ease-standard`, `--opacity-faint`, `--radius-md`, `--space-2xs`, `--space-sm`, `--toolbar-dock-column`, `--toolbar-dock-row`, `--toolbar-dock-track`, `--toolbar-dock-tracks`, `--z-modal`.
 
 ## Also exported from this folder
 

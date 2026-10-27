@@ -24,11 +24,12 @@ const MANY_DOCUMENTS: readonly DocumentTab[] = Array.from({ length: 24 }, (_, in
 
 const DOCUMENT_SETS: Readonly<Record<DocumentSet, readonly DocumentTab[]>> = { three: THREE_DOCUMENTS, many: MANY_DOCUMENTS, unsaved: UNSAVED_DOCUMENTS, none: [] };
 
-const DOCUMENT_TABS_ARGS: DocumentTabsArgs = { documents: 'three', menu: false };
+const DOCUMENT_TABS_ARGS: DocumentTabsArgs = { documents: 'three', menu: false, look: 'flat' };
 
 const DOCUMENT_TABS_ARG_TYPES: PlaygroundArgTypes<DocumentTabsArgs> = {
   documents: { group: 'Content', control: 'select', options: ['three', 'many', 'unsaved', 'none'], description: 'How many documents the strip starts with.' },
   menu: { group: 'Content', control: 'boolean', description: 'The menu that lists every open document.' },
+  look: { group: 'Appearance', control: 'select', options: ['flat', 'raised'], description: 'Flat tabs on the ground, or raised tabs with a surface fill and a lifted selected tab.' },
 };
 
 const DOCUMENT_TABS_CODE = `import { DocumentTabs } from '@drizztdourden08/tessera';

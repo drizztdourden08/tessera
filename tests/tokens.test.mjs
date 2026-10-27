@@ -27,6 +27,15 @@ describe('generated token files', () => {
     expect(FILES['splash-tokens.css']).not.toMatch(/var\(|color-mix\(|@import/);
   });
 
+  it('tokens.css is flat: no @import, the layer statement first, font paths from the package root', () => {
+    const flat = FILES['tokens.css'];
+    expect(flat).not.toMatch(/@import/);
+    expect(flat.replace(/^\/\*.*\*\/\n/, '')).toMatch(/^@layer ds\.base, ds\.palette, ds\.semantic;\n/);
+    const fonts = [...flat.matchAll(/url\('([^']+)'\)/g)].map(([, path]) => path);
+    expect(fonts.length).toBeGreaterThan(0);
+    for (const path of fonts) expect(path).toMatch(/^\.\/fonts\/[\w-]+\/[\w-]+\.woff2$/);
+  });
+
   it('tokens.json gives every theme colour as opaque hex', () => {
     const { theme, palettes } = JSON.parse(FILES['tokens.json']);
     const colours = [theme.dark, ...Object.values(palettes).map((palette) => palette.dark)].flatMap(Object.values);
@@ -64,7 +73,7 @@ describe('the text colours', () => {
   it('keeps the old faint grey as a disabled text colour under the readable ones', () => {
     const css = committed('src/tokens/canonical.css');
     expect(css).toContain('--c-text-disabled: var(--p-tertiary-800);');
-    expect(css).toContain('--c-text-faint:    var(--p-tertiary-600);');
+    expect(css).toContain('--c-text-faint:    var(--p-text-faint, var(--p-tertiary-600));');
   });
 });
 
