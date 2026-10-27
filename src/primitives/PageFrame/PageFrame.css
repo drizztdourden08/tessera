@@ -1,0 +1,25 @@
+/* @layer renderer-components @kind style */
+.page-frame {
+  block-size: 100dvh;
+  padding: var(--space-xl);
+}
+
+.page-frame[data-fill='true'] {
+  block-size: 100%;
+}
+
+.page-frame__content {
+  margin-inline: auto;
+}
+
+.page-frame[data-width='sm'] > .page-frame__content {
+  max-inline-size: var(--page-frame-w-sm);
+}
+
+.page-frame[data-width='md'] > .page-frame__content {
+  max-inline-size: var(--page-frame-w-md);
+}
+
+.page-frame[data-width='lg'] > .page-frame__content {
+  max-inline-size: var(--page-frame-w-lg);
+}

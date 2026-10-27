@@ -8,7 +8,7 @@
 }
 
 .text-el--tone-primary {
-  --tone-ink: var(--c-primary);
+  --tone-ink: var(--c-primary-text);
 }
 
 .text-el--tone-secondary {

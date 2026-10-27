@@ -3,6 +3,8 @@ import type { RefObject } from 'react';
 import type { ButtonSize } from '../../primitives/Button/Button.type';
 import type { IconName } from '../../primitives/Icon';
 
+type ActionBarSize = Exclude<ButtonSize, 'lg'>;
+
 type ActionKind = 'primary' | 'default' | 'danger';
 
 type ActionBarAlign = 'start' | 'end';
@@ -38,7 +40,7 @@ interface FitParams {
 
 interface ActionBarProps {
   actions: readonly ActionItem[];
-  size?: ButtonSize;
+  size?: ActionBarSize;
   keep?: number;
   overflowLabel?: string;
   align?: ActionBarAlign;
@@ -54,13 +56,13 @@ interface ActionSplit {
 
 interface ActionBarButtonProps {
   action: ActionItem;
-  size: ButtonSize;
+  size: ActionBarSize;
   onPress?: (action: ActionItem) => void;
 }
 
 interface ActionBarMoreProps {
   folded: readonly ActionItem[];
-  size: ButtonSize;
+  size: ActionBarSize;
   label: string;
   asks: (action: ActionItem) => boolean;
   onPress: (action: ActionItem) => void;
@@ -70,7 +72,7 @@ interface ActionBarMeasureProps {
   measureRef: RefObject<HTMLDivElement | null>;
   rest: readonly ActionItem[];
   primary: readonly ActionItem[];
-  size: ButtonSize;
+  size: ActionBarSize;
   label: string;
 }
 

@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind types */
+import type { MenuEvent } from '../../primitives/dom/menu-event.type';
 import type { IconName } from '../../primitives/Icon';
 import type { ReorderDrag } from '../reorder/reorder.type';
 
@@ -10,6 +11,8 @@ interface DocumentTab {
   tooltip?: string;
 }
 
+type DocumentTabsLook = 'flat' | 'raised';
+
 interface DocumentTabsProps {
   tabs: readonly DocumentTab[];
   activeId?: string;
@@ -18,6 +21,9 @@ interface DocumentTabsProps {
   onMove: (from: number, to: number) => void;
   label?: string;
   overflowMenu?: boolean;
+  onTabContextMenu?: (tabId: string, event: MenuEvent) => void;
+  onAdd?: () => void;
+  look?: DocumentTabsLook;
   className?: string;
 }
 
@@ -47,6 +53,10 @@ interface DocumentTabCloseProps {
   onClose: (id: string) => void;
 }
 
+interface DocumentTabAddProps {
+  onAdd: () => void;
+}
+
 interface DocumentTabsMenuProps {
   tabs: readonly DocumentTab[];
   activeId?: string;
@@ -54,6 +64,7 @@ interface DocumentTabsMenuProps {
 }
 
 interface TabKeysInput {
+  menu?: (tabId: string, event: MenuEvent) => void;
   total: number;
   move: (from: number, to: number) => void;
   close: (id: string) => void;
@@ -64,4 +75,4 @@ interface ClosedTab {
   index: number;
 }
 
-export type { ClosedTab, DocumentTab, DocumentTabCloseProps, DocumentTabClosesProps, DocumentTabProps, DocumentTabsMenuProps, DocumentTabsProps, TabKeysInput };
+export type { ClosedTab, DocumentTab, DocumentTabAddProps, DocumentTabCloseProps, DocumentTabClosesProps, DocumentTabProps, DocumentTabsMenuProps, DocumentTabsProps, TabKeysInput };

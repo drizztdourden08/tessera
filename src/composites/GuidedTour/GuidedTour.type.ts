@@ -26,12 +26,15 @@ interface TourStep {
   readonly title: string;
   readonly body: ReactNode;
   readonly target?: TourTarget;
+  readonly intro?: boolean;
+  readonly art?: ReactNode;
   readonly placement?: AnchoredPlacement;
   readonly advance?: TourAdvance;
   readonly clickTarget?: TourTarget;
   readonly hint?: ReactNode;
   readonly mascot?: TourStepMascot;
   readonly onEnter?: (context: TourEnterContext) => void | Promise<void>;
+  readonly reveal?: (context: TourEnterContext) => void | Promise<void>;
 }
 
 interface GuidedTourOptions {

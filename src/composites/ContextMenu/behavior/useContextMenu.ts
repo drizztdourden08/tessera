@@ -4,6 +4,7 @@ import type { ContextMenuPoint } from '../ContextMenu.type';
 import { eventPoint } from './event-point';
 import { isMenuKey } from './is-menu-key';
 import { keyboardPoint } from './keyboard-point';
+import { useFocusRestore } from './useFocusRestore';
 import { useLongPress } from './useLongPress';
 import type { ContextMenuState, UseContextMenuParams } from './useContextMenu.type';
 
@@ -22,12 +23,13 @@ const useContextMenu = (params: UseContextMenuParams): ContextMenuState => {
   const close = (): void => {
     if (!controlled) setOwn(null);
     onClose?.();
-    opener.current?.focus();
   };
+  const shown = controlled ? given : own;
+  useFocusRestore(shown !== null, opener);
   const press = useLongPress({ enabled: longPress && !disabled, onPress: begin });
 
   return {
-    point: controlled ? given : own,
+    point: shown,
     close,
     target: {
       ...press,

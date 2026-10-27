@@ -13,13 +13,14 @@ type DrawerSide = 'left' | 'right' | 'top';
 
 type DrawerArgs = {
   side: DrawerSide;
+  size: 'md' | 'lg' | 'xl';
   label: string;
 };
 
 type DrawerDemoProps = DrawerArgs & { openLabel: string; Sample: ComponentType<SampleDrawerProps> };
 
 const DrawerDemo = (props: DrawerDemoProps) => {
-  const { side, label, openLabel, Sample } = props;
+  const { side, size, label, openLabel, Sample } = props;
   const [open, setOpen] = useState(false);
   const close = () => setOpen(false);
   return (
@@ -31,16 +32,17 @@ const DrawerDemo = (props: DrawerDemoProps) => {
           <Button variant="secondary" onClick={() => setOpen(true)}>{openLabel}</Button>
         </Box>
       </Box>
-      <Sample open={open} close={close} side={side} label={label} />
+      <Sample open={open} close={close} side={side} size={size} label={label} />
     </Box>
   );
 };
 
-const ARGS: Partial<DrawerArgs> = { side: 'right', label: 'File details' };
+const ARGS: Partial<DrawerArgs> = { side: 'right', size: 'md', label: 'File details' };
 
 const ARG_TYPES: PlaygroundArgTypes<DrawerArgs> = {
   label: { group: 'Content', control: 'text' },
   side: { group: 'Layout', control: 'select', options: ['left', 'right', 'top'] },
+  size: { group: 'Layout', control: 'select', options: ['md', 'lg', 'xl'], description: 'md is 384 px, lg 640 px, xl 1024 px, each capped by the window. A top drawer ignores it.' },
 };
 
 const meta = {

@@ -50,6 +50,6 @@
 
 .stepper-sub-steps__item[aria-current='true'] {
   background: var(--c-selected);
-  color: var(--c-primary);
+  color: var(--c-primary-text);
   box-shadow: inset var(--border-width-thick) 0 0 var(--c-primary);
 }

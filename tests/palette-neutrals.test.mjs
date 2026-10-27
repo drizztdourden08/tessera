@@ -2,7 +2,6 @@
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { colourOver } from '../scripts/tokens/colour-over.mjs';
-import { luminanceRatio } from '../scripts/tokens/luminance-ratio.mjs';
 import { parseColour } from '../scripts/tokens/parse-colour.mjs';
 import { readTokenSources } from '../scripts/tokens/read-token-sources.mjs';
 import { relativeLuminance } from '../scripts/tokens/relative-luminance.mjs';
@@ -32,13 +31,14 @@ const TEXT = ['--c-text', '--c-text-muted', '--c-text-faint'];
 const GROUNDS = ['--c-bg', '--c-panel', '--c-surface', '--c-sunken', '--c-chrome'];
 const TEXT_NEED = 4.5;
 
+const ratioOf = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 const luminanceOf = (tokens, name, under) => relativeLuminance(colourOver(parseColour(tokens.get(name)), under));
 const flat = (tokens, name) => colourOver(parseColour(tokens.get(name)), colourOver(parseColour(tokens.get('--c-bg')), [0, 0, 0]));
 
 const PAIRS = Object.entries(RESOLVED).flatMap(([palette, tokens]) =>
   TEXT.flatMap((ink) => GROUNDS.map((ground) => {
     const under = flat(tokens, ground);
-    const ratio = luminanceRatio(luminanceOf(tokens, ink, under), relativeLuminance(under));
+    const ratio = ratioOf(luminanceOf(tokens, ink, under), relativeLuminance(under));
     return { palette, ink, ground, ratio, shown: ratio.toFixed(2) };
   })));
 

@@ -24,7 +24,7 @@ JobDialog puts TaskProgress in a dialog whose buttons follow the state of the jo
 ## Use something else when
 
 - The progress belongs in a page or a panel, not over it. Use [TaskProgress](TaskProgress.md) instead.
-- The dialog asks a question and waits for the answer. Use `Dialog` instead.
+- The dialog asks a question and waits for the answer. Use [Dialog](Dialog.md) instead.
 
 ## Rules
 
@@ -89,7 +89,3 @@ const GenerateButton = ({ state, percent, cancel }: { state: TaskState; percent:
 - `logOpen` (optional): `boolean`.
 - `onLogToggle` (optional): `(open: boolean) => void`.
 - `logHeight` (optional): `number`.
-
-## Tokens
-
-It draws on `--dialog-w-md`.

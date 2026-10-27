@@ -49,6 +49,30 @@
   translate: -50% -50%;
 }
 
+.guided-tour__bubble--intro {
+  gap: var(--space-md);
+  inline-size: var(--tour-intro-w);
+  max-inline-size: min(calc(100vw - var(--space-xl)), var(--tour-intro-w));
+  padding: var(--space-xl);
+}
+
+.guided-tour__art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-block-size: var(--tour-intro-art-h);
+}
+
+.guided-tour__bubble--intro .guided-tour__title {
+  font-size: var(--text-xl);
+  text-align: center;
+}
+
+.guided-tour__bubble--intro .guided-tour__body {
+  font-size: var(--text-base);
+  text-align: center;
+}
+
 .guided-tour__head,
 .guided-tour__actions {
   display: flex;

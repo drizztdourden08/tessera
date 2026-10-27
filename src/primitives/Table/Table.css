@@ -1,0 +1,54 @@
+/* @layer renderer-components @kind style */
+.table-wrap {
+  max-inline-size: 100%;
+  overflow-x: auto;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-bg);
+}
+
+.table {
+  inline-size: 100%;
+  border-collapse: collapse;
+  color: var(--c-text);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.table__head {
+  background: var(--c-surface);
+}
+
+.table__head .table__row {
+  border-bottom: var(--border-width-thin) solid var(--c-border);
+}
+
+.table__body .table__row {
+  border-bottom: var(--border-width-thin) solid var(--c-hairline);
+}
+
+.table__body .table__row:last-child {
+  border-bottom: none;
+}
+
+.table--striped .table__body .table__row:nth-child(even) {
+  background: var(--c-hover);
+}
+
+.table__cell {
+  padding: var(--space-xs) var(--space-sm);
+  text-align: start;
+  vertical-align: top;
+}
+
+.table__cell--head {
+  font-weight: var(--weight-semi);
+}
+
+.table__cell--center {
+  text-align: center;
+}
+
+.table__cell--right {
+  text-align: end;
+}

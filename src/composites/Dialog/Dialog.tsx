@@ -18,6 +18,8 @@ const Dialog = (props: DialogProps) => {
     confirmDisabled = false,
     hideCancel = false,
     variant = 'default',
+    size,
+    steady,
     onConfirm,
     onCancel,
     id,
@@ -47,6 +49,8 @@ const Dialog = (props: DialogProps) => {
       actions={actions}
       initialFocusRef={start.ref}
       initialFocus={start.mode}
+      size={size}
+      steady={steady}
       id={id}
       data={data}
     >

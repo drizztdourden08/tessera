@@ -5,7 +5,9 @@ import { Markdown } from '../../src/composites';
 import type { MarkdownHeadingOffset, MarkdownSize } from '../../src/composites';
 import { Box } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { HTML_NOTE, NOTE_SAMPLES, RELEASE_NOTE } from './_samples/markdown-notes.constants';
+import { HTML_NOTE, NOTE_SAMPLES, README_NOTE, RELEASE_NOTE } from './_samples/markdown-notes.constants';
+import { MarkdownExtrasDemo } from './_samples/MarkdownExtrasDemo';
+import { MarkdownImageClickDemo } from './_samples/MarkdownImageClickDemo';
 import { MarkdownLinkDemo } from './_samples/MarkdownLinkDemo';
 import { MarkdownSourcePair } from './_samples/MarkdownSourcePair';
 import { NarrowNoteDialog } from './_samples/NarrowNoteDialog';
@@ -23,7 +25,7 @@ type MarkdownArgs = {
 const ARGS: Partial<MarkdownArgs> = { note: 'Release note', size: 'md', headingOffset: 1, hideTitle: false };
 
 const ARG_TYPES: PlaygroundArgTypes<MarkdownArgs> = {
-  note: { group: 'Content', control: 'select', options: ['Release note', 'Raw HTML', 'Long note'] },
+  note: { group: 'Content', control: 'select', options: ['Release note', 'Raw HTML', 'Long note', 'README'] },
   size: { group: 'Appearance', control: 'select', options: ['sm', 'md'], description: 'sm for a dialog or a notes box.' },
   headingOffset: { group: 'Content', control: 'select', options: [0, 1, 2, 3, 4, 5], description: 'Levels added to each heading: 1 makes # an h2.' },
   hideTitle: { group: 'Content', control: 'boolean', description: 'Drops the # title when the frame already names the version.' },
@@ -48,6 +50,11 @@ const ReleaseNote = {
   render: () => <MarkdownSourcePair source={RELEASE_NOTE} />,
 } satisfies StoryLiteStoryDefinition<MarkdownArgs>;
 
+const Readme = {
+  name: 'A README with a table, tasks and strikethrough',
+  render: () => <MarkdownSourcePair source={README_NOTE} />,
+} satisfies StoryLiteStoryDefinition<MarkdownArgs>;
+
 const RawHtml = {
   name: 'Raw HTML and unsafe links dropped',
   render: () => <MarkdownSourcePair source={HTML_NOTE} />,
@@ -63,27 +70,38 @@ const LinksInApp = {
   render: () => <MarkdownLinkDemo />,
 } satisfies StoryLiteStoryDefinition<MarkdownArgs>;
 
-const CODE = `import { Markdown } from '@drizztdourden08/tessera';
+const ImagesAndIds = {
+  name: 'Images, id links and app paths',
+  render: () => <MarkdownExtrasDemo />,
+} satisfies StoryLiteStoryDefinition<MarkdownArgs>;
+
+const ImageClick = {
+  name: 'Base64 images and a click handler',
+  render: () => <MarkdownImageClickDemo />,
+} satisfies StoryLiteStoryDefinition<MarkdownArgs>;
+
+const CODE =`import { Markdown } from '@drizztdourden08/tessera';
 
 <Markdown source={note} />
-<Markdown source={note} size="sm" headingOffset={3} hideTitle onLink={openInBrowser} />`;
+<Markdown source={note} size="sm" headingOffset={3} hideTitle onLink={openInBrowser} />
+<Markdown source={note} images linkIds={{ pattern: /\\b[TI]-\\d+\\b/, href: itemPath }} onLink={open} />`;
 
 const Overview = overviewStory({
   component: 'Markdown',
   description: 'Shows a Markdown text, such as a release note, drawn with Tessera parts. Raw HTML is dropped.',
   points: [
-    'Headings, paragraphs, lists, bold, italic, links, inline code, code blocks, quotes and rules are drawn.',
-    'Raw HTML is dropped; an image shows its alt text and a table stays plain text.',
-    'Only http, https and mailto links stay links; any other link becomes plain text.',
+    'GitHub tables, task lists and strikethrough, with headings, lists, code and quotes, use Tessera parts.',
+    'Raw HTML is dropped, and only http, https and mailto links stay links, plus app paths with `onLink`.',
     '`onLink` takes every link click; without it a link opens in a new tab with rel noopener.',
-    '`headingOffset` moves headings down, 1 by default, so # is an h2; `hideTitle` drops the # title.',
-    '`size` sm fits a dialog or a notes box; md fits a page.',
+    '`images` draws http, https and base64 png, jpeg, gif and webp, never svg; `onImage` makes each a button.',
+    '`linkIds` turns ids such as T-5 into links in text, never inside code or a link.',
+    '`headingOffset` moves headings down, `hideTitle` drops the # title, and `size` is sm, md or inline.',
   ],
   instead: '[Text] for text written in the app, or [CodeBlock] for code shown as it is.',
   playground: Playground,
-  variants: [ReleaseNote, RawHtml, NarrowDialog, LinksInApp],
+  variants: [ReleaseNote, Readme, RawHtml, NarrowDialog, LinksInApp, ImagesAndIds, ImageClick],
   code: CODE,
 });
 
 export default meta;
-export { LinksInApp, NarrowDialog, Overview, Playground, RawHtml, ReleaseNote };
+export { ImageClick, ImagesAndIds, LinksInApp, NarrowDialog, Overview, Playground, RawHtml, Readme, ReleaseNote };

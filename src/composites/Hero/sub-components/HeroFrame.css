@@ -30,3 +30,10 @@
     min-height: clamp(var(--hero-h), 80cqh, var(--hero-h-tall));
   }
 }
+
+.hero--full .hero__frame {
+  height: auto;
+  min-height: calc(100svh - var(--hero-full-offset));
+  border-width: 0;
+  border-radius: 0;
+}

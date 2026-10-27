@@ -4,6 +4,8 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { menuClasses } from '../src/composites/DropdownMenu/behavior/menu-classes';
+import { menuPlacement } from '../src/composites/DropdownMenu/behavior/menu-placement';
+import { sideCorners } from '../src/composites/DropdownMenu/behavior/side-corners';
 import { menuLookClass } from '../src/composites/DropdownMenu/behavior/menu-look-class';
 import { ToolbarContext } from '../src/composites/Toolbar/behavior/toolbar-context';
 import { toolMenuSide } from '../src/composites/Toolbar/behavior/tool-menu-side';
@@ -76,6 +78,59 @@ describe('a toolbar menu on each side', () => {
     expect(click.hover).toBeUndefined();
     expect(hover.hover).toBe(tool.hover);
     expect({ ...click, hover: undefined }).toEqual({ ...hover, hover: undefined });
+  });
+});
+
+describe('a menu joins the bar it opens from, whatever the dock side', () => {
+  const placeOf = (dock) => menuPlacement(toolMenuSide(dock === 'top' || dock === 'bottom' ? 'horizontal' : 'vertical', toolbarMenuSide(dock)), 'start');
+
+  it('hangs from the trigger under a top bar and beside it on a left or right bar', () => {
+    expect(placeOf('top')).toBe('bottom-start');
+    expect(placeOf('left')).toBe('right-start');
+    expect(placeOf('right')).toBe('left-start');
+  });
+
+  it('starts a side menu at the top of its button whatever the align of the item', () => {
+    for (const popup of [false, true]) {
+      const left = menuProps('vertical', 'right', { popup });
+      const right = menuProps('vertical', 'left', { popup });
+      expect(menuPlacement(left.side, left.align)).toBe('right-start');
+      expect(menuPlacement(right.side, right.align)).toBe('left-start');
+    }
+  });
+
+  it('joins on the right edge of a left bar and the left edge of a right bar', () => {
+    const corners = { topLeft: 1, topRight: 2, bottomLeft: 3, bottomRight: 4 };
+    expect(sideCorners({ parentCorners: corners }, 'right')).toEqual([2, 4]);
+    expect(sideCorners({ parentCorners: corners }, 'left')).toEqual([1, 3]);
+  });
+
+  it('draws the same border, radius and shadow on every side and flows in away from the bar', () => {
+    const css = readFileSync(new URL('../src/theme/dropdown-menu.css', import.meta.url), 'utf8');
+    expect(css).toContain('border: var(--border-width-thin) solid var(--c-border);');
+    expect(css).toContain('border-radius: var(--radius-md);');
+    expect(css).not.toMatch(/data-anchor-place[^{]*\{[^}]*(border|radius|shadow)/);
+    expect(css).toMatch(/\[data-anchor-place\^='right'\] \{\s+animation-name: dropdown-in-right;/);
+    expect(css).toMatch(/\[data-anchor-place\^='left'\] \{\s+animation-name: dropdown-in-left;/);
+    expect(css).toMatch(/@keyframes dropdown-in-right \{\s+from \{\s+opacity: 0;\s+transform: translateX\(calc\(-1 \* var\(--size-4\)\)\);/);
+    expect(css).toMatch(/@keyframes dropdown-in-left \{\s+from \{\s+opacity: 0;\s+transform: translateX\(var\(--size-4\)\);/);
+  });
+});
+
+describe('a side menu opens down from the top of its button in CSS', () => {
+  const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
+
+  it('tries the start-aligned place first and flips up only when it overflows', () => {
+    const anchored = read('../src/primitives/Anchored/Anchored.css');
+    expect(anchored).toMatch(/\.anchored\[data-anchor-place='right-start'\],\s+\.anchored\[data-anchor-place='left-start'\] \{\s+top: anchor\(top\);/);
+    expect(anchored).toMatch(/\[data-anchor-place\^='left'\] \{\s+position-try-fallbacks: flip-inline, flip-block, flip-block flip-inline,/);
+    expect(anchored).toContain('@position-try --anchored-fill-block');
+  });
+
+  it('does not pick the side with the most room when the menu fits below', () => {
+    const css = read('../src/theme/dropdown-menu.css');
+    expect(css).toMatch(/\[data-anchor-place='right-start'\], \[data-anchor-place='left-start'\]\) \{\s+max-block-size: none;\s+position-try-order: normal;/);
+    expect(css).toMatch(/\.dropdown-menu\[data-anchored\] \{[^}]*position-try-order: most-height;/);
   });
 });
 

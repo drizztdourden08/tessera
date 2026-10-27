@@ -17,9 +17,15 @@ export { Inline, type InlineProps } from './Inline';
 export { Center, type CenterProps } from './Center';
 export { Grid, type GridCellProps, type GridProps, type GridSpan } from './Grid';
 export { Divider, type DividerProps } from './Divider';
+export { List, ListItem } from './List';
+export type { ListItemProps, ListProps } from './List';
+export { Table, TableCell, TableRow, TableSection } from './Table';
+export type { TableAlign, TableCellProps, TableProps, TableRowProps, TableSectionProps } from './Table';
 export { Spacer, type SpacerProps } from './Spacer';
+export { PageRoot, type PageRootProps } from './PageRoot';
+export { PageFrame, type PageFrameProps, type PageFrameWidth } from './PageFrame';
 export { Button } from './Button';
-export type { ButtonProps, ButtonSize, ButtonVariant } from './Button/Button.type';
+export type { ButtonFill, ButtonLook, ButtonProps, ButtonSize, ButtonVariant, ButtonWidth } from './Button/Button.type';
 export { IconButton } from './IconButton';
 export type { IconButtonProps, IconButtonSize, IconButtonTone, IconButtonVariant } from './IconButton/IconButton.type';
 export { Pressable } from './Pressable';
@@ -68,7 +74,7 @@ export { SegmentedControl } from './SegmentedControl';
 export type { SegmentIcon, SegmentIconOption, SegmentOption, SegmentTextOption, SegmentedControlProps } from './SegmentedControl';
 export { ToggleGroup } from './ToggleGroup';
 export type { ToggleOption, ToggleGroupProps } from './ToggleGroup';
-export { Tabs, type TabItem } from './Tabs';
+export { Tabs, type TabBadgeTone, type TabItem } from './Tabs';
 export { Anchored, useAnchorSupport } from './Anchored';
 export { Overlay } from './Overlay';
 export type { OverlayProps, OverlayTone } from './Overlay';
@@ -78,7 +84,7 @@ export type {
   DropPanelPosition, DropPanelPositionOptions, UseAnchorTrackingParams, UseAnchorTrackingResult, UseDismissListenersParams,
 } from './Portal';
 export {
-  ScrollArea, createScrollSyncController, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition,
+  ScrollArea, createScrollSyncController, type ScrollAreaGutter, type ScrollAreaProps, type ScrollAreaScrollbar, type ScrollAxis, type ScrollPosition,
   type ScrollSyncController, type ScrollSyncNode,
 } from './ScrollArea';
 export type { PortalLayer } from './Portal';

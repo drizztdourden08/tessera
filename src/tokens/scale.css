@@ -4,6 +4,7 @@
 :root {
   --size-1:    1px;
   --size-2:    2px;
+  --size-3:    3px;
   --size-4:    4px;
   --size-6:    6px;
   --size-8:    8px;
@@ -28,6 +29,7 @@
   --size-256:  256px;
   --size-288:  288px;
   --size-320:  320px;
+  --size-336:  336px;
   --size-384:  384px;
   --size-448:  448px;
   --size-512:  512px;

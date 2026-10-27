@@ -35,6 +35,7 @@ interface ToolbarLayout {
   corners: Record<ToolbarCorner, ToolbarCornerClaim[]>;
   hidden: string[];
   last: Record<string, ToolbarSpot>;
+  labels?: Record<string, boolean>;
 }
 
 type ToolbarDockHandle = ToolbarHandleProps & Record<`data-${string}`, string>;
@@ -44,6 +45,7 @@ interface ToolbarSlot {
   handle: ToolbarDockHandle;
   side: ToolbarSide;
   menuSide: ToolbarMenuSide;
+  labels?: boolean;
 }
 
 interface ToolbarDockProps {

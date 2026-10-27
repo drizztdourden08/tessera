@@ -6,17 +6,19 @@ import { MascotStage } from '../../../brand/MascotStage';
 import type { MascotStageCast, MascotStageHandle } from '../../../brand/MascotStage/MascotStage.type';
 import { Box } from '../../../primitives/Box';
 import { mascotSpot } from '../behavior/mascot-spot';
+import { useHeldSpot } from '../behavior/useHeldSpot';
 import { useMascotPresenter } from '../behavior/useMascotPresenter';
-import { MASCOT_BOX, MASCOT_GAP, MASCOT_HEIGHT, MASCOT_ID } from '../GuidedTour.constants';
+import { MASCOT_GAP, MASCOT_ID, MASCOT_SIZES } from '../GuidedTour.constants';
 import type { TourMascotProps } from './TourMascot.type';
 
 const TourMascot = (props: TourMascotProps) => {
-  const { choice, bubble, hole, view, cue } = props;
+  const { choice, bubble, hole, view, cue, large } = props;
+  const { box, height } = MASCOT_SIZES[large ? 'large' : 'small'];
   const ref = useRef<HTMLElement>(null);
   const stageRef = useRef<MascotStageHandle>(null);
   const palette = usePaletteName(ref, choice === 'auto');
   const brand = choice === 'auto' ? mascotBrandOf(palette) : choice;
-  const spot = bubble && view.width > 0 ? mascotSpot({ bubble, hole }, view, MASCOT_BOX, MASCOT_GAP) : null;
+  const spot = useHeldSpot(bubble && view.width > 0 ? mascotSpot({ bubble, hole }, view, box, MASCOT_GAP) : null);
   const cast = useMemo<MascotStageCast[]>(() => (brand ? [{ id: MASCOT_ID, brand, clip: 'idle' }] : []), [brand]);
   useMascotPresenter(stageRef, { brand, spot, ...cue });
 
@@ -27,7 +29,7 @@ const TourMascot = (props: TourMascotProps) => {
       style={spot ? { transform: `translateY(${spot.y}px)` } : undefined}
       aria-hidden
     >
-      {brand && <MascotStage ref={stageRef} cast={cast} height={MASCOT_HEIGHT} className="guided-tour__stage" />}
+      {brand && <MascotStage ref={stageRef} cast={cast} height={height} className="guided-tour__stage" />}
     </Box>
   );
 };

@@ -12,7 +12,7 @@ const draggedText = (row: HTMLElement): boolean => {
 };
 
 const useLogSelection = (input: LogSelectionInput): LogSelection | null => {
-  const { order, mounted, selectedIds, onSelectionChange } = input;
+  const { order, mounted, selectedIds, onSelectionChange, newestFirst = false } = input;
   const listRef = useRef<HTMLDivElement>(null);
   const anchorRef = useRef<string | null>(null);
   const [cursor, setCursor] = useState<string | null>(null);
@@ -43,7 +43,7 @@ const useLogSelection = (input: LogSelectionInput): LogSelection | null => {
       row?.focus();
     };
 
-    const shownCursor = cursor !== null && mounted.includes(cursor) ? cursor : mounted[mounted.length - 1];
+    const shownCursor = cursor !== null && mounted.includes(cursor) ? cursor : mounted[newestFirst ? 0 : mounted.length - 1];
     return {
       listRef,
       isSelected: (id: string) => selectedIds.has(id),
@@ -54,7 +54,7 @@ const useLogSelection = (input: LogSelectionInput): LogSelection | null => {
       },
       onKeyDown,
     };
-  }, [order, mounted, selectedIds, onSelectionChange, cursor]);
+  }, [order, mounted, selectedIds, onSelectionChange, cursor, newestFirst]);
 };
 
 export { useLogSelection };

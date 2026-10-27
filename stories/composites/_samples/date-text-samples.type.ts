@@ -5,6 +5,12 @@ interface DateStep {
   minutes: number;
 }
 
+interface DateRunningStep {
+  name: string;
+  seconds: number;
+  label: string;
+}
+
 interface DateRow {
   id: string;
   name: string;
@@ -12,4 +18,4 @@ interface DateRow {
   created: string;
 }
 
-export type { DateRow, DateStep };
+export type { DateRow, DateRunningStep, DateStep };

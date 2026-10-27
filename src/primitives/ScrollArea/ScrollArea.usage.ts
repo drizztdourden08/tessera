@@ -16,6 +16,7 @@ const usage = {
     'scrollbar slim draws a thin line along the edge that widens under the pointer; native keeps the browser bar.',
     'A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.',
     'Set fade to false when the edges of the content must not melt away.',
+    'gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows.',
     'Give the box a height, through a class or its parent, or it grows with its content and never scrolls.',
   ],
   a11y: [
@@ -37,7 +38,7 @@ const Library = ({ cards }: { cards: ReactNode[] }) => (
   </ScrollArea>
 );
 `,
-  propsHash: 'b09c3ee3f79ee26f',
+  propsHash: 'ae02f58aaaeaf969',
 } satisfies ComponentUsage;
 
 export { usage };

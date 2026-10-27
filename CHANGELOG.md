@@ -1,5 +1,129 @@
 # @drizztdourden08/tessera
 
+## 0.79.0
+
+### Minor Changes
+
+- 2517f02: The Archipelia mark is redrawn as a clean vector of true circles and straight bars, with the same look, so its edges stay smooth at any size and every brand file is regenerated from it. BrandMark, Logo, Logo.Combined, Mascot and AnimatedMascot take a new `xxl` size, the 256 px token `--brand-mark-xxl`, for a large mark such as an empty start page.
+- b9ca1bd: New SectionTimeline composite: a vertical, grouped list of section links with `aria-current="location"` on the active one, `onJump`, and a decorative progress line with an idle or hidden `state`. The line fills from a CSS scroll timeline (`timeline="scroll"` or a named view timeline) and jumps to `progress` or the active section without scroll-driven animation or with reduced motion.
+
+## 0.78.0
+
+### Minor Changes
+
+- e8b99ae: Button has `fill="gradient"`, a vertical gradient with a soft primary glow for a call to action, and `width="wide"`, a minimum width so a lone button does not shrink to its label. At `lg` the flat label is bold, and a palette can set `--p-primary-gradient-from` to keep the label readable on the lighter end.
+- 23000f6: ListItemRow takes `draggable` with `onDragStart` and `onDragEnd`, so a whole row can be dragged onto an app drop target.
+- 240c312: Markdown with `images` on also draws base64 png, jpeg, gif and webp images (never svg), and has an `onImage` callback that turns each drawn image into a button for a lightbox. It also strips control, private-use and lone surrogate characters from the source before parsing.
+
+### Patch Changes
+
+- 7e4716a: ScreenPage and SideNavLayout content keep a stable scrollbar gutter, so a page whose layout reflows with width no longer flips as the scrollbar comes and goes.
+- 6f0ce99: ScrollArea takes `gutter="stable"` so a page body that reflows with width cannot flip its columns as its scrollbar comes and goes, and GuidedTour settles in bounded time at any frame rate, with a mascot walk timed by the clock and a stand that ignores small changes.
+
+## 0.77.0
+
+### Minor Changes
+
+- d12495a: MarkdownEditor has a Quote button that puts or removes a `>` prefix on the selected lines, and an `autoFocus` prop that focuses the text with the caret at the end.
+
+## 0.76.0
+
+### Minor Changes
+
+- 4697445: Markdown now takes `images` to draw http, https or rewritten images and `linkIds` to turn ids such as T-5 into links in text, and it keeps links that start with a slash as app paths when `onLink` is passed. MarkdownEditor now continues, indents and ends lists with Enter, Tab, Shift+Tab and Backspace, and turns `- []` into a task item. Everything stays off or unchanged for existing users.
+
+## 0.75.0
+
+### Minor Changes
+
+- 4522a86: Button takes `size="lg"` (56 px, with the pixel look scaled up), `fill="solid"` for a bright call to action, and `caption` for a smaller second line under the label.
+  With `href` (plus `target`, `rel` and `download`) it renders a link that looks the same, and a disabled or loading one drops the href and sets aria-disabled.
+- e0bc764: InlineEdit takes `renderValue` to draw its text when not editing, such as inline Markdown, and a click on a link inside it does not start the edit; Markdown takes `size="inline"` for compact text inside a card. KanbanBoard columns take `top`, a slot above the cards such as an inline add form, hidden when the column is folded.
+- 59abf90: Add the token `--c-primary-text`, the primary colour as used for text. It is the bright primary by default, a palette may set `--p-primary-text` to override it, and it reaches 4.5:1 on the background, panel, surface and sunken grounds of every palette.
+
+  Small text in the primary tone (the Slider value, StatTile and StatusBar values, Status, Link hover, Shortcut, Toggle link, Widget tab, listbox picked option and more) now uses it, so it turns a little lighter where the seed was too dark.
+
+### Patch Changes
+
+- b6808ab: GuidedTour now measures the lit part each frame until it holds still, so a target that moves after its step shows no longer keeps a stale hole, scrolls a target taller than the window to its top edge, and places the mascot on whole pixels with a fixed tie-break.
+
+## 0.74.0
+
+### Minor Changes
+
+- 42c795a: Drawer takes `size` (md, lg or xl) for a wider side panel, such as a focus mode; a top drawer keeps its full width.
+- d90f6c9: An intro step of GuidedTour now shows a primary Start the tour button and a ghost Skip button instead of Back and Next, translated through the new `tour.introStart` and `tour.introSkip` strings, and the mascot now stands outside the lit hole whenever a stand outside fits.
+
+## 0.73.0
+
+### Minor Changes
+
+- 6ed559c: New icon `guides` for ruler guides on a canvas: an L-shaped ruler with tick marks and two dashed guide lines, drawn on the same 24 grid as the Lucide interface icons.
+- c724f7f: DataTable `rowState` takes `warning`, a needs-a-look bar in the warning tone. Tabs items take `badgeTitle`, shown in a Tooltip on hover and focus and read as the tab description. DateText `length="short"` on `elapsed` gives one unit (5s, 12m, 3h, 2d) and ticks by that unit; the default elapsed text is unchanged.
+
+## 0.72.0
+
+### Minor Changes
+
+- dd27737: KanbanBoard columns take `badge` after the count and `action` at the header end; a folded column hides the action and keeps the badge. New InlineEdit shows text that turns into a field on click, Enter or F2, with `validate`, `placeholder`, `disabled` and `multiline`. MarkdownEditor takes `onSubmit` on Mod+Enter, `onEscape`, and `maxLength` with a counter in the last 10 percent.
+- 3e0fdc5: LogPanel's `onInput` may return `false` or a promise (resolving `false`, or rejecting) to keep the typed text in the field, a second Enter is ignored while a promise is pending, and `inputDisabled` with `inputPlaceholder` shows a disabled input row.
+
+## 0.71.0
+
+### Minor Changes
+
+- df77b53: LogPanel takes `order="newest-first"`, which shows the latest line at the top, follows the top and jumps to it, and a row takes its own `tone`. Tabs items take `badgeTone` (`neutral`, `warn`, `danger`, `success` or `info`) to tint the count badge like Badge. A number field takes a `unit`, or `units` in the schema config, so DataTable writes 12.4 MB while sort, group and filter keep reading the number.
+- b8ba74f: ListItemList takes a `header` with `icon`, `main`, `columns` and `action` labels, drawn as a sticky row on the same tracks as the rows and hidden from assistive technology. A click on a button, link, input or Tooltip trigger inside a DataTable cell no longer selects the row, and `data-cell-control` marks any other element the row should leave alone.
+
+## 0.70.0
+
+### Minor Changes
+
+- a01227e: DataTable takes `detailRowId` with `renderDetail(row)` to open a panel under one row, such as an inline confirm or a small form, and `onDetailClose` for the Escape key.
+- 0fc14fe: DateText gets an elapsed format that counts up as 12s, 4m 03s, 1h 02m or 2d 3h with an optional label such as running, ticking from one shared timer that pauses while the page is hidden.
+- cec0e8a: Hero takes `size="full"` to span the window edge to edge at least one viewport tall minus `--hero-full-offset`, and image art takes `motion: 'pan'` for a slow drift that stops under reduced motion. The new `PageRoot` primitive sets `data-scroll="document"` on the html element so a website page scrolls with the document, and the new `PageFrame` primitive is a padded full-height frame that scrolls on its own for apps that keep the root locked.
+- 8079376: Adds `KanbanBoard`, a board of cards in app named columns that the user drags within a column or to another one, or moves with the arrow keys on a card grip, reporting each move to the app through `onMove`. Each column shows a count and folds to a narrow rail, `renderCard` draws the inside of a card, and `moveCard` applies a move to the columns.
+- bdf53f8: LogPanel takes `ansi` to draw colour and style escape codes in its lines with the new `--c-term-*` tokens, `follow` to keep the end in view until the reader scrolls up, and `onInput` with `prompt` for a stdin row that walks the history of what was sent with Up and Down. The `--c-term-*` colours follow every palette, and escape codes that are not colour or style are stripped.
+- 0a1975d: New MarkdownEditor composite: a controlled field for writing Markdown, with a formatting toolbar (bold, italic, lists, link, inline code, code block), Mod+B, Mod+I and Mod+K shortcuts, and a live preview drawn by Markdown in a split or tabs layout. It adds a markdownEditor string group and the bold, italic, list-ordered, code and square-code icons.
+- 972e485: Button takes `look="pixel"`, a dithered two-tone fill drawn with token colours, a stepped one-pixel frame with square corners and the game font, with hover, pressed, focus, loading and disabled states in every palette; the `ButtonLook` type is exported. The icon set gains `github` and `git-fork`, also named `fork`.
+
+### Patch Changes
+
+- dc9779a: TesseraProvider's `overrides` is optional: without it the provider passes the inherited setup through.
+
+## 0.69.0
+
+### Minor Changes
+
+- 8457f26: Adds the Bxel animation file type `.bxanim` with a film strip glyph, and the `pixel-animation` icon it is drawn from.
+- 74879fa: DataTable takes `renderCell(row, path)` to draw a cell itself, falling back to the schema when it returns undefined, `rowState(row)` to mark a row active, pending, error or muted, and `rowHeight`, a size token, for taller rows. It also takes `sort` with `onSortChange` and `expanded` with `onExpandedChange` to let the app own the sort and the open groups. The new `groupUid` export builds the group ids that `expanded` holds.
+
+### Patch Changes
+
+- 598db2e: A menu opened from a side toolbar now aligns its top edge with the button and grows down, flipping up only when it does not fit below, instead of always growing from the roomier side of the screen.
+
+## 0.68.1
+
+### Patch Changes
+
+- 4f50c28: GuidedTour keeps the mascot at least 8px clear of the ring: when the bubble sits inside a hole that fills the view, the mascot stands inside it too, with the bubble shifted to make room, and is hidden when there is no room.
+
+## 0.68.0
+
+### Minor Changes
+
+- e30591d: ContextMenu now returns focus to its opener after any close, including when the parent sets `open` false, and leaves focus alone when the user clicked into another focusable element. Menu items take `data` (data attributes) and `ariaDescription`, passed to the item, slider and sub-menu trigger.
+- 7f56c9f: Dialog and DialogShell take `size` (sm, md or lg): the width follows the content between a min and a max from tokens, never passes the window minus a margin, and the height grows to the window with only the body scrolling. `steady` pins the width to the max of the size, which JobDialog, CreateRecordDialog and DeleteGuardDialog use to keep today's width.
+- 2a113e7: Markdown draws GitHub tables, task lists, strikethrough and autolinks with `remark-gfm`, and every piece now renders through a Tessera part: lists with the new `List` and `ListItem`, tables with the new `Table`, `TableSection`, `TableRow` and `TableCell`, and a task item as a read-only `Checkbox`. `List` and `Table` are new primitives that any screen can use.
+- d83d933: DocumentTabs takes `onTabContextMenu(tabId, event)` and `onAdd`, which draws a + button after the last tab. StatusBar takes `onItemContextMenu(itemId, event)`, and ListItemRow takes `onContextMenu` and `onKeyDown`, so right click, Menu and Shift+F10 reach the app. ColorSwatch draws a checkerboard behind a colour with alpha below 1.
+- abeb960: ToolbarLayout gains an optional `labels` map with `setToolbarLabels`, Toolbar takes `labels`, and `moveToolbarToSide` moves a toolbar to a side with the placement rules of showToolbar.
+- 5956636: TourStep takes `intro: true` with an `art` slot for a wide centred welcome panel beside a large mascot, and `reveal()` to bring a target in before the tour looks for it. The tour now scrolls a target to the centre at once, through every scrolling ancestor, and measures the lit part on the next frame, so the hole lands in the right place.
+
+### Patch Changes
+
+- 82eb303: A ListItemRow outside a ListItemList, such as inside a VirtualList item, now stretches to the full item width.
+- 9719d8e: A menu opened from a left or right docked toolbar now flows in sideways out of the bar, as a top bar menu flows in downward, with the same border, radius and shadow.
+
 ## 0.67.0
 
 ### Minor Changes

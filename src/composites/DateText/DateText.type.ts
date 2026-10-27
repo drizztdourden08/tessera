@@ -6,6 +6,7 @@ interface DateTextProps {
   format?: DateFormat;
   length?: DateLength;
   tooltip?: boolean;
+  label?: string;
   focusable?: boolean;
   className?: string;
 }

@@ -49,6 +49,7 @@ const COMPOSITES_TIER: CatalogueTier = {
     { group: 'Navigation', entries: [
       { name: 'SideNav', summary: 'Grouped section navigation with search, or an app rail.' },
       { name: 'HeaderAnchorNav', summary: 'Pill links in a page header that jump to its sections, with counts.' },
+      { name: 'SectionTimeline', summary: 'A vertical anchor list of grouped sections beside a long page, with a progress line.' },
       { name: 'FloatingSwitch', summary: 'A floating toggle between two views.' },
       { name: 'DocumentTabs', summary: 'The strip of open documents above an editor: unsaved mark, close, drag or key reorder, and scroll when many.' },
     ] },
@@ -124,6 +125,7 @@ const COMPOSITES_TIER: CatalogueTier = {
       group: 'Forms',
       entries: [
         { name: 'InlineCreateForm', summary: 'A name field that creates one thing in place, boxed or on one line.' },
+        { name: 'InlineEdit', summary: 'Text shown as text that turns into a field on click, Enter or F2, and commits on Enter or blur.' },
         { name: 'RecordEditor', summary: 'Edits one record, form derived from its schema.' },
         { name: 'ValidationSummary', summary: 'What blocks a save, each problem a link to its field, the rest under and N more.' },
         { name: 'FormRow', summary: 'One option of a long form: name and help, its control, changed mark and reset.' },
@@ -138,6 +140,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'DataTable', summary: 'Sortable, groupable, resizable table with saved layouts.' },
         { name: 'FilterBar', summary: 'A search box and filter chips, each added with + and edited in place.' },
         { name: 'CompactRecordView', summary: 'One record read-only, with differences marked.' },
+        { name: 'KanbanBoard', summary: 'Cards in named columns the user drags between or moves by keys, with a count and a fold per column.' },
         { name: 'Field kits', summary: 'The editor, cell and filter for each field kind.' },
       ],
     },

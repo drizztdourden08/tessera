@@ -79,6 +79,7 @@ describe('the pixel icons in the named set', () => {
   it('adds every pixel icon to the names and keeps the smooth ones', () => {
     for (const name of Object.keys(PIXEL_ICONS)) expect(ICONS[name], name).toBe(PIXEL_ICONS[name]);
     expect(ICONS['pixel-pencil']).toBeDefined();
+    expect(ICONS['pixel-animation']).toBe(PIXEL_ICONS['pixel-animation']);
     expect(ICONS.eraser.body).not.toContain('crispEdges');
   });
 
@@ -88,6 +89,12 @@ describe('the pixel icons in the named set', () => {
     expect(html).toContain(`width="${SIZE * 2}"`);
     expect(html).toContain('shape-rendering="crispEdges"');
     expect(html).toContain('fill="currentColor"');
+  });
+
+  it('draws the animation film strip through the name prop', () => {
+    const html = renderToString(h(Icon, { name: 'pixel-animation' }));
+    expect(html).toContain('shape-rendering="crispEdges"');
+    expect(html).toContain('<path');
   });
 
   it('draws at 24 pixels by default, one grid', () => {

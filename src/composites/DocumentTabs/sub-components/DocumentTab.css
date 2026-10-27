@@ -8,11 +8,12 @@
   padding-block: var(--space-sm);
   padding-inline: var(--space-md) calc(var(--space-xs) + var(--space-2xs) + var(--control-h-xs));
   border-bottom: var(--border-width-thick) solid transparent;
+  background-color: var(--document-tab-bg, transparent);
   color: var(--c-text-dim);
   font-size: var(--text-base);
   font-weight: var(--weight-medium);
   white-space: nowrap;
-  transition: color var(--transition-normal), border-color var(--transition-normal), opacity var(--transition-fast);
+  transition: color var(--transition-normal), background-color var(--transition-normal), border-color var(--transition-normal), opacity var(--transition-fast);
   touch-action: pan-x;
   user-select: none;
 }
@@ -22,13 +23,24 @@
 }
 
 .document-tabs__tab:is(:hover, [data-hover='yes']) {
-  background: var(--c-hover);
+  background-image: linear-gradient(var(--c-hover), var(--c-hover));
   color: var(--c-text);
+}
+
+.document-tabs--raised .document-tabs__tab {
+  background-color: var(--document-tab-bg, var(--c-surface));
+  border-start-start-radius: var(--radius-sm);
+  border-start-end-radius: var(--radius-sm);
 }
 
 .document-tabs__tab[aria-selected='true'] {
   border-bottom-color: var(--c-primary);
+  background-color: var(--document-tab-bg-selected, transparent);
   color: var(--c-primary-bright);
+}
+
+.document-tabs--raised .document-tabs__tab[aria-selected='true'] {
+  background-color: var(--document-tab-bg-selected, color-mix(in srgb, var(--c-surface), var(--c-lift) 8%));
 }
 
 .document-tabs__tab[data-dragging='yes'] {

@@ -1,0 +1,83 @@
+/* @layer renderer-components @kind style */
+.btn.btn--pixel {
+  --pixel-step: var(--size-2);
+  --pixel-cell: var(--size-4);
+  --pixel-lit: var(--tone-dim);
+  --pixel-shade: var(--tone);
+  --pixel-edge: var(--tone);
+  --pixel-gloss: var(--tone);
+  --pixel-far: var(--pixel-shade);
+
+  margin: var(--pixel-step);
+  border: 0;
+  border-radius: 0;
+  font-family: var(--font-game);
+  letter-spacing: 0;
+  color: var(--tone-bright);
+  transition: none;
+}
+
+.btn.btn--pixel.btn--sm,
+.btn.btn--pixel.btn--xs {
+  --pixel-step: var(--size-1);
+  --pixel-cell: var(--size-2);
+}
+
+.btn.btn--pixel.btn--lg {
+  --pixel-step: var(--size-3);
+  --pixel-cell: var(--size-6);
+
+  padding-block-end: calc(3 * var(--pixel-cell));
+}
+
+.btn.btn--pixel.btn--xs {
+  --pixel-far: var(--pixel-lit);
+}
+
+.btn.btn--pixel:is(.btn--pixel, :hover) {
+  background:
+    conic-gradient(var(--pixel-far) 0 25%, transparent 0) 0 calc(100% - 2 * var(--pixel-cell)) / var(--pixel-cell) var(--pixel-cell) repeat-x,
+    conic-gradient(var(--pixel-shade) 0 25%, transparent 0 50%, var(--pixel-shade) 0 75%, transparent 0) 0 calc(100% - var(--pixel-cell)) / var(--pixel-cell) var(--pixel-cell) repeat-x,
+    conic-gradient(transparent 0 25%, var(--pixel-shade) 0) 0 100% / var(--pixel-cell) var(--pixel-cell) repeat-x,
+    linear-gradient(var(--pixel-lit), var(--pixel-lit));
+  box-shadow:
+    0 calc(-1 * var(--pixel-step)) 0 0 var(--pixel-edge),
+    0 var(--pixel-step) 0 0 var(--pixel-edge),
+    calc(-1 * var(--pixel-step)) 0 0 0 var(--pixel-edge),
+    var(--pixel-step) 0 0 0 var(--pixel-edge),
+    inset 0 var(--pixel-step) 0 0 var(--pixel-gloss);
+}
+
+.btn--pixel.btn--full {
+  width: calc(100% - 2 * var(--pixel-step));
+}
+
+.btn.btn--pixel:hover:not(:disabled, [aria-disabled='true']) {
+  --pixel-shade: var(--tone-bright);
+  --pixel-edge: var(--tone-bright);
+  --pixel-gloss: var(--tone-bright);
+}
+
+.btn.btn--pixel:active:not(:disabled, [aria-disabled='true']) {
+  --pixel-lit: var(--c-bg);
+  --pixel-shade: var(--tone-dim);
+  --pixel-edge: var(--tone);
+  --pixel-gloss: var(--pixel-lit);
+}
+
+.btn.btn--pixel.btn--active {
+  --pixel-edge: var(--c-primary-bright);
+
+  color: var(--c-primary-bright);
+}
+
+.btn.btn--pixel:focus-visible {
+  outline-offset: calc(2 * var(--pixel-step));
+}
+
+.btn--pixel .spinner {
+  border-radius: 0;
+  border-color: var(--tone);
+  border-top-color: var(--tone-bright);
+  animation-timing-function: steps(4, end);
+}

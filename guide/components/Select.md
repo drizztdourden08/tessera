@@ -107,7 +107,7 @@ const TintPicker = ({ tint, onTint }: TintPickerProps) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-soft`, `--c-hover`, `--c-inset`, `--c-primary`, `--c-primary-soft`, `--c-sunken`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--field-w-inline`, `--field-w-inline-min`, `--leading-normal`, `--listbox-attach`, `--listbox-columns`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-14`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--z-popover`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-soft`, `--c-hover`, `--c-inset`, `--c-primary`, `--c-primary-soft`, `--c-primary-text`, `--c-sunken`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--field-w-inline`, `--field-w-inline-min`, `--leading-normal`, `--listbox-attach`, `--listbox-columns`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-14`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--z-popover`, `--z-sticky`.
 
 ## Also exported from this folder
 

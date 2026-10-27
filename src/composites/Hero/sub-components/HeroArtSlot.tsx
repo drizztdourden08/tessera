@@ -2,6 +2,7 @@
 import { Box } from '../../../primitives/Box';
 import { Image } from '../../../primitives/Image';
 import type { HeroArtSlotProps } from '../Hero.type';
+import './HeroArtSlot.css';
 
 const HeroArtSlot = (props: HeroArtSlotProps) => {
   const { art } = props;
@@ -16,7 +17,7 @@ const HeroArtSlot = (props: HeroArtSlotProps) => {
   }
   return (
     <Image
-      className="hero__art"
+      className={art.motion === 'pan' ? 'hero__art hero__art--pan' : 'hero__art'}
       pixelated={art.pixelated}
       src={art.src}
       alt={art.alt ?? ''}

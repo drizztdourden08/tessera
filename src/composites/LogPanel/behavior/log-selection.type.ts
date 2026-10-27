@@ -34,6 +34,7 @@ interface LogSelectionInput {
   mounted: readonly string[];
   selectedIds: ReadonlySet<string> | undefined;
   onSelectionChange: ((ids: ReadonlySet<string>) => void) | undefined;
+  newestFirst?: boolean;
 }
 
 interface LogSelection {

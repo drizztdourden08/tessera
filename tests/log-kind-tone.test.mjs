@@ -3,6 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { logInk } from '../src/composites/LogPanel/behavior/log-ink';
+import { lineTones } from '../src/composites/LogPanel/behavior/line-tones';
 import { messageTone } from '../src/composites/LogPanel/behavior/message-tone';
 import { LogLine } from '../src/composites/LogPanel/sub-components/LogLine';
 import { hexRgb } from '../src/primitives/hex-ink/hex-rgb';
@@ -83,5 +84,31 @@ describe('LogLine', () => {
     expect(tag).toBe(' class="text-el text-el--span log-panel__tag log-panel__tag--seq log-panel__ink" style="--log-ink:var(--c-tag-teal)"');
     expect(msg).toMatch(/^ class="text-el text-el--span log-panel__msg log-panel__msg--seq log-panel__msg--upper log-panel__ink" style="--log-ink:#[0-9a-f]{6}"$/);
     expect(msg).not.toContain('#2b3a8c');
+  });
+
+  it('lets a line carry its own tone with no kind, on the tag and the message', () => {
+    const toned = renderToString(h(LogLine, { row: { ...ROW, tone: 'warning' }, kind: undefined }));
+    const [, tag, msg] = spans(toned);
+    expect(tag).toContain('text-el--tone-warning log-panel__tag');
+    expect(msg).toContain('text-el--tone-warning log-panel__msg');
+  });
+
+  it('lets a line tone win over its kind, and a tint draws as ink', () => {
+    const kind = { id: 'seq', label: 'Seq', tone: 'info', toneMessage: true };
+    const [, tag, msg] = spans(renderToString(h(LogLine, { row: { ...ROW, tone: 'danger' }, kind })));
+    expect(tag).toContain('text-el--tone-danger');
+    expect(tag).not.toContain('text-el--tone-info');
+    expect(msg).toContain('text-el--tone-danger');
+    const [, inked] = spans(renderToString(h(LogLine, { row: { ...ROW, tone: 'teal' }, kind })));
+    expect(inked).toContain('log-panel__ink');
+  });
+});
+
+describe('lineTones', () => {
+  it('falls back to the kind when the line has no tone', () => {
+    const kind = { id: 'seq', label: 'Seq', tone: 'info', toneMessage: 'dim' };
+    expect(lineTones(ROW, kind)).toEqual({ tag: 'info', message: 'dim' });
+    expect(lineTones({ ...ROW, tone: 'warning' }, kind)).toEqual({ tag: 'warning', message: 'warning' });
+    expect(lineTones(ROW, undefined)).toEqual({ tag: undefined, message: undefined });
   });
 });

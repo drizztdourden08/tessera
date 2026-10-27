@@ -121,9 +121,19 @@
               "structured data, as JSON": {
                 "components": []
               },
+              "Markdown text, with a live preview": {
+                "components": [
+                  "MarkdownEditor"
+                ]
+              },
               "a command, with its history": {
                 "components": [
                   "CommandInput"
+                ]
+              },
+              "text shown as text, edited in place on click": {
+                "components": [
+                  "InlineEdit"
                 ]
               }
             }
@@ -300,10 +310,14 @@
             "components": []
           },
           "a question the user must answer": {
-            "components": []
+            "components": [
+              "Dialog"
+            ]
           },
           "a dialog with its own layout": {
-            "components": []
+            "components": [
+              "DialogShell"
+            ]
           },
           "a panel from the edge of the window": {
             "components": []
@@ -379,7 +393,9 @@
             ]
           },
           "between sections of one long page": {
-            "components": []
+            "components": [
+              "SectionTimeline"
+            ]
           },
           "through a nested tree": {
             "components": []
@@ -437,6 +453,11 @@
           "content that scrolls": {
             "components": [
               "ScrollArea"
+            ]
+          },
+          "a full-height page that scrolls inside one frame": {
+            "components": [
+              "PageFrame"
             ]
           },
           "more content behind a line that shows or hides it": {
@@ -553,6 +574,11 @@
               "the line at the foot": {
                 "components": [
                   "SiteFooter"
+                ]
+              },
+              "the root of the page": {
+                "components": [
+                  "PageRoot"
                 ]
               }
             }
@@ -671,6 +697,11 @@
             "components": [
               "Markdown"
             ]
+          },
+          "a bulleted or numbered list of short items": {
+            "components": [
+              "List"
+            ]
           }
         }
       },
@@ -680,6 +711,11 @@
           "rows and columns to sort and filter": {
             "components": [
               "DataTable"
+            ]
+          },
+          "a small table of facts that is only read": {
+            "components": [
+              "Table"
             ]
           },
           "filters over a collection": {
@@ -707,6 +743,11 @@
           "items of a catalogue, as cards": {
             "components": [
               "ItemCard"
+            ]
+          },
+          "cards in columns the user drags between, such as tasks by state": {
+            "components": [
+              "KanbanBoard"
             ]
           },
           "files, with their size, date, open and reveal": {
@@ -2042,6 +2083,94 @@
       "usage": false
     },
     {
+      "name": "List",
+      "tier": "primitives",
+      "source": "src/primitives/List/List.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A bulleted or numbered list of short items, with a nested list drawn one step in.",
+      "useWhen": [
+        "A short run of points, such as the changes in a release or the steps to install.",
+        "Text from Markdown is drawn with Tessera parts: Markdown draws every list with List and ListItem."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A list the user adds to, renames and deletes from.",
+          "use": "ItemList"
+        },
+        {
+          "case": "A list of choices to tick.",
+          "use": "CheckList"
+        }
+      ],
+      "rules": [
+        "Put a ListItem inside each List; a nested List goes inside the ListItem it belongs to.",
+        "Pass ordered for numbers and start for the first number; without ordered the list has bullets.",
+        "Pass bare on a ListItem that holds its own control, such as a Checkbox: it takes the marker off and pulls the control back to the left edge.",
+        "Keep each item short; a long item wraps under its marker."
+      ],
+      "a11y": [
+        "It is a real list, so a screen reader reads its length and the position of each item.",
+        "A nested List is read as a list inside its item."
+      ],
+      "tree": {
+        "path": [
+          "text",
+          "a bulleted or numbered list of short items"
+        ],
+        "rule": "List is the bulleted or numbered list; ListItem is one item, and a nested List inside it is drawn one step in."
+      },
+      "example": "import { List, ListItem } from '@drizztdourden08/tessera';\n\nconst Steps = () => (\n  <List ordered start={1}>\n    <ListItem>Download the zip.</ListItem>\n    <ListItem>\n      Unpack it anywhere.\n      <List>\n        <ListItem>Keep the folder name short.</ListItem>\n      </List>\n    </ListItem>\n  </List>\n);\n",
+      "propsHash": "f7517ddc92b3f355",
+      "props": {
+        "own": [
+          {
+            "name": "ordered",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "start",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 277,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes"
+          ],
+          "extends": [
+            "Omit<HTMLAttributes<HTMLElement>, 'children'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--c-text-dim",
+        "--space-2xs",
+        "--space-lg"
+      ],
+      "gallery": {
+        "title": "Primitives · Display/List",
+        "route": "#/story/primitives-list--overview",
+        "file": "stories/primitives/List.stories.tsx"
+      },
+      "parts": [
+        "ListItem"
+      ]
+    },
+    {
       "name": "NumberInput",
       "tier": "primitives",
       "source": "src/primitives/NumberInput/NumberInput.tsx",
@@ -2060,6 +2189,212 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "PageFrame",
+      "tier": "primitives",
+      "source": "src/primitives/PageFrame/PageFrame.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A full-height, padded page that scrolls inside its own frame, for a web app whose html and body stay locked.",
+      "useWhen": [
+        "A web app screen is longer than the window and the frame, not the document, should scroll, such as a settings or account page.",
+        "The content should sit in a column of a set width, centred in a wide window."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A website page should scroll with the document, with its own scrollbar and a full-bleed Hero.",
+          "use": "PageRoot"
+        },
+        {
+          "case": "Only a box inside a screen scrolls, such as a list or a log.",
+          "use": "ScrollArea"
+        }
+      ],
+      "rules": [
+        "It is the scroller: the reset keeps html and body locked and the frame is 100dvh tall, so the page behind it never moves.",
+        "Set fill to take the height of its parent instead of the window, such as a page inside a pane.",
+        "Set width to sm, md or lg to centre the content in a column of that size; leave it out for the full width.",
+        "The padding is the page padding token. It is a ScrollArea, so it takes className and the other ScrollArea props except axis, gutter included: set gutter stable when the page reflows with width.",
+        "PageFrame keeps the root locked and scrolls inside one frame; PageRoot instead lets the whole document scroll."
+      ],
+      "a11y": [
+        "It adds no role, so put a main landmark inside it.",
+        "The frame is a scrolling region the keyboard can scroll once it has focus; give it tabIndex 0 when it holds no focusable content."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "a full-height page that scrolls inside one frame"
+        ],
+        "rule": "PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document."
+      },
+      "example": "import { PageFrame, Title } from '@drizztdourden08/tessera';\n\nconst AccountPage = () => (\n  <PageFrame width=\"md\">\n    <Title>Account</Title>\n  </PageFrame>\n);\n",
+      "propsHash": "b10190054e27f636",
+      "props": {
+        "own": [
+          {
+            "name": "width",
+            "optional": true,
+            "text": "PageFrameWidth",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ]
+          },
+          {
+            "name": "fill",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "onScroll",
+            "optional": true,
+            "text": "(position: ScrollPosition) => void"
+          },
+          {
+            "name": "fade",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "scrollbar",
+            "optional": true,
+            "text": "ScrollAreaScrollbar",
+            "literals": [
+              "'native'",
+              "'slim'"
+            ]
+          },
+          {
+            "name": "gutter",
+            "optional": true,
+            "text": "ScrollAreaGutter",
+            "literals": [
+              "'auto'",
+              "'stable'"
+            ]
+          },
+          {
+            "name": "scrollTo",
+            "optional": true,
+            "text": "Partial<ScrollPosition>"
+          }
+        ],
+        "inherited": {
+          "count": 278,
+          "from": [
+            "AriaAttributes",
+            "Attributes",
+            "DOMAttributes",
+            "HTMLAttributes",
+            "RefAttributes"
+          ],
+          "extends": [
+            "Omit<ScrollAreaProps, 'axis' | 'children'>",
+            "Omit<ComponentPropsWithRef<'div'>, 'onScroll'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--page-frame-w-lg",
+        "--page-frame-w-md",
+        "--page-frame-w-sm",
+        "--space-xl"
+      ],
+      "gallery": {
+        "title": "Primitives · Layout/PageFrame",
+        "route": "#/story/primitives-pageframe--overview",
+        "file": "stories/primitives/PageFrame.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "PageRoot",
+      "tier": "primitives",
+      "source": "src/primitives/PageRoot/PageRoot.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "The root of a website page: it lets the whole document scroll, which a desktop app screen locks, and puts the page inside one box.",
+      "useWhen": [
+        "A website page is longer than the window and the browser should scroll the page itself, with its own scrollbar.",
+        "A page has a full-bleed Hero or a sticky header that needs the document to scroll under it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A desktop app screen scrolls inside its panes and the window stays fixed.",
+          "use": "ScrollArea"
+        },
+        {
+          "case": "A web app keeps the root locked and scrolls inside one padded frame.",
+          "use": "PageFrame"
+        },
+        {
+          "case": "A list or a table scrolls inside a box on the page.",
+          "use": "ScrollArea"
+        }
+      ],
+      "rules": [
+        "Mount one PageRoot at the top of the page; it sets data-scroll=\"document\" on the html element and restores the old value when it unmounts.",
+        "Without a PageRoot the reset still locks html and body, so desktop apps stay exactly as they are.",
+        "Open dialogs lock the page again while they are shown, so the page behind does not scroll.",
+        "It renders a plain box and takes the props of a div, such as className and children.",
+        "PageRoot lets the whole document scroll; PageFrame keeps the root locked and scrolls inside one frame."
+      ],
+      "a11y": [
+        "It adds no role, so give the page a main landmark inside it.",
+        "The browser scrolls the document, so the keys, the scrollbar and find in page work as on any website."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "website chrome",
+          "the root of the page"
+        ],
+        "rule": "PageRoot is the one part that turns document scrolling on; everything inside it is built from the usual parts."
+      },
+      "example": "import { Hero, PageRoot, SiteHeader } from '@drizztdourden08/tessera';\nimport type { SiteHeaderProps } from '@drizztdourden08/tessera';\n\ninterface HomePageProps {\n  header: SiteHeaderProps;\n}\n\nconst HomePage = ({ header }: HomePageProps) => (\n  <PageRoot>\n    <SiteHeader {...header} />\n    <Hero size=\"full\" title=\"Relic of the Past\" art={{ kind: 'image', src: '/art/hills.png', motion: 'pan' }} />\n  </PageRoot>\n);\n",
+      "propsHash": "5fd9a46cb23cc3ab",
+      "props": {
+        "own": [
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 277,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes"
+          ],
+          "extends": [
+            "HTMLAttributes<HTMLElement>"
+          ]
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Primitives · Layout/PageRoot",
+        "route": "#/story/primitives-pageroot--overview",
+        "file": "stories/primitives/PageRoot.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Portal",
@@ -2160,6 +2495,7 @@
         "scrollbar slim draws a thin line along the edge that widens under the pointer; native keeps the browser bar.",
         "A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.",
         "Set fade to false when the edges of the content must not melt away.",
+        "gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows.",
         "Give the box a height, through a class or its parent, or it grows with its content and never scrolls."
       ],
       "a11y": [
@@ -2174,7 +2510,7 @@
         "rule": "ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content."
       },
       "example": "import type { ReactNode } from 'react';\nimport { Grid, ScrollArea } from '@drizztdourden08/tessera';\n\nconst Library = ({ cards }: { cards: ReactNode[] }) => (\n  <ScrollArea scrollbar=\"slim\" className=\"library\">\n    <Grid minColWidth={224} gap=\"sm\">\n      {cards}\n    </Grid>\n  </ScrollArea>\n);\n",
-      "propsHash": "b09c3ee3f79ee26f",
+      "propsHash": "ae02f58aaaeaf969",
       "props": {
         "own": [
           {
@@ -2203,6 +2539,16 @@
               "'slim'"
             ],
             "default": "'native'"
+          },
+          {
+            "name": "gutter",
+            "optional": true,
+            "text": "ScrollAreaGutter",
+            "literals": [
+              "'auto'",
+              "'stable'"
+            ],
+            "default": "'auto'"
           },
           {
             "name": "onScroll",
@@ -2726,6 +3072,7 @@
         "--c-inset",
         "--c-primary",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-sunken",
         "--c-surface",
         "--c-text",
@@ -3425,10 +3772,10 @@
         "--c-info-bright",
         "--c-info-dim",
         "--c-info-soft",
-        "--c-primary",
         "--c-primary-bright",
         "--c-primary-dim",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-secondary",
         "--c-secondary-bright",
         "--c-secondary-dim",
@@ -3486,6 +3833,104 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "Table",
+      "tier": "primitives",
+      "source": "src/primitives/Table/Table.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A small static table for facts that are only read: a border, a heavier head, padded cells and optional zebra rows.",
+      "useWhen": [
+        "A few rows of fixed facts, such as the keys of a game and what they do.",
+        "Text from Markdown is drawn with Tessera parts: Markdown draws every GitHub table with Table."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Rows the user sorts, filters, selects, groups or resizes.",
+          "use": "DataTable"
+        },
+        {
+          "case": "One label and its value on a line.",
+          "use": "StatRow"
+        }
+      ],
+      "rules": [
+        "Build it from parts: Table holds TableSection parts, a TableSection holds TableRow parts and a TableRow holds TableCell parts.",
+        "Pass head on the first TableSection for the header rows; the other TableSection is the body.",
+        "Pass header on a TableCell of the head so it is a column heading; pass align left, center or right for the side its text sits on.",
+        "Pass striped to shade every second body row.",
+        "Pass aria-label to Table to name it. The other table attributes pass through.",
+        "A table wider than its box scrolls sideways inside its border; keep the cells to short text."
+      ],
+      "a11y": [
+        "It is a real table with a head and a body, so a screen reader reads each cell with its column heading.",
+        "Name the table with aria-label when the page has more than one."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a small table of facts that is only read"
+        ],
+        "rule": "Table draws a static table from TableSection, TableRow and TableCell; DataTable is the table the user sorts and filters."
+      },
+      "example": "import { Table, TableCell, TableRow, TableSection } from '@drizztdourden08/tessera';\n\nconst Keys = () => (\n  <Table striped aria-label=\"Keys\">\n    <TableSection head>\n      <TableRow>\n        <TableCell header>Key</TableCell>\n        <TableCell header align=\"right\">Uses</TableCell>\n      </TableRow>\n    </TableSection>\n    <TableSection>\n      <TableRow>\n        <TableCell>W</TableCell>\n        <TableCell align=\"right\">120</TableCell>\n      </TableRow>\n    </TableSection>\n  </Table>\n);\n",
+      "propsHash": "9158c19061e5b112",
+      "props": {
+        "own": [
+          {
+            "name": "striped",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 285,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes",
+            "TableHTMLAttributes"
+          ],
+          "extends": [
+            "Omit<TableHTMLAttributes<HTMLTableElement>, 'align'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-bg",
+        "--c-border",
+        "--c-hairline",
+        "--c-hover",
+        "--c-surface",
+        "--c-text",
+        "--leading-normal",
+        "--radius-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Primitives · Display/Table",
+        "route": "#/story/primitives-table--overview",
+        "file": "stories/primitives/Table.stories.tsx"
+      },
+      "parts": [
+        "TableCell",
+        "TableRow",
+        "TableSection"
+      ]
     },
     {
       "name": "Tabs",
@@ -3659,7 +4104,7 @@
       "tokens": [
         "--c-danger",
         "--c-info",
-        "--c-primary",
+        "--c-primary-text",
         "--c-secondary",
         "--c-success",
         "--c-tertiary",
@@ -4012,7 +4457,7 @@
         "rule": "ActionBar keeps the actions of one item on one line, styles danger the same way everywhere and asks before it unless the action opts out."
       },
       "example": "import { ActionBar } from '@drizztdourden08/tessera';\nimport type { ActionItem } from '@drizztdourden08/tessera';\n\ninterface PresetHeaderProps {\n  name: string;\n  onDuplicate: () => void;\n  onDelete: () => void;\n  onSave: () => void;\n}\n\nconst PresetHeader = ({ name, onDuplicate, onDelete, onSave }: PresetHeaderProps) => {\n  const actions: ActionItem[] = [\n    { id: 'duplicate', label: 'Duplicate', icon: 'copy', onSelect: onDuplicate },\n    { id: 'delete', label: 'Delete', icon: 'trash-2', kind: 'danger', onSelect: onDelete, confirm: { title: `Delete ${name}?`, confirmLabel: `Delete ${name}` } },\n    { id: 'save', label: 'Save', icon: 'save', kind: 'primary', onSelect: onSave },\n  ];\n  return <ActionBar label={name} actions={actions} />;\n};\n",
-      "propsHash": "3ea44d39ee726791",
+      "propsHash": "7b9321fe8de0522f",
       "props": {
         "own": [
           {
@@ -4023,11 +4468,11 @@
           {
             "name": "size",
             "optional": true,
-            "text": "ButtonSize",
+            "text": "ActionBarSize",
             "literals": [
-              "'xs'",
+              "'md'",
               "'sm'",
-              "'md'"
+              "'xs'"
             ],
             "default": "'md'"
           },
@@ -5469,7 +5914,8 @@
       ],
       "a11y": [
         "The menu is role menu, with the keyboard of DropdownMenu: arrows, Home, End, typing and Escape.",
-        "Opened with the keyboard, the menu takes focus on its first item and returns it to the element that opened it on close."
+        "Opened with the keyboard, the menu takes focus on its first item and returns it to the element that opened it on close.",
+        "Focus returns the same way when you drive the menu with open: after Escape, a pick or open set to false it goes back to the opener, and it stays put when the user clicked into another focusable element."
       ],
       "tree": {
         "path": [
@@ -6252,12 +6698,20 @@
       "rules": [
         "Give it rows, a schema and getRowId; the columns come from the schema, and viewKey keeps the layout between visits.",
         "Pass fallbackGroupBy to open grouped, and defaultExpanded, a list of group keys or a function of the key and its field, to choose the groups that start open; leave it out to open them all.",
+        "Set a unit on a number field, or units in the schema config, to write 12.4 MB in the cell; sort, group and filter still read the number.",
         "Keep the rows in the app and pass them whole; from virtualizeFrom rows, 200 by default, the table draws only the rows in view.",
         "Set virtualizeFrom lower for rows that are costly to draw, or to Infinity to draw every row.",
         "Pass selectable with selectedIds and onSelectionChange to pick many rows; the app keeps the selection.",
         "Pass groupActions(groupKey, rows) to draw icon buttons at the end of a group header, as the same action list as an ItemCard; rows holds every row of the group, collapsed or not, so select all in this folder needs no lookup.",
         "Pass onRowMove(fromKey, target) to add a grip cell; the user drags the grip or presses Up or Down on it. target is index, the new place among the rows shown, beforeKey and afterKey, the rows the drop lands before and after, and groupKey, the group it lands in, none when ungrouped; use the keys and groupKey for grouped data, since a shown index does not map to it. A drop in another group arrives even when the order of the rows is unchanged.",
         "Pass rowDragData(row) to make rows draggable to a drop target of the app; each entry of the record is written to the dataTransfer by type, and the app decides what a drop means.",
+        "Pass renderCell(row, path) to draw a cell yourself, such as a thumbnail beside a name; return undefined to keep the schema rendering of that cell.",
+        "A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.",
+        "Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.",
+        "Pass rowState(row) to mark a row active, pending, error, warning or muted; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar, and a selected row keeps the selection background.",
+        "Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.",
+        "A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.",
+        "Pass detailRowId with renderDetail(row) to open a panel under one row, such as an inline confirm or a small form; it spans every column, works in groups and with sort, and the app keeps the id and clears it from onDetailClose.",
         "Give ref and call getRects() for a rect of every row from the layout, drawn or not, with the rows of collapsed groups left out, for useMarqueeSelect({ getRects }); pass scrollRef, bind and overlay as on VirtualGrid."
       ],
       "a11y": [
@@ -6266,6 +6720,7 @@
         "A group header is a button that says whether the group is expanded.",
         "A group action is a button named by its label, after the group button in the tab order, and a click on it does not toggle the group.",
         "The grip of a row is a button; Up and Down move the row by one place, focus stays on the grip, and a polite live region says where the row went.",
+        "The detail is a row with one cell that spans the columns, placed after its row in the tab order; Escape inside it calls onDetailClose unless a field already used the key.",
         "A checkbox in a row that scrolls out of view stays drawn while it has focus, so the keys keep working."
       ],
       "tree": {
@@ -6276,7 +6731,7 @@
         "rule": "DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long."
       },
       "example": "import { DataTable } from '@drizztdourden08/tessera';\nimport type { FieldDescriptor } from '@drizztdourden08/tessera';\n\ninterface Peer {\n  id: string;\n  name: string;\n  state: string;\n}\n\nconst openGroups = ['Connected'];\n\ninterface PeerTableProps {\n  peers: Peer[];\n  schema: FieldDescriptor[];\n}\n\nconst PeerTable = ({ peers, schema }: PeerTableProps) => (\n  <DataTable\n    rows={peers}\n    schema={schema}\n    getRowId={(peer) => peer.id}\n    fallbackGroupBy={['state']}\n    defaultExpanded={openGroups}\n    countLabel={['peer', 'peers']}\n  />\n);\n",
-      "propsHash": "2ab8699956391b2f",
+      "propsHash": "1d03c477fa6af319",
       "props": {
         "own": [
           {
@@ -6380,6 +6835,56 @@
             "text": "IdRefHrefResolver"
           },
           {
+            "name": "renderCell",
+            "optional": true,
+            "text": "(row: T, path: string) => ReactNode | undefined"
+          },
+          {
+            "name": "rowState",
+            "optional": true,
+            "text": "(row: T) => RowState | undefined"
+          },
+          {
+            "name": "rowHeight",
+            "optional": true,
+            "text": "VirtualSize"
+          },
+          {
+            "name": "sort",
+            "optional": true,
+            "text": "readonly SortEntry[]"
+          },
+          {
+            "name": "onSortChange",
+            "optional": true,
+            "text": "(sort: readonly SortEntry[]) => void"
+          },
+          {
+            "name": "expanded",
+            "optional": true,
+            "text": "ReadonlySet<string>"
+          },
+          {
+            "name": "onExpandedChange",
+            "optional": true,
+            "text": "(ids: ReadonlySet<string>) => void"
+          },
+          {
+            "name": "detailRowId",
+            "optional": true,
+            "text": "string | null"
+          },
+          {
+            "name": "renderDetail",
+            "optional": true,
+            "text": "(row: T) => ReactNode"
+          },
+          {
+            "name": "onDetailClose",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
             "name": "groupActions",
             "optional": true,
             "text": "(groupKey: string, rows: readonly T[]) => readonly ActionItem[]"
@@ -6428,20 +6933,26 @@
         "--c-border",
         "--c-danger",
         "--c-danger-dim",
+        "--c-danger-soft",
         "--c-hairline",
         "--c-hover",
         "--c-primary",
         "--c-primary-bright",
         "--c-primary-dim",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-secondary-soft",
         "--c-selected",
         "--c-surface",
         "--c-text",
         "--c-text-dim",
         "--c-text-muted",
+        "--c-warning",
+        "--c-warning-soft",
         "--control-h-xs",
         "--dt-count",
+        "--dt-detail-at",
+        "--dt-detail-h",
         "--dt-group-indent",
         "--dt-index",
         "--dt-tracks",
@@ -6476,7 +6987,9 @@
         "route": "#/story/composites-datatable--overview",
         "file": "stories/composites/DataTable.stories.tsx"
       },
-      "parts": []
+      "parts": [
+        "groupUid"
+      ]
     },
     {
       "name": "DateText",
@@ -6505,14 +7018,18 @@
       "rules": [
         "Pass the raw moment as value, a Date, an ISO string or epoch ms, never text the app formatted.",
         "Use relative for how long ago, calendar for a list of recent saves, date or datetime for records.",
+        "Use elapsed for a running job, such as running 4m 03s; set label to the word before it, already translated.",
+        "Set length short on elapsed for one unit, rounded down, such as 5s, 12m, 3h or 2d; it ticks by the unit shown.",
         "Leave length unset first: each format starts at the length that reads best.",
         "Set the locale and the words Just now, Today, Yesterday and Tomorrow once, in the dates strings.",
         "For a table column, set SchemaConfig.dates; for text outside React, call formatDate with the same format.",
+        "Set the unit letters of elapsed and the order of label and time in the dates strings.",
         "Turn tooltip on for a short format whose exact moment matters, such as time or weekday."
       ],
       "a11y": [
         "The text is a time element whose datetime attribute holds the exact moment.",
         "Set focusable when the full date is the only way to read the exact moment, so the keyboard reaches its Tooltip.",
+        "A ticking elapsed value is not a live region, so a screen reader is not read every second; the Tooltip holds the exact start.",
         "Figures are tabular, so a time that redraws keeps its width and its neighbours stay put."
       ],
       "tree": {
@@ -6520,10 +7037,10 @@
           "a status, a count or a label",
           "a date or a time, such as 5 minutes ago"
         ],
-        "rule": "DateText formats a moment with the browser's Intl, in the app's locale, and keeps relative and calendar text up to date."
+        "rule": "DateText formats a moment with the browser's Intl, in the app's locale, and keeps relative, calendar and elapsed text up to date from shared timers, paused while the page is hidden."
       },
       "example": "import { DateText } from '@drizztdourden08/tessera';\n\nconst SaveTime = ({ savedAt }: { savedAt: number }) => <DateText value={savedAt} format=\"relative\" />;\n",
-      "propsHash": "9e6394e9529babda",
+      "propsHash": "dc0c1e6f57af3eac",
       "props": {
         "own": [
           {
@@ -6551,6 +7068,11 @@
             "name": "tooltip",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
           },
           {
             "name": "focusable",
@@ -6596,7 +7118,147 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A modal that asks one question, with a message, a confirm button and a cancel button, and room for a short body.",
+      "useWhen": [
+        "The user must confirm an action, acknowledge a notice or answer a short question before going on.",
+        "A short form or a block of text, such as a README or a list of details, sits under the message."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The dialog has its own layout, its own buttons or no question to answer.",
+          "use": "DialogShell"
+        },
+        {
+          "case": "A long job runs and the user may hide it or cancel it.",
+          "use": "JobDialog"
+        }
+      ],
+      "rules": [
+        "Pick the size from the content: sm for a question, md for a form, lg for a README or a table; the default is sm.",
+        "The width follows the content between the min and the max of the size, and never passes the window minus a margin.",
+        "The height grows with the content up to the window minus a margin; the header and the buttons stay and only the body scrolls.",
+        "Set steady when the width must not move while the content changes, such as an error that appears under a form.",
+        "Use variant danger for an action that cannot be undone; focus then starts on cancel."
+      ],
+      "a11y": [
+        "The dialog is modal and named by its title; Tab stays inside it and Escape cancels.",
+        "Focus starts on confirm, or on cancel for danger, and returns to the opener on close.",
+        "A body that scrolls keeps the header and the buttons in view."
+      ],
+      "tree": {
+        "path": [
+          "something over the page",
+          "a question the user must answer"
+        ],
+        "rule": "Dialog holds a message and a confirm and a cancel button, and takes its width from its content within the size."
+      },
+      "example": "import { Dialog } from '@drizztdourden08/tessera';\n\nconst ReadmeDialog = ({ open, close }: { open: boolean; close: () => void }) => (\n  <Dialog open={open} title=\"README\" message=\"\" size=\"lg\" confirmLabel=\"Close\" hideCancel onConfirm={close} onCancel={close}>\n    Release notes go here.\n  </Dialog>\n);\n",
+      "propsHash": "58f13098eec70cc5",
+      "props": {
+        "own": [
+          {
+            "name": "open",
+            "optional": false,
+            "text": "boolean"
+          },
+          {
+            "name": "title",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "message",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "confirmLabel",
+            "optional": true,
+            "text": "string",
+            "default": "common.confirm"
+          },
+          {
+            "name": "cancelLabel",
+            "optional": true,
+            "text": "string",
+            "default": "common.cancel"
+          },
+          {
+            "name": "confirmDisabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "hideCancel",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "'danger' | 'default'",
+            "default": "'default'"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "DialogSize",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ]
+          },
+          {
+            "name": "steady",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onConfirm",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "onCancel",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "id",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "data",
+            "optional": true,
+            "text": "DataAttributes"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "React.ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--space-lg",
+        "--text-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Dialogs/Dialog",
+        "route": "#/story/composites-dialog--overview",
+        "file": "stories/composites/Dialog.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "DialogShell",
@@ -6606,7 +7268,163 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/composites"
       ],
-      "usage": false
+      "usage": true,
+      "job": "The frame of a modal: a backdrop, a panel with a header and a close button, a scrolling body and a row of actions.",
+      "useWhen": [
+        "The dialog has its own body and its own buttons, such as a details view, a form or a README.",
+        "A composite needs a modal frame with focus, Escape and the backdrop handled for it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The dialog asks one question with confirm and cancel.",
+          "use": "Dialog"
+        },
+        {
+          "case": "A long job runs and the user may hide it or cancel it.",
+          "use": "JobDialog"
+        }
+      ],
+      "rules": [
+        "Pass size sm, md or lg; each has a min and a max width from tokens, and the default is sm.",
+        "The width follows the content between the min and the max, and never passes the window minus a margin.",
+        "The height grows with the content up to the window minus a margin; the header and the actions stay and only the body scrolls.",
+        "Set steady to pin the width to the max of the size, for a body whose content changes, such as a wizard step or an error line.",
+        "Set dismissable to false while a save runs, so only your own actions close it."
+      ],
+      "a11y": [
+        "The panel has role dialog and aria-modal, and the title names it.",
+        "Tab and Shift+Tab stay inside; Escape and the close button close it unless it is not dismissable.",
+        "Focus moves in on open and returns to the opener on close."
+      ],
+      "tree": {
+        "path": [
+          "something over the page",
+          "a dialog with its own layout"
+        ],
+        "rule": "DialogShell gives the frame, the focus and the scrolling body, and leaves the content and the buttons to you."
+      },
+      "example": "import { Button, DialogShell } from '@drizztdourden08/tessera';\n\nconst DetailsDialog = ({ open, close }: { open: boolean; close: () => void }) => (\n  <DialogShell open={open} onClose={close} title=\"Friday async\" size=\"md\" actions={<Button onClick={close}>Close</Button>}>\n    Eight players are connected.\n  </DialogShell>\n);\n",
+      "propsHash": "80113886b20170a4",
+      "props": {
+        "own": [
+          {
+            "name": "open",
+            "optional": false,
+            "text": "boolean"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "dismissable",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "title",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "titleWrap",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "headerExtra",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "DialogSize",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ]
+          },
+          {
+            "name": "steady",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "initialFocusRef",
+            "optional": true,
+            "text": "RefObject<HTMLElement | null>"
+          },
+          {
+            "name": "initialFocus",
+            "optional": true,
+            "text": "DialogInitialFocus",
+            "literals": [
+              "'first'",
+              "'dialog'"
+            ],
+            "default": "'first'"
+          },
+          {
+            "name": "id",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "data",
+            "optional": true,
+            "text": "DataAttributes"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-scrim",
+        "--c-surface",
+        "--dialog-fit",
+        "--dialog-margin",
+        "--dialog-min-lg",
+        "--dialog-min-md",
+        "--dialog-min-sm",
+        "--dialog-w-lg",
+        "--dialog-w-md",
+        "--dialog-w-sm",
+        "--radius-lg",
+        "--shadow-lg",
+        "--space-lg",
+        "--space-md",
+        "--space-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Dialogs/DialogShell",
+        "route": "#/story/composites-dialogshell--overview",
+        "file": "stories/composites/DialogShell.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "DisabledOverlay",
@@ -6664,7 +7482,10 @@
         "Set unsaved on a tab to show a dot that stays beside the close button on hover and focus.",
         "title is the text on the tab, cut with an ellipsis; tooltip is the hover text and defaults to the title.",
         "When the tabs do not fit, the strip scrolls and keeps the active tab in view. Pass overflowMenu to add a menu that lists every tab.",
-        "Show the document of the active tab beside the strip; DocumentTabs draws no panel."
+        "Show the document of the active tab beside the strip; DocumentTabs draws no panel.",
+        "Pass onTabContextMenu to open the app menu of a tab. It gets the tab id and the event, from a right click, the Menu key or Shift+F10 on a focused tab. Call preventDefault on a mouse event to hide the browser menu.",
+        "Pass look=\"raised\" for tabs with a surface fill and a lifted selected tab. Any look takes the fills from --document-tab-bg and --document-tab-bg-selected, which default to no fill.",
+        "Pass onAdd to draw a + icon button after the last tab, inside the strip. Its label is translated from the strings, and onAdd only asks: the app adds the document to tabs."
       ],
       "a11y": [
         "The strip is a tablist named by label, and each tab is a button with role tab and aria-selected set on the active one. Only one tab is a tab stop.",
@@ -6672,6 +7493,7 @@
         "Delete or Ctrl and W asks to close the focused tab. The close button of each tab is named Close and the title, and is not a tab stop.",
         "Alt and Left or Right moves the focused tab. Focus stays on the tab, and the move is announced.",
         "A tab with unsaved changes says so to screen readers. Middle click closes a tab.",
+        "The Menu key and Shift+F10 on a focused tab call onTabContextMenu with the tab id. The add button is a named button and a tab stop of its own.",
         "The drop line follows the pointer while a tab is dragged, and the strip adds no motion when the user asks for less."
       ],
       "tree": {
@@ -6682,7 +7504,7 @@
         "rule": "DocumentTabs is the strip of open documents the user switches, closes and reorders, the same way in every editor."
       },
       "example": "import { DocumentTabs } from '@drizztdourden08/tessera';\nimport type { DocumentTab } from '@drizztdourden08/tessera';\n\ninterface OpenDrawingsProps {\n  drawings: DocumentTab[];\n  activeId: string;\n  open: (id: string) => void;\n  askToClose: (id: string) => void;\n  move: (from: number, to: number) => void;\n}\n\nconst OpenDrawings = ({ drawings, activeId, open, askToClose, move }: OpenDrawingsProps) => (\n  <DocumentTabs\n    label=\"Open drawings\"\n    tabs={drawings}\n    activeId={activeId}\n    onActivate={open}\n    onClose={askToClose}\n    onMove={move}\n    overflowMenu\n  />\n);\n",
-      "propsHash": "82b0f142b383f064",
+      "propsHash": "b461d1a39275fdbf",
       "props": {
         "own": [
           {
@@ -6722,6 +7544,26 @@
             "default": "false"
           },
           {
+            "name": "onTabContextMenu",
+            "optional": true,
+            "text": "(tabId: string, event: MenuEvent) => void"
+          },
+          {
+            "name": "onAdd",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "look",
+            "optional": true,
+            "text": "DocumentTabsLook",
+            "literals": [
+              "'flat'",
+              "'raised'"
+            ],
+            "default": "'flat'"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -6739,16 +7581,21 @@
         "--c-border",
         "--c-focus",
         "--c-hover",
+        "--c-lift",
         "--c-primary",
         "--c-primary-bright",
+        "--c-surface",
         "--c-text",
         "--c-text-dim",
         "--c-warning",
         "--control-h-xs",
+        "--document-tab-bg",
+        "--document-tab-bg-selected",
         "--document-tabs-count",
         "--leading-tight",
         "--opacity-muted",
         "--radius-round",
+        "--radius-sm",
         "--size-1",
         "--size-224",
         "--size-8",
@@ -6820,6 +7667,7 @@
         "An item icon is a name from the set, iconify data such as an imported Lucide icon, Icon path data, or any element.",
         "Split groups by meaning with a label or a separator; turn on filter past about a dozen items.",
         "Give an item onHighlight to start loading what it opens: it runs once each time the item is hovered, focused or reached with the arrow keys, and never while it is disabled.",
+        "Give an item data to put data attributes on it, such as { \"data-menu-entry\": \"rename\" }, and ariaDescription for a hint a screen reader adds after the label; description is already read as part of the item.",
         "The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.",
         "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.",
         "align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge.",
@@ -7231,6 +8079,7 @@
         "--c-hover",
         "--c-primary",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-selected",
         "--c-surface",
         "--c-text",
@@ -7857,6 +8706,9 @@
       ],
       "rules": [
         "Write the steps as data and keep them in a memo, since onEnter runs each time its step shows.",
+        "Set intro: true on a welcome step for a wide centred panel; pass a Logo or BrandMark as art, and the mascot grows beside it.",
+        "An intro step shows Start the tour (goes on, holds focus) and Skip (ends the tour) instead of Back and Next; translate them with tour.introStart and tour.introSkip.",
+        "Give a step reveal when its target may not be drawn yet, such as a VirtualGrid item; call scrollToIndex there, and the tour finds the target after a frame.",
         "Mark a target with data-tour and point at it with { tour }, or pass a ref; a step without a target sits in the middle.",
         "Change the state of the app in onEnter, such as opening a panel or a tab, and make it safe to run twice; stop when its signal aborts.",
         "Use advance: 'click' only when the click itself does what the step teaches; add clickTarget when one entry of the lit part goes on.",
@@ -7871,8 +8723,9 @@
         "The bubble is a dialog named by its title; focus moves to it on each step and goes back where it was on close.",
         "A status line reads each step as Step 2 of 6 and the title.",
         "The rest of the page is inert; the kept parts, the lit part of a click or wait step and its click target stay reachable.",
-        "Right or Enter goes on, Left goes back and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.",
+        "Right or Enter goes on, Left goes back (not on an intro step) and Escape closes, ahead of the keys of the app; tour.shortcuts lists them.",
         "A menu or popover opened during a step takes Escape first; the tour closes on the next press, before any dialog or screen.",
+        "The tour scrolls the target to the centre at once, through every scrolling ancestor, or to its top edge when it is taller than the window; then it measures the lit part each frame until it holds still.",
         "With reduced motion the highlight and the mascot move at once and nothing fades."
       ],
       "tree": {
@@ -7882,7 +8735,7 @@
         ],
         "rule": "GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target."
       },
-      "example": "import { useMemo } from 'react';\nimport { Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';\nimport type { TourStep } from '@drizztdourden08/tessera';\n\nconst HomeTour = ({ openSettings }: { openSettings: () => void }) => {\n  const steps = useMemo<TourStep[]>(() => [\n    { id: 'welcome', title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },\n    { id: 'pages', target: { tour: 'pages' }, placement: 'right-start', title: 'Pages', body: 'Every page lives here.' },\n    { id: 'gear', target: { tour: 'gear' }, advance: 'click', title: 'Settings', body: 'Click the gear to open the settings.' },\n    { id: 'panel', target: { tour: 'settings' }, title: 'Settings', body: 'Changes apply at once.', onEnter: openSettings },\n  ], [openSettings]);\n  const tour = useGuidedTour({ steps });\n  return (\n    <>\n      <Button onClick={() => tour.start()}>Take the tour</Button>\n      <GuidedTour tour={tour} mascot=\"auto\" keep={[{ tour: 'title-bar' }]} />\n    </>\n  );\n};\n",
+      "example": "import { useMemo } from 'react';\nimport { BrandMark, Button, GuidedTour, useGuidedTour } from '@drizztdourden08/tessera';\nimport type { TourStep } from '@drizztdourden08/tessera';\n\nconst HomeTour = ({ openSettings }: { openSettings: () => void }) => {\n  const steps = useMemo<TourStep[]>(() => [\n    { id: 'welcome', intro: true, art: <BrandMark app=\"archipelia\" size=\"xl\" />, title: 'Welcome', body: 'A short walk through the screen.', mascot: 'wave' },\n    { id: 'pages', target: { tour: 'pages' }, placement: 'right-start', title: 'Pages', body: 'Every page lives here.' },\n    { id: 'gear', target: { tour: 'gear' }, advance: 'click', title: 'Settings', body: 'Click the gear to open the settings.' },\n    { id: 'panel', target: { tour: 'settings' }, title: 'Settings', body: 'Changes apply at once.', onEnter: openSettings },\n  ], [openSettings]);\n  const tour = useGuidedTour({ steps });\n  return (\n    <>\n      <Button onClick={() => tour.start()}>Take the tour</Button>\n      <GuidedTour tour={tour} mascot=\"auto\" keep={[{ tour: 'title-bar' }]} />\n    </>\n  );\n};\n",
       "propsHash": "589b0666b6230691",
       "props": {
         "own": [
@@ -7944,7 +8797,10 @@
         "--space-xs",
         "--text-base",
         "--text-sm",
+        "--text-xl",
         "--text-xs",
+        "--tour-intro-art-h",
+        "--tour-intro-w",
         "--weight-medium",
         "--z-floating",
         "--z-popover"
@@ -8105,6 +8961,142 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "InlineEdit",
+      "tier": "composites",
+      "source": "src/composites/InlineEdit/InlineEdit.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A piece of text that shows as text with a pen and turns into a field when the user clicks it, such as the title of a card.",
+      "useWhen": [
+        "A short text is read far more than it is changed, so a field that is always open would clutter the view.",
+        "The user renames a title, a label or a note in place, on the page that shows it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The field belongs to a form that is filled in and sent.",
+          "use": "FormRow"
+        },
+        {
+          "case": "The user creates a new thing from a name.",
+          "use": "InlineCreateForm"
+        },
+        {
+          "case": "The text is Markdown that needs a toolbar and a preview.",
+          "use": "MarkdownEditor"
+        }
+      ],
+      "rules": [
+        "Own the text in the app: pass it as value, and set the new one in onCommit; the component keeps no copy once the edit ends.",
+        "Enter or leaving the field commits through onCommit, trimmed; text that did not change is not committed.",
+        "Escape cancels, restores the text and puts focus back on the text.",
+        "Click the text, or press Enter or F2 while it has focus, to start editing.",
+        "Pass validate to return a message for text that is not allowed; it shows under the field and nothing is committed until it returns nothing.",
+        "Pass multiline for a text area, where Enter adds a line and Mod+Enter commits.",
+        "Pass renderValue to draw the text when it is not edited, such as Markdown; the click, Enter and F2, and the name stay the same, and the field is unchanged.",
+        "A link or a control inside the drawn text does not start the edit when clicked; only a click on the rest of the text does.",
+        "Pass label to name the text for a screen reader, placeholder to stand in for an empty text, and disabled to show the text only."
+      ],
+      "a11y": [
+        "The text is a button named Edit with the label and the text, and it says F2 in aria-keyshortcuts.",
+        "The field takes focus with its text selected, and it is named the same way as the button.",
+        "The message of validate is tied to the field, and the field is marked invalid while it shows.",
+        "A disabled text is a disabled button, so it is read but not offered for editing."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "free text or a number",
+          "text shown as text, edited in place on click"
+        ],
+        "rule": "InlineEdit starts, commits and cancels an edit in place with the same keys in every app."
+      },
+      "example": "import { useState } from 'react';\nimport { InlineEdit } from '@drizztdourden08/tessera';\n\nconst CardTitle = () => {\n  const [title, setTitle] = useState('Fix the login redirect');\n  return (\n    <InlineEdit\n      label=\"Title\"\n      value={title}\n      onCommit={setTitle}\n      placeholder=\"Add a title\"\n      validate={(text) => (text.length < 3 ? 'Use at least 3 characters.' : undefined)}\n    />\n  );\n};\n",
+      "propsHash": "16e99e2a183ff159",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "onCommit",
+            "optional": false,
+            "text": "(value: string) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "placeholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "validate",
+            "optional": true,
+            "text": "(value: string) => string | undefined"
+          },
+          {
+            "name": "multiline",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "renderValue",
+            "optional": true,
+            "text": "(value: string) => ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--c-focus",
+        "--c-surface",
+        "--c-text-muted",
+        "--radius-md",
+        "--space-2xs",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Forms/InlineEdit",
+        "route": "#/story/composites-inlineedit--overview",
+        "file": "stories/composites/InlineEdit.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "ItemCard",
@@ -8818,15 +9810,150 @@
           ]
         }
       },
-      "tokens": [
-        "--dialog-w-md"
-      ],
+      "tokens": [],
       "gallery": {
         "title": "Composites · Dialogs/JobDialog",
         "route": "#/story/composites-jobdialog--overview",
         "file": "stories/composites/JobDialog.stories.tsx"
       },
       "parts": []
+    },
+    {
+      "name": "KanbanBoard",
+      "tier": "composites",
+      "source": "src/composites/KanbanBoard/KanbanBoard.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A board of cards in named columns, such as tasks by state, where the user drags a card within a column or to another one.",
+      "useWhen": [
+        "Items move through a few named stages, such as todo, doing, review and done, and the user sorts them by hand.",
+        "The app names the columns and owns the cards; the board draws them and reports each move.",
+        "Each column may fold to a narrow rail, so the user can keep a long board in view."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The items are one flat list the user reorders, with no stages.",
+          "use": "RowGrid"
+        },
+        {
+          "case": "The user browses, sorts or filters many records in rows and columns.",
+          "use": "DataTable"
+        },
+        {
+          "case": "The cards are catalogue items with media and facts, laid out in a grid.",
+          "use": "ItemCard"
+        }
+      ],
+      "rules": [
+        "Pass columns as { id, title, cards } where each card has an id; the app decides the columns and nothing is fixed.",
+        "Keep the columns in the app: onMove gets { cardId, from, to } with a columnId and an index each, and the app changes its data.",
+        "Read to.index as the place the card has after the move, in its new column; moveCard applies a move to the columns for you.",
+        "Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.",
+        "Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.",
+        "Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.",
+        "Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.",
+        "Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.",
+        "Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.",
+        "Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids."
+      ],
+      "a11y": [
+        "The board and each column are named groups, and each column holds a named list of cards.",
+        "The grip is a button on each card: drag it, or press Up and Down to move within the column and Left and Right to move to the next column.",
+        "Keys skip a folded column, and focus stays on the moved card.",
+        "Each move is announced in a polite live region with the card, the column and the place, such as Fix login moved to Doing, position 2 of 4.",
+        "Every control is at least 24 pixels, and the fold button names its column and says if it is expanded."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "cards in columns the user drags between, such as tasks by state"
+        ],
+        "rule": "KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards."
+      },
+      "example": "import { useState } from 'react';\nimport { Badge, KanbanBoard, Text, moveCard } from '@drizztdourden08/tessera';\nimport type { KanbanColumn } from '@drizztdourden08/tessera';\n\ninterface Task {\n  id: string;\n  title: string;\n  tag: string;\n}\n\nconst START: KanbanColumn<Task>[] = [\n  { id: 'todo', title: 'To do', cards: [{ id: 't1', title: 'Fix login', tag: 'bug' }] },\n  { id: 'doing', title: 'Doing', cards: [] },\n  { id: 'done', title: 'Done', cards: [] },\n];\n\nconst Tasks = () => {\n  const [columns, setColumns] = useState(START);\n  return (\n    <KanbanBoard\n      label=\"Sprint\"\n      columns={columns}\n      cardLabel={(task) => task.title}\n      renderCard={(task) => (\n        <>\n          <Text>{task.title}</Text>\n          <Badge variant=\"inline\" value={task.tag} color=\"info\" />\n        </>\n      )}\n      onMove={(move) => setColumns((now) => moveCard(now, move))}\n    />\n  );\n};\n",
+      "propsHash": "571541c4fd1c5f3e",
+      "props": {
+        "own": [
+          {
+            "name": "columns",
+            "optional": false,
+            "text": "readonly KanbanColumn<Card>[]"
+          },
+          {
+            "name": "renderCard",
+            "optional": false,
+            "text": "(card: Card) => ReactNode"
+          },
+          {
+            "name": "onMove",
+            "optional": false,
+            "text": "(move: KanbanMove) => void"
+          },
+          {
+            "name": "cardLabel",
+            "optional": true,
+            "text": "(card: Card) => string"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "collapsed",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "defaultCollapsed",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "onCollapsedChange",
+            "optional": true,
+            "text": "(columnId: string, collapsed: boolean) => void"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-primary-bright",
+        "--c-primary-soft",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--opacity-muted",
+        "--size-1",
+        "--size-2",
+        "--size-288",
+        "--size-48",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-xs",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/KanbanBoard",
+        "route": "#/story/composites-kanbanboard--overview",
+        "file": "stories/composites/KanbanBoard.stories.tsx"
+      },
+      "parts": [
+        "moveCard"
+      ]
     },
     {
       "name": "KeyboardLayout",
@@ -9630,15 +10757,26 @@
       "rules": [
         "Give each row a stable id: the window, the new line behaviour and the selection all follow it.",
         "Pass kinds with a tone per type: a text tone, a tag tint such as teal, or an app hex colour, lifted until it reads.",
+        "A line takes the tone of its kind; set tone on one row to colour that line alone, with or without a kind.",
         "Set toneMessage to colour the message in the same tone, as for errors, or to a tone of its own, such as dim.",
         "Set strong on a kind whose messages mark a step, such as a session that starts, and uppercase to set them in capitals.",
         "Pass selectedIds with onSelectionChange to let the user pick rows; the app holds the set and copies or acts on it.",
         "Put the action on the picked rows in toolbarExtra, such as Copy selected or Report these lines, beside the line count.",
+        "Set ansi for lines that carry colour codes, such as a build or process output; other escape codes are stripped, never drawn.",
+        "ansi draws the sixteen colours, bold, dim, italic and underline; 256 and true colour map to the nearest of the sixteen.",
+        "Follow is on: the view stays at the end while lines arrive, and a scroll up stops it until Jump to bottom is pressed.",
+        "Set order=\"newest-first\" to show the latest line at the top; follow then sticks to the top and Jump to top returns to it.",
+        "Set follow={false} to leave the view where the reader put it; set onInput to add a prompt row for a process that reads lines.",
+        "onInput gets each line on Enter; Up and Down walk the lines sent. Echo the line back as a row yourself.",
+        "Return false, or a promise that resolves false or rejects, to keep the text in the field and out of the history; true or nothing clears it.",
+        "While a returned promise is pending a second Enter is ignored, so one line is never sent twice.",
+        "Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.",
         "Pass height=\"fill\" inside a box that sets the height, or a number for a fixed height in pixels."
       ],
       "a11y": [
         "Without a selection the log is one focusable region that the arrow keys scroll.",
         "With selectedIds the rows are options of a listbox: Up and Down move the pick, Shift extends it, and a click with Shift picks the rows between.",
+        "The input row is a labelled text field; the prompt mark is hidden from screen readers.",
         "Each time cell carries the review mask, so screenshots of a running log compare run to run."
       ],
       "tree": {
@@ -9649,7 +10787,7 @@
         "rule": "LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick."
       },
       "example": "import { Button, LogPanel } from '@drizztdourden08/tessera';\nimport type { LogRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\nconst ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lines: readonly LogRow[]) => void }) => {\n  const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());\n  const picked = rows.filter((row) => selected.has(row.id));\n  return (\n    <LogPanel\n      rows={rows}\n      kinds={[{ id: 'error', label: 'Errors', tone: 'danger', toneMessage: true }]}\n      selectedIds={selected}\n      onSelectionChange={setSelected}\n      toolbarExtra={<Button size=\"sm\" disabled={picked.length === 0} onClick={() => onReport(picked)}>Report these lines</Button>}\n      height=\"fill\"\n    />\n  );\n};\n",
-      "propsHash": "51728d1123a811b8",
+      "propsHash": "40ec5e2accbaae1b",
       "props": {
         "own": [
           {
@@ -9691,8 +10829,7 @@
           {
             "name": "copyText",
             "optional": true,
-            "text": "(shown: readonly LogRow[]) => string",
-            "default": "logAsText"
+            "text": "(shown: readonly LogRow[]) => string"
           },
           {
             "name": "countLabel",
@@ -9726,6 +10863,45 @@
             "text": "(ids: ReadonlySet<string>) => void"
           },
           {
+            "name": "ansi",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "follow",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "order",
+            "optional": true,
+            "text": "LogOrder",
+            "literals": [
+              "'oldest-first'",
+              "'newest-first'"
+            ]
+          },
+          {
+            "name": "onInput",
+            "optional": true,
+            "text": "(text: string) => boolean | void | Promise<boolean | void>"
+          },
+          {
+            "name": "prompt",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "inputDisabled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "inputPlaceholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -9740,11 +10916,37 @@
       "tokens": [
         "--border-width-thick",
         "--border-width-thin",
+        "--c-border",
         "--c-focus",
         "--c-hairline",
         "--c-hover",
         "--c-inset",
         "--c-selected",
+        "--c-surface",
+        "--c-term-bg-black",
+        "--c-term-bg-blue",
+        "--c-term-bg-cyan",
+        "--c-term-bg-green",
+        "--c-term-bg-magenta",
+        "--c-term-bg-red",
+        "--c-term-bg-white",
+        "--c-term-bg-yellow",
+        "--c-term-black",
+        "--c-term-blue",
+        "--c-term-bright-black",
+        "--c-term-bright-blue",
+        "--c-term-bright-cyan",
+        "--c-term-bright-green",
+        "--c-term-bright-magenta",
+        "--c-term-bright-red",
+        "--c-term-bright-white",
+        "--c-term-bright-yellow",
+        "--c-term-cyan",
+        "--c-term-green",
+        "--c-term-magenta",
+        "--c-term-red",
+        "--c-term-white",
+        "--c-term-yellow",
         "--c-text",
         "--c-text-muted",
         "--font-mono",
@@ -9752,6 +10954,7 @@
         "--log-gutter-w",
         "--log-ink",
         "--log-tag-w",
+        "--opacity-muted",
         "--shadow-2",
         "--space-lg",
         "--space-md",
@@ -9759,6 +10962,7 @@
         "--space-xs",
         "--text-sm",
         "--text-xs",
+        "--weight-bold",
         "--weight-semi",
         "--z-base"
       ],
@@ -9778,10 +10982,11 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, bold, italic, links, inline code, code blocks, quotes and rules. Raw HTML is dropped.",
+      "job": "Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, task lists, tables, bold, italic, strikethrough, links, inline code, code blocks, quotes and rules. Raw HTML is dropped.",
       "useWhen": [
         "The app shows a release note written in Markdown, in an update dialog or an about page.",
-        "The text comes as Markdown from a file or a server and the app only shows it."
+        "The text comes as Markdown from a file or a server and the app only shows it.",
+        "A game or project README with tables and task lists."
       ],
       "avoidWhen": [
         {
@@ -9795,17 +11000,31 @@
       ],
       "rules": [
         "Pass the Markdown as children or as source; the part keeps no state.",
+        "Every piece is drawn with a Tessera part, never styled HTML: Text for headings, Link, List and ListItem, Table, Checkbox, Code, Strong, Em, S, BlockQuote, CodeBlock and Divider.",
+        "GitHub tables, task lists, strikethrough and autolinks are on. A table is a Table, so it matches every other table in the app.",
+        "A task item (- [x] done, - [ ] to do) is a read-only Checkbox, disabled, with the item text as its label; the box follows the source and the user cannot tick it.",
         "Write each release note as release-notes/v<version>.md: a # <Product> v<version> title, a summary paragraph, ## sections and plain bullets.",
         "Set headingOffset so the headings sit under the heading of the place: 1, the default, makes # an h2.",
         "Set hideTitle when the frame around the note already names the version, such as the notes box of a UtilityScreen.",
         "Set size sm in a dialog or a notes box.",
+        "Set size inline inside a card or an InlineEdit display: no block margins, paragraphs as runs, tight lists, and headings as bold text at the text size.",
         "Pass onLink in a desktop app to open a link in the system browser; without it a link opens in a new tab.",
-        "Only http, https and mailto links are kept. Any other link, raw HTML and images become plain text or nothing."
+        "Only http, https and mailto links are kept. Any other link and raw HTML become plain text or nothing, and an image shows its alt text.",
+        "Pass images to draw images: true allows http and https addresses, and a function gets each src and returns the address to load, or nothing to drop the image.",
+        "An image is drawn with Image, with its alt text, lazy loading and no wider than the text; it stays off by default.",
+        "With images on, base64 data images of type png, jpeg, gif and webp are drawn too, up to 2 million characters; svg and every other data type are always dropped.",
+        "Pass onImage to make each drawn image a button, focusable and pressed with Enter or Space, named by its alt text; it gets { src, alt }, so the app can open a lightbox. Without it images stay inert.",
+        "Control characters (except tab and line breaks), private-use characters and lone surrogates are removed from the source before it is parsed; emoji and normal text stay.",
+        "Pass linkIds, a rule or a list of rules with a pattern and an href function, so plain ids such as T-5 become links; they are made in text only, never in code or inside a link.",
+        "A link that starts with a slash, such as /files/notes.md, is an app path: it is kept only when onLink is passed, and goes to onLink like any link.",
+        "Whatever an href function gives still has to be an http, https or mailto address, or an app path with onLink; javascript addresses are always dropped, and data addresses only pass as the image types above."
       ],
       "a11y": [
         "Headings keep their order, moved down by headingOffset, so a screen reader can jump between sections.",
         "A link that opens a new tab says so in its label.",
-        "Lists are real lists, read with their length and position."
+        "Lists are real lists, read with their length and position.",
+        "A table is a real table with a head, so each cell is read with its column heading.",
+        "A task item is a disabled Checkbox that a screen reader reads as checked or not checked, with its text as the name."
       ],
       "tree": {
         "path": [
@@ -9815,7 +11034,7 @@
         "rule": "Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsafe links dropped."
       },
       "example": "import { Markdown } from '@drizztdourden08/tessera';\n\nconst UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (href: string) => void }) => (\n  <Markdown source={source} size=\"sm\" headingOffset={2} hideTitle onLink={openExternal} />\n);\n",
-      "propsHash": "f3abfe3beb0c9304",
+      "propsHash": "b387c91de8011e9c",
       "props": {
         "own": [
           {
@@ -9859,9 +11078,25 @@
             "text": "MarkdownSize",
             "literals": [
               "'sm'",
-              "'md'"
+              "'md'",
+              "'inline'"
             ],
             "default": "'md'"
+          },
+          {
+            "name": "images",
+            "optional": true,
+            "text": "MarkdownImages"
+          },
+          {
+            "name": "onImage",
+            "optional": true,
+            "text": "MarkdownImageHandler"
+          },
+          {
+            "name": "linkIds",
+            "optional": true,
+            "text": "MarkdownLinkId | MarkdownLinkId[]"
           },
           {
             "name": "className",
@@ -9876,24 +11111,213 @@
         }
       },
       "tokens": [
+        "--border-width-thick",
+        "--c-focus",
         "--c-text",
-        "--c-text-dim",
         "--leading-normal",
         "--leading-tight",
-        "--space-2xs",
-        "--space-lg",
         "--space-sm",
         "--space-xs",
         "--text-base",
         "--text-lg",
         "--text-sm",
         "--text-xl",
+        "--weight-bold",
         "--weight-semi"
       ],
       "gallery": {
         "title": "Composites · Content/Markdown",
         "route": "#/story/composites-markdown--overview",
         "file": "stories/composites/Markdown.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "MarkdownEditor",
+      "tier": "composites",
+      "source": "src/composites/MarkdownEditor/MarkdownEditor.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A multi-line field for writing Markdown, with a toolbar for bold, italic, lists, quotes, links and code, and a live preview drawn by Markdown.",
+      "useWhen": [
+        "The user writes a note, a description or a release text that is stored as Markdown.",
+        "The user should see how the text will look while they write it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The text is plain, with no formatting.",
+          "use": "Textarea"
+        },
+        {
+          "case": "The app only shows a Markdown text and nobody edits it.",
+          "use": "Markdown"
+        },
+        {
+          "case": "The text is structured data, such as JSON.",
+          "use": "DynamicInput"
+        }
+      ],
+      "rules": [
+        "Own the text in the app and pass it as value, with onChange; the editor keeps no copy of it.",
+        "Leave layout out to get split on a wide container and Write and Preview tabs on a narrow one.",
+        "Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.",
+        "Pass onLink in a desktop app so a link in the preview opens in the system browser.",
+        "Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.",
+        "Pass label, hint, error, placeholder and disabled as for any other field; set rows to change the height of the text, 12 by default.",
+        "The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.",
+        "Enter at the end of a list item starts the next one: a bullet, a number that counts up, or an open task; on an empty item it ends the list.",
+        "Tab indents a list line by two spaces and Shift+Tab takes them back; outside a list Tab moves the focus as usual.",
+        "Backspace right after an empty marker removes the marker; typing - [] and a space makes a task item.",
+        "The Quote button puts \"> \" before each line the selection touches, and a second press removes it.",
+        "Pass autoFocus to put the caret at the end of the text when the editor appears; on the tabs layout the Write tab shows first.",
+        "Mod+B is bold, Mod+I is italic and Mod+K is a link, shown in the tooltip of each button.",
+        "Pass onSubmit to send the text on Mod+Enter; it gets the current value.",
+        "Pass onEscape to leave the editor on Escape; it is not called while a menu or popover is open, or when another part has taken the key.",
+        "Pass maxLength to stop the text at that length; a counter shows in the last 10 percent of the limit, such as 95 / 100.",
+        "Edits go through the browser, so Undo and Redo keep working after a toolbar button."
+      ],
+      "a11y": [
+        "The toolbar is a toolbar with a name, and every button is named by a word, never by its icon alone.",
+        "A button with a shortcut says it in its tooltip and in aria-keyshortcuts.",
+        "The tabs are real tabs; the toolbar is off while the preview is shown.",
+        "The preview is a region named Preview, so a screen reader can jump to it."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "free text or a number",
+          "Markdown text, with a live preview"
+        ],
+        "rule": "MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app."
+      },
+      "example": "import { useState } from 'react';\nimport { MarkdownEditor } from '@drizztdourden08/tessera';\n\nconst NoteField = ({ openExternal }: { openExternal: (href: string) => void }) => {\n  const [note, setNote] = useState('');\n  return <MarkdownEditor label=\"Note\" value={note} onChange={setNote} onLink={openExternal} />;\n};\n",
+      "propsHash": "d44599d53d1104ee",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(value: string) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "hint",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "error",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "placeholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "layout",
+            "optional": true,
+            "text": "MarkdownEditorLayout",
+            "literals": [
+              "'split'",
+              "'tabs'"
+            ]
+          },
+          {
+            "name": "rows",
+            "optional": true,
+            "text": "number",
+            "default": "DEFAULT_ROWS"
+          },
+          {
+            "name": "onLink",
+            "optional": true,
+            "text": "MarkdownLinkHandler"
+          },
+          {
+            "name": "images",
+            "optional": true,
+            "text": "MarkdownImages"
+          },
+          {
+            "name": "linkIds",
+            "optional": true,
+            "text": "MarkdownLinkId | MarkdownLinkId[]"
+          },
+          {
+            "name": "onSubmit",
+            "optional": true,
+            "text": "(value: string) => void"
+          },
+          {
+            "name": "onEscape",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "maxLength",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "autoFocus",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-surface",
+        "--radius-md",
+        "--size-192",
+        "--size-384",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/MarkdownEditor",
+        "route": "#/story/composites-markdowneditor--overview",
+        "file": "stories/composites/MarkdownEditor.stories.tsx"
       },
       "parts": []
     },
@@ -10749,7 +12173,7 @@
         "rule": "RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry."
       },
       "example": "import { RetryButton } from '@drizztdourden08/tessera';\n\nconst Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () => void }) => (\n  <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />\n);\n",
-      "propsHash": "9efc3f04cd1babc9",
+      "propsHash": "286511e61f6f5640",
       "props": {
         "own": [
           {
@@ -10784,9 +12208,33 @@
             "text": "string"
           },
           {
+            "name": "caption",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
             "name": "hint",
             "optional": true,
             "text": "Hint"
+          },
+          {
+            "name": "width",
+            "optional": true,
+            "text": "ButtonWidth",
+            "literals": [
+              "'auto'",
+              "'wide'"
+            ]
+          },
+          {
+            "name": "fill",
+            "optional": true,
+            "text": "ButtonFill",
+            "literals": [
+              "'tonal'",
+              "'solid'",
+              "'gradient'"
+            ]
           },
           {
             "name": "variant",
@@ -10811,9 +12259,19 @@
             "literals": [
               "'xs'",
               "'sm'",
-              "'md'"
+              "'md'",
+              "'lg'"
             ],
             "default": "'sm'"
+          },
+          {
+            "name": "look",
+            "optional": true,
+            "text": "ButtonLook",
+            "literals": [
+              "'flat'",
+              "'pixel'"
+            ]
           },
           {
             "name": "fullWidth",
@@ -10837,7 +12295,7 @@
           }
         ],
         "inherited": {
-          "count": 286,
+          "count": 285,
           "from": [
             "AriaAttributes",
             "ButtonHTMLAttributes",
@@ -10845,7 +12303,7 @@
             "HTMLAttributes"
           ],
           "extends": [
-            "Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading'>",
+            "Omit<ButtonProps, 'onClick' | 'children' | 'icon' | 'loading' | 'href' | 'target' | 'rel' | 'download'>",
             "ButtonHTMLAttributes<HTMLButtonElement>"
           ]
         }
@@ -11755,6 +13213,144 @@
       "usage": false
     },
     {
+      "name": "SectionTimeline",
+      "tier": "composites",
+      "source": "src/composites/SectionTimeline/SectionTimeline.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A vertical list of links to the sections of a long page, in titled groups, beside a line that fills as the reader scrolls.",
+      "useWhen": [
+        "A long page, such as a website or a manual, has sections in groups and the reader needs to see where they are.",
+        "The list sits in a side column that stays in view while the page scrolls."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The sections are shown as pills in the header of a page.",
+          "use": "HeaderAnchorNav"
+        },
+        {
+          "case": "The list switches between the screens of a window.",
+          "use": "SideNav"
+        },
+        {
+          "case": "The steps of one task are shown with a done state.",
+          "use": "Stepper"
+        }
+      ],
+      "rules": [
+        "Pass groups, each with an id, a label and children; a child has an id, a label and the href of its section.",
+        "Pass activeId for the section in view; the host owns it, as with HeaderAnchorNav.",
+        "Pass onJump to follow a link yourself, such as a smooth scroll or a route; the browser then does not jump.",
+        "Pass timeline=\"scroll\" to fill the line from the scroll of the page, or a name such as \"--page\" for a view timeline you set on the sections.",
+        "Set timeline-scope with that name on a common parent of the page and the timeline, so the line can read it.",
+        "Without scroll-driven animation, or with reduced motion, the line jumps to progress, or to the active section when progress is left out.",
+        "Pass progress from 0 to 1 when you track the scroll yourself; it wins over activeId.",
+        "Pass state=\"idle\" to dim it until the pointer or focus enters, and state=\"hidden\" to remove it, such as on a narrow page."
+      ],
+      "a11y": [
+        "It is a nav named by ariaLabel, holding a list of groups; each group is a list named by its title.",
+        "The active link has aria-current=\"location\"; a hidden timeline is out of the reading order.",
+        "The line and its fill are decorative and hidden from screen readers.",
+        "With reduced motion the fill jumps instead of animating, and it never runs a time-based animation."
+      ],
+      "tree": {
+        "path": [
+          "navigation",
+          "between sections of one long page"
+        ],
+        "rule": "SectionTimeline is the side list of a long page: grouped section links beside a line that fills as the page scrolls."
+      },
+      "example": "import { useState } from 'react';\nimport { SectionTimeline } from '@drizztdourden08/tessera';\n\nconst GROUPS = [\n  { id: 'start', label: 'Start', children: [{ id: 'intro', label: 'Intro', href: '#intro' }, { id: 'setup', label: 'Setup', href: '#setup' }] },\n  { id: 'play', label: 'Play', children: [{ id: 'rules', label: 'Rules', href: '#rules' }] },\n];\n\nconst PageTimeline = () => {\n  const [active, setActive] = useState('intro');\n  return (\n    <SectionTimeline\n      ariaLabel=\"On this page\"\n      groups={GROUPS}\n      activeId={active}\n      timeline=\"scroll\"\n      onJump={(id) => {\n        setActive(id);\n        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });\n      }}\n    />\n  );\n};\n",
+      "propsHash": "b9e80ecf42362731",
+      "props": {
+        "own": [
+          {
+            "name": "groups",
+            "optional": false,
+            "text": "readonly SectionTimelineGroup[]"
+          },
+          {
+            "name": "ariaLabel",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "activeId",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onJump",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "state",
+            "optional": true,
+            "text": "SectionTimelineState",
+            "literals": [
+              "'live'",
+              "'idle'",
+              "'hidden'"
+            ],
+            "default": "'live'"
+          },
+          {
+            "name": "progress",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "timeline",
+            "optional": true,
+            "text": "SectionTimelineDriver"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--c-border",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-text",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--duration-normal",
+        "--duration-slow",
+        "--ease-out",
+        "--ease-standard",
+        "--opacity-faint",
+        "--radius-pill",
+        "--section-timeline-name",
+        "--section-timeline-progress",
+        "--space-2xs",
+        "--space-lg",
+        "--space-xs",
+        "--text-sm",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Composites · Navigation/SectionTimeline",
+        "route": "#/story/composites-sectiontimeline--overview",
+        "file": "stories/composites/SectionTimeline.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "SettingsPage",
       "tier": "composites",
       "source": "src/composites/SettingsPage/SettingsPage.tsx",
@@ -12488,8 +14084,8 @@
         "--c-bg",
         "--c-border",
         "--c-hover",
-        "--c-primary",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-text",
         "--c-text-dim",
         "--radius-md",
@@ -12972,7 +14568,7 @@
         "--c-danger",
         "--c-info",
         "--c-inset",
-        "--c-primary",
+        "--c-primary-text",
         "--c-secondary",
         "--c-success",
         "--c-tertiary",
@@ -13036,14 +14632,16 @@
         "Pass swatch as a CSS colour value and put the colour name or hex in the value, so the chip is never the only signal.",
         "Use tone on a value only when it is past a limit, and title for a longer description on hover.",
         "Pass actions for the few buttons that belong to the bar, such as sync or export; they end the bar as icon buttons with a tooltip.",
-        "Give the bar a label that names the region, such as Editor status."
+        "Give the bar a label that names the region, such as Editor status.",
+        "Pass onItemContextMenu to open the app menu of a readout. It gets the item id and the event, from a right click, the Menu key or Shift+F10."
       ],
       "a11y": [
         "The bar is a labelled region and each readout is a term and its value in a description list.",
         "It has no live region, so a cursor position that changes on every pointer move is never announced.",
         "To announce a change, such as a finished export, use a separate live region, not the bar.",
         "Each action is a button named by its label, shown as a tooltip too; loading marks it busy and disabled takes it out of the Tab order.",
-        "The swatch is hidden from assistive technology; its colour is read from the value beside it."
+        "The swatch is hidden from assistive technology; its colour is read from the value beside it.",
+        "With onItemContextMenu each readout is a tab stop with a focus ring, so the Menu key and Shift+F10 reach it."
       ],
       "tree": {
         "path": [
@@ -13054,7 +14652,7 @@
         "rule": "StatusBar is the one thin line of readouts at the foot of an editor window."
       },
       "example": "import { StatusBar } from '@drizztdourden08/tessera';\n\nconst EditorStatus = ({ x, y, colour }: { x: number; y: number; colour: string }) => (\n  <StatusBar\n    label=\"Editor status\"\n    items={[\n      { id: 'cursor', label: 'Cursor', value: `${x}, ${y}`, icon: 'move' },\n      { id: 'colour', label: 'Colour', value: colour, swatch: colour },\n      { id: 'frame', label: 'Frame', value: '3 / 8', align: 'end', priority: 1 },\n    ]}\n  />\n);\n",
-      "propsHash": "8b629b09a908c7e0",
+      "propsHash": "9280d8c1089c2e84",
       "props": {
         "own": [
           {
@@ -13067,6 +14665,11 @@
             "optional": true,
             "text": "readonly StatusBarAction[]",
             "default": "[]"
+          },
+          {
+            "name": "onItemContextMenu",
+            "optional": true,
+            "text": "StatusBarMenuHook"
           },
           {
             "name": "label",
@@ -13086,14 +14689,16 @@
         }
       },
       "tokens": [
+        "--border-width-thick",
         "--border-width-thin",
         "--c-border",
         "--c-border-strong",
         "--c-chrome",
         "--c-chrome-border",
         "--c-danger",
+        "--c-focus",
         "--c-info",
-        "--c-primary",
+        "--c-primary-text",
         "--c-secondary",
         "--c-success",
         "--c-tertiary",
@@ -13544,6 +15149,7 @@
         "Keep every value in the app; the toolbar draws items and calls onSelect, onChange and the options of each item.",
         "An item is a button, a toggle, a group of choices, a number or a separator. A tool the user picks is a toggle with pressed set on the current one.",
         "orientation horizontal shows the optional caption beside the icon; vertical shows icons only. The hint always carries the name, the description and the shortcut.",
+        "labels false hides the caption in a horizontal bar, so it shows icons only. It defaults to true. A ToolbarDock passes its value for the toolbar in the render slot.",
         "icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.",
         "Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button.",
         "options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.",
@@ -13569,7 +15175,7 @@
         "rule": "Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them."
       },
       "example": "import { Toolbar } from '@drizztdourden08/tessera';\nimport type { ToolbarItem } from '@drizztdourden08/tessera';\n\ninterface ToolRailProps {\n  tool: string;\n  pick: (tool: string) => void;\n  undo: () => void;\n}\n\nconst ToolRail = ({ tool, pick, undo }: ToolRailProps) => {\n  const items: ToolbarItem[] = [\n    { kind: 'toggle', id: 'pencil', label: 'Pencil', icon: 'pencil', description: 'Draw one pixel at a time.', shortcut: 'P', pressed: tool === 'pencil', onChange: () => pick('pencil') },\n    { kind: 'toggle', id: 'eraser', label: 'Eraser', icon: 'eraser', description: 'Clear pixels.', shortcut: 'E', pressed: tool === 'eraser', onChange: () => pick('eraser') },\n    { kind: 'separator', id: 'tools-end' },\n    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', shortcut: 'Ctrl+Z', onSelect: undo },\n  ];\n  return <Toolbar label=\"Drawing tools\" orientation=\"vertical\" items={items} />;\n};\n",
-      "propsHash": "b3a2cebbb6bc30a1",
+      "propsHash": "077b7ef5798119da",
       "props": {
         "own": [
           {
@@ -13609,6 +15215,11 @@
               "'sm'",
               "'md'"
             ]
+          },
+          {
+            "name": "labels",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "handle",
@@ -13697,7 +15308,9 @@
         "layout.sides[side] is a list of lanes, and a lane is a list of places { id, start, size }. start and size are fractions of the lane, from 0 to 1, so a lane can hold several toolbars with gaps between them. layout.corners says which side claims each corner. Read the ids of a side with toolbarIdsOf(layout, side), never by indexing sides.",
         "migrateToolbarLayout(saved, definitions) reads a saved layout of any version, upgrades a v1 layout to v2 and cleans a v2 one. Pass every saved layout through it.",
         "definitions names each toolbar. A toolbar in the layout without a definition is not drawn, and a hidden toolbar is not drawn.",
-        "renderToolbar draws one toolbar and gets its orientation, its side and the handle. Pass the orientation and the handle to Toolbar.",
+        "renderToolbar draws one toolbar and gets its orientation, its side, menuSide, the handle and labels. Pass the orientation, menuSide, the handle and labels to Toolbar.",
+        "layout.labels is optional and maps a toolbar id to true or false. Missing means the default of the app, and the slot then has no labels. setToolbarLabels(layout, id, on) sets it and returns the same layout when nothing changes. The layout version stays 2, and migrateToolbarLayout keeps valid entries and drops the rest.",
+        "moveToolbarToSide(layout, id, side) moves a shown toolbar to a side, placed as showToolbar places it: its last spot on that side if free, else a new lane, else the largest gap. With no room, or when the toolbar is already on that side, it returns the same layout. last is kept as it was.",
         "The orientation comes from the side: horizontal on top and bottom, vertical on left and right. It is never stored.",
         "The handle is the set of props for the grip of a Toolbar. It carries the toolbar id as data-drag-toolbar and a name such as Move Drawing tools.",
         "Dragging the grip moves the toolbar. A preview shows the lane it will take, with the thickness of that side, so the switch between horizontal and vertical shows before the drop.",
@@ -13728,7 +15341,7 @@
         ],
         "rule": "ToolbarDock is the frame that holds the toolbars on the edges of a work area, up to two lanes on each side."
       },
-      "example": "import { Toolbar, ToolbarDock } from '@drizztdourden08/tessera';\nimport type { ToolbarDefinition, ToolbarItem, ToolbarLayout } from '@drizztdourden08/tessera';\n\ninterface EditorProps {\n  layout: ToolbarLayout;\n  setLayout: (layout: ToolbarLayout) => void;\n  itemsOf: (id: string) => ToolbarItem[];\n  definitions: ToolbarDefinition[];\n  children: React.ReactNode;\n}\n\nconst Editor = ({ layout, setLayout, itemsOf, definitions, children }: EditorProps) => (\n  <ToolbarDock\n    layout={layout}\n    onLayoutChange={setLayout}\n    definitions={definitions}\n    renderToolbar={(id, { orientation, handle }) => (\n      <Toolbar label={id} items={itemsOf(id)} orientation={orientation} handle handleProps={handle} />\n    )}\n  >\n    {children}\n  </ToolbarDock>\n);\n",
+      "example": "import { Toolbar, ToolbarDock } from '@drizztdourden08/tessera';\nimport type { ToolbarDefinition, ToolbarItem, ToolbarLayout } from '@drizztdourden08/tessera';\n\ninterface EditorProps {\n  layout: ToolbarLayout;\n  setLayout: (layout: ToolbarLayout) => void;\n  itemsOf: (id: string) => ToolbarItem[];\n  definitions: ToolbarDefinition[];\n  children: React.ReactNode;\n}\n\nconst Editor = ({ layout, setLayout, itemsOf, definitions, children }: EditorProps) => (\n  <ToolbarDock\n    layout={layout}\n    onLayoutChange={setLayout}\n    definitions={definitions}\n    renderToolbar={(id, { orientation, menuSide, handle, labels }) => (\n      <Toolbar label={id} items={itemsOf(id)} orientation={orientation} menuSide={menuSide} labels={labels} handle handleProps={handle} />\n    )}\n  >\n    {children}\n  </ToolbarDock>\n);\n",
       "propsHash": "f8c1dd7cc368a659",
       "props": {
         "own": [
@@ -13802,8 +15415,10 @@
         "isToolbarShown",
         "migrateToolbarLayout",
         "moveToolbar",
+        "moveToolbarToSide",
         "normalizeCorners",
         "placeToolbar",
+        "setToolbarLabels",
         "showToolbar",
         "toggleToolbar",
         "toolbarIdsOf",
@@ -13944,6 +15559,7 @@
         "--c-danger",
         "--c-primary",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-success",
         "--c-sunken",
         "--c-text",
@@ -14785,6 +16401,7 @@
         "--c-primary-bright",
         "--c-primary-dim",
         "--c-primary-soft",
+        "--c-primary-text",
         "--c-text",
         "--c-text-dim",
         "--control-h-xs",

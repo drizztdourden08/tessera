@@ -1,4 +1,6 @@
 /* @layer tooling-scripts @kind test */
+import gitForkIcon from '@iconify-icons/lucide/git-fork';
+import githubIcon from '@iconify-icons/lucide/github';
 import eraserIcon from '@iconify-icons/lucide/eraser';
 import handIcon from '@iconify-icons/lucide/hand';
 import paintBucketIcon from '@iconify-icons/lucide/paint-bucket';
@@ -46,5 +48,20 @@ describe('the named icon set', () => {
     expect(ICONS.waves).toBe(wavesIcon);
     expect(ICONS.water).toBe(wavesIcon);
     expect(ICONS.save).toBe(saveIcon);
+  });
+
+  it('names the Lucide github mark and git fork, with fork as the short name', () => {
+    expect(ICONS.github).toBe(githubIcon);
+    expect(ICONS['git-fork']).toBe(gitForkIcon);
+    expect(ICONS.fork).toBe(gitForkIcon);
+    expect(ICONS.github.body).toMatch(/^<(path|g)/);
+  });
+
+  it('draws the guides icon on the Lucide 24 grid with the same stroke, caps and joins', () => {
+    expect(ICONS.guides).toMatchObject({ width: 24, height: 24 });
+    expect(ICONS.guides.body).toContain('stroke-width="2"');
+    expect(ICONS.guides.body).toContain('stroke-linecap="round"');
+    expect(ICONS.guides.body).toContain('stroke-linejoin="round"');
+    expect(ICONS.guides).not.toBe(ICONS.split);
   });
 });

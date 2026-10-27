@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind logic */
 import type { AnchoredPlacement } from '../../../primitives/Anchored/Anchored.type';
 import { clampNumber } from '../../../primitives/value-rule/clamp-number';
-import { BUBBLE_GAP, SIDE_ORDER, VIEW_MARGIN } from '../GuidedTour.constants';
+import { BUBBLE_GAP, MASCOT_BOX, MASCOT_GAP, SIDE_ORDER, VIEW_MARGIN } from '../GuidedTour.constants';
+import { ringRoom } from './ring-room';
 import type { BubblePlace, TourAlign, TourBox, TourSide, TourSize } from './tour-internal.type';
 
 const alignAt = (start: number, length: number, size: number, align: TourAlign): number => {
@@ -25,8 +26,13 @@ const inView = (box: TourBox, view: TourSize): boolean =>
   box.x >= VIEW_MARGIN && box.y >= VIEW_MARGIN && box.x + box.width <= view.width - VIEW_MARGIN && box.y + box.height <= view.height - VIEW_MARGIN;
 
 const insideHole = (hole: TourBox, size: TourSize, view: TourSize): TourBox => {
+  const room = ringRoom(hole);
   const foot = Math.min(hole.y + hole.height, view.height) - BUBBLE_GAP - size.height;
-  return { x: clampAxis(Math.max(hole.x, 0) + BUBBLE_GAP, size.width, view.width), y: clampAxis(foot, size.height, view.height), ...size };
+  const home = Math.max(hole.x, 0) + BUBBLE_GAP;
+  const lane = MASCOT_BOX.width + MASCOT_GAP;
+  const spare = home + size.width + lane <= Math.min(room.x + room.width, view.width);
+  const x = spare ? home : Math.max(home, Math.max(room.x, 0) + lane);
+  return { x: clampAxis(x, size.width, view.width), y: clampAxis(foot, size.height, view.height), ...size };
 };
 
 const bubblePlace = (hole: TourBox, size: TourSize, view: TourSize, placement: AnchoredPlacement = 'bottom-start'): BubblePlace => {

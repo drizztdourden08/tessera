@@ -5,7 +5,7 @@ import { nameEditKey } from './name-edit-key';
 import type { NameEdit, NameEditOptions } from './name-edit.type';
 
 const useNameEdit = (options: NameEditOptions): NameEdit => {
-  const { name, onKeep, onUndo, allowEmpty = false, canKeep = true } = options;
+  const { name, onKeep, onUndo, allowEmpty = false, canKeep = true, multiline = false } = options;
   const [draft, setDraftState] = useState(name);
   const endedByKey = useRef(false);
   const next = draft.trim();
@@ -18,7 +18,7 @@ const useNameEdit = (options: NameEditOptions): NameEdit => {
     if (ready) onKeep(next);
   };
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-    const action = nameEditKey(event.key, event.nativeEvent.isComposing);
+    const action = nameEditKey(event.key, event.nativeEvent.isComposing, multiline, event.ctrlKey || event.metaKey);
     if (action === 'keep' && ready) {
       endedByKey.current = true;
       onKeep(next);

@@ -1,0 +1,36 @@
+/* @layer renderer-components @kind style */
+.section-timeline__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.section-timeline__title {
+  color: var(--c-text-muted);
+}
+
+.section-timeline__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link.section-timeline__link {
+  display: block;
+  padding-block: var(--space-2xs);
+  color: var(--c-text-dim);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.link.section-timeline__link:hover {
+  color: var(--c-text);
+}
+
+.link.section-timeline__link[aria-current='location'] {
+  color: var(--c-primary-bright);
+  font-weight: var(--weight-semi);
+}

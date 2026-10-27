@@ -70,7 +70,7 @@
 }
 
 .status--primary {
-  --status-ink: var(--c-primary);
+  --status-ink: var(--c-primary-text);
   --status-strong: var(--c-primary-bright);
   --status-fill: var(--c-primary-dim);
   --status-edge: var(--c-primary-soft);

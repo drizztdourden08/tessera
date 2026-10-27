@@ -8,6 +8,8 @@ interface UseDataTableInput<T> {
   schema: readonly FieldDescriptor[];
   initial?: readonly TableColumn[];
   initialGroupBy?: readonly string[];
+  sort?: readonly SortEntry[];
+  onSortChange?: (sort: readonly SortEntry[]) => void;
 }
 
 interface DataTableState<T> extends TableState, ColumnActions {

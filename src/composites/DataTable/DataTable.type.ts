@@ -1,8 +1,9 @@
 /* @layer renderer-components @kind types */
-import type { DragEvent, KeyboardEvent, MouseEvent } from 'react';
+import type { DragEvent, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { SchemaIndex } from '../../data/schema/build-schema';
 import type { FieldDescriptor } from '../../data/schema/field-descriptor';
 import type { ColumnMove, SortEntry, TableColumn } from '../../data/table/types';
+import type { VirtualSize } from '../virtual';
 import type { ViewKey } from '../../data/view-state/snapshot';
 import type { ViewStorage } from '../../data/view-state/use-view-state';
 import type {
@@ -12,6 +13,8 @@ import type { GrowFallback } from './behavior/overflow-probe.type';
 import type { RowFeatureProps, RowReorderBinding } from './behavior/row-features.type';
 
 type DefaultExpanded = readonly string[] | ((groupKey: string, path: string) => boolean);
+
+type RowState = 'active' | 'pending' | 'error' | 'warning' | 'muted';
 
 interface DataTableProps<T> extends RowFeatureProps<T> {
   rows: readonly T[];
@@ -34,6 +37,16 @@ interface DataTableProps<T> extends RowFeatureProps<T> {
   resolveIdRefDisplay?: IdRefDisplayResolver;
   resolveIdRefDefault?: IdRefDefaultResolver;
   resolveIdRefHref?: IdRefHrefResolver;
+  renderCell?: (row: T, path: string) => ReactNode | undefined;
+  rowState?: (row: T) => RowState | undefined;
+  rowHeight?: VirtualSize;
+  sort?: readonly SortEntry[];
+  onSortChange?: (sort: readonly SortEntry[]) => void;
+  expanded?: ReadonlySet<string>;
+  onExpandedChange?: (ids: ReadonlySet<string>) => void;
+  detailRowId?: string | null;
+  renderDetail?: (row: T) => ReactNode;
+  onDetailClose?: () => void;
 }
 
 interface ColumnActions {
@@ -111,6 +124,12 @@ interface RowRenderContext<T> {
   reorder?: RowReorderBinding | null;
   rowDragData?: RowFeatureProps<T>['rowDragData'];
   groupActions?: RowFeatureProps<T>['groupActions'];
+  renderCell?: DataTableProps<T>['renderCell'];
+  rowState?: DataTableProps<T>['rowState'];
+  detailRowId?: string | null;
+  renderDetail?: DataTableProps<T>['renderDetail'];
+  onDetailClose?: () => void;
+  onDetailHeight?: (height: number) => void;
 }
 
 interface TrackOverride {
@@ -125,6 +144,6 @@ interface TrackFallbacks {
 
 export type {
   ColumnActions, ColumnDragBinding, ColumnDragStart,
-  DataTableProps, DefaultExpanded, RowRenderContext, RowSelectionBinding, SelectAllState, TableActions,
+  DataTableProps, DefaultExpanded, RowRenderContext, RowSelectionBinding, RowState, SelectAllState, TableActions,
   TrackFallbacks, TrackOverride,
 };

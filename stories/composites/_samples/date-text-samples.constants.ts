@@ -1,7 +1,7 @@
 /* @layer stories @kind data */
 import { buildSchema } from '../../../src/data';
 import type { DateFormat, DateLength, TesseraOverrides } from '../../../src/primitives';
-import type { DateRow, DateStep } from './date-text-samples.type';
+import type { DateRow, DateRunningStep, DateStep } from './date-text-samples.type';
 
 const MINUTE_MS = 60_000;
 
@@ -57,6 +57,13 @@ const LADDER_COLUMNS: readonly { key: string; label: string }[] = [
   { key: 'french', label: 'relative, French' },
 ];
 
+const RUNNING: readonly DateRunningStep[] = [
+  { name: 'Index rebuild', seconds: 12, label: 'running' },
+  { name: 'Asset export', seconds: 243, label: 'running' },
+  { name: 'Nightly backup', seconds: 3720, label: 'running' },
+  { name: 'Archive sweep', seconds: 183_600, label: 'stuck for' },
+];
+
 const DATE_ROWS: readonly DateRow[] = [
   { id: 'r1', name: 'Before the palace', savedAt: LOADED - 5 * MINUTE_MS, created: '2026-03-14T18:05:00Z' },
   { id: 'r2', name: 'Dark World start', savedAt: LOADED - 1400 * MINUTE_MS, created: '2026-02-02T09:30:00Z' },
@@ -70,6 +77,8 @@ const DATE_CODE = `import { DateText, formatDate } from '@drizztdourden08/tesser
 <DateText value={save.timestamp} format="relative" />
 <DateText value="2026-10-16T21:40:00Z" format="date" length="long" />
 <DateText value={Date.now()} format={{ month: 'short', day: 'numeric' }} tooltip />
+<DateText value={job.startedAt} format="elapsed" label="running" /> // running 4m 03s, ticking
+<DateText value={job.startedAt} format="elapsed" length="short" /> // 4m, one unit
 
 // The same text outside React, or for a table column
 formatDate(save.timestamp, 'calendar'); // Today, 21:40
@@ -78,4 +87,4 @@ buildSchema(rows, { dates: { savedAt: 'calendar' } });
 // The app's locale and words
 <TesseraProvider overrides={{ strings: { dates: { locale: 'fr', justNow: "À l'instant" } } }}>`;
 
-export { DATE_CODE, DATE_ROWS, DATE_SCHEMA, FORMAT_COLUMNS, FORMAT_ROWS, FRENCH, LADDER, LADDER_COLUMNS, LOADED, MINUTE_MS };
+export { DATE_CODE, DATE_ROWS, DATE_SCHEMA, FORMAT_COLUMNS, FORMAT_ROWS, FRENCH, LADDER, LADDER_COLUMNS, LOADED, MINUTE_MS, RUNNING };

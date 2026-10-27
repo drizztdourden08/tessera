@@ -24,7 +24,8 @@
   letter-spacing: var(--tracking-wide);
 }
 
-.section-header__count {
+.section-header__count,
+.section-header__badge {
   letter-spacing: normal;
   text-transform: none;
 }

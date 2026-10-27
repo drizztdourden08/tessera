@@ -152,3 +152,24 @@ describe('menuMatches', () => {
     expect(menuMatches(groups, '  ')).toEqual([]);
   });
 });
+
+describe('DropdownMenu item attributes', () => {
+  const items = [
+    { id: 'a', label: 'Alpha', description: 'First', ariaDescription: 'Opens alpha', data: { 'data-menu-entry': 'alpha' } },
+    { id: 'b', label: 'Beta', kind: 'slider', ariaDescription: 'Sets beta', data: { 'data-menu-entry': 'beta' } },
+    { id: 'c', label: 'Gamma', data: { 'data-menu-entry': 'gamma' }, children: [item('Delta')] },
+  ];
+  const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'g', items }] }));
+
+  it('passes data attributes and aria-description to an action item', () => {
+    expect(html).toContain('data-menu-entry="alpha"');
+    expect(html).toContain('aria-description="Opens alpha"');
+    expect(html).toContain('First');
+  });
+
+  it('passes them to slider items and sub-menu triggers', () => {
+    expect(html).toContain('data-menu-entry="beta"');
+    expect(html).toContain('aria-description="Sets beta"');
+    expect(html).toContain('data-menu-entry="gamma"');
+  });
+});

@@ -36,6 +36,7 @@ StatusBar is the one thin line of readouts at the foot of an editor window.
 - Use tone on a value only when it is past a limit, and title for a longer description on hover.
 - Pass actions for the few buttons that belong to the bar, such as sync or export; they end the bar as icon buttons with a tooltip.
 - Give the bar a label that names the region, such as Editor status.
+- Pass onItemContextMenu to open the app menu of a readout. It gets the item id and the event, from a right click, the Menu key or Shift+F10.
 
 ## Accessibility
 
@@ -44,6 +45,7 @@ StatusBar is the one thin line of readouts at the foot of an editor window.
 - To announce a change, such as a finished export, use a separate live region, not the bar.
 - Each action is a button named by its label, shown as a tooltip too; loading marks it busy and disabled takes it out of the Tab order.
 - The swatch is hidden from assistive technology; its colour is read from the value beside it.
+- With onItemContextMenu each readout is a tab stop with a focus ring, so the Menu key and Shift+F10 reach it.
 
 ## Example
 
@@ -66,9 +68,10 @@ const EditorStatus = ({ x, y, colour }: { x: number; y: number; colour: string }
 
 - `items`: `readonly StatusBarEntry[]`.
 - `actions` (optional): `readonly StatusBarAction[]`. Default `[]`.
+- `onItemContextMenu` (optional): `StatusBarMenuHook`.
 - `label`: `string`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-chrome`, `--c-chrome-border`, `--c-danger`, `--c-info`, `--c-primary`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-muted`, `--c-warning`, `--radius-sm`, `--space-2xs`, `--space-sm`, `--space-xs`, `--status-bar-h`, `--status-bar-swatch`, `--text-xs`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-chrome`, `--c-chrome-border`, `--c-danger`, `--c-focus`, `--c-info`, `--c-primary-text`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-muted`, `--c-warning`, `--radius-sm`, `--space-2xs`, `--space-sm`, `--space-xs`, `--status-bar-h`, `--status-bar-swatch`, `--text-xs`.

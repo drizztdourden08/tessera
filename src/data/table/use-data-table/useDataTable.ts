@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind hook */
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { createSchemaIndex } from '../../schema/build-schema';
 import * as sortOps from '../sort-ops';
 import { deriveRows } from '../derive-rows';
@@ -8,21 +8,30 @@ import type { SortEntry, TableState } from '../types';
 import { initialState } from './initial-state';
 import type { DataTableState, UseDataTableInput } from './use-data-table.type';
 
-const useDataTable = <T>({ rows, schema, initial, initialGroupBy }: UseDataTableInput<T>): DataTableState<T> => {
+const useDataTable = <T>(input: UseDataTableInput<T>): DataTableState<T> => {
+  const { rows, schema, initial, initialGroupBy, sort: controlledSort, onSortChange } = input;
   const [state, setState] = useState<TableState>(() => initialState(schema, initial, initialGroupBy));
+  const sort = controlledSort ?? state.sort;
+  const sortRef = useRef(sort);
+  sortRef.current = sort;
+  const controlRef = useRef({ controlled: controlledSort !== undefined, onSortChange });
+  controlRef.current = { controlled: controlledSort !== undefined, onSortChange };
 
   const index = useMemo(() => createSchemaIndex(schema), [schema]);
   const derived = useMemo(
-    () => deriveRows({ rows, schema: index, sort: state.sort, groupBy: state.groupBy }),
-    [rows, index, state.sort, state.groupBy],
+    () => deriveRows({ rows, schema: index, sort, groupBy: state.groupBy }),
+    [rows, index, sort, state.groupBy],
   );
 
   const resetTo = useCallback(() => initialState(schema, initial).columns, [schema, initial]);
   const columnActions = useColumnActions(setState, resetTo);
 
   const patchSort = useCallback(
-    (transform: (sort: TableState['sort']) => TableState['sort']) =>
-      setState((prev) => ({ ...prev, sort: transform(prev.sort) })),
+    (transform: (sort: TableState['sort']) => TableState['sort']) => {
+      const { controlled, onSortChange: notify } = controlRef.current;
+      if (!controlled) setState((prev) => ({ ...prev, sort: transform(prev.sort) }));
+      notify?.(transform(sortRef.current));
+    },
     [],
   );
   const patchGroupBy = useCallback(
@@ -50,7 +59,7 @@ const useDataTable = <T>({ rows, schema, initial, initialGroupBy }: UseDataTable
   const clearGroupBy = useCallback(() => patchGroupBy(() => []), [patchGroupBy]);
 
   return {
-    ...state, rows, ...derived, ...columnActions,
+    ...state, sort, rows, ...derived, ...columnActions,
     setSingleSort, setSortDir, removeSort, clearSort,
     addGroupBy, removeGroupBy, clearGroupBy, setState,
   };

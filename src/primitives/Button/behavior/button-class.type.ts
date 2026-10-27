@@ -1,14 +1,18 @@
 /* @layer renderer-components @kind types */
-import type { ButtonSize, ButtonVariant } from '../Button.type';
+import type { ButtonFill, ButtonLook, ButtonSize, ButtonVariant, ButtonWidth } from '../Button.type';
 
 interface ButtonClassInput {
   variant: ButtonVariant;
   size: ButtonSize;
+  look: ButtonLook | undefined;
+  fill: ButtonFill | undefined;
+  width: ButtonWidth | undefined;
   fullWidth: boolean;
   active: boolean;
   loading: boolean;
   oneLine: boolean;
-  className: string;
+  link: boolean;
+  className: string | undefined;
 }
 
 export type { ButtonClassInput };

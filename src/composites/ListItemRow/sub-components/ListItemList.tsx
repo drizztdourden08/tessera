@@ -7,10 +7,11 @@ import { ListItemContext } from '../behavior/list-item-context';
 import { listItemTracks } from '../behavior/list-item-tracks';
 import { shapeOfRows } from '../behavior/shape-of-rows';
 import type { ListItemListProps } from '../ListItemRow.type';
+import { ListItemHeaderRow } from './ListItemHeaderRow';
 import './ListItemList.css';
 
 const ListItemList = (props: ListItemListProps) => {
-  const { children, label, heading, count, shape, className } = props;
+  const { children, header, label, heading, count, shape, className } = props;
   const headingId = useId();
   const read = shape ?? shapeOfRows(children);
   const tracks = listItemTracks(read);
@@ -25,6 +26,7 @@ const ListItemList = (props: ListItemListProps) => {
       className={`list-item-list${!titled && className ? ` ${className}` : ''}`}
       style={style}
     >
+      <ListItemHeaderRow header={header} shape={read} />
       <ListItemContext.Provider value={context}>{children}</ListItemContext.Provider>
     </Box>
   );

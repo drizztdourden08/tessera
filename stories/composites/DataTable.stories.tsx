@@ -4,24 +4,29 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DataTable } from '../../src/composites';
 import { MEMORY_VIEW_STORAGE } from '../../src/data';
-import type { TableColumn, ViewStorage } from '../../src/data';
-import { Box, Text } from '../../src/primitives';
+import { Text } from '../../src/primitives';
 import { PLAYERS, PLAYER_SCHEMA } from './_samples/data-players';
 import type { PlayerRow } from './_samples/data-players';
-import {
-  HINTS, HINT_SCHEMA, resolveSlotDefault, resolveSlotField, resolveTargetFields,
-} from './_samples/data-hints';
-import type { HintRow } from './_samples/data-hints';
+import { resolveSlotDefault } from './_samples/data-hints';
+import { DataTableCellControls } from './_samples/DataTableCellControls';
+import { DataTableControlled } from './_samples/DataTableControlled';
+import { DataTableDetailConfirm } from './_samples/DataTableDetailConfirm';
+import { DataTableDetailForm } from './_samples/DataTableDetailForm';
 import { DataTableGroupActions } from './_samples/DataTableGroupActions';
 import { DataTableRowDrag } from './_samples/DataTableRowDrag';
 import { DataTableRowMarquee } from './_samples/DataTableRowMarquee';
+import { DataTableRowStates } from './_samples/DataTableRowStates';
+import { DataTableThumbnail } from './_samples/DataTableThumbnail';
+import { DataTableUnits } from './_samples/DataTableUnits';
+import { DataTableHints } from './_samples/DataTableHints';
+import { renderState } from './_samples/data-table-state';
+import { slotHref } from './_samples/slot-href';
 import { LongGroupsDemo } from './_samples/LongGroupsDemo';
 import { LinkSandbox } from '../primitives/_samples/LinkSandbox';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
-import type { StateProps } from '../_template/states/states.type';
 import './DataTable.stories.css';
 
 type GroupChoice = 'none' | 'game' | 'status';
@@ -34,12 +39,8 @@ type DataTableArgs = {
 };
 
 const PLAYER_COUNT: readonly [string, string] = ['player', 'players'];
-const HINT_COUNT: readonly [string, string] = ['hint', 'hints'];
-const NO_ROWS: readonly PlayerRow[] = [];
 
 const playerId = (player: PlayerRow): string => player.id;
-const slotHref = (id: string, targetKind?: string): string | undefined => (targetKind === 'slot' ? `/players/${id}` : undefined);
-const hintId = (hint: HintRow): string => hint.id;
 
 const PlayersDemo = ({ selectable, groupBy, persistLayout, emptyMessage }: DataTableArgs) => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -72,28 +73,6 @@ const PlayersDemo = ({ selectable, groupBy, persistLayout, emptyMessage }: DataT
   );
 };
 
-const HintsDemo = () => {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  return (
-    <LinkSandbox className="data-table-story">
-      <Text className="story-label">
-        Finder and receiver are slot references, each a link to its player. Open a column menu to pick which player field they show.
-      </Text>
-      <DataTable
-        rows={HINTS}
-        schema={HINT_SCHEMA}
-        getRowId={hintId}
-        selectedId={selectedId}
-        onSelect={setSelectedId}
-        countLabel={HINT_COUNT}
-        resolveTargetFields={resolveTargetFields}
-        resolveIdRefDisplay={resolveSlotField}
-        resolveIdRefDefault={resolveSlotDefault}
-        resolveIdRefHref={slotHref}
-      />
-    </LinkSandbox>
-  );
-};
 
 const ARGS: Partial<DataTableArgs> = { selectable: false, groupBy: 'none', persistLayout: true, emptyMessage: 'No players have joined this session yet.' };
 
@@ -118,7 +97,7 @@ const Players = {
 
 const References = {
   name: 'Reference columns',
-  render: () => <HintsDemo />,
+  render: () => <DataTableHints />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
 const LongGroups = {
@@ -141,6 +120,41 @@ const RowMarquee = {
   render: () => <DataTableRowMarquee />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
+const Thumbnail = {
+  name: 'Thumbnail cell: renderCell and rowHeight',
+  render: () => <DataTableThumbnail />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const CellControls = {
+  name: 'Controls in cells: Tags, a Tooltip and an IconButton leave the selection alone',
+  render: () => <DataTableCellControls />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const Units = {
+  name: 'Numbers with a unit: 12.4 MB, sorted as numbers',
+  render: () => <DataTableUnits />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const RowStates = {
+  name: 'Row states: active, pending, error and muted',
+  render: () => <DataTableRowStates />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const Controlled = {
+  name: 'Controlled sort and expand, driven by buttons',
+  render: () => <DataTableControlled />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const DetailConfirm = {
+  name: 'Row detail: inline delete confirm',
+  render: () => <DataTableDetailConfirm />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const DetailForm = {
+  name: 'Row detail: small edit form, inside groups',
+  render: () => <DataTableDetailForm />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
 const AllVariants = {
   name: 'All variants',
   render: () => (
@@ -154,29 +168,6 @@ const AllVariants = {
   ),
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
-const STATE_ROWS = PLAYERS.slice(0, 1);
-const STATE_COLUMNS: readonly TableColumn[] = [{ path: 'name' }, { path: 'game' }, { path: 'status' }];
-
-const SORTED_STORAGE: ViewStorage = {
-  load: () => Promise.resolve({ v: 1, columns: STATE_COLUMNS, sort: [{ path: 'name', dir: 'asc' }], groupBy: [], filters: [] }),
-  save: () => undefined,
-};
-
-const renderState = (props: StateProps) => (
-  <Box className="data-table-story data-table-story--state">
-    <DataTable
-      rows={props.empty === true ? NO_ROWS : STATE_ROWS}
-      schema={PLAYER_SCHEMA}
-      getRowId={playerId}
-      fallbackColumns={STATE_COLUMNS}
-      viewKey={props.sorted === true ? 'stories:players-sorted' : undefined}
-      viewStorage={props.sorted === true ? SORTED_STORAGE : undefined}
-      selectedId={props.selected === true ? STATE_ROWS[0]?.id : null}
-      countLabel={PLAYER_COUNT}
-      emptyMessage="No players have joined this session yet."
-    />
-  </Box>
-);
 
 const CODE = `import { DataTable } from '@drizztdourden08/tessera';
 
@@ -195,12 +186,12 @@ const Overview = overviewStory({
   component: 'DataTable',
   description: 'A table of records whose columns come from a schema, for any collection the user browses, sorts and picks from.',
   points: [
-    'Give it `rows`, a `schema` and `getRowId`; the columns come from the schema.',
+    'Give it `rows`, a `schema` and `getRowId`; columns follow the schema, and a number can carry a `unit`.',
     'Column menus sort, group, rename, resize and remove columns; `viewKey` keeps the layout between visits.',
     '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
-    'A reference column shows its target by a field the user picks from the column menu.',
     '`defaultExpanded` picks the groups that start open; `virtualizeFrom` draws only the rows in view.',
     '`groupActions` adds header buttons; `onRowMove` and `rowDragData` move rows; `getRects` feeds a marquee.',
+    '`renderCell`, `rowState` (with warning), `rowHeight` shape rows; `renderDetail` adds a panel; you own `sort`.',
   ],
   instead: '[ListItemRow] for a short list of rich rows with no columns to sort.',
   playground: Players,
@@ -219,4 +210,6 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, GroupActions, LongGroups, Overview, Players, References, RowDrag, RowMarquee };
+export {
+  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, GroupActions, LongGroups, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail, Units,
+};

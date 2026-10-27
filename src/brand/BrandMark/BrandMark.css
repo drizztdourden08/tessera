@@ -29,3 +29,8 @@
   --brand-rim-width: var(--brand-rim-xl);
 }
 
+
+.brand-mark--xxl {
+  --brand-mark-size: var(--brand-mark-xxl);
+  --brand-rim-width: var(--brand-rim-xxl);
+}

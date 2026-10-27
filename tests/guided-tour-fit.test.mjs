@@ -65,17 +65,20 @@ describe('the bubble always fits the window', () => {
 describe('the mascot stays off the lit part', () => {
   const box = { width: 80, height: 80 };
 
-  it('never stands in a large hole, even when it found no room beside the bubble', () => {
+  it('keeps clear of the ring in a large hole, outside it or inside with room to spare', () => {
     const hole = { x: 0, y: 0, width: 700, height: 800 };
     const bubble = { x: 16, y: 600, width: 300, height: 150 };
     const spot = mascotSpot({ bubble, hole }, VIEW, box, 10);
     expect(spot).not.toBeNull();
-    expect(overlaps({ x: spot.x - 40, y: spot.y, ...box }, hole)).toBe(false);
+    const mascot = { x: spot.x - 40, y: spot.y, ...box };
+    const roomy = mascot.x >= 10 && mascot.y >= 10 && mascot.x + 80 <= 690 && mascot.y + 80 <= 790;
+    expect(roomy || !overlaps(mascot, hole)).toBe(true);
   });
 
   it('stays hidden when the hole leaves no room at all', () => {
-    const hole = { x: 0, y: 0, width: 1000, height: 800 };
-    expect(mascotSpot({ bubble: { x: 16, y: 600, width: 300, height: 150 }, hole }, VIEW, box, 10)).toBeNull();
+    const small = { width: 200, height: 200 };
+    const hole = { x: 0, y: 0, width: 200, height: 200 };
+    expect(mascotSpot({ bubble: { x: 16, y: 34, width: 168, height: 150 }, hole }, small, box, 10)).toBeNull();
   });
 });
 

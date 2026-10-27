@@ -1,6 +1,5 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useRef, useState } from 'react';
-import { useReducedMotion } from '../../../primitives/dom/useReducedMotion';
 import type { GuidedTourApi, TourTarget } from '../GuidedTour.type';
 import { stageOf } from './stage-of';
 import { tourReach } from './tour-reach';
@@ -10,7 +9,6 @@ import { useClickAt } from './useClickAt';
 import { useFoundTargets } from './useFoundTargets';
 import { useHeldStep } from './useHeldStep';
 import { useSameNodes } from './useSameNodes';
-import { useScrollTarget } from './useScrollTarget';
 import { useSpotlight } from './useSpotlight';
 import { useTourFocus } from './useTourFocus';
 import { useTourInert } from './useTourInert';
@@ -32,7 +30,6 @@ const useTourStage = (tour: GuidedTourApi, keep: readonly TourTarget[] | undefin
   const reachable = useSameNodes(reach.reachable);
   const spot = useSpotlight(root, stage.target, useSameNodes(reach.holes), held && `${held.index} ${held.id}`);
   const bubbled = useBubblePlace(bubble, stage.step, stage.target, spot);
-  useScrollTarget(stage.target, useReducedMotion(rootRef));
   useTourInert(root, reachable);
   useTourFocus(root, bubble);
   useTourKeys(tour, root, bubble, stage.waits);

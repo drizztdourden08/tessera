@@ -1,10 +1,11 @@
 /* @layer renderer-components @kind logic */
 import type { MascotFacing } from '../../../brand/motion/mascot-facing.type';
 import { clampNumber } from '../../../primitives/value-rule/clamp-number';
+import { RING_CLEARANCE } from '../GuidedTour.constants';
+import { boxGap } from './box-gap';
+import { mascotClear } from './mascot-clear';
+import { mascotOutside } from './mascot-outside';
 import type { MascotSpot, MascotStand, TourBox, TourSize } from './tour-internal.type';
-
-const overlaps = (a: TourBox, b: TourBox | null): boolean =>
-  b !== null && a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
 
 const faceToward = (x: number, goal: TourBox): MascotFacing => (goal.x + goal.width / 2 < x ? 'left' : 'right');
 
@@ -15,18 +16,29 @@ const stands = (around: { bubble: TourBox; hole: TourBox | null }, view: TourSiz
   const under = clampNumber(bubble.x + half, half, view.width - half);
   const beside: MascotStand[] = [[bubble.x - gap - half, level], [bubble.x + bubble.width + gap + half, level]];
   const aboveBelow: MascotStand[] = [[under, bubble.y + bubble.height + gap], [under, bubble.y - gap - box.height]];
-  const byHole: MascotStand[] = hole ? [[hole.x - gap - half, level], [hole.x + hole.width + gap + half, level]] : [];
-  return [...beside, ...aboveBelow, ...byHole];
+  const flank: MascotStand[] = hole
+    ? [
+      [hole.x - RING_CLEARANCE - half, level],
+      [hole.x + hole.width + RING_CLEARANCE + half, level],
+      [under, hole.y - RING_CLEARANCE - box.height],
+      [under, hole.y + hole.height + RING_CLEARANCE],
+    ]
+    : [];
+  return [...beside, ...aboveBelow, ...flank];
 };
 
 const mascotSpot = (around: { bubble: TourBox; hole: TourBox | null }, view: TourSize, box: TourSize, gap: number): MascotSpot | null => {
   const { bubble, hole } = around;
   const half = box.width / 2;
-  const fits = ([x, y]: MascotStand): boolean =>
-    x - half >= 0 && x + half <= view.width && y >= 0 && y + box.height <= view.height
-    && !overlaps({ x: x - half, y, width: box.width, height: box.height }, hole);
-  const spot = stands(around, view, box, gap).find(fits);
-  return spot ? { x: spot[0], y: spot[1], face: faceToward(spot[0], hole ?? bubble) } : null;
+  const boxAt = ([x, y]: MascotStand): TourBox => ({ x: x - half, y, width: box.width, height: box.height });
+  const placed = stands(around, view, box, gap).filter(([x, y]) =>
+    x - half >= 0 && x + half <= view.width && y >= 0 && y + box.height <= view.height && boxGap(boxAt([x, y]), bubble) > 0);
+  const outside = placed
+    .map((stand, order) => ({ stand, order, gap: boxGap(boxAt(stand), bubble) }))
+    .filter(({ stand }) => mascotOutside(boxAt(stand), hole))
+    .sort((a, b) => a.gap - b.gap || a.order - b.order);
+  const spot = outside[0]?.stand ?? placed.find((stand) => mascotClear(boxAt(stand), hole, bubble));
+  return spot ? { x: Math.round(spot[0]), y: Math.round(spot[1]), face: faceToward(spot[0], hole ?? bubble) } : null;
 };
 
 export { mascotSpot };

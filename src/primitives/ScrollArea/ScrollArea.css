@@ -19,6 +19,10 @@
   overflow: auto;
 }
 
+.scroll-area--stable-gutter {
+  scrollbar-gutter: stable;
+}
+
 .scroll-area[data-overflow~='x'] {
   overscroll-behavior-x: contain;
 }

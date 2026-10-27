@@ -25,7 +25,17 @@ const TourLayer = (props: GuidedTourProps) => {
         data-shown={tour.shown ? 'true' : undefined}
       >
         <TourSpotlight spot={spot} />
-        {mascot !== false && <TourMascot choice={mascot} bubble={stage.bubbleBox} hole={spot.hole} view={spot.view} cue={stage.cue} />}
+        {mascot !== false && (
+          <TourMascot
+            key={step?.intro ? 'large' : 'small'}
+            choice={mascot}
+            bubble={stage.bubbleBox}
+            hole={spot.hole}
+            view={spot.view}
+            cue={stage.cue}
+            large={step?.intro === true}
+          />
+        )}
         {step && (
           <TourBubble key={tour.index} tour={tour} step={step} place={stage.place} centred={stage.centred} nodeRef={stage.setBubble} />
         )}

@@ -12,7 +12,7 @@ const useTourFocus = (root: HTMLElement | null, bubble: HTMLElement | null): voi
   }, [root]);
 
   useLayoutEffect(() => {
-    bubble?.focus({ preventScroll: true });
+    (bubble?.querySelector<HTMLElement>('[data-tour-start]') ?? bubble)?.focus({ preventScroll: true });
   }, [bubble]);
 };
 

@@ -1,12 +1,13 @@
 /* @layer renderer-components @kind data */
 import type { DateLength, DatePreset, IntlByLength, IntlPreset } from './date-format.type';
 
-const DATE_PRESETS: readonly DatePreset[] = ['relative', 'calendar', 'date', 'time', 'datetime', 'weekday', 'month', 'iso'];
+const DATE_PRESETS: readonly DatePreset[] = ['relative', 'elapsed', 'calendar', 'date', 'time', 'datetime', 'weekday', 'month', 'iso'];
 
 const DATE_LENGTHS: readonly DateLength[] = ['short', 'medium', 'long'];
 
 const DEFAULT_LENGTHS: Readonly<Record<DatePreset, DateLength>> = {
-  relative: 'long', calendar: 'medium', date: 'medium', time: 'short', datetime: 'medium', weekday: 'medium', month: 'medium', iso: 'medium',
+  relative: 'long', elapsed: 'medium', calendar: 'medium', date: 'medium', time: 'short',
+  datetime: 'medium', weekday: 'medium', month: 'medium', iso: 'medium',
 };
 
 const INTL_PRESETS: Readonly<Record<IntlPreset, IntlByLength>> = {
@@ -34,6 +35,8 @@ const RELATIVE_UNITS: readonly (readonly [Intl.RelativeTimeFormatUnit, number])[
 
 const FULL_DATE: Intl.DateTimeFormatOptions = { dateStyle: 'full', timeStyle: 'short' };
 
+const FULL_DATE_SECONDS: Intl.DateTimeFormatOptions = { dateStyle: 'full', timeStyle: 'medium' };
+
 const CALENDAR_TIME: Intl.DateTimeFormatOptions = { timeStyle: 'short' };
 
 const CALENDAR_WEEK_DAYS = 6;
@@ -41,6 +44,6 @@ const CALENDAR_WEEK_DAYS = 6;
 const DAY_MS = 86_400_000;
 
 export {
-  CALENDAR_TIME, CALENDAR_WEEK_DAYS, DATE_LENGTHS, DATE_PRESETS, DAY_MS, DEFAULT_LENGTHS, FULL_DATE, INTL_PRESETS,
+  CALENDAR_TIME, CALENDAR_WEEK_DAYS, DATE_LENGTHS, DATE_PRESETS, DAY_MS, DEFAULT_LENGTHS, FULL_DATE, FULL_DATE_SECONDS, INTL_PRESETS,
   RELATIVE_STYLES, RELATIVE_UNITS,
 };
