@@ -13,7 +13,7 @@ const LogoCombined = (props: LogoCombinedProps) => {
   return (
     <Box
       as="span"
-      className={`logo-combined logo-combined--${direction}${className ? ` ${className}` : ''}`}
+      className={['logo-combined', `logo-combined--${direction}`, size === 'fill' ? 'logo-combined--fill' : '', className].filter(Boolean).join(' ')}
       role="img"
       aria-label={label}
     >

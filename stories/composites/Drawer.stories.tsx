@@ -5,7 +5,7 @@ import type { StoryLiteMeta } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Button, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
-import { FilterPanelDrawer, ItemDetailsDrawer, NotificationsDrawer, SearchSheetDrawer } from './_samples/DrawerBodies';
+import { FilterPanelDrawer, ItemDetailsDrawer, NotificationsDrawer, RecordDrawer, SearchSheetDrawer } from './_samples/DrawerBodies';
 import type { SampleDrawerProps } from './_samples/DrawerBodies';
 import './Drawer.stories.css';
 
@@ -13,7 +13,7 @@ type DrawerSide = 'left' | 'right' | 'top';
 
 type DrawerArgs = {
   side: DrawerSide;
-  size: 'md' | 'lg' | 'xl';
+  size: 'md' | 'lg' | 'wide' | 'xl';
   label: string;
 };
 
@@ -42,7 +42,7 @@ const ARGS: Partial<DrawerArgs> = { side: 'right', size: 'md', label: 'File deta
 const ARG_TYPES: PlaygroundArgTypes<DrawerArgs> = {
   label: { group: 'Content', control: 'text' },
   side: { group: 'Layout', control: 'select', options: ['left', 'right', 'top'] },
-  size: { group: 'Layout', control: 'select', options: ['md', 'lg', 'xl'], description: 'md is 384 px, lg 640 px, xl 1024 px, each capped by the window. A top drawer ignores it.' },
+  size: { group: 'Layout', control: 'select', options: ['md', 'lg', 'wide', 'xl'], description: 'md is 384 px, lg 640 px, wide 768 px, xl 1024 px, each capped by the window; under 480 px every size is full width. A top drawer ignores it.' },
 };
 
 const meta = {
@@ -83,6 +83,15 @@ const Notifications = {
   ),
 } satisfies PlaygroundStory<DrawerArgs>;
 
+const Record = {
+  name: 'Record with eyebrow and header actions',
+  args: { ...ARGS, size: 'wide', label: 'Incident' },
+  argTypes: ARG_TYPES,
+  render: (args) => (
+    <DrawerDemo {...args} openLabel="Open record" Sample={RecordDrawer} />
+  ),
+} satisfies PlaygroundStory<DrawerArgs>;
+
 const SearchSheet = {
   name: 'Search from the top',
   args: ARGS,
@@ -110,16 +119,16 @@ const Overview = overviewStory({
   points: [
     '`side` picks the edge: `right` by default, `left` or `top`.',
     '`title` and `subtitle` fill a header with a close button; `actions` sit in a footer row.',
-    'The body pads its content and scrolls when it runs long.',
-    'A tap on the scrim, the close button or [[Esc]] calls `onClose`.',
-    'Focus moves in when it opens, stays inside while open and goes back to the opener when it closes.',
-    '`label` names the panel for screen readers when there is no `title`.',
+    '`eyebrow` adds a small line above the title; `headerActions` put icon buttons beside close.',
+    '`size` runs `md`, `lg`, `wide` and `xl`; any size is full width under 480 px.',
+    'A tap on the scrim, the close button or [[Esc]] calls `onClose`; focus stays inside while it is open.',
+    'A long `title` wraps instead of cutting. The body pads and scrolls; `label` names a panel with no `title`.',
   ],
   instead: '[DialogShell] for a modal that waits for an answer.',
   playground: Playground,
-  variants: [FilterPanel, Notifications, SearchSheet],
+  variants: [Record, FilterPanel, Notifications, SearchSheet],
   code: CODE,
 });
 
 export default meta;
-export { FilterPanel, Notifications, Overview, Playground, SearchSheet };
+export { FilterPanel, Notifications, Overview, Playground, Record, SearchSheet };

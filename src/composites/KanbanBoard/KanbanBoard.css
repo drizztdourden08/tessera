@@ -8,3 +8,8 @@
   min-inline-size: 0;
   overflow: auto hidden;
 }
+
+.kanban--fill .kanban__column {
+  flex: 1 1 0;
+  min-inline-size: var(--size-224);
+}

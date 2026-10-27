@@ -1,5 +1,18 @@
 # @drizztdourden08/tessera
 
+## 0.80.0
+
+### Minor Changes
+
+- 5e14058: A palette can now set its neutrals with optional seeds: `--p-bg`, `--p-panel`, `--p-surface-fill`, `--p-sunken`, `--p-border`, `--p-border-strong`, `--p-chrome`, `--p-chrome-border` and the text steps `--p-text`, `--p-text-dim`, `--p-text-muted` and `--p-text-faint`; the title bar, status bar, toolbar dock and tool frame read the new `--c-chrome` role, and palettes that set none look the same as before. DocumentTabs takes `look="raised"` for tabs with a surface fill and a lifted selected tab, and `--document-tab-bg` and `--document-tab-bg-selected` set the tab fills for any look.
+- 0fda089: MarkdownEditor takes `compact` for a slim toolbar, a small box that grows with its text, and a preview behind a toggle. KanbanBoard takes `columnWidth="fill"` so the columns share the board width down to a minimum. DataTable takes `footer={false}` to leave out the summary line, the count and the options menu.
+- 488c6f5: Drawer takes an `eyebrow` above the title, `headerActions` icon buttons beside close, a wrapping title and a new `wide` size of 768 px; every size is full width under 480 px. Card takes `edgeTone` and `edge` (`left` or `border`) to colour its edge in a tone while the header stays neutral, and WindowHeader takes `eyebrow` and `actions`.
+- 4d2ec43: New `size="fill"` for Logo, BrandMark, Logo.Combined, the wordmarks, Mascot and AnimatedMascot: the mark fills its parent's width, stays square, scales its rim with it, and takes an optional cap from `--brand-mark-fill-max`.
+
+### Patch Changes
+
+- ca3a700: The `tokens.css` export is now a flat pre-built file at the package root, with every import inlined in order and the font paths rewritten to the package fonts. It holds the same rules as before, so an app's dev server no longer follows an import chain to load it.
+
 ## 0.79.0
 
 ### Minor Changes

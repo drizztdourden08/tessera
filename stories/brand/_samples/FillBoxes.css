@@ -1,0 +1,20 @@
+/* @layer stories @kind style */
+.fill-boxes {
+  display: grid;
+  gap: var(--space-md);
+  justify-items: start;
+}
+
+.fill-boxes__box {
+  overflow: auto;
+  min-inline-size: var(--size-64);
+  max-inline-size: 100%;
+  padding: var(--space-sm);
+  border: 1px solid var(--c-hairline);
+  border-radius: var(--radius-md);
+  resize: horizontal;
+}
+
+.fill-boxes__box--sm { inline-size: var(--size-96); }
+.fill-boxes__box--md { inline-size: var(--size-192); }
+.fill-boxes__box--lg { inline-size: var(--size-384); }

@@ -18,13 +18,13 @@ type WordMarkArgs = {
   rim: BrandRim;
 };
 
-const SIZES: readonly WordmarkSize[] = ['sm', 'md', 'lg'];
+const SIZES: readonly Exclude<WordmarkSize, 'fill'>[] = ['sm', 'md', 'lg'];
 
-const SIZE_MIN: Record<WordmarkSize, VariantGridMin> = { sm: 'md', md: 'lg', lg: 'xl' };
+const SIZE_MIN: Record<Exclude<WordmarkSize, 'fill'>, VariantGridMin> = { sm: 'md', md: 'lg', lg: 'xl' };
 
 const ARG_TYPES: PlaygroundArgTypes<WordMarkArgs> = {
   brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
-  size: { group: 'Appearance', control: 'select', options: [...SIZES] },
+  size: { group: 'Appearance', control: 'select', options: [...SIZES, 'fill'], description: '`fill` fills the width of the parent.' },
   rim: { group: 'Appearance', control: 'select', options: [...RIMS], description: 'A thin light outline that follows the silhouette, so a dark mark reads on a dark surface.' },
 };
 

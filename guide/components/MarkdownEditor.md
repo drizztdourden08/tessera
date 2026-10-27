@@ -34,6 +34,8 @@ MarkdownEditor writes Markdown with a toolbar and a live preview, the same way i
 - Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.
 - Pass onLink in a desktop app so a link in the preview opens in the system browser.
 - Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.
+- Pass compact for a note box inside a card: a slim toolbar, a 3 row textarea that grows with its text up to a cap, and no split or tabs; rows still sets the starting height.
+- In compact the preview stays out until the Preview button at the end of the toolbar is pressed; it then takes the place of the text, and a second press brings the text back.
 - Pass label, hint, error, placeholder and disabled as for any other field; set rows to change the height of the text, 12 by default.
 - The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.
 - Enter at the end of a list item starts the next one: a bullet, a number that counts up, or an open task; on an empty item it ends the list.
@@ -76,7 +78,8 @@ const NoteField = ({ openExternal }: { openExternal: (href: string) => void }) =
 - `placeholder` (optional): `string`.
 - `disabled` (optional): `boolean`. Default `false`.
 - `layout` (optional): `MarkdownEditorLayout`, one of `'split'`, `'tabs'`.
-- `rows` (optional): `number`. Default `DEFAULT_ROWS`.
+- `compact` (optional): `boolean`.
+- `rows` (optional): `number`.
 - `onLink` (optional): `MarkdownLinkHandler`.
 - `images` (optional): `MarkdownImages`.
 - `linkIds` (optional): `MarkdownLinkId | MarkdownLinkId[]`.
@@ -89,4 +92,4 @@ const NoteField = ({ openExternal }: { openExternal: (href: string) => void }) =
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--radius-md`, `--size-192`, `--size-384`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`.
+It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--radius-md`, `--size-192`, `--size-384`, `--size-96`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`.

@@ -15,16 +15,17 @@ import { DocumentTabsMenu } from './sub-components/DocumentTabsMenu';
 import './DocumentTabs.css';
 
 const DocumentTabs = (props: DocumentTabsProps) => {
-  const { tabs, activeId, onActivate, label, overflowMenu = false, onAdd, className } = props;
+  const { tabs, activeId, onActivate, label, overflowMenu = false, onAdd, look = 'flat', className } = props;
   const { documentTabs, fields } = useTesseraStrings();
   const hintId = useId();
   const tabIds = useId();
   const idOf = (index: number): string => `${tabIds}-${index}`;
   const { listRef, drag, close, message, tabId, liveId, hoverId, onKeyDown, onContextMenu, onFocus, onBlur, onPointerOver, onPointerLeave } = useDocumentTabs(props);
-  if (tabs.length === 0) return onAdd ? <Box className={['document-tabs', className].filter(Boolean).join(' ')}><DocumentTabAdd onAdd={onAdd} /></Box> : null;
+  const rootClass = ['document-tabs', look === 'raised' && 'document-tabs--raised', className].filter(Boolean).join(' ');
+  if (tabs.length === 0) return onAdd ? <Box className={rootClass}><DocumentTabAdd onAdd={onAdd} /></Box> : null;
   return (
     <Box
-      className={['document-tabs', className].filter(Boolean).join(' ')}
+      className={rootClass}
       onKeyDown={onKeyDown}
       onContextMenu={onContextMenu}
       onFocus={onFocus}

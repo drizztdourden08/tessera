@@ -43,6 +43,30 @@
   white-space: nowrap;
 }
 
+.window-header__titles--eyebrow {
+  flex-wrap: wrap;
+  row-gap: var(--space-2xs);
+}
+
+.window-header__eyebrow {
+  flex: 0 0 100%;
+  min-width: 0;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+  color: var(--c-text-dim);
+  overflow-wrap: anywhere;
+}
+
+.window-header__actions {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
 .window-header--wrap .window-header__titles {
   flex-wrap: wrap;
   row-gap: var(--space-2xs);

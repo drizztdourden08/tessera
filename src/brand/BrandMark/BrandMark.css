@@ -29,8 +29,15 @@
   --brand-rim-width: var(--brand-rim-xl);
 }
 
-
 .brand-mark--xxl {
   --brand-mark-size: var(--brand-mark-xxl);
   --brand-rim-width: var(--brand-rim-xxl);
+}
+
+.brand-mark--fill {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: var(--brand-mark-fill-max);
+  block-size: auto;
+  aspect-ratio: 1;
 }

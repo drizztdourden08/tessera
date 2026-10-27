@@ -4,3 +4,9 @@
 .mascot--lg { block-size: var(--brand-mark-lg); }
 .mascot--xl { block-size: var(--brand-mark-xl); }
 .mascot--xxl { block-size: var(--brand-mark-xxl); }
+
+.mascot--fill {
+  inline-size: 100%;
+  max-inline-size: var(--brand-mark-fill-max);
+  block-size: auto;
+}
