@@ -2,18 +2,22 @@
 import { useState } from 'react';
 import type { RefObject } from 'react';
 import { SPLIT_MIN_WIDTH } from '../MarkdownEditor.constants';
-import type { MarkdownEditorLayout, MarkdownEditorMode } from '../MarkdownEditor.type';
+import type { MarkdownEditorMode, MarkdownEditorModeOptions } from '../MarkdownEditor.type';
+import { editorLayout } from './editor-layout';
+import { editorPanes } from './editor-panes';
 import { previewToggle } from './preview-toggle';
 import { useWideContainer } from './useWideContainer';
 
-const useEditorMode = (rootRef: RefObject<HTMLElement | null>, layout: MarkdownEditorLayout | undefined, compact: boolean | undefined, disabled: boolean): MarkdownEditorMode => {
+const useEditorMode = (rootRef: RefObject<HTMLElement | null>, options: MarkdownEditorModeOptions): MarkdownEditorMode => {
+  const { layout, compact, disabled, preview = true } = options;
   const [pane, setPane] = useState<MarkdownEditorMode['pane']>('write');
   const wide = useWideContainer(rootRef, SPLIT_MIN_WIDTH);
   const small = compact === true;
-  const mode = small ? 'compact' : layout ?? (wide ? 'split' : 'tabs');
+  const writeOnly = !preview;
+  const mode = editorLayout(layout, wide, small, writeOnly);
   const tabbed = mode === 'tabs';
-  const swapped = tabbed || small;
-  return { mode, tabbed, pane, setPane, writing: !swapped || pane === 'write', previewShown: !swapped || pane === 'preview', previewDrawn: !small || pane === 'preview', toggle: small ? previewToggle(pane, setPane, disabled) : undefined };
+  const toggle = small && !writeOnly ? previewToggle(pane, setPane, disabled) : undefined;
+  return { mode, tabbed, pane, setPane, toggle, ...editorPanes(pane, tabbed || small, small, writeOnly) };
 };
 
 export { useEditorMode };

@@ -8,6 +8,7 @@ interface MarkdownEditorDemoProps {
   initial: string;
   layout?: MarkdownEditorLayout;
   compact?: boolean;
+  preview?: boolean;
   disabled?: boolean;
   rows?: number;
   maxLength?: number;
@@ -15,7 +16,7 @@ interface MarkdownEditorDemoProps {
   decide?: boolean;
 }
 
-const MarkdownEditorDemo = ({ initial, layout, compact, disabled, rows, maxLength, keys = false, decide = false }: MarkdownEditorDemoProps) => {
+const MarkdownEditorDemo = ({ initial, layout, compact, preview, disabled, rows, maxLength, keys = false, decide = false }: MarkdownEditorDemoProps) => {
   const [value, setValue] = useState(initial);
   const [last, setLast] = useState('Press Mod+Enter to send, or Escape to cancel');
   return (
@@ -26,6 +27,7 @@ const MarkdownEditorDemo = ({ initial, layout, compact, disabled, rows, maxLengt
         onChange={setValue}
         layout={layout}
         compact={compact}
+        preview={preview}
         toolbarEnd={decide ? <Button size="sm" variant="primary" onClick={() => setLast('Decided')}>Decide</Button> : undefined}
         disabled={disabled}
         rows={rows}
