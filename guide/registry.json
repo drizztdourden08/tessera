@@ -4286,8 +4286,8 @@
       },
       "tokens": [
         "--border-width-thin",
-        "--c-border",
-        "--c-surface",
+        "--c-chrome",
+        "--c-chrome-border",
         "--space-md",
         "--space-sm"
       ],
@@ -6705,6 +6705,7 @@
       "rules": [
         "Give it rows, a schema and getRowId; the columns come from the schema, and viewKey keeps the layout between visits.",
         "Pass fallbackGroupBy to open grouped, and defaultExpanded, a list of group keys or a function of the key and its field, to choose the groups that start open; leave it out to open them all.",
+        "Set footer to false to leave out the bar at the bottom: the sort and group line, the row count and the options menu with its add column, clear sort, clear group, fit and reset actions.",
         "Set a unit on a number field, or units in the schema config, to write 12.4 MB in the cell; sort, group and filter still read the number.",
         "Keep the rows in the app and pass them whole; from virtualizeFrom rows, 200 by default, the table draws only the rows in view.",
         "Set virtualizeFrom lower for rows that are costly to draw, or to Infinity to draw every row.",
@@ -6738,7 +6739,7 @@
         "rule": "DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long."
       },
       "example": "import { DataTable } from '@drizztdourden08/tessera';\nimport type { FieldDescriptor } from '@drizztdourden08/tessera';\n\ninterface Peer {\n  id: string;\n  name: string;\n  state: string;\n}\n\nconst openGroups = ['Connected'];\n\ninterface PeerTableProps {\n  peers: Peer[];\n  schema: FieldDescriptor[];\n}\n\nconst PeerTable = ({ peers, schema }: PeerTableProps) => (\n  <DataTable\n    rows={peers}\n    schema={schema}\n    getRowId={(peer) => peer.id}\n    fallbackGroupBy={['state']}\n    defaultExpanded={openGroups}\n    countLabel={['peer', 'peers']}\n  />\n);\n",
-      "propsHash": "1d03c477fa6af319",
+      "propsHash": "e1ab5b31f0cc68f2",
       "props": {
         "own": [
           {
@@ -6815,6 +6816,12 @@
             "name": "countLabel",
             "optional": true,
             "text": "readonly [one: string, many: string]"
+          },
+          {
+            "name": "footer",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
           },
           {
             "name": "emptyMessage",
@@ -7491,6 +7498,7 @@
         "When the tabs do not fit, the strip scrolls and keeps the active tab in view. Pass overflowMenu to add a menu that lists every tab.",
         "Show the document of the active tab beside the strip; DocumentTabs draws no panel.",
         "Pass onTabContextMenu to open the app menu of a tab. It gets the tab id and the event, from a right click, the Menu key or Shift+F10 on a focused tab. Call preventDefault on a mouse event to hide the browser menu.",
+        "Pass look=\"raised\" for tabs with a surface fill and a lifted selected tab. Any look takes the fills from --document-tab-bg and --document-tab-bg-selected, which default to no fill.",
         "Pass onAdd to draw a + icon button after the last tab, inside the strip. Its label is translated from the strings, and onAdd only asks: the app adds the document to tabs."
       ],
       "a11y": [
@@ -7510,7 +7518,7 @@
         "rule": "DocumentTabs is the strip of open documents the user switches, closes and reorders, the same way in every editor."
       },
       "example": "import { DocumentTabs } from '@drizztdourden08/tessera';\nimport type { DocumentTab } from '@drizztdourden08/tessera';\n\ninterface OpenDrawingsProps {\n  drawings: DocumentTab[];\n  activeId: string;\n  open: (id: string) => void;\n  askToClose: (id: string) => void;\n  move: (from: number, to: number) => void;\n}\n\nconst OpenDrawings = ({ drawings, activeId, open, askToClose, move }: OpenDrawingsProps) => (\n  <DocumentTabs\n    label=\"Open drawings\"\n    tabs={drawings}\n    activeId={activeId}\n    onActivate={open}\n    onClose={askToClose}\n    onMove={move}\n    overflowMenu\n  />\n);\n",
-      "propsHash": "5ea96320c5e0adda",
+      "propsHash": "b461d1a39275fdbf",
       "props": {
         "own": [
           {
@@ -7560,6 +7568,16 @@
             "text": "() => void"
           },
           {
+            "name": "look",
+            "optional": true,
+            "text": "DocumentTabsLook",
+            "literals": [
+              "'flat'",
+              "'raised'"
+            ],
+            "default": "'flat'"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -7577,16 +7595,21 @@
         "--c-border",
         "--c-focus",
         "--c-hover",
+        "--c-lift",
         "--c-primary",
         "--c-primary-bright",
+        "--c-surface",
         "--c-text",
         "--c-text-dim",
         "--c-warning",
         "--control-h-xs",
+        "--document-tab-bg",
+        "--document-tab-bg-selected",
         "--document-tabs-count",
         "--leading-tight",
         "--opacity-muted",
         "--radius-round",
+        "--radius-sm",
         "--size-1",
         "--size-224",
         "--size-8",
@@ -9845,6 +9868,7 @@
         "Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.",
         "Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.",
         "Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.",
+        "Set columnWidth to fill so the columns share the board width instead of a fixed width; each keeps a minimum, and the board scrolls sideways when the minimums do not fit.",
         "Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.",
         "Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.",
         "Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.",
@@ -9865,7 +9889,7 @@
         "rule": "KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards."
       },
       "example": "import { useState } from 'react';\nimport { Badge, KanbanBoard, Text, moveCard } from '@drizztdourden08/tessera';\nimport type { KanbanColumn } from '@drizztdourden08/tessera';\n\ninterface Task {\n  id: string;\n  title: string;\n  tag: string;\n}\n\nconst START: KanbanColumn<Task>[] = [\n  { id: 'todo', title: 'To do', cards: [{ id: 't1', title: 'Fix login', tag: 'bug' }] },\n  { id: 'doing', title: 'Doing', cards: [] },\n  { id: 'done', title: 'Done', cards: [] },\n];\n\nconst Tasks = () => {\n  const [columns, setColumns] = useState(START);\n  return (\n    <KanbanBoard\n      label=\"Sprint\"\n      columns={columns}\n      cardLabel={(task) => task.title}\n      renderCard={(task) => (\n        <>\n          <Text>{task.title}</Text>\n          <Badge variant=\"inline\" value={task.tag} color=\"info\" />\n        </>\n      )}\n      onMove={(move) => setColumns((now) => moveCard(now, move))}\n    />\n  );\n};\n",
-      "propsHash": "571541c4fd1c5f3e",
+      "propsHash": "1b7204ea15831381",
       "props": {
         "own": [
           {
@@ -9887,6 +9911,16 @@
             "name": "cardLabel",
             "optional": true,
             "text": "(card: Card) => string"
+          },
+          {
+            "name": "columnWidth",
+            "optional": true,
+            "text": "KanbanColumnWidth",
+            "literals": [
+              "'fixed'",
+              "'fill'"
+            ],
+            "default": "'fixed'"
           },
           {
             "name": "label",
@@ -9928,6 +9962,7 @@
         "--opacity-muted",
         "--size-1",
         "--size-2",
+        "--size-224",
         "--size-288",
         "--size-48",
         "--space-2xs",
@@ -11157,6 +11192,8 @@
         "Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.",
         "Pass onLink in a desktop app so a link in the preview opens in the system browser.",
         "Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.",
+        "Pass compact for a note box inside a card: a slim toolbar, a 3 row textarea that grows with its text up to a cap, and no split or tabs; rows still sets the starting height.",
+        "In compact the preview stays out until the Preview button at the end of the toolbar is pressed; it then takes the place of the text, and a second press brings the text back.",
         "Pass label, hint, error, placeholder and disabled as for any other field; set rows to change the height of the text, 12 by default.",
         "The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.",
         "Enter at the end of a list item starts the next one: a bullet, a number that counts up, or an open task; on an empty item it ends the list.",
@@ -11185,7 +11222,7 @@
         "rule": "MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app."
       },
       "example": "import { useState } from 'react';\nimport { MarkdownEditor } from '@drizztdourden08/tessera';\n\nconst NoteField = ({ openExternal }: { openExternal: (href: string) => void }) => {\n  const [note, setNote] = useState('');\n  return <MarkdownEditor label=\"Note\" value={note} onChange={setNote} onLink={openExternal} />;\n};\n",
-      "propsHash": "d44599d53d1104ee",
+      "propsHash": "d681f7597fa5958b",
       "props": {
         "own": [
           {
@@ -11234,10 +11271,14 @@
             ]
           },
           {
+            "name": "compact",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
             "name": "rows",
             "optional": true,
-            "text": "number",
-            "default": "DEFAULT_ROWS"
+            "text": "number"
           },
           {
             "name": "onLink",
@@ -11299,6 +11340,7 @@
         "--radius-md",
         "--size-192",
         "--size-384",
+        "--size-96",
         "--space-2xs",
         "--space-md",
         "--space-sm",
@@ -14684,13 +14726,14 @@
         "--border-width-thin",
         "--c-border",
         "--c-border-strong",
+        "--c-chrome",
+        "--c-chrome-border",
         "--c-danger",
         "--c-focus",
         "--c-info",
         "--c-primary-text",
         "--c-secondary",
         "--c-success",
-        "--c-surface",
         "--c-tertiary",
         "--c-text",
         "--c-text-muted",
@@ -15374,8 +15417,8 @@
       },
       "tokens": [
         "--border-width-thin",
-        "--c-border",
-        "--c-surface",
+        "--c-chrome",
+        "--c-chrome-border",
         "--c-text-muted",
         "--duration-fast",
         "--ease-standard",
@@ -16654,7 +16697,8 @@
       "tokens": [
         "--border-width-thick",
         "--border-width-thin",
-        "--c-border",
+        "--c-chrome",
+        "--c-chrome-border",
         "--c-danger",
         "--c-focus",
         "--c-hover",
@@ -16663,7 +16707,6 @@
         "--c-primary",
         "--c-secondary",
         "--c-success",
-        "--c-surface",
         "--c-tertiary",
         "--c-text",
         "--c-text-dim",

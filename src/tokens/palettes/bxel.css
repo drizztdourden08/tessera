@@ -2,20 +2,30 @@
 /* stylelint-disable brock/no-token-override -- a brand palette sets the seeds, the way an app theme.css does */
 @layer ds.palette {
   [data-palette="bxel"] {
-    --p-primary: #7b3fe4;
-    --p-secondary: #e0245e;
-    --p-tertiary: #b3a2e0;
+    --p-primary: #e0245e;
+    --p-secondary: #7b3fe4;
+    --p-tertiary: #b5b5b9;
+    --p-bg: #050506;
+    --p-chrome: #0e0e10;
+    --p-panel: #141415;
+    --p-surface-fill: #202022;
+    --p-border: #343437;
+    --p-border-strong: #4d4d51;
+    --p-text: #f4f4f5;
+    --p-text-dim: #d4d4d7;
+    --p-text-muted: #b5b5b9;
+    --p-text-faint: #a6a6aa;
     --p-white: #f4eeff;
     --p-black: #140b26;
     --p-gradient-dark-from: #130926;
     --p-gradient-dark-to: #080410;
-    --p-primary-gradient-from: #8453e8;
     --p-on-primary: var(--p-pure-white);
+    --p-primary-gradient-from: #e0245e;
     --p-on-secondary: var(--p-pure-white);
     --p-on-tertiary: var(--p-black);
-    --p-danger: #f6738a;
+    --p-danger: #fa90a1;
     --p-warning: #e9b949;
-    --p-info: #4fb0e8;
+    --p-info: #5fbbed;
     --p-success: #4cc38a;
   }
 }

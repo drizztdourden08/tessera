@@ -20,7 +20,7 @@ interface PixelWordmarkArt {
   paths: readonly PixelWordmarkPath[];
 }
 
-type PixelWordmarkSize = 'sm' | 'md' | 'lg';
+type PixelWordmarkSize = 'sm' | 'md' | 'lg' | 'fill';
 
 interface PixelWordmarkProps {
   text: string;
