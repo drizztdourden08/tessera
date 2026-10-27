@@ -11493,7 +11493,7 @@
         "rule": "Markdown shows a Markdown text drawn with Tessera parts, with raw HTML and unsafe links dropped."
       },
       "example": "import { Markdown } from '@drizztdourden08/tessera';\n\nconst UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (href: string) => void }) => (\n  <Markdown source={source} size=\"sm\" headingOffset={2} hideTitle onLink={openExternal} />\n);\n",
-      "propsHash": "c1076fcab1a7da40",
+      "propsHash": "bf11a7f5d7ce9ed4",
       "props": {
         "own": [
           {
@@ -11572,7 +11572,8 @@
               "'secondary'",
               "'neutral'",
               "'danger'",
-              "'info'"
+              "'info'",
+              "'link'"
             ]
           },
           {

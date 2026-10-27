@@ -11,6 +11,7 @@ const COLOUR_GROUPS: readonly TokenGroup[] = [
   { title: 'Danger', tokens: ['--c-danger', '--c-danger-bright', '--c-danger-dim', '--c-danger-soft', '--c-on-danger'] },
   { title: 'Warning', tokens: ['--c-warning', '--c-warning-bright', '--c-warning-dim', '--c-warning-soft', '--c-on-warning'] },
   { title: 'Info', tokens: ['--c-info', '--c-info-bright', '--c-info-dim', '--c-info-soft', '--c-on-info'] },
+  { title: 'Link', tokens: ['--c-link', '--c-link-hover'] },
   { title: 'Success', tokens: ['--c-success', '--c-success-bright', '--c-success-dim', '--c-success-soft', '--c-on-success'] },
   { title: 'Tags', tokens: ['--c-tag-rose', '--c-tag-orange', '--c-tag-amber', '--c-tag-lime', '--c-tag-green', '--c-tag-teal', '--c-tag-cyan', '--c-tag-blue', '--c-tag-violet', '--c-tag-pink'] },
   { title: 'Scrims', tokens: ['--c-scrim', '--c-scrim-game'] },

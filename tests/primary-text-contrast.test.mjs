@@ -25,9 +25,9 @@ const flat = (tokens, name) => {
   return name === '--c-bg' ? bg : colourOver(parseColour(tokens.get(name)), bg);
 };
 
-const ratio = (tokens, ground) => {
+const ratio = (tokens, ground, name = '--c-primary-text') => {
   const under = flat(tokens, ground);
-  const ink = colourOver(parseColour(tokens.get('--c-primary-text')), under);
+  const ink = colourOver(parseColour(tokens.get(name)), under);
   return luminanceRatio(relativeLuminance(ink), relativeLuminance(under));
 };
 
@@ -38,4 +38,13 @@ describe('the primary text colour of every palette', () => {
       expect(ratio(tokens, ground)).toBeGreaterThanOrEqual(NEED);
     },
   );
+});
+
+const LINK_ROWS = CASES.flatMap(({ name, tokens }) => ['--c-link', '--c-link-hover'].flatMap((ink) => GROUNDS.map((ground) => ({ name, tokens, ink, ground }))));
+const LINK_SHOWN = LINK_ROWS.map((row) => ({ ...row, shown: ratio(row.tokens, row.ground, row.ink).toFixed(2) }));
+
+describe('the link colour of every palette', () => {
+  it.each(LINK_SHOWN)('$name: $ink on $ground reaches 4.5:1 at $shown:1', ({ tokens, ink, ground }) => {
+    expect(ratio(tokens, ground, ink)).toBeGreaterThanOrEqual(NEED);
+  });
 });

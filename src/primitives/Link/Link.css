@@ -60,3 +60,10 @@
 
   text-decoration: underline;
 }
+
+:where(.link[data-tone="link"]) {
+  --link-ink: var(--c-link);
+  --link-ink-hover: var(--c-link-hover);
+
+  text-decoration: underline;
+}

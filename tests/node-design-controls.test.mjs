@@ -76,6 +76,22 @@ describe('Link tone info', () => {
   });
 });
 
+describe('Link tone link', () => {
+  it('underlines at rest in the link colour with its own hover, from tokens only', () => {
+    const css = read('src/primitives/Link/Link.css');
+    const body = rule(css, ':where(.link[data-tone="link"])');
+    expect(body).toContain('--link-ink: var(--c-link)');
+    expect(body).toContain('--link-ink-hover: var(--c-link-hover)');
+    expect(body).toContain('text-decoration: underline');
+    expect(read('src/primitives/Link/Link.type.ts')).toMatch(/LinkTone = [^;]*'link'/);
+  });
+
+  it('seeds the colour once in the default palette', () => {
+    expect(read('src/tokens/palette.css')).toContain('--p-link:         #9e9eff');
+    expect(read('src/tokens/canonical.css')).toContain('--c-link:        var(--p-link)');
+  });
+});
+
 describe('DataTable edge row state', () => {
   it('draws only the left bar, with no tint', () => {
     const css = read('src/composites/DataTable/DataTable.css');
