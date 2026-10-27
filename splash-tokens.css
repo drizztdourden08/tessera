@@ -307,6 +307,7 @@
   --open-entry-width: 128px;
   --filter-clause-width: 192px;
   --badge-d-xs: 20px;
+  --status-h-sm: calc(18 * 1px);
   --sort-caret-width: 8px;
   --avatar-d: 40px;
   --side-nav-w: calc(40px + 2 * (8px + 2 * 1px));

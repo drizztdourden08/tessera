@@ -2,11 +2,12 @@
 import type { BadgeProps } from '../Badge.type';
 
 const badgeClass = <S extends string>(props: BadgeProps<S>, text: string, hosted: boolean): string => {
-  const { variant = 'number', color = 'normal', translucent = false, anchor, className } = props;
+  const { variant = 'number', color = 'normal', translucent = false, anchor, icon, className } = props;
   const place = hosted ? anchor ?? 'top-end' : anchor;
   return [
     'badge', `badge--${variant}`, `badge--${color}`,
     [...text].length === 1 && 'badge--round',
+    icon !== undefined && 'badge--iconed',
     translucent && 'badge--translucent',
     place !== undefined && `badge--anchored badge--${place}`,
     className,

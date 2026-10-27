@@ -23,7 +23,7 @@ export { Table, TableCell, TableRow, TableSection } from './Table';
 export type { TableAlign, TableCellProps, TableProps, TableRowProps, TableSectionProps } from './Table';
 export { Spacer, type SpacerProps } from './Spacer';
 export { PageRoot, type PageRootProps } from './PageRoot';
-export { PageFrame, type PageFrameProps, type PageFrameWidth } from './PageFrame';
+export { PageFrame, type PageFramePadding, type PageFrameProps, type PageFrameWidth } from './PageFrame';
 export { Button } from './Button';
 export type { ButtonFill, ButtonLook, ButtonProps, ButtonSize, ButtonVariant, ButtonWidth } from './Button/Button.type';
 export { IconButton } from './IconButton';

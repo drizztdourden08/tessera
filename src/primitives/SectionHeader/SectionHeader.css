@@ -37,3 +37,20 @@
 .section-header__action {
   flex-shrink: 0;
 }
+
+.section-header--lg .section-header__title {
+  font-size: var(--text-xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: var(--tracking-tight);
+  text-transform: none;
+}
+
+.section-header--wrap .section-header__title {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.section-header--wrap .section-header__count,
+.section-header--wrap .section-header__badge {
+  margin-inline-start: var(--space-xs);
+}

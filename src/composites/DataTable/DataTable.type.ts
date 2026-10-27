@@ -14,7 +14,9 @@ import type { RowFeatureProps, RowReorderBinding } from './behavior/row-features
 
 type DefaultExpanded = readonly string[] | ((groupKey: string, path: string) => boolean);
 
-type RowState = 'active' | 'pending' | 'error' | 'warning' | 'muted';
+type RowState = 'active' | 'pending' | 'error' | 'warning' | 'muted' | 'fresh';
+
+type HeaderCase = 'normal' | 'upper';
 
 interface DataTableProps<T> extends RowFeatureProps<T> {
   rows: readonly T[];
@@ -39,6 +41,7 @@ interface DataTableProps<T> extends RowFeatureProps<T> {
   resolveIdRefHref?: IdRefHrefResolver;
   renderCell?: (row: T, path: string) => ReactNode | undefined;
   rowState?: (row: T) => RowState | undefined;
+  headerCase?: HeaderCase;
   rowHeight?: VirtualSize;
   sort?: readonly SortEntry[];
   onSortChange?: (sort: readonly SortEntry[]) => void;
@@ -144,6 +147,6 @@ interface TrackFallbacks {
 
 export type {
   ColumnActions, ColumnDragBinding, ColumnDragStart,
-  DataTableProps, DefaultExpanded, RowRenderContext, RowSelectionBinding, RowState, SelectAllState, TableActions,
+  DataTableProps, DefaultExpanded, HeaderCase, RowRenderContext, RowSelectionBinding, RowState, SelectAllState, TableActions,
   TrackFallbacks, TrackOverride,
 };

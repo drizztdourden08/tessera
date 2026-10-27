@@ -16,7 +16,7 @@ import '../../theme/visually-hidden.css';
 import './DataTable.css';
 
 const DataTable = <T,>(props: DataTableProps<T>) => {
-  const { rows, countLabel, emptyMessage, resolveTargetFields, bind, overlay, rowHeight } = props;
+  const { rows, countLabel, emptyMessage, resolveTargetFields, bind, overlay, rowHeight, headerCase } = props;
   const {
     table, index, selection, drag, sizing, fieldNodes, ghostRows, labels, context, virtual, checkboxes, rootRef, reorder,
   } = useTableModel(props);
@@ -25,7 +25,7 @@ const DataTable = <T,>(props: DataTableProps<T>) => {
   const gridStyle = useGridStyle(table.columns, sizing, rowHeight);
 
   return (
-    <Box className={classesOf(checkboxes, reorder !== null)}>
+    <Box className={classesOf(checkboxes, reorder !== null, headerCase)}>
       <Box
         ref={rootRef}
         className="data-table__scroll"
