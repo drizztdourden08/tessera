@@ -27,6 +27,38 @@
   background: var(--c-danger-dim);
 }
 
+.card--edge-neutral {
+  --card-edge: var(--c-border-strong);
+}
+
+.card--edge-primary {
+  --card-edge: var(--c-primary);
+}
+
+.card--edge-info {
+  --card-edge: var(--c-info);
+}
+
+.card--edge-success {
+  --card-edge: var(--c-success);
+}
+
+.card--edge-warning {
+  --card-edge: var(--c-warning);
+}
+
+.card--edge-danger {
+  --card-edge: var(--c-danger);
+}
+
+.card.card--edge-left {
+  border-inline-start: var(--size-4) solid var(--card-edge);
+}
+
+.card.card--edge-border {
+  border-color: var(--card-edge);
+}
+
 .card--headed {
   display: flex;
   flex-direction: column;
