@@ -8946,7 +8946,8 @@
         "--tour-intro-w",
         "--weight-medium",
         "--z-floating",
-        "--z-popover"
+        "--z-popover",
+        "--z-title-bar"
       ],
       "gallery": {
         "title": "Composites · Overlays/GuidedTour",
