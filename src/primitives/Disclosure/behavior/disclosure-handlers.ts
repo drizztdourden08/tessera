@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind logic */
 import type { MouseEvent, SyntheticEvent } from 'react';
+import { guardCellControl } from '../../dom/guard-cell-control';
 import type { DisclosureHandlers } from '../Disclosure.type';
 
 const openOf = (event: SyntheticEvent<HTMLElement>): boolean => (event.currentTarget as HTMLDetailsElement).open;
@@ -13,10 +14,10 @@ const disclosureHandlers = (open: boolean | undefined, onOpenChange: ((open: boo
       const now = openOf(event);
       if (now !== open) onOpenChange?.(now);
     },
-    onSummaryClick: (event: MouseEvent<HTMLElement>) => {
+    onSummaryClick: guardCellControl((event: MouseEvent<HTMLElement>) => {
       event.preventDefault();
       onOpenChange?.(!open);
-    },
+    }),
   };
 };
 

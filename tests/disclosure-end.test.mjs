@@ -3,9 +3,7 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { Disclosure } from '../src/primitives/Disclosure';
-import { endClick } from '../src/primitives/Disclosure/behavior/end-click';
-
-const clickOn = (closest) => ({ target: { closest: () => closest }, stopPropagation: vi.fn(), preventDefault: vi.fn() });
+import { disclosureHandlers } from '../src/primitives/Disclosure/behavior/disclosure-handlers';
 
 describe('Disclosure end', () => {
   it('draws no end slot by default', () => {
@@ -21,18 +19,17 @@ describe('Disclosure end', () => {
     expect(html.indexOf('Add')).toBeLessThan(html.indexOf('</summary>'));
   });
 
-  it('keeps every click in the end slot from reaching the summary', () => {
-    const event = clickOn({});
-    endClick(event);
-    expect(event.stopPropagation).toHaveBeenCalled();
-  });
-
-  it('lets a control in the slot act on its own and stops plain text from toggling', () => {
-    const onControl = clickOn({});
-    endClick(onControl);
+  it('leaves a click on a control in the end slot to the control, and still handles a click on the line', () => {
+    const onOpenChange = vi.fn();
+    const summary = { contains: () => true };
+    const handlers = disclosureHandlers(false, onOpenChange);
+    const onControl = { target: { closest: () => ({}) }, currentTarget: summary, preventDefault: vi.fn() };
+    handlers.onSummaryClick(onControl);
     expect(onControl.preventDefault).not.toHaveBeenCalled();
-    const onText = clickOn(null);
-    endClick(onText);
-    expect(onText.preventDefault).toHaveBeenCalled();
+    expect(onOpenChange).not.toHaveBeenCalled();
+    const onLine = { target: { closest: () => null }, currentTarget: summary, preventDefault: vi.fn() };
+    handlers.onSummaryClick(onLine);
+    expect(onLine.preventDefault).toHaveBeenCalled();
+    expect(onOpenChange).toHaveBeenCalledWith(true);
   });
 });
