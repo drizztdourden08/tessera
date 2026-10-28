@@ -11,6 +11,7 @@ const gridRects = (input: RectsInput): readonly MarqueeItem[] => {
     return Array.from({ length: row.size }, (_, offset) => ({
       key: keyOf(row.first + offset),
       rect: { x: origin.x + offset * tileWidth, y, width: tileWidth, height: heights.tile },
+      cell: { row: row.tiles, column: offset },
     }));
   });
 };

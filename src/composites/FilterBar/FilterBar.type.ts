@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import type { SchemaLike } from '../../data/schema/build-schema';
 import type { FilterClause } from '../../data/filter/clause';
+import type { FilterTokenParser } from './behavior/take-tokens.type';
 
 interface FilterBarProps {
   search: string;
@@ -12,8 +13,10 @@ interface FilterBarProps {
   clauses?: readonly FilterClause[];
   onChange?: (next: readonly FilterClause[]) => void;
   fields?: readonly string[];
+  maxChips?: number;
+  parseToken?: boolean | FilterTokenParser;
   extra?: ReactNode;
   className?: string;
 }
 
-export type { FilterBarProps };
+export type { FilterBarProps, FilterTokenParser };

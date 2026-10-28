@@ -1,0 +1,10 @@
+/* @layer stories @kind style */
+.tile-story__md {
+  flex: none;
+  inline-size: var(--size-96);
+}
+
+.tile-story__lg {
+  flex: none;
+  inline-size: var(--size-160);
+}

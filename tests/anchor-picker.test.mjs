@@ -86,3 +86,24 @@ describe('AnchorPicker render', () => {
     expect(picker({ label: 'Keep this edge' })).toContain('aria-label="Keep this edge"');
   });
 });
+
+describe('AnchorPicker custom point and xs size', () => {
+  it('chooses no cell for a custom point, dashes the outline and keeps one tab stop on the centre', () => {
+    const html = picker({ value: 'custom', customLabel: 'Custom point' });
+    expect(html).toContain('data-custom="true"');
+    expect(html).toContain('aria-description="Custom point"');
+    expect(html.match(/aria-checked="true"/g)).toBeNull();
+    expect(html.match(/tabindex="0"/g)).toHaveLength(1);
+    expect(html).toMatch(/data-anchor="center"[^>]*tabindex="0"|tabindex="0"[^>]*data-anchor="center"/);
+  });
+
+  it('shows no arrows for a custom point in the arrows variant', () => {
+    expect(picker({ value: 'custom', variant: 'arrows' })).not.toContain('data-direction');
+  });
+
+  it('draws the xs size and leaves a chosen anchor without the custom mark', () => {
+    expect(picker({ size: 'xs' })).toContain('anchor-picker--xs');
+    expect(picker({ size: 'xs', variant: 'arrows' })).toContain('width="10"');
+    expect(picker()).not.toContain('data-custom');
+  });
+});

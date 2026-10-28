@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { WindowHeaderActionsRow } from '../WindowHeader/WindowHeader.type';
 
 type DrawerSide = 'left' | 'right' | 'top';
 
@@ -20,11 +21,12 @@ interface DrawerProps {
   stackNarrow?: boolean;
   subtitle?: ReactNode;
   headerActions?: ReactNode;
+  headerActionsRow?: WindowHeaderActionsRow;
   actions?: ReactNode;
   children: ReactNode;
 }
 
-type DrawerHeaderProps = Pick<DrawerProps, 'look' | 'eyebrow' | 'title' | 'titleWrap' | 'stackNarrow' | 'subtitle' | 'headerActions' | 'onClose'> & {
+type DrawerHeaderProps = Pick<DrawerProps, 'look' | 'eyebrow' | 'title' | 'titleWrap' | 'stackNarrow' | 'subtitle' | 'headerActions' | 'headerActionsRow' | 'onClose'> & {
   titleId: string;
 };
 

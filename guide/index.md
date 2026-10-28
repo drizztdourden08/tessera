@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 104 of 214 have their usage written; a linked name opens its page.
+One line per component. 110 of 220 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -95,8 +95,10 @@ One line per component. 104 of 214 have their usage written; a linked name opens
 - [AnchorPicker](components/AnchorPicker.md): A three by three grid that picks where something is anchored: a corner, an edge or the centre. Import from `@drizztdourden08/tessera`.
 - [AngleField](components/AngleField.md): An angle in degrees, set by dragging a dial or typing a number, that snaps to 15, 22.5 or 45 degrees and wraps at a full turn. Import from `@drizztdourden08/tessera`.
 - [ArmedIconButton](components/ArmedIconButton.md): An icon button pressed twice: the first press arms it and its icon loops a short motion, the second press acts. Import from `@drizztdourden08/tessera`.
+- [Breadcrumbs](components/Breadcrumbs.md): The trail of places that leads to the one the user is in, each a button, with a menu of its neighbours, a fold for the middle and a click at the end that turns it into a path box. Import from `@drizztdourden08/tessera`.
 - [Carousel](components/Carousel.md): Shows one slide at a time from a set, with dots and arrows to move between them, and can turn to the next slide by itself. Import from `@drizztdourden08/tessera`.
 - [CheckList](components/CheckList.md): The results of a list of checks, such as a connection test or a diagnostics report, each with its state, what was found and an optional fix. Import from `@drizztdourden08/tessera`.
+- [ChoiceGrid](components/ChoiceGrid.md): A row or grid of any cells where the user picks one, as a radio group or a listbox, with one Tab stop, arrow keys and optional sections. Import from `@drizztdourden08/tessera`.
 - `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [CollapseToggle](components/CollapseToggle.md): The round button on the edge of a panel that folds it to a rail and opens it again, with a chevron that points where the panel goes. Import from `@drizztdourden08/tessera`.
 - [ColorPicker](components/ColorPicker.md): A colour picker panel placed in the page, with a field, a hex box, an alpha slider and swatch groups. Import from `@drizztdourden08/tessera/color-picker`.
@@ -120,6 +122,7 @@ One line per component. 104 of 214 have their usage written; a linked name opens
 - `DisabledOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DockLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DocumentTabs](components/DocumentTabs.md): The strip of open documents above an editor: a tab per document with an unsaved mark and a close button, put in order by drag or keys, scrolling when they do not fit. Import from `@drizztdourden08/tessera`.
+- [DragGhost](components/DragGhost.md): The picture that follows the pointer while items are dragged: a stack of up to three thumbnails and the count of items. A building block. Import from `@drizztdourden08/tessera`.
 - `Drawer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DropdownMenu](components/DropdownMenu.md): A menu of actions, checks, choices and sub-menus, built from data, that hangs from its own button or from an anchor. Import from `@drizztdourden08/tessera`.
 - [DynamicInput](components/DynamicInput.md): One field built from a pattern of typed slots, muted text and icons, such as a time, a price with its currency or a lobby code. Import from `@drizztdourden08/tessera`.
@@ -153,6 +156,7 @@ One line per component. 104 of 214 have their usage written; a linked name opens
 - [MarkdownEditor](components/MarkdownEditor.md): A multi-line field for writing Markdown, with a toolbar for bold, italic, lists, quotes, links and code, and a live preview drawn by Markdown. Import from `@drizztdourden08/tessera`.
 - [MarqueeBox](components/MarqueeBox.md): The rectangle that shows an area being dragged over items to pick them, drawn inside the box that scrolls. Import from `@drizztdourden08/tessera`.
 - [MediaViewer](components/MediaViewer.md): Opens a picture or a video large over the page in a dialog, with zoom by steps, a Fit and actual size switch, dragging to look around, and arrows through a set. Import from `@drizztdourden08/tessera`.
+- [Navigator](components/Navigator.md): A small map of a large surface, such as a canvas or a long timeline, with a frame that marks the visible part and that the user drags to move the view. Import from `@drizztdourden08/tessera`.
 - [NumberField](components/NumberField.md): A number field you can drag by its label, step with the wheel and the arrow keys, step finely with Shift, walk along a ladder of fixed stops and fill from a menu of quick values. Import from `@drizztdourden08/tessera`.
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -183,6 +187,7 @@ One line per component. 104 of 214 have their usage written; a linked name opens
 - [SiteFooter](components/SiteFooter.md): The foot of a page of a website: a small logo, one line of text and a few links such as rules, privacy and Discord. Import from `@drizztdourden08/tessera`.
 - [SiteHeader](components/SiteHeader.md): The band at the top of every page of a website: the logo and the site title as the link home, the main links and the signed-in person. Import from `@drizztdourden08/tessera`.
 - [Splash](components/Splash.md): The splash of the static page drawn from React, so the app can show it again, or take over from the static page with no jump. Import from `@drizztdourden08/tessera`.
+- [SplitButton](components/SplitButton.md): A button that runs its main action, joined to a chevron that opens a menu of related actions, such as New with the kinds of thing to create. Import from `@drizztdourden08/tessera`.
 - `SplitPane`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [StageScreen](components/StageScreen.md): One big open stage for custom work with no navigation of its own, under the page header, which holds an optional toolbar and a Done button. Import from `@drizztdourden08/tessera`.
 - [StatTile](components/StatTile.md): A small tile with one headline number: its name, the value with a unit, how it moved, and an optional chart. Import from `@drizztdourden08/tessera`.
@@ -190,6 +195,7 @@ One line per component. 104 of 214 have their usage written; a linked name opens
 - [StudioLayout](components/StudioLayout.md): The frame of a studio screen: a list on the left, an editor in the centre and an inspector on the right, under an optional bar of actions. Import from `@drizztdourden08/tessera`.
 - `TagInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [TaskProgress](components/TaskProgress.md): The progress of one long job: a bar, the current line, its steps, the error when it fails and its log, folded. Import from `@drizztdourden08/tessera`.
+- [Tile](components/Tile.md): One square tile of a grid: a picture or any media, a name line under it and up to four marks in its corners, with a selected and a focused look. Import from `@drizztdourden08/tessera`.
 - [Toast](components/Toast.md): A short message in a corner of the window that leaves on its own, raised with toast() from any part of the app and drawn by the one ToastStack. Import from `@drizztdourden08/tessera`.
 - [Toolbar](components/Toolbar.md): A row or a column of tools, built from data, with a hint on each, a menu beside the tools that have options, and More for the tools that do not fit. Import from `@drizztdourden08/tessera`.
 - [ToolbarDock](components/ToolbarDock.md): The frame around a work area that holds toolbars on its four edges, up to two lanes on each, with the work area in the centre. Import from `@drizztdourden08/tessera`.
@@ -229,7 +235,8 @@ One line per component. 104 of 214 have their usage written; a linked name opens
 
 Functions for a screen that owns its own markup. Each line is a module; its page lists what it exports.
 
-- [marquee](components/marquee.md): Drag a rectangle over an area to pick the items inside it, as in a file manager, with Shift to add, Ctrl or Cmd to toggle and Escape to cancel. Import `edgeScrollDelta`, `hitKeys`, `MARQUEE_KEY_ATTRIBUTE`, `marqueeItemRects`, `mergeSelection`, `modifiersOf`, `rectFromPoints`, `rectsIntersect`, `useMarqueeSelect` from `@drizztdourden08/tessera`.
-- [reorder](components/reorder.md): Drag and keyboard reorder for a list or grid the app owns, as functions you wire into your own markup. Import `columnsOf`, `REORDER_ITEM_SELECTOR`, `reorderStep`, `useMoveFocus`, `useReorderDrag` from `@drizztdourden08/tessera`.
-- [virtual](components/virtual.md): The windowing of a long list of equal rows: which rows to draw for the scroll position, and which row to keep while it holds focus. Import `renderedIndices`, `scrollTopForSpan`, `scrollTopToShow`, `sizeVariable`, `useVirtualWindow`, `visibleRange` from `@drizztdourden08/tessera`.
+- [marquee](components/marquee.md): Drag a rectangle over an area to pick the items inside it, as in a file manager, with Shift to add, Ctrl or Cmd to toggle and Escape to cancel. Import `cellRectOf`, `edgeScrollDelta`, `hitItems`, `hitKeys`, `MARQUEE_KEY_ATTRIBUTE`, `marqueeItemRects`, `mergeSelection`, `modifiersOf`, `rectFromPoints`, `rectsIntersect`, `useMarqueeSelect` from `@drizztdourden08/tessera`.
+- [reorder](components/reorder.md): Drag and keyboard reorder for a list or grid the app owns, as functions you wire into your own markup. Import `columnsOf`, `modifierOf`, `moveSet`, `REORDER_ITEM_SELECTOR`, `reorderStep`, `stepGap`, `useMoveFocus`, `useReorderDrag` from `@drizztdourden08/tessera`.
+- [selection](components/selection.md): The picking rules of a collection as one hook: a click picks one, Ctrl toggles, Shift takes a range or a rectangle, Ctrl and A takes all, Space toggles and a typed letter jumps to a label. Import `rectKeys`, `toggledKey`, `typeAheadIndex`, `useSelectionModel` from `@drizztdourden08/tessera`.
+- [virtual](components/virtual.md): The windowing of a long list of equal rows: which rows to draw for the scroll position, and which row to keep while it holds focus. Import `readHorizontalMetrics`, `renderedIndices`, `scrollTopForSpan`, `scrollTopToShow`, `sizeVariable`, `stepVirtualSize`, `useVirtualWindow`, `visibleRange` from `@drizztdourden08/tessera`.
 - [wheel-step](components/wheel-step.md): Turn the mouse wheel over an element into steps up and down, with a fine step while Shift is held, the way the volume button and the number field do. Import `useWheelStep`, `wheelStepOf` from `@drizztdourden08/tessera`.

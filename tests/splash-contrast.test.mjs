@@ -3,6 +3,7 @@ import { readdirSync, readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { BRAND_APPS, BRAND_FAMILY } from '../src/brand/family.constants';
 import { groundLook } from '../src/brand/ground-look';
+import { markInk } from '../src/brand/mark-ink';
 import { BRAND_RIM } from '../src/brand/rim.constants';
 import { declarationsOf } from '../scripts/tokens/declarations-of.mjs';
 import { ruleDeclarations } from '../scripts/tokens/rule-declarations.mjs';
@@ -33,7 +34,7 @@ const KEPT_AS_DRAWN_WITH_ITS_OUTLINE_UNDER_3 = [{ app: 'rotp', ground: 'dark' }]
 const isKept = (app, ground) => KEPT_AS_DRAWN_WITH_ITS_OUTLINE_UNDER_3.some((kept) => kept.app === app && kept.ground === ground);
 
 const markEdges = (app, ground) => {
-  const { paths, outline } = groundLook(BRAND_FAMILY[app].mark, ground);
+  const { paths, outline } = groundLook(markInk(BRAND_FAMILY[app].mark, ground), ground);
   if (outline) return { edge: 'outline', paths: [{ ink: BRAND_RIM.colours[outline] }] };
   const drawn = OUTLINE_DRAWN_INTO_THE_ART[app];
   return drawn && !isKept(app, ground) ? { edge: 'drawn outline', paths: [{ ink: drawn }] } : { edge: 'shape', paths };

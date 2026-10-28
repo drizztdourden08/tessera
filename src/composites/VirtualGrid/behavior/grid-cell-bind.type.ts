@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent } from 'react';
+import type { VirtualGridCellBind } from '../VirtualGrid.type';
 
 interface GridCellBindInput {
   index: number;
@@ -7,8 +8,9 @@ interface GridCellBindInput {
   itemKey: string;
   tabbable: boolean;
   bare: boolean;
+  extras?: Partial<VirtualGridCellBind>;
   onActivate: (index: number) => void;
-  onNavigate: (event: KeyboardEvent<HTMLElement>, index: number) => void;
+  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
 }
 
 export type { GridCellBindInput };

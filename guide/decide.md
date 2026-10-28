@@ -14,6 +14,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Copies a text: [CopyButton](components/CopyButton.md). CopyButton writes to the clipboard through the one copy path every Tessera part uses, with the same check and announcement.
     - Tries a failed step again: [RetryButton](components/RetryButton.md). RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry.
     - A whole area the user presses: no component yet.
+    - A main action with a menu of related ones: [SplitButton](components/SplitButton.md). SplitButton gives the usual action one press and keeps its variants one step behind a chevron.
   - Several related buttons. **How do the buttons relate?**
     - Only one can be on: [SegmentedControl](components/SegmentedControl.md). SegmentedControl is the joined row that picks one of a few values.
     - Each on or off by itself: no component yet.
@@ -53,7 +54,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - In the page: [ColorPicker](components/ColorPicker.md). ColorPicker is the colour panel placed in the page; import it from the color-picker subpath.
     - Behind a swatch button: no component yet.
   - A range: no component yet.
-  - A colour from a palette: no component yet.
+  - A colour from a palette: [ChoiceGrid](components/ChoiceGrid.md). ChoiceGrid is the strip or grid of cells where one is picked; draw each cell as a ColorSwatch for a palette.
   - A file: no component yet.
   - A path to a file or folder: [PathInput](components/PathInput.md). PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
@@ -105,6 +106,8 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Through the steps of one task: no component yet.
   - Between a few modes, from a floating switch: no component yet.
   - Between the open documents of an editor: [DocumentTabs](components/DocumentTabs.md). DocumentTabs is the strip of open documents the user switches, closes and reorders, the same way in every editor.
+  - Up and down the levels of a path: [Breadcrumbs](components/Breadcrumbs.md). Breadcrumbs shows the levels of a path as a trail with neighbour menus, a fold and a path box in one place.
+  - Around a large surface, from a small map of it: [Navigator](components/Navigator.md). Navigator draws any large surface as a small map with a frame the user drags, the same way in every editor.
 - Layout. **What are you arranging?**
   - A plain block: [Box](components/Box.md). Box is the plain element; surface="sunken" makes it a well and surface="raised" a panel, with the fill, edge and corner from the tokens.
   - Items in a row or a column:
@@ -187,6 +190,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A row in a list, with its actions: no component yet.
   - A stream of log lines: [LogPanel](components/LogPanel.md). LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick.
   - Items of a catalogue, as cards: [ItemCard](components/ItemCard.md). ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places.
+  - One item as a tile with a picture, a name and corner marks: [Tile](components/Tile.md). Tile gives every grid of thumbnails the same square media, name line and four corner marks.
   - The seats of a lobby, taken, open or to add:
     - [SeatCard](components/SeatCard.md). SeatCard gives every lobby the same four seats, with who sits there, the open seat and the add button in fixed places.
     - [SeatGrid](components/SeatGrid.md). SeatGrid gives every lobby the same wrapping grid of seats, with the sizes set by tokens.
@@ -232,6 +236,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 
 No question leads to these parts. Other components are built on them; reach for one only when no component above fits.
 
+- [DragGhost](components/DragGhost.md). The picture that follows the pointer while items are dragged: a stack of up to three thumbnails and the count of items.
 - [PanelContainer](components/PanelContainer.md). A plain stacked section with a heading, optional action and a body.
 - [ScreenLayer](components/ScreenLayer.md). Building block: the overlay and the card of every screen, with one gap around the card that follows the room.
 - [ScreenPage](components/ScreenPage.md). Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls.

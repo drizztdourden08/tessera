@@ -6,7 +6,7 @@ import type { MarqueeItem } from '../../marquee';
 import type { GridRectsInput } from './useGridRects.type';
 
 const useGridRects = <T,>(input: GridRectsInput<T>): (() => readonly MarqueeItem[]) => {
-  const { rootRef, bodyRef, tileWidth, layout, heights, flat, getKey } = input;
+  const { rootRef, bodyRef, tileWidth, layout, heights, flat, getKey, skip } = input;
   return useCallback(() => {
     const root = rootRef.current;
     const body = bodyRef.current;
@@ -15,8 +15,9 @@ const useGridRects = <T,>(input: GridRectsInput<T>): (() => readonly MarqueeItem
       const item = flat[index];
       return item === undefined ? '' : getKey(item, index);
     };
-    return gridRects({ layout, heights, tileWidth: tileWidth.current || heights.tile, origin: bodyOrigin(root, body), keyOf });
-  }, [rootRef, bodyRef, tileWidth, layout, heights, flat, getKey]);
+    const rects = gridRects({ layout, heights, tileWidth: tileWidth.current || heights.tile, origin: bodyOrigin(root, body), keyOf });
+    return skip && skip.size > 0 ? rects.filter((rect) => !skip.has(rect.key)) : rects;
+  }, [rootRef, bodyRef, tileWidth, layout, heights, flat, getKey, skip]);
 };
 
 export { useGridRects };

@@ -1,0 +1,48 @@
+/* @layer renderer-components @kind style */
+.drag-ghost {
+  position: relative;
+  display: inline-block;
+  pointer-events: none;
+}
+
+.drag-ghost--follow {
+  position: fixed;
+  pointer-events: none;
+  transform: translate(var(--space-md), var(--space-md));
+}
+
+.drag-ghost__stack {
+  position: relative;
+  inline-size: var(--size-64);
+  block-size: var(--size-64);
+}
+
+.drag-ghost__card {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  box-sizing: border-box;
+  inline-size: 100%;
+  block-size: 100%;
+  background: var(--c-surface);
+  box-shadow: var(--shadow-overlay);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.drag-ghost__card--1 {
+  inset-block-start: var(--space-xs);
+  inset-inline-start: var(--space-xs);
+}
+
+.drag-ghost__card--2 {
+  inset-block-start: var(--space-sm);
+  inset-inline-start: var(--space-sm);
+}
+
+.drag-ghost__count {
+  position: absolute;
+  inset-inline-end: calc(var(--space-xs) * -1);
+  inset-block-start: calc(var(--space-xs) * -1);
+}

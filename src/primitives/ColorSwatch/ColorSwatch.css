@@ -71,11 +71,80 @@
   pointer-events: none;
 }
 
-.color-swatch__caption--ink-light {
+.color-swatch__caption--ink-light,
+.color-swatch__mark--ink-light {
   color: var(--c-text);
   text-shadow: 0 0 var(--size-2) var(--c-scrim), 0 0 var(--size-2) var(--c-scrim);
 }
 
-.color-swatch__caption--ink-dark {
+.color-swatch__caption--ink-dark,
+.color-swatch__mark--ink-dark {
   color: var(--p-pure-black);
+}
+
+.color-swatch--unused {
+  border-style: dashed;
+  opacity: var(--opacity-muted);
+}
+
+.color-swatch--unused::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(to top right, transparent calc(50% - var(--size-1)), var(--c-border-strong) calc(50% - var(--size-1)) calc(50% + var(--size-1)), transparent calc(50% + var(--size-1)));
+}
+
+.color-swatch__mixed {
+  position: absolute;
+  inset-inline: var(--size-6);
+  top: calc(50% - var(--size-1));
+  height: var(--size-2);
+  background: var(--c-text);
+  box-shadow: 0 0 0 var(--border-width-thin) var(--p-pure-black);
+  pointer-events: none;
+}
+
+.color-swatch__mark {
+  position: absolute;
+  font-size: var(--text-xs);
+  line-height: 1;
+  pointer-events: none;
+}
+
+.color-swatch__mark--top-start {
+  top: var(--size-2);
+  inset-inline-start: var(--size-2);
+}
+
+.color-swatch__mark--top-end {
+  top: var(--size-2);
+  inset-inline-end: var(--size-2);
+}
+
+.color-swatch__mark--bottom-end {
+  bottom: var(--size-2);
+  inset-inline-end: var(--size-2);
+}
+
+.color-swatch__mark--bottom-start {
+  bottom: var(--size-2);
+  inset-inline-start: var(--size-2);
+}
+
+.color-swatch--ring-apart:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-text);
+  outline-offset: var(--border-width-thick);
+  box-shadow: 0 0 0 var(--border-width-thick) var(--p-pure-black);
+}
+
+.color-swatch--ring-apart.color-swatch--selected {
+  outline: none;
+  box-shadow: inset 0 0 0 var(--border-width-thick) var(--c-primary);
+}
+
+.color-swatch--ring-apart.color-swatch--selected:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-text);
+  outline-offset: var(--border-width-thick);
+  box-shadow: inset 0 0 0 var(--border-width-thick) var(--c-primary), 0 0 0 var(--border-width-thick) var(--p-pure-black);
 }

@@ -1,0 +1,86 @@
+/* @layer renderer-components @kind style */
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-inline-size: 0;
+  min-block-size: var(--control-h-sm);
+}
+
+.breadcrumbs__trail {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  min-inline-size: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.breadcrumbs__item {
+  display: flex;
+  flex: 0 1 auto;
+  align-items: center;
+  min-inline-size: 0;
+}
+
+.breadcrumbs__separator {
+  flex: none;
+  margin-inline: var(--space-2xs);
+  color: var(--c-text-dim);
+}
+
+.breadcrumbs__segment {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-inline-size: 0;
+  block-size: var(--control-h-sm);
+  padding-inline: var(--space-sm);
+  border-radius: var(--radius-sm);
+  color: var(--c-text-muted);
+  font-size: var(--text-sm);
+}
+
+.breadcrumbs__segment:hover {
+  background: var(--c-hover);
+  color: var(--c-text);
+}
+
+.breadcrumbs__segment[aria-current='page'] {
+  color: var(--c-text);
+  font-weight: var(--weight-medium);
+}
+
+.breadcrumbs__segment[data-drop] {
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+  outline: var(--border-width-thin) dashed var(--c-primary);
+}
+
+.breadcrumbs__label {
+  overflow: hidden;
+  max-inline-size: var(--size-160);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.breadcrumbs__fill {
+  flex: 1 1 var(--size-32);
+  align-self: stretch;
+  min-inline-size: var(--size-32);
+  cursor: text;
+}
+
+.breadcrumbs__trailing {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-inline-start: auto;
+}
+
+.breadcrumbs__edit {
+  flex: 1;
+  min-inline-size: 0;
+}

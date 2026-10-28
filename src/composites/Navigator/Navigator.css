@@ -1,0 +1,34 @@
+/* @layer renderer-components @kind style */
+.navigator {
+  position: relative;
+  box-sizing: border-box;
+  inline-size: var(--size-160);
+  overflow: hidden;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-sm);
+  background: var(--c-sunken);
+  cursor: pointer;
+  touch-action: none;
+  user-select: none;
+}
+
+.navigator > :not(.navigator__viewport) {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  pointer-events: none;
+}
+
+.navigator__viewport {
+  position: absolute;
+  box-sizing: border-box;
+  border: var(--border-width-thick) solid var(--c-primary);
+  background: var(--c-primary-soft);
+  cursor: grab;
+}
+
+.navigator--dragging,
+.navigator--dragging .navigator__viewport {
+  cursor: grabbing;
+}

@@ -9,7 +9,9 @@ type ImagePlaceholderMode = 'auto' | 'none';
 
 type ImageLength = number | string;
 
-type ImageFit = 'cover' | 'contain' | 'fill' | 'none';
+type ImageFit = 'cover' | 'contain' | 'fill' | 'none' | 'integer';
+
+type ImageBackdrop = 'none' | 'checker';
 
 type ImagePixelated = boolean | 'auto';
 
@@ -26,12 +28,14 @@ interface ImageProps extends ImgHTMLAttributes<HTMLImageElement> {
   frame?: boolean;
   fit?: ImageFit;
   pixelated?: ImagePixelated;
+  backdrop?: ImageBackdrop;
 }
 
 interface ImageClassParams {
   status: ImageStatus;
   frame?: boolean;
   fit?: ImageFit;
+  backdrop?: ImageBackdrop;
   pixelated?: ImagePixelated;
   natural?: ImageSize;
   className?: string;
@@ -77,6 +81,7 @@ interface ImagePlaceholderProps {
 
 export type {
   FrameStyleParams,
+  ImageBackdrop,
   ImageClassParams,
   ImageCoverProps,
   ImageFit,

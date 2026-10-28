@@ -3,7 +3,8 @@ import { cssZoomOf } from '../../primitives/dom/css-zoom-of';
 import { ownerWindowOf } from '../../primitives/dom/owner-window';
 import { clampPoint } from './clamp-point';
 import { contentPoint } from './content-point';
-import { hitKeys } from './hit-keys';
+import { cellRectOf } from './cell-rect-of';
+import { hitItems } from './hit-items';
 import { mergeSelection } from './merge-selection';
 import { passedThreshold } from './passed-threshold';
 import { rectFromPoints } from './rect-from-points';
@@ -13,7 +14,7 @@ import type { Point } from '../rect-drag/rect-drag.type';
 import type { MarqueeWiring } from './marquee.type';
 
 const startMarquee = (wiring: MarqueeWiring): (() => void) => {
-  const { container, pointerId, modifiers, base, rectsOf, threshold, autoScroll, onRect, onSelect, onEnd } = wiring;
+  const { container, pointerId, modifiers, base, rectsOf, threshold, autoScroll, onRect, onCells, onSelect, onEnd } = wiring;
   const view = ownerWindowOf(container);
   const zoom = cssZoomOf(container);
   const listening = new AbortController();
@@ -30,7 +31,9 @@ const startMarquee = (wiring: MarqueeWiring): (() => void) => {
     const reached = clampPoint(contentPoint(container, zoom, pointer), container.scrollWidth, container.scrollHeight);
     const rect = rectFromPoints(origin, reached);
     onRect(rect);
-    const next = mergeSelection(base, hitKeys(rect, rectsOf()), modifiers);
+    const hits = hitItems(rect, rectsOf());
+    onCells(cellRectOf(hits));
+    const next = mergeSelection(base, hits.map((item) => item.key), modifiers);
     if (sameKeys(next, latest)) return;
     latest = next;
     onSelect(next);
@@ -46,6 +49,7 @@ const startMarquee = (wiring: MarqueeWiring): (() => void) => {
     view.cancelAnimationFrame(frame);
     if (container.hasPointerCapture(pointerId)) container.releasePointerCapture(pointerId);
     onRect(null);
+    onCells(null);
     onEnd();
   };
 

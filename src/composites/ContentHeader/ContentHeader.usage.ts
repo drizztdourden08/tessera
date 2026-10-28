@@ -19,6 +19,7 @@ const usage = {
     'Set compact once the content under it scrolls; it shrinks to a slim row.',
     'On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, or Back alone with no label, before the icon, and folds to an arrow when the row has no room for it.',
     'level sets the heading tag, h2 by default; pick the level that fits the page outline.',
+    'For the header of one subject, such as a sprite or a project, put its kind as a Tag, its path as a Link and its marks as Badge nodes in strip, and a pin Toggle in actions.',
   ],
   a11y: [
     'The title is a real heading; pass titleId to name the container with aria-labelledby.',
@@ -30,13 +31,36 @@ const usage = {
     path: ['layout', 'a header with an icon and a title over a block'],
     rule: 'ContentHeader is the header with an icon, a title and a backdrop that any container can carry.',
   },
-  example: `import { ContentHeader, HeaderAnchorNav, Icon } from '@drizztdourden08/tessera';
+  example: `import { Badge, ContentHeader, HeaderAnchorNav, Icon, Link, Tag, Toggle } from '@drizztdourden08/tessera';
 
 const GeneralHeader = ({ section, onSection }: { section: string; onSection: (id: string) => void }) => (
   <ContentHeader
     icon={<Icon name="settings" />}
     title="General"
     strip={<HeaderAnchorNav items={[{ id: 'startup', label: 'Startup' }, { id: 'tray', label: 'Tray' }]} activeId={section} onSelect={onSection} ariaLabel="General sections" />}
+  />
+);
+
+interface SubjectHeaderProps {
+  name: string;
+  path: string;
+  pinned: boolean;
+  onPin: (pinned: boolean) => void;
+  openFolder: (path: string) => void;
+}
+
+const SubjectHeader = ({ name, path, pinned, onPin, openFolder }: SubjectHeaderProps) => (
+  <ContentHeader
+    icon={<Icon name="image" />}
+    title={name}
+    strip={
+      <>
+        <Tag>Sprite</Tag>
+        <Link variant="subtle" href={path} navigate={openFolder}>{path}</Link>
+        <Badge variant="inline" value={3} label="Frame count" />
+      </>
+    }
+    actions={<Toggle checked={pinned} onChange={onPin} aria-label="Pin to the sidebar" size="sm" />}
   />
 );
 `,

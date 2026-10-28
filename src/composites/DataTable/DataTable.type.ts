@@ -3,6 +3,7 @@ import type { DragEvent, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { SchemaIndex } from '../../data/schema/build-schema';
 import type { FieldDescriptor } from '../../data/schema/field-descriptor';
 import type { ColumnMove, SortEntry, TableColumn } from '../../data/table/types';
+import type { SelectAllState } from '../selection';
 import type { VirtualSize } from '../virtual';
 import type { ViewKey } from '../../data/view-state/snapshot';
 import type { ViewStorage } from '../../data/view-state/use-view-state';
@@ -97,8 +98,6 @@ interface ColumnDragBinding {
   onSurfaceDrop: (event: DragEvent<HTMLElement>) => void;
 }
 
-type SelectAllState = 'none' | 'some' | 'all';
-
 interface RowSelectionBinding {
   selectable: boolean;
   isSelected: (id: string) => boolean;
@@ -148,6 +147,6 @@ interface TrackFallbacks {
 
 export type {
   ColumnActions, ColumnDragBinding, ColumnDragStart,
-  DataTableProps, DefaultExpanded, HeaderCase, RowRenderContext, RowSelectionBinding, RowState, SelectAllState, TableActions,
+  DataTableProps, DefaultExpanded, HeaderCase, RowRenderContext, RowSelectionBinding, RowState, TableActions,
   TrackFallbacks, TrackOverride,
 };

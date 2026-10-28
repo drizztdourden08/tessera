@@ -21,3 +21,5 @@ export {
 export type { MarqueeBind, MarqueeItem, MarqueeModifiers, MarqueeOptions, MarqueeSelect } from './marquee';
 export { useWheelStep, wheelStepOf } from './wheel-step';
 export type { WheelDelta, WheelStep, WheelStepOptions } from './wheel-step';
+export { rectKeys, toggledKey, typeAheadIndex, useSelectionModel } from './selection';
+export type { SelectAllState, SelectionCell, SelectionClick, SelectionModel, SelectionModelInput } from './selection';

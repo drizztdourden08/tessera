@@ -13,6 +13,7 @@ export type {
   MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
 } from '../DropdownMenu';
 export { ContextMenu, type ContextMenuPoint, type ContextMenuProps } from '../ContextMenu';
+export { Breadcrumbs, type BreadcrumbSegment, type BreadcrumbsProps } from '../Breadcrumbs';
 export { FloatingSwitch, type FloatingSwitchItem, type FloatingSwitchProps } from '../FloatingSwitch';
 export {
   CONTROLLER_SILHOUETTE_PATHS, CONTROLLER_SILHOUETTE_VARIANTS, CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,
