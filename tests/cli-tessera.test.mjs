@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { eslint, generateParts, pnpm, runNew, slop, slopIn, structure, stylelint, tesseraCopy, TIMEOUT, typecheck } from './cli-sandbox.mjs';
 
-const EDITED = ['src/primitives/index.ts', 'src/composites/index.ts', '.storylite/catalogue-primitives.constants.ts', '.storylite/catalogue-composites.constants.ts', '.storylite/sidebar-icons.constants.ts'];
+const EDITED = ['src/primitives/layout-exports/index.ts', 'src/composites/index.ts', '.storylite/catalogue-primitives.constants.ts', '.storylite/catalogue-composites.constants.ts', '.storylite/sidebar-icons.constants.ts'];
 
 const PARTS = [
   { kind: 'primitive', name: 'QuestBanner', folder: 'src/primitives/QuestBanner', argv: ['--group', 'Layout', '--tree', 'actions > one action > a visible word'] },
@@ -28,7 +28,8 @@ describe('tessera new in the Tessera repo', () => {
   });
 
   it('exports it, lists it in the catalogue and gives its page an icon', () => {
-    expect(made.read('src/primitives/index.ts')).toContain('export { QuestBanner } from \'./QuestBanner\';');
+    expect(made.read('src/primitives/layout-exports/index.ts')).toContain('export { QuestBanner } from \'../QuestBanner\';');
+    expect(made.read('src/primitives/index.ts')).not.toContain('QuestBanner');
     expect(made.read('src/composites/index.ts')).toContain('export type { LootTableProps } from \'./LootTable\';');
     expect(made.read('.storylite/catalogue-primitives.constants.ts')).toContain('{ name: \'QuestBanner\', summary: \'Write the one job of QuestBanner in one sentence.\' }');
     expect(made.read('.storylite/sidebar-icons.constants.ts')).toMatch(/'Composites · Content': \{[^}]*LootTable: 'puzzle'/);
@@ -95,12 +96,12 @@ describe('what tessera new refuses in Tessera', () => {
   });
 
   it('writes nothing on a dry run', async () => {
-    const before = made.read('src/primitives/index.ts');
+    const before = made.read('src/primitives/layout-exports/index.ts');
     const result = await runNew(made.dir, ['primitive', 'RuneSlot', '--group', 'Layout', '--dry-run']);
     expect(result.status).toBe(0);
     expect(result.out).toContain('tessera: dry run for the primitive RuneSlot, nothing written.');
     expect(result.scripts).toEqual([]);
     expect(existsSync(join(made.dir, 'src/primitives/RuneSlot'))).toBe(false);
-    expect(made.read('src/primitives/index.ts')).toBe(before);
+    expect(made.read('src/primitives/layout-exports/index.ts')).toBe(before);
   });
 });
