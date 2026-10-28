@@ -8,6 +8,7 @@
 .virtual-grid__body {
   position: relative;
   inline-size: 100%;
+  min-inline-size: calc(var(--vg-cols, 0) * var(--vg-tile-w));
   block-size: calc(var(--vg-headers, 0) * var(--vg-head) + var(--vg-rows) * var(--vg-tile-h));
 }
 

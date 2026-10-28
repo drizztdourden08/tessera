@@ -6,7 +6,7 @@ import { DragGhost } from '../DragGhost';
 import { sizeVariable } from '../virtual/size-variable';
 import { useVirtualGrid } from './behavior/useVirtualGrid';
 import { GridRows } from './sub-components/GridRows';
-import { HEADERS_PROPERTY, ROWS_PROPERTY, TILE_HEIGHT_PROPERTY, TILE_WIDTH_PROPERTY } from './VirtualGrid.constants';
+import { COLUMNS_PROPERTY, HEADERS_PROPERTY, ROWS_PROPERTY, TILE_HEIGHT_PROPERTY, TILE_WIDTH_PROPERTY } from './VirtualGrid.constants';
 import type { CSSProperties } from 'react';
 import type { VirtualGridProps } from './VirtualGrid.type';
 import '../../theme/virtual-box.css';
@@ -21,7 +21,7 @@ const VirtualGrid = <T,>(props: VirtualGridProps<T>) => {
   const rootRef = useMemo(() => mergeRefs(model.rootRef, scrollRef), [model.rootRef, scrollRef]);
   useImperativeHandle(ref, () => ({ scrollToIndex: model.scrollToIndex, getRects: model.getRects }), [model.scrollToIndex, model.getRects]);
   const rootStyle = { [TILE_WIDTH_PROPERTY]: sizeVariable(tileWidth), [TILE_HEIGHT_PROPERTY]: sizeVariable(tileHeight) } as CSSProperties;
-  const bodyStyle = { [ROWS_PROPERTY]: layout.tileRows, [HEADERS_PROPERTY]: layout.headers } as CSSProperties;
+  const bodyStyle = { [ROWS_PROPERTY]: layout.tileRows, [HEADERS_PROPERTY]: layout.headers, [COLUMNS_PROPERTY]: model.fixed ? columns : undefined } as CSSProperties;
   const classes = ['virtual-box', 'virtual-grid', className].filter(Boolean).join(' ');
 
   return (

@@ -35,6 +35,8 @@ VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at
 - Give label a name for the grid, since the tiles are drawn without a heading of their own.
 - Size the grid from its parent: it fills the height of its box and scrolls inside it.
 - Pick a square tile with tileSize, the name of a size token such as size-96; tileWidth and tileHeight size a tile that is not square and win over tileSize; the columns that fit the width of the box are worked out from the width, and a raw pixel number is not accepted.
+- Give columns, a whole number from 1, to fix the tiles in every row, such as the width of a tileset, so rows break at the same tile whatever the width; the tiles keep their size, and a box narrower than the columns scrolls sideways; leave it out and the columns that fit the width are used.
+- With columns the keys, the rectangle of a Shift click, the marquee rects, a reorder and the sections all follow the fixed count: Up and Down, and Page Up and Page Down, move by rows of that many tiles, and the last row of a section may hold fewer.
 - Give sections instead of items to group the tiles: each section has a key, a label and its items, and an optional count to show in the header instead of the number of items.
 - The index given to renderItem, getKey and onActiveChange runs through all the sections, and onActiveChange is not called for a header.
 - A header spans all the columns and takes part in the scroll like a row of its own; its height is fixed by the grid.
@@ -106,6 +108,17 @@ interface Folder {
   items: Frame[];
 }
 
+const Tileset = ({ tiles }: { tiles: Frame[] }) => (
+  <VirtualGrid
+    label="Tileset"
+    items={tiles}
+    getKey={(tile) => tile.id}
+    renderItem={(tile) => tile.name}
+    tileSize="size-64"
+    columns={6}
+  />
+);
+
 const Library = ({ folders }: { folders: Folder[] }) => (
   <VirtualGrid
     label="Library"
@@ -128,6 +141,7 @@ const Library = ({ folders }: { folders: Folder[] }) => (
 - `tileSize` (optional): `VirtualSize`. Default `'size-96'`.
 - `tileWidth` (optional): `VirtualSize`.
 - `tileHeight` (optional): `VirtualSize`.
+- `columns` (optional): `number`.
 - `overscan` (optional): `number`.
 - `selection` (optional): `VirtualGridSelection`.
 - `getLabel` (optional): `(item: T, index: number) => string`.
@@ -147,4 +161,4 @@ const Library = ({ folders }: { folders: Folder[] }) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-focus`, `--c-hairline`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-surface`, `--opacity-muted`, `--radius-md`, `--size-1`, `--size-16`, `--size-2`, `--size-32`, `--size-96`, `--space-lg`, `--space-sm`, `--space-xs`, `--text-sm`, `--vg-depth`, `--vg-headers`, `--vg-heads`, `--vg-row`, `--vg-rows`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-focus`, `--c-hairline`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-surface`, `--opacity-muted`, `--radius-md`, `--size-1`, `--size-16`, `--size-2`, `--size-32`, `--size-96`, `--space-lg`, `--space-sm`, `--space-xs`, `--text-sm`, `--vg-cols`, `--vg-depth`, `--vg-headers`, `--vg-heads`, `--vg-row`, `--vg-rows`.

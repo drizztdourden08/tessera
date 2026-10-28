@@ -82,6 +82,7 @@ interface VirtualGridBase<T> {
   tileSize?: VirtualSize;
   tileWidth?: VirtualSize;
   tileHeight?: VirtualSize;
+  columns?: number;
   overscan?: number;
   selection?: VirtualGridSelection;
   getLabel?: (item: T, index: number) => string;

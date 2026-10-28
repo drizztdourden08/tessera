@@ -2,6 +2,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useVirtualWindow } from '../../virtual/useVirtualWindow';
 import { DEFAULT_COLUMNS, DEFAULT_OVERSCAN, ROW_ATTRIBUTE } from '../VirtualGrid.constants';
+import { gridFixedColumns } from './grid-fixed-columns';
 import { gridHeights } from './grid-heights';
 import { gridLayout } from './grid-layout';
 import { gridSections } from './grid-sections';
@@ -19,7 +20,9 @@ import type { UseVirtualGridInput, VirtualGridModel } from './useVirtualGrid.typ
 const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> => {
   const { items, sections, getKey, overscan = DEFAULT_OVERSCAN, sizeKey, onActiveChange } = input;
   const rootRef = useRef<HTMLElement>(null);
-  const [columns, setColumns] = useState(DEFAULT_COLUMNS);
+  const [measured, setColumns] = useState(DEFAULT_COLUMNS);
+  const fixed = gridFixedColumns(input.columns);
+  const columns = fixed ?? measured;
   const tileWidth = useRef(0);
   const { set: collapsed, setCollapsed } = useGridCollapsed(input);
   const { flat, shapes, keys } = useMemo(() => gridSections(items, sections, collapsed), [items, sections, collapsed]);
@@ -65,7 +68,7 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
   }, [layout, heights, onScroll]);
 
   return {
-    rootRef, bodyRef, flat, layout, rows: indices, columns, sectionKeys: keys, collapsed, setCollapsed, tabbable, onScroll,
+    rootRef, bodyRef, flat, layout, rows: indices, columns, fixed: fixed !== undefined, sectionKeys: keys, collapsed, setCollapsed, tabbable, onScroll,
     onFocus: slice.onFocus, onBlur: slice.onBlur, activate, navigate, scrollToIndex, getRects: touch.getRects,
     selecting: touch.selecting, reordering: touch.moving.active, message: touch.moving.message, into: touch.moving.into, ghost: touch.moving.ghost,
     extrasOf: touch.extrasOf, cellKeys: (event, stop, item) => touch.cellKeys(event, stop, item, navigate),
