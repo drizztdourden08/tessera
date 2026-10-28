@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind util */
 import type { ToolbarToolButtonProps } from '../sub-components/ToolbarToolButton.type';
 import type { ToolbarToolProps } from '../sub-components/ToolbarTool.type';
+import { keyWithContext } from './key-with-context';
 import type { ToolMenu } from './useToolMenu.type';
 
 const clickHandler = (props: ToolbarToolProps, tool: ToolMenu, menu: boolean): (() => void) | undefined => {
@@ -29,7 +30,8 @@ const toolButtonProps = (props: ToolbarToolProps, tool: ToolMenu, menu: boolean)
     popup,
     hover: menu && props.hoverOpen === true ? tool.hover : {},
     onClick: clickHandler(props, tool, menu),
-    onKeyDown: tool.onKeyDown,
+    onContextMenu: props.onContext,
+    onKeyDown: keyWithContext(tool.onKeyDown, props.onContext),
   };
 };
 

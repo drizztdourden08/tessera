@@ -4,9 +4,9 @@ import type { ToolbarItem, ToolbarProps } from '../Toolbar.type';
 const captionOf = (item: ToolbarItem): string => (item.kind === 'button' || item.kind === 'toggle' ? (item.caption ?? '') : '');
 
 const contentKey = (props: ToolbarProps): string => {
-  const { items, orientation = 'horizontal', size = 'sm', handle = false, labels = true } = props;
+  const { items, orientation = 'horizontal', size = 'sm', handle = false, labels = true, columns = 1 } = props;
   const parts = items.map((item) => (item.kind === 'separator' ? item.id : `${item.id}:${item.label}:${captionOf(item)}`));
-  return [orientation, size, handle, labels, ...parts].join('|');
+  return [orientation, size, handle, labels, columns, ...parts].join('|');
 };
 
 export { contentKey };

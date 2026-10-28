@@ -93,6 +93,36 @@ const RightEdge = {
   render: () => <ToolbarEdgeDemo />,
 } satisfies StoryLiteStoryDefinition<ToolbarArgs>;
 
+const Columns = {
+  name: 'Columns: a short column wraps into two before it folds, and 2 keeps two at any length',
+  render: () => (
+    <Box className="toolbar-story__row">
+      <ToolbarDemo orientation="vertical" extent="320" columns="auto" />
+      <ToolbarDemo orientation="vertical" extent="640" columns={2} />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
+const Priority = {
+  name: 'Priority: with Undo and Redo set high, the tools fold into More first and those two stay',
+  render: () => (
+    <Box className="toolbar-story__row">
+      <ToolbarDemo extent="320" handle={false} />
+      <ToolbarDemo extent="320" handle={false} priority />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
+const HiddenItems = {
+  name: 'Hidden items: the Eraser, Fill and the Grid are left out, and the separators close up',
+  render: () => <ToolbarDemo hiddenItems={['eraser', 'bucket', 'grid']} />,
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
+const ContextMenu = {
+  name: 'Context menu: right click a tool, or focus it and press Shift+F10',
+  render: () => <ToolbarDemo context captions />,
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
 const Overview = overviewStory({
   component: 'Toolbar',
   description: 'A row or a column of tools: buttons, toggles, groups and a number, with a hint on each and More for the rest.',
@@ -101,12 +131,12 @@ const Overview = overviewStory({
     'A bar shows an optional `caption` beside the icon unless `labels` is off; `layout="list"` makes labelled rows.',
     'Every item has a hint with its name, description and [Shortcut]; `shortcut` can be a list of labelled keys.',
     '`options` on a button or toggle open a [DropdownMenu] on hover, or on click with `openOn`.',
-    'Items that do not fit fold into More. The arrow keys along the toolbar move focus.',
-    '`handle` draws a grip for a dock to wire through `handleProps`; the toolbar has no drag logic.',
+    'Items that do not fit fold into More, lowest `priority` first; `columns` wraps a column into two first.',
+    '`handle` draws a grip for a dock; `hiddenItems` leaves items out; `onContextMenu` reports right clicks.',
   ],
   instead: '[ActionBar] for the buttons of one item, or [DropdownMenu] for actions that need no button of their own.',
   playground: Playground,
-  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List, RightEdge],
+  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List, RightEdge, Columns, Priority, HiddenItems, ContextMenu],
   states: {
     render: (props: StateProps) => <ToolbarDemo {...props} />,
     list: [
@@ -120,4 +150,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { ClickOpen, Horizontal, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, RightEdge, TwoShortcuts, Vertical };
+export { ClickOpen, Columns, ContextMenu, HiddenItems, Horizontal, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, Priority, RightEdge, TwoShortcuts, Vertical };
