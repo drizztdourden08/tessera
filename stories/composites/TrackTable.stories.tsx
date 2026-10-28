@@ -70,7 +70,7 @@ const Overview = overviewStory({
   description: 'A flat, read-only table that lays its columns out in fractions of the width and drops the least needed ones as it narrows.',
   points: [
     'Each column takes `fr`, its share of the width (default 1), or `width`, a fixed size token name or CSS length.',
-    'Mark a column `drop` 1, 2 or 3 to hide it below 768, 640 or 480 px; `hideBelow` picks 1280, 1120, 896, 768, 640 or 480 px.',
+    'Mark a column `drop` 1, 2 or 3 to hide it below 768, 640 or 480 px; `hideBelow` picks a width from 1280 to 480.',
     'The narrowing follows the width of the table itself, not the window, so it works in a pane or a drawer.',
     'No card, border or background: put it in a [Card] or on the page; `head={false}` hides the header.',
     '`onRowClick(row)` makes a row a focus target that Enter and a click both use.',

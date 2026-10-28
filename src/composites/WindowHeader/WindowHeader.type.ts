@@ -26,6 +26,10 @@ type WindowHeaderTitlesProps = Pick<WindowHeaderProps, 'eyebrow' | 'title' | 'ti
   eyebrowActions?: ReactNode;
 };
 
+type WindowHeaderToolsProps = Pick<WindowHeaderProps, 'extra' | 'actions' | 'onClose'> & {
+  extraFits: boolean;
+};
+
 interface WindowHeaderActionsProps {
   children: ReactNode;
 }
@@ -34,4 +38,4 @@ interface WindowHeaderBackProps {
   back: BackAction;
 }
 
-export type { WindowHeaderActionsProps, WindowHeaderActionsRow, WindowHeaderBackProps, WindowHeaderLook, WindowHeaderProps, WindowHeaderTitlesProps };
+export type { WindowHeaderActionsProps, WindowHeaderActionsRow, WindowHeaderBackProps, WindowHeaderLook, WindowHeaderProps, WindowHeaderTitlesProps, WindowHeaderToolsProps };

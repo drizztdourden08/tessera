@@ -62,5 +62,6 @@ const SessionRow = () => (
 - `gap` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`. Default `'sm'`.
 - `wrap` (optional): `boolean`.
 - `inline` (optional): `boolean`.
+- `container` (optional): `boolean`.
 
 It also takes the 277 attributes it inherits through `HTMLAttributes<HTMLElement>`.

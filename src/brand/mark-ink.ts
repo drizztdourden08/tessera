@@ -1,7 +1,6 @@
 /* @layer renderer-components @kind logic */
 import type { BrandInkTone, BrandMarkData } from './brand.type';
-
-const CURRENT = 'currentColor';
+import { CURRENT } from './mark-ink.constants';
 
 const markInk = (mark: BrandMarkData, tone: BrandInkTone): BrandMarkData => {
   const { currentInk } = mark;
