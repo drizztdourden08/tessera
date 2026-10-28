@@ -31,10 +31,14 @@ ColorPicker is the colour panel placed in the page; import it from the color-pic
 - Import ColorPicker from @drizztdourden08/tessera/color-picker and ColorPickerPopover from @drizztdourden08/tessera/color-picker-popover. They are not on the main export, so an app that never uses them never loads the colour library.
 - The app owns the colour: pass value as a hex string and onChange; add alpha and onAlphaChange for an alpha channel, or disableAlpha to hide it.
 - Pass original to show the colour the user started from, and onReset to put it back.
+- Pass modes, such as ["hsv", "oklch", "rgb"], to show tabs over one value; mode and onModeChange control the tab. Without modes the panel keeps the field and the RGB boxes.
+- The OKLCH tab keeps the lightness, chroma and hue the user typed, clamps the colour it hands back to sRGB, and shows a notice while the typed colour is outside that range.
+- Name puts your own field under the title, such as a rename box, and footer puts your own content under the buttons.
 
 ## Accessibility
 
 - The field, the sliders and the hex box are labelled and reachable by keyboard; swatches are buttons with the colour as their name.
+- The model tabs follow the tab pattern with arrow keys, and the out of range notice is a status message.
 
 ## Example
 
@@ -59,9 +63,14 @@ const BrushColor = ({ color, onColor }: BrushColorProps) => (
 - `onAlphaChange` (optional): `(alpha: number) => void`.
 - `disableAlpha` (optional): `boolean`. Default `false`.
 - `title` (optional): `string`.
+- `name` (optional): `ReactNode`.
+- `footer` (optional): `ReactNode`.
+- `modes` (optional): `readonly ColorMode[]`. Default `NO_MODES`.
+- `mode` (optional): `ColorMode`, one of `'hsv'`, `'oklch'`, `'rgb'`.
+- `onModeChange` (optional): `(mode: ColorMode) => void`.
 - `original` (optional): `string`.
 - `word` (optional): `number`.
-- `snapped` (optional): `boolean`. Default `false`.
+- `snapped` (optional): `boolean`.
 - `onReset` (optional): `() => void`.
 - `onClose` (optional): `() => void`.
 - `swatchGroups` (optional): `readonly SwatchGroup[]`.

@@ -6,7 +6,7 @@ import { TextInput } from '../../../primitives/TextInput';
 import type { ChannelInputProps } from './ChannelInput.type';
 
 const ChannelInput = (props: ChannelInputProps) => {
-  const { label, value, max, onCommit } = props;
+  const { label, title, value, max, onCommit } = props;
 
   const [buffer, setBuffer] = useState(String(value));
   useEffect(() => setBuffer(String(value)), [value]);
@@ -26,7 +26,7 @@ const ChannelInput = (props: ChannelInputProps) => {
         min={0}
         max={max}
         value={buffer}
-        aria-label={label}
+        aria-label={title ?? label}
         onChange={(e) => handleChange(e.target.value)}
       />
       <Span tone="muted" className="color-picker__field-label">{label}</Span>

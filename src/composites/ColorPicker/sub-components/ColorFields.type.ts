@@ -7,6 +7,7 @@ interface ColorFieldsProps {
   alpha: number;
   onAlphaChange?: (alpha: number) => void;
   disableAlpha: boolean;
+  hexOnly?: boolean;
 }
 
 type Channel = 'r' | 'g' | 'b';

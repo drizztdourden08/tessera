@@ -1,0 +1,5 @@
+---
+"@drizztdourden08/tessera": minor
+---
+
+Colour, swatches and the choice grid. `ColorPicker` takes `modes` to show HSV, OKLCH and RGB tabs over one value, with `mode` and `onModeChange` to control the tab. The OKLCH tab clamps to sRGB by lowering chroma and shows a notice while the typed colour is outside the range. It also takes a `name` slot under the title and a `footer` slot under the buttons, and `ColorPickerPopover` passes them on. `ColorSwatch` takes `marks` for up to four corner marks, `unused` for a dashed struck look, `mixed` for a dash over the colour, and `focusRing` set to `apart` so the focus ring sits outside the selected ring. The new `ChoiceGrid` is a row or grid of any cells picked as one radio group or listbox, with one Tab stop, arrows, Home and End, sections, `columns`, `renderCell`, a `footer` slot and `pickOnRelease`. A RampStrip recipe in its usage file builds from it. Thirty nine pixel icons join the set: eight for the canvas views, thirteen for drawing and painting, and eighteen for selecting, transforming, scaling, zooming and the tile map.

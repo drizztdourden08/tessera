@@ -10,6 +10,33 @@
   width: var(--size-256);
 }
 
+.color-picker__name,
+.color-picker__footer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.color-picker__footer {
+  padding-top: var(--space-sm);
+  border-top: var(--border-width-thin) solid var(--c-border);
+}
+
+.color-picker__modes {
+  min-width: 0;
+}
+
+.color-picker__sliders {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.color-picker__gamut {
+  font-size: var(--text-xs);
+}
+
 .color-picker__hex-row {
   display: flex;
   align-items: flex-start;
