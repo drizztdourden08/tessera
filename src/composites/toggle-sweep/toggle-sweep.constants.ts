@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind constants */
 const SWEEP_ATTRIBUTE = 'data-sweep-key';
 
-export { SWEEP_ATTRIBUTE };
+const NO_KEYS: readonly string[] = [];
+
+export { NO_KEYS, SWEEP_ATTRIBUTE };

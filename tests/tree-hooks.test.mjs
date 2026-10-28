@@ -7,8 +7,6 @@ import { mountHook } from './hook-harness.mjs';
 
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
 
-afterEach(() => vi.useRealTimers());
-
 describe('useTreeExpansion', () => {
   it('starts with the default keys and keeps its own after a change', () => {
     const onExpandedChange = vi.fn();
@@ -62,6 +60,8 @@ describe('useLazyLoad', () => {
 });
 
 describe('useSpringOpen', () => {
+  afterEach(() => vi.useRealTimers());
+
   it('opens the folder the pointer rests on after the delay', () => {
     vi.useFakeTimers();
     const open = vi.fn();

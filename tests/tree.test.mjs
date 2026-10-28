@@ -7,12 +7,8 @@ import { flattenItems } from '../src/composites/Tree/behavior/flatten-items';
 import { keptKeysOf } from '../src/composites/Tree/behavior/kept-keys-of';
 import { topKeysOf } from '../src/composites/Tree/behavior/top-keys-of';
 import { treeKeyMove } from '../src/composites/Tree/behavior/tree-key-move';
+import { ACCESS as base, file, folder, ITEMS } from './fixtures/tree/tree-items.mjs';
 
-const file = (id) => ({ id, name: id });
-const folder = (id, children) => ({ id, name: id, children });
-const ITEMS = [folder('a', [file('a1'), file('a2')]), folder('b', [file('b1')]), file('c')];
-
-const base = { getKey: (item) => item.id, getChildren: (item) => item.children, isBranch: (item) => item.children !== undefined };
 const flat = (open = [], extra = {}) => flattenItems(ITEMS, { ...base, open: new Set(open), loading: new Set(), kept: null, ...extra });
 const keysOf = (rows) => rows.map((row) => row.key);
 

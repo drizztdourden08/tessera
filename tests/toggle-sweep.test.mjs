@@ -65,6 +65,30 @@ describe('useToggleSweep', () => {
     expect(sweep.current.sweeping).toBe(false);
   });
 
+  it('names the key on the element it binds', () => {
+    const sweep = mountHook(() => useToggleSweep({ onSet: vi.fn() }));
+    expect(sweep.current.bind('layer-2', false)['data-sweep-key']).toBe('layer-2');
+  });
+});
+
+describe('useToggleSweep commit and listeners', () => {
+  it('changes nothing until the end when only onEnd is given, and lists the keys reached meanwhile', () => {
+    const { view, fire } = fakeView((x) => IDS[x]);
+    const onEnd = vi.fn();
+    const sweep = mountHook(() => useToggleSweep({ onEnd, order: IDS }));
+    sweep.act((now) => now.bind('a', false).onPointerDown(press(view)));
+    expect(sweep.current.touched).toEqual(['a']);
+    expect(sweep.current.value).toBe(true);
+    sweep.act(() => fire('pointermove', { clientX: 2, clientY: 0 }));
+    expect(sweep.current.touched).toEqual(['a', 'b', 'c']);
+    expect(onEnd).not.toHaveBeenCalled();
+    sweep.act(() => fire('pointerup'));
+    expect(onEnd).toHaveBeenCalledTimes(1);
+    expect(onEnd).toHaveBeenCalledWith(['a', 'b', 'c'], true);
+    expect(sweep.current.touched).toEqual([]);
+    expect(sweep.current.value).toBeNull();
+  });
+
   it('listens to the window only while a sweep runs', () => {
     const { view, fire, listening } = fakeView(() => null);
     const sweep = mountHook(() => useToggleSweep({ onSet: vi.fn() }));
@@ -94,10 +118,5 @@ describe('useToggleSweep', () => {
     expect(pointer.preventDefault).toHaveBeenCalled();
     expect(pointer.stopPropagation).toHaveBeenCalled();
     expect(key.preventDefault).not.toHaveBeenCalled();
-  });
-
-  it('names the key on the element it binds', () => {
-    const sweep = mountHook(() => useToggleSweep({ onSet: vi.fn() }));
-    expect(sweep.current.bind('layer-2', false)['data-sweep-key']).toBe('layer-2');
   });
 });

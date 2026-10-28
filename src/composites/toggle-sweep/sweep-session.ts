@@ -9,15 +9,16 @@ const sweepSession = (input: SweepSessionInput): SweepSession => {
   const touch = (key: string): void => {
     if (touched.has(key)) return;
     touched.add(key);
-    onSet(key, value);
+    onSet?.(key, value);
   };
   touch(first);
   return {
     value,
     over: (key) => {
-      const keys = order ? rangeBetween(order, last, key) : [key];
-      keys.forEach(touch);
+      const before = touched.size;
+      (order ? rangeBetween(order, last, key) : [key]).forEach(touch);
       last = key;
+      return touched.size > before;
     },
     keys: () => [...touched],
   };

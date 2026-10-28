@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind constants */
 import type { TreeKeyMove } from '../Tree.type';
-import type { FocusStep } from './tree-key-move.constants.type';
+import type { FocusStep } from './focus-step.type';
 
 const FOCUS_STEPS: Readonly<Record<string, FocusStep>> = {
   ArrowDown: (index) => index + 1,

@@ -41,10 +41,10 @@ const Unordered = {
 
 const CODE = `import { useToggleSweep } from '@drizztdourden08/tessera';
 
-const sweep = useToggleSweep({ order: ids, onSet: (id, value) => setHidden(id, value), onEnd: (keys) => pushUndo(keys) });
+const sweep = useToggleSweep({ order: ids, onEnd: (keys, value) => setHidden(keys, value) });
 
 <Box {...sweep.bind(id, hidden.has(id))}>
-  <Toggle label={id} checked={hidden.has(id)} onChange={(value) => setHidden(id, value)} />
+  <Toggle label={id} checked={sweep.touched.includes(id) ? sweep.value === true : hidden.has(id)} onChange={(value) => setHidden([id], value)} />
 </Box>`;
 
 const Overview = overviewStory({
@@ -53,12 +53,12 @@ const Overview = overviewStory({
   description: 'Press one toggle and drag over the others: they all take the value the first one got.',
   points: [
     '`bind(key, current)` goes on the element around each toggle; the first press sets the opposite value.',
-    '`onSet(key, value)` is called once for each key the drag touches, even when it goes back over one.',
-    '`onEnd(keys, value)` reports the finished drag once, for one undo step.',
+    '`onEnd(keys, value)` runs once when the drag ends, with all the keys: one change, one undo step.',
+    '`touched` and `value` show the keys reached so far while the drag runs; `onSet` is the live option.',
     '`order` lists the keys as shown, so a fast drag also sets the rows it skipped.',
     'The key press of each toggle still works, since the drag is not the only way to switch.',
   ],
-  instead: '[Toggle] for one switch, or [useMarqueeSelect] to pick items by a rectangle.',
+  instead: '[Toggle] for one switch, or [MarqueeBox] to pick items by a rectangle.',
   playground: Playground,
   variants: [Column, Unordered],
   code: CODE,

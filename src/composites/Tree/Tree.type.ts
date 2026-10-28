@@ -44,16 +44,19 @@ interface TreeHandle {
   scrollToKey: (key: string, align?: ScrollAlign) => void;
 }
 
-interface TreeProps<T> {
+interface TreeSlots<T> {
+  renderLead?: (item: T, state: TreeRowState) => ReactNode;
+  renderLabel?: (item: T, state: TreeRowState) => ReactNode;
+  renderTrail?: (item: T, state: TreeRowState) => ReactNode;
+}
+
+interface TreeProps<T> extends TreeSlots<T> {
   items: readonly T[];
   getKey: (item: T) => string;
   getChildren: (item: T) => readonly T[] | undefined;
   getLabel: (item: T) => string;
   label: string;
   isBranch?: (item: T) => boolean;
-  renderLead?: (item: T, state: TreeRowState) => ReactNode;
-  renderLabel?: (item: T, state: TreeRowState) => ReactNode;
-  renderTrail?: (item: T, state: TreeRowState) => ReactNode;
   expandedKeys?: readonly string[];
   defaultExpandedKeys?: readonly string[];
   onExpandedChange?: (keys: readonly string[]) => void;
@@ -104,5 +107,5 @@ interface TreeDropTarget {
 
 export type {
   TreeDropMark, TreeDropTarget, TreeFlatRow, TreeHandle, TreeKeyMove, TreeMoveRequest, TreeProps, TreeReorder, TreeRowSize, TreeRowState,
-  TreeSelection, TreeSelectionMode,
+  TreeSelection, TreeSelectionMode, TreeSlots,
 };

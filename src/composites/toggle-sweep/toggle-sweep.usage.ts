@@ -13,10 +13,11 @@ const usage = {
     { case: 'The items are picked, not switched, with Ctrl and Shift.', use: 'useSelectionModel' },
   ],
   rules: [
-    'Pass onSet(key, value), which the hook calls once for each key a sweep touches, and spread bind(key, current) on the element around each toggle with the value it shows now.',
-    'The first press sets every key of the sweep to the opposite of the pressed toggle, so the drag paints one value.',
+    'Spread bind(key, current) on the element around each toggle with the value it shows now; the first press sets every key of the sweep to the opposite of that value.',
+    'To commit once, pass only onEnd(keys, value): it runs when the drag ends with every key the sweep touched, so the app makes one change and one undo step.',
+    'While the drag runs, touched lists the keys reached so far and value is the value they will take; draw them as already set, and nothing has changed in the app yet.',
+    'To change the app live instead, pass onSet(key, value), which runs once for each key as the pointer reaches it.',
     'A key touched twice in one sweep is reported once, even when the pointer goes back over it.',
-    'Pass onEnd(keys, value) to hear the finished sweep once, such as to push one undo step for all the keys.',
     'Pass order, the keys as they are shown, so a fast drag that skips a row still sets the rows between the two it touched.',
     'The hook follows the pointer on the window, so the drag may leave the column and come back, and it ends on release or cancel.',
     'A mouse or touch click inside a bound element is taken by the sweep and does not reach the onChange of the toggle in it; a key press does, so keep onChange for the keyboard.',
@@ -32,16 +33,16 @@ import { Box, Toggle, useToggleSweep } from '@drizztdourden08/tessera';
 
 const Visibility = ({ ids }: { ids: string[] }) => {
   const [hidden, setHidden] = useState<ReadonlySet<string>>(new Set());
-  const set = (id: string, value: boolean) => setHidden((now) => new Set(value ? [...now, id] : [...now].filter((key) => key !== id)));
-  const sweep = useToggleSweep({ order: ids, onSet: set });
+  const set = (keys: readonly string[], value: boolean) => setHidden((now) => new Set(value ? [...now, ...keys] : [...now].filter((key) => !keys.includes(key))));
+  const sweep = useToggleSweep({ order: ids, onEnd: set });
   return ids.map((id) => (
     <Box key={id} {...sweep.bind(id, hidden.has(id))}>
-      <Toggle label={id} checked={hidden.has(id)} onChange={(value) => set(id, value)} />
+      <Toggle label={id} checked={sweep.touched.includes(id) ? sweep.value === true : hidden.has(id)} onChange={(value) => set([id], value)} />
     </Box>
   ));
 };
 `,
-  propsHash: 'd306592edb1c6b90',
+  propsHash: '01732d8547fa4834',
 } satisfies HookUsage;
 
 export { usage };

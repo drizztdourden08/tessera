@@ -39,7 +39,9 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Pass filter to keep the items it accepts and the folders above them; those folders show open while the filter runs, and the tree does not reorder.
 - Pass reorder to move rows: onMove gets the keys, the parentKey, the index among the children of that parent once the moved keys are out, and into, true for a drop on a folder.
 - A drag shows a line at the gap or a mark on the folder it drops into; hold over a closed folder and it opens after springDelay, 600 ms by default.
-- Pass maxDepth to stop a drop that would nest deeper, and canDrop to refuse a move; a folder cannot take itself or its own children.
+- Pass maxDepth to stop a drop that would nest deeper, and canDrop(move) to refuse a move; a folder cannot take itself or its own children.
+- The into mark shows only on a folder that may take the drop; where it may not, the pointer gets the gap line, or no mark when that is refused too.
+- Alt with Up or Down moves the focused row, or the whole picked set, by one place, and maxDepth and canDrop apply to a key move as to a drag.
 - Alt with Up or Down moves the row among its siblings, Alt with Right drops it into the sibling above, and Alt with Left lifts it out of its parent; each move is announced in a polite live region.
 - Pass renderThumbnail in reorder to show the first three rows in the drag ghost.
 - Pass guides to draw a line for each level, with the branch of the picked row lit; pass rowSize compact for 24 px rows.
@@ -83,9 +85,6 @@ const Files = ({ entries }: { entries: Entry[] }) => {
 - `getLabel`: `(item: T) => string`.
 - `label`: `string`.
 - `isBranch` (optional): `(item: T) => boolean`.
-- `renderLead` (optional): `(item: T, state: TreeRowState) => ReactNode`.
-- `renderLabel` (optional): `(item: T, state: TreeRowState) => ReactNode`.
-- `renderTrail` (optional): `(item: T, state: TreeRowState) => ReactNode`.
 - `expandedKeys` (optional): `readonly string[]`.
 - `defaultExpandedKeys` (optional): `readonly string[]`.
 - `onExpandedChange` (optional): `(keys: readonly string[]) => void`.
@@ -102,6 +101,9 @@ const Files = ({ entries }: { entries: Entry[] }) => {
 - `emptyLabel` (optional): `string`.
 - `ref` (optional): `Ref<TreeHandle>`.
 - `className` (optional): `string`.
+- `renderLead` (optional): `(item: T, state: TreeRowState) => ReactNode`.
+- `renderLabel` (optional): `(item: T, state: TreeRowState) => ReactNode`.
+- `renderTrail` (optional): `(item: T, state: TreeRowState) => ReactNode`.
 
 ## Tokens
 

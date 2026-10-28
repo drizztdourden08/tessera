@@ -4,11 +4,8 @@ import { dropTargetOf } from '../src/composites/Tree/behavior/drop-target-of';
 import { flattenItems } from '../src/composites/Tree/behavior/flatten-items';
 import { keyMoveOf } from '../src/composites/Tree/behavior/key-move-of';
 import { moveRequestOf } from '../src/composites/Tree/behavior/move-request-of';
+import { ACCESS as base, ITEMS } from './fixtures/tree/tree-items.mjs';
 
-const file = (id) => ({ id, name: id });
-const folder = (id, children) => ({ id, name: id, children });
-const ITEMS = [folder('a', [file('a1'), file('a2')]), folder('b', [file('b1')]), file('c')];
-const base = { getKey: (item) => item.id, getChildren: (item) => item.children, isBranch: (item) => item.children !== undefined };
 const rows = flattenItems(ITEMS, { ...base, open: new Set(['a']), loading: new Set(), kept: null });
 const indexOfKey = new Map(rows.map((row, at) => [row.key, at]));
 const childCount = (key) => (key === null ? ITEMS.length : (ITEMS.flatMap((item) => [item, ...(item.children ?? [])]).find((item) => item.id === key)?.children?.length ?? 0));
@@ -49,6 +46,11 @@ describe('the drop target under the pointer', () => {
     expect(at(5, { maxDepth: 1 })).toBeUndefined();
     expect(at(2, { maxDepth: 1 })).toBeDefined();
     expect(at(2, { allow: () => false })).toBeUndefined();
+  });
+
+  it('shows the into mark only where a drop into the folder is allowed, and a gap otherwise', () => {
+    expect(at(35, { allow: (target) => !target.into })).toMatchObject({ into: false, parentKey: null, gap: 4 });
+    expect(at(35)).toMatchObject({ into: true, parentKey: 'b' });
   });
 });
 

@@ -60,4 +60,4 @@ interface GroupCollector<T> {
   bySelection: Map<string, string[]>;
 }
 
-export type { GroupCollector, GroupEntries, GroupEntry, GroupGroupEntry, GroupItemEntry, GroupTreeProps, TreeNode };
+export type { GroupCollector, GroupEntries, GroupEntry, GroupTreeProps, TreeNode };
