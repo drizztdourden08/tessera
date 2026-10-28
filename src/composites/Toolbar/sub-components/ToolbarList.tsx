@@ -5,13 +5,18 @@ import { stopIds } from '../behavior/stop-ids';
 import { ToolbarContext } from '../behavior/toolbar-context';
 import { toolbarKeys } from '../behavior/toolbar-keys';
 import { useToolbarStop } from '../behavior/useToolbarStop';
+import { visibleItems } from '../behavior/visible-items';
 import type { ToolbarProps } from '../Toolbar.type';
 import { ToolbarItemView } from './ToolbarItemView';
 
 const ToolbarList = (props: ToolbarProps) => {
-  const { items, label, size = 'sm', menuSide = 'right', className } = props;
+  const { label, size = 'sm', menuSide = 'right', onContextMenu, className } = props;
+  const items = visibleItems(props.items, props.hiddenItems);
   const { stop, onFocus } = useToolbarStop(stopIds(items, false, false));
-  const context = useMemo(() => ({ orientation: 'vertical' as const, menuSide, layout: 'list' as const, size, labels: true, stop, measure: false }), [menuSide, size, stop]);
+  const context = useMemo(
+    () => ({ orientation: 'vertical' as const, menuSide, layout: 'list' as const, size, labels: true, stop, measure: false, contextMenu: onContextMenu }),
+    [menuSide, size, stop, onContextMenu],
+  );
 
   return (
     <ToolbarContext value={context}>

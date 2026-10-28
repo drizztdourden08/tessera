@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent, RefObject } from 'react';
 import type { MenuHover } from '../../DropdownMenu/DropdownMenu.type';
-import type { ToolbarIcon, ToolbarItemBase } from '../Toolbar.type';
+import type { ToolbarContextEvent, ToolbarIcon, ToolbarItemBase } from '../Toolbar.type';
 
 interface ToolbarToolButtonProps {
   anchorRef: RefObject<HTMLButtonElement | null>;
@@ -18,6 +18,7 @@ interface ToolbarToolButtonProps {
   popup: boolean;
   hover: Partial<MenuHover>;
   onClick?: () => void;
+  onContextMenu?: (event: ToolbarContextEvent) => void;
   onKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
 }
 

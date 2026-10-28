@@ -4,7 +4,7 @@ import { overviewStory } from '../_template/overview-story';
 import { ToolbarDockDemo } from './_samples/ToolbarDockDemo';
 import { DESCRIBED_MENU, TRANSFORM_MENU } from './_samples/toolbar-edge.constants';
 import {
-  TOOLBAR_DOCK_HINT, TOOLBAR_DOCK_RAIL_FULL_HEIGHT, TOOLBAR_DOCK_RAIL_UNDER_TOP, TOOLBAR_DOCK_TWO_IN_LANE,
+  TOOLBAR_DOCK_FIELDS, TOOLBAR_DOCK_HINT, TOOLBAR_DOCK_RAIL_FULL_HEIGHT, TOOLBAR_DOCK_RAIL_UNDER_TOP, TOOLBAR_DOCK_TWO_IN_LANE,
 } from './_samples/toolbar-dock-layouts.constants';
 import { TOOLBAR_DOCK_CODE } from './_samples/toolbar-dock-story.constants';
 import './ToolbarDock.stories.css';
@@ -46,6 +46,11 @@ const ClickMenu = {
   render: () => <ToolbarDockDemo menu={DESCRIBED_MENU} />,
 } satisfies StoryLiteStoryDefinition<ToolbarDockArgs>;
 
+const SavedFields = {
+  name: 'Saved fields: the layout hides Fill, Picker and Curve and puts the left rail in two columns',
+  render: () => <ToolbarDockDemo initial={TOOLBAR_DOCK_FIELDS} />,
+} satisfies StoryLiteStoryDefinition<ToolbarDockArgs>;
+
 const Playground = {
   name: 'Playground: end handles, corner take and drop all work live',
   render: () => <ToolbarDockDemo hint={TOOLBAR_DOCK_HINT} />,
@@ -57,14 +62,14 @@ const Overview = overviewStory({
   points: [
     '`layout` says which toolbar sits on which side; the dock draws it and the app keeps it.',
     'Two lanes per side at most; `start` and `size` set a bar extent, `corners` says who owns each corner.',
-    '`renderToolbar` draws each toolbar with the `orientation`, the `handle` and the `labels` flag it stores.',
+    '`renderToolbar` draws each toolbar with the `handle` and the `labels`, `hiddenItems` and `columns` it stores.',
     'Drag a grip to drop a bar in a lane, an end handle to push or take a corner; the keys do the same.',
     '`useToolbarLayout` gives `move`, `show`, `hide`, `toggle` and `reset`, and calls `onChange` once per edit.',
     '`toolbarMenuGroups` builds the Toolbars menu: a check item per toolbar and Reset toolbars.',
   ],
-  variants: [Around, RailUnderTop, RailFullHeight, TwoInLane, LeftMenu, ClickMenu, Playground],
+  variants: [Around, RailUnderTop, RailFullHeight, TwoInLane, LeftMenu, ClickMenu, SavedFields, Playground],
   code: TOOLBAR_DOCK_CODE,
 });
 
 export default meta;
-export { Around, ClickMenu, LeftMenu, Overview, Playground, RailFullHeight, RailUnderTop, TwoInLane };
+export { Around, ClickMenu, LeftMenu, Overview, Playground, RailFullHeight, RailUnderTop, SavedFields, TwoInLane };

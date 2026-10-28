@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { MenuGroup } from '../../DropdownMenu/DropdownMenu.type';
-import type { ToolbarIcon, ToolbarItemBase } from '../Toolbar.type';
+import type { ToolbarContextEvent, ToolbarIcon, ToolbarItemBase } from '../Toolbar.type';
 
 interface ToolbarToolProps {
   stopId: string;
@@ -18,6 +18,7 @@ interface ToolbarToolProps {
   openOnPress?: boolean;
   clickOpen?: boolean;
   onPress?: () => void;
+  onContext?: (event: ToolbarContextEvent) => void;
 }
 
 export type { ToolbarToolProps };

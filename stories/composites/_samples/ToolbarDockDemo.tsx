@@ -21,7 +21,7 @@ const ToolbarDockDemo = ({ className, initial, hint, menu }: { className?: strin
         layout={layout}
         onLayoutChange={onChange}
         definitions={DEFINITIONS}
-        renderToolbar={(id, { orientation, handle, menuSide }) => (
+        renderToolbar={(id, { orientation, handle, menuSide, hiddenItems, columns }) => (
           <Toolbar
             label={DEFINITIONS.find((definition) => definition.id === id)?.label ?? id}
             items={itemsOf(id, menu)}
@@ -29,6 +29,8 @@ const ToolbarDockDemo = ({ className, initial, hint, menu }: { className?: strin
             handle
             handleProps={handle}
             menuSide={menuSide}
+            hiddenItems={hiddenItems}
+            columns={columns}
           />
         )}
       >
