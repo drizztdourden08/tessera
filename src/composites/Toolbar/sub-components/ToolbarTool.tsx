@@ -2,27 +2,27 @@
 import { useContext, useRef } from 'react';
 import { Tooltip } from '../../../primitives/Tooltip';
 import { toolButtonProps } from '../behavior/tool-button-props';
+import { toolMenuParams } from '../behavior/tool-menu-params';
+import { toolSetup } from '../behavior/tool-setup';
 import { ToolbarContext } from '../behavior/toolbar-context';
 import { useToolMenu } from '../behavior/useToolMenu';
 import { TIP_SIDE } from '../Toolbar.constants';
 import { ToolbarToolButton } from './ToolbarToolButton';
-import { ToolbarToolMenu } from './ToolbarToolMenu';
+import { ToolbarToolPopups } from './ToolbarToolPopups';
 import type { ToolbarToolProps } from './ToolbarTool.type';
 
-const ToolbarTool = (props: ToolbarToolProps) => {
-  const { orientation, menuSide, layout, measure } = useContext(ToolbarContext);
+const ToolbarTool = (given: ToolbarToolProps) => {
+  const context = useContext(ToolbarContext);
   const anchorRef = useRef<HTMLButtonElement>(null);
-  const options = props.options ?? [];
-  const menu = !measure && options.length > 0;
-  const tool = useToolMenu({ anchorRef, enabled: menu, hoverOpen: props.hoverOpen === true, disabled: props.disabled, orientation, menuSide });
-  const button = <ToolbarToolButton {...toolButtonProps(props, tool, menu)} anchorRef={anchorRef} />;
+  const setup = toolSetup(given, context);
+  const tool = useToolMenu(toolMenuParams(setup, anchorRef, context));
+  const button = <ToolbarToolButton {...toolButtonProps(setup.props, tool, setup.menu)} anchorRef={anchorRef} />;
+  const bare = context.measure || context.layout === 'list';
 
   return (
     <>
-      {measure || layout === 'list' ? button : <Tooltip content={tool.open ? null : props.tip} placement={TIP_SIDE[orientation]}>{button}</Tooltip>}
-      {tool.open && (
-        <ToolbarToolMenu groups={options} anchorRef={anchorRef} tool={tool} label={props.label} hoverOpen={props.hoverOpen === true} popup={props.openOnPress === true} />
-      )}
+      {bare ? button : <Tooltip content={tool.open ? null : setup.props.tip} placement={TIP_SIDE[context.orientation]}>{button}</Tooltip>}
+      <ToolbarToolPopups setup={setup} tool={tool} anchorRef={anchorRef} />
     </>
   );
 };

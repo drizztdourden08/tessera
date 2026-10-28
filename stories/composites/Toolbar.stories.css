@@ -71,3 +71,10 @@
 .toolbar-edge > .toolbar {
   flex: none;
 }
+
+.toolbar-story__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-inline-size: var(--size-256);
+}

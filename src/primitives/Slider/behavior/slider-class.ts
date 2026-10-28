@@ -6,6 +6,7 @@ const sliderClass = (props: SliderProps, size: ControlSize, disabled: boolean): 
   'slider',
   `control-size--${size}`,
   props.range && 'slider--range',
+  props.mixed && 'slider--mixed',
   !props.range && props.orientation === 'vertical' && 'slider--vertical',
   disabled && 'slider--disabled',
   props.className,

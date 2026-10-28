@@ -6,7 +6,7 @@ import { valueText } from '../../value-rule/value-text';
 import type { SliderThumbProps } from './SliderThumb.type';
 
 const SliderThumb = (props: SliderThumbProps) => {
-  const { value, scale, disabled, label, labelledBy, describedBy, id, name, keyStep, onTop = false, hot = false, orientation, onValue, onFocus, ref } = props;
+  const { value, scale, disabled, label, labelledBy, describedBy, id, name, keyStep, mixedText, onTop = false, hot = false, orientation, onValue, onFocus, ref } = props;
 
   const handleKey = (event: KeyboardEvent<HTMLInputElement>) => {
     const delta = keyStep ? keyDelta(event.key, keyStep) : 0;
@@ -30,7 +30,7 @@ const SliderThumb = (props: SliderThumbProps) => {
       aria-label={label}
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
-      aria-valuetext={valueText(value, scale)}
+      aria-valuetext={mixedText ?? valueText(value, scale)}
       aria-orientation={orientation}
       onChange={(event) => onValue(Number(event.target.value))}
       onFocus={onFocus}

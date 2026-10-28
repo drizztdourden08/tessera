@@ -1,0 +1,17 @@
+/* @layer renderer-components @kind style */
+.toolbar__keyed {
+  position: relative;
+  display: inline-flex;
+}
+
+.toolbar[data-layout='list'] .toolbar__keyed {
+  display: flex;
+}
+
+.toolbar__key-badge {
+  position: absolute;
+  inset-block-end: var(--size-2);
+  inset-inline-start: var(--size-2);
+  line-height: 1;
+  pointer-events: none;
+}

@@ -1,0 +1,33 @@
+/* @layer renderer-components @kind style */
+.number-field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  min-inline-size: 0;
+}
+
+.number-field__input {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.number-field__label {
+  flex: none;
+  color: var(--c-text-muted);
+  font-size: var(--control-font);
+  user-select: none;
+  touch-action: none;
+}
+
+.number-field__label[data-scrub] {
+  cursor: ew-resize;
+}
+
+.number-field__label[data-scrub]:hover {
+  color: var(--c-text);
+}
+
+.number-field__suffix {
+  flex: none;
+  font-size: var(--control-font);
+}

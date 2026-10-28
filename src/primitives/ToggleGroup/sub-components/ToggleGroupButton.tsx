@@ -5,15 +5,15 @@ import { OptionTip } from '../../field-control/OptionTip';
 import type { ToggleGroupButtonProps } from '../ToggleGroup.type';
 
 const ToggleGroupButton = <T extends string>(props: ToggleGroupButtonProps<T>) => {
-  const { option, active, groupDisabled, first, last, handlers, placement, onToggle } = props;
+  const { option, active, mixed, groupDisabled, first, last, handlers, placement, onToggle } = props;
   const reason = disabledReason(option.disabled);
   return (
     <OptionTip reason={reason} name={option.label} tooltip={option.tooltip} placement={placement}>
       <button
         type="button"
-        aria-pressed={active}
+        aria-pressed={mixed ? 'mixed' : active}
         aria-description={reason}
-        className={`toggle-group__btn focus-ring-inset ${active ? 'toggle-group__btn--active' : ''}`}
+        className={`toggle-group__btn focus-ring-inset ${active ? 'toggle-group__btn--active' : ''}${mixed ? ' toggle-group__btn--mixed' : ''}`}
         data-first={first || undefined}
         data-last={last || undefined}
         onClick={() => onToggle(option.value)}

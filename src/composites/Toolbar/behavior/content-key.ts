@@ -1,12 +1,18 @@
 /* @layer renderer-components @kind util */
 import type { ToolbarItem, ToolbarProps } from '../Toolbar.type';
 
-const captionOf = (item: ToolbarItem): string => (item.kind === 'button' || item.kind === 'toggle' ? (item.caption ?? '') : '');
+const captionOf = (item: ToolbarItem): string => (item.kind === 'button' || item.kind === 'toggle' || item.kind === 'popover' ? (item.caption ?? '') : '');
+
+const partOf = (item: ToolbarItem): string => {
+  if (item.kind === 'separator') return `${item.id}:${item.label ?? ''}`;
+  const display = item.kind === 'group' ? (item.display ?? 'set') : '';
+  return `${item.id}:${item.label}:${captionOf(item)}:${display}:${item.badge?.glyph ?? ''}`;
+};
 
 const contentKey = (props: ToolbarProps): string => {
-  const { items, orientation = 'horizontal', size = 'sm', handle = false, labels = true, columns = 1 } = props;
-  const parts = items.map((item) => (item.kind === 'separator' ? item.id : `${item.id}:${item.label}:${captionOf(item)}`));
-  return [orientation, size, handle, labels, columns, ...parts].join('|');
+  const { items, orientation = 'horizontal', size = 'sm', handle = false, labels = true, columns = 1, keyBadges = false } = props;
+  const parts = items.map(partOf);
+  return [orientation, size, handle, labels, columns, keyBadges, ...parts].join('|');
 };
 
 export { contentKey };

@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 108 of 218 have their usage written; a linked name opens its page.
+One line per component. 110 of 220 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -93,6 +93,7 @@ One line per component. 108 of 218 have their usage written; a linked name opens
 - [ActionBar](components/ActionBar.md): The actions on one item in a single row: the primary action last, the ones that do not fit folded into a More menu. Import from `@drizztdourden08/tessera`.
 - [ActionTile](components/ActionTile.md): A tile with one headline value that also does one thing: runs an action, copies a text, or leads to the full view. Import from `@drizztdourden08/tessera`.
 - [AnchorPicker](components/AnchorPicker.md): A three by three grid that picks where something is anchored: a corner, an edge or the centre. Import from `@drizztdourden08/tessera`.
+- [AngleField](components/AngleField.md): An angle in degrees, set by dragging a dial or typing a number, that snaps to 15, 22.5 or 45 degrees and wraps at a full turn. Import from `@drizztdourden08/tessera`.
 - [ArmedIconButton](components/ArmedIconButton.md): An icon button pressed twice: the first press arms it and its icon loops a short motion, the second press acts. Import from `@drizztdourden08/tessera`.
 - [Breadcrumbs](components/Breadcrumbs.md): The trail of places that leads to the one the user is in, each a button, with a menu of its neighbours, a fold for the middle and a click at the end that turns it into a path box. Import from `@drizztdourden08/tessera`.
 - [Carousel](components/Carousel.md): Shows one slide at a time from a set, with dots and arrows to move between them, and can turn to the next slide by itself. Import from `@drizztdourden08/tessera`.
@@ -156,6 +157,7 @@ One line per component. 108 of 218 have their usage written; a linked name opens
 - [MarqueeBox](components/MarqueeBox.md): The rectangle that shows an area being dragged over items to pick them, drawn inside the box that scrolls. Import from `@drizztdourden08/tessera`.
 - [MediaViewer](components/MediaViewer.md): Opens a picture or a video large over the page in a dialog, with zoom by steps, a Fit and actual size switch, dragging to look around, and arrows through a set. Import from `@drizztdourden08/tessera`.
 - [Navigator](components/Navigator.md): A small map of a large surface, such as a canvas or a long timeline, with a frame that marks the visible part and that the user drags to move the view. Import from `@drizztdourden08/tessera`.
+- [NumberField](components/NumberField.md): A number field you can drag by its label, step with the wheel and the arrow keys, step finely with Shift, walk along a ladder of fixed stops and fill from a menu of quick values. Import from `@drizztdourden08/tessera`.
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
@@ -237,3 +239,4 @@ Functions for a screen that owns its own markup. Each line is a module; its page
 - [reorder](components/reorder.md): Drag and keyboard reorder for a list or grid the app owns, as functions you wire into your own markup. Import `columnsOf`, `modifierOf`, `moveSet`, `REORDER_ITEM_SELECTOR`, `reorderStep`, `stepGap`, `useMoveFocus`, `useReorderDrag` from `@drizztdourden08/tessera`.
 - [selection](components/selection.md): The picking rules of a collection as one hook: a click picks one, Ctrl toggles, Shift takes a range or a rectangle, Ctrl and A takes all, Space toggles and a typed letter jumps to a label. Import `rectKeys`, `toggledKey`, `typeAheadIndex`, `useSelectionModel` from `@drizztdourden08/tessera`.
 - [virtual](components/virtual.md): The windowing of a long list of equal rows: which rows to draw for the scroll position, and which row to keep while it holds focus. Import `readHorizontalMetrics`, `renderedIndices`, `scrollTopForSpan`, `scrollTopToShow`, `sizeVariable`, `stepVirtualSize`, `useVirtualWindow`, `visibleRange` from `@drizztdourden08/tessera`.
+- [wheel-step](components/wheel-step.md): Turn the mouse wheel over an element into steps up and down, with a fine step while Shift is held, the way the volume button and the number field do. Import `useWheelStep`, `wheelStepOf` from `@drizztdourden08/tessera`.

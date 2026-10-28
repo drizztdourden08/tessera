@@ -13,6 +13,7 @@ interface SliderThumbProps {
   id?: string;
   name?: string;
   keyStep?: number;
+  mixedText?: string;
   onTop?: boolean;
   hot?: boolean;
   orientation?: ScaleOrientation;

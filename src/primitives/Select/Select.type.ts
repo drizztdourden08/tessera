@@ -23,6 +23,7 @@ type MultiDisplay = 'count' | 'tags';
 
 interface SelectLookProps extends ListboxFieldProps {
   searchable?: boolean;
+  mixed?: boolean;
   multiDisplay?: MultiDisplay;
 }
 

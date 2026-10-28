@@ -113,7 +113,10 @@
                 "components": []
               },
               "a number stepped up or down": {
-                "components": []
+                "components": [
+                  "AngleField",
+                  "NumberField"
+                ]
               },
               "text that follows a pattern": {
                 "components": [
@@ -3175,6 +3178,7 @@
         }
       ],
       "rules": [
+        "mixed shows the word Mixed in place of the chosen option, for a selection whose values differ. Choosing an option calls onChange, and the app clears mixed.",
         "Pass options for a plain list and groups for options under headings. Pass items for objects of your own, with the field that holds the value.",
         "When options and groups are both given, the options come first with no heading, then each group under its label. A group never hides the options.",
         "An option that sits in a group is not repeated in options; put it in one place only.",
@@ -3197,7 +3201,7 @@
         "rule": "Select is the field that opens a list of options, plain or grouped, and picks one or several."
       },
       "example": "import { Select } from '@drizztdourden08/tessera';\n\ninterface TintPickerProps {\n  tint: string;\n  onTint: (tint: string) => void;\n}\n\nconst TintPicker = ({ tint, onTint }: TintPickerProps) => (\n  <Select\n    value={tint}\n    onChange={onTint}\n    options={[{ value: 'none', label: 'No tint' }]}\n    groups={[\n      { label: 'Warm', options: [{ value: 'red', label: 'Red' }, { value: 'amber', label: 'Amber' }] },\n      { label: 'Cool', options: [{ value: 'blue', label: 'Blue' }, { value: 'teal', label: 'Teal' }] },\n    ]}\n  />\n);\n",
-      "propsHash": "7290f7e3762ba2e6",
+      "propsHash": "6a1ae43de34ed0c3",
       "props": {
         "own": [
           {
@@ -3261,6 +3265,11 @@
           },
           {
             "name": "searchable",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "mixed",
             "optional": true,
             "text": "boolean"
           },
@@ -5239,6 +5248,127 @@
         "title": "Composites · Inputs/AnchorPicker",
         "route": "#/story/composites-anchorpicker--overview",
         "file": "stories/composites/AnchorPicker.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "AngleField",
+      "tier": "composites",
+      "source": "src/composites/AngleField/AngleField.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "An angle in degrees, set by dragging a dial or typing a number, that snaps to 15, 22.5 or 45 degrees and wraps at a full turn.",
+      "useWhen": [
+        "An editor rotates a sprite, a selection or a brush, and the user wants to point the angle and also type it.",
+        "The angle should land on round steps, such as 15 degrees for a rotation or 45 for a direction."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The value is any other number, such as a size or an offset.",
+          "use": "NumberField"
+        },
+        {
+          "case": "The user picks one of nine places on a box.",
+          "use": "AnchorPicker"
+        }
+      ],
+      "rules": [
+        "Pass value in degrees and onChange; the app keeps the value. The value stays from 0 up to but not including 360, so 370 becomes 10 and a step below 0 becomes 345 or 359.",
+        "0 points to the right and the angle grows clockwise on screen.",
+        "snap is the degrees to round to, usually 15, 22.5 or 45. The dial rounds to it, and the wheel and the arrow keys step by it. Leave it out for whole degrees.",
+        "Shift while dragging the dial drops the snap, and Shift with the wheel or the arrow keys steps one degree.",
+        "dial false leaves the dial out and keeps the number with its wheel and keys.",
+        "label, size, disabled and mixed work as on NumberField. mixed shows Mixed and hides the needle; the next angle clears it in the app."
+      ],
+      "a11y": [
+        "The number field is the control readers use; it is named by label or aria-label and shows the degree sign.",
+        "The dial is for pointers only and is hidden from readers; the arrow keys and the wheel do the same job."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "free text or a number",
+          "a number stepped up or down"
+        ],
+        "rule": "AngleField is the angle you point with a dial and also type, snapped to round steps."
+      },
+      "example": "import { useState } from 'react';\nimport { AngleField } from '@drizztdourden08/tessera';\n\nconst Rotation = () => {\n  const [angle, setAngle] = useState(45);\n  return <AngleField label=\"Rotation\" snap={15} value={angle} onChange={setAngle} />;\n};\n",
+      "propsHash": "a9d2e9696afb7a04",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(value: number) => void"
+          },
+          {
+            "name": "snap",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "dial",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "mixed",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          }
+        ],
+        "inherited": {
+          "count": 4,
+          "from": [
+            "AriaAttributes",
+            "HTMLAttributes",
+            "InputHTMLAttributes"
+          ],
+          "extends": [
+            "Pick<NumberFieldProps, 'label' | 'size' | 'disabled' | 'mixed' | 'id' | 'aria-label' | 'className'>",
+            "Omit<NumberInputProps, 'value' | 'onChange' | 'onStep' | 'buttons' | 'sizeToContent' | 'start' | 'end'>",
+            "Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'size'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border-strong",
+        "--c-inset",
+        "--c-primary",
+        "--size-32",
+        "--size-4",
+        "--space-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/AngleField",
+        "route": "#/story/composites-anglefield--overview",
+        "file": "stories/composites/AngleField.stories.tsx"
       },
       "parts": []
     },
@@ -12628,6 +12758,182 @@
       "parts": []
     },
     {
+      "name": "NumberField",
+      "tier": "composites",
+      "source": "src/composites/NumberField/NumberField.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A number field you can drag by its label, step with the wheel and the arrow keys, step finely with Shift, walk along a ladder of fixed stops and fill from a menu of quick values.",
+      "useWhen": [
+        "An editor sets a size, an opacity, an offset or a zoom, and the user tries values quickly by dragging or turning the wheel.",
+        "The value has fixed stops people expect, such as zoom steps from 25 to 12800 percent.",
+        "A tool option sits in a Toolbar and the number must stay compact, with a unit beside it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A plain number is typed once in a form, with stepper buttons.",
+          "use": "NumberInput"
+        },
+        {
+          "case": "The number is a position on a track, such as a volume.",
+          "use": "Slider"
+        },
+        {
+          "case": "The number is an angle that needs a dial.",
+          "use": "AngleField"
+        }
+      ],
+      "rules": [
+        "Pass value and onChange; the app keeps the value. min, max and step work as on NumberInput, and step defaults to 1.",
+        "label draws text before the field. Drag it sideways to scrub: one step for every six pixels. scrub false keeps the label and turns the drag off.",
+        "The wheel steps the value while the field has focus, and Up and Down do the same; wheel false turns the wheel off. Shift makes every step fine.",
+        "fineStep is the step while Shift is down. It defaults to a tenth of step.",
+        "ladder is a list of stops. A step, a wheel turn or a scrub step moves to the next stop above or below the value, whatever it is now. Shift leaves the ladder for the fine step.",
+        "presets add a menu of quick values beside the field, as numbers or as { value, label }. Picking one sets the value.",
+        "suffix draws a unit after the number, such as % or px.",
+        "mixed shows the word Mixed instead of a number, for values that differ across a selection. Any new value, typed, stepped or picked, calls onChange, and the app clears mixed.",
+        "A ZoomField is this part with ladder [25, 50, 100, 200, 400, 800, 1600, 3200, 6400, 12800], suffix % and a few presets; it is a recipe, not a part.",
+        "A value typed outside min and max is clamped as you type, and the field shows the clamped value when it loses focus."
+      ],
+      "a11y": [
+        "The number input keeps its own role and takes its name from label, or from aria-label when there is no label.",
+        "The label is hidden from readers, since the input already has the name; scrubbing is for pointers, and the arrow keys do the same for the keyboard.",
+        "Up and Down step the value; Shift with them steps finely. Escape in a Toolbar moves focus back to the item before.",
+        "The presets button is named Quick values and opens a menu with one radio item for each preset."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "free text or a number",
+          "a number stepped up or down"
+        ],
+        "rule": "NumberField is the number you drag, turn the wheel on, walk along a ladder or fill from quick values."
+      },
+      "example": "import { useState } from 'react';\nimport { NumberField } from '@drizztdourden08/tessera';\n\nconst ZOOM = [25, 50, 100, 200, 400, 800, 1600, 3200, 6400, 12800];\n\nconst Zoom = () => {\n  const [zoom, setZoom] = useState(100);\n  return <NumberField aria-label=\"Zoom\" suffix=\"%\" ladder={ZOOM} presets={[100, 400, 1600]} value={zoom} onChange={setZoom} />;\n};\n\nconst Opacity = () => {\n  const [opacity, setOpacity] = useState(80);\n  return <NumberField label=\"Opacity\" suffix=\"%\" min={0} max={100} step={5} value={opacity} onChange={setOpacity} />;\n};\n",
+      "propsHash": "0d0741633e74bab2",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(value: number) => void"
+          },
+          {
+            "name": "min",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "max",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "step",
+            "optional": true,
+            "text": "number",
+            "default": "1"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "fineStep",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "ladder",
+            "optional": true,
+            "text": "readonly number[]"
+          },
+          {
+            "name": "presets",
+            "optional": true,
+            "text": "readonly NumberPresetInput[]"
+          },
+          {
+            "name": "suffix",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "scrub",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "wheel",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "mixed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "invalid",
+            "optional": true,
+            "text": "boolean"
+          }
+        ],
+        "inherited": {
+          "count": 301,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes",
+            "InputHTMLAttributes"
+          ],
+          "extends": [
+            "Omit<NumberInputProps, 'value' | 'onChange' | 'onStep' | 'buttons' | 'sizeToContent' | 'start' | 'end'>",
+            "Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'size'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--c-text",
+        "--c-text-muted",
+        "--control-h-md",
+        "--control-h-sm",
+        "--control-pad-md",
+        "--control-pad-sm",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--text-sm",
+        "--text-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/NumberField",
+        "route": "#/story/composites-numberfield--overview",
+        "file": "stories/composites/NumberField.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "PanelContainer",
       "tier": "composites",
       "source": "src/composites/PanelContainer/PanelContainer.tsx",
@@ -13337,6 +13643,18 @@
             ]
           },
           {
+            "name": "size",
+            "optional": true,
+            "text": "ButtonSize",
+            "literals": [
+              "'xs'",
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ],
+            "default": "'sm'"
+          },
+          {
             "name": "fill",
             "optional": true,
             "text": "ButtonFill",
@@ -13361,18 +13679,6 @@
               "'ghost'"
             ],
             "default": "'secondary'"
-          },
-          {
-            "name": "size",
-            "optional": true,
-            "text": "ButtonSize",
-            "literals": [
-              "'xs'",
-              "'sm'",
-              "'md'",
-              "'lg'"
-            ],
-            "default": "'sm'"
           },
           {
             "name": "look",
@@ -16777,11 +17083,19 @@
       ],
       "rules": [
         "Keep every value in the app; the toolbar draws items and calls onSelect, onChange and the options of each item.",
-        "An item is a button, a toggle, a group of choices, a number or a separator. A tool the user picks is a toggle with pressed set on the current one.",
+        "An item is a button, a toggle, a group of choices, a number, a popover or a separator. A tool the user picks is a toggle with pressed set on the current one.",
+        "display on a group changes how it draws: set is a box of choices, menu folds it into one button that shows the current choice and opens a radio menu with icon and description, and slot does the same with a corner mark and pressed and onPress, so pressing the button runs the current choice.",
+        "openOn hover, click or hold says how a menu opens. hold opens it after holdDelay milliseconds of pressing, 350 by default, and the press that opened it picks the item under the pointer when it is released. dwell is the hover delay.",
+        "A popover item has a render(close) function. The panel opens beside the tool, moves focus into itself and gives focus back on Escape or when render calls close. In More it runs onFold, or shows disabled when there is none.",
+        "badge draws a small glyph with a description on a tool, such as the number of stamps; borrowed shows a tool in the look of another one, with a dashed outline.",
+        "A separator can take a label. A list draws it as a heading, a horizontal bar with labels on draws it beside the line, and More uses it as the heading of the folded group.",
+        "keyBadges draws the key of a tool on its button. It is off by default, only a vertical bar uses it, and only a shortcut of one key shows. It is the one place a shortcut sits on a button, so leave it off unless the product asks for it.",
+        "inlineOptions in a list opens the options of the pressed item under its row instead of in a menu.",
+        "A number item takes fineStep, ladder, presets, suffix, scrub, showLabel and mixed, and draws a NumberField; the wheel steps it while it has focus.",
         "orientation horizontal shows the optional caption beside the icon; vertical shows icons only. The hint always carries the name, the description and the shortcut.",
         "labels false hides the caption in a horizontal bar, so it shows icons only. It defaults to true. A ToolbarDock passes its value for the toolbar in the render slot.",
         "icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.",
-        "Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button.",
+        "Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button, except with keyBadges.",
         "options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.",
         "menuSide right or left says which side of a vertical toolbar its menus open on; a ToolbarDock slot hands it over, so a left bar opens right and a right bar opens left. Menus flip and stay inside the view near any edge, and look the same on every side.",
         "layout list draws each item as a row with its icon, name, description and shortcut, a group as a labelled set of rows and a number as a row with its field. Use it in a wide panel; it never folds and has no handle or caption.",
@@ -16808,7 +17122,7 @@
         "rule": "Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them."
       },
       "example": "import { Toolbar } from '@drizztdourden08/tessera';\nimport type { ToolbarItem } from '@drizztdourden08/tessera';\n\ninterface ToolRailProps {\n  tool: string;\n  pick: (tool: string) => void;\n  undo: () => void;\n}\n\nconst ToolRail = ({ tool, pick, undo }: ToolRailProps) => {\n  const items: ToolbarItem[] = [\n    { kind: 'toggle', id: 'pencil', label: 'Pencil', icon: 'pencil', description: 'Draw one pixel at a time.', shortcut: 'P', pressed: tool === 'pencil', onChange: () => pick('pencil') },\n    { kind: 'toggle', id: 'eraser', label: 'Eraser', icon: 'eraser', description: 'Clear pixels.', shortcut: 'E', pressed: tool === 'eraser', onChange: () => pick('eraser') },\n    { kind: 'separator', id: 'tools-end' },\n    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', shortcut: 'Ctrl+Z', onSelect: undo },\n  ];\n  return <Toolbar label=\"Drawing tools\" orientation=\"vertical\" items={items} />;\n};\n",
-      "propsHash": "514938db290cb569",
+      "propsHash": "ddba1bacfc4faccc",
       "props": {
         "own": [
           {
@@ -16889,6 +17203,16 @@
             "text": "readonly string[]"
           },
           {
+            "name": "keyBadges",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "inlineOptions",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
             "name": "onContextMenu",
             "optional": true,
             "text": "(itemId: string, event: ToolbarContextEvent) => void"
@@ -16908,13 +17232,18 @@
       "tokens": [
         "--border-width-thin",
         "--c-border",
+        "--c-border-strong",
+        "--c-surface",
+        "--c-text-dim",
         "--control-pad-sm",
         "--radius-md",
+        "--shadow-overlay",
         "--size-2",
         "--size-4",
         "--size-48",
         "--size-96",
         "--space-2xs",
+        "--space-md",
         "--space-sm",
         "--space-xs"
       ],
@@ -19437,6 +19766,72 @@
           "name": "VisibleRangeInput",
           "kind": "type",
           "text": "interface VisibleRangeInput {\n  scrollTop: number;\n  viewport: number;\n  rowHeight: number;\n  count: number;\n  overscan: number;\n}"
+        }
+      ]
+    },
+    {
+      "name": "wheel-step",
+      "tier": "composites",
+      "source": "src/composites/wheel-step/index.ts",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Turn the mouse wheel over an element into steps up and down, with a fine step while Shift is held, the way the volume button and the number field do.",
+      "useWhen": [
+        "A control has a value that should change by one step for each notch of the wheel.",
+        "A popup that belongs to the control, such as a volume panel, should answer the wheel as well."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A box scrolls and the wheel should move its content.",
+          "use": "ScrollArea"
+        },
+        {
+          "case": "The control is a number you type or drag.",
+          "use": "NumberField"
+        }
+      ],
+      "rules": [
+        "Pass refs, the elements to listen on, active and onStep; the app keeps the value and decides what a step means.",
+        "onStep receives { direction, fine }. direction is 1 for a wheel turned up and -1 for one turned down; fine is true while Shift is down.",
+        "The hook stops the page from scrolling for every wheel turn it handles, so turn it on only while the control should own the wheel, such as while it has focus.",
+        "Browsers send Shift with the wheel as a sideways turn; the hook reads that too.",
+        "Pass watch to listen again when an element in refs appears or goes, such as a panel that opens.",
+        "wheelStepOf is the same math for one wheel event, without the listener."
+      ],
+      "a11y": [
+        "The wheel is for pointers only; give the control keys for the same step, such as Up and Down.",
+        "Do not keep the wheel active on a control that has no focus, since it takes the wheel from the page."
+      ],
+      "example": "import { useRef, useState } from 'react';\nimport { Box, useWheelStep } from '@drizztdourden08/tessera';\n\nconst Stepper = () => {\n  const ref = useRef<HTMLElement>(null);\n  const [value, setValue] = useState(10);\n  useWheelStep({ refs: [ref], active: true, onStep: (step) => setValue((current) => current + step.direction * (step.fine ? 0.1 : 1)) });\n  return <Box ref={ref} tabIndex={0}>{value}</Box>;\n};\n",
+      "propsHash": "faa1a8ba3bb34802",
+      "exports": [
+        {
+          "name": "useWheelStep",
+          "kind": "hook",
+          "text": "(options: WheelStepOptions) => void"
+        },
+        {
+          "name": "WheelDelta",
+          "kind": "type",
+          "text": "interface WheelDelta {\n  deltaX: number;\n  deltaY: number;\n  shiftKey: boolean;\n}"
+        },
+        {
+          "name": "WheelStep",
+          "kind": "type",
+          "text": "interface WheelStep {\n  direction: 1 | -1;\n  fine: boolean;\n}"
+        },
+        {
+          "name": "wheelStepOf",
+          "kind": "function",
+          "text": "(event: WheelDelta) => WheelStep | undefined"
+        },
+        {
+          "name": "WheelStepOptions",
+          "kind": "type",
+          "text": "interface WheelStepOptions {\n  refs: readonly RefObject<HTMLElement | null>[];\n  active: boolean;\n  onStep: (step: WheelStep) => void;\n  watch?: unknown;\n}"
         }
       ]
     }

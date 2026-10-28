@@ -10,6 +10,8 @@ interface ToolbarContextValue {
   labels: boolean;
   stop: string | undefined;
   measure: boolean;
+  keyBadges: boolean;
+  inlineOptions: boolean;
   contextMenu: ToolbarProps['onContextMenu'];
 }
 
