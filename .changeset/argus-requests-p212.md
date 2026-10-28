@@ -1,5 +1,0 @@
----
-"@drizztdourden08/tessera": minor
----
-
-Five opt-in additions for Argus, with every default unchanged. The Argus mark now draws in `currentColor`, so the app sets its colour: white on the dark app, the primary colour for emphasis. `BrandMarkData` takes `currentInk`, the black and white a file uses, and `markInk` applies it. `pnpm icons` writes `brand/argus` in black for light grounds and `brand/dark-ground/argus` in white, and the splash uses the white one. `Card` and `Flex` take `container`, which makes them an inline size container, so `width="narrow-fill"` fields inside have a container to measure. `TrackTable` columns take `hideBelow` with 1280, 1120, 896, 768, 640 or 480, backed by the `--track-hide-*` and `--track-drop-*` tokens; `drop` 1, 2 and 3 stay as 768, 640 and 480, and a hidden column removes its grid track too. The row templates are now named by width, such as `--track-cols-768`. `FoldText` takes `hug` with `truncate="middle"` to take only the width its text needs, so a button can sit right after it. `Drawer` takes `headerActionsRow="eyebrow"` and `WindowHeader` takes `actionsRow="eyebrow"` to put the header actions in the id and tag row.
