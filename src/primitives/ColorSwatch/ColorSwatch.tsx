@@ -14,10 +14,10 @@ import type { ColorSwatchProps } from './ColorSwatch.type';
 const ColorSwatch = forwardRef<HTMLButtonElement, ColorSwatchProps>((props, ref) => {
   const {
     color, caption, selected = false, edited = false, transparent = false, unused = false, mixed = false,
-    marks, focusRing = 'inset', size, className = '', ...rest
+    marks, focusRing = 'inset', fill, size, className = '', ...rest
   } = props;
   const translucent = isTranslucent(color, transparent);
-  const classes = swatchClasses({ size: useControlSize(size), selected, edited, transparent, translucent, unused, mixed, focusRing, className });
+  const classes = swatchClasses({ size: useControlSize(size), selected, edited, transparent, translucent, unused, mixed, focusRing, fill, className });
 
   return (
     <button ref={ref} type="button" className={classes} style={swatchStyle(color, transparent, translucent)} {...rest}>

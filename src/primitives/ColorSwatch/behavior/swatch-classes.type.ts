@@ -10,6 +10,7 @@ interface SwatchClassesInput {
   unused: boolean;
   mixed: boolean;
   focusRing: SwatchFocusRing;
+  fill: boolean | undefined;
   className: string;
 }
 

@@ -20,6 +20,13 @@
   justify-content: center;
 }
 
+.color-swatch--fill {
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  aspect-ratio: var(--swatch-aspect, 1);
+}
+
 .color-swatch:hover:not(:disabled) {
   border-color: var(--c-border-strong);
 }

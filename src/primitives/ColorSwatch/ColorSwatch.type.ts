@@ -14,6 +14,7 @@ interface ColorSwatchProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>,
   mixed?: boolean;
   marks?: readonly ReactNode[];
   focusRing?: SwatchFocusRing;
+  fill?: boolean;
   size?: ControlSize;
 }
 
