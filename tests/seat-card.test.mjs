@@ -52,6 +52,38 @@ describe('SeatCard', () => {
   });
 });
 
+describe('SeatCard selected and held', () => {
+  it('marks the selected seat on the card and on its name button', () => {
+    const html = draw({ state: 'filled', name: 'Planner', selected: true, onSelect: ignore });
+    expect(html).toContain('data-selected');
+    expect(html).toMatch(/<button[^>]*aria-current="true"[^>]*>Planner<\/button>/);
+  });
+
+  it('marks a selected attention seat and leaves others unmarked', () => {
+    expect(draw({ state: 'attention', name: 'Builder', selected: true })).toContain('data-selected');
+    const html = draw({ state: 'filled', name: 'Planner', onSelect: ignore });
+    expect(html).not.toContain('data-selected');
+    expect(html).not.toContain('aria-current');
+  });
+
+  it('draws a held seat with a heading and a hint and no button', () => {
+    const html = draw({ state: 'held', label: 'Seat 3', hint: 'Waiting for Sam' });
+    expect(html).toContain('data-state="held"');
+    expect(html).toMatch(/<h3[^>]*seat-card__name[^>]*>Seat 3<\/h3>/);
+    expect(html).toContain('Waiting for Sam');
+    expect(html).not.toContain('<button');
+    expect(html).not.toContain('data-opens');
+  });
+
+  it('draws the actions of a held seat as buttons', () => {
+    const actions = [{ id: 'release', label: 'Release', onSelect: ignore }];
+    const html = draw({ state: 'held', label: 'Seat 3', actions });
+    expect(html).toContain('seat-card__actions');
+    expect(html).toContain('Release');
+    expect(html).toContain('<button');
+  });
+});
+
 describe('SeatGrid', () => {
   it('draws a named group with the default size and gap', () => {
     const html = renderToString(h(SeatGrid, { label: 'Agents' }, h('div', null, 'x')));

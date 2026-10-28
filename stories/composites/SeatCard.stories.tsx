@@ -22,14 +22,19 @@ const Playground = {
   render: (args) => <SeatSample key={args.state} {...args} />,
 } satisfies PlaygroundStory<SeatCardArgs>;
 
-const FourStates = {
-  name: 'The four states: filled, attention, empty and add',
+const FiveStates = {
+  name: 'The five states: filled, attention, held, empty and add',
   render: () => <SeatBoard set="states" />,
 } satisfies StoryLiteStoryDefinition<SeatCardArgs>;
 
 const Lobby = {
   name: 'A lobby: taken seats, one that needs you, open seats and the add seat in one grid',
   render: () => <SeatBoard set="lobby" />,
+} satisfies StoryLiteStoryDefinition<SeatCardArgs>;
+
+const Selected = {
+  name: 'Selected seats: the seat whose editor is open takes the primary border of a selected ItemCard',
+  render: () => <SeatBoard set="selected" />,
 } satisfies StoryLiteStoryDefinition<SeatCardArgs>;
 
 const Clickable = {
@@ -49,18 +54,18 @@ const renderState = (props: StateProps) => (
 
 const Overview = overviewStory({
   component: 'SeatCard',
-  description: 'One seat of a lobby: who sits there, an open seat, a seat that needs you, or a dashed card that adds a seat.',
+  description: 'One seat of a lobby: who sits there, a held or open seat, a seat that needs you, or a dashed card that adds a seat.',
   points: [
-    '`state="filled"` shows `name`, an optional `lead` (avatar or icon), a `meta` line and `actions`.',
-    '`state="attention"` is a filled seat that waits on you: a warning edge and a `reason` that says why.',
-    '`state="empty"` is a quiet open seat with a `label` and a `hint`; it is not clickable.',
-    '`state="add"` is a dashed button; `onSelect` only asks, the app adds the seat.',
+    '`filled` shows `name`, `lead`, `meta` and `actions`; `attention` adds a warning edge and a `reason`.',
+    '`held` is a dashed seat reserved for a player: `label`, `hint` and optional `actions`; not a button.',
+    '`empty` is a quiet open seat with a `label` and a `hint`; `add` is a dashed button and `onSelect` only asks.',
     'With `onSelect`, the name of a filled seat is its one button; a click on the card goes through it.',
+    '`selected` marks the seat whose editor is open with a primary border and `aria-current`.',
     'Put the cards in a [SeatGrid] so they share one size and wrap.',
   ],
   instead: '[ItemCard] for items of a catalogue with media, tags and details.',
   playground: Playground,
-  variants: [FourStates, Lobby, Clickable],
+  variants: [FiveStates, Lobby, Clickable, Selected],
   states: {
     render: renderState,
     list: [
@@ -74,4 +79,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Clickable, FourStates, Lobby, Overview, Playground };
+export { Clickable, FiveStates, Lobby, Overview, Playground, Selected };

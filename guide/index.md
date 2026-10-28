@@ -173,7 +173,7 @@ One line per component. 110 of 220 have their usage written; a linked name opens
 - `SearchResultGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResultHit`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResults`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [SeatCard](components/SeatCard.md): One seat of a lobby: who sits there with a name, a meta line and actions, an open seat, a seat that needs the user, or a dashed card that adds a seat. Import from `@drizztdourden08/tessera`.
+- [SeatCard](components/SeatCard.md): One seat of a lobby: who sits there with a name, a meta line and actions, an open seat, a seat held for a player, a seat that needs the user, or a dashed card that adds a seat. Import from `@drizztdourden08/tessera`.
 - [SeatGrid](components/SeatGrid.md): The grid that lays seat cards side by side and wraps them to the width, with the same gap and the same smallest width for every seat. Import from `@drizztdourden08/tessera`.
 - [SectionTimeline](components/SectionTimeline.md): A vertical list of links to the sections of a long page, in titled groups, beside a line that fills as the reader scrolls. Import from `@drizztdourden08/tessera`.
 - `SettingsPage`: usage not written yet. Import from `@drizztdourden08/tessera`.

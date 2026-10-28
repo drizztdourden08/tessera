@@ -192,7 +192,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Items of a catalogue, as cards: [ItemCard](components/ItemCard.md). ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places.
   - One item as a tile with a picture, a name and corner marks: [Tile](components/Tile.md). Tile gives every grid of thumbnails the same square media, name line and four corner marks.
   - The seats of a lobby, taken, open or to add:
-    - [SeatCard](components/SeatCard.md). SeatCard gives every lobby the same four seats, with who sits there, the open seat and the add button in fixed places.
+    - [SeatCard](components/SeatCard.md). SeatCard gives every lobby the same five seats, with who sits there, the held seat, the open seat and the add button in fixed places.
     - [SeatGrid](components/SeatGrid.md). SeatGrid gives every lobby the same wrapping grid of seats, with the sizes set by tokens.
   - Cards in columns the user drags between, such as tasks by state: [KanbanBoard](components/KanbanBoard.md). KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards.
   - Files, with their size, date, open and reveal: [FileList](components/FileList.md). FileList gives every file the same row, with the size, the date and the two ways to reach it.

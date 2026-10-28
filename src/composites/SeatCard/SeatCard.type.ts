@@ -11,6 +11,16 @@ interface SeatCardFilledProps {
   reason?: string;
   actions?: readonly ActionItem[];
   onSelect?: () => void;
+  selected?: boolean;
+  level?: HeadingLevel;
+  className?: string;
+}
+
+interface SeatCardHeldProps {
+  state: 'held';
+  label: ReactNode;
+  hint?: ReactNode;
+  actions?: readonly ActionItem[];
   level?: HeadingLevel;
   className?: string;
 }
@@ -30,8 +40,8 @@ interface SeatCardAddProps {
   className?: string;
 }
 
-type SeatCardProps = SeatCardFilledProps | SeatCardEmptyProps | SeatCardAddProps;
+type SeatCardProps = SeatCardFilledProps | SeatCardHeldProps | SeatCardEmptyProps | SeatCardAddProps;
 
-type SeatCardTextProps = Pick<SeatCardFilledProps, 'name' | 'meta' | 'reason' | 'onSelect'> & { level: HeadingLevel };
+type SeatCardTextProps = Pick<SeatCardFilledProps, 'name' | 'meta' | 'reason' | 'onSelect' | 'selected'> & { level: HeadingLevel };
 
-export type { SeatCardAddProps, SeatCardEmptyProps, SeatCardFilledProps, SeatCardProps, SeatCardTextProps };
+export type { SeatCardAddProps, SeatCardEmptyProps, SeatCardFilledProps, SeatCardHeldProps, SeatCardProps, SeatCardTextProps };
