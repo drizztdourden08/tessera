@@ -4,6 +4,7 @@ import { PIXEL_DOCUMENT_GRIDS } from './pixel-documents.constants';
 import { PIXEL_ARRANGE_EXTRA_GRIDS } from './pixel-arrange-extras.constants';
 import { PIXEL_DRAW_EFFECT_GRIDS } from './pixel-draw-effects.constants';
 import { PIXEL_DRAW_MODE_GRIDS } from './pixel-draw-modes.constants';
+import { PIXEL_INK_MODE_GRIDS } from './pixel-ink-modes.constants';
 import { PIXEL_FRAME_CEL_GRIDS } from './pixel-frame-cels.constants';
 import { PIXEL_PAINT_BRUSH_GRIDS } from './pixel-paint-brushes.constants';
 import { PIXEL_SELECT_EXTRA_GRIDS } from './pixel-select-extras.constants';
@@ -43,6 +44,7 @@ const PIXEL_GRIDS = {
   ...PIXEL_VIEW_GUIDE_GRIDS,
   ...PIXEL_DRAW_MODE_GRIDS,
   ...PIXEL_DRAW_EFFECT_GRIDS,
+  ...PIXEL_INK_MODE_GRIDS,
   ...PIXEL_SELECT_EXTRA_GRIDS,
   ...PIXEL_TRANSFORM_EXTRA_GRIDS,
   ...PIXEL_ARRANGE_EXTRA_GRIDS,

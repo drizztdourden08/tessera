@@ -5947,7 +5947,8 @@
         "role is radiogroup by default, and an arrow key picks as it moves. Pass listbox to move without picking; Enter and Space pick.",
         "Spread state.props from renderCell onto the cell you draw, such as a ColorSwatch with focusRing apart, so it keeps the role, the name and the Tab stop.",
         "pickOnRelease picks on the pointer up over a cell, even when the press started elsewhere, so a palette opened at a point picks by release.",
-        "footer takes an add button or a hint under the cells. A ramp strip is a ChoiceGrid of ColorSwatch cells."
+        "footer takes an add button or a hint under the cells. A ramp strip is a ChoiceGrid of ColorSwatch cells.",
+        "A brush or pattern picker is a Toolbar popover item whose render returns a ChoiceGrid with columns. Draw each cell as an Image with fit integer and pixelated, or a small Svg grid, so the preview stays crisp, and put an Add from selection Button in footer."
       ],
       "a11y": [
         "The grid is one Tab stop; arrows move inside it, Home and End jump to the first and last cell, and Up and Down step by a row when columns is set.",
@@ -17270,6 +17271,7 @@
         "menuSide right or left says which side of a vertical toolbar its menus open on; a ToolbarDock slot hands it over, so a left bar opens right and a right bar opens left. Menus flip and stay inside the view near any edge, and look the same on every side.",
         "layout list draws each item as a row with its icon, name, description and shortcut, a group as a labelled set of rows and a number as a row with its field. Use it in a wide panel; it never folds and has no handle or caption.",
         "Items that do not fit fold into More; a group becomes a labelled set of choices and a number becomes a slider. Give an item a priority to choose what folds first: the lowest priority folds first, a missing one counts as 0, and equal priorities fold from the end. The items that stay keep their order.",
+        "priority on a separator makes the items after it, up to the next separator, one group that folds as a unit. The group takes that priority for all its items, folds into More whole under its heading, and never splits across the bar and More. A separator without priority keeps the old behaviour.",
         "columns 2 puts a vertical bar in two columns, with a separator and the handle across both. columns auto stays in one column until the items do not fit, then wraps into two before it folds anything into More. columns 1 is the default, and a horizontal bar ignores it.",
         "hiddenItems is a list of item ids to leave out, in the bar, in More and in the list. Separators left at an end or doubled are dropped. A ToolbarDock slot hands over the list a user chose.",
         "onContextMenu(itemId, event) on the toolbar, or onContextMenu(event) on one item, runs on a right click and on Shift+F10 or the Menu key while the item has focus. The toolbar stops the browser menu and leaves showing yours to the app; a group gives the id of the group and a number gives its own.",
