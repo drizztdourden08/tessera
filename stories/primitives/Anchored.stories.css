@@ -49,3 +49,26 @@
 .anchored-demo__spacer {
   height: 30rem;
 }
+
+.anchored-demo__cells {
+  display: grid;
+  grid-template-columns: repeat(8, var(--size-64));
+  gap: var(--space-sm);
+  padding: var(--space-xl) var(--space-md);
+}
+
+.anchored-demo__cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  block-size: var(--size-48);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-sm);
+  color: var(--c-text-muted);
+}
+
+.anchored-demo__cell[aria-pressed='true'] {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+  color: var(--c-primary);
+}
