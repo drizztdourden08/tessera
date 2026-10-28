@@ -1,0 +1,10 @@
+/* @layer stories @kind style */
+.toggle-sweep-story {
+  inline-size: 100%;
+  max-inline-size: 20rem;
+}
+
+.toggle-sweep-story__row {
+  touch-action: none;
+  user-select: none;
+}

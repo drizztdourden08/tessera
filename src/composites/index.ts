@@ -23,3 +23,5 @@ export { useWheelStep, wheelStepOf } from './wheel-step';
 export type { WheelDelta, WheelStep, WheelStepOptions } from './wheel-step';
 export { rectKeys, toggledKey, typeAheadIndex, useSelectionModel } from './selection';
 export type { SelectAllState, SelectionCell, SelectionClick, SelectionModel, SelectionModelInput } from './selection';
+export { useToggleSweep } from './toggle-sweep';
+export type { ToggleSweep, ToggleSweepBind, ToggleSweepInput } from './toggle-sweep';

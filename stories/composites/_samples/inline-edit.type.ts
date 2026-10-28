@@ -6,6 +6,7 @@ type InlineEditArgs = {
   disabled: boolean;
   validated: boolean;
   link: boolean;
+  dense: boolean;
 };
 
 interface InlineEditDemoProps {
@@ -16,6 +17,7 @@ interface InlineEditDemoProps {
   disabled?: boolean;
   validated?: boolean;
   link?: boolean;
+  dense?: boolean;
   markdown?: boolean;
 }
 
