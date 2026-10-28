@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind barrel */
-export { AnchorPicker, type Anchor, type AnchorPickerProps, type AnchorPickerVariant } from '../AnchorPicker';
+export { SplitButton, type SplitButtonProps } from '../SplitButton';
+export { AnchorPicker, type Anchor, type AnchorPickerProps, type AnchorPickerSize, type AnchorPickerVariant, type AnchorValue } from '../AnchorPicker';
 export { SettingsRow } from '../SettingsRow';
 export type {
   SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsLoadProblem, SettingsOption, SettingsRowAction,

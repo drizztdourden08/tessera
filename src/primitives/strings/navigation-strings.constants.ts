@@ -34,6 +34,13 @@ const NAVIGATION_STRINGS = {
   opensInNewTab: 'opens in a new tab',
   siteLinks: 'Main pages',
   siteFooterLinks: 'More about the site',
+  breadcrumbs: 'Breadcrumbs',
+  siblingsOf: (name: string) => `Places next to ${name}`,
+  hiddenLevels: 'Show the hidden levels',
+  editPath: 'Edit the path',
+  mapLabel: 'Map',
+  viewing: (across: string, down: string) => `Showing ${across} across and ${down} down`,
+  span: (from: number, to: number) => `${from}% to ${to}%`,
 };
 
 export { NAVIGATION_STRINGS };

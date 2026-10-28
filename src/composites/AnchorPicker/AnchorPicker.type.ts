@@ -5,14 +5,19 @@ type Anchor = 'top-left' | 'top' | 'top-right' | 'left' | 'center' | 'right' | '
 
 type AnchorPickerVariant = 'dots' | 'arrows';
 
+type AnchorValue = Anchor | 'custom';
+
+type AnchorPickerSize = ControlSize | 'xs';
+
 type AnchorArrow = 'up' | 'up-right' | 'right' | 'down-right' | 'down' | 'down-left' | 'left' | 'up-left';
 
 interface AnchorPickerProps {
-  value: Anchor;
+  value: AnchorValue;
   onChange: (anchor: Anchor) => void;
   variant?: AnchorPickerVariant;
-  size?: ControlSize;
+  size?: AnchorPickerSize;
   label?: string;
+  customLabel?: string;
   disabled?: boolean;
   className?: string;
 }
@@ -24,10 +29,11 @@ interface AnchorCell {
 
 interface AnchorCellProps {
   anchor: Anchor;
-  value: Anchor;
+  value: AnchorValue;
   variant: AnchorPickerVariant;
+  size: AnchorPickerSize;
   disabled: boolean;
   onPick: (anchor: Anchor) => void;
 }
 
-export type { Anchor, AnchorArrow, AnchorCell, AnchorCellProps, AnchorPickerProps, AnchorPickerVariant };
+export type { Anchor, AnchorArrow, AnchorCell, AnchorCellProps, AnchorPickerProps, AnchorPickerSize, AnchorPickerVariant, AnchorValue };

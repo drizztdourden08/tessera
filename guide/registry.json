@@ -48,6 +48,11 @@
               },
               "a whole area the user presses": {
                 "components": []
+              },
+              "a main action with a menu of related ones": {
+                "components": [
+                  "SplitButton"
+                ]
               }
             }
           },
@@ -413,6 +418,16 @@
             "components": [
               "DocumentTabs"
             ]
+          },
+          "up and down the levels of a path": {
+            "components": [
+              "Breadcrumbs"
+            ]
+          },
+          "around a large surface, from a small map of it": {
+            "components": [
+              "Navigator"
+            ]
           }
         }
       },
@@ -755,6 +770,11 @@
           "items of a catalogue, as cards": {
             "components": [
               "ItemCard"
+            ]
+          },
+          "one item as a tile with a picture, a name and corner marks": {
+            "components": [
+              "Tile"
             ]
           },
           "the seats of a lobby, taken, open or to add": {
@@ -5083,10 +5103,12 @@
         "The default variant dots shows the chosen cell as a filled dot.",
         "The variant arrows shows an arrow in every other cell, pointing away from the chosen one: the look of a canvas resize dialog.",
         "Pass label when the default Anchor does not say what is anchored, such as Keep this edge.",
-        "size sm fits a dense panel; md is the default."
+        "size sm fits a dense panel and xs a toolbar; md is the default.",
+        "Set value to custom when the anchor is a free point set elsewhere: no cell is chosen and the outline turns dashed. Pass customLabel to say so aloud."
       ],
       "a11y": [
         "The grid is a radio group with a radio per cell, named Top left to Bottom right, and one Tab stop on the chosen cell.",
+        "With value custom no radio is checked, and the centre cell holds the one Tab stop.",
         "The arrow keys move in two dimensions and choose; Home and End go to the start and end of the row, and with Control to the first and last cell."
       ],
       "tree": {
@@ -5097,23 +5119,24 @@
         "rule": "AnchorPicker picks one of nine anchor points, as an image editor does for canvas resize."
       },
       "example": "import { useState } from 'react';\nimport { AnchorPicker } from '@drizztdourden08/tessera';\nimport type { Anchor } from '@drizztdourden08/tessera';\n\nconst CanvasAnchor = () => {\n  const [anchor, setAnchor] = useState<Anchor>('center');\n  return <AnchorPicker label=\"Anchor\" variant=\"arrows\" value={anchor} onChange={setAnchor} />;\n};\n",
-      "propsHash": "753c64a0dac3d4bb",
+      "propsHash": "41fafd4c7db68549",
       "props": {
         "own": [
           {
             "name": "value",
             "optional": false,
-            "text": "Anchor",
+            "text": "AnchorValue",
             "literals": [
-              "'top-left'",
-              "'top'",
-              "'top-right'",
-              "'left'",
-              "'center'",
-              "'right'",
-              "'bottom-left'",
               "'bottom'",
-              "'bottom-right'"
+              "'bottom-left'",
+              "'bottom-right'",
+              "'center'",
+              "'custom'",
+              "'left'",
+              "'right'",
+              "'top'",
+              "'top-left'",
+              "'top-right'"
             ]
           },
           {
@@ -5134,14 +5157,20 @@
           {
             "name": "size",
             "optional": true,
-            "text": "ControlSize",
+            "text": "AnchorPickerSize",
             "literals": [
+              "'md'",
               "'sm'",
-              "'md'"
+              "'xs'"
             ]
           },
           {
             "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "customLabel",
             "optional": true,
             "text": "string"
           },
@@ -5179,8 +5208,10 @@
         "--radius-round",
         "--radius-sm",
         "--size-10",
+        "--size-16",
         "--size-20",
         "--size-28",
+        "--size-4",
         "--size-6",
         "--size-8",
         "--space-2xs",
@@ -5352,6 +5383,145 @@
         "title": "Composites · Actions/ArmedIconButton",
         "route": "#/story/composites-armediconbutton--overview",
         "file": "stories/composites/ArmedIconButton.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "Breadcrumbs",
+      "tier": "composites",
+      "source": "src/composites/Breadcrumbs/Breadcrumbs.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The trail of places that leads to the one the user is in, each a button, with a menu of its neighbours, a fold for the middle and a click at the end that turns it into a path box.",
+      "useWhen": [
+        "The user is deep in a nested place, such as a folder in a project, and needs to climb back up in one click.",
+        "A segment has neighbours at the same level, such as the other folders of its parent, that the user may jump to from the trail.",
+        "Items can be dragged onto a place in the trail to move them there."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user steps through the fixed stages of one task.",
+          "use": "Wizard"
+        },
+        {
+          "case": "The user moves between a few views of one area.",
+          "use": "Tabs"
+        },
+        {
+          "case": "The user picks a file or folder path to store, not to move around in.",
+          "use": "PathInput"
+        }
+      ],
+      "rules": [
+        "segments run from the root to the current place, each with an id and a label, and optionally an icon from the set and siblings.",
+        "The last segment is the current place and carries aria-current. onNavigate gets the id of the segment that was pressed.",
+        "siblings are the menu nodes of a DropdownMenu. A chevron after the segment opens them; leave it out when a segment has no neighbours.",
+        "Pass maxVisible to fold a long trail: the first segment and the last ones stay, and the middle ones sit behind an ellipsis menu. The smallest value is 3.",
+        "Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.",
+        "Pass onPathSubmit to let the user click the empty space at the end and type the path in a PathInput. path is the text shown there and defaults to the labels joined by a slash.",
+        "trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place."
+      ],
+      "a11y": [
+        "The bar is a nav named Breadcrumbs, or by label, and the trail is an ordered list.",
+        "Every segment is a button; the current one is marked with aria-current page.",
+        "The sibling menu and the fold menu are named buttons that follow DropdownMenu keys.",
+        "The edit box takes focus at once, Enter goes to the typed path and Escape or leaving the box cancels."
+      ],
+      "tree": {
+        "path": [
+          "navigation",
+          "up and down the levels of a path"
+        ],
+        "rule": "Breadcrumbs shows the levels of a path as a trail with neighbour menus, a fold and a path box in one place."
+      },
+      "example": "import { Breadcrumbs } from '@drizztdourden08/tessera';\nimport type { BreadcrumbSegment } from '@drizztdourden08/tessera';\n\ninterface FolderBarProps {\n  trail: readonly BreadcrumbSegment[];\n  open: (id: string) => void;\n  openPath: (path: string) => void;\n}\n\nconst FolderBar = ({ trail, open, openPath }: FolderBarProps) => (\n  <Breadcrumbs segments={trail} maxVisible={4} onNavigate={open} onPathSubmit={openPath} />\n);\n",
+      "propsHash": "89c306f62e4033c6",
+      "props": {
+        "own": [
+          {
+            "name": "segments",
+            "optional": false,
+            "text": "readonly BreadcrumbSegment[]"
+          },
+          {
+            "name": "onNavigate",
+            "optional": false,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "maxVisible",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "onDropOn",
+            "optional": true,
+            "text": "(id: string, event: DragEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "canDrop",
+            "optional": true,
+            "text": "(id: string, event: DragEvent<HTMLElement>) => boolean"
+          },
+          {
+            "name": "path",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onPathSubmit",
+            "optional": true,
+            "text": "(path: string) => void"
+          },
+          {
+            "name": "trailing",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-focus",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-text",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--control-h-sm",
+        "--radius-sm",
+        "--size-160",
+        "--size-32",
+        "--space-2xs",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--weight-medium"
+      ],
+      "gallery": {
+        "title": "Composites · Navigation/Breadcrumbs",
+        "route": "#/story/composites-breadcrumbs--overview",
+        "file": "stories/composites/Breadcrumbs.stories.tsx"
       },
       "parts": []
     },
@@ -6119,7 +6289,8 @@
         "Set variant to plain for a title row with no panel: no backdrop, no gradient and no bottom border.",
         "Set compact once the content under it scrolls; it shrinks to a slim row.",
         "On a sub-page, pass back: label names the parent page and onSelect returns to it. It reads Back to and the label, or Back alone with no label, before the icon, and folds to an arrow when the row has no room for it.",
-        "level sets the heading tag, h2 by default; pick the level that fits the page outline."
+        "level sets the heading tag, h2 by default; pick the level that fits the page outline.",
+        "For the header of one subject, such as a sprite or a project, put its kind as a Tag, its path as a Link and its marks as Badge nodes in strip, and a pin Toggle in actions."
       ],
       "a11y": [
         "The title is a real heading; pass titleId to name the container with aria-labelledby.",
@@ -6134,7 +6305,7 @@
         ],
         "rule": "ContentHeader is the header with an icon, a title and a backdrop that any container can carry."
       },
-      "example": "import { ContentHeader, HeaderAnchorNav, Icon } from '@drizztdourden08/tessera';\n\nconst GeneralHeader = ({ section, onSection }: { section: string; onSection: (id: string) => void }) => (\n  <ContentHeader\n    icon={<Icon name=\"settings\" />}\n    title=\"General\"\n    strip={<HeaderAnchorNav items={[{ id: 'startup', label: 'Startup' }, { id: 'tray', label: 'Tray' }]} activeId={section} onSelect={onSection} ariaLabel=\"General sections\" />}\n  />\n);\n",
+      "example": "import { Badge, ContentHeader, HeaderAnchorNav, Icon, Link, Tag, Toggle } from '@drizztdourden08/tessera';\n\nconst GeneralHeader = ({ section, onSection }: { section: string; onSection: (id: string) => void }) => (\n  <ContentHeader\n    icon={<Icon name=\"settings\" />}\n    title=\"General\"\n    strip={<HeaderAnchorNav items={[{ id: 'startup', label: 'Startup' }, { id: 'tray', label: 'Tray' }]} activeId={section} onSelect={onSection} ariaLabel=\"General sections\" />}\n  />\n);\n\ninterface SubjectHeaderProps {\n  name: string;\n  path: string;\n  pinned: boolean;\n  onPin: (pinned: boolean) => void;\n  openFolder: (path: string) => void;\n}\n\nconst SubjectHeader = ({ name, path, pinned, onPin, openFolder }: SubjectHeaderProps) => (\n  <ContentHeader\n    icon={<Icon name=\"image\" />}\n    title={name}\n    strip={\n      <>\n        <Tag>Sprite</Tag>\n        <Link variant=\"subtle\" href={path} navigate={openFolder}>{path}</Link>\n        <Badge variant=\"inline\" value={3} label=\"Frame count\" />\n      </>\n    }\n    actions={<Toggle checked={pinned} onChange={onPin} aria-label=\"Pin to the sidebar\" size=\"sm\" />}\n  />\n);\n",
       "propsHash": "bc6ef7432d73439d",
       "props": {
         "own": [
@@ -12056,6 +12227,118 @@
       "parts": []
     },
     {
+      "name": "Navigator",
+      "tier": "composites",
+      "source": "src/composites/Navigator/Navigator.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A small map of a large surface, such as a canvas or a long timeline, with a frame that marks the visible part and that the user drags to move the view.",
+      "useWhen": [
+        "The user pans a surface much larger than the screen, such as a pixel canvas, a node graph or a tilemap, and needs to see where the view sits.",
+        "The user should jump to a far corner of a zoomed surface in one press."
+      ],
+      "avoidWhen": [
+        {
+          "case": "One value moves along one line.",
+          "use": "Slider"
+        },
+        {
+          "case": "The page scrolls and the user needs to know where they are in it.",
+          "use": "SectionTimeline"
+        },
+        {
+          "case": "The user drags a box to select items on a surface.",
+          "use": "MarqueeBox"
+        }
+      ],
+      "rules": [
+        "surface is the size of the whole surface and viewport is the visible rectangle, in the same units. The app owns viewport.",
+        "onViewportChange gets the new rectangle while the user drags, so the surface follows the frame at once.",
+        "Press anywhere on the map to centre the frame there; the drag then goes on from that point.",
+        "Pass the thumbnail as children, such as an Image or a canvas. It fills the map and takes no pointer events.",
+        "step is the distance of one arrow key press in surface units; the default is a twentieth of the larger side. Shift multiplies it by five.",
+        "The width of the map comes from a class or its parent; its height follows the shape of the surface."
+      ],
+      "a11y": [
+        "The frame is a slider with one Tab stop, named Map or by label.",
+        "Arrow keys move the frame, Shift makes the step larger, and Page Up and Page Down move it by its own height.",
+        "The value text says how far across and down the frame sits, such as Showing 20% to 60% across and 0% to 50% down."
+      ],
+      "tree": {
+        "path": [
+          "navigation",
+          "around a large surface, from a small map of it"
+        ],
+        "rule": "Navigator draws any large surface as a small map with a frame the user drags, the same way in every editor."
+      },
+      "example": "import { Image, Navigator } from '@drizztdourden08/tessera';\nimport type { NavigatorViewport } from '@drizztdourden08/tessera';\n\ninterface CanvasMapProps {\n  preview: string;\n  view: NavigatorViewport;\n  setView: (view: NavigatorViewport) => void;\n}\n\nconst CanvasMap = ({ preview, view, setView }: CanvasMapProps) => (\n  <Navigator surface={{ width: 512, height: 512 }} viewport={view} onViewportChange={setView}>\n    <Image src={preview} alt=\"\" fit=\"fill\" pixelated />\n  </Navigator>\n);\n",
+      "propsHash": "7721a8658b4c4fcb",
+      "props": {
+        "own": [
+          {
+            "name": "surface",
+            "optional": false,
+            "text": "NavigatorSurface"
+          },
+          {
+            "name": "viewport",
+            "optional": false,
+            "text": "NavigatorViewport"
+          },
+          {
+            "name": "onViewportChange",
+            "optional": false,
+            "text": "(viewport: NavigatorViewport) => void"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "step",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-focus",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-sunken",
+        "--radius-sm",
+        "--size-160"
+      ],
+      "gallery": {
+        "title": "Composites · Navigation/Navigator",
+        "route": "#/story/composites-navigator--overview",
+        "file": "stories/composites/Navigator.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "PanelContainer",
       "tier": "composites",
       "source": "src/composites/PanelContainer/PanelContainer.tsx",
@@ -15071,6 +15354,142 @@
       "parts": []
     },
     {
+      "name": "SplitButton",
+      "tier": "composites",
+      "source": "src/composites/SplitButton/SplitButton.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A button that runs its main action, joined to a chevron that opens a menu of related actions, such as New with the kinds of thing to create.",
+      "useWhen": [
+        "One action is the usual choice and a few variants of it sit one step behind, such as New file with New folder and New from template.",
+        "A tool toggles on and off with one press and also offers settings or modes in a menu beside it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A menu of actions where no one is the usual choice.",
+          "use": "DropdownMenu"
+        },
+        {
+          "case": "Peer actions on one thing, read as one tool.",
+          "use": "ButtonGroup"
+        },
+        {
+          "case": "The user picks one of a few modes and the pick is the value.",
+          "use": "SegmentedControl"
+        }
+      ],
+      "rules": [
+        "label names the main action and onClick runs it. The chevron never runs it.",
+        "items are the menu nodes of a DropdownMenu: actions, checks, radios and separators.",
+        "Pass pressed for a toggle: the main button shows the on look and reports aria-pressed. Leave it out for a plain action.",
+        "variant and size follow Button; the chevron takes the same variant and a matching size.",
+        "Pass menuLabel when Options does not say what the menu holds, such as New options.",
+        "Keep the menu to a few related actions; more belong in a DropdownMenu."
+      ],
+      "a11y": [
+        "The pair is a group named by the label; the main button and the chevron are two tab stops.",
+        "The chevron is named by menuLabel, reports aria-haspopup and aria-expanded, and opens the menu with a click, Enter or Space.",
+        "The menu returns focus to the chevron when it closes."
+      ],
+      "tree": {
+        "path": [
+          "actions",
+          "one action",
+          "a main action with a menu of related ones"
+        ],
+        "rule": "SplitButton gives the usual action one press and keeps its variants one step behind a chevron."
+      },
+      "example": "import { Icon, SplitButton } from '@drizztdourden08/tessera';\n\ninterface NewMenuProps {\n  createFile: () => void;\n  createFolder: () => void;\n}\n\nconst NewMenu = ({ createFile, createFolder }: NewMenuProps) => (\n  <SplitButton\n    label=\"New file\"\n    icon={<Icon name=\"plus\" />}\n    onClick={createFile}\n    menuLabel=\"New options\"\n    items={[\n      { id: 'folder', label: 'New folder', onSelect: createFolder },\n    ]}\n  />\n);\n",
+      "propsHash": "4638166a124f8456",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly MenuNode[]"
+          },
+          {
+            "name": "onClick",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "icon",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "ButtonVariant",
+            "literals": [
+              "'primary'",
+              "'secondary'",
+              "'tertiary'",
+              "'danger'",
+              "'warning'",
+              "'info'",
+              "'success'",
+              "'ghost'"
+            ],
+            "default": "'secondary'"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ButtonSize",
+            "literals": [
+              "'xs'",
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ],
+            "default": "'md'"
+          },
+          {
+            "name": "pressed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "menuLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Composites · Actions/SplitButton",
+        "route": "#/story/composites-splitbutton--overview",
+        "file": "stories/composites/SplitButton.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "SplitPane",
       "tier": "composites",
       "source": "src/composites/SplitPane/SplitPane.tsx",
@@ -15812,6 +16231,120 @@
         "title": "Composites · Content/TaskProgress",
         "route": "#/story/composites-taskprogress--overview",
         "file": "stories/composites/TaskProgress.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "Tile",
+      "tier": "composites",
+      "source": "src/composites/Tile/Tile.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "One square tile of a grid: a picture or any media, a name line under it and up to four marks in its corners, with a selected and a focused look.",
+      "useWhen": [
+        "A browser shows files, sprites or assets as thumbnails in a grid, with a name under each and small marks for their state.",
+        "A tile in a VirtualGrid needs a selected look and a focus look that stay apart."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A catalogue item with a title, tags, details and actions.",
+          "use": "ItemCard"
+        },
+        {
+          "case": "One seat of a lobby: taken, open or to add.",
+          "use": "SeatCard"
+        },
+        {
+          "case": "One row of a list, with columns and actions.",
+          "use": "ListItemRow"
+        }
+      ],
+      "rules": [
+        "media is the picture or any node, such as an Image with fit contain. It fills a square and never changes the size of the tile.",
+        "name is the one line under the media; a long name is cut with an ellipsis and a plain string is also the title.",
+        "corners takes topStart, topEnd, bottomStart and bottomEnd. Put a Badge, a Tag, an Icon or any small node in a corner; leave the rest out.",
+        "The tile does not select itself. Pass selected and focused from the grid, and pass role, tabIndex and the handlers the grid gives you.",
+        "With a role, selected is also reported as aria-selected. focused draws the focus ring for a tile the grid marks with aria-activedescendant.",
+        "The tile fills its cell, so the grid sets its width: a slider can drive the tile size of a VirtualGrid, and a very small size can switch the grid to a list."
+      ],
+      "a11y": [
+        "The tile is plain content: the grid gives it a role such as option or gridcell and its tab stop.",
+        "A corner mark that carries meaning needs its own label, since the corner is not read as text.",
+        "The name is the text of the tile; give media an empty alt unless it says something the name does not."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "one item as a tile with a picture, a name and corner marks"
+        ],
+        "rule": "Tile gives every grid of thumbnails the same square media, name line and four corner marks."
+      },
+      "example": "import { Badge, Image, Tile } from '@drizztdourden08/tessera';\n\ninterface SpriteTileProps {\n  name: string;\n  src: string;\n  picked: boolean;\n  frames: number;\n}\n\nconst SpriteTile = ({ name, src, picked, frames }: SpriteTileProps) => (\n  <Tile\n    name={name}\n    selected={picked}\n    media={<Image src={src} alt=\"\" fit=\"integer\" backdrop=\"checker\" pixelated />}\n    corners={{ bottomEnd: <Badge variant=\"inline\" value={frames} label=\"Frame count\" /> }}\n  />\n);\n",
+      "propsHash": "8c89c78810df246a",
+      "props": {
+        "own": [
+          {
+            "name": "media",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "name",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "corners",
+            "optional": true,
+            "text": "TileCorners"
+          },
+          {
+            "name": "selected",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "focused",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          }
+        ],
+        "inherited": {
+          "count": 277,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes"
+          ],
+          "extends": [
+            "Omit<HTMLAttributes<HTMLDivElement>, 'children'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-focus",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-sunken",
+        "--c-text",
+        "--radius-md",
+        "--radius-sm",
+        "--space-2xs",
+        "--space-xs",
+        "--text-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/Tile",
+        "route": "#/story/composites-tile--overview",
+        "file": "stories/composites/Tile.stories.tsx"
       },
       "parts": []
     },

@@ -10,6 +10,8 @@ export { VirtualGrid } from '../VirtualGrid';
 export type { VirtualGridBind, VirtualGridCellBind, VirtualGridHandle, VirtualGridProps, VirtualGridSection } from '../VirtualGrid';
 export { MarqueeBox } from '../MarqueeBox';
 export type { MarqueeBoxProps } from '../MarqueeBox';
+export { Navigator } from '../Navigator';
+export type { NavigatorProps, NavigatorSurface, NavigatorViewport } from '../Navigator';
 export { renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, useVirtualWindow, visibleRange } from '../virtual';
 export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from '../virtual';
 export {
@@ -35,6 +37,8 @@ export { FileList } from '../FileList';
 export type { FileEntry, FileListProps } from '../FileList';
 export { ItemCard } from '../ItemCard';
 export type { ItemCardDensity, ItemCardLayout, ItemCardMediaHeight, ItemCardMediaSize, ItemCardMediaTone, ItemCardProps, ItemCardStatus } from '../ItemCard';
+export { Tile } from '../Tile';
+export type { TileCorner, TileCorners, TileProps } from '../Tile';
 export { SeatCard } from '../SeatCard';
 export type { SeatCardAddProps, SeatCardEmptyProps, SeatCardFilledProps, SeatCardProps } from '../SeatCard';
 export { SeatGrid } from '../SeatGrid';

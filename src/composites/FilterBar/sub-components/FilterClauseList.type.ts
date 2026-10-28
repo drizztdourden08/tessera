@@ -6,6 +6,7 @@ interface FilterClauseListProps {
   schema: SchemaLike;
   clauses: readonly FilterClause[];
   fields?: readonly string[];
+  maxChips?: number;
   onChange: (next: readonly FilterClause[]) => void;
 }
 
