@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { cornerEnds, layoutTree } from '../src/composites/DockLayout';
-import { CORNER_HEADER, CORNER_HIT } from '../src/composites/DockLayout/behavior/corner.constants';
+import { CORNER_HEADER, CORNER_HIT, CORNER_LIFT } from '../src/composites/DockLayout/behavior/corner.constants';
 import { cornerHitOf } from '../src/composites/DockLayout/behavior/corner-hit-of';
 
 const leaf = (key) => ({ kind: 'pane', key, widgets: [key], active: key, makeRoom: false });
@@ -31,6 +31,7 @@ const overlaps = (one, two) => one.x < two.x + two.width && two.x < one.x + one.
 const titlebarOf = (panel) => ({ x: panel.x, y: panel.y, width: panel.width, height: CORNER_HEADER });
 const centreOf = (box) => ({ x: box.x + box.width / 2, y: box.y + box.height / 2 });
 const distanceTo = (point, box) => Math.hypot(Math.max(box.x - point.x, 0, point.x - box.x - box.width), Math.max(box.y - point.y, 0, point.y - box.y - box.height));
+const seamPointOf = (seam, hit) => ({ x: hit.x + hit.width / 2, y: seam.y + seam.height / 2 });
 const buttonsOf = (panel, count) =>
   Array.from({ length: count }, (_, index) => ({
     x: panel.x + panel.width - SPACE_XS - (index + 1) * CORNER_HIT - index * SPACE_XS,
@@ -82,12 +83,35 @@ describe('corner handle hit box', () => {
     }
   });
 
-  it('keeps a column handle on the upper side of the seam, clear of every title bar', () => {
+});
+
+describe('corner handle column hit box', () => {
+  const laid = layoutTree(tree, STAGE);
+  const columns = cornerEnds(laid, tree).filter((handle) => handle.along === 'column');
+
+  it('is a 24 by 24 square on every column handle, so axe target size passes without an exception', () => {
     for (const handle of columns) {
       const hit = cornerHitOf(handle);
-      expect(hit.width).toBeGreaterThanOrEqual(24);
-      expect(hit.height).toBeLessThanOrEqual(GAP);
+      expect(hit.width).toBe(24);
+      expect(hit.height).toBe(24);
+    }
+  });
+
+  it('keeps a column handle above the seam, clear of every title bar', () => {
+    for (const handle of columns) {
+      const hit = cornerHitOf(handle);
       for (const item of laid.leaves) expect(overlaps(hit, titlebarOf(item.rect))).toBe(false);
+      for (const divider of laid.dividers) expect(overlaps(hit, divider.rect)).toBe(false);
+    }
+  });
+
+  it('keeps a column handle 12 px from the centre of every seam, so the seam passes axe target size', () => {
+    for (const handle of columns) {
+      const hit = cornerHitOf(handle);
+      for (const divider of laid.dividers.filter((item) => item.rect.height === GAP)) {
+        if (hit.x < divider.rect.x || hit.x >= divider.rect.x + divider.rect.width) continue;
+        expect(distanceTo(seamPointOf(divider.rect, hit), hit)).toBeGreaterThanOrEqual(12);
+      }
     }
   });
 
@@ -123,10 +147,10 @@ describe('corner handle hit placement', () => {
     expect(at('row', 'end', 'bottom-right')).toEqual({ x: 286, y: 196, width: 24, height: 24 });
   });
 
-  it('puts a column handle on the upper side of the seam, whatever the panel height', () => {
-    expect(at('column', 'start', 'top-left', { x: 10, y: 108, width: 300, height: 8 })).toEqual({ x: 10, y: 92, width: 24, height: 8 });
-    expect(at('column', 'end', 'bottom-left', { x: 10, y: 92, width: 300, height: 8 })).toEqual({ x: 10, y: 92, width: 24, height: 8 });
-    expect(at('column', 'end', 'bottom-right', { x: 10, y: 92, width: 300, height: 8 })).toEqual({ x: 286, y: 92, width: 24, height: 8 });
+  it('puts a column handle 8 px above the seam, 24 by 24, whatever the panel height', () => {
+    expect(at('column', 'start', 'top-left', { x: 10, y: 108, width: 300, height: 8 })).toEqual({ x: 10, y: 68, width: 24, height: 24 });
+    expect(at('column', 'end', 'bottom-left', { x: 10, y: 92, width: 300, height: 8 })).toEqual({ x: 10, y: 68, width: 24, height: 24 });
+    expect(at('column', 'end', 'bottom-right', { x: 10, y: 92, width: 300, height: 8 })).toEqual({ x: 286, y: 68, width: 24, height: 24 });
   });
 
   it('keeps the spacing circle clear of the buttons below the seam, whatever their count', () => {
@@ -141,8 +165,15 @@ describe('corner handle hit placement', () => {
     }
   });
 
-  it('measures the vertical clearance from the real constants', () => {
-    const clearance = GAP / 2 + GAP + (CORNER_HEADER - CORNER_HIT) / 2;
+  it('keeps the seam centre 12 px from the handle', () => {
+    const hit = at('column', 'end', 'bottom-left', { x: 10, y: 92, width: 300, height: 8 });
+    const seam = { x: 10, y: 100, width: 300, height: GAP };
+    expect(distanceTo(seamPointOf(seam, hit), hit)).toBe(12);
+  });
+
+  it('measures the title bar clearance from the real constants', () => {
+    const clearance = CORNER_LIFT + GAP / 2 + GAP + (CORNER_HEADER - CORNER_HIT) / 2;
+    expect(CORNER_LIFT).toBe(8);
     expect(clearance).toBeGreaterThanOrEqual(12);
   });
 
