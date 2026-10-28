@@ -10883,7 +10883,7 @@
         "Enter on the divider, or an arrow key at the end of the range, folds the list and moves focus to the button that brings it back; Enter or the outward arrow key on a folded divider opens it.",
         "The fold button is the CollapseToggle: it names the list, Hide presets or Show presets, and reports aria-expanded on the list pane.",
         "The detail fold button names the detail the same way, Hide preset editor or Show preset editor, on the detail pane.",
-        "Under 768 px the panes stack and Back sits at the top of the detail."
+        "Under 768 px of the layout width, not the window, the panes stack and Back sits at the top of the detail."
       ],
       "tree": {
         "path": [
