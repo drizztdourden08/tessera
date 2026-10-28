@@ -1,9 +1,7 @@
 /* @layer renderer-components @kind util */
-import { hexInk } from '../../hex-ink/hex-ink';
+import { swatchInk } from './swatch-ink';
 
-const captionClass = (color: string, transparent: boolean): string => {
-  const ink = transparent ? null : hexInk(color);
-  return `color-swatch__caption color-swatch__caption--ink-${ink ?? 'light'}`;
-};
+const captionClass = (color: string, transparent: boolean): string =>
+  `color-swatch__caption color-swatch__caption--ink-${swatchInk(color, transparent)}`;
 
 export { captionClass };

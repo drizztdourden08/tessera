@@ -9,7 +9,7 @@ import { rgbToHex } from '../behavior/rgb-to-hex';
 import type { Channel, ColorFieldsProps } from './ColorFields.type';
 
 const ColorFields = (props: ColorFieldsProps) => {
-  const { value, onChange, hexInput, onHexInput, alpha, onAlphaChange, disableAlpha } = props;
+  const { value, onChange, hexInput, onHexInput, alpha, onAlphaChange, disableAlpha, hexOnly = false } = props;
   const rgb = hexToRgb(value);
 
   const commitChannel = useCallback((key: Channel) => (n: number) => {
@@ -33,10 +33,10 @@ const ColorFields = (props: ColorFieldsProps) => {
         <Span tone="muted" className="color-picker__field-label">HEX</Span>
       </Box>
 
-      <ChannelInput label="R" value={rgb.r} max={255} onCommit={commitChannel('r')} />
-      <ChannelInput label="G" value={rgb.g} max={255} onCommit={commitChannel('g')} />
-      <ChannelInput label="B" value={rgb.b} max={255} onCommit={commitChannel('b')} />
-      {!disableAlpha && onAlphaChange && (
+      {!hexOnly && <ChannelInput label="R" value={rgb.r} max={255} onCommit={commitChannel('r')} />}
+      {!hexOnly && <ChannelInput label="G" value={rgb.g} max={255} onCommit={commitChannel('g')} />}
+      {!hexOnly && <ChannelInput label="B" value={rgb.b} max={255} onCommit={commitChannel('b')} />}
+      {!hexOnly && !disableAlpha && onAlphaChange && (
         <ChannelInput
           label="A"
           value={Math.round(alpha * 100)}

@@ -1,8 +1,12 @@
 /* @layer renderer-components @kind types */
+import type { ReactNode } from 'react';
+
 interface SwatchGroup {
   label: string;
   colors: readonly string[];
 }
+
+type ColorMode = 'hsv' | 'oklch' | 'rgb';
 
 interface ColorPickerProps {
   value: string;
@@ -11,6 +15,11 @@ interface ColorPickerProps {
   onAlphaChange?: (alpha: number) => void;
   disableAlpha?: boolean;
   title?: string;
+  name?: ReactNode;
+  footer?: ReactNode;
+  modes?: readonly ColorMode[];
+  mode?: ColorMode;
+  onModeChange?: (mode: ColorMode) => void;
   original?: string;
   word?: number;
   snapped?: boolean;
@@ -19,4 +28,4 @@ interface ColorPickerProps {
   swatchGroups?: readonly SwatchGroup[];
 }
 
-export type { ColorPickerProps, SwatchGroup };
+export type { ColorMode, ColorPickerProps, SwatchGroup };
