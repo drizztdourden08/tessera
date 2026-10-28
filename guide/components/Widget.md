@@ -90,7 +90,7 @@ const Dashboard = ({ definitions, running, io, panels }: DashboardProps) => {
 - `onClose`: `() => void`.
 - `children`: `ReactNode`.
 - `options` (optional): `ReactNode`.
-- `peek` (optional): `boolean`. Default `false`.
+- `peek` (optional): `boolean`.
 - `onPopOut` (optional): `() => void`.
 - `canPopOut` (optional): `boolean`.
 - `mode` (optional): `'in' | 'out'`.
