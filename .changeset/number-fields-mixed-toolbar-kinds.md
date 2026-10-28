@@ -1,5 +1,0 @@
----
-'@drizztdourden08/tessera': minor
----
-
-Number fields, a Mixed state and new Toolbar item kinds, all opt-in. `NumberField` scrubs by dragging its label, steps with the wheel and the arrow keys, takes a fine step with Shift, walks a `ladder` of stops and offers `presets` and a `suffix`; a zoom field is a ladder from 25 to 12800 percent. `AngleField` adds a dial and snaps to 15, 22.5 or 45 degrees. The wheel step is now the `useWheelStep` hook, and `VolumeControl` uses it. `TextInput`, `NumberInput`, `Select`, `Checkbox`, `Slider` and `ToggleGroup` take `mixed` and show Mixed until a new value is set; `NumberInput` takes `onStep`. `Toolbar` groups take `display` menu or slot, items take `openOn` hold with `holdDelay` and `dwell`, a drag from a held menu picks on release, `popover` items open a panel, items take `badge` and `borrowed`, separators take a `label`, a number item draws a `NumberField`, and `keyBadges` draws the key on the tools of a vertical bar, off by default. `inlineOptions` opens the options of the pressed item under its row in a list.
