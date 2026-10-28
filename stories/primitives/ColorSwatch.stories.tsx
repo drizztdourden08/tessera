@@ -21,6 +21,7 @@ type ColorSwatchArgs = {
   mixed: boolean;
   marks: boolean;
   apartRing: boolean;
+  fill: boolean;
   disabled: boolean;
   size: ControlSize;
 };
@@ -38,7 +39,7 @@ const CORNER_MARKS: readonly string[] = ['1', '2', '3', '4'];
 
 const EDITED_SLOTS = new Set([5, 6]);
 
-const ARGS: Partial<ColorSwatchArgs> = { hex: TUNIC_GREEN, caption: '5', selected: false, edited: false, transparent: false, unused: false, mixed: false, marks: false, apartRing: false, disabled: false, size: 'md' };
+const ARGS: Partial<ColorSwatchArgs> = { hex: TUNIC_GREEN, caption: '5', selected: false, edited: false, transparent: false, unused: false, mixed: false, marks: false, apartRing: false, fill: false, disabled: false, size: 'md' };
 
 const ARG_TYPES: PlaygroundArgTypes<ColorSwatchArgs> = {
     caption: { group: 'Content', control: 'text' },
@@ -46,6 +47,7 @@ const ARG_TYPES: PlaygroundArgTypes<ColorSwatchArgs> = {
     transparent: { group: 'Appearance', control: 'boolean' },
     marks: { group: 'Appearance', control: 'boolean', description: 'Four corner marks, numbered 1 to 4' },
     apartRing: { group: 'Appearance', control: 'boolean', description: 'Draw the focus ring outside the selected ring' },
+    fill: { group: 'Appearance', control: 'boolean', description: 'Stretch to the width of the cell, keeping it square' },
     unused: { group: 'State', control: 'boolean' },
     mixed: { group: 'State', control: 'boolean' },
     selected: { group: 'State', control: 'boolean' },
@@ -100,6 +102,7 @@ const Playground = {
       mixed={args.mixed}
       marks={args.marks ? CORNER_MARKS : undefined}
       focusRing={args.apartRing ? 'apart' : 'inset'}
+      fill={args.fill}
       disabled={args.disabled}
       size={args.size}
       aria-label="Palette slot"
@@ -141,6 +144,25 @@ const Marks = {
   ),
 } satisfies StoryLiteStoryDefinition<ColorSwatchArgs>;
 
+const FILL_CELLS: readonly string[] = TUNIC_ROW.slice(0, 8);
+
+const Stretch = {
+  name: 'Fill the cell',
+  render: () => (
+    <Demonstrator
+      columns={axis(['Fixed size', 'fill'])}
+      valign="start"
+      cell={(_row, mode) => (
+        <Box className={mode === 'fill' ? 'story-swatch-grid story-swatch-grid--wide' : 'story-swatch-grid'}>
+          {FILL_CELLS.map((hex, index) => (
+            <ColorSwatch key={hex} color={hex} fill={mode === 'fill'} caption={index} aria-label={`Palette slot ${index}, ${mode}`} />
+          ))}
+        </Box>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ColorSwatchArgs>;
+
 const renderState = (props: StateProps) => <ColorSwatch color={TUNIC_GREEN} caption="5" aria-label="Palette slot 5" {...props} />;
 
 const Palette = {
@@ -157,10 +179,10 @@ const Overview = overviewStory({
     '`transparent` swaps the fill for a checkerboard; a `color` with alpha below 1 shows one behind it.',
     '`marks` puts up to four marks in the corners; `unused` dashes it and `mixed` draws a dash.',
     '`focusRing="apart"` draws the focus ring outside, so it shows beside `selected`.',
-    '`md` and `sm` match the control heights, so a swatch lines up with the field beside it.',
+    '`md` and `sm` match the control heights; `fill` stretches it square to the width of its grid cell.',
   ],
   playground: Playground,
-  variants: [Fills, Marks, Sizes],
+  variants: [Fills, Marks, Sizes, Stretch],
   states: {
     render: renderState,
     list: [
@@ -177,4 +199,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Fills, Marks, Overview, Palette, Playground, Sizes };
+export { Fills, Marks, Overview, Palette, Playground, Sizes, Stretch };

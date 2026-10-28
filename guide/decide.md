@@ -29,7 +29,9 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - One line of text: no component yet.
     - Several lines of text: no component yet.
     - A number typed in: no component yet.
-    - A number stepped up or down: no component yet.
+    - A number stepped up or down:
+      - [AngleField](components/AngleField.md). AngleField is the angle you point with a dial and also type, snapped to round steps.
+      - [NumberField](components/NumberField.md). NumberField is the number you drag, turn the wheel on, walk along a ladder or fill from quick values.
     - Text that follows a pattern: [DynamicInput](components/DynamicInput.md). DynamicInput reads a pattern of slots, so a time, an address or a lobby code is one field with its own characters and checks.
     - Free words, as tags: no component yet.
     - Structured data, as JSON: no component yet.

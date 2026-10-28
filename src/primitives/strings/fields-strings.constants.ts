@@ -16,6 +16,8 @@ const FIELD_STRINGS = {
   dismiss: 'Dismiss',
   learnMore: 'Learn more',
   help: 'Help',
+  mixed: 'Mixed',
+  presets: 'Quick values',
 };
 
 export { FIELD_STRINGS };

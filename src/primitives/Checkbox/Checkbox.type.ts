@@ -14,6 +14,7 @@ interface CheckboxProps {
   title?: string;
   disabled?: boolean;
   indeterminate?: boolean;
+  mixed?: boolean;
   size?: ControlSize;
   labelSize?: ControlLabelSize;
   className?: string;

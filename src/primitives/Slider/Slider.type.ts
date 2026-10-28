@@ -16,6 +16,7 @@ interface SliderCommonProps {
   description?: string;
   disabled?: boolean;
   showValue?: boolean;
+  mixed?: boolean;
   formatValue?: (value: number) => string;
   size?: ControlSize;
   hint?: Hint;

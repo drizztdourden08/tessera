@@ -48,3 +48,14 @@ body {
   border-radius: var(--radius-md);
   overflow: hidden;
 }
+
+.story-swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-xs);
+  width: var(--size-160);
+}
+
+.story-swatch-grid--wide {
+  width: var(--size-448);
+}

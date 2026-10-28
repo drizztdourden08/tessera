@@ -8,6 +8,7 @@ interface HoverOpenParams {
   onOpen: () => void;
   onClose: () => void;
   enabled?: boolean;
+  delay?: number;
 }
 
 export type { HoverOpenParams };

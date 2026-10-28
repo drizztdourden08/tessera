@@ -10,12 +10,12 @@ import type { ToolbarProps } from '../Toolbar.type';
 import { ToolbarItemView } from './ToolbarItemView';
 
 const ToolbarList = (props: ToolbarProps) => {
-  const { label, size = 'sm', menuSide = 'right', onContextMenu, className } = props;
+  const { label, size = 'sm', menuSide = 'right', inlineOptions = false, onContextMenu, className } = props;
   const items = visibleItems(props.items, props.hiddenItems);
   const { stop, onFocus } = useToolbarStop(stopIds(items, false, false));
   const context = useMemo(
-    () => ({ orientation: 'vertical' as const, menuSide, layout: 'list' as const, size, labels: true, stop, measure: false, contextMenu: onContextMenu }),
-    [menuSide, size, stop, onContextMenu],
+    () => ({ orientation: 'vertical' as const, menuSide, layout: 'list' as const, size, labels: true, stop, measure: false, keyBadges: false, inlineOptions, contextMenu: onContextMenu }),
+    [menuSide, size, stop, inlineOptions, onContextMenu],
   );
 
   return (

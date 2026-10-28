@@ -30,6 +30,7 @@ Select is the field that opens a list of options, plain or grouped, and picks on
 
 ## Rules
 
+- Mixed shows the word Mixed in place of the chosen option, for a selection whose values differ. Choosing an option calls onChange, and the app clears mixed.
 - Pass options for a plain list and groups for options under headings. Pass items for objects of your own, with the field that holds the value.
 - When options and groups are both given, the options come first with no heading, then each group under its label. A group never hides the options.
 - An option that sits in a group is not repeated in options; put it in one place only.
@@ -81,6 +82,7 @@ const TintPicker = ({ tint, onTint }: TintPickerProps) => (
 - `renderOption` (optional): `(option: SelectOption, isSelected: boolean) => ReactNode`.
 - `items` (optional): `readonly T[]`.
 - `searchable` (optional): `boolean`.
+- `mixed` (optional): `boolean`.
 - `multiDisplay` (optional): `MultiDisplay`, one of `'count'`, `'tags'`.
 - `loading` (optional): `boolean`.
 - `emptyText` (optional): `ReactNode`.

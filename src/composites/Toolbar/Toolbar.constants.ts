@@ -23,4 +23,12 @@ const SEPARATOR_CLASS = 'toolbar__separator';
 
 const WRAPPED_COLUMNS = 2;
 
-export { ARROW_STEPS, FIELD_LEAVE_KEY, HANDLE_STOP, MORE_STOP, SEPARATOR_CLASS, STOP_ATTRIBUTE, STOP_SELECTOR, TIP_SIDE, WRAPPED_COLUMNS };
+const HOLD_DELAY = 350;
+
+const PANEL_FOCUSABLE = 'input, button, select, textarea, a[href], [tabindex]:not([tabindex="-1"])';
+
+const MENU_ITEM_SELECTOR = '[role^="menuitem"]:not([aria-disabled="true"])';
+
+export {
+  ARROW_STEPS, FIELD_LEAVE_KEY, HANDLE_STOP, HOLD_DELAY, MENU_ITEM_SELECTOR, MORE_STOP, PANEL_FOCUSABLE, SEPARATOR_CLASS, STOP_ATTRIBUTE, STOP_SELECTOR, TIP_SIDE, WRAPPED_COLUMNS,
+};

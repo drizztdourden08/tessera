@@ -16,11 +16,19 @@ const usage = {
   ],
   rules: [
     'Keep every value in the app; the toolbar draws items and calls onSelect, onChange and the options of each item.',
-    'An item is a button, a toggle, a group of choices, a number or a separator. A tool the user picks is a toggle with pressed set on the current one.',
+    'An item is a button, a toggle, a group of choices, a number, a popover or a separator. A tool the user picks is a toggle with pressed set on the current one.',
+    'display on a group changes how it draws: set is a box of choices, menu folds it into one button that shows the current choice and opens a radio menu with icon and description, and slot does the same with a corner mark and pressed and onPress, so pressing the button runs the current choice.',
+    'openOn hover, click or hold says how a menu opens. hold opens it after holdDelay milliseconds of pressing, 350 by default, and the press that opened it picks the item under the pointer when it is released. dwell is the hover delay.',
+    'A popover item has a render(close) function. The panel opens beside the tool, moves focus into itself and gives focus back on Escape or when render calls close. In More it runs onFold, or shows disabled when there is none.',
+    'badge draws a small glyph with a description on a tool, such as the number of stamps; borrowed shows a tool in the look of another one, with a dashed outline.',
+    'A separator can take a label. A list draws it as a heading, a horizontal bar with labels on draws it beside the line, and More uses it as the heading of the folded group.',
+    'keyBadges draws the key of a tool on its button. It is off by default, only a vertical bar uses it, and only a shortcut of one key shows. It is the one place a shortcut sits on a button, so leave it off unless the product asks for it.',
+    'inlineOptions in a list opens the options of the pressed item under its row instead of in a menu.',
+    'A number item takes fineStep, ladder, presets, suffix, scrub, showLabel and mixed, and draws a NumberField; the wheel steps it while it has focus.',
     'orientation horizontal shows the optional caption beside the icon; vertical shows icons only. The hint always carries the name, the description and the shortcut.',
     'labels false hides the caption in a horizontal bar, so it shows icons only. It defaults to true. A ToolbarDock passes its value for the toolbar in the render slot.',
     'icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.',
-    'Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button.',
+    'Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button, except with keyBadges.',
     'options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.',
     'menuSide right or left says which side of a vertical toolbar its menus open on; a ToolbarDock slot hands it over, so a left bar opens right and a right bar opens left. Menus flip and stay inside the view near any edge, and look the same on every side.',
     'layout list draws each item as a row with its icon, name, description and shortcut, a group as a labelled set of rows and a number as a row with its field. Use it in a wide panel; it never folds and has no handle or caption.',
@@ -61,7 +69,7 @@ const ToolRail = ({ tool, pick, undo }: ToolRailProps) => {
   return <Toolbar label="Drawing tools" orientation="vertical" items={items} />;
 };
 `,
-  propsHash: '514938db290cb569',
+  propsHash: 'ddba1bacfc4faccc',
 } satisfies ComponentUsage;
 
 export { usage };

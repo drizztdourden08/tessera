@@ -13,6 +13,7 @@ interface ToggleOption<T extends string = string> {
 
 interface ToggleGroupProps<T extends string = string> {
   value: T[];
+  mixed?: readonly T[];
   options: ToggleOption<T>[];
   onChange: (value: T[]) => void;
   onHint?: HintReport;
@@ -26,6 +27,7 @@ interface ToggleGroupProps<T extends string = string> {
 interface ToggleGroupButtonProps<T extends string> {
   option: ToggleOption<T>;
   active: boolean;
+  mixed: boolean;
   groupDisabled: boolean;
   first: boolean;
   last: boolean;

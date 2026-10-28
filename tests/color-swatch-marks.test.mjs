@@ -49,6 +49,21 @@ describe('ColorSwatch unused and mixed', () => {
   });
 });
 
+describe('ColorSwatch fill', () => {
+  it('keeps its fixed size by default and adds the fill class on request', () => {
+    expect(html({})).not.toContain('color-swatch--fill');
+    expect(html({ fill: true })).toContain('color-swatch--fill');
+  });
+
+  it('stretches to the width of its cell, square unless the cell sets another aspect', () => {
+    const rule = /\.color-swatch--fill \{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(rule).toMatch(/width: 100%;/);
+    expect(rule).toMatch(/height: auto;/);
+    expect(rule).toMatch(/aspect-ratio: var\(--swatch-aspect, 1\);/);
+    expect(css.indexOf('.color-swatch--fill {')).toBeGreaterThan(css.indexOf('.color-swatch {'));
+  });
+});
+
 describe('ColorSwatch focus ring apart from selected', () => {
   it('keeps the inside ring by default and adds the apart class on request', () => {
     expect(html({})).not.toContain('color-swatch--ring-apart');

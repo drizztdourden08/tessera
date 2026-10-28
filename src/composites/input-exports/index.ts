@@ -24,3 +24,7 @@ export { PasswordInput, type PasswordInputProps, type PasswordMode, type Passwor
 export { namespacedTag, TagInput, type TagAdvice, type TagInputProps, type TagValidationResult, type TagValidator } from '../TagInput';
 export { MarkdownEditor, type MarkdownEditorActionId, type MarkdownEditorLayout, type MarkdownEditorProps } from '../MarkdownEditor';
 export { PathInput,type PathBrowse, type PathInputProps, type PathKind } from '../PathInput';
+export { NumberField } from '../NumberField';
+export type { NumberFieldProps, NumberPreset, NumberPresetInput } from '../NumberField';
+export { AngleField } from '../AngleField';
+export type { AngleFieldProps } from '../AngleField';

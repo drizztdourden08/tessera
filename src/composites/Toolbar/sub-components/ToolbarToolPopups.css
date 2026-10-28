@@ -1,0 +1,10 @@
+/* @layer renderer-components @kind style */
+.toolbar__inline-options {
+  display: flex;
+  flex-direction: column;
+  padding-inline-start: var(--space-md);
+}
+
+.toolbar__inline-options > .dropdown-menu {
+  display: block;
+}

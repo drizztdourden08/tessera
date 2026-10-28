@@ -126,3 +126,8 @@
 .number-input__plus path {
   stroke-width: 2.25;
 }
+
+.number-input__field[data-mixed]::placeholder {
+  color: var(--c-text-muted);
+  font-style: italic;
+}

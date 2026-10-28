@@ -16,6 +16,7 @@ const WidgetBody = (props: WidgetBodyProps) => {
         fade={false}
         className={`widget__content widget__content--pad-${padding}`}
         data-fill={fill || undefined}
+        data-dock-content=""
       >
         {children}
       </ScrollArea>
