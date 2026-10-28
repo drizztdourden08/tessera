@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind logic */
-import type { TreeRow } from '../GroupTree.type';
+import type { GroupEntry } from '../GroupTree.type';
 
-const selectionKey = <T,>(row: TreeRow<T>): string => (row.kind === 'item' ? row.itemKey : row.key);
+const selectionKey = <T,>(entry: GroupEntry<T>): string => (entry.kind === 'item' ? entry.itemKey : entry.key);
 
 export { selectionKey };

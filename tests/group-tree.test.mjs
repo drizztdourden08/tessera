@@ -3,12 +3,13 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { GroupTree } from '../src/composites/GroupTree';
-import { activeBranchOf } from '../src/composites/GroupTree/behavior/active-branch-of';
 import { countItems } from '../src/composites/GroupTree/behavior/count-items';
-import { flattenTree } from '../src/composites/GroupTree/behavior/flatten-tree';
+import { groupEntriesOf } from '../src/composites/GroupTree/behavior/group-entries-of';
 import { keysToDepth } from '../src/composites/GroupTree/behavior/keys-to-depth';
 import { selectionKey } from '../src/composites/GroupTree/behavior/selection-key';
-import { treeMove } from '../src/composites/GroupTree/behavior/tree-move';
+import { activeBranchOf } from '../src/composites/Tree/behavior/active-branch-of';
+import { flattenItems } from '../src/composites/Tree/behavior/flatten-items';
+import { treeKeyMove as treeMove } from '../src/composites/Tree/behavior/tree-key-move';
 
 const leaf = (key, label, items = []) => ({ key, label, children: [], items });
 const ROOT = {
@@ -19,7 +20,13 @@ const ROOT = {
 };
 const getItemKey = (item) => `p-${item}`;
 const open = (...keys) => new Set(keys);
-const flat = (keys) => flattenTree(ROOT, { open: open(...keys), getItemKey });
+const entries = groupEntriesOf(ROOT, getItemKey);
+const flatOf = (tree, keys) => flattenItems(tree.top, {
+  getKey: (entry) => entry.key, getChildren: (entry) => entry.children, isBranch: (entry) => entry.kind === 'group',
+  open: open(...keys), loading: new Set(), kept: null,
+});
+const flat = (keys) => flatOf(entries, keys);
+const indexOf = (rows) => new Map(rows.map((row, at) => [row.key, at]));
 
 describe('GroupTree rows', () => {
   it('lists only the top groups when nothing is open', () => {
@@ -42,8 +49,8 @@ describe('GroupTree rows', () => {
 
   it('counts the items under a group unless the node says its own count', () => {
     expect(countItems(ROOT)).toBe(5);
-    const rows = flattenTree({ ...ROOT, children: [{ ...ROOT.children[0], count: 99 }] }, { open: open(), getItemKey });
-    expect(rows[0].count).toBe(99);
+    const rows = flatOf(groupEntriesOf({ ...ROOT, children: [{ ...ROOT.children[0], count: 99 }] }, getItemKey), []);
+    expect(rows[0].item.count).toBe(99);
   });
 
   it('opens groups down to a depth', () => {
@@ -54,16 +61,17 @@ describe('GroupTree rows', () => {
 
   it('selects a group by its key and an item by its own key', () => {
     const rows = flat(['us', 'us-1']);
-    expect(selectionKey(rows[1])).toBe('us');
-    expect(selectionKey(rows[3])).toBe('p-dan');
+    expect(selectionKey(rows[1].item)).toBe('us');
+    expect(selectionKey(rows[3].item)).toBe('p-dan');
   });
 
   it('marks the branch above the selected row', () => {
     const rows = flat(['us', 'us-1']);
-    expect([...activeBranchOf(rows, 'p-dan')]).toEqual(['us', 'us-1']);
-    expect([...activeBranchOf(rows, 'us')]).toEqual(['us']);
-    expect(activeBranchOf(rows, 'none').size).toBe(0);
-    expect(activeBranchOf(rows, null).size).toBe(0);
+    const branch = (key) => activeBranchOf(rows, indexOf(rows), key === null ? undefined : new Set(entries.bySelection.get(key) ?? []));
+    expect([...branch('p-dan')]).toEqual(['us', 'us-1']);
+    expect([...branch('us')]).toEqual(['us']);
+    expect(branch('none').size).toBe(0);
+    expect(branch(null).size).toBe(0);
   });
 });
 
@@ -129,7 +137,7 @@ describe('GroupTree markup', () => {
     const html = draw({ selectedKey: 'us' });
     expect((html.match(/tabindex="0"/g) ?? []).length).toBe(1);
     expect(html).toContain('aria-selected="true"');
-    expect(html).toContain('group-tree__row--selected');
+    expect(html).toContain('tree__row--selected');
   });
 
   it('shows counts unless told not to', () => {
@@ -145,7 +153,7 @@ describe('GroupTree markup', () => {
 
   it('says nothing to show for a tree without rows', () => {
     const html = renderToString(h(GroupTree, { root: leaf('r', 'Empty'), getItemKey, renderItem: String, emptyLabel: 'No players' }));
-    expect(html).toContain('group-tree--empty');
+    expect(html).toContain('tree--empty');
     expect(html).toContain('No players');
   });
 

@@ -1,49 +1,72 @@
 /* @layer renderer-components @kind component */
-import { useMemo } from 'react';
-import { Box } from '../../primitives/Box';
-import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { activeBranchOf } from './behavior/active-branch-of';
-import { flattenTree } from './behavior/flatten-tree';
+import { useCallback, useMemo } from 'react';
+import { Badge } from '../../primitives/Badge';
+import { Icon } from '../../primitives/Icon';
+import { Span } from '../../primitives/text-elements';
+import { Tree } from '../Tree';
+import { groupEntriesOf } from './behavior/group-entries-of';
+import { keysToDepth } from './behavior/keys-to-depth';
 import { selectionKey } from './behavior/selection-key';
-import { useTreeExpansion } from './behavior/useTreeExpansion';
-import { useTreeNavigation } from './behavior/useTreeNavigation';
-import { GroupTreeRow } from './sub-components/GroupTreeRow';
-import type { GroupTreeProps } from './GroupTree.type';
-import '../../theme/focus-ring.css';
-import '../../theme/row-inset.css';
+import type { TreeRowState } from '../Tree';
+import type { GroupEntry, GroupTreeProps } from './GroupTree.type';
 import './GroupTree.css';
+
+const labelOf = <T,>(entry: GroupEntry<T>): string => entry.label;
+const keyOf = <T,>(entry: GroupEntry<T>): string => entry.key;
+const childrenOf = <T,>(entry: GroupEntry<T>): readonly GroupEntry<T>[] | undefined => entry.children;
 
 const GroupTree = <T,>(props: GroupTreeProps<T>) => {
   const {
     root, getItemKey, renderItem, itemIcon, selectedKey = null, onSelect, onActivate,
     expandToDepth = 0, expandedKeys, onExpandedChange, showCounts = true, label, emptyLabel, className,
   } = props;
-  const { common } = useTesseraStrings();
-  const expansion = useTreeExpansion({ root, expandToDepth, expandedKeys, onExpandedChange });
-  const rows = useMemo(() => flattenTree(root, { open: expansion.open, getItemKey }), [root, expansion.open, getItemKey]);
-  const nav = useTreeNavigation({ rows, expansion, selectedKey, onSelect, onActivate });
-  const activeBranch = useMemo(() => activeBranchOf(rows, selectedKey), [rows, selectedKey]);
-  const classes = `group-tree${className ? ` ${className}` : ''}`;
+  const entries = useMemo(() => groupEntriesOf(root, getItemKey), [root, getItemKey]);
+  const initial = useMemo(() => keysToDepth(root, expandToDepth), [root, expandToDepth]);
+  const picked = useMemo(() => new Set(selectedKey === null ? [] : (entries.bySelection.get(selectedKey) ?? [])), [entries, selectedKey]);
 
-  if (rows.length === 0) return <Box className={`${classes} group-tree--empty`}>{emptyLabel ?? common.nothingToShow}</Box>;
+  const onChange = useCallback((keys: ReadonlySet<string>) => {
+    const key = keys.values().next().value;
+    const entry = key === undefined ? undefined : entries.byKey.get(key);
+    if (entry) onSelect?.(selectionKey(entry), entry.kind === 'item' ? entry.item : undefined);
+  }, [entries, onSelect]);
+
+  const renderLead = useCallback((entry: GroupEntry<T>, state: TreeRowState) => {
+    if (entry.kind === 'item') return itemIcon?.(entry.item);
+    return entry.node.icon ?? <Icon name={state.expanded ? 'folder-open' : 'folder'} />;
+  }, [itemIcon]);
+
+  const renderLabel = useCallback((entry: GroupEntry<T>) => (entry.kind === 'item' ? renderItem(entry.item) : entry.label), [renderItem]);
+
+  const renderTrail = useCallback((entry: GroupEntry<T>) => {
+    if (entry.kind === 'item') return undefined;
+    return (
+      <>
+        {entry.node.meta != null && <Span tone="muted" className="group-tree__meta">{entry.node.meta}</Span>}
+        {showCounts && <Badge variant="inline" color="tame" value={entry.count} className="group-tree__count" />}
+      </>
+    );
+  }, [showCounts]);
 
   return (
-    <Box ref={nav.listRef} role="tree" aria-label={label ?? root.label} className={classes} onKeyDown={nav.onKeyDown}>
-      {rows.map((row) => (
-        <GroupTreeRow
-          key={row.key}
-          row={row}
-          selected={selectionKey(row) === selectedKey}
-          focusable={row.key === nav.activeKey}
-          activeBranch={activeBranch}
-          showCounts={showCounts}
-          renderItem={renderItem}
-          itemIcon={itemIcon}
-          onChoose={nav.choose}
-          onActivate={onActivate}
-        />
-      ))}
-    </Box>
+    <Tree
+      items={entries.top}
+      getKey={keyOf}
+      getChildren={childrenOf}
+      getLabel={labelOf}
+      label={label ?? root.label}
+      emptyLabel={emptyLabel}
+      renderLead={renderLead}
+      renderLabel={renderLabel}
+      renderTrail={renderTrail}
+      defaultExpandedKeys={initial}
+      expandedKeys={expandedKeys}
+      onExpandedChange={onExpandedChange}
+      selection={{ selected: picked, onChange, mode: 'single' }}
+      onActivate={(entry) => entry.kind === 'item' && onActivate?.(entry.item)}
+      openOnPick
+      guides
+      className={`group-tree${className ? ` ${className}` : ''}`}
+    />
   );
 };
 
