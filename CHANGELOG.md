@@ -1,5 +1,21 @@
 # @drizztdourden08/tessera
 
+## 0.89.0
+
+### Minor Changes
+
+- 84e8f19: Six changes from the Bxel palette widget. Tooltip draws its bubble in the tooltip layer instead of inside its anchor, so a Tooltip around a listbox option no longer breaks the required children of the list. ColorPicker names its current colour swatch with the new string `colorPicker.current`, for example Current colour, #3f8fd2. The Slider thumbs now have a 24 px hit area at both sizes, and the drawn size is unchanged. Slider takes `trackBackground`, a CSS image such as a gradient that becomes the track itself, for a single thumb and for a range. ColorSwatch `marks` also takes an object keyed by corner name (`top-start`, `top-end`, `bottom-end`, `bottom-start`) so an app can map its own corner numbers, the array order is unchanged, and the marks now grow and shrink with the swatch size, including a `fill` swatch. ColorSwatch also takes `size="xs"`, 16 px, so a swatch can be the icon of a DropdownMenu item, whose `icon` already accepts any element.
+- 0a8714d: SeatCard takes `selected` on filled and attention seats, drawn like a selected ItemCard with `aria-current` on the name button, and a new `held` state for a seat reserved for a player, with `label`, `hint` and optional `actions`.
+- c4af4e0: `Tree` is a new virtual tree of any depth. It draws only the rows in view, so ten thousand rows open at once, and it has the tree roles and keys: arrows, Right and Left to fold, Home, End, a typed letter and the star for all siblings. `selection` picks one row or many through `useSelectionModel`, `getChildren` with `isBranch`, `onLoadChildren` and `loadingKeys` load a folder when it opens, and `filter` keeps the matches with the folders above them. `reorder` drags rows to a gap or into a folder with `DragGhost`, shows the into mark only where `maxDepth` and `canDrop` allow the drop, opens a closed folder after a hold, limits the depth with `maxDepth`, and Alt with an arrow moves rows in and out of a parent; each move is announced and given to `onMove` as the keys, the parent and the index. The row has three slots, `renderLead`, `renderLabel` and `renderTrail`, and no toggles of its own.
+
+  `GroupTree` is rebuilt on `Tree` and keeps its props and behaviour. Its rows now use the classes of `Tree`, so a story that targeted the group row classes targets `tree__row`.
+
+  `MillerColumns` shows nested items as side by side columns, each a `VirtualList`, with one shared `selection`, a `path` the app may own, Right and Left between columns and `onOpen` for a leaf. `useToggleSweep` lets the user press a toggle and drag over the others to set them all to one value, committing once through `onEnd` with every key it touched, showing the keys reached so far in `touched` and `value`, and calling `onSet` for each key only when the app wants a live change. `InlineEdit` takes `dense` to fit a 24 px row, with the message of `validate` on one line beside the field.
+
+### Patch Changes
+
+- 211a3dc: Holding Alt no longer remounts the content of a docked widget. A peeking Widget keeps its body mounted and only collapses it with CSS, so focus stays in the control and Alt with an arrow key reaches it. `useDockKeys` also ignores Alt pressed while focus is inside widget content.
+
 ## 0.88.0
 
 ### Minor Changes
