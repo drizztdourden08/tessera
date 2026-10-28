@@ -7,10 +7,11 @@ import type { ResizeChange } from '../../ResizeHandle/ResizeHandle.type';
 import { dividerRange } from '../behavior/divider-range';
 import { rectStyle } from '../../rect-drag/rect-style';
 import type { ResizeOrigin } from '../behavior/resize-origin.type';
+import { DockCornerZone } from './DockCornerZone';
 import type { DockDividerProps } from './DockDivider.type';
 
 const DockDivider = (props: DockDividerProps) => {
-  const { divider, onEdit } = props;
+  const { divider, zones, hint, onEdit, onTurn } = props;
   const { node, index, along, rect } = divider;
   const { navigation } = useTesseraStrings();
   const style = useMemo(() => rectStyle(rect), [rect]);
@@ -36,6 +37,7 @@ const DockDivider = (props: DockDividerProps) => {
         onDragChange={hold}
         onReset={() => onEdit({ type: 'even', node, index })}
       />
+      {zones.map((zone) => <DockCornerZone key={zone.key} zone={zone} origin={rect} hint={hint} onTurn={onTurn} />)}
     </Box>
   );
 };

@@ -70,12 +70,12 @@ describe('the four parts on ResizeHandle', () => {
 
   it('DockLayout draws the line at its divider rectangle, in pixels along the split it divides', () => {
     const divider = { node: { kind: 'split', axis: 'row', sizes: [0.25, 0.5, 0.25], children: [] }, index: 1, rect: { x: 200, y: 0, width: 8, height: 300 }, along: 800 };
-    const html = renderToString(h(DockDivider, { divider, onEdit: noop }));
+    const html = renderToString(h(DockDivider, { divider, zones: [], hint: '', onEdit: noop, onTurn: noop }));
     expect(html).toMatch(/^<div class="dock-divider" style="left:200px;top:0;width:8px;height:300px">/);
     const tag = one(html);
     expect(tag).toContain('class="resize-handle resize-handle--horizontal focus-ring-inset"');
     expect(tag).toContain('aria-valuenow="600" aria-valuemin="128" aria-valuemax="736"');
-    const column = one(renderToString(h(DockDivider, { divider: { ...divider, node: { ...divider.node, axis: 'column' } }, onEdit: noop })));
+    const column = one(renderToString(h(DockDivider, { divider: { ...divider, node: { ...divider.node, axis: 'column' } }, zones: [], hint: '', onEdit: noop, onTurn: noop })));
     expect(column).toContain('resize-handle--vertical');
   });
 

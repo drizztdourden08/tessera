@@ -50,55 +50,6 @@
   block-size: 100%;
 }
 
-.dock-corner {
-  position: absolute;
-  z-index: var(--z-sticky);
-  pointer-events: auto;
-  touch-action: none;
-  user-select: none;
-}
-
-.dock-corner--row {
-  cursor: ew-resize;
-}
-
-.dock-corner--column {
-  cursor: ns-resize;
-}
-
-.dock-corner::after {
-  content: '';
-  position: absolute;
-  background: var(--c-text-muted);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--duration-fast) var(--ease-standard);
-}
-
-.dock-corner--row::after {
-  inset-block: var(--space-xs);
-  inline-size: var(--border-width-thick);
-}
-
-.dock-corner--row.dock-corner--start::after {
-  inset-inline-start: 0;
-}
-
-.dock-corner--row.dock-corner--end::after {
-  inset-inline-end: 0;
-}
-
-.dock-corner--column::after {
-  inset-inline: var(--space-xs);
-  inset-block-end: calc(-1 * var(--space-sm));
-  block-size: var(--border-width-thick);
-}
-
-.dock-corner:hover::after,
-.dock-corner:focus-visible::after {
-  opacity: 1;
-}
-
 .dock-layout__main-area {
   position: absolute;
   pointer-events: none;
@@ -171,7 +122,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dock-corner::after,
   .dock-grip {
     transition: none;
   }

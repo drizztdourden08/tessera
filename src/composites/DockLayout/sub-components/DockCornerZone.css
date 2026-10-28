@@ -1,0 +1,46 @@
+/* @layer renderer-components @kind style */
+.dock-corner-zone {
+  position: absolute;
+  pointer-events: auto;
+  touch-action: none;
+  user-select: none;
+}
+
+.dock-corner-zone::after {
+  content: '';
+  position: absolute;
+  background: var(--c-text-muted);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+.dock-corner-zone--row {
+  cursor: ew-resize;
+}
+
+.dock-corner-zone--row::after {
+  inset-block: var(--space-xs);
+  inset-inline-start: calc(50% - var(--border-width-thick) / 2);
+  inline-size: var(--border-width-thick);
+}
+
+.dock-corner-zone--column {
+  cursor: ns-resize;
+}
+
+.dock-corner-zone--column::after {
+  inset-inline: var(--space-xs);
+  inset-block-start: calc(50% - var(--border-width-thick) / 2);
+  block-size: var(--border-width-thick);
+}
+
+.dock-corner-zone:hover::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-corner-zone::after {
+    transition: none;
+  }
+}
