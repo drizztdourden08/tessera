@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 import type { DockEdge } from '../DockLayout';
-import type { ToolbarHandleProps, ToolbarMenuSide, ToolbarOrientation } from '../Toolbar/Toolbar.type';
+import type { ToolbarColumns, ToolbarHandleProps, ToolbarMenuSide, ToolbarOrientation } from '../Toolbar/Toolbar.type';
 
 type ToolbarSide = DockEdge;
 
@@ -36,6 +36,8 @@ interface ToolbarLayout {
   hidden: string[];
   last: Record<string, ToolbarSpot>;
   labels?: Record<string, boolean>;
+  items?: Record<string, string[]>;
+  columns?: Record<string, ToolbarColumns>;
 }
 
 type ToolbarDockHandle = ToolbarHandleProps & Record<`data-${string}`, string>;
@@ -46,6 +48,8 @@ interface ToolbarSlot {
   side: ToolbarSide;
   menuSide: ToolbarMenuSide;
   labels?: boolean;
+  hiddenItems?: readonly string[];
+  columns?: ToolbarColumns;
 }
 
 interface ToolbarDockProps {

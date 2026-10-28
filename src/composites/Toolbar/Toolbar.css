@@ -19,6 +19,22 @@
   flex: none;
 }
 
+.toolbar[data-columns] {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  place-items: center;
+  align-content: start;
+}
+
+.toolbar[data-columns] > .toolbar__separator {
+  grid-column: 1 / -1;
+  justify-self: stretch;
+}
+
+.toolbar[data-columns] > .toolbar__handle {
+  grid-column: 1 / -1;
+}
+
 .toolbar__tool {
   position: relative;
 }

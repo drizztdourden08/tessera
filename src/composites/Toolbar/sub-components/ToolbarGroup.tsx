@@ -7,7 +7,7 @@ import { ToolbarContext } from '../behavior/toolbar-context';
 import { ToolbarTool } from './ToolbarTool';
 import type { ToolbarGroupProps } from './ToolbarItemView.type';
 
-const ToolbarGroup = ({ item }: ToolbarGroupProps) => {
+const ToolbarGroup = ({ item, onContext }: ToolbarGroupProps) => {
   const { layout } = useContext(ToolbarContext);
   const list = layout === 'list';
   return (
@@ -25,6 +25,7 @@ const ToolbarGroup = ({ item }: ToolbarGroupProps) => {
           active={item.value === choice.value}
           disabled={item.disabled === true || choice.disabled === true}
           onPress={() => item.onChange(choice.value)}
+          onContext={onContext}
         />
       ))}
     </Box>

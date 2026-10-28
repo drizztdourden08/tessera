@@ -38,6 +38,7 @@ ToolbarDock is the frame that holds the toolbars on the edges of a work area, up
 - Definitions names each toolbar. A toolbar in the layout without a definition is not drawn, and a hidden toolbar is not drawn.
 - RenderToolbar draws one toolbar and gets its orientation, its side, menuSide, the handle and labels. Pass the orientation, menuSide, the handle and labels to Toolbar.
 - Layout.labels is optional and maps a toolbar id to true or false. Missing means the default of the app, and the slot then has no labels. setToolbarLabels(layout, id, on) sets it and returns the same layout when nothing changes. The layout version stays 2, and migrateToolbarLayout keeps valid entries and drops the rest.
+- Layout.items is optional and maps a toolbar id to the item ids the user hid in it. layout.columns is optional and maps a toolbar id to 1, 2 or auto. The slot then carries hiddenItems and columns for that toolbar, and nothing when none is set; pass both to Toolbar. setToolbarItems(layout, id, hiddenIds) and setToolbarColumns(layout, id, columns) set them, return the same layout when nothing changes, and remove the entry when it is empty or undefined. migrateToolbarLayout drops unknown toolbars and values that are not allowed, and an older layout migrates with neither field.
 - MoveToolbarToSide(layout, id, side) moves a shown toolbar to a side, placed as showToolbar places it: its last spot on that side if free, else a new lane, else the largest gap. With no room, or when the toolbar is already on that side, it returns the same layout. last is kept as it was.
 - The orientation comes from the side: horizontal on top and bottom, vertical on left and right. It is never stored.
 - The handle is the set of props for the grip of a Toolbar. It carries the toolbar id as data-drag-toolbar and a name such as Move Drawing tools.
@@ -106,4 +107,4 @@ It draws on `--border-width-thin`, `--c-chrome`, `--c-chrome-border`, `--c-text-
 
 ## Also exported from this folder
 
-`MAX_LANES`, `MAX_PER_SIDE`, `MIN_SHARE`, `TOOLBAR_LAYOUT_V`, `canShowToolbar`, `createToolbarLayout`, `hideToolbar`, `isToolbarShown`, `migrateToolbarLayout`, `moveToolbar`, `moveToolbarToSide`, `normalizeCorners`, `placeToolbar`, `setToolbarLabels`, `showToolbar`, `toggleToolbar`, `toolbarIdsOf`, `toolbarMenuGroups`, `toolbarOrientation`, `useToolbarLayout`.
+`MAX_LANES`, `MAX_PER_SIDE`, `MIN_SHARE`, `TOOLBAR_LAYOUT_V`, `canShowToolbar`, `createToolbarLayout`, `hideToolbar`, `isToolbarShown`, `migrateToolbarLayout`, `moveToolbar`, `moveToolbarToSide`, `normalizeCorners`, `placeToolbar`, `setToolbarColumns`, `setToolbarItems`, `setToolbarLabels`, `showToolbar`, `toggleToolbar`, `toolbarIdsOf`, `toolbarMenuGroups`, `toolbarOrientation`, `useToolbarLayout`.

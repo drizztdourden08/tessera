@@ -22,23 +22,24 @@ type ListDetailLayoutArgs = {
   detailCollapsible: boolean;
   startDetailCollapsed: boolean;
   narrow: boolean;
+  docked: boolean;
 };
 
 const PICK = 'Pick a session to see who plays in it.';
 
 const ARGS: ListDetailLayoutArgs = {
   startSelected: true, emptyMessage: PICK, collapsible: true, startCollapsed: false,
-  ratio: false, detailCollapsible: false, startDetailCollapsed: false, narrow: false,
+  ratio: false, detailCollapsible: false, startDetailCollapsed: false, narrow: false, docked: false,
 };
 
 const LIST_RATIO = 0.6;
 
 const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
-  const { startSelected, emptyMessage, collapsible, startCollapsed, ratio, detailCollapsible, startDetailCollapsed, narrow } = { ...ARGS, ...props };
+  const { startSelected, emptyMessage, collapsible, startCollapsed, ratio, detailCollapsible, startDetailCollapsed, narrow, docked } = { ...ARGS, ...props };
   const [selectedId, setSelectedId] = useState<string | null>(startSelected ? SESSIONS[0].id : null);
   const selected = SESSIONS.find((s) => s.id === selectedId);
   return (
-    <Box className={`list-detail-story list-detail-story--tall${narrow ? ' list-detail-story--narrow' : ''}`}>
+    <Box className={`list-detail-story list-detail-story--tall${narrow ? ' list-detail-story--narrow' : ''}${docked ? ' list-detail-story--docked' : ''}`}>
       <ListDetailLayout
         listContainers={[{ title: 'Sessions', content: <ListItemList>{SESSIONS.map((s) => (
           <ListItemRow key={s.id} icon={<Icon name={NAV_ICONS.sessions} />} name={s.name} meta={`${s.players} players · ${s.server}`} selected={s.id === selectedId} onClick={() => setSelectedId(s.id)} />
@@ -117,6 +118,11 @@ const Stacked = {
   render: () => <LayoutDemo startSelected={false} narrow />,
 } satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
 
+const Docked = {
+  name: 'A 950 px main area beside docked widgets: side by side, not stacked',
+  render: () => <LayoutDemo docked />,
+} satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
+
 const TableFill = {
   name: 'A table that scrolls itself: listScroll false, the table fills the list pane',
   render: () => <ListTableDemo />,
@@ -153,11 +159,11 @@ const Overview = overviewStory({
     'Drag the divider from 240 to 480 px, or give `listRatio` a share; `storageKey` keeps it.',
     'The button beside the divider, or a drag past the minimum, folds the list; drag the rail out to open it.',
     '`detailCollapsible` folds the detail too; each pane keeps its own dashed edge and button.',
-    'Under 768 px the panes stack: the list, then the detail with a Back button that calls `onBack`.',
+    'Under 768 px of its own width the panes stack: the list, then the detail with a Back button that calls `onBack`.',
   ],
   instead: '[ListDetail] for an editor that asks before unsaved edits are lost, or [SplitPane] for two equal panes.',
   playground: Playground,
-  variants: [Resizable, Collapsed, RatioColumns, BothFoldable, BothListFolded, DetailFolded, Stacked, TableFill],
+  variants: [Resizable, Collapsed, RatioColumns, BothFoldable, BothListFolded, DetailFolded, Stacked, Docked, TableFill],
   states: {
     render: renderState,
     list: [
@@ -169,4 +175,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { BothFoldable, BothListFolded, Collapsed, DetailFolded, Overview, Playground, RatioColumns, Resizable, Stacked, TableFill };
+export { BothFoldable, BothListFolded, Collapsed, DetailFolded, Docked, Overview, Playground, RatioColumns, Resizable, Stacked, TableFill };
