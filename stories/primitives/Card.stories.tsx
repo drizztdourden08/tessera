@@ -8,6 +8,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import './_samples/CardFill.css';
+import { CardContainer } from './_samples/ContainerRows';
 import { CardFlush } from './_samples/CardFlush';
 import { CardFreeHeader } from './_samples/CardFreeHeader';
 import { SessionPickerDemo } from './_samples/CardSessionPicker';
@@ -142,6 +143,11 @@ const Flush = {
   render: () => <CardFlush />,
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
+const Container = {
+  name: 'A container for its fields',
+  render: () => <CardContainer />,
+} satisfies StoryLiteStoryDefinition<CardArgs>;
+
 const Interactive = {
   name: 'Interactive list',
   render: () => <SessionPickerDemo />,
@@ -164,12 +170,12 @@ const Overview = overviewStory({
     '`title` draws a header row in the [SectionHeader] look; `header` swaps it for any content you lay out.',
     '`tone` tints the header row; `edgeTone` colours the left edge, or the border with `edge="border"`.',
     '`fill` makes the body take the card height left under the header, and scroll when its child is taller.',
-    '`flush` drops the body padding so a table or list runs edge to edge; border and radius stay, children clip.',
+    '`flush` drops the body padding so a table or list runs edge to edge; `container` makes it a size container.',
     '`interactive` lights the border on hover for a card clicked whole; **give it a `tabIndex` and a `role`**.',
   ],
   instead: '[ContentHeader] for the header of a whole page, or [SectionHeader] for a heading outside a card.',
   playground: Playground,
-  variants: [AllVariants, HeaderTones, FreeHeader, EdgeTones, OnAPage, FillingBody, Flush],
+  variants: [AllVariants, HeaderTones, FreeHeader, EdgeTones, OnAPage, FillingBody, Flush, Container],
   states: {
     render: renderState,
     list: [
@@ -181,4 +187,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, EdgeTones, FillingBody, FreeHeader, Flush, HeaderTones, Interactive, OnAPage, Overview, Playground };
+export { AllVariants, Container, EdgeTones, FillingBody, FreeHeader, Flush, HeaderTones, Interactive, OnAPage, Overview, Playground };

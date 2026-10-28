@@ -318,6 +318,9 @@
   --badge-d-xs: 20px;
   --status-h-sm: calc(18 * 1px);
   --board-stack-w: calc(420 * 1px);
+  --track-hide-1280: calc(1280 * 1px);
+  --track-hide-1120: calc(1120 * 1px);
+  --track-hide-896: 896px;
   --track-drop-1: 768px;
   --track-drop-2: 640px;
   --track-drop-3: calc(480 * 1px);

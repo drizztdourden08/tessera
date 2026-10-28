@@ -40,7 +40,7 @@ Each brand has one gradient, drawn behind its mark on a splash window or a hero 
 | Archipelia | `#ece6ff`, `#e2d8ff`, `#c1a8ff` | Its tile into its wordmark lilacs, under a dark purple mark |
 | Brock | `#ffc66e`, `#ffb341`, `#ff9416` | Its wordmark oranges, light enough for the dark ink mark |
 | Bxel | `#2a1560`, `#1a0d38`, `#140b26` | Deep purple into Night, under the crimson and violet pixel mark |
-| Argus | `#2e2e33`, `#1c1c20`, `#0e0e12` | Dark greys into the splash ground, under its slate grey eye mark |
+| Argus | `#2e2e33`, `#1c1c20`, `#0e0e12` | Dark greys into the splash ground, under its white eye mark |
 
 ## App icons
 
@@ -85,6 +85,10 @@ Each icon is pixel art: a dark page with a folded corner on a transparent ground
 - `icon.ico` holding 16 to 256, and `icon.icns` holding 16 to 1024.
 
 The gallery shows them on the **Brand / File types** page.
+
+## Marks that follow the app colour
+
+Argus draws its mark in `currentColor`, so the app sets the colour with CSS `color`: white on the dark app, the primary colour for emphasis. Its mark data holds `currentInk`, the black for light grounds and the white for dark ones, and `markInk` returns the mark with the inks of a tone, `light` or `dark`, for a file or an image. `pnpm icons` writes `brand/argus` in black and `brand/dark-ground/argus` in white, and the splash uses the white one. A mark without `currentInk` is unchanged.
 
 ## Rims
 

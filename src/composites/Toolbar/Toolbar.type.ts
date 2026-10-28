@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { HTMLAttributes, Ref } from 'react';
+import type { HTMLAttributes, KeyboardEvent, MouseEvent, Ref } from 'react';
 import type { IconButtonSize } from '../../primitives/IconButton/IconButton.type';
 import type { SegmentIcon } from '../../primitives/SegmentedControl';
 import type { ShortcutSpec } from '../../primitives/Shortcut';
@@ -15,12 +15,18 @@ type ToolbarOpenOn = 'hover' | 'click';
 
 type ToolbarMenuSide = 'right' | 'left';
 
+type ToolbarColumns = 1 | 2 | 'auto';
+
+type ToolbarContextEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>;
+
 interface ToolbarItemBase {
   id: string;
   label: string;
   description?: string;
   shortcut?: ShortcutSpec;
   disabled?: boolean;
+  priority?: number;
+  onContextMenu?: (event: ToolbarContextEvent) => void;
 }
 
 interface ToolbarButton extends ToolbarItemBase {
@@ -86,6 +92,9 @@ interface ToolbarProps {
   handle?: boolean;
   handleProps?: ToolbarHandleProps;
   menuSide?: ToolbarMenuSide;
+  columns?: ToolbarColumns;
+  hiddenItems?: readonly string[];
+  onContextMenu?: (itemId: string, event: ToolbarContextEvent) => void;
   className?: string;
 }
 
@@ -95,6 +104,6 @@ interface ToolbarSplit {
 }
 
 export type {
-  ToolbarButton, ToolbarChoice, ToolbarChoices, ToolbarHandleProps, ToolbarIcon, ToolbarItem, ToolbarItemBase, ToolbarMenuSide, ToolbarShape, ToolbarNumber,
+  ToolbarButton, ToolbarChoice, ToolbarChoices, ToolbarColumns, ToolbarContextEvent, ToolbarHandleProps, ToolbarIcon, ToolbarItem, ToolbarItemBase, ToolbarMenuSide, ToolbarShape, ToolbarNumber,
   ToolbarOpenOn, ToolbarOrientation, ToolbarProps, ToolbarSeparator, ToolbarSplit, ToolbarToggle,
 };

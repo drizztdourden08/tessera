@@ -13,6 +13,7 @@ const files = tokenFiles(ROOT, brands);
 for (const [path, content] of Object.entries(files)) writeFileSync(join(ROOT, path), content);
 console.log(`tokens: ${Object.keys(files).join(', ')}`);
 for (const app of brands.apps) {
-  const ratios = markContrast(readFileSync(join(ROOT, 'brand', `${app}.svg`), 'utf8'), brands.family[app].gradient.stops);
+  const file = brands.family[app].mark.currentInk ? `dark-ground/${app}.svg` : `${app}.svg`;
+  const ratios = markContrast(readFileSync(join(ROOT, 'brand', file), 'utf8'), brands.family[app].gradient.stops);
   console.log(`  ${app} mark on its gradient: ${ratios.map((r) => `${r.toFixed(2)}:1`).join(', ')}`);
 }

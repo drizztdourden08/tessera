@@ -22,3 +22,9 @@
 .demonstrator__cell > :has(> .list-detail-story) {
   justify-self: stretch;
 }
+
+.list-detail-story--docked {
+  align-items: flex-start;
+  inline-size: calc(950 * var(--size-1));
+  max-inline-size: 100%;
+}

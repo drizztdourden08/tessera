@@ -33,7 +33,7 @@ describe('TrackTable fixed width columns', () => {
   it('mixes fixed and fraction tracks and drops the fixed one with its level', () => {
     const styles = trackTemplates(columns);
     expect(styles['--track-cols-0']).toBe('minmax(0, 2fr) var(--size-80)');
-    expect(styles['--track-cols-1']).toBe('minmax(0, 2fr)');
+    expect(styles['--track-cols-768']).toBe('minmax(0, 2fr)');
   });
 
   it('sets the template on the table', () => {
