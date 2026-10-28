@@ -27,7 +27,7 @@ import { BrandMark, BrandWordmark, Mascot } from '@drizztdourden08/tessera/brand
 - `Logo.Combined` fills its parent. Stacked, the mark and the wordmark both take the full width. Inline, the mark takes a quarter of the row and the wordmark the rest, so the wordmark scales with the mark. `PixelWordmark` and `BrandWordmark` take `size="fill"` too, to fill their parent's width.
 - `Mascot` and `AnimatedMascot` take `size="fill"`: the mascot fills the inline size and keeps its own proportions, with the same cap.
 
-The path data is in `src/brand/marks/`, the names, colours and descriptions in `src/brand/family.constants.ts`. The SVG files in this folder (`tessera.svg`, `rotp.svg`, `archipelia.svg`, `brock.svg`, `bxel.svg`) are the same marks for use outside code. Every app has a wordmark set in the pixel alphabet (`PixelWordmark`): the brand data holds only its text and four gradient colours, and `brand/*-wordmark.svg` are the same wordmarks as files. Uppercase letters draw at capital size and lowercase smaller, so Relic of the Past is `RELIC of the PAST`. The alphabet's letters for RELIC OF THE PAST come from that wordmark's artwork; the others are drawn in the same stroke. The gallery shows the whole family on the **Brand / Brand** page, and each part on its own on the **Logo**, **WordMark**, **Combined** and **Mascot** pages. The brand gradients are on **Colours / Gradients**.
+The path data is in `src/brand/marks/`, the names, colours and descriptions in `src/brand/family.constants.ts`. The SVG files in this folder (`tessera.svg`, `rotp.svg`, `archipelia.svg`, `brock.svg`, `bxel.svg`, `argus.svg`) are the same marks for use outside code. Every app has a wordmark set in the pixel alphabet (`PixelWordmark`): the brand data holds only its text and four gradient colours, and `brand/*-wordmark.svg` are the same wordmarks as files. Uppercase letters draw at capital size and lowercase smaller, so Relic of the Past is `RELIC of the PAST`. The alphabet's letters for RELIC OF THE PAST come from that wordmark's artwork; the others are drawn in the same stroke. The gallery shows the whole family on the **Brand / Brand** page, and each part on its own on the **Logo**, **WordMark**, **Combined** and **Mascot** pages. The brand gradients are on **Colours / Gradients**.
 
 ## Brand gradients
 
@@ -40,6 +40,7 @@ Each brand has one gradient, drawn behind its mark on a splash window or a hero 
 | Archipelia | `#ece6ff`, `#e2d8ff`, `#c1a8ff` | Its tile into its wordmark lilacs, under a dark purple mark |
 | Brock | `#ffc66e`, `#ffb341`, `#ff9416` | Its wordmark oranges, light enough for the dark ink mark |
 | Bxel | `#2a1560`, `#1a0d38`, `#140b26` | Deep purple into Night, under the crimson and violet pixel mark |
+| Argus | `#2e2e33`, `#1c1c20`, `#0e0e12` | Dark greys into the splash ground, under its slate grey eye mark |
 
 ## App icons
 

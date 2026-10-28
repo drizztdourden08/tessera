@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind data */
 import type { BrandApp, BrandInfo } from './brand.type';
+import { ARGUS_MARK } from './marks/argus.constants';
 import { ARCHIPELIA_MARK } from './marks/archipelia.constants';
 import { ARCHIPELIA_MASCOT } from './marks/archipelia-mascot.constants';
 import { BROCK_MARK } from './marks/brock.constants';
@@ -146,8 +147,34 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
       ],
     },
   },
+  argus: {
+    id: 'argus',
+    name: 'Argus',
+    kind: 'App · watchful overseer',
+    colour: '#8a8a96',
+    colourName: 'Slate grey, until it picks a hue',
+    tile: '#ffffff',
+    appIcon: 'straight',
+    summary: 'The watchful eye over the family: a geometric letter A that opens into an eye. It takes a neutral grey until the app picks its own colour.',
+    placement: 'Beside Tessera in grey, because it watches the whole family.',
+    mark: ARGUS_MARK,
+    wordmark: { text: 'Argus', colors: ['#e2e2e2', '#c9c9c9', '#adadad', '#8a8a96'] },
+    gradient: { angle: 160, stops: ['#2e2e33', '#1c1c20', '#0e0e12'] },
+    backdrop: {
+      angle: 160,
+      stops: ['#1c1c20', '#0e0e12'],
+      glows: [
+        { colour: '#8a8a96', strength: 20, at: [72, 14], size: [44, 110] },
+        { colour: '#adadad', strength: 10, at: [10, 98], size: [46, 110] },
+        { colour: '#c9c9c9', strength: 6, at: [96, 66], size: [26, 85] },
+        { colour: '#e2e2e2', strength: 4, at: [36, 0], size: [34, 55] },
+        { colour: '#3d3d42', strength: 50, at: [60, 100], size: [52, 90] },
+        { colour: '#3d3d42', strength: 45, at: [46, 46], size: [90, 140] },
+      ],
+    },
+  },
 };
 
-const BRAND_APPS: readonly BrandApp[] = ['tessera', 'rotp', 'archipelia', 'brock', 'bxel'];
+const BRAND_APPS: readonly BrandApp[] = ['tessera', 'rotp', 'archipelia', 'brock', 'bxel', 'argus'];
 
 export { BRAND_APPS, BRAND_FAMILY };

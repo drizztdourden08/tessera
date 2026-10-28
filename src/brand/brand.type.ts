@@ -6,7 +6,7 @@ import type { Ground } from '../primitives/ground/ground.type';
 import type { BrandRimTone } from './rim.type';
 import type { BrandFileTypes } from './file-types/file-type.type';
 
-type BrandApp = 'tessera' | 'brock' | 'archipelia' | 'rotp' | 'bxel';
+type BrandApp = 'tessera' | 'brock' | 'archipelia' | 'rotp' | 'bxel' | 'argus';
 
 interface BrandMarkPath {
   d: string;
