@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind data */
 import type { BrandMarkData } from '../brand.type';
+import { CURRENT_INK } from '../mark-ink.constants';
 
-const INK = 'currentColor';
+const INK = CURRENT_INK;
 
 const ARGUS_MARK: BrandMarkData = {
   viewBox: '67 270 1120 684',

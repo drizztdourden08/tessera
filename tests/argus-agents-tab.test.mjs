@@ -111,7 +111,7 @@ describe('TrackTable', () => {
     const css = read('src/composites/TrackTable/TrackTable.css');
     const names = { 1280: 'hide-1280', 1120: 'hide-1120', 896: 'hide-896', 768: 'drop-1', 640: 'drop-2', 480: 'drop-3' };
     for (const [step, name] of Object.entries(names)) {
-      expect(tokens).toMatch(new RegExp(`--track-${name}: (?:var\(--size-${step}\)|calc\(${step} \* var\(--size-1\)\));`));
+      expect([`--track-${name}: var(--size-${step});`, `--track-${name}: calc(${step} * var(--size-1));`].some((line) => tokens.includes(line))).toBe(true);
       expect(css).toContain(`@container track-table (width < ${step}px)`);
       expect(css).toContain(`[data-hide="${step}"]`);
     }

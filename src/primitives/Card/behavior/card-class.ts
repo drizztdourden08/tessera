@@ -1,10 +1,13 @@
 /* @layer renderer-components @kind util */
 import type { CardProps } from '../Card.type';
 
+const FLAGS = ['fill', 'flush', 'container'] as const;
+
 const cardClass = (props: CardProps, headed: boolean): string => {
-  const { variant = 'default', edgeTone, edge = 'left', fill = false, flush = false, container = false, className = '' } = props;
+  const { variant = 'default', edgeTone, edge = 'left', className = '' } = props;
   const edged = edgeTone === undefined ? [] : [`card--edge-${edge}`, `card--edge-${edgeTone}`];
-  return ['card', `card--${variant}`, ...edged, headed && 'card--headed', fill && 'card--fill', flush && 'card--flush', container && 'card--container', className].filter(Boolean).join(' ');
+  const flags = FLAGS.filter((flag) => props[flag] === true).map((flag) => `card--${flag}`);
+  return ['card', `card--${variant}`, ...edged, headed && 'card--headed', ...flags, className].filter(Boolean).join(' ');
 };
 
 export { cardClass };

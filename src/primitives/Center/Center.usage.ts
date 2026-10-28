@@ -35,7 +35,7 @@ const LobbyWaiting = () => (
   </Center>
 );
 `,
-  propsHash: '6fce93c922c84fb7',
+  propsHash: '5bc77cd2d8b3da0b',
 } satisfies ComponentUsage;
 
 export { usage };
