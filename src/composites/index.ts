@@ -21,3 +21,5 @@ export {
 export type { MarqueeBind, MarqueeItem, MarqueeModifiers, MarqueeOptions, MarqueeSelect } from './marquee';
 export { rectKeys, toggledKey, typeAheadIndex, useSelectionModel } from './selection';
 export type { SelectAllState, SelectionCell, SelectionClick, SelectionModel, SelectionModelInput } from './selection';
+export { useToggleSweep } from './toggle-sweep';
+export type { ToggleSweep, ToggleSweepBind, ToggleSweepInput } from './toggle-sweep';

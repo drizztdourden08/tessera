@@ -1,0 +1,25 @@
+/* @layer renderer-components @kind style */
+.field.inline-edit__field--dense {
+  --control-height: var(--size-24);
+  --control-font: var(--text-xs);
+  --control-pad-inline: var(--space-xs);
+
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-xs);
+  min-inline-size: 0;
+  block-size: var(--size-24);
+}
+
+.inline-edit__field--dense .field__control {
+  flex: 1;
+  min-inline-size: 0;
+}
+
+.inline-edit__field--dense .field__error {
+  flex: none;
+  max-inline-size: 50%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

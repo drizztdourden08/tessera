@@ -6,9 +6,10 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import { useInlineEditField } from '../behavior/useInlineEditField';
 import { MULTILINE_ROWS } from '../InlineEdit.constants';
 import type { InlineEditFieldProps } from '../InlineEdit.type';
+import './InlineEditField.css';
 
 const InlineEditField = (props: InlineEditFieldProps) => {
-  const { name, value, placeholder, validate, multiline, size, className, onCommit, onDone } = props;
+  const { name, value, placeholder, validate, multiline, size, dense, className, onCommit, onDone } = props;
   const { inlineEdit } = useTesseraStrings();
   const state = useInlineEditField({ value, validate, multiline, onCommit, onDone });
   const shared = {
@@ -21,7 +22,12 @@ const InlineEditField = (props: InlineEditFieldProps) => {
     onFocus: (event: { target: { select: () => void } }) => event.target.select(),
   };
   return (
-    <Field error={state.error} width="full" size={size} className={className}>
+    <Field
+      error={state.error}
+      width="full"
+      size={dense ? 'sm' : size}
+      className={[dense && !multiline && 'inline-edit__field--dense', className].filter(Boolean).join(' ') || undefined}
+    >
       {multiline
         ? <Textarea {...shared} rows={MULTILINE_ROWS} onChange={(event) => state.setDraft(event.target.value)} />
         : <TextInput {...shared} onChange={(event) => state.setDraft(event.target.value)} />}

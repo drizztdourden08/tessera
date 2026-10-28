@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind barrel */
 export { GroupTree, type GroupTreeProps, type TreeNode } from '../GroupTree';
+export { MillerColumns } from '../MillerColumns';
+export type { MillerColumnsProps, MillerColumnsSelection } from '../MillerColumns';
 export { Tree } from '../Tree';
 export type { TreeHandle, TreeMoveRequest, TreeProps, TreeReorder, TreeRowSize, TreeRowState, TreeSelection, TreeSelectionMode } from '../Tree';
 export { DocumentTabs,type DocumentTab, type DocumentTabStatus, type DocumentTabsProps } from '../DocumentTabs';

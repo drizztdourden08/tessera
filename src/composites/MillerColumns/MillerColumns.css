@@ -1,0 +1,54 @@
+/* @layer renderer-components @kind style */
+.miller-columns {
+  display: flex;
+  box-sizing: border-box;
+  inline-size: 100%;
+  block-size: 100%;
+  min-block-size: 0;
+  overflow-x: auto;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-bg);
+}
+
+.miller-columns__column {
+  flex: none;
+  box-sizing: border-box;
+  inline-size: var(--miller-column-w);
+  min-block-size: 0;
+  border-inline-end: var(--border-width-thin) solid var(--c-border);
+}
+
+.miller-columns .miller-columns__list {
+  border: 0;
+  border-radius: 0;
+}
+
+.miller-columns__cell {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-xs);
+  box-sizing: border-box;
+  block-size: 100%;
+  min-inline-size: 0;
+  margin-inline: calc(-1 * var(--space-sm));
+  padding-inline: var(--space-sm);
+}
+
+.miller-columns__cell[data-open] {
+  background: var(--c-selected);
+}
+
+.miller-columns__text {
+  flex: 1;
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.miller-columns__chevron {
+  flex: none;
+  color: var(--c-text-muted);
+}

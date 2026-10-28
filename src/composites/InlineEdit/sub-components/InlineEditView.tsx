@@ -10,12 +10,12 @@ import type { InlineEditViewProps } from '../InlineEdit.type';
 import './InlineEditView.css';
 
 const InlineEditView = (props: InlineEditViewProps) => {
-  const { name, label, value, placeholder, disabled, multiline, renderValue, look, buttonRef, className, onStart } = props;
+  const { name, label, value, placeholder, disabled, multiline, dense, renderValue, look, buttonRef, className, onStart } = props;
   const { inlineEdit } = useTesseraStrings();
   const empty = value === '';
   const shown = empty ? (placeholder ?? '') : value;
   const drawn = drawnValue(value, renderValue);
-  const classes = ['inline-edit__view', multiline && 'inline-edit__view--multiline', look === 'link' && 'inline-edit__view--link', className].filter(Boolean).join(' ');
+  const classes = ['inline-edit__view', multiline && 'inline-edit__view--multiline', dense && !multiline && 'inline-edit__view--dense', look === 'link' && 'inline-edit__view--link', className].filter(Boolean).join(' ');
   return (
     <Pressable
       ref={buttonRef}

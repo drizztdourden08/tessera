@@ -13,12 +13,14 @@ interface InlineEditProps {
   validate?: (value: string) => string | undefined;
   multiline?: boolean;
   size?: ControlSize;
+  dense?: boolean;
   renderValue?: (value: string) => ReactNode;
   look?: InlineEditLook;
   className?: string;
 }
 
 interface InlineEditViewProps {
+  dense: boolean;
   name: string;
   label: string | undefined;
   value: string;
@@ -39,6 +41,7 @@ interface InlineEditFieldProps {
   validate: ((value: string) => string | undefined) | undefined;
   multiline: boolean;
   size: ControlSize | undefined;
+  dense: boolean;
   className: string | undefined;
   onCommit: (value: string) => void;
   onDone: (focusBack: boolean) => void;
