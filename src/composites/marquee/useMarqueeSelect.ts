@@ -7,10 +7,11 @@ import { modifiersOf } from './modifiers-of';
 import { startsOnBackground } from './starts-on-background';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import type { Rect } from '../rect-drag/rect-drag.type';
-import type { MarqueeOptions, MarqueeSelect } from './marquee.type';
+import type { MarqueeCellRect, MarqueeOptions, MarqueeSelect } from './marquee.type';
 
 const useMarqueeSelect = (options: MarqueeOptions): MarqueeSelect => {
   const [rect, setRect] = useState<Rect | null>(null);
+  const [cells, setCells] = useState<MarqueeCellRect | null>(null);
   const latest = useRef(options);
   const stop = useRef<(() => void) | null>(null);
 
@@ -36,12 +37,13 @@ const useMarqueeSelect = (options: MarqueeOptions): MarqueeSelect => {
       threshold: current.threshold ?? THRESHOLD,
       autoScroll: current.autoScroll ?? true,
       onRect: setRect,
+      onCells: setCells,
       onSelect: (keys) => latest.current.onChange(keys),
       onEnd: () => { stop.current = null; },
     });
   }, []);
 
-  return { rect, bind: { onPointerDown } };
+  return { rect, cells, bind: { onPointerDown } };
 };
 
 export { useMarqueeSelect };

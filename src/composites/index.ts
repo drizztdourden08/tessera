@@ -19,3 +19,5 @@ export {
   MARQUEE_KEY_ATTRIBUTE, edgeScrollDelta, hitKeys, marqueeItemRects, mergeSelection, modifiersOf, rectFromPoints, rectsIntersect, useMarqueeSelect,
 } from './marquee';
 export type { MarqueeBind, MarqueeItem, MarqueeModifiers, MarqueeOptions, MarqueeSelect } from './marquee';
+export { rectKeys, toggledKey, typeAheadIndex, useSelectionModel } from './selection';
+export type { SelectAllState, SelectionCell, SelectionClick, SelectionModel, SelectionModelInput } from './selection';

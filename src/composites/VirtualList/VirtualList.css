@@ -33,3 +33,23 @@
 .virtual-list__item:hover {
   background: var(--c-hover);
 }
+
+.virtual-list__item[aria-selected='true'] {
+  background: var(--c-primary-soft);
+}
+
+.virtual-list[data-orientation='horizontal'] {
+  --vl-item-w: var(--size-96);
+}
+
+.virtual-list[data-orientation='horizontal'] .virtual-list__body {
+  inline-size: calc(var(--vl-count) * var(--vl-item-w));
+  block-size: 100%;
+}
+
+.virtual-list[data-orientation='horizontal'] .virtual-list__item {
+  inset-block: 0;
+  inset-inline-start: calc(var(--vl-index) * var(--vl-item-w));
+  inline-size: var(--vl-item-w);
+  block-size: auto;
+}

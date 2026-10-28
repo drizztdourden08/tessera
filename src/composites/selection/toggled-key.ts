@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind logic */
-const toggledId = (ids: ReadonlySet<string>, id: string): Set<string> => {
-  const next = new Set(ids);
-  if (next.has(id)) next.delete(id);
-  else next.add(id);
+const toggledKey = (keys: ReadonlySet<string>, key: string): Set<string> => {
+  const next = new Set(keys);
+  if (next.has(key)) next.delete(key);
+  else next.add(key);
   return next;
 };
 
-export { toggledId };
+export { toggledKey };

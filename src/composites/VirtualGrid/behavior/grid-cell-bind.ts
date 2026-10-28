@@ -5,7 +5,7 @@ import type { VirtualGridCellBind } from '../VirtualGrid.type';
 import type { GridCellBindInput } from './grid-cell-bind.type';
 
 const gridCellBind = (input: GridCellBindInput): VirtualGridCellBind => {
-  const { index, column, itemKey, tabbable, bare, onActivate, onNavigate } = input;
+  const { index, column, itemKey, tabbable, bare, extras, onActivate, onKeyDown } = input;
   return {
     role: 'gridcell',
     className: bare ? BARE_CELL_CLASS : CELL_CLASS,
@@ -15,7 +15,8 @@ const gridCellBind = (input: GridCellBindInput): VirtualGridCellBind => {
     [KIND_ATTRIBUTE]: 'tile',
     [MARQUEE_KEY_ATTRIBUTE]: itemKey,
     onFocus: () => onActivate(index),
-    onKeyDown: (event) => onNavigate(event, index),
+    onKeyDown,
+    ...extras,
   };
 };
 

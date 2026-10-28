@@ -19,7 +19,8 @@ const usage = {
     'The drag starts after the pointer moves 4 pixels; pass threshold to change it, and enabled false to turn it off.',
     'Shift adds to the selection, Ctrl or Cmd toggles the items inside, and Escape puts the selection back as it was.',
     'Set touch-action none on the box when touch must drag, and pass autoScroll false to stop the scroll near its edges.',
-    'The functions rectFromPoints, rectsIntersect, hitKeys, mergeSelection and edgeScrollDelta are the same math without the hook.',
+    'Give an item of getRects a cell, its row and column, and the hook returns cells, the first and last row and column of the items inside the rectangle, or null when nobody drags; a grid can show the span or select that block.',
+    'The functions rectFromPoints, rectsIntersect, hitKeys, hitItems, cellRectOf, mergeSelection and edgeScrollDelta are the same math without the hook.',
   ],
   a11y: [
     'Dragging is for pointers only; give the items keys or checkboxes for the same choice.',
@@ -43,7 +44,7 @@ const Tiles = ({ ids }: { ids: string[] }) => {
   );
 };
 `,
-  propsHash: 'df6d06d50332d67b',
+  propsHash: '2ba7b39a912994cc',
 } satisfies HookUsage;
 
 export { usage };

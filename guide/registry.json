@@ -8017,6 +8017,92 @@
       "parts": []
     },
     {
+      "name": "DragGhost",
+      "tier": "composites",
+      "source": "src/composites/DragGhost/DragGhost.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The picture that follows the pointer while items are dragged: a stack of up to three thumbnails and the count of items.",
+      "useWhen": [
+        "The user drags one or many items of a grid, a table or a tree and needs to see how many go with the pointer.",
+        "The items have thumbnails, such as sprites or images, that tell what is being moved."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user drags a rectangle over items to pick them.",
+          "use": "MarqueeBox"
+        },
+        {
+          "case": "The user drags tiles in a long grid that already draws its own ghost.",
+          "use": "VirtualGrid"
+        }
+      ],
+      "rules": [
+        "Pass count, the number of items dragged, and thumbnails, a list of nodes; at most three are stacked, newest on top, and never more than count.",
+        "Pass point, the pointer in client pixels, to follow the pointer in a layer above the page; the point of useReorderDrag fits.",
+        "Pass point null while nobody drags and nothing is drawn; leave point out to draw the ghost in place, such as in a story.",
+        "It takes no pointer events, so the drop target below keeps its hover.",
+        "Keep each thumbnail small and free of its own size; the card cuts what does not fit."
+      ],
+      "a11y": [
+        "The ghost is decoration and hidden from readers; announce the move in a live region when it ends.",
+        "Dragging is not the only way to move: give the items a key move for the same result."
+      ],
+      "buildingBlock": true,
+      "example": "import { DragGhost, useReorderDrag } from '@drizztdourden08/tessera';\nimport { useRef } from 'react';\n\nconst Pile = ({ names }: { names: string[] }) => {\n  const listRef = useRef<HTMLElement>(null);\n  const drag = useReorderDrag({\n    listRef,\n    selector: '[data-reorder-index]',\n    keys: () => names,\n    onDrop: () => undefined,\n  });\n  return <DragGhost count={drag.dragKeys.length} thumbnails={names} point={drag.point} />;\n};\n",
+      "propsHash": "7a9158ac4b2de254",
+      "props": {
+        "own": [
+          {
+            "name": "count",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "thumbnails",
+            "optional": true,
+            "text": "readonly ReactNode[]",
+            "default": "[]"
+          },
+          {
+            "name": "point",
+            "optional": true,
+            "text": "DragGhostPoint | null"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-surface",
+        "--radius-sm",
+        "--shadow-overlay",
+        "--size-64",
+        "--space-md",
+        "--space-sm",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/DragGhost",
+        "route": "#/story/composites-dragghost--overview",
+        "file": "stories/composites/DragGhost.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "Drawer",
       "tier": "composites",
       "source": "src/composites/Drawer/Drawer.tsx",
@@ -16851,6 +16937,13 @@
         "Give renderTile instead of renderItem when a tile is a button or a card with an action: it receives (item, index, cell) and the app spreads cell on the tile, so the tile is the gridcell and the only focus target; a cell with a button inside is two targets, and the smaller inner one fails the target size check.",
         "The cell props carry the role, tabIndex, aria-colindex, the data attributes the keys and the marquee read, the focus and key handlers, and a className that removes the padding; keep that className when you add your own, and spread them on one element that can take focus.",
         "Give renderTile or renderItem, not both; renderItem stays the default for tiles that are not interactive, and the grid wraps them in a padded cell as before.",
+        "Give selection ({ selected, onChange }) to pick tiles through useSelectionModel: a click picks one, Ctrl toggles, Shift takes the rectangle of tiles between the anchor and the click, Ctrl and A picks all, Space toggles and Escape clears; the tiles of a collapsed section are left out.",
+        "Give holes(item, index) for tiles that are drawn but cannot be picked, dragged or marquee selected, such as empty slots.",
+        "Give getLabel(item, index) for type ahead: a typed letter moves focus to the next tile whose label starts with it.",
+        "Give reorder ({ onMove, renderThumbnail }) to move tiles: drag a tile, or the picked tiles when it is one of them, or press Alt with an arrow; the grid draws an insertion line, scrolls near the edges, announces the move and shows a DragGhost with the count and up to three thumbnails.",
+        "onMove gets the keys, the gap as an index in the flat order with the section it lands in, and the modifier held at the drop; the app moves the items, and the grid puts focus on the first moved tile once the items change.",
+        "Give a section onDrop(keys) and a header becomes a drop target with an into mark; the drop does not call onMove.",
+        "For tile sizes in whole steps use stepVirtualSize on tileSize, such as from a slider.",
         "Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.",
         "Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.",
         "Use onActiveChange to follow the tile that holds focus, such as to show its detail beside the grid."
@@ -16863,6 +16956,7 @@
         "A tile or a header that holds focus stays drawn when it scrolls out of view, so the keys keep working.",
         "The actions of a header are in the tab order after the header; the arrows, Enter, Space, Left and Right act only when the header itself has focus, and a click on an action does not toggle the header.",
         "Keys act only when the tile itself has focus, so a field inside a tile keeps its own arrow keys.",
+        "With a selection the grid says it is multi select and each tile says if it is selected; a move is announced in a polite live region.",
         "With renderTile the tile is the cell, so a reader meets one control per tile; Enter and Space still press a button tile, and the arrows move between tiles."
       ],
       "tree": {
@@ -16873,7 +16967,7 @@
         "rule": "VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly."
       },
       "example": "import { Button, VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n\nconst Buttons = ({ frames, open }: { frames: Frame[]; open: (frame: Frame) => void }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderTile={(frame, _index, cell) => (\n      <Button {...cell} onClick={() => open(frame)}>{frame.name}</Button>\n    )}\n  />\n);\n\ninterface Folder {\n  key: string;\n  label: string;\n  items: Frame[];\n}\n\nconst Library = ({ folders }: { folders: Folder[] }) => (\n  <VirtualGrid\n    label=\"Library\"\n    sections={folders}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileWidth=\"size-128\"\n    tileHeight=\"size-64\"\n    defaultCollapsed={['archive']}\n  />\n);\n",
-      "propsHash": "d941326a3ed3f000",
+      "propsHash": "876bb1cc9f2b50ff",
       "props": {
         "own": [
           {
@@ -16916,6 +17010,26 @@
             "name": "overscan",
             "optional": true,
             "text": "number"
+          },
+          {
+            "name": "selection",
+            "optional": true,
+            "text": "VirtualGridSelection"
+          },
+          {
+            "name": "getLabel",
+            "optional": true,
+            "text": "(item: T, index: number) => string"
+          },
+          {
+            "name": "holes",
+            "optional": true,
+            "text": "(item: T, index: number) => boolean"
+          },
+          {
+            "name": "reorder",
+            "optional": true,
+            "text": "VirtualGridReorder<T>"
           },
           {
             "name": "collapsed",
@@ -16987,9 +17101,14 @@
         "--c-focus",
         "--c-hairline",
         "--c-hover",
+        "--c-primary",
+        "--c-primary-soft",
         "--c-surface",
+        "--opacity-muted",
         "--radius-md",
+        "--size-1",
         "--size-16",
+        "--size-2",
         "--size-32",
         "--size-96",
         "--space-lg",
@@ -17045,6 +17164,10 @@
         "Pick rowSize compact, normal or roomy; the height comes from a token and is measured once from the first row, so keep every row the same height.",
         "For a height of your own pass rowHeight, the name of a size token such as size-64; it wins over rowSize, and a raw pixel number is not accepted.",
         "Keep renderItem cheap and free of its own height; the row cuts what does not fit.",
+        "Set orientation to horizontal for a strip; itemSize, a size token, is then the width of each item, and the keys are Left and Right; the strip is a box that scrolls sideways, so give the list a height and read it left to right.",
+        "Give selection ({ selected, onChange }) to pick items; the list becomes a multi select listbox with roving focus, and a click, Ctrl, Shift, Ctrl and A, Space, Escape and Shift with an arrow work as in a file manager through useSelectionModel.",
+        "Give getLabel(item, index) for type ahead: a typed letter moves focus to the next item whose label starts with it.",
+        "Give scrollRef, bind and overlay and call getRects on the ref to let useMarqueeSelect pick items of a strip; with a selection every item carries data-marquee-key.",
         "Raise overscan for rows that load slowly while the user scrolls fast; the default is 10 rows on each side.",
         "Use onActiveChange to follow the row that holds focus, such as to show its detail beside the list."
       ],
@@ -17052,7 +17175,8 @@
         "The list is a list of items, each with its position and the size of the list, so a reader hears 41 of 5000.",
         "One row is in the tab order; the arrow keys, Home, End, Page Up and Page Down move focus and scroll to it.",
         "A row that holds focus stays drawn when it scrolls out of view, so the keys keep working.",
-        "Keys act only when the row itself has focus, so a field inside a row keeps its own arrow keys."
+        "Keys act only when the row itself has focus, so a field inside a row keeps its own arrow keys.",
+        "With a selection the list is a listbox of options that say if they are selected, and a horizontal list says so with aria-orientation."
       ],
       "tree": {
         "path": [
@@ -17062,7 +17186,7 @@
         "rule": "VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly."
       },
       "example": "import { VirtualList } from '@drizztdourden08/tessera';\n\ninterface Entry {\n  id: string;\n  text: string;\n}\n\nconst EventLog = ({ entries }: { entries: Entry[] }) => (\n  <VirtualList\n    label=\"Events\"\n    items={entries}\n    getKey={(entry) => entry.id}\n    renderItem={(entry) => entry.text}\n  />\n);\n",
-      "propsHash": "1d3f54f91cc2c59b",
+      "propsHash": "d98943be93cbba02",
       "props": {
         "own": [
           {
@@ -17086,6 +17210,16 @@
             "text": "string"
           },
           {
+            "name": "orientation",
+            "optional": true,
+            "text": "VirtualAxis",
+            "literals": [
+              "'vertical'",
+              "'horizontal'"
+            ],
+            "default": "'vertical'"
+          },
+          {
             "name": "rowSize",
             "optional": true,
             "text": "VirtualListRowSize",
@@ -17102,14 +17236,49 @@
             "text": "VirtualSize"
           },
           {
+            "name": "itemSize",
+            "optional": true,
+            "text": "VirtualSize"
+          },
+          {
             "name": "overscan",
             "optional": true,
             "text": "number"
           },
           {
+            "name": "selection",
+            "optional": true,
+            "text": "VirtualListSelection"
+          },
+          {
+            "name": "getLabel",
+            "optional": true,
+            "text": "(item: T, index: number) => string"
+          },
+          {
             "name": "onActiveChange",
             "optional": true,
             "text": "(index: number) => void"
+          },
+          {
+            "name": "scrollRef",
+            "optional": true,
+            "text": "Ref<HTMLElement>"
+          },
+          {
+            "name": "bind",
+            "optional": true,
+            "text": "VirtualListBind"
+          },
+          {
+            "name": "overlay",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "ref",
+            "optional": true,
+            "text": "Ref<VirtualListHandle>"
           },
           {
             "name": "className",
@@ -17130,10 +17299,12 @@
         "--c-border",
         "--c-focus",
         "--c-hover",
+        "--c-primary-soft",
         "--radius-md",
         "--size-32",
         "--size-40",
         "--size-48",
+        "--size-96",
         "--space-sm",
         "--vl-count",
         "--vl-index"
@@ -18014,7 +18185,8 @@
         "The drag starts after the pointer moves 4 pixels; pass threshold to change it, and enabled false to turn it off.",
         "Shift adds to the selection, Ctrl or Cmd toggles the items inside, and Escape puts the selection back as it was.",
         "Set touch-action none on the box when touch must drag, and pass autoScroll false to stop the scroll near its edges.",
-        "The functions rectFromPoints, rectsIntersect, hitKeys, mergeSelection and edgeScrollDelta are the same math without the hook."
+        "Give an item of getRects a cell, its row and column, and the hook returns cells, the first and last row and column of the items inside the rectangle, or null when nobody drags; a grid can show the span or select that block.",
+        "The functions rectFromPoints, rectsIntersect, hitKeys, hitItems, cellRectOf, mergeSelection and edgeScrollDelta are the same math without the hook."
       ],
       "a11y": [
         "Dragging is for pointers only; give the items keys or checkboxes for the same choice.",
@@ -18022,12 +18194,22 @@
         "The picked items must show their own selected state, since the rectangle is hidden from readers."
       ],
       "example": "import { useRef, useState } from 'react';\nimport { Box, MarqueeBox, useMarqueeSelect } from '@drizztdourden08/tessera';\n\nconst Tiles = ({ ids }: { ids: string[] }) => {\n  const areaRef = useRef<HTMLElement>(null);\n  const [picked, setPicked] = useState<readonly string[]>([]);\n  const marquee = useMarqueeSelect({ containerRef: areaRef, itemSelector: '[data-marquee-key]', selected: picked, onChange: setPicked });\n  return (\n    <Box ref={areaRef} {...marquee.bind}>\n      {ids.map((id) => (\n        <Box key={id} data-marquee-key={id} aria-selected={picked.includes(id)}>{id}</Box>\n      ))}\n      <MarqueeBox rect={marquee.rect} />\n    </Box>\n  );\n};\n",
-      "propsHash": "df6d06d50332d67b",
+      "propsHash": "2ba7b39a912994cc",
       "exports": [
+        {
+          "name": "cellRectOf",
+          "kind": "function",
+          "text": "(hits: readonly MarqueeItem[]) => MarqueeCellRect | null"
+        },
         {
           "name": "edgeScrollDelta",
           "kind": "function",
           "text": "(pointer: Point, bounds: Rect, edge: number, speed: number) => Point"
+        },
+        {
+          "name": "hitItems",
+          "kind": "function",
+          "text": "(area: Rect, items: readonly MarqueeItem[]) => readonly MarqueeItem[]"
         },
         {
           "name": "hitKeys",
@@ -18045,9 +18227,19 @@
           "text": "interface MarqueeBind {\n  onPointerDown: (event: ReactPointerEvent<HTMLElement>) => void;\n}"
         },
         {
+          "name": "MarqueeCell",
+          "kind": "type",
+          "text": "interface MarqueeCell {\n  row: number;\n  column: number;\n}"
+        },
+        {
+          "name": "MarqueeCellRect",
+          "kind": "type",
+          "text": "interface MarqueeCellRect {\n  firstRow: number;\n  lastRow: number;\n  firstColumn: number;\n  lastColumn: number;\n}"
+        },
+        {
           "name": "MarqueeItem",
           "kind": "type",
-          "text": "interface MarqueeItem {\n  key: string;\n  rect: Rect;\n}"
+          "text": "interface MarqueeItem {\n  key: string;\n  rect: Rect;\n  cell?: MarqueeCell;\n}"
         },
         {
           "name": "marqueeItemRects",
@@ -18067,7 +18259,7 @@
         {
           "name": "MarqueeSelect",
           "kind": "type",
-          "text": "interface MarqueeSelect {\n  rect: Rect | null;\n  bind: MarqueeBind;\n}"
+          "text": "interface MarqueeSelect {\n  rect: Rect | null;\n  cells: MarqueeCellRect | null;\n  bind: MarqueeBind;\n}"
         },
         {
           "name": "mergeSelection",
@@ -18129,7 +18321,11 @@
         "When only some items are drawn, such as a windowed list, pass locate(point) to give the position from your own item model; it replaces the measure of the drawn items.",
         "For a grid, pass columns from columnsOf(list, REORDER_ITEM_SELECTOR) so up and down move by a row.",
         "Call expect(id) of useMoveFocus before the move so focus follows the item, and announce a sentence such as Layer moved to 3 of 8 in a live region that shows its message.",
-        "Draw the drop mark and the dragging state from dropMark(index, total) and dragging; the hook sets no style."
+        "Draw the drop mark and the dragging state from dropMark(index, total) and dragging; the hook sets no style.",
+        "To drag a set, pass keys(from), which gives the keys that move with the grabbed item, such as the picked ones; dragKeys holds them while the drag runs and onDrop gets them in its third argument with before, the gap, and modifier, the Alt, Ctrl or Shift held at the drop.",
+        "Put the set at the gap with moveSet(order, keys, before), which keeps the order of the set; for a key move of a set call stepGap(order, keys, by) and give its result to moveSet.",
+        "Pass scrollRef, the box that scrolls, and the drag scrolls it near an edge and keeps the gap up to date while the pointer rests.",
+        "The point of the drag is in point, in client pixels; give it to DragGhost to show the count and a stack of thumbnails at the pointer."
       ],
       "a11y": [
         "Keys move an item without a pointer: use the alt chord when plain arrows already move focus, and the plain chord when they do not.",
@@ -18137,7 +18333,7 @@
         "Focus lands on the first button of the moved item that is outside a data-reorder-toggles group, so the user keeps their place."
       ],
       "example": "import { useRef } from 'react';\nimport { Box, Pressable, REORDER_ITEM_SELECTOR, reorderStep, useMoveFocus, useReorderDrag } from '@drizztdourden08/tessera';\n\ntype Layer = { id: string; name: string };\n\nconst LayerList = ({ layers, onMove }: { layers: Layer[]; onMove: (from: number, to: number) => void }) => {\n  const listRef = useRef<HTMLElement>(null);\n  const focus = useMoveFocus(listRef);\n  const commit = (from: number, to: number) => {\n    focus.announce(`${layers[from]?.name} moved to ${to + 1} of ${layers.length}`);\n    onMove(from, to);\n  };\n  const drag = useReorderDrag({ listRef, selector: REORDER_ITEM_SELECTOR, axis: 'vertical', onDrop: commit });\n  return (\n    <>\n      <Box ref={listRef} role=\"list\">\n        {layers.map((layer, index) => (\n          <Box key={layer.id} role=\"listitem\" data-reorder-index={index} data-reorder-key={layer.id} data-drop={drag.dropMark(index, layers.length)}>\n            <Pressable\n              {...drag.handlers(index)}\n              onKeyDown={(event) => {\n                const to = reorderStep(event, { axis: 'vertical', chord: 'alt', index, total: layers.length });\n                if (to === undefined) return;\n                event.preventDefault();\n                focus.expect(layer.id);\n                commit(index, to);\n              }}\n            >\n              {layer.name}\n            </Pressable>\n          </Box>\n        ))}\n      </Box>\n      <Box aria-live=\"polite\">{focus.message}</Box>\n    </>\n  );\n};\n",
-      "propsHash": "0b90624d3248f2f5",
+      "propsHash": "4efd9bedb16cbfb7",
       "exports": [
         {
           "name": "columnsOf",
@@ -18145,9 +18341,19 @@
           "text": "(list: HTMLElement | null, selector: string) => number"
         },
         {
+          "name": "modifierOf",
+          "kind": "function",
+          "text": "(event: { altKey: boolean; ctrlKey: boolean; metaKey: boolean; shiftKey: boolean; }) => ReorderModifier"
+        },
+        {
           "name": "MoveFocus",
           "kind": "type",
           "text": "interface MoveFocus {\n  message: string;\n  announce: (message: string) => void;\n  expect: (id: string) => void;\n}"
+        },
+        {
+          "name": "moveSet",
+          "kind": "function",
+          "text": "(order: readonly string[], keys: readonly string[], before: number) => string[]"
         },
         {
           "name": "REORDER_ITEM_SELECTOR",
@@ -18162,12 +18368,12 @@
         {
           "name": "ReorderDrag",
           "kind": "type",
-          "text": "interface ReorderDrag {\n  dragging: number | null;\n  handlers: (index: number) => ReorderHandlers;\n  cancel: () => void;\n  dropMark: (index: number, total: number) => ReorderDrop | undefined;\n}"
+          "text": "interface ReorderDrag {\n  dragging: number | null;\n  dragKeys: readonly string[];\n  point: ReorderPoint | null;\n  handlers: (index: number) => ReorderHandlers;\n  cancel: () => void;\n  dropMark: (index: number, total: number) => ReorderDrop | undefined;\n}"
         },
         {
           "name": "ReorderDragOptions",
           "kind": "type",
-          "text": "interface ReorderDragOptions {\n  listRef: RefObject<HTMLElement | null>;\n  selector: string;\n  axis?: ReorderAxis;\n  locate?: (point: { clientX: number; clientY: number }) => number;\n  onDrop: (from: number, to: number) => void;\n}"
+          "text": "interface ReorderDragOptions {\n  listRef: RefObject<HTMLElement | null>;\n  selector: string;\n  axis?: ReorderAxis;\n  locate?: (point: { clientX: number; clientY: number }) => number;\n  keys?: (from: number) => readonly string[];\n  scrollRef?: RefObject<HTMLElement | null>;\n  onDrop: (from: number, to: number, drop: ReorderDropInfo) => void;\n}"
         },
         {
           "name": "ReorderDrop",
@@ -18175,9 +18381,24 @@
           "text": "type ReorderDrop = 'before' | 'after';"
         },
         {
+          "name": "ReorderDropInfo",
+          "kind": "type",
+          "text": "interface ReorderDropInfo {\n  keys: readonly string[];\n  before: number;\n  modifier: ReorderModifier;\n}"
+        },
+        {
           "name": "ReorderKeyEvent",
           "kind": "type",
           "text": "interface ReorderKeyEvent {\n  key: string;\n  altKey: boolean;\n  ctrlKey: boolean;\n  metaKey: boolean;\n}"
+        },
+        {
+          "name": "ReorderModifier",
+          "kind": "type",
+          "text": "type ReorderModifier = 'none' | 'alt' | 'ctrl' | 'shift';"
+        },
+        {
+          "name": "ReorderPoint",
+          "kind": "type",
+          "text": "interface ReorderPoint {\n  x: number;\n  y: number;\n}"
         },
         {
           "name": "reorderStep",
@@ -18190,6 +18411,11 @@
           "text": "interface ReorderStepOptions {\n  axis: ReorderAxis;\n  chord: ReorderChord;\n  index: number;\n  total: number;\n  columns?: number;\n}"
         },
         {
+          "name": "stepGap",
+          "kind": "function",
+          "text": "(order: readonly string[], keys: readonly string[], by: number) => number | undefined"
+        },
+        {
           "name": "useMoveFocus",
           "kind": "hook",
           "text": "(listRef: RefObject<HTMLElement | null>) => MoveFocus"
@@ -18197,7 +18423,109 @@
         {
           "name": "useReorderDrag",
           "kind": "hook",
-          "text": "({ listRef, selector, axis, locate, onDrop }: ReorderDragOptions) => ReorderDrag"
+          "text": "({ listRef, selector, axis, locate, keys, scrollRef, onDrop }: ReorderDragOptions) => ReorderDrag"
+        }
+      ]
+    },
+    {
+      "name": "selection",
+      "tier": "composites",
+      "source": "src/composites/selection/index.ts",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The picking rules of a collection as one hook: a click picks one, Ctrl toggles, Shift takes a range or a rectangle, Ctrl and A takes all, Space toggles and a typed letter jumps to a label.",
+      "useWhen": [
+        "An app draws its own list, grid or tree of items and the user picks one or many of them.",
+        "A grid must take a rectangle of tiles between two clicks, and skip holes that cannot be picked.",
+        "Several collections of one app, such as a table, a grid and a list, must pick by the same rules."
+      ],
+      "avoidWhen": [
+        {
+          "case": "Records with columns, checkboxes and a select-all box already drawn for you.",
+          "use": "DataTable"
+        },
+        {
+          "case": "A long grid of tiles that already takes a selection prop.",
+          "use": "VirtualGrid"
+        },
+        {
+          "case": "A long list or a strip of items that already takes a selection prop.",
+          "use": "VirtualList"
+        },
+        {
+          "case": "The user picks by dragging a rectangle over items.",
+          "use": "useMarqueeSelect"
+        }
+      ],
+      "rules": [
+        "Pass order, the keys of the items in the order they are shown, and selected with onChange; the app keeps the set and the hook keeps only the anchor of the last click.",
+        "Call click(key, event) from a click, passing the event; Ctrl or Cmd toggles, Shift extends from the anchor and Ctrl with Shift adds the range to what is picked.",
+        "Pass onPick to hear a plain click on one item, such as to open it; a toggle or a range does not call it.",
+        "Pass seed, a key, to start a Shift range from an item that is already current when nothing was clicked yet.",
+        "On a grid pass cellOf(key), the row and column of a key; Shift then takes the rectangle between the anchor and the key instead of a line.",
+        "Pass isHole(key) for items that cannot be picked; clicks, ranges, rectangles and select all skip them.",
+        "Wire onKeyDown(event, key) on each item: Ctrl or Cmd with A picks all, Space toggles, Shift with Space extends, Escape clears and acts only when something is picked.",
+        "The key handler acts only when the item itself has focus, so a field inside an item keeps its own keys.",
+        "For type ahead pass labelOf(key) and onFocusKey(key); a typed letter calls onFocusKey with the next key whose label starts with the typed text, and the text resets after a short pause.",
+        "For a Shift with arrow range, call step(from, to, keep) from your own focus move, where from is the key that held focus.",
+        "Use allState, checkAll, selectAll and clear for a select-all box; checkAll toggles the shown keys, and selectAll picks every key that is not a hole.",
+        "The helpers rangeBetween, rectKeys, toggledKey and typeAheadIndex are the same math without the hook."
+      ],
+      "a11y": [
+        "Mark each picked item with aria-selected and give the collection aria-multiselectable, since the hook sets no attribute.",
+        "Every choice by pointer has a key: Space, Ctrl and A, Shift with Space or with the arrows, and Escape.",
+        "Type ahead moves focus to the match, so a reader hears the item it lands on."
+      ],
+      "example": "import { useState } from 'react';\nimport { Box, useSelectionModel } from '@drizztdourden08/tessera';\n\nconst Names = ({ names }: { names: string[] }) => {\n  const [picked, setPicked] = useState<ReadonlySet<string>>(new Set());\n  const model = useSelectionModel({ order: names, selected: picked, onChange: setPicked });\n  return (\n    <Box role=\"listbox\" aria-multiselectable=\"true\" aria-label=\"Names\">\n      {names.map((name) => (\n        <Box\n          key={name}\n          role=\"option\"\n          tabIndex={0}\n          aria-selected={model.isSelected(name)}\n          onClick={(event) => model.click(name, event)}\n          onKeyDown={(event) => model.onKeyDown(event, name)}\n        >\n          {name}\n        </Box>\n      ))}\n    </Box>\n  );\n};\n",
+      "propsHash": "ae6706261c82e710",
+      "exports": [
+        {
+          "name": "rectKeys",
+          "kind": "function",
+          "text": "(order: readonly string[], cellOf: (key: string) => SelectionCell | undefined, from: string, to: string) => string[]"
+        },
+        {
+          "name": "SelectAllState",
+          "kind": "type",
+          "text": "type SelectAllState = 'none' | 'some' | 'all';"
+        },
+        {
+          "name": "SelectionCell",
+          "kind": "type",
+          "text": "interface SelectionCell {\n  row: number;\n  column: number;\n}"
+        },
+        {
+          "name": "SelectionClick",
+          "kind": "type",
+          "text": "interface SelectionClick {\n  shiftKey: boolean;\n  ctrlKey: boolean;\n  metaKey: boolean;\n}"
+        },
+        {
+          "name": "SelectionModel",
+          "kind": "type",
+          "text": "interface SelectionModel {\n  allState: SelectAllState;\n  isSelected: (key: string) => boolean;\n  click: (key: string, event: SelectionClick) => void;\n  toggle: (key: string) => void;\n  extend: (key: string, keep: boolean) => void;\n  step: (from: string, to: string, keep: boolean) => void;\n  checkAll: () => void;\n  selectAll: () => void;\n  clear: () => void;\n  onKeyDown: (event: KeyboardEvent<HTMLElement>, key: string) => void;\n}"
+        },
+        {
+          "name": "SelectionModelInput",
+          "kind": "type",
+          "text": "interface SelectionModelInput {\n  order: readonly string[];\n  selected: ReadonlySet<string>;\n  onChange: (keys: ReadonlySet<string>) => void;\n  onPick?: (key: string) => void;\n  seed?: string | null;\n  cellOf?: (key: string) => SelectionCell | undefined;\n  isHole?: (key: string) => boolean;\n  labelOf?: (key: string) => string;\n  onFocusKey?: (key: string) => void;\n}"
+        },
+        {
+          "name": "toggledKey",
+          "kind": "function",
+          "text": "(keys: ReadonlySet<string>, key: string) => Set<string>"
+        },
+        {
+          "name": "typeAheadIndex",
+          "kind": "function",
+          "text": "(input: TypeAheadInput) => number"
+        },
+        {
+          "name": "useSelectionModel",
+          "kind": "hook",
+          "text": "(input: SelectionModelInput) => SelectionModel"
         }
       ]
     },
@@ -18233,6 +18561,8 @@
         "Keep keyAt stable with useCallback; a new function on every render measures again.",
         "Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.",
         "Use scrollTopToShow to find the scroll position that brings a row into view, or scrollTopForSpan for a row of any height with an align of start, center, end or nearest.",
+        "For items laid in a row, pass readHorizontalMetrics as readMetrics and place the items by left; the numbers then run along the x axis, and useVirtualFocus takes axis horizontal so the scroll and the pages follow.",
+        "stepVirtualSize(size, by) moves a size token along the ordered steps from size-24 to size-256, such as for a slider that sets the size of tiles.",
         "For rows of more than one height, pass readMetrics to measure the heights and rangeOf to give the rows to draw for the scroll position; without them every row has one height."
       ],
       "a11y": [
@@ -18240,8 +18570,13 @@
         "Give each row its position and the size of the list with aria-posinset and aria-setsize, since the rest are not in the page."
       ],
       "example": "import { useCallback, useRef } from 'react';\nimport { Box, useVirtualWindow } from '@drizztdourden08/tessera';\n\nconst ROW_ATTRIBUTE = 'data-row';\n\nconst Rows = ({ names }: { names: string[] }) => {\n  const rootRef = useRef<HTMLElement>(null);\n  const keyAt = useCallback((index: number) => names[index], [names]);\n  const windowed = useVirtualWindow({ enabled: true, count: names.length, keyAt, rootRef, indexAttribute: ROW_ATTRIBUTE });\n  return (\n    <Box ref={rootRef} onScroll={windowed.onScroll}>\n      <Box ref={windowed.bodyRef} onFocus={windowed.onFocus} onBlur={windowed.onBlur}>\n        {windowed.indices.map((at) => (\n          <Box key={names[at]} {...{ [ROW_ATTRIBUTE]: at }}>{names[at]}</Box>\n        ))}\n      </Box>\n    </Box>\n  );\n};\n",
-      "propsHash": "a8385895b70e5100",
+      "propsHash": "0bc70eb5720163fe",
       "exports": [
+        {
+          "name": "readHorizontalMetrics",
+          "kind": "function",
+          "text": "(root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics"
+        },
         {
           "name": "renderedIndices",
           "kind": "function",
@@ -18283,9 +18618,19 @@
           "text": "interface SpanInput {\n  top: number;\n  height: number;\n  viewport: number;\n  scrollTop: number;\n}"
         },
         {
+          "name": "stepVirtualSize",
+          "kind": "function",
+          "text": "(size: VirtualSize, by: number) => VirtualSize"
+        },
+        {
           "name": "useVirtualWindow",
           "kind": "hook",
           "text": "(input: VirtualWindowInput) => VirtualWindow"
+        },
+        {
+          "name": "VirtualAxis",
+          "kind": "type",
+          "text": "type VirtualAxis = 'vertical' | 'horizontal';"
         },
         {
           "name": "VirtualFocusModel",
@@ -18295,7 +18640,7 @@
         {
           "name": "VirtualItemsInput",
           "kind": "type",
-          "text": "interface VirtualItemsInput<T> {\n  items: readonly T[];\n  getKey: (item: T, index: number) => string;\n  overscan?: number;\n  sizeKey?: string;\n  onActiveChange?: (index: number) => void;\n}"
+          "text": "interface VirtualItemsInput<T> {\n  items: readonly T[];\n  getKey: (item: T, index: number) => string;\n  overscan?: number;\n  sizeKey?: string;\n  axis?: VirtualAxis;\n  onActiveChange?: (index: number) => void;\n}"
         },
         {
           "name": "VirtualMetrics",

@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind logic */
 import { clampNumber } from '../../../primitives/value-rule/clamp-number';
-import { rangeBetween } from '../../DataTable/behavior/range-between';
+import { rangeBetween } from '../../selection/range-between';
 import type { LogSelectionMove, LogStep } from './log-selection.type';
 
 const stepSelection = (step: LogStep): LogSelectionMove | null => {

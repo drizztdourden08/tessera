@@ -7,9 +7,22 @@ interface MarqueeModifiers {
   toggle: boolean;
 }
 
+interface MarqueeCell {
+  row: number;
+  column: number;
+}
+
+interface MarqueeCellRect {
+  firstRow: number;
+  lastRow: number;
+  firstColumn: number;
+  lastColumn: number;
+}
+
 interface MarqueeItem {
   key: string;
   rect: Rect;
+  cell?: MarqueeCell;
 }
 
 interface MarqueeOptions {
@@ -30,6 +43,7 @@ interface MarqueeBind {
 
 interface MarqueeSelect {
   rect: Rect | null;
+  cells: MarqueeCellRect | null;
   bind: MarqueeBind;
 }
 
@@ -43,8 +57,9 @@ interface MarqueeWiring {
   threshold: number;
   autoScroll: boolean;
   onRect: (rect: Rect | null) => void;
+  onCells: (cells: MarqueeCellRect | null) => void;
   onSelect: (keys: readonly string[]) => void;
   onEnd: () => void;
 }
 
-export type { MarqueeBind, MarqueeItem, MarqueeModifiers, MarqueeOptions, MarqueeSelect, MarqueeWiring };
+export type { MarqueeBind, MarqueeCell, MarqueeCellRect, MarqueeItem, MarqueeModifiers, MarqueeOptions, MarqueeSelect, MarqueeWiring };

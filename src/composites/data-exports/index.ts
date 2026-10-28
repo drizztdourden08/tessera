@@ -5,19 +5,24 @@ export type {
   IdRefTargetField, IdRefTargetFieldResolver, PickerNode,
 } from '../DataTable';
 export { VirtualList } from '../VirtualList';
-export type { VirtualListProps, VirtualListRowSize } from '../VirtualList';
+export type { VirtualListBind, VirtualListHandle, VirtualListProps, VirtualListRowSize, VirtualListSelection } from '../VirtualList';
 export { VirtualGrid } from '../VirtualGrid';
-export type { VirtualGridBind, VirtualGridCellBind, VirtualGridHandle, VirtualGridProps, VirtualGridSection } from '../VirtualGrid';
+export type {
+  VirtualGridBind, VirtualGridCellBind, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridSection,
+  VirtualGridSelection,
+} from '../VirtualGrid';
+export { DragGhost } from '../DragGhost';
+export type { DragGhostPoint, DragGhostProps } from '../DragGhost';
 export { MarqueeBox } from '../MarqueeBox';
 export type { MarqueeBoxProps } from '../MarqueeBox';
-export { renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, useVirtualWindow, visibleRange } from '../virtual';
-export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from '../virtual';
+export { readHorizontalMetrics, renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, stepVirtualSize, useVirtualWindow, visibleRange } from '../virtual';
+export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualAxis, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from '../virtual';
 export {
-  MARQUEE_KEY_ATTRIBUTE, edgeScrollDelta, hitKeys, marqueeItemRects, mergeSelection, modifiersOf, rectFromPoints, rectsIntersect, useMarqueeSelect,
+  MARQUEE_KEY_ATTRIBUTE, cellRectOf, edgeScrollDelta, hitItems, hitKeys, marqueeItemRects, mergeSelection, modifiersOf, rectFromPoints, rectsIntersect, useMarqueeSelect,
 } from '../marquee';
-export type { MarqueeBind, MarqueeItem, MarqueeModifiers, MarqueeOptions, MarqueeSelect } from '../marquee';
-export { REORDER_ITEM_SELECTOR, columnsOf, reorderStep, useMoveFocus, useReorderDrag } from '../reorder';
-export type { MoveFocus, ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDrop, ReorderKeyEvent, ReorderStepOptions } from '../reorder';
+export type { MarqueeBind, MarqueeCell, MarqueeCellRect, MarqueeItem, MarqueeModifiers, MarqueeOptions, MarqueeSelect } from '../marquee';
+export { REORDER_ITEM_SELECTOR, columnsOf, modifierOf, moveSet, reorderStep, stepGap, useMoveFocus, useReorderDrag } from '../reorder';
+export type { MoveFocus, ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDrop, ReorderDropInfo, ReorderKeyEvent, ReorderModifier, ReorderPoint, ReorderStepOptions } from '../reorder';
 export { LogPanel, type LogKindDef, type LogKindTone, type LogOrder, type LogPanelProps, type LogRow } from '../LogPanel';
 export { ListItemList, ListItemRow } from '../ListItemRow';
 export type { ListItemColumn, ListItemColumnAlign, ListItemHeader, ListItemHeaderColumn, ListItemListProps, ListItemRowActionVisibility, ListItemRowProps, ListItemRowRole, ListItemShape } from '../ListItemRow';
