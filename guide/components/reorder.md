@@ -7,7 +7,7 @@ A hook module: functions for a screen that owns its own markup, not a component.
 Import from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
 ```tsx
-import { columnsOf, REORDER_ITEM_SELECTOR, reorderStep, useMoveFocus, useReorderDrag } from '@drizztdourden08/tessera';
+import { columnsOf, modifierOf, moveSet, REORDER_ITEM_SELECTOR, reorderStep, stepGap, useMoveFocus, useReorderDrag } from '@drizztdourden08/tessera';
 ```
 
 The source is `src/composites/reorder/index.ts`.
@@ -33,6 +33,10 @@ The source is `src/composites/reorder/index.ts`.
 - For a grid, pass columns from columnsOf(list, REORDER_ITEM_SELECTOR) so up and down move by a row.
 - Call expect(id) of useMoveFocus before the move so focus follows the item, and announce a sentence such as Layer moved to 3 of 8 in a live region that shows its message.
 - Draw the drop mark and the dragging state from dropMark(index, total) and dragging; the hook sets no style.
+- To drag a set, pass keys(from), which gives the keys that move with the grabbed item, such as the picked ones; dragKeys holds them while the drag runs and onDrop gets them in its third argument with before, the gap, and modifier, the Alt, Ctrl or Shift held at the drop.
+- Put the set at the gap with moveSet(order, keys, before), which keeps the order of the set; for a key move of a set call stepGap(order, keys, by) and give its result to moveSet.
+- Pass scrollRef, the box that scrolls, and the drag scrolls it near an edge and keeps the gap up to date while the pointer rests.
+- The point of the drag is in point, in client pixels; give it to DragGhost to show the count and a stack of thumbnails at the pointer.
 
 ## Accessibility
 
@@ -85,10 +89,13 @@ const LayerList = ({ layers, onMove }: { layers: Layer[]; onMove: (from: number,
 ## What it exports
 
 - `columnsOf`, a function: `(list: HTMLElement | null, selector: string) => number`.
+- `modifierOf`, a function: `(event: { altKey: boolean; ctrlKey: boolean; metaKey: boolean; shiftKey: boolean; }) => ReorderModifier`.
+- `moveSet`, a function: `(order: readonly string[], keys: readonly string[], before: number) => string[]`.
 - `REORDER_ITEM_SELECTOR`, a constant: `":scope > [data-reorder-index]"`.
 - `reorderStep`, a function: `(event: ReorderKeyEvent, options: ReorderStepOptions) => number | undefined`.
+- `stepGap`, a function: `(order: readonly string[], keys: readonly string[], by: number) => number | undefined`.
 - `useMoveFocus`, a hook: `(listRef: RefObject<HTMLElement | null>) => MoveFocus`.
-- `useReorderDrag`, a hook: `({ listRef, selector, axis, locate, onDrop }: ReorderDragOptions) => ReorderDrag`.
+- `useReorderDrag`, a hook: `({ listRef, selector, axis, locate, keys, scrollRef, onDrop }: ReorderDragOptions) => ReorderDrag`.
 
 ## Types
 
@@ -103,6 +110,8 @@ type ReorderAxis = 'vertical' | 'horizontal' | 'grid';
 
 interface ReorderDrag {
   dragging: number | null;
+  dragKeys: readonly string[];
+  point: ReorderPoint | null;
   handlers: (index: number) => ReorderHandlers;
   cancel: () => void;
   dropMark: (index: number, total: number) => ReorderDrop | undefined;
@@ -113,16 +122,31 @@ interface ReorderDragOptions {
   selector: string;
   axis?: ReorderAxis;
   locate?: (point: { clientX: number; clientY: number }) => number;
-  onDrop: (from: number, to: number) => void;
+  keys?: (from: number) => readonly string[];
+  scrollRef?: RefObject<HTMLElement | null>;
+  onDrop: (from: number, to: number, drop: ReorderDropInfo) => void;
 }
 
 type ReorderDrop = 'before' | 'after';
+
+interface ReorderDropInfo {
+  keys: readonly string[];
+  before: number;
+  modifier: ReorderModifier;
+}
 
 interface ReorderKeyEvent {
   key: string;
   altKey: boolean;
   ctrlKey: boolean;
   metaKey: boolean;
+}
+
+type ReorderModifier = 'none' | 'alt' | 'ctrl' | 'shift';
+
+interface ReorderPoint {
+  x: number;
+  y: number;
 }
 
 interface ReorderStepOptions {

@@ -5,7 +5,8 @@ import type { KeyboardEvent } from 'react';
 import type { VirtualFocus, VirtualFocusInput } from './virtual-focus.type';
 
 const useVirtualFocus = (input: VirtualFocusInput): VirtualFocus => {
-  const { rootRef, bodyRef, cellAttribute, metrics, onScroll, resolve, spanOf, onActiveChange } = input;
+  const { rootRef, bodyRef, cellAttribute, metrics, onScroll, resolve, spanOf, axis = 'vertical', onMove, onActiveChange } = input;
+  const across = axis === 'horizontal';
   const pending = useRef<number | null>(null);
   const [active, setActive] = useState(0);
 
@@ -25,30 +26,34 @@ const useVirtualFocus = (input: VirtualFocusInput): VirtualFocus => {
   }, [active, onActiveChange]);
 
   const pageRows = useCallback(() => {
-    const viewport = rootRef.current?.clientHeight ?? metrics.viewport;
+    const root = rootRef.current;
+    const viewport = (across ? root?.clientWidth : root?.clientHeight) ?? metrics.viewport;
     return Math.max(1, Math.floor(viewport / metrics.rowHeight) - 1);
-  }, [rootRef, metrics]);
+  }, [rootRef, metrics, across]);
 
   const goTo = useCallback((index: number, row: number) => {
     pending.current = index;
     activate(index);
     const root = rootRef.current;
     if (!root) return;
-    const viewport = root.clientHeight;
+    const viewport = across ? root.clientWidth : root.clientHeight;
     const span = spanOf?.(row) ?? { top: row * metrics.rowHeight, height: metrics.rowHeight };
-    root.scrollTop = scrollTopForSpan({ ...span, viewport, scrollTop: root.scrollTop }, 'nearest');
+    const place = { ...span, viewport, scrollTop: across ? root.scrollLeft : root.scrollTop };
+    if (across) root.scrollLeft = scrollTopForSpan(place, 'nearest');
+    else root.scrollTop = scrollTopForSpan(place, 'nearest');
     onScroll();
-  }, [rootRef, metrics, spanOf, activate, onScroll]);
+  }, [rootRef, metrics, spanOf, activate, onScroll, across]);
 
   const navigate = useCallback((event: KeyboardEvent<HTMLElement>, index: number) => {
     if (event.target !== event.currentTarget) return;
     const target = resolve(event, index, pageRows());
     if (!target) return;
     event.preventDefault();
+    onMove?.(event, target, index);
     if (target.index !== index) goTo(target.index, target.row);
-  }, [resolve, pageRows, goTo]);
+  }, [resolve, pageRows, goTo, onMove]);
 
-  return { active, activate, navigate };
+  return { active, activate, jump: goTo, navigate };
 };
 
 export { useVirtualFocus };

@@ -234,6 +234,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 
 No question leads to these parts. Other components are built on them; reach for one only when no component above fits.
 
+- [DragGhost](components/DragGhost.md). The picture that follows the pointer while items are dragged: a stack of up to three thumbnails and the count of items.
 - [PanelContainer](components/PanelContainer.md). A plain stacked section with a heading, optional action and a body.
 - [ScreenLayer](components/ScreenLayer.md). Building block: the overlay and the card of every screen, with one gap around the card that follows the room.
 - [ScreenPage](components/ScreenPage.md). Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls.

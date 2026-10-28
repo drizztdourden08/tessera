@@ -10,6 +10,7 @@ interface GridHeaderProps {
   collapsed: boolean;
   tabbable: boolean;
   depth?: number;
+  into?: boolean;
   actions?: readonly ActionItem[];
   onToggle: (collapsed: boolean) => void;
   onActivate: (index: number) => void;

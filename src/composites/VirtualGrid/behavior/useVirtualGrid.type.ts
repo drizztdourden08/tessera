@@ -1,7 +1,9 @@
 /* @layer renderer-components @kind types */
+import type { KeyboardEvent } from 'react';
 import type { MarqueeItem } from '../../marquee';
 import type { ScrollAlign, VirtualFocusModel } from '../../virtual';
-import type { VirtualGridSection } from '../VirtualGrid.type';
+import type { VirtualGridCellBind, VirtualGridReorder, VirtualGridSection, VirtualGridSelection } from '../VirtualGrid.type';
+import type { GridGhost } from './useGridReorder.type';
 import type { GridLayout } from './grid-layout.type';
 
 interface UseVirtualGridInput<T> {
@@ -14,6 +16,10 @@ interface UseVirtualGridInput<T> {
   defaultCollapsed?: readonly string[];
   onToggleSection?: (key: string, collapsed: boolean) => void;
   onActiveChange?: (index: number) => void;
+  selection?: VirtualGridSelection;
+  getLabel?: (item: T, index: number) => string;
+  holes?: (item: T, index: number) => boolean;
+  reorder?: VirtualGridReorder<T>;
 }
 
 interface VirtualGridModel<T> extends VirtualFocusModel {
@@ -26,6 +32,13 @@ interface VirtualGridModel<T> extends VirtualFocusModel {
   setCollapsed: (key: string, collapsed: boolean) => void;
   scrollToIndex: (index: number, align?: ScrollAlign) => void;
   getRects: () => readonly MarqueeItem[];
+  selecting: boolean;
+  reordering: boolean;
+  message: string;
+  into: string | null;
+  ghost: GridGhost | null;
+  extrasOf: (item: number, key: string) => Partial<VirtualGridCellBind>;
+  cellKeys: (event: KeyboardEvent<HTMLElement>, stop: number, item: number) => void;
 }
 
 export type { UseVirtualGridInput, VirtualGridModel };

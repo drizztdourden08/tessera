@@ -19,6 +19,8 @@ const usage = {
     'Keep keyAt stable with useCallback; a new function on every render measures again.',
     'Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.',
     'Use scrollTopToShow to find the scroll position that brings a row into view, or scrollTopForSpan for a row of any height with an align of start, center, end or nearest.',
+    'For items laid in a row, pass readHorizontalMetrics as readMetrics and place the items by left; the numbers then run along the x axis, and useVirtualFocus takes axis horizontal so the scroll and the pages follow.',
+    'stepVirtualSize(size, by) moves a size token along the ordered steps from size-24 to size-256, such as for a slider that sets the size of tiles.',
     'For rows of more than one height, pass readMetrics to measure the heights and rangeOf to give the rows to draw for the scroll position; without them every row has one height.',
   ],
   a11y: [
@@ -45,7 +47,7 @@ const Rows = ({ names }: { names: string[] }) => {
   );
 };
 `,
-  propsHash: 'a8385895b70e5100',
+  propsHash: '0bc70eb5720163fe',
 } satisfies HookUsage;
 
 export { usage };

@@ -20,6 +20,10 @@ const usage = {
     'Pick rowSize compact, normal or roomy; the height comes from a token and is measured once from the first row, so keep every row the same height.',
     'For a height of your own pass rowHeight, the name of a size token such as size-64; it wins over rowSize, and a raw pixel number is not accepted.',
     'Keep renderItem cheap and free of its own height; the row cuts what does not fit.',
+    'Set orientation to horizontal for a strip; itemSize, a size token, is then the width of each item, and the keys are Left and Right; the strip is a box that scrolls sideways, so give the list a height and read it left to right.',
+    'Give selection ({ selected, onChange }) to pick items; the list becomes a multi select listbox with roving focus, and a click, Ctrl, Shift, Ctrl and A, Space, Escape and Shift with an arrow work as in a file manager through useSelectionModel.',
+    'Give getLabel(item, index) for type ahead: a typed letter moves focus to the next item whose label starts with it.',
+    'Give scrollRef, bind and overlay and call getRects on the ref to let useMarqueeSelect pick items of a strip; with a selection every item carries data-marquee-key.',
     'Raise overscan for rows that load slowly while the user scrolls fast; the default is 10 rows on each side.',
     'Use onActiveChange to follow the row that holds focus, such as to show its detail beside the list.',
   ],
@@ -28,6 +32,7 @@ const usage = {
     'One row is in the tab order; the arrow keys, Home, End, Page Up and Page Down move focus and scroll to it.',
     'A row that holds focus stays drawn when it scrolls out of view, so the keys keep working.',
     'Keys act only when the row itself has focus, so a field inside a row keeps its own arrow keys.',
+    'With a selection the list is a listbox of options that say if they are selected, and a horizontal list says so with aria-orientation.',
   ],
   tree: {
     path: ['data', 'a long list drawn only where it is in view'],
@@ -49,7 +54,7 @@ const EventLog = ({ entries }: { entries: Entry[] }) => (
   />
 );
 `,
-  propsHash: '1d3f54f91cc2c59b',
+  propsHash: 'd98943be93cbba02',
 } satisfies ComponentUsage;
 
 export { usage };

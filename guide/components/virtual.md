@@ -7,7 +7,7 @@ A hook module: functions for a screen that owns its own markup, not a component.
 Import from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
 ```tsx
-import { renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, useVirtualWindow, visibleRange } from '@drizztdourden08/tessera';
+import { readHorizontalMetrics, renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, stepVirtualSize, useVirtualWindow, visibleRange } from '@drizztdourden08/tessera';
 ```
 
 The source is `src/composites/virtual/index.ts`.
@@ -31,6 +31,8 @@ The source is `src/composites/virtual/index.ts`.
 - Keep keyAt stable with useCallback; a new function on every render measures again.
 - Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.
 - Use scrollTopToShow to find the scroll position that brings a row into view, or scrollTopForSpan for a row of any height with an align of start, center, end or nearest.
+- For items laid in a row, pass readHorizontalMetrics as readMetrics and place the items by left; the numbers then run along the x axis, and useVirtualFocus takes axis horizontal so the scroll and the pages follow.
+- StepVirtualSize(size, by) moves a size token along the ordered steps from size-24 to size-256, such as for a slider that sets the size of tiles.
 - For rows of more than one height, pass readMetrics to measure the heights and rangeOf to give the rows to draw for the scroll position; without them every row has one height.
 
 ## Accessibility
@@ -64,10 +66,12 @@ const Rows = ({ names }: { names: string[] }) => {
 
 ## What it exports
 
+- `readHorizontalMetrics`, a function: `(root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics`.
 - `renderedIndices`, a function: `(range: RowRange, pinned: number) => readonly number[]`.
 - `scrollTopForSpan`, a function: `(input: SpanInput, align: ScrollAlign) => number`.
 - `scrollTopToShow`, a function: `(input: ShowInput) => number`.
 - `sizeVariable`, a function: `(token: VirtualSize) => string`.
+- `stepVirtualSize`, a function: `(size: VirtualSize, by: number) => VirtualSize`.
 - `useVirtualWindow`, a hook: `(input: VirtualWindowInput) => VirtualWindow`.
 - `visibleRange`, a function: `(input: VisibleRangeInput) => RowRange`.
 
@@ -95,6 +99,8 @@ interface SpanInput {
   scrollTop: number;
 }
 
+type VirtualAxis = 'vertical' | 'horizontal';
+
 interface VirtualFocusModel {
   rootRef: RefObject<HTMLElement | null>;
   bodyRef: RefObject<HTMLElement | null>;
@@ -111,6 +117,7 @@ interface VirtualItemsInput<T> {
   getKey: (item: T, index: number) => string;
   overscan?: number;
   sizeKey?: string;
+  axis?: VirtualAxis;
   onActiveChange?: (index: number) => void;
 }
 

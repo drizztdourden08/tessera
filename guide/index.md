@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 107 of 217 have their usage written; a linked name opens its page.
+One line per component. 108 of 218 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -121,6 +121,7 @@ One line per component. 107 of 217 have their usage written; a linked name opens
 - `DisabledOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `DockLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DocumentTabs](components/DocumentTabs.md): The strip of open documents above an editor: a tab per document with an unsaved mark and a close button, put in order by drag or keys, scrolling when they do not fit. Import from `@drizztdourden08/tessera`.
+- [DragGhost](components/DragGhost.md): The picture that follows the pointer while items are dragged: a stack of up to three thumbnails and the count of items. A building block. Import from `@drizztdourden08/tessera`.
 - `Drawer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DropdownMenu](components/DropdownMenu.md): A menu of actions, checks, choices and sub-menus, built from data, that hangs from its own button or from an anchor. Import from `@drizztdourden08/tessera`.
 - [DynamicInput](components/DynamicInput.md): One field built from a pattern of typed slots, muted text and icons, such as a time, a price with its currency or a lobby code. Import from `@drizztdourden08/tessera`.
@@ -232,6 +233,7 @@ One line per component. 107 of 217 have their usage written; a linked name opens
 
 Functions for a screen that owns its own markup. Each line is a module; its page lists what it exports.
 
-- [marquee](components/marquee.md): Drag a rectangle over an area to pick the items inside it, as in a file manager, with Shift to add, Ctrl or Cmd to toggle and Escape to cancel. Import `edgeScrollDelta`, `hitKeys`, `MARQUEE_KEY_ATTRIBUTE`, `marqueeItemRects`, `mergeSelection`, `modifiersOf`, `rectFromPoints`, `rectsIntersect`, `useMarqueeSelect` from `@drizztdourden08/tessera`.
-- [reorder](components/reorder.md): Drag and keyboard reorder for a list or grid the app owns, as functions you wire into your own markup. Import `columnsOf`, `REORDER_ITEM_SELECTOR`, `reorderStep`, `useMoveFocus`, `useReorderDrag` from `@drizztdourden08/tessera`.
-- [virtual](components/virtual.md): The windowing of a long list of equal rows: which rows to draw for the scroll position, and which row to keep while it holds focus. Import `renderedIndices`, `scrollTopForSpan`, `scrollTopToShow`, `sizeVariable`, `useVirtualWindow`, `visibleRange` from `@drizztdourden08/tessera`.
+- [marquee](components/marquee.md): Drag a rectangle over an area to pick the items inside it, as in a file manager, with Shift to add, Ctrl or Cmd to toggle and Escape to cancel. Import `cellRectOf`, `edgeScrollDelta`, `hitItems`, `hitKeys`, `MARQUEE_KEY_ATTRIBUTE`, `marqueeItemRects`, `mergeSelection`, `modifiersOf`, `rectFromPoints`, `rectsIntersect`, `useMarqueeSelect` from `@drizztdourden08/tessera`.
+- [reorder](components/reorder.md): Drag and keyboard reorder for a list or grid the app owns, as functions you wire into your own markup. Import `columnsOf`, `modifierOf`, `moveSet`, `REORDER_ITEM_SELECTOR`, `reorderStep`, `stepGap`, `useMoveFocus`, `useReorderDrag` from `@drizztdourden08/tessera`.
+- [selection](components/selection.md): The picking rules of a collection as one hook: a click picks one, Ctrl toggles, Shift takes a range or a rectangle, Ctrl and A takes all, Space toggles and a typed letter jumps to a label. Import `rectKeys`, `toggledKey`, `typeAheadIndex`, `useSelectionModel` from `@drizztdourden08/tessera`.
+- [virtual](components/virtual.md): The windowing of a long list of equal rows: which rows to draw for the scroll position, and which row to keep while it holds focus. Import `readHorizontalMetrics`, `renderedIndices`, `scrollTopForSpan`, `scrollTopToShow`, `sizeVariable`, `stepVirtualSize`, `useVirtualWindow`, `visibleRange` from `@drizztdourden08/tessera`.

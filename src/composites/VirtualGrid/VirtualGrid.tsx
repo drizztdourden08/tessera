@@ -2,6 +2,7 @@
 import { useImperativeHandle, useMemo } from 'react';
 import { Box } from '../../primitives/Box';
 import { mergeRefs } from '../../primitives/dom/merge-refs';
+import { DragGhost } from '../DragGhost';
 import { sizeVariable } from '../virtual/size-variable';
 import { useVirtualGrid } from './behavior/useVirtualGrid';
 import { GridRows } from './sub-components/GridRows';
@@ -9,6 +10,7 @@ import { HEADERS_PROPERTY, ROWS_PROPERTY, TILE_HEIGHT_PROPERTY, TILE_WIDTH_PROPE
 import type { CSSProperties } from 'react';
 import type { VirtualGridProps } from './VirtualGrid.type';
 import '../../theme/virtual-box.css';
+import '../../theme/visually-hidden.css';
 import './VirtualGrid.css';
 
 const VirtualGrid = <T,>(props: VirtualGridProps<T>) => {
@@ -30,6 +32,7 @@ const VirtualGrid = <T,>(props: VirtualGridProps<T>) => {
         aria-label={label}
         aria-rowcount={layout.rows.length}
         aria-colcount={columns}
+        aria-multiselectable={model.selecting ? true : undefined}
         className="virtual-grid__body"
         style={bodyStyle}
         onFocus={model.onFocus}
@@ -38,6 +41,8 @@ const VirtualGrid = <T,>(props: VirtualGridProps<T>) => {
         <GridRows model={model} sections={sections} getKey={getKey} renderItem={renderItem} renderTile={renderTile} />
       </Box>
       {overlay}
+      {model.ghost && <DragGhost count={model.ghost.count} thumbnails={model.ghost.thumbnails} point={model.ghost.point} />}
+      {model.reordering && <Box className="visually-hidden" aria-live="polite">{model.message}</Box>}
     </Box>
   );
 };

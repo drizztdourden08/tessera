@@ -7,7 +7,7 @@ A hook module: functions for a screen that owns its own markup, not a component.
 Import from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
 ```tsx
-import { edgeScrollDelta, hitKeys, MARQUEE_KEY_ATTRIBUTE, marqueeItemRects, mergeSelection, modifiersOf, rectFromPoints, rectsIntersect, useMarqueeSelect } from '@drizztdourden08/tessera';
+import { cellRectOf, edgeScrollDelta, hitItems, hitKeys, MARQUEE_KEY_ATTRIBUTE, marqueeItemRects, mergeSelection, modifiersOf, rectFromPoints, rectsIntersect, useMarqueeSelect } from '@drizztdourden08/tessera';
 ```
 
 The source is `src/composites/marquee/index.ts`.
@@ -31,7 +31,8 @@ The source is `src/composites/marquee/index.ts`.
 - The drag starts after the pointer moves 4 pixels; pass threshold to change it, and enabled false to turn it off.
 - Shift adds to the selection, Ctrl or Cmd toggles the items inside, and Escape puts the selection back as it was.
 - Set touch-action none on the box when touch must drag, and pass autoScroll false to stop the scroll near its edges.
-- The functions rectFromPoints, rectsIntersect, hitKeys, mergeSelection and edgeScrollDelta are the same math without the hook.
+- Give an item of getRects a cell, its row and column, and the hook returns cells, the first and last row and column of the items inside the rectangle, or null when nobody drags; a grid can show the span or select that block.
+- The functions rectFromPoints, rectsIntersect, hitKeys, hitItems, cellRectOf, mergeSelection and edgeScrollDelta are the same math without the hook.
 
 ## Accessibility
 
@@ -62,7 +63,9 @@ const Tiles = ({ ids }: { ids: string[] }) => {
 
 ## What it exports
 
+- `cellRectOf`, a function: `(hits: readonly MarqueeItem[]) => MarqueeCellRect | null`.
 - `edgeScrollDelta`, a function: `(pointer: Point, bounds: Rect, edge: number, speed: number) => Point`.
+- `hitItems`, a function: `(area: Rect, items: readonly MarqueeItem[]) => readonly MarqueeItem[]`.
 - `hitKeys`, a function: `(area: Rect, items: readonly MarqueeItem[]) => readonly string[]`.
 - `MARQUEE_KEY_ATTRIBUTE`, a constant: `"data-marquee-key"`.
 - `marqueeItemRects`, a function: `(container: HTMLElement, selector: string) => readonly MarqueeItem[]`.
@@ -79,9 +82,22 @@ interface MarqueeBind {
   onPointerDown: (event: ReactPointerEvent<HTMLElement>) => void;
 }
 
+interface MarqueeCell {
+  row: number;
+  column: number;
+}
+
+interface MarqueeCellRect {
+  firstRow: number;
+  lastRow: number;
+  firstColumn: number;
+  lastColumn: number;
+}
+
 interface MarqueeItem {
   key: string;
   rect: Rect;
+  cell?: MarqueeCell;
 }
 
 interface MarqueeModifiers {
@@ -103,6 +119,7 @@ interface MarqueeOptions {
 
 interface MarqueeSelect {
   rect: Rect | null;
+  cells: MarqueeCellRect | null;
   bind: MarqueeBind;
 }
 ```

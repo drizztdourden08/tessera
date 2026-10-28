@@ -9,20 +9,38 @@ type ReorderChord = 'plain' | 'alt';
 
 type ReorderDrop = 'before' | 'after';
 
+type ReorderModifier = 'none' | 'alt' | 'ctrl' | 'shift';
+
+interface ReorderPoint {
+  x: number;
+  y: number;
+}
+
 interface ReorderDragState {
   from: number;
   before: number;
+  keys: readonly string[];
+  point: ReorderPoint;
+  modifier: ReorderModifier;
+}
+
+interface ReorderDropInfo {
+  keys: readonly string[];
+  before: number;
+  modifier: ReorderModifier;
 }
 
 interface ReorderHandlers {
   onPointerDown: (event: PointerEvent<HTMLElement>) => void;
   onPointerMove: (event: PointerEvent<HTMLElement>) => void;
-  onPointerUp: () => void;
+  onPointerUp: (event?: PointerEvent<HTMLElement>) => void;
   onPointerCancel: () => void;
 }
 
 interface ReorderDrag {
   dragging: number | null;
+  dragKeys: readonly string[];
+  point: ReorderPoint | null;
   handlers: (index: number) => ReorderHandlers;
   cancel: () => void;
   dropMark: (index: number, total: number) => ReorderDrop | undefined;
@@ -33,7 +51,9 @@ interface ReorderDragOptions {
   selector: string;
   axis?: ReorderAxis;
   locate?: (point: { clientX: number; clientY: number }) => number;
-  onDrop: (from: number, to: number) => void;
+  keys?: (from: number) => readonly string[];
+  scrollRef?: RefObject<HTMLElement | null>;
+  onDrop: (from: number, to: number, drop: ReorderDropInfo) => void;
 }
 
 interface ReorderKeyEvent {
@@ -52,6 +72,6 @@ interface ReorderStepOptions {
 }
 
 export type {
-  ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDragState, ReorderDrop, ReorderKeyEvent, ReorderLinearAxis,
-  ReorderStepOptions,
+  ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDragState, ReorderDrop, ReorderDropInfo, ReorderKeyEvent, ReorderLinearAxis,
+  ReorderModifier, ReorderPoint, ReorderStepOptions,
 };

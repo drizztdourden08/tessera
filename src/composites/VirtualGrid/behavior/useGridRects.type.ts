@@ -10,6 +10,7 @@ interface GridRectsInput<T> {
   heights: GridHeights;
   flat: readonly T[];
   getKey: (item: T, index: number) => string;
+  skip?: ReadonlySet<string>;
 }
 
 export type { GridRectsInput };
