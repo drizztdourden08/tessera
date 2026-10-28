@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind barrel */
-export { WindowHeader, type WindowHeaderProps } from '../WindowHeader';
+export { WindowHeader, type WindowHeaderActionsRow, type WindowHeaderProps } from '../WindowHeader';
 export { WindowTitleBar } from '../WindowTitleBar';
 export type {
   WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarCommandAction,

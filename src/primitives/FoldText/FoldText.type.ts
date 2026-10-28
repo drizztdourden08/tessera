@@ -10,6 +10,7 @@ interface FoldTextProps {
   overflow?: FoldOverflow;
   truncate?: FoldTruncate;
   fill?: boolean;
+  hug?: boolean;
   hint?: ReactNode;
   className?: string;
   children: ReactNode;
@@ -19,6 +20,7 @@ type FoldLinesProps = Pick<FoldTextProps, 'lines' | 'overflow' | 'hint' | 'child
 
 interface FoldMiddleProps {
   text: string;
+  hug?: boolean;
   hint?: ReactNode;
 }
 

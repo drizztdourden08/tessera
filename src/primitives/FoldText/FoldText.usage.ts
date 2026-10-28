@@ -20,6 +20,7 @@ const usage = {
     'The control and the hint only appear when the text runs past lines, so short text shows nothing extra.',
     'Pass fill to give the text the full width of its parent and contain it, so a table cell holding long text keeps the width the table gives it.',
     'Pass truncate middle with a string to keep one line, the start and the end of it, and an ellipsis between, such as a file path; the full text, or hint, shows in a tip while it is cut.',
+    'Pass hug with truncate middle to take only the width the text needs, so a button can sit right after it; it still shortens when the parent is narrower than the text.',
   ],
   a11y: [
     'The More control is a button that says whether the text is open and names the text it opens.',

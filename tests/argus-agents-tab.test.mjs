@@ -78,8 +78,8 @@ describe('TrackTable', () => {
   it('shares the width in fr tracks and removes dropped columns per level', () => {
     const style = trackTemplates(columns);
     expect(style['--track-cols-0']).toBe('minmax(0, 2fr) minmax(0, 1fr) minmax(0, 0.5fr)');
-    expect(style['--track-cols-1']).toBe('minmax(0, 2fr) minmax(0, 0.5fr)');
-    expect(style['--track-cols-3']).toBe('minmax(0, 2fr)');
+    expect(style['--track-cols-768']).toBe('minmax(0, 2fr) minmax(0, 0.5fr)');
+    expect(style['--track-cols-480']).toBe('minmax(0, 2fr)');
   });
 
   it('draws a named table with a header and a row per item', () => {
@@ -103,6 +103,34 @@ describe('TrackTable', () => {
     expect(tokens).toContain('--track-drop-2: var(--size-640)');
     expect(tokens).toContain('--track-drop-3: calc(480 * var(--size-1))');
     const css = read('src/composites/TrackTable/TrackTable.css');
-    expect([...css.matchAll(/@container track-table \(width < (\d+)px\)/g)].map((m) => m[1])).toEqual(['768', '640', '480']);
+    expect([...css.matchAll(/@container track-table \(width < (\d+)px\)/g)].map((m) => m[1])).toEqual(['1280', '1120', '896', '768', '640', '480']);
+  });
+
+  it('writes a token for every hide step and matches its container rule', () => {
+    const tokens = read('src/tokens/size.css');
+    const css = read('src/composites/TrackTable/TrackTable.css');
+    const names = { 1280: 'hide-1280', 1120: 'hide-1120', 896: 'hide-896', 768: 'drop-1', 640: 'drop-2', 480: 'drop-3' };
+    for (const [step, name] of Object.entries(names)) {
+      expect(tokens).toMatch(new RegExp(`--track-${name}: (?:var\(--size-${step}\)|calc\(${step} \* var\(--size-1\)\));`));
+      expect(css).toContain(`@container track-table (width < ${step}px)`);
+      expect(css).toContain(`[data-hide="${step}"]`);
+    }
+  });
+
+  it('removes the grid track of a column hidden below a named step', () => {
+    const cols = [
+      { id: 'a', label: 'A', fr: 2, cell: (row) => row.a },
+      { id: 'b', label: 'B', hideBelow: 1120, cell: (row) => row.b },
+      { id: 'c', label: 'C', hideBelow: 896, cell: (row) => row.c },
+      { id: 'd', label: 'D', drop: 1, cell: (row) => row.c },
+    ];
+    const style = trackTemplates(cols);
+    expect(style['--track-cols-0'].split(' minmax').length).toBe(4);
+    const tracks = (key) => style[key].split(' minmax').length;
+    expect([1280, 1120, 896, 768].map((step) => tracks(`--track-cols-${step}`))).toEqual([4, 3, 2, 1]);
+    const out = renderToString(h(TrackTable, { label: 'Things', rows: [{ a: 'x', b: 'y', c: 'z' }], columns: cols, rowKey: (row) => row.a }));
+    expect(out).toContain('data-hide="1120"');
+    expect(out).toContain('data-hide="768"');
+    expect(out).toContain('data-drop="1"');
   });
 });

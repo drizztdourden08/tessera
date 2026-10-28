@@ -6,6 +6,7 @@ import { IconButton } from '../../primitives/IconButton';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { headerClass } from './behavior/header-class';
 import { useExtraFit } from './behavior/useExtraFit';
+import { WindowHeaderActions } from './sub-components/WindowHeaderActions';
 import { WindowHeaderBack } from './sub-components/WindowHeaderBack';
 import { WindowHeaderTitles } from './sub-components/WindowHeaderTitles';
 import '../../theme/window-chrome.css';
@@ -13,16 +14,17 @@ import './WindowHeader.css';
 import { type WindowHeaderProps } from './WindowHeader.type';
 
 const WindowHeader = (props: WindowHeaderProps) => {
-  const { look, eyebrow, title, titleWrap, titleId, subtitle, onClose, back, extra, actions, stackNarrow, className = '' } = props;
+  const { look, eyebrow, title, titleWrap, titleId, subtitle, onClose, back, extra, actions, actionsRow, stackNarrow, className = '' } = props;
   const { common } = useTesseraStrings();
   const headerRef = useRef<HTMLElement>(null);
   const extraFits = useExtraFit(headerRef, extra != null);
+  const inEyebrow = actionsRow === 'eyebrow' && eyebrow != null && actions != null;
   const tools = (
     <>
       {extra != null && (
         <Box className={`window-header__extra${extraFits ? '' : ' window-header__extra--away'}`} aria-hidden={extraFits ? undefined : true}>{extra}</Box>
       )}
-      {actions != null && <Box className="window-header__actions">{actions}</Box>}
+      {actions != null && !inEyebrow && <WindowHeaderActions>{actions}</WindowHeaderActions>}
       {onClose && (
         <IconButton variant="ghost" size="md" label={common.close} className="window-header__close" onClick={onClose}><Icon name="x" size={20} /></IconButton>
       )}
@@ -31,7 +33,13 @@ const WindowHeader = (props: WindowHeaderProps) => {
   return (
     <Box ref={headerRef} className={headerClass(titleWrap, className, look, stackNarrow)}>
       {back && <WindowHeaderBack back={back} />}
-      <WindowHeaderTitles eyebrow={eyebrow} title={title} titleId={titleId} subtitle={subtitle} />
+      <WindowHeaderTitles
+        eyebrow={eyebrow}
+        title={title}
+        titleId={titleId}
+        subtitle={subtitle}
+        eyebrowActions={inEyebrow ? <WindowHeaderActions>{actions}</WindowHeaderActions> : undefined}
+      />
       {stackNarrow ? <Box className="window-header__tools">{tools}</Box> : tools}
     </Box>
   );

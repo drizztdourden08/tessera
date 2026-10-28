@@ -48,11 +48,32 @@
   min-inline-size: 0;
 }
 
+.fold-text:not(.fold-text--fill) .fold-text__tip {
+  flex: 0 1 auto;
+}
+
 .fold-text__text--middle {
   display: block;
   flex: 1 1 0;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.fold-text__text--hug {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  flex: 0 1 auto;
+}
+
+.fold-text__sizer,
+.fold-text__shown {
+  grid-area: 1 / 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.fold-text__sizer {
+  visibility: hidden;
 }
 
 .fold-text__more {

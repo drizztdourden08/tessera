@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+.container-row {
+  max-inline-size: 100%;
+}
+
+.container-row--wide {
+  inline-size: var(--size-512);
+}
+
+.container-row--tight {
+  inline-size: var(--size-320);
+}

@@ -8,6 +8,10 @@
               border-color var(--transition-normal);
 }
 
+.card--container {
+  container-type: inline-size;
+}
+
 .card--interactive {
   cursor: pointer;
 }

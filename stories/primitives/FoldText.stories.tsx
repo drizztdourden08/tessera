@@ -5,6 +5,7 @@ import { Box, FoldText } from '../../src/primitives';
 import type { FoldOverflow } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { FoldTextCells } from './_samples/FoldTextCells';
+import { FoldTextHug } from './_samples/FoldTextHug';
 
 type FoldTextArgs = {
   text: string;
@@ -90,6 +91,11 @@ const Middle = {
   render: () => <FoldTextCells middle />,
 } satisfies StoryLiteStoryDefinition<FoldTextArgs>;
 
+const Hug = {
+  name: 'hug: the text takes its own width and a button sits right after it',
+  render: () => <FoldTextHug />,
+} satisfies StoryLiteStoryDefinition<FoldTextArgs>;
+
 const Overview = overviewStory({
   component: 'FoldText',
   description: 'A block of text clamped to a few lines, with a More control or a hint that reveals the rest.',
@@ -99,12 +105,12 @@ const Overview = overviewStory({
     '`overflow="hint"` keeps the height and shows a tip beside the text; `hint` can give it other text.',
     '`overflow="clip"` cuts the text at `lines` with no control.',
     '`fill` contains the width, so a table cell holding the text does not widen.',
-    '`truncate="middle"` keeps one line of a string, cuts the middle and shows the full text in a tip.',
+    '`truncate="middle"` keeps one line of a string and cuts the middle; `hug` takes only the width it needs.',
   ],
   instead: '[Disclosure] when a whole section hides behind a summary line.',
   playground: Playground,
-  variants: [Lines, Clip, Hint, OwnHint, Fill, Middle],
+  variants: [Lines, Clip, Hint, OwnHint, Fill, Middle, Hug],
 });
 
 export default meta;
-export { Clip, Fill, Hint, Lines, Middle, Overview, OwnHint, Playground };
+export { Clip, Fill, Hint, Hug, Lines, Middle, Overview, OwnHint, Playground };
