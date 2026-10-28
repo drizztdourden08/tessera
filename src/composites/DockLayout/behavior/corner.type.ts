@@ -61,9 +61,33 @@ interface CornerHandle {
 
 type CornerTurn = 'take' | 'give';
 
+interface CornerPull {
+  outward: 1 | -1;
+  take: number | null;
+  give: number | null;
+  handle: CornerHandle;
+}
+
+interface CornerZone {
+  key: string;
+  divider: number;
+  axis: SplitAxis;
+  rect: Rect;
+  pulls: CornerPull[];
+}
+
+interface CornerSeed {
+  divider: number;
+  rect: Rect;
+  pull: CornerPull;
+}
+
 interface CornerReach {
   size: number | null;
   corner: CornerName | null;
 }
 
-export type { CornerEnd, CornerHandle, CornerName, CornerOptions, CornerPart, CornerReach, CornerSites, CornerSpot, CornerStep, CornerTurn, GiveSite, TakeSite };
+export type {
+  CornerEnd, CornerHandle, CornerName, CornerOptions, CornerPart, CornerPull, CornerReach, CornerSeed, CornerSites, CornerSpot, CornerStep,
+  CornerTurn, CornerZone, GiveSite, TakeSite,
+};
