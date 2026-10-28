@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
 import { useEffect, useMemo, useState } from 'react';
 import type { DockKeys } from './dock-hooks.type';
+import { inDockContent } from './in-dock-content';
 import { isTyping } from './is-typing';
 
 const useDockKeys = (view?: Window): DockKeys => {
@@ -21,7 +22,8 @@ const useDockKeys = (view?: Window): DockKeys => {
       setOverlay(false);
     };
     const onKeyDown = (e: KeyboardEvent): void => {
-      if (!e.repeat && !isTyping(e.target)) hold(e.key, true);
+      if (e.repeat || isTyping(e.target) || (e.key === 'Alt' && inDockContent(e.target))) return;
+      hold(e.key, true);
     };
     const onKeyUp = (e: KeyboardEvent): void => hold(e.key, false);
     target.addEventListener('keydown', onKeyDown);

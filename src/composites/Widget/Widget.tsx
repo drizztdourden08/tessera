@@ -10,7 +10,7 @@ import type { WidgetProps } from './Widget.type';
 import './Widget.css';
 
 const Widget = (props: WidgetProps) => {
-  const { id, tabs, opacity, peek = false, padding, fill, disabled, onOpenSettings, children } = props;
+  const { id, tabs, opacity, padding, fill, disabled, onOpenSettings, children } = props;
   const titleId = useId();
   const titled = tabs.length <= 1;
   const [hovered, setHovered] = useState(false);
@@ -29,7 +29,7 @@ const Widget = (props: WidgetProps) => {
       onMouseLeave={() => setHovered(false)}
     >
       <WidgetTitlebar {...props} titleId={titleId} />
-      {!peek && <WidgetBody padding={padding} fill={fill} disabled={disabled} onOpenSettings={onOpenSettings}>{children}</WidgetBody>}
+      <WidgetBody padding={padding} fill={fill} disabled={disabled} onOpenSettings={onOpenSettings}>{children}</WidgetBody>
     </Box>
   );
 };

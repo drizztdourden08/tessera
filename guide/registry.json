@@ -18537,8 +18537,7 @@
           {
             "name": "peek",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "onPopOut",
