@@ -45,7 +45,7 @@ export type { ItemCardDensity, ItemCardLayout, ItemCardMediaHeight, ItemCardMedi
 export { Tile } from '../Tile';
 export type { TileCorner, TileCorners, TileProps } from '../Tile';
 export { SeatCard } from '../SeatCard';
-export type { SeatCardAddProps, SeatCardEmptyProps, SeatCardFilledProps, SeatCardProps } from '../SeatCard';
+export type { SeatCardAddProps, SeatCardEmptyProps, SeatCardFilledProps, SeatCardHeldProps, SeatCardProps } from '../SeatCard';
 export { SeatGrid } from '../SeatGrid';
 export type { SeatGridGap, SeatGridMinWidth, SeatGridProps } from '../SeatGrid';
 export { CopyButton } from '../CopyButton';

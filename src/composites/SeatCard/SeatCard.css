@@ -23,12 +23,30 @@
   background: var(--c-warning-dim);
 }
 
+.card.seat-card[data-state='held'] {
+  border-style: dashed;
+  border-color: var(--c-border-strong);
+  background: transparent;
+}
+
+.card.seat-card[data-state='held'] .seat-card__name {
+  color: var(--c-text-muted);
+}
+
+.card.seat-card[data-selected] {
+  border-color: var(--c-primary);
+}
+
 .card.seat-card[data-opens]:hover {
   border-color: var(--c-border-strong);
 }
 
 .card.seat-card[data-state='attention'][data-opens]:hover {
   border-color: var(--c-warning-bright);
+}
+
+.card.seat-card[data-selected][data-opens]:hover {
+  border-color: var(--c-primary-bright);
 }
 
 .card.seat-card:has(.seat-card__open:focus-visible) {

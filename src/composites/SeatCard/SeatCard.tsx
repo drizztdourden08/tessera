@@ -3,10 +3,12 @@ import type { SeatCardProps } from './SeatCard.type';
 import { SeatCardAdd } from './sub-components/SeatCardAdd';
 import { SeatCardEmpty } from './sub-components/SeatCardEmpty';
 import { SeatCardFilled } from './sub-components/SeatCardFilled';
+import { SeatCardHeld } from './sub-components/SeatCardHeld';
 import './SeatCard.css';
 
 const SeatCard = (props: SeatCardProps) => {
   if (props.state === 'add') return <SeatCardAdd {...props} />;
+  if (props.state === 'held') return <SeatCardHeld {...props} />;
   if (props.state === 'empty') return <SeatCardEmpty {...props} />;
   return <SeatCardFilled {...props} />;
 };

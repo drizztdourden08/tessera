@@ -1,7 +1,7 @@
 /* @layer stories @kind types */
-type SeatState = 'filled' | 'attention' | 'empty' | 'add';
+type SeatState = 'filled' | 'attention' | 'held' | 'empty' | 'add';
 
-type SeatBoardSet = 'states' | 'lobby' | 'clickable';
+type SeatBoardSet = 'states' | 'lobby' | 'clickable' | 'selected';
 
 type SeatCardArgs = {
   state: SeatState;
@@ -13,10 +13,13 @@ type SeatCardArgs = {
   lead: boolean;
   actions: boolean;
   clickable: boolean;
+  selected: boolean;
 };
 
 interface SeatBoardProps {
   set: SeatBoardSet;
 }
 
-export type { SeatBoardProps, SeatCardArgs };
+type SeatTakenSampleProps = Omit<SeatCardArgs, 'state'> & { state: 'filled' | 'attention' };
+
+export type { SeatBoardProps, SeatCardArgs, SeatTakenSampleProps };
