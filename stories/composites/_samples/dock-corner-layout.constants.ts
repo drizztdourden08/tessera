@@ -52,7 +52,7 @@ const CORNER_ONE_HINT = 'The left panel has taken the top left corner and runs d
 
 const CORNER_HINT = 'The left panel owns both left corners. Drag the left end of Hints or the log outward, or press the left arrow on it, to take a corner; drag or press the right arrow to give it back.';
 
-const CORNER_HEADER_HINT = 'Each title bar keeps its buttons clear: a corner handle is a 24 px square at the panel corner, below the title bar, and the title bar buttons are 24 px, so Pop out, Options and Close stay easy to hit.';
+const CORNER_HEADER_HINT = 'Each title bar keeps its buttons clear: a corner turns from the 8 px seam at the panel corner, the end of the seam line itself, so no title bar button or widget content sits under it. Tab reaches each corner as its own button, and the arrow keys turn it.';
 
 const WEIGHTED_HINT = 'Hints joined Players on the left edge with dockWeight 2, so it takes two thirds of the column and Players one third.';
 

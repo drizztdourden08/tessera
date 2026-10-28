@@ -1,0 +1,66 @@
+/* @layer renderer-components @kind style */
+.dock-corner {
+  position: absolute;
+  z-index: var(--z-sticky);
+  inline-size: 0;
+  block-size: 0;
+  pointer-events: none;
+  user-select: none;
+  outline: none;
+}
+
+.dock-corner::before,
+.dock-corner::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-fast) var(--ease-standard);
+}
+
+.dock-corner::before {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  outline: var(--border-width-thick) solid var(--c-focus);
+  outline-offset: calc(-1 * var(--border-width-thick));
+}
+
+.dock-corner::after {
+  background: var(--c-text-muted);
+}
+
+.dock-corner--column::before {
+  inline-size: var(--hit-area-min);
+  block-size: var(--space-sm);
+}
+
+.dock-corner--row::before {
+  inline-size: var(--space-sm);
+  block-size: var(--hit-area-min);
+}
+
+.dock-corner--column::after {
+  inset-inline-start: var(--space-xs);
+  inset-block-start: calc((var(--space-sm) - var(--border-width-thick)) / 2);
+  inline-size: calc(var(--hit-area-min) - 2 * var(--space-xs));
+  block-size: var(--border-width-thick);
+}
+
+.dock-corner--row::after {
+  inset-inline-start: calc((var(--space-sm) - var(--border-width-thick)) / 2);
+  inset-block-start: var(--space-xs);
+  inline-size: var(--border-width-thick);
+  block-size: calc(var(--hit-area-min) - 2 * var(--space-xs));
+}
+
+.dock-corner:focus-visible::before,
+.dock-corner:focus-visible::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-corner::before,
+  .dock-corner::after {
+    transition: none;
+  }
+}
