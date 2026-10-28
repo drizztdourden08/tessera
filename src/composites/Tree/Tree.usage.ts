@@ -57,7 +57,7 @@ const Files = ({ entries }: { entries: Entry[] }) => {
   );
 };
 `,
-  propsHash: 'pending',
+  propsHash: '851e0636bf22b7d1',
 } satisfies ComponentUsage;
 
 export { usage };

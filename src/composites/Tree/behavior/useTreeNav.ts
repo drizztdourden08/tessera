@@ -1,19 +1,19 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
-import { EMPTY, noChange } from '../../selection/selection.constants';
-import { useSelectionModel } from '../../selection/useSelectionModel';
+import { noChange } from '../../selection/selection.constants';
 import { scrollTopForSpan } from '../../virtual/scroll-top-for-span';
 import { useVirtualFocus } from '../../virtual/useVirtualFocus';
 import { useVirtualWindow } from '../../virtual/useVirtualWindow';
 import { INDEX_ATTRIBUTE } from '../Tree.constants';
 import type { KeyTarget } from '../../virtual/virtual-focus.type';
 import type { ScrollAlign } from '../../virtual';
-import { firstSelectedAt } from './first-selected-at';
+import { selectionModeOf } from './selection-mode-of';
+import { tabbableOf } from './tabbable-of';
 import { treeKeyMove } from './tree-key-move';
+import { useTreeSelect } from './useTreeSelect';
+import { SIDEWAYS } from './useTreeNav.constants';
 import type { TreeNav, TreeNavInput } from './useTreeNav.type';
-
-const SIDEWAYS = new Set(['ArrowLeft', 'ArrowRight']);
 
 const useTreeNav = <T,>(input: TreeNavInput<T>): TreeNav => {
   const { rows, keys, indexOfKey, getLabel, selection, rowSize, overscan } = input;
@@ -24,20 +24,8 @@ const useTreeNav = <T,>(input: TreeNavInput<T>): TreeNav => {
   const slice = useVirtualWindow({
     enabled: true, count: rows.length, keyAt, rootRef, indexAttribute: INDEX_ATTRIBUTE, overscan, sizeKey: rowSize,
   });
-  const mode = selection ? (selection.mode ?? 'multiple') : 'none';
-
-  const labelOf = useCallback((key: string) => {
-    const at = indexOfKey.get(key);
-    const row = at === undefined ? undefined : rows[at];
-    return row ? getLabel(row.item) : '';
-  }, [indexOfKey, rows, getLabel]);
-  const focusKey = useCallback((key: string) => {
-    const at = indexOfKey.get(key);
-    if (at !== undefined) jumpRef.current(at, at);
-  }, [indexOfKey]);
-  const select = useSelectionModel({
-    order: keys, selected: selection?.selected ?? EMPTY, onChange: selection?.onChange ?? noChange, labelOf, onFocusKey: focusKey,
-  });
+  const mode = selectionModeOf(selection);
+  const select = useTreeSelect({ rows, keys, indexOfKey, getLabel, selection, jumpRef });
 
   const resolve = useCallback((event: KeyboardEvent<HTMLElement>, index: number, page: number) => {
     const move = treeKeyMove(event.key, rows, index, page);
@@ -56,10 +44,6 @@ const useTreeNav = <T,>(input: TreeNavInput<T>): TreeNav => {
     jumpRef.current = jump;
   });
 
-  const activeAt = activeKey === null ? undefined : indexOfKey.get(activeKey);
-  const base = activeAt ?? firstSelectedAt(selection?.selected, indexOfKey) ?? 0;
-  const tabbable = slice.indices.includes(base) ? base : (slice.indices[0] ?? 0);
-
   const scrollToKey = useCallback((key: string, align: ScrollAlign = 'nearest') => {
     const root = rootRef.current;
     const at = indexOfKey.get(key);
@@ -71,10 +55,12 @@ const useTreeNav = <T,>(input: TreeNavInput<T>): TreeNav => {
 
   const pick = useCallback((key: string) => selection?.onChange(new Set([key])), [selection]);
   const jumpTo = useCallback((index: number) => jump(index, index), [jump]);
+  const activeAt = activeKey === null ? undefined : indexOfKey.get(activeKey);
 
   return {
-    rootRef, bodyRef: slice.bodyRef, indices: slice.indices, metrics: slice.metrics, tabbable, mode, select, pick,
-    onScroll: slice.onScroll, onFocus: slice.onFocus, onBlur: slice.onBlur, activate: setActiveKey, jump: jumpTo, navigate, scrollToKey,
+    rootRef, bodyRef: slice.bodyRef, indices: slice.indices, metrics: slice.metrics, mode, select, pick, scrollToKey, navigate,
+    tabbable: tabbableOf(slice.indices, activeAt, selection?.selected, indexOfKey),
+    onScroll: slice.onScroll, onFocus: slice.onFocus, onBlur: slice.onBlur, activate: setActiveKey, jump: jumpTo,
   };
 };
 

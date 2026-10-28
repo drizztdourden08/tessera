@@ -47,7 +47,7 @@ const Browser = ({ entries }: { entries: Entry[] }) => {
   );
 };
 `,
-  propsHash: 'pending',
+  propsHash: 'e87048b6424284da',
 } satisfies ComponentUsage;
 
 export { usage };

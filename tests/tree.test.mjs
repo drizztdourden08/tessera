@@ -79,11 +79,14 @@ describe('Tree keys', () => {
   });
 });
 
-describe('Tree on the server', () => {
-  const draw = (extra = {}) => renderToString(h(Tree, {
-    label: 'Files', items: ITEMS, ...base, getLabel: (item) => item.name, defaultExpandedKeys: ['a'], ...extra,
-  }));
+const draw = (extra = {}) => renderToString(h(Tree, {
+  label: 'Files', items: ITEMS, ...base, getLabel: (item) => item.name, defaultExpandedKeys: ['a'], ...extra,
+}));
 
+const hundred = (at) => Array.from({ length: 100 }, (_, inner) => file(`f${at}-${inner}`));
+const BIG = Array.from({ length: 100 }, (_, at) => folder(`f${at}`, hundred(at)));
+
+describe('Tree on the server', () => {
   it('draws a tree of tree items with level, place and open', () => {
     const html = draw();
     expect(html).toContain('role="tree"');
@@ -110,6 +113,13 @@ describe('Tree on the server', () => {
     expect(html).toMatch(/tabindex="0"[^>]*data-tree-key="b"|data-tree-key="b"[^>]*tabindex="0"/);
   });
 
+  it('draws the guides only when asked', () => {
+    expect(draw()).not.toContain('tree__guide');
+    expect(draw({ guides: true })).toContain('tree__guide');
+  });
+});
+
+describe('Tree slots, loading, a filter and many rows', () => {
   it('fills the three slots of a row and adds no toggle of its own', () => {
     const html = draw({
       renderLead: () => h('i', { className: 'lead-mark' }),
@@ -120,11 +130,6 @@ describe('Tree on the server', () => {
     expect(html).toContain('Name a1');
     expect(html).toContain('trail-mark');
     expect(html).not.toContain('role="switch"');
-  });
-
-  it('draws the guides only when asked', () => {
-    expect(draw()).not.toContain('tree__guide');
-    expect(draw({ guides: true })).toContain('tree__guide');
   });
 
   it('shows a spinner and aria-busy on a folder that loads', () => {
@@ -146,8 +151,7 @@ describe('Tree on the server', () => {
   });
 
   it('draws only the first screen of 10,000 rows', () => {
-    const items = Array.from({ length: 100 }, (_, at) => folder(`f${at}`, Array.from({ length: 100 }, (__, inner) => file(`f${at}-${inner}`))));
-    const html = draw({ items, defaultExpandedKeys: items.map((item) => item.id), selection: { selected: new Set(), onChange: () => undefined } });
+    const html = draw({ items: BIG, defaultExpandedKeys: BIG.map((item) => item.id), selection: { selected: new Set(), onChange: () => undefined } });
     expect((html.match(/role="treeitem"/g) ?? []).length).toBeLessThan(60);
     expect(html).toContain('--tree-count:10100');
   });

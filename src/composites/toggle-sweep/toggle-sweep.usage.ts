@@ -41,7 +41,7 @@ const Visibility = ({ ids }: { ids: string[] }) => {
   ));
 };
 `,
-  propsHash: 'pending',
+  propsHash: 'd306592edb1c6b90',
 } satisfies HookUsage;
 
 export { usage };

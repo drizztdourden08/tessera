@@ -235,7 +235,9 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 No question leads to these parts. Other components are built on them; reach for one only when no component above fits.
 
 - [DragGhost](components/DragGhost.md). The picture that follows the pointer while items are dragged: a stack of up to three thumbnails and the count of items.
+- [MillerColumns](components/MillerColumns.md). Side by side columns for a nested set, such as folders: picking a folder in one column shows its children in the next, and the pick is shared with the app.
 - [PanelContainer](components/PanelContainer.md). A plain stacked section with a heading, optional action and a body.
 - [ScreenLayer](components/ScreenLayer.md). Building block: the overlay and the card of every screen, with one gap around the card that follows the room.
 - [ScreenPage](components/ScreenPage.md). Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls.
 - [ScreenWindow](components/ScreenWindow.md). Building block: the plain screen window, a ScreenLayer with a title bar, a page header or only corner buttons at its top, a close button and an empty container.
+- [Tree](components/Tree.md). A long tree of items that fold open, drawn only where it is in view, with the keys of a tree, many picked at once, and a drag that reorders or drops into a folder.

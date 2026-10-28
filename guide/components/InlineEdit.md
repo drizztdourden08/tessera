@@ -34,6 +34,7 @@ InlineEdit starts, commits and cancels an edit in place with the same keys in ev
 - Escape cancels, restores the text and puts focus back on the text.
 - Click the text, or press Enter or F2 while it has focus, to start editing.
 - Pass validate to return a message for text that is not allowed; it shows under the field and nothing is committed until it returns nothing.
+- Pass dense to fit a 24 px row, such as in a layers list: the text and the field are 24 px high, and the message of validate shows beside the field on one line instead of under it; a click away still commits, and a text that fails validate stays open.
 - Pass multiline for a text area, where Enter adds a line and Mod+Enter commits.
 - Pass renderValue to draw the text when it is not edited, such as Markdown; the click, Enter and F2, and the name stay the same, and the field is unchanged.
 - Pass look link to draw the text with a dashed underline and in italic, for a value that reads as a link to change; the default look is unchanged.
@@ -77,10 +78,11 @@ const CardTitle = () => {
 - `validate` (optional): `(value: string) => string | undefined`.
 - `multiline` (optional): `boolean`. Default `false`.
 - `size` (optional): `ControlSize`, one of `'sm'`, `'md'`.
+- `dense` (optional): `boolean`. Default `false`.
 - `renderValue` (optional): `(value: string) => ReactNode`.
 - `look` (optional): `InlineEditLook`, one of `'field'`, `'link'`. Default `'field'`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--c-border-strong`, `--c-focus`, `--c-surface`, `--c-text-muted`, `--radius-md`, `--space-2xs`, `--space-xs`.
+It draws on `--border-width-thick`, `--c-border-strong`, `--c-focus`, `--c-surface`, `--c-text-muted`, `--radius-md`, `--size-24`, `--space-2xs`, `--space-xs`, `--text-xs`.

@@ -14,6 +14,15 @@ interface TreeNavInput<T> {
   overscan?: number;
 }
 
+interface TreeSelectInput<T> {
+  rows: readonly TreeFlatRow<T>[];
+  keys: readonly string[];
+  indexOfKey: ReadonlyMap<string, number>;
+  getLabel: (item: T) => string;
+  selection?: TreeSelection;
+  jumpRef: RefObject<(index: number, row: number) => void>;
+}
+
 interface TreeNav {
   rootRef: RefObject<HTMLElement | null>;
   bodyRef: RefObject<HTMLElement | null>;
@@ -32,4 +41,4 @@ interface TreeNav {
   scrollToKey: (key: string, align?: ScrollAlign) => void;
 }
 
-export type { TreeNav, TreeNavInput };
+export type { TreeNav, TreeNavInput, TreeSelectInput };

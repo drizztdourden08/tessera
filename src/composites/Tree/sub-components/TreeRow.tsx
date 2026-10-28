@@ -1,30 +1,20 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
-import { Span } from '../../../primitives/text-elements';
+import { rowClasses } from '../behavior/row-classes';
 import { rowIndent } from '../behavior/row-indent';
 import { INDENT_PROPERTY, INDEX_ATTRIBUTE, INDEX_PROPERTY, KEY_ATTRIBUTE } from '../Tree.constants';
-import { TreeGuides } from './TreeGuides';
-import { TreeTwisty } from './TreeTwisty';
+import { TreeRowContent } from './TreeRowContent';
 import type { CSSProperties } from 'react';
 import type { TreeRowProps } from './TreeRow.type';
 
 const TreeRow = <T,>(props: TreeRowProps<T>) => {
-  const { row, at, bind, activeBranch, openOnPick, getLabel, renderLead, renderLabel, renderTrail } = props;
-  const { state } = bind;
-  const lead = renderLead?.(row.item, state);
-  const trail = renderTrail?.(row.item, state);
-  const classes = [
-    'tree__row row-inset focus-ring-inset',
-    row.branch && 'tree__row--branch',
-    state.selected && 'tree__row--selected',
-    bind.dragging && 'tree__row--dragging',
-  ].filter(Boolean).join(' ');
+  const { row, at, bind, openOnPick, ...content } = props;
   const placed = { [INDEX_PROPERTY]: at, [INDENT_PROPERTY]: rowIndent(row.depth) } as CSSProperties;
 
   return (
     <Box
       role="treeitem"
-      className={classes}
+      className={rowClasses(row.branch, bind.state.selected, bind.dragging)}
       style={placed}
       tabIndex={bind.tabIndex}
       aria-level={row.depth}
@@ -41,11 +31,7 @@ const TreeRow = <T,>(props: TreeRowProps<T>) => {
       onClick={bind.onClick}
       onDoubleClick={bind.onDoubleClick}
     >
-      {activeBranch && <TreeGuides ancestors={row.ancestors} activeBranch={activeBranch} />}
-      <TreeTwisty branch={row.branch} expanded={row.expanded} loading={row.loading} onToggle={openOnPick ? undefined : bind.onToggle} />
-      {lead != null && <Span className="tree__lead" aria-hidden>{lead}</Span>}
-      <Span className="tree__label">{renderLabel ? renderLabel(row.item, state) : getLabel(row.item)}</Span>
-      {trail != null && <Span className="tree__trail">{trail}</Span>}
+      <TreeRowContent row={row} state={bind.state} onToggle={openOnPick ? undefined : bind.onToggle} {...content} />
     </Box>
   );
 };

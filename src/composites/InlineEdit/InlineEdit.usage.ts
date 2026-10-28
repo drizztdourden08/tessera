@@ -51,7 +51,7 @@ const CardTitle = () => {
   );
 };
 `,
-  propsHash: 'b1247452d5edfd81',
+  propsHash: '490a3506599e8a48',
 } satisfies ComponentUsage;
 
 export { usage };

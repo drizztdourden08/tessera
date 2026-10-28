@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { guardCellControl } from '../../../primitives/dom/guard-cell-control';
 import { drawnValue } from '../behavior/drawn-value';
+import { viewClasses } from '../behavior/view-classes';
 import { Icon } from '../../../primitives/Icon';
 import { Pressable } from '../../../primitives/Pressable';
 import { Span } from '../../../primitives/text-elements';
@@ -15,7 +16,7 @@ const InlineEditView = (props: InlineEditViewProps) => {
   const empty = value === '';
   const shown = empty ? (placeholder ?? '') : value;
   const drawn = drawnValue(value, renderValue);
-  const classes = ['inline-edit__view', multiline && 'inline-edit__view--multiline', dense && !multiline && 'inline-edit__view--dense', look === 'link' && 'inline-edit__view--link', className].filter(Boolean).join(' ');
+  const classes = viewClasses({ multiline, dense, look, className });
   return (
     <Pressable
       ref={buttonRef}

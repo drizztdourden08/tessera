@@ -11,7 +11,11 @@ import type { TreeDemoProps } from './tree-demo.type';
 const keyOf = (entry: TreeEntry) => entry.id;
 const childrenOf = (entry: TreeEntry) => entry.children;
 const labelOf = (entry: TreeEntry) => entry.name;
-const leadOf = (entry: TreeEntry, state: TreeRowState) => <Icon name={entry.folder ? (state.expanded ? 'folder-open' : 'folder') : 'file'} />;
+const iconOf = (entry: TreeEntry, state: TreeRowState) => {
+  if (!entry.folder) return 'file';
+  return state.expanded ? 'folder-open' : 'folder';
+};
+const leadOf = (entry: TreeEntry, state: TreeRowState) => <Icon name={iconOf(entry, state)} />;
 const trailOf = (entry: TreeEntry) => (entry.children ? <Span tone="muted">{entry.children.length}</Span> : undefined);
 
 const TreeDemo = (props: TreeDemoProps) => {

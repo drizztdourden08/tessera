@@ -6,14 +6,10 @@ import { COLUMN_ATTRIBUTE } from '../MillerColumns.constants';
 import type { VirtualListHandle } from '../../VirtualList';
 import type { MillerColumnsProps } from '../MillerColumns.type';
 import { columnsOf } from './columns-of';
+import { millerIntentOf } from './miller-intent-of';
 import { nextPath } from './next-path';
 import { usePath } from './usePath';
-import type { MillerColumnsModel } from './useMillerColumns.type';
-
-interface Wanted {
-  column: number;
-  index: number;
-}
+import type { MillerColumnsModel, Wanted } from './useMillerColumns.type';
 
 const useMillerColumns = <T,>(props: MillerColumnsProps<T>): MillerColumnsModel<T> => {
   const { items, getKey, getChildren, selection, path, defaultPath, onPathChange, onOpen } = props;
@@ -50,23 +46,16 @@ const useMillerColumns = <T,>(props: MillerColumnsProps<T>): MillerColumnsModel<
     const column = Number(row.closest(`[${COLUMN_ATTRIBUTE}]`)?.getAttribute(COLUMN_ATTRIBUTE));
     const item = columns[column]?.items[Number(row.getAttribute('aria-posinset')) - 1];
     if (item === undefined) return;
-    const first = getChildren(item)?.[0];
-    if (event.key === 'ArrowRight' && first !== undefined) {
-      event.preventDefault();
-      selection.onChange(new Set([getKey(first)]));
-      setPath([...current.slice(0, column), getKey(item), getKey(first)]);
-      wanted.current = { column: column + 1, index: 0 };
-    } else if (event.key === 'ArrowLeft' && column > 0) {
-      const parent = current[column - 1];
-      if (parent === undefined) return;
-      event.preventDefault();
-      selection.onChange(new Set([parent]));
-      setPath(current.slice(0, column));
-      wanted.current = { column: column - 1, index: Math.max(0, columns[column - 1]?.items.findIndex((entry) => getKey(entry) === parent) ?? 0) };
-    } else if (event.key === 'Enter' && getChildren(item) === undefined) {
-      event.preventDefault();
+    const intent = millerIntentOf({ key: event.key, column, item, path: current, columns, getKey, getChildren });
+    if (!intent) return;
+    event.preventDefault();
+    if (intent.kind === 'open') {
       onOpen?.(item);
+      return;
     }
+    selection.onChange(new Set([intent.selected]));
+    setPath(intent.path);
+    wanted.current = intent.wanted;
   };
 
   return { rootRef, columns, path: current, attach, changeAt, onKeyDown };

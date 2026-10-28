@@ -9870,6 +9870,7 @@
         "Escape cancels, restores the text and puts focus back on the text.",
         "Click the text, or press Enter or F2 while it has focus, to start editing.",
         "Pass validate to return a message for text that is not allowed; it shows under the field and nothing is committed until it returns nothing.",
+        "Pass dense to fit a 24 px row, such as in a layers list: the text and the field are 24 px high, and the message of validate shows beside the field on one line instead of under it; a click away still commits, and a text that fails validate stays open.",
         "Pass multiline for a text area, where Enter adds a line and Mod+Enter commits.",
         "Pass renderValue to draw the text when it is not edited, such as Markdown; the click, Enter and F2, and the name stay the same, and the field is unchanged.",
         "Pass look link to draw the text with a dashed underline and in italic, for a value that reads as a link to change; the default look is unchanged.",
@@ -9891,7 +9892,7 @@
         "rule": "InlineEdit starts, commits and cancels an edit in place with the same keys in every app."
       },
       "example": "import { useState } from 'react';\nimport { InlineEdit } from '@drizztdourden08/tessera';\n\nconst CardTitle = () => {\n  const [title, setTitle] = useState('Fix the login redirect');\n  return (\n    <InlineEdit\n      label=\"Title\"\n      value={title}\n      onCommit={setTitle}\n      placeholder=\"Add a title\"\n      validate={(text) => (text.length < 3 ? 'Use at least 3 characters.' : undefined)}\n    />\n  );\n};\n",
-      "propsHash": "b1247452d5edfd81",
+      "propsHash": "490a3506599e8a48",
       "props": {
         "own": [
           {
@@ -9941,6 +9942,12 @@
             ]
           },
           {
+            "name": "dense",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
             "name": "renderValue",
             "optional": true,
             "text": "(value: string) => ReactNode"
@@ -9974,8 +9981,10 @@
         "--c-surface",
         "--c-text-muted",
         "--radius-md",
+        "--size-24",
         "--space-2xs",
-        "--space-xs"
+        "--space-xs",
+        "--text-xs"
       ],
       "gallery": {
         "title": "Composites · Forms/InlineEdit",
@@ -12512,6 +12521,155 @@
         "title": "Composites · Dialogs/MediaViewer",
         "route": "#/story/composites-mediaviewer--overview",
         "file": "stories/composites/MediaViewer.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "MillerColumns",
+      "tier": "composites",
+      "source": "src/composites/MillerColumns/MillerColumns.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Side by side columns for a nested set, such as folders: picking a folder in one column shows its children in the next, and the pick is shared with the app.",
+      "useWhen": [
+        "The user walks down a hierarchy one level at a time and keeps the levels above in view, as in a file browser.",
+        "A file browser offers columns beside a grid and a list, and all of them pick the same keys."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The tree is shown as one list that folds open and closed.",
+          "use": "Tree"
+        },
+        {
+          "case": "The items are groups of sessions with one picked row.",
+          "use": "GroupTree"
+        },
+        {
+          "case": "There is one flat list of items.",
+          "use": "VirtualList"
+        }
+      ],
+      "rules": [
+        "Pass items, the first column, with getKey, getChildren and renderItem; getChildren gives the children of a folder, or nothing for a leaf that opens.",
+        "Pass selection, the picked keys and onChange; the set is the same for every column, so a grid or a list of the same app can use it too.",
+        "A press picks one item in a column and opens its children in the next column; Ctrl and Shift pick several in that column and close the columns after it.",
+        "Keep the open items in the app with path and onPathChange, or pass defaultPath and let the columns keep them.",
+        "Pass onOpen to hear Enter or a double click on a leaf.",
+        "Pass getLabel for type ahead in a column.",
+        "Pass columnWidth to size the columns and rowSize for the height of the rows.",
+        "Each column is a VirtualList, so a column of thousands of items draws only the rows in view; the columns scroll sideways inside the box, so give it a height."
+      ],
+      "a11y": [
+        "Each column is a list box named with the label and its number, and the row that opens a column stays marked.",
+        "Right goes into the open folder and picks its first item, and Left goes back to the folder in the column before.",
+        "Up, Down, Home, End and a typed letter move inside a column, and the picked items are marked with aria-selected."
+      ],
+      "buildingBlock": true,
+      "example": "import { useState } from 'react';\nimport { MillerColumns } from '@drizztdourden08/tessera';\n\ntype Entry = { id: string; name: string; children?: Entry[] };\n\nconst Browser = ({ entries }: { entries: Entry[] }) => {\n  const [picked, setPicked] = useState<ReadonlySet<string>>(new Set());\n  return (\n    <MillerColumns\n      label=\"Files\"\n      items={entries}\n      getKey={(entry) => entry.id}\n      getChildren={(entry) => entry.children}\n      renderItem={(entry) => entry.name}\n      selection={{ selected: picked, onChange: setPicked }}\n    />\n  );\n};\n",
+      "propsHash": "e87048b6424284da",
+      "props": {
+        "own": [
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly T[]"
+          },
+          {
+            "name": "getKey",
+            "optional": false,
+            "text": "(item: T) => string"
+          },
+          {
+            "name": "getChildren",
+            "optional": false,
+            "text": "(item: T) => readonly T[] | undefined"
+          },
+          {
+            "name": "renderItem",
+            "optional": false,
+            "text": "(item: T) => ReactNode"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "selection",
+            "optional": false,
+            "text": "MillerColumnsSelection"
+          },
+          {
+            "name": "getLabel",
+            "optional": true,
+            "text": "(item: T) => string"
+          },
+          {
+            "name": "path",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "defaultPath",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "onPathChange",
+            "optional": true,
+            "text": "(path: readonly string[]) => void"
+          },
+          {
+            "name": "onOpen",
+            "optional": true,
+            "text": "(item: T) => void"
+          },
+          {
+            "name": "columnWidth",
+            "optional": true,
+            "text": "VirtualSize",
+            "default": "'size-224'"
+          },
+          {
+            "name": "rowSize",
+            "optional": true,
+            "text": "VirtualListRowSize",
+            "literals": [
+              "'compact'",
+              "'normal'",
+              "'roomy'"
+            ]
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-bg",
+        "--c-border",
+        "--c-selected",
+        "--c-text-muted",
+        "--miller-column-w",
+        "--radius-md",
+        "--space-sm",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Lists/MillerColumns",
+        "route": "#/story/composites-millercolumns--overview",
+        "file": "stories/composites/MillerColumns.stories.tsx"
       },
       "parts": []
     },
@@ -17237,6 +17395,241 @@
       "parts": []
     },
     {
+      "name": "Tree",
+      "tier": "composites",
+      "source": "src/composites/Tree/Tree.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A long tree of items that fold open, drawn only where it is in view, with the keys of a tree, many picked at once, and a drag that reorders or drops into a folder.",
+      "useWhen": [
+        "The items nest, such as layers in groups, files in folders or outlines, and the tree may hold thousands of rows.",
+        "The user picks one or many nodes, moves them by drag or by keys, or drops them into a folder.",
+        "The children of a folder load when it opens, or a search must keep the folders above its matches."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The items are sessions or players in groups, counted, with one picked row.",
+          "use": "GroupTree"
+        },
+        {
+          "case": "The user walks a folder path as side by side columns.",
+          "use": "MillerColumns"
+        },
+        {
+          "case": "The list is flat and long.",
+          "use": "VirtualList"
+        }
+      ],
+      "rules": [
+        "Pass items, the top level, with getKey, getChildren and getLabel; getChildren gives the children of an item, or nothing for a leaf.",
+        "A folder that is empty gives an empty list; a folder whose children are not loaded yet gives nothing and says so with isBranch.",
+        "Pass renderLead, renderLabel and renderTrail to fill the three slots of a row, before the text, as the text and after it; each gets the item and its state.",
+        "The tree has no toggles of its own for visibility or lock; put them in renderTrail.",
+        "Keep the open folders in the app with expandedKeys and onExpandedChange, or pass defaultExpandedKeys and let the tree keep them.",
+        "Pass selection with the picked keys and onChange to pick; mode single picks one row on each press, and mode multiple, the default, takes Ctrl, Shift, Space and Ctrl and A through useSelectionModel.",
+        "Pass openOnPick to fold a folder with the same press that picks it, and onActivate to hear Enter or a double click on a row.",
+        "Pass onLoadChildren and loadingKeys for lazy children: it is called once when a folder opens with no children yet, the folder shows a spinner while its key is in loadingKeys, and the app then gives its children.",
+        "Pass filter to keep the items it accepts and the folders above them; those folders show open while the filter runs, and the tree does not reorder.",
+        "Pass reorder to move rows: onMove gets the keys, the parentKey, the index among the children of that parent once the moved keys are out, and into, true for a drop on a folder.",
+        "A drag shows a line at the gap or a mark on the folder it drops into; hold over a closed folder and it opens after springDelay, 600 ms by default.",
+        "Pass maxDepth to stop a drop that would nest deeper, and canDrop to refuse a move; a folder cannot take itself or its own children.",
+        "Alt with Up or Down moves the row among its siblings, Alt with Right drops it into the sibling above, and Alt with Left lifts it out of its parent; each move is announced in a polite live region.",
+        "Pass renderThumbnail in reorder to show the first three rows in the drag ghost.",
+        "Pass guides to draw a line for each level, with the branch of the picked row lit; pass rowSize compact for 24 px rows.",
+        "Give the tree a height, since it scrolls inside its box and draws only the rows in view; scrollToKey on the ref brings a row into view."
+      ],
+      "a11y": [
+        "It is a tree with tree items that say their level, their place among their siblings and whether they are open.",
+        "One row takes Tab, the others take the arrows; Right opens a folder or goes to its first child, Left closes it or goes to its parent, Home and End go to the ends, and the star opens all siblings.",
+        "A typed letter moves focus to the next row whose label starts with it.",
+        "The moves by key are announced, since a drag changes no focus text."
+      ],
+      "buildingBlock": true,
+      "example": "import { useState } from 'react';\nimport { Tree } from '@drizztdourden08/tessera';\n\ntype Entry = { id: string; name: string; children?: Entry[] };\n\nconst Files = ({ entries }: { entries: Entry[] }) => {\n  const [picked, setPicked] = useState<ReadonlySet<string>>(new Set());\n  return (\n    <Tree\n      label=\"Files\"\n      items={entries}\n      getKey={(entry) => entry.id}\n      getChildren={(entry) => entry.children}\n      getLabel={(entry) => entry.name}\n      selection={{ selected: picked, onChange: setPicked }}\n    />\n  );\n};\n",
+      "propsHash": "851e0636bf22b7d1",
+      "props": {
+        "own": [
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly T[]"
+          },
+          {
+            "name": "getKey",
+            "optional": false,
+            "text": "(item: T) => string"
+          },
+          {
+            "name": "getChildren",
+            "optional": false,
+            "text": "(item: T) => readonly T[] | undefined"
+          },
+          {
+            "name": "getLabel",
+            "optional": false,
+            "text": "(item: T) => string"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "isBranch",
+            "optional": true,
+            "text": "(item: T) => boolean"
+          },
+          {
+            "name": "renderLead",
+            "optional": true,
+            "text": "(item: T, state: TreeRowState) => ReactNode"
+          },
+          {
+            "name": "renderLabel",
+            "optional": true,
+            "text": "(item: T, state: TreeRowState) => ReactNode"
+          },
+          {
+            "name": "renderTrail",
+            "optional": true,
+            "text": "(item: T, state: TreeRowState) => ReactNode"
+          },
+          {
+            "name": "expandedKeys",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "defaultExpandedKeys",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "onExpandedChange",
+            "optional": true,
+            "text": "(keys: readonly string[]) => void"
+          },
+          {
+            "name": "selection",
+            "optional": true,
+            "text": "TreeSelection"
+          },
+          {
+            "name": "onActivate",
+            "optional": true,
+            "text": "(item: T) => void"
+          },
+          {
+            "name": "openOnPick",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "onLoadChildren",
+            "optional": true,
+            "text": "(item: T) => void"
+          },
+          {
+            "name": "loadingKeys",
+            "optional": true,
+            "text": "ReadonlySet<string>"
+          },
+          {
+            "name": "filter",
+            "optional": true,
+            "text": "(item: T) => boolean"
+          },
+          {
+            "name": "reorder",
+            "optional": true,
+            "text": "TreeReorder"
+          },
+          {
+            "name": "guides",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "rowSize",
+            "optional": true,
+            "text": "TreeRowSize",
+            "literals": [
+              "'compact'",
+              "'normal'"
+            ],
+            "default": "'normal'"
+          },
+          {
+            "name": "overscan",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "emptyLabel",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "ref",
+            "optional": true,
+            "text": "Ref<TreeHandle>"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-focus",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-dim",
+        "--c-primary-soft",
+        "--c-selected",
+        "--c-text",
+        "--c-text-dim",
+        "--c-text-muted",
+        "--opacity-disabled",
+        "--radius-pill",
+        "--radius-sm",
+        "--row-inset",
+        "--size-1",
+        "--size-16",
+        "--size-20",
+        "--size-24",
+        "--size-28",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-base",
+        "--text-sm",
+        "--transition-fast",
+        "--tree-count",
+        "--tree-index",
+        "--tree-row-indent"
+      ],
+      "gallery": {
+        "title": "Composites · Lists/Tree",
+        "route": "#/story/composites-tree--overview",
+        "file": "stories/composites/Tree.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "UtilityScreen",
       "tier": "composites",
       "source": "src/composites/UtilityScreen/UtilityScreen.tsx",
@@ -19292,6 +19685,74 @@
           "name": "useSelectionModel",
           "kind": "hook",
           "text": "(input: SelectionModelInput) => SelectionModel"
+        }
+      ]
+    },
+    {
+      "name": "toggle-sweep",
+      "tier": "composites",
+      "source": "src/composites/toggle-sweep/index.ts",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Set many toggles with one drag: press a toggle, drag over the others in a column, and they all take the value the first one got.",
+      "useWhen": [
+        "A column of toggles, such as the eye or the lock of each layer, is set in bulk by dragging down the column.",
+        "A grid of on and off cells is painted by one press and a drag across the cells."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user picks items by dragging a rectangle over them.",
+          "use": "useMarqueeSelect"
+        },
+        {
+          "case": "One toggle is pressed on its own and needs no drag.",
+          "use": "Toggle"
+        },
+        {
+          "case": "The items are picked, not switched, with Ctrl and Shift.",
+          "use": "useSelectionModel"
+        }
+      ],
+      "rules": [
+        "Pass onSet(key, value), which the hook calls once for each key a sweep touches, and spread bind(key, current) on the element around each toggle with the value it shows now.",
+        "The first press sets every key of the sweep to the opposite of the pressed toggle, so the drag paints one value.",
+        "A key touched twice in one sweep is reported once, even when the pointer goes back over it.",
+        "Pass onEnd(keys, value) to hear the finished sweep once, such as to push one undo step for all the keys.",
+        "Pass order, the keys as they are shown, so a fast drag that skips a row still sets the rows between the two it touched.",
+        "The hook follows the pointer on the window, so the drag may leave the column and come back, and it ends on release or cancel.",
+        "A mouse or touch click inside a bound element is taken by the sweep and does not reach the onChange of the toggle in it; a key press does, so keep onChange for the keyboard.",
+        "Set touch-action to none on the bound elements, so a finger drag sweeps and does not scroll.",
+        "sweeping is true while a drag runs, for a look such as a held column."
+      ],
+      "a11y": [
+        "Every toggle keeps its own key press, Space or Enter, so the sweep is never the only way to switch.",
+        "Announce the end of a sweep in a polite live region, such as 5 layers hidden, since a drag changes no focus."
+      ],
+      "example": "import { useState } from 'react';\nimport { Box, Toggle, useToggleSweep } from '@drizztdourden08/tessera';\n\nconst Visibility = ({ ids }: { ids: string[] }) => {\n  const [hidden, setHidden] = useState<ReadonlySet<string>>(new Set());\n  const set = (id: string, value: boolean) => setHidden((now) => new Set(value ? [...now, id] : [...now].filter((key) => key !== id)));\n  const sweep = useToggleSweep({ order: ids, onSet: set });\n  return ids.map((id) => (\n    <Box key={id} {...sweep.bind(id, hidden.has(id))}>\n      <Toggle label={id} checked={hidden.has(id)} onChange={(value) => set(id, value)} />\n    </Box>\n  ));\n};\n",
+      "propsHash": "d306592edb1c6b90",
+      "exports": [
+        {
+          "name": "ToggleSweep",
+          "kind": "type",
+          "text": "interface ToggleSweep {\n  sweeping: boolean;\n  bind: (key: string, current: boolean) => ToggleSweepBind;\n}"
+        },
+        {
+          "name": "ToggleSweepBind",
+          "kind": "type",
+          "text": "interface ToggleSweepBind {\n  'data-sweep-key': string;\n  onPointerDown: (event: PointerEvent<HTMLElement>) => void;\n  onClickCapture: (event: MouseEvent<HTMLElement>) => void;\n}"
+        },
+        {
+          "name": "ToggleSweepInput",
+          "kind": "type",
+          "text": "interface ToggleSweepInput {\n  onSet: (key: string, value: boolean) => void;\n  onEnd?: (keys: readonly string[], value: boolean) => void;\n  order?: readonly string[];\n}"
+        },
+        {
+          "name": "useToggleSweep",
+          "kind": "hook",
+          "text": "(input: ToggleSweepInput) => ToggleSweep"
         }
       ]
     },
