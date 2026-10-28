@@ -2,6 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
+import { AnchoredRectDemo } from './_samples/anchored-rect-demo';
 import { DismissPanels, PinnedPanel, Placements, ScrollBox } from './_samples/anchored-demos';
 import type { AnchoredArgs } from './_samples/anchored-demos';
 import './Anchored.stories.css';
@@ -34,6 +35,8 @@ const Scrolling = { name: 'Inside a scroll box', render: () => <ScrollBox /> } s
 
 const Dismissing = { name: 'Closing on Escape or a press outside', render: () => <DismissPanels /> } satisfies Story;
 
+const Rect = { name: 'anchorRect and boundary: a bar that follows a cell and stays inside the scroll box', render: () => <AnchoredRectDemo /> } satisfies Story;
+
 const CODE = `import { useRef } from 'react';
 import { Anchored } from '@drizztdourden08/tessera';
 
@@ -55,10 +58,11 @@ const Overview = overviewStory({
     'It opens in the top layer, so no scroll box clips it and no z-index hides it.',
     'Where the browser has no anchor positioning, it falls back to a [Portal] placed from `fallback`.',
     '`onDismiss` runs on [[Esc]] or a press outside; `dismissOnEscape` or `dismissOnOutsidePress` turns one off.',
+    '`anchorRect` follows a rect, or a function that reads one; `boundary` keeps the popup inside a box.',
   ],
   instead: '[Tooltip], [Select] or [DropdownMenu] when one of them already fits; they are built on it.',
   playground: Playground,
-  variants: [PlacementGrid, Scrolling, Dismissing],
+  variants: [PlacementGrid, Scrolling, Dismissing, Rect],
   code: CODE,
 });
 

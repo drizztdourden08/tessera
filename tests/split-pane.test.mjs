@@ -45,6 +45,30 @@ describe('SplitPane', () => {
   });
 });
 
+describe('SplitPane summary line', () => {
+  const lined = (extra = {}) => draw({ orientation: 'vertical', defaultCollapsed: 'end', ...extra });
+
+  it('draws the header and the summary beside the rail of the folded pane', () => {
+    const html = lined({ header: 'Selection', summary: '12 tiles' });
+    expect(html).toContain('split-pane__pane--lined');
+    expect(html).toContain('split-pane__summary"');
+    expect(html).toMatch(/Selection<div class="split-pane__summary-text">12 tiles/);
+  });
+
+  it('takes a summary alone or a header alone', () => {
+    expect(lined({ summary: 'Done' })).toContain('split-pane__summary-text">Done');
+    const headerOnly = lined({ header: 'Selection' });
+    expect(headerOnly).toContain('split-pane__summary');
+    expect(headerOnly).not.toContain('split-pane__summary-text');
+  });
+
+  it('draws nothing extra while the pane is open, or side by side, or with no summary', () => {
+    expect(draw({ orientation: 'vertical', summary: 'x' })).not.toContain('split-pane__summary');
+    expect(draw({ defaultCollapsed: 'end', summary: 'x' })).not.toContain('split-pane__summary');
+    expect(lined()).not.toContain('split-pane__summary');
+  });
+});
+
 describe('FloatingSwitch', () => {
   it('draws one thumb behind the items, hidden until it is measured', () => {
     const items = [{ id: 'a', label: 'One', icon: null }, { id: 'b', label: 'Two', icon: null }];

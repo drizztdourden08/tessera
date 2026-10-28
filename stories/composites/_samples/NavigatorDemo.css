@@ -1,0 +1,8 @@
+/* @layer stories @kind style */
+.navigator-demo {
+  align-items: flex-start;
+}
+
+.navigator-demo .navigator {
+  inline-size: var(--size-224);
+}

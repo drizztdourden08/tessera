@@ -43,7 +43,9 @@ describe('one pane edge implementation', () => {
     ['settle-share', 'step-share', 'value-range-of', 'start-share-of', 'hidden-label-of', 'pixels-per-percent', 'split-limits.type', 'split-handle.type'].forEach((name) => {
       expect(fs.existsSync(`src/composites/SplitPane/behavior/${name}.ts`), name).toBe(false);
     });
-    expect(fs.existsSync('src/composites/SplitPane/sub-components')).toBe(false);
+    ['SplitPaneHandle', 'SplitDivider'].forEach((name) => {
+      expect(fs.existsSync(`src/composites/SplitPane/sub-components/${name}.tsx`), name).toBe(false);
+    });
     expect(fs.existsSync('src/composites/pane-fold')).toBe(false);
     expect(fs.existsSync('src/composites/pane-edge/PaneEdge.tsx')).toBe(true);
   });

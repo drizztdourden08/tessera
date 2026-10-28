@@ -33,11 +33,13 @@ AnchorPicker picks one of nine anchor points, as an image editor does for canvas
 - The default variant dots shows the chosen cell as a filled dot.
 - The variant arrows shows an arrow in every other cell, pointing away from the chosen one: the look of a canvas resize dialog.
 - Pass label when the default Anchor does not say what is anchored, such as Keep this edge.
-- Size sm fits a dense panel; md is the default.
+- Size sm fits a dense panel and xs a toolbar; md is the default.
+- Set value to custom when the anchor is a free point set elsewhere: no cell is chosen and the outline turns dashed. Pass customLabel to say so aloud.
 
 ## Accessibility
 
 - The grid is a radio group with a radio per cell, named Top left to Bottom right, and one Tab stop on the chosen cell.
+- With value custom no radio is checked, and the centre cell holds the one Tab stop.
 - The arrow keys move in two dimensions and choose; Home and End go to the start and end of the row, and with Control to the first and last cell.
 
 ## Example
@@ -55,14 +57,15 @@ const CanvasAnchor = () => {
 
 ## Props
 
-- `value`: `Anchor`, one of `'top-left'`, `'top'`, `'top-right'`, `'left'`, `'center'`, `'right'`, `'bottom-left'`, `'bottom'`, `'bottom-right'`.
+- `value`: `AnchorValue`, one of `'bottom'`, `'bottom-left'`, `'bottom-right'`, `'center'`, `'custom'`, `'left'`, `'right'`, `'top'`, `'top-left'`, `'top-right'`.
 - `onChange`: `(anchor: Anchor) => void`.
 - `variant` (optional): `AnchorPickerVariant`, one of `'dots'`, `'arrows'`. Default `'dots'`.
-- `size` (optional): `ControlSize`, one of `'sm'`, `'md'`.
+- `size` (optional): `AnchorPickerSize`, one of `'md'`, `'sm'`, `'xs'`.
 - `label` (optional): `string`.
+- `customLabel` (optional): `string`.
 - `disabled` (optional): `boolean`. Default `false`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-sunken`, `--c-text`, `--c-text-muted`, `--opacity-disabled`, `--opacity-muted`, `--radius-round`, `--radius-sm`, `--size-10`, `--size-20`, `--size-28`, `--size-6`, `--size-8`, `--space-2xs`, `--transition-fast`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-sunken`, `--c-text`, `--c-text-muted`, `--opacity-disabled`, `--opacity-muted`, `--radius-round`, `--radius-sm`, `--size-10`, `--size-16`, `--size-20`, `--size-28`, `--size-4`, `--size-6`, `--size-8`, `--space-2xs`, `--transition-fast`.

@@ -16,6 +16,8 @@ interface SplitPaneProps {
   defaultCollapsed?: CollapsedSide;
   startLabel?: string;
   endLabel?: string;
+  summary?: ReactNode;
+  header?: ReactNode;
   className?: string;
 }
 

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind barrel */
-export { AnchorPicker, type Anchor, type AnchorPickerProps, type AnchorPickerVariant } from '../AnchorPicker';
+export { SplitButton, type SplitButtonProps } from '../SplitButton';
+export { AnchorPicker, type Anchor, type AnchorPickerProps, type AnchorPickerSize, type AnchorPickerVariant, type AnchorValue } from '../AnchorPicker';
 export { ChoiceGrid, type ChoiceCell, type ChoiceCellProps, type ChoiceCellState, type ChoiceGridProps, type ChoiceRole, type ChoiceSection } from '../ChoiceGrid';
 export { SettingsRow } from '../SettingsRow';
 export type {
