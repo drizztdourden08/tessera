@@ -22,7 +22,7 @@ const splashScale = (art) => (art.w / art.h >= WIDE_RATIO ? SPLASH_WIDE_SCALE : 
 
 const appArt = (brand, mark, darkMark = mark, iconMark) => {
   const face = iconMark ?? mark;
-  const shown = brand.appIcon === 'tile' ? darkMark : mark;
+  const shown = brand.appIcon === 'tile' || brand.mark.currentInk ? darkMark : mark;
   return {
     icon: iconArt(brand, mark, iconMark),
     iconFile: brand.appIcon === 'tile' ? iconArt(brand, mark, iconMark) : square(placed(mark, 1)),

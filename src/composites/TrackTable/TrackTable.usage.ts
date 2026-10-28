@@ -16,6 +16,7 @@ const usage = {
     'Give each column a fr, its share of the width; leave it out for 1.',
     'Pass width on a column for a fixed size instead of a share: a size or space token name such as size-96, or a CSS length such as 6rem; it wins over fr.',
     'Mark a column drop 1, 2 or 3 to hide it below 768, 640 or 480 px of table width; 1 leaves first.',
+    'Pass hideBelow on a column to pick the width yourself: 1280, 1120, 896, 768, 640 or 480 px of table width; it wins over drop, and the column leaves its grid track too, so no gap is left.',
     'Never mark the column that names the row: it stays at every width.',
     'Draw state with Status and groups with Tag inside cell; the table sets no look for them.',
     'Put the table in a Card when it needs a frame; it draws no border or background.',

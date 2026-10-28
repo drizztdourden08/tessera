@@ -14,6 +14,8 @@ export { moveToolbarToSide } from './behavior/move-toolbar-to-side';
 export { normalizeCorners } from './behavior/normalize-corners';
 export { placeToolbar } from './behavior/place-toolbar';
 export { resizeToolbarEnd } from './behavior/resize-toolbar-end';
+export { setToolbarColumns } from './behavior/set-toolbar-columns';
+export { setToolbarItems } from './behavior/set-toolbar-items';
 export { setToolbarLabels } from './behavior/set-toolbar-labels';
 export { showToolbar } from './behavior/show-toolbar';
 export { takeToolbarCorner } from './behavior/take-toolbar-corner';

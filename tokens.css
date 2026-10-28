@@ -424,6 +424,9 @@ input, select {
   --badge-d-xs: var(--size-20);
   --status-h-sm: calc(18 * var(--size-1));
   --board-stack-w: calc(420 * var(--size-1));
+  --track-hide-1280: calc(1280 * var(--size-1));
+  --track-hide-1120: calc(1120 * var(--size-1));
+  --track-hide-896: var(--size-896);
   --track-drop-1: var(--size-768);
   --track-drop-2: var(--size-640);
   --track-drop-3: calc(480 * var(--size-1));

@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind style */
 .flex { display: flex; }
 .flex--inline { display: inline-flex; }
+.flex--container { container-type: inline-size; }
 
 .flex[data-dir='row'] { flex-direction: row; }
 .flex[data-dir='column'] { flex-direction: column; }

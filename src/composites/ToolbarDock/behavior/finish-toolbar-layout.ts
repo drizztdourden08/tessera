@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind logic */
 import type { ToolbarDefinition, ToolbarLayout } from '../ToolbarDock.type';
+import { cleanToolbarColumns } from './clean-toolbar-columns';
 import { cleanToolbarIds } from './clean-toolbar-ids';
+import { cleanToolbarItems } from './clean-toolbar-items';
 import { cleanToolbarLabels } from './clean-toolbar-labels';
 import { cleanToolbarLast } from './clean-toolbar-last';
 import type { ToolbarRaw } from './finish-toolbar-layout.type';
@@ -14,6 +16,8 @@ const finishToolbarLayout = (base: ToolbarLayout, raw: ToolbarRaw, defs: readonl
     hidden: cleanToolbarIds(raw.hidden, known, seen, Number.POSITIVE_INFINITY),
     last: cleanToolbarLast(raw.last, known),
     ...cleanToolbarLabels(raw.labels, known),
+    ...cleanToolbarItems(raw.items, known),
+    ...cleanToolbarColumns(raw.columns, known),
   };
   return normalizeCorners(defs.filter((def) => !seen.has(def.id)).reduce(placeOrHideToolbar, withRest));
 };

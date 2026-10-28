@@ -5,7 +5,7 @@ import { CardHeader } from './sub-components/CardHeader';
 import type { CardProps } from './Card.type';
 
 const Card = (props: CardProps) => {
-  const { variant, edgeTone, edge, fill, flush, header, title, subtitle, actions, count, hideZero, tone, level, children, className, ...rest } = props;
+  const { variant, edgeTone, edge, fill, flush, container, header, title, subtitle, actions, count, hideZero, tone, level, children, className, ...rest } = props;
   const headed = (header ?? title) != null;
   const classes = cardClass(props, headed);
 

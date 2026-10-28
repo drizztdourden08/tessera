@@ -6,6 +6,8 @@ type TrackRowTone = RowState;
 
 type TrackDrop = 1 | 2 | 3;
 
+type TrackHideBelow = 1280 | 1120 | 896 | 768 | 640 | 480;
+
 type TrackAlign = 'start' | 'center' | 'end';
 
 interface TrackColumn<Row> {
@@ -15,6 +17,7 @@ interface TrackColumn<Row> {
   fr?: number;
   width?: string;
   drop?: TrackDrop;
+  hideBelow?: TrackHideBelow;
   align?: TrackAlign;
 }
 
@@ -57,4 +60,4 @@ interface TrackRowAttrs {
   onKeyDown?: (event: KeyboardEvent<HTMLElement>) => void;
 }
 
-export type { TrackAlign, TrackColumn, TrackDetailProps, TrackDrop, TrackHeadProps, TrackRowAttrs, TrackRowProps, TrackRowTone, TrackTableProps };
+export type { TrackAlign, TrackColumn, TrackDetailProps, TrackDrop, TrackHeadProps, TrackHideBelow, TrackRowAttrs, TrackRowProps, TrackRowTone, TrackTableProps };

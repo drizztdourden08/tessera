@@ -30,6 +30,12 @@ const TOOLBAR_DOCK_TWO_IN_LANE: ToolbarLayout = {
   corners: { 'top-left': ['h', 'v'], 'top-right': ['h'], 'bottom-left': ['v', 'h'], 'bottom-right': ['h'] },
 };
 
+const TOOLBAR_DOCK_FIELDS: ToolbarLayout = {
+  ...TOOLBAR_DOCK_RAIL_UNDER_TOP,
+  items: { tools: ['fill', 'picker'], shapes: ['curve'] },
+  columns: { tools: 2 },
+};
+
 const TOOLBAR_DOCK_HINT = 'Drag a bar by its grip to drop it anywhere along a lane. Drag an end handle to push its neighbours. Drag the first or last end handle past the lane end to take a corner, and back to give it up.';
 
-export { TOOLBAR_DOCK_HINT, TOOLBAR_DOCK_RAIL_FULL_HEIGHT, TOOLBAR_DOCK_RAIL_UNDER_TOP, TOOLBAR_DOCK_TWO_IN_LANE };
+export { TOOLBAR_DOCK_FIELDS, TOOLBAR_DOCK_HINT, TOOLBAR_DOCK_RAIL_FULL_HEIGHT, TOOLBAR_DOCK_RAIL_UNDER_TOP, TOOLBAR_DOCK_TWO_IN_LANE };

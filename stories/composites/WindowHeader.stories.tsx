@@ -159,21 +159,36 @@ const StackedNarrow = {
   ),
 } satisfies StoryLiteStoryDefinition<WindowHeaderArgs>;
 
+const EyebrowRow = {
+  name: 'actionsRow="eyebrow": the actions sit in the eyebrow row, the close button stays',
+  render: () => (
+    <Box className="window-header-story__strip">
+      <WindowHeader
+        look="record"
+        eyebrow="INC-20481"
+        title="Checkout requests time out"
+        actions={<Button size="sm" variant="secondary">Pin</Button>}
+        actionsRow="eyebrow"
+        onClose={ignoreClose}
+      />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<WindowHeaderArgs>;
+
 const Overview = overviewStory({
   component: 'WindowHeader',
   description: 'The title bar of windows, dialogs and drawers: a title, an optional subtitle, extra content and a close button.',
   points: [
-    'The close button shows only when `onClose` is set.',
-    '`extra` takes content such as a [Status] or a button, before the close button.',
+    '`onClose` shows the close button; `extra` takes a [Status] or a button before it.',
     '`back` draws a back button before the title; the host wires [[Alt+Left]] and the mouse back button.',
     'It stays one row: the subtitle shortens first, then `extra` hides, then the title shortens.',
     '`stackNarrow` moves the close button under the title, in a tools row, when the header is under 420 px.',
-    '`titleWrap` lets a long title run onto more lines in place of the ellipsis, such as a save name.',
+    '`titleWrap` lets a long title wrap; `actionsRow="eyebrow"` moves `actions` into the eyebrow row.',
   ],
   instead: '[WindowTitleBar] for the title bar of a whole app window.',
   playground: Playground,
-  variants: [InWindow, Narrow, WithBack, NarrowBack, StackedNarrow, Wrapped, TitleOnly],
+  variants: [InWindow, Narrow, WithBack, NarrowBack, StackedNarrow, EyebrowRow, Wrapped, TitleOnly],
 });
 
 export default meta;
-export { InWindow, Narrow, NarrowBack, Overview, Playground, StackedNarrow, TitleOnly, WithBack, Wrapped };
+export { EyebrowRow, InWindow, Narrow, NarrowBack, Overview, Playground, StackedNarrow, TitleOnly, WithBack, Wrapped };

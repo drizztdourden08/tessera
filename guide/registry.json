@@ -1379,7 +1379,7 @@
         "rule": "Center puts its children in the middle of its box on both axes, with the gap and direction of a Flex."
       },
       "example": "import { Center, Text } from '@drizztdourden08/tessera';\n\nconst LobbyWaiting = () => (\n  <Center direction=\"column\" gap=\"sm\" className=\"lobby-empty\">\n    <Text variant=\"title\">Lobby</Text>\n    <Text variant=\"subtitle\">Waiting for the host to start the session</Text>\n  </Center>\n);\n",
-      "propsHash": "6fce93c922c84fb7",
+      "propsHash": "5bc77cd2d8b3da0b",
       "props": {
         "own": [
           {
@@ -1418,6 +1418,11 @@
           },
           {
             "name": "inline",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "container",
             "optional": true,
             "text": "boolean"
           }
@@ -1814,7 +1819,8 @@
         "Set overflow to clip to cut the text at lines with no control at all, for text whose full form is shown elsewhere.",
         "The control and the hint only appear when the text runs past lines, so short text shows nothing extra.",
         "Pass fill to give the text the full width of its parent and contain it, so a table cell holding long text keeps the width the table gives it.",
-        "Pass truncate middle with a string to keep one line, the start and the end of it, and an ellipsis between, such as a file path; the full text, or hint, shows in a tip while it is cut."
+        "Pass truncate middle with a string to keep one line, the start and the end of it, and an ellipsis between, such as a file path; the full text, or hint, shows in a tip while it is cut.",
+        "Pass hug with truncate middle to take only the width the text needs, so a button can sit right after it; it still shortens when the parent is narrower than the text."
       ],
       "a11y": [
         "The More control is a button that says whether the text is open and names the text it opens.",
@@ -1829,7 +1835,7 @@
         "rule": "FoldText is the one clamp for long text. FormRow and SettingsRow draw their descriptions with it."
       },
       "example": "import { FoldText } from '@drizztdourden08/tessera';\n\nconst Notes = ({ text }: { text: string }) => (\n  <FoldText lines={3}>{text}</FoldText>\n);\n",
-      "propsHash": "43ee055b8264d67a",
+      "propsHash": "7b9c2381a44c1b86",
       "props": {
         "own": [
           {
@@ -1854,6 +1860,11 @@
           },
           {
             "name": "fill",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "hug",
             "optional": true,
             "text": "boolean"
           },
@@ -2281,7 +2292,7 @@
         "rule": "Inline lays its children side by side in a row, with a token gap and the items centred across it."
       },
       "example": "import { Icon, Inline, Status, Text } from '@drizztdourden08/tessera';\n\nconst SessionRow = () => (\n  <Inline>\n    <Icon name=\"gamepad-2\" />\n    <Text>Session 4</Text>\n    <Status tone=\"success\" dot>Connected</Status>\n  </Inline>\n);\n",
-      "propsHash": "dd0ddca7ec51929e",
+      "propsHash": "fbba2aedbbb70ac4",
       "props": {
         "own": [
           {
@@ -2341,6 +2352,11 @@
           },
           {
             "name": "inline",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "container",
             "optional": true,
             "text": "boolean"
           }
@@ -11054,7 +11070,7 @@
         "Enter on the divider, or an arrow key at the end of the range, folds the list and moves focus to the button that brings it back; Enter or the outward arrow key on a folded divider opens it.",
         "The fold button is the CollapseToggle: it names the list, Hide presets or Show presets, and reports aria-expanded on the list pane.",
         "The detail fold button names the detail the same way, Hide preset editor or Show preset editor, on the detail pane.",
-        "Under 768 px the panes stack and Back sits at the top of the detail."
+        "Under 768 px of the layout width, not the window, the panes stack and Back sits at the top of the detail."
       ],
       "tree": {
         "path": [
@@ -16496,7 +16512,10 @@
         "options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.",
         "menuSide right or left says which side of a vertical toolbar its menus open on; a ToolbarDock slot hands it over, so a left bar opens right and a right bar opens left. Menus flip and stay inside the view near any edge, and look the same on every side.",
         "layout list draws each item as a row with its icon, name, description and shortcut, a group as a labelled set of rows and a number as a row with its field. Use it in a wide panel; it never folds and has no handle or caption.",
-        "Items that do not fit fold into More, in order; a group becomes a labelled set of choices and a number becomes a slider.",
+        "Items that do not fit fold into More; a group becomes a labelled set of choices and a number becomes a slider. Give an item a priority to choose what folds first: the lowest priority folds first, a missing one counts as 0, and equal priorities fold from the end. The items that stay keep their order.",
+        "columns 2 puts a vertical bar in two columns, with a separator and the handle across both. columns auto stays in one column until the items do not fit, then wraps into two before it folds anything into More. columns 1 is the default, and a horizontal bar ignores it.",
+        "hiddenItems is a list of item ids to leave out, in the bar, in More and in the list. Separators left at an end or doubled are dropped. A ToolbarDock slot hands over the list a user chose.",
+        "onContextMenu(itemId, event) on the toolbar, or onContextMenu(event) on one item, runs on a right click and on Shift+F10 or the Menu key while the item has focus. The toolbar stops the browser menu and leaves showing yours to the app; a group gives the id of the group and a number gives its own.",
         "handle draws a grip at the start. A dock wires its own pointer handlers through handleProps; the toolbar has no drag logic.",
         "Give the toolbar a length: a row takes the width of its parent and a column the height of its parent. Without one, nothing folds."
       ],
@@ -16516,7 +16535,7 @@
         "rule": "Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them."
       },
       "example": "import { Toolbar } from '@drizztdourden08/tessera';\nimport type { ToolbarItem } from '@drizztdourden08/tessera';\n\ninterface ToolRailProps {\n  tool: string;\n  pick: (tool: string) => void;\n  undo: () => void;\n}\n\nconst ToolRail = ({ tool, pick, undo }: ToolRailProps) => {\n  const items: ToolbarItem[] = [\n    { kind: 'toggle', id: 'pencil', label: 'Pencil', icon: 'pencil', description: 'Draw one pixel at a time.', shortcut: 'P', pressed: tool === 'pencil', onChange: () => pick('pencil') },\n    { kind: 'toggle', id: 'eraser', label: 'Eraser', icon: 'eraser', description: 'Clear pixels.', shortcut: 'E', pressed: tool === 'eraser', onChange: () => pick('eraser') },\n    { kind: 'separator', id: 'tools-end' },\n    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', shortcut: 'Ctrl+Z', onSelect: undo },\n  ];\n  return <Toolbar label=\"Drawing tools\" orientation=\"vertical\" items={items} />;\n};\n",
-      "propsHash": "077b7ef5798119da",
+      "propsHash": "514938db290cb569",
       "props": {
         "own": [
           {
@@ -16580,6 +16599,26 @@
               "'right'",
               "'left'"
             ]
+          },
+          {
+            "name": "columns",
+            "optional": true,
+            "text": "ToolbarColumns",
+            "literals": [
+              "1",
+              "2",
+              "'auto'"
+            ]
+          },
+          {
+            "name": "hiddenItems",
+            "optional": true,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "onContextMenu",
+            "optional": true,
+            "text": "(itemId: string, event: ToolbarContextEvent) => void"
           },
           {
             "name": "className",
@@ -16651,6 +16690,7 @@
         "definitions names each toolbar. A toolbar in the layout without a definition is not drawn, and a hidden toolbar is not drawn.",
         "renderToolbar draws one toolbar and gets its orientation, its side, menuSide, the handle and labels. Pass the orientation, menuSide, the handle and labels to Toolbar.",
         "layout.labels is optional and maps a toolbar id to true or false. Missing means the default of the app, and the slot then has no labels. setToolbarLabels(layout, id, on) sets it and returns the same layout when nothing changes. The layout version stays 2, and migrateToolbarLayout keeps valid entries and drops the rest.",
+        "layout.items is optional and maps a toolbar id to the item ids the user hid in it. layout.columns is optional and maps a toolbar id to 1, 2 or auto. The slot then carries hiddenItems and columns for that toolbar, and nothing when none is set; pass both to Toolbar. setToolbarItems(layout, id, hiddenIds) and setToolbarColumns(layout, id, columns) set them, return the same layout when nothing changes, and remove the entry when it is empty or undefined. migrateToolbarLayout drops unknown toolbars and values that are not allowed, and an older layout migrates with neither field.",
         "moveToolbarToSide(layout, id, side) moves a shown toolbar to a side, placed as showToolbar places it: its last spot on that side if free, else a new lane, else the largest gap. With no room, or when the toolbar is already on that side, it returns the same layout. last is kept as it was.",
         "The orientation comes from the side: horizontal on top and bottom, vertical on left and right. It is never stored.",
         "The handle is the set of props for the grip of a Toolbar. It carries the toolbar id as data-drag-toolbar and a name such as Move Drawing tools.",
@@ -16759,6 +16799,8 @@
         "moveToolbarToSide",
         "normalizeCorners",
         "placeToolbar",
+        "setToolbarColumns",
+        "setToolbarItems",
         "setToolbarLabels",
         "showToolbar",
         "toggleToolbar",
@@ -16800,6 +16842,7 @@
         "Give each column a fr, its share of the width; leave it out for 1.",
         "Pass width on a column for a fixed size instead of a share: a size or space token name such as size-96, or a CSS length such as 6rem; it wins over fr.",
         "Mark a column drop 1, 2 or 3 to hide it below 768, 640 or 480 px of table width; 1 leaves first.",
+        "Pass hideBelow on a column to pick the width yourself: 1280, 1120, 896, 768, 640 or 480 px of table width; it wins over drop, and the column leaves its grid track too, so no gap is left.",
         "Never mark the column that names the row: it stays at every width.",
         "Draw state with Status and groups with Tag inside cell; the table sets no look for them.",
         "Put the table in a Card when it needs a frame; it draws no border or background.",
@@ -16905,9 +16948,12 @@
         "--space-xs",
         "--text-xs",
         "--track-cols-0",
-        "--track-cols-1",
-        "--track-cols-2",
-        "--track-cols-3",
+        "--track-cols-1120",
+        "--track-cols-1280",
+        "--track-cols-480",
+        "--track-cols-640",
+        "--track-cols-768",
+        "--track-cols-896",
         "--tracking-wide"
       ],
       "gallery": {
