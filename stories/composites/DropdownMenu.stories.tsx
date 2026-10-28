@@ -13,6 +13,7 @@ import { ICON_SOURCE_MENU } from './_samples/data-menu-icon-sources';
 import { CATEGORY_MENU, EDIT_MENU, NESTED_MENU, SUBTITLE_MENU } from './_samples/data-menu-features';
 import { ChoiceDemo, MenuDemo } from './_samples/menu-demos';
 import { DANGER_MENU } from './_samples/data-menu-danger';
+import { DISABLED_MENU } from './_samples/data-menu-disabled';
 import { MenuConfirmDemo } from './_samples/MenuConfirmDemo';
 import { MenuRoomyDemo } from './_samples/MenuRoomyDemo';
 import { MenuSelectDemo } from './_samples/MenuSelectDemo';
@@ -139,6 +140,8 @@ const Confirm = {
 
 const Danger = { name: 'A danger item for Delete, beside a confirm item that only turns red while it asks', render: () => <DropdownMenu inline groups={DANGER_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
+const Disabled = { name: 'Disabled items, dimmed so they read as unavailable', render: () => <DropdownMenu inline groups={DISABLED_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
 const SubMenus = {
   name: 'Sub-menus and filter',
   render: () => (
@@ -203,11 +206,11 @@ const Overview = overviewStory({
     '`checked` or `kind="radio"` shows a faint dot that turns into a check or radio; `children` opens a sub-menu.',
     '`tone="danger"` draws Delete red, `kind="confirm"` asks, `kind="slider"` sets a level, `kind="select"` picks.',
     'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
-    '`filter` adds a search field; `anchorRef` hangs it from a row; `itemSize="roomy"` sets 13 px text.',
+    '`filter` adds a search field; `anchorRef` hangs it from a row; `disabled` dims an item to the disabled level.',
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, RoomyRows, Inside, IconSources, Commands, MarkMorph, Confirm, Sliders, Selects, Danger, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, RoomyRows, Inside, IconSources, Commands, MarkMorph, Confirm, Sliders, Selects, Danger, Disabled, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -222,4 +225,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Commands, Confirm, Danger, Selects, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SubMenus, Triggers, Variants };
+export { Commands, Confirm, Danger, Disabled, Selects, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SubMenus, Triggers, Variants };

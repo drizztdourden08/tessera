@@ -11,6 +11,7 @@ const swatchClasses = (input: SwatchClassesInput): string => [
   input.unused ? 'color-swatch--unused' : '',
   input.mixed ? 'color-swatch--mixed' : '',
   input.focusRing === 'apart' ? 'color-swatch--ring-apart' : '',
+  input.fill ? 'color-swatch--fill' : '',
   input.className,
 ].filter(Boolean).join(' ');
 

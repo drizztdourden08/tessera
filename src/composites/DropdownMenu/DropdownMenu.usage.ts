@@ -21,6 +21,7 @@ const usage = {
     'Give an action that deletes, such as Delete in a row menu, tone danger, so it reads in the danger tone at rest; a confirm item turns red only while it asks.',
     'Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.',
     'An item icon is a name from the set, iconify data such as an imported Lucide icon, Icon path data, or any element.',
+    'A disabled item is drawn at the disabled opacity like a disabled button: label, icon, shortcut and description dim together, and it takes no hover or focus.',
     'Split groups by meaning with a label or a separator; turn on filter past about a dozen items.',
     'Give an item onHighlight to start loading what it opens: it runs once each time the item is hovered, focused or reached with the arrow keys, and never while it is disabled.',
     'Give an item data to put data attributes on it, such as { "data-menu-entry": "rename" }, and ariaDescription for a hint a screen reader adds after the label; description is already read as part of the item.',
