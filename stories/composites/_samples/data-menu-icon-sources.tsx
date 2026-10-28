@@ -1,6 +1,6 @@
 /* @layer stories @kind data */
 import swordsIcon from '@iconify-icons/lucide/swords';
-import { Icon } from '../../../src/primitives';
+import { ColorSwatch, Icon } from '../../../src/primitives';
 import type { MenuGroup } from '../../../src/composites/DropdownMenu';
 
 const ICON_SOURCE_MENU: MenuGroup[] = [{
@@ -15,4 +15,17 @@ const ICON_SOURCE_MENU: MenuGroup[] = [{
   ],
 }];
 
-export { ICON_SOURCE_MENU };
+const swatchIcon = (hex: string) => <ColorSwatch size="xs" color={hex} tabIndex={-1} aria-hidden />;
+
+const COLOR_ICON_MENU: MenuGroup[] = [{
+  id: 'colours',
+  label: 'Palette',
+  items: [
+    { id: 'green', icon: swatchIcon('#38a048'), label: 'Tunic green' },
+    { id: 'red', icon: swatchIcon('#e84830'), label: 'Heart red' },
+    { id: 'blue', icon: swatchIcon('#4870d8'), label: 'Water blue' },
+    { id: 'clear', icon: swatchIcon('#38a04880'), label: 'Half clear green' },
+  ],
+}];
+
+export { COLOR_ICON_MENU, ICON_SOURCE_MENU };

@@ -80,3 +80,50 @@ describe('ColorSwatch focus ring apart from selected', () => {
     expect(both).toContain('inset 0 0 0 var(--border-width-thick) var(--c-primary)');
   });
 });
+
+describe('ColorSwatch marks by corner name', () => {
+  it('places each mark in the corner it is named for, whatever the order', () => {
+    const marks = swatchMarks({ 'bottom-end': '4', 'top-start': '1', 'bottom-start': '2', 'top-end': '3' });
+    expect(marks.map((mark) => [mark.corner, mark.content])).toEqual([
+      ['top-start', '1'], ['top-end', '3'], ['bottom-end', '4'], ['bottom-start', '2'],
+    ]);
+  });
+
+  it('skips corners that are not named, and keeps the position order for a list', () => {
+    expect(swatchMarks({ 'top-end': 'x' }).map((mark) => mark.corner)).toEqual(['top-end']);
+    expect(swatchMarks(['1', '2', '3', '4']).map((mark) => mark.corner)).toEqual(['top-start', 'top-end', 'bottom-end', 'bottom-start']);
+  });
+
+  it('draws a named mark with the class of its corner', () => {
+    const markup = html({ marks: { 'bottom-start': '2' } });
+    expect(markup).toContain('color-swatch__mark--bottom-start');
+    expect(markup).not.toContain('color-swatch__mark--top-start');
+  });
+});
+
+describe('ColorSwatch mark size', () => {
+  it('scales the marks with the swatch size, inside a floor and a ceiling', () => {
+    const mark = /\.color-swatch__mark \{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(mark).toContain('font-size: clamp(var(--size-8), calc(var(--swatch-edge) * 0.4), var(--size-20));');
+    expect(css).toContain('--swatch-edge: var(--swatch-size, var(--swatch-default));');
+  });
+
+  it('measures a filled swatch by its own width', () => {
+    const fill = /\.color-swatch--fill \{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(fill).toContain('container-type: inline-size;');
+    const mark = /\.color-swatch--fill \.color-swatch__mark \{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(mark).toContain('font-size: clamp(var(--size-8), 40cqw, var(--size-20));');
+  });
+});
+
+describe('ColorSwatch xs size', () => {
+  it('adds the xs class and a 16 px default edge', () => {
+    expect(html({ size: 'xs' })).toContain('color-swatch--xs');
+    const rule = /\.color-swatch--xs \{([^}]*)\}/.exec(css)?.[1] ?? '';
+    expect(rule).toContain('--swatch-default: var(--size-16);');
+  });
+
+  it('keeps the inherited size when none is given', () => {
+    expect(html({ size: undefined })).toContain('color-swatch--md');
+  });
+});

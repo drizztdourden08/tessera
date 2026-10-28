@@ -144,6 +144,22 @@ const Marks = {
   ),
 } satisfies StoryLiteStoryDefinition<ColorSwatchArgs>;
 
+const NAMED_MARKS = { 'top-start': '1', 'bottom-start': '2', 'top-end': '3', 'bottom-end': '4' } as const;
+
+const NamedCorners = {
+  name: 'Marks by corner name',
+  render: () => (
+    <Demonstrator
+      columns={axis(['sm', 'md', 'wide'])}
+      cell={(_row, kind) => (
+        kind === 'wide'
+          ? <Box className="story-swatch-grid story-swatch-grid--wide"><ColorSwatch color={TUNIC_GREEN} fill marks={NAMED_MARKS} aria-label="Palette slot 5, fill" /></Box>
+          : <ColorSwatch color={TUNIC_GREEN} size={kind === 'sm' ? 'sm' : 'md'} marks={NAMED_MARKS} aria-label={`Palette slot 5, ${kind}`} />
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ColorSwatchArgs>;
+
 const FILL_CELLS: readonly string[] = TUNIC_ROW.slice(0, 8);
 
 const Stretch = {
@@ -177,12 +193,12 @@ const Overview = overviewStory({
     '`caption` writes a small label inside it, usually the palette index.',
     '`selected` draws a ring, and `edited` marks a value changed from its original.',
     '`transparent` swaps the fill for a checkerboard; a `color` with alpha below 1 shows one behind it.',
-    '`marks` puts up to four marks in the corners; `unused` dashes it and `mixed` draws a dash.',
-    '`focusRing="apart"` draws the focus ring outside, so it shows beside `selected`.',
-    '`md` and `sm` match the control heights; `fill` stretches it square to the width of its grid cell.',
+    '`marks` puts up to four marks in the corners, by position or by corner name; they grow with the swatch.',
+    '`unused` dashes it, `mixed` draws a dash, and `focusRing="apart"` draws the focus ring outside `selected`.',
+    '`md` and `sm` match the control heights, `xs` is 16 px for a menu icon; `fill` stretches it to its cell.',
   ],
   playground: Playground,
-  variants: [Fills, Marks, Sizes, Stretch],
+  variants: [Fills, Marks, NamedCorners, Sizes, Stretch],
   states: {
     render: renderState,
     list: [
@@ -199,4 +215,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Fills, Marks, Overview, Palette, Playground, Sizes, Stretch };
+export { Fills, Marks, NamedCorners, Overview, Palette, Playground, Sizes, Stretch };

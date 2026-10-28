@@ -1,4 +1,8 @@
 /* @layer renderer-components @kind style */
+.color-swatch--xs {
+  --swatch-default: var(--size-16);
+}
+
 .color-swatch--md {
   --swatch-default: var(--control-h-md);
 }
@@ -8,6 +12,8 @@
 }
 
 .color-swatch {
+  --swatch-edge: var(--swatch-size, var(--swatch-default));
+
   position: relative;
   width: var(--swatch-size, var(--swatch-default));
   height: var(--swatch-size, var(--swatch-default));
@@ -21,6 +27,7 @@
 }
 
 .color-swatch--fill {
+  container-type: inline-size;
   width: 100%;
   height: auto;
   min-width: 0;
@@ -114,9 +121,13 @@
 
 .color-swatch__mark {
   position: absolute;
-  font-size: var(--text-xs);
+  font-size: clamp(var(--size-8), calc(var(--swatch-edge) * 0.4), var(--size-20));
   line-height: 1;
   pointer-events: none;
+}
+
+.color-swatch--fill .color-swatch__mark {
+  font-size: clamp(var(--size-8), 40cqw, var(--size-20));
 }
 
 .color-swatch__mark--top-start {

@@ -2,6 +2,7 @@
 import { Box } from '../../primitives/Box';
 import { ColorSwatch } from '../../primitives/ColorSwatch';
 import { FieldControlBoundary } from '../../primitives/FieldControlBoundary';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { ColorFields } from './sub-components/ColorFields';
 import { ColorMeta } from './sub-components/ColorMeta';
 import { PickerActions } from './sub-components/PickerActions';
@@ -15,6 +16,7 @@ import type { ColorPickerProps } from './ColorPicker.type';
 
 const ColorPicker = (props: ColorPickerProps) => {
   const { value, onChange, alpha = 1, onAlphaChange, disableAlpha = false, modes = NO_MODES, swatchGroups } = props;
+  const { colorPicker } = useTesseraStrings();
   const { hexInput, commitHex } = useHexInput(value, onChange);
   const panel = { value, onChange, alpha, onAlphaChange, disableAlpha };
 
@@ -25,7 +27,7 @@ const ColorPicker = (props: ColorPickerProps) => {
       <PickerBody panel={panel} modes={modes} mode={props.mode} onModeChange={props.onModeChange} />
 
       <Box className="color-picker__hex-row">
-        <ColorSwatch color={value} className="color-picker__swatch" disabled />
+        <ColorSwatch color={value} className="color-picker__swatch" aria-label={colorPicker.current(value)} disabled />
         <ColorFields
           value={value}
           onChange={onChange}

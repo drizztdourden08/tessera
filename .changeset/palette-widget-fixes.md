@@ -1,0 +1,5 @@
+---
+'@drizztdourden08/tessera': minor
+---
+
+Six changes from the Bxel palette widget. Tooltip draws its bubble in the tooltip layer instead of inside its anchor, so a Tooltip around a listbox option no longer breaks the required children of the list. ColorPicker names its current colour swatch with the new string `colorPicker.current`, for example Current colour, #3f8fd2. The Slider thumbs now have a 24 px hit area at both sizes, and the drawn size is unchanged. Slider takes `trackBackground`, a CSS image such as a gradient that becomes the track itself, for a single thumb and for a range. ColorSwatch `marks` also takes an object keyed by corner name (`top-start`, `top-end`, `bottom-end`, `bottom-start`) so an app can map its own corner numbers, the array order is unchanged, and the marks now grow and shrink with the swatch size, including a `fill` swatch. ColorSwatch also takes `size="xs"`, 16 px, so a swatch can be the icon of a DropdownMenu item, whose `icon` already accepts any element.

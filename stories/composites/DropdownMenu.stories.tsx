@@ -9,7 +9,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { buildTitleMenu } from './_samples/data-title-menu';
-import { ICON_SOURCE_MENU } from './_samples/data-menu-icon-sources';
+import { COLOR_ICON_MENU, ICON_SOURCE_MENU } from './_samples/data-menu-icon-sources';
 import { CATEGORY_MENU, EDIT_MENU, NESTED_MENU, SUBTITLE_MENU } from './_samples/data-menu-features';
 import { ChoiceDemo, MenuDemo } from './_samples/menu-demos';
 import { DANGER_MENU } from './_samples/data-menu-danger';
@@ -39,9 +39,7 @@ const INSIDE = {
 } as const;
 const ignore = (): void => undefined;
 
-const ARGS: Partial<MenuDemoArgs> = {
-  variant: 'primary', intensity: 'strong', size: 'sm', iconOnly: true, iconSide: 'end', filter: false, closeOnSelect: true,
-};
+const ARGS: Partial<MenuDemoArgs> = { variant: 'primary', intensity: 'strong', size: 'sm', iconOnly: true, iconSide: 'end', filter: false, closeOnSelect: true };
 
 const ARG_TYPES: PlaygroundArgTypes<MenuDemoArgs> = {
   variant: { group: 'Appearance', control: 'select', options: [...VARIANTS], description: 'The colour of the trigger and of the edge' },
@@ -113,6 +111,7 @@ const Inside = {
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const IconSources = { name: 'Icons from a name, iconify data, path data or any element', render: () => <DropdownMenu inline groups={ICON_SOURCE_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+const ColourIcons = { name: 'A colour swatch as the icon of an item', render: () => <DropdownMenu inline groups={COLOR_ICON_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const Commands = {
   name: 'Check and radio',
@@ -139,7 +138,6 @@ const Confirm = {
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const Danger = { name: 'A danger item for Delete, beside a confirm item that only turns red while it asks', render: () => <DropdownMenu inline groups={DANGER_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
-
 const Disabled = { name: 'Disabled items, dimmed so they read as unavailable', render: () => <DropdownMenu inline groups={DISABLED_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const SubMenus = {
@@ -210,7 +208,7 @@ const Overview = overviewStory({
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, RoomyRows, Inside, IconSources, Commands, MarkMorph, Confirm, Sliders, Selects, Danger, Disabled, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, RoomyRows, Inside, IconSources, ColourIcons, Commands, MarkMorph, Confirm, Sliders, Selects, Danger, Disabled, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -225,4 +223,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Commands, Confirm, Danger, Disabled, Selects, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SubMenus, Triggers, Variants };
+export { ColourIcons, Commands, Confirm, Danger, Disabled, Selects, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SubMenus, Triggers, Variants };

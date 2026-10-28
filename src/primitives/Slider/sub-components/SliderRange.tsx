@@ -27,6 +27,7 @@ const SliderRange = (part: SliderPartProps<SliderRangeProps>) => {
       span={[thumbs.low, thumbs.high]}
       readout={showValue ? mixedText ?? <>{valueText(thumbs.low, scale)}<Span className="slider__value-to" />{valueText(thumbs.high, scale)}</> : null}
       range
+      trackBackground={props.trackBackground}
       rail={drag.rail}
     >
       <SliderThumb
