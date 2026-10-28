@@ -6,6 +6,7 @@ import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import { ToolbarDemo } from './_samples/ToolbarDemo';
 import { ToolbarEdgeDemo } from './_samples/ToolbarEdgeDemo';
+import { ToolbarKindsDemo } from './_samples/ToolbarKindsDemo';
 import { TOOLBAR_ARG_TYPES, TOOLBAR_ARGS, TOOLBAR_CODE } from './_samples/toolbar-story.constants';
 import type { ToolbarArgs } from './_samples/toolbar-story.type';
 import './Toolbar.stories.css';
@@ -123,20 +124,45 @@ const ContextMenu = {
   render: () => <ToolbarDemo context captions />,
 } satisfies StoryLiteStoryDefinition<ToolbarArgs>;
 
+const ItemKinds = {
+  name: 'Item kinds: a slot, a menu button, a named separator, a hold menu, a borrowed tool and a popover',
+  render: () => (
+    <Box className="toolbar-story__row">
+      <ToolbarKindsDemo />
+      <ToolbarKindsDemo layout="list" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
+const KeyBadges = {
+  name: 'Key badges: off by default, and drawn on the tools of a vertical rail when asked',
+  render: () => (
+    <Box className="toolbar-story__row">
+      <ToolbarKindsDemo />
+      <ToolbarKindsDemo keyBadges />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
+const InlineOptions = {
+  name: 'Inline options: the options of the pressed tool open under its row in a list',
+  render: () => <ToolbarKindsDemo layout="list" inlineOptions />,
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
 const Overview = overviewStory({
   component: 'Toolbar',
   description: 'A row or a column of tools: buttons, toggles, groups and a number, with a hint on each and More for the rest.',
   points: [
-    '`items` come from data: `button`, `toggle`, `group`, `number` and `separator`, in any order.',
+    '`items` come from data: `button`, `toggle`, `group`, `number`, `popover` and `separator`, in any order.',
     'A bar shows an optional `caption` beside the icon unless `labels` is off; `layout="list"` makes labelled rows.',
-    'Every item has a hint with its name, description and [Shortcut]; `shortcut` can be a list of labelled keys.',
     '`options` on a button or toggle open a [DropdownMenu] on hover, or on click with `openOn`.',
     'Items that do not fit fold into More, lowest `priority` first; `columns` wraps a column into two first.',
-    '`handle` draws a grip for a dock; `hiddenItems` leaves items out; `onContextMenu` reports right clicks.',
+    'A `group` can fold into one menu button or a slot; `openOn` hold opens a menu on a press and a drag picks.',
+    '`badge`, `borrowed`, named separators, `keyBadges` and `inlineOptions` are opt-in; the defaults stay.',
   ],
   instead: '[ActionBar] for the buttons of one item, or [DropdownMenu] for actions that need no button of their own.',
   playground: Playground,
-  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List, RightEdge, Columns, Priority, HiddenItems, ContextMenu],
+  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List, RightEdge, Columns, Priority, HiddenItems, ContextMenu, ItemKinds, KeyBadges, InlineOptions],
   states: {
     render: (props: StateProps) => <ToolbarDemo {...props} />,
     list: [
@@ -150,4 +176,6 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { ClickOpen, Columns, ContextMenu, HiddenItems, Horizontal, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, Priority, RightEdge, TwoShortcuts, Vertical };
+export {
+  ClickOpen, Columns, ContextMenu, HiddenItems, Horizontal, InlineOptions, ItemKinds, KeyBadges, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, Priority, RightEdge, TwoShortcuts, Vertical,
+};

@@ -9,6 +9,8 @@ interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, '
   onChange?: (value: number) => void;
   buttons?: NumberInputButtons;
   sizeToContent?: boolean;
+  mixed?: boolean;
+  onStep?: (direction: 1 | -1) => void;
   invalid?: boolean;
   size?: ControlSize;
   start?: InputAdornment;

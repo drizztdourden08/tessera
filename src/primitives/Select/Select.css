@@ -38,6 +38,10 @@
   transform: rotate(180deg);
 }
 
+.select-trigger--mixed .select-trigger__value {
+  font-style: italic;
+}
+
 .select-trigger--full {
   padding-block: var(--space-xs);
 }

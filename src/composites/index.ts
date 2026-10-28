@@ -8,8 +8,8 @@ export * from './window-exports';
 export * from './record-exports';
 export { FloatingPrompt, type FloatingPromptAction, type FloatingPromptProps, type FloatingPromptScope } from './FloatingPrompt';
 export {
-  Toolbar, type ToolbarButton, type ToolbarChoice, type ToolbarChoices, type ToolbarColumns, type ToolbarContextEvent, type ToolbarHandleProps, type ToolbarIcon, type ToolbarItem, type ToolbarMenuSide, type ToolbarShape, type ToolbarNumber, type ToolbarOpenOn,
-  type ToolbarOrientation, type ToolbarProps, type ToolbarSeparator, type ToolbarToggle,
+  Toolbar, type ToolbarBadge, type ToolbarButton, type ToolbarChoice, type ToolbarChoices, type ToolbarChoicesDisplay, type ToolbarColumns, type ToolbarContextEvent, type ToolbarHandleProps, type ToolbarIcon, type ToolbarItem, type ToolbarMenuSide, type ToolbarShape, type ToolbarNumber, type ToolbarOpenOn,
+  type ToolbarOrientation, type ToolbarPopover, type ToolbarProps, type ToolbarSeparator, type ToolbarToggle,
 } from './Toolbar';
 export { REORDER_ITEM_SELECTOR, columnsOf, reorderStep, useMoveFocus, useReorderDrag } from './reorder';
 export type { MoveFocus, ReorderAxis, ReorderDrag, ReorderDragOptions, ReorderDrop, ReorderKeyEvent, ReorderStepOptions } from './reorder';
@@ -19,3 +19,5 @@ export {
   MARQUEE_KEY_ATTRIBUTE, edgeScrollDelta, hitKeys, marqueeItemRects, mergeSelection, modifiersOf, rectFromPoints, rectsIntersect, useMarqueeSelect,
 } from './marquee';
 export type { MarqueeBind, MarqueeItem, MarqueeModifiers, MarqueeOptions, MarqueeSelect } from './marquee';
+export { useWheelStep, wheelStepOf } from './wheel-step';
+export type { WheelDelta, WheelStep, WheelStepOptions } from './wheel-step';

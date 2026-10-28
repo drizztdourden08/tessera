@@ -1,0 +1,53 @@
+/* @layer renderer-components @kind style */
+.angle-field {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  min-inline-size: 0;
+}
+
+.angle-field__dial {
+  display: inline-flex;
+  flex: none;
+  inline-size: var(--size-32);
+  block-size: var(--size-32);
+  cursor: grab;
+  touch-action: none;
+}
+
+.angle-field__dial:active {
+  cursor: grabbing;
+}
+
+.angle-field__svg {
+  inline-size: 100%;
+  block-size: 100%;
+}
+
+.angle-field__ring {
+  fill: var(--c-inset);
+  stroke: var(--c-border-strong);
+  stroke-width: var(--border-width-thin);
+}
+
+.angle-field__dial:hover .angle-field__ring {
+  stroke: var(--c-primary);
+}
+
+.angle-field__needle {
+  stroke: var(--c-primary);
+  stroke-width: var(--border-width-thick);
+  stroke-linecap: round;
+}
+
+.angle-field__knob {
+  fill: var(--c-primary);
+}
+
+.angle-field__hub {
+  fill: var(--c-border-strong);
+}
+
+.angle-field__dial[data-mixed] .angle-field__ring {
+  stroke-dasharray: var(--size-4);
+}

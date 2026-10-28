@@ -2,6 +2,7 @@
 import { useMemo, useRef } from 'react';
 import { Box } from '../../../primitives/Box';
 import { contentKey } from '../behavior/content-key';
+import { railBadges } from '../behavior/rail-badges';
 import { splitItems } from '../behavior/split-items';
 import { stopIds } from '../behavior/stop-ids';
 import { ToolbarContext } from '../behavior/toolbar-context';
@@ -26,8 +27,8 @@ const ToolbarBar = (props: ToolbarProps) => {
   const { shown, folded } = splitItems(items, fit);
   const { stop, onFocus } = useToolbarStop(stopIds(shown, handle, folded.length > 0));
   const context = useMemo(
-    () => ({ orientation, menuSide, layout: 'bar' as const, size, labels, stop, measure: false, contextMenu: onContextMenu }),
-    [orientation, menuSide, size, labels, stop, onContextMenu],
+    () => ({ orientation, menuSide, layout: 'bar' as const, size, labels, stop, measure: false, keyBadges: railBadges(props.keyBadges, vertical), inlineOptions: false, contextMenu: onContextMenu }),
+    [orientation, menuSide, size, labels, stop, props.keyBadges, vertical, onContextMenu],
   );
 
   return (

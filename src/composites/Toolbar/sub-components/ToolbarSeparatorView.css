@@ -1,0 +1,19 @@
+/* @layer renderer-components @kind style */
+.toolbar__heading {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.toolbar__heading > .toolbar__separator {
+  flex: 1 1 auto;
+}
+
+.toolbar[data-layout='list'] .toolbar__heading {
+  padding: var(--space-xs) var(--control-pad-sm) 0;
+}
+
+.toolbar__heading--bar {
+  display: inline-flex;
+  align-self: stretch;
+}

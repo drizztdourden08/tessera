@@ -11,14 +11,14 @@ import './Checkbox.css';
 import type { CheckboxProps } from './Checkbox.type';
 
 const Checkbox = (props: CheckboxProps) => {
-  const { checked, onChange, label, help, ariaLabel, tooltip, title, disabled, indeterminate = false, size, labelSize, className = '' } = props;
+  const { checked, onChange, label, help, ariaLabel, tooltip, title, disabled, indeterminate = false, mixed = false, size, labelSize, className = '' } = props;
   const controlSize = useControlSize(size);
   const { invalid, describedBy } = useFieldControl();
   const inputRef = useRef<HTMLInputElement>(null);
   const labelledBy = helpLabelId(help, label, `checkbox-${useId()}`, ariaLabel);
   useEffect(() => {
-    if (inputRef.current) inputRef.current.indeterminate = indeterminate;
-  }, [indeterminate]);
+    if (inputRef.current) inputRef.current.indeterminate = indeterminate || mixed;
+  }, [indeterminate, mixed]);
   const box = (
     <label className={`checkbox control-size--${controlSize}${labelSize ? ` label-size--${labelSize}` : ''}${disabled ? ' checkbox--disabled' : ''}${className ? ` ${className}` : ''}`}>
       <input

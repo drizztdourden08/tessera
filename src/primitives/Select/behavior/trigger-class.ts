@@ -2,7 +2,7 @@
 import type { TriggerClassInput } from './trigger-class.type';
 
 const triggerClass = (input: TriggerClassInput): string => {
-  const { open, disabled, size, full, className } = input;
+  const { open, disabled, size, full, mixed, className } = input;
   return [
     'select-trigger',
     'listbox-anchor',
@@ -10,6 +10,7 @@ const triggerClass = (input: TriggerClassInput): string => {
     disabled && 'select-trigger--disabled',
     `control-size--${size}`,
     full && 'select-trigger--full',
+    mixed && 'select-trigger--mixed',
     className,
   ].filter(Boolean).join(' ');
 };

@@ -6,6 +6,7 @@ interface TriggerClassInput {
   disabled: boolean;
   size: ControlSize;
   full: boolean;
+  mixed: boolean;
   className: string;
 }
 

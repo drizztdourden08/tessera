@@ -1,0 +1,14 @@
+/* @layer renderer-components @kind style */
+.toolbar__tool[data-borrowed] {
+  outline: var(--border-width-thin) dashed var(--c-border-strong);
+  outline-offset: calc(-1 * var(--border-width-thin));
+  color: var(--c-text-dim);
+}
+
+.toolbar[data-layout='list'] .badge-host {
+  display: flex;
+}
+
+.toolbar[data-layout='list'] .badge-host > .toolbar__tool {
+  inline-size: 100%;
+}
