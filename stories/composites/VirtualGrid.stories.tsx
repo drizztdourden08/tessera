@@ -61,6 +61,11 @@ const Wide = {
   render: () => <VirtualGridFrame count={600} tileWidth="size-128" tileHeight="size-64" />,
 } satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
 
+const Tileset = {
+  name: 'Six columns with columns: every row holds six tiles, whatever the width',
+  render: () => <VirtualGridFrame count={96} tileSize="size-64" columns={6} />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
 const Folders = {
   name: 'Folders with actions and depth: click a header, or use Enter, Space, Left and Right on it',
   render: () => <VirtualGridFolders folders={6} perFolder={40} />,
@@ -113,6 +118,15 @@ const CODE = `import { VirtualGrid } from '@drizztdourden08/tessera';
 />
 
 <VirtualGrid
+  label="Tileset"
+  items={tiles}
+  getKey={(tile) => tile.id}
+  renderItem={(tile) => tile.name}
+  tileSize="size-64"
+  columns={6}
+/>
+
+<VirtualGrid
   label="Frames"
   items={frames}
   getKey={(frame) => frame.id}
@@ -137,8 +151,8 @@ const Overview = overviewStory({
   component: 'VirtualGrid',
   description: 'A very long grid of equal tiles, in sections if wanted, where only the rows in view are drawn, with the keys to move through it.',
   points: [
-    '`items`, `getKey` and `renderItem` draw the tiles; `getKey` returns a stable id for each item.',
-    '`tileSize`, or `tileWidth` and `tileHeight`, size the tiles; `sections` group them under headers.',
+    '`items`, `getKey` and `renderItem` draw the tiles; `sections` group them under headers.',
+    '`tileSize`, or `tileWidth` and `tileHeight`, size the tiles; `columns` fixes the tiles in a row.',
     '`selection` picks with click, Ctrl, Shift (a rectangle), Ctrl+A and Space; `holes` skip tiles.',
     '`getLabel` adds type ahead; `reorder` moves the picked tiles by drag or Alt with an arrow.',
     'A section `onDrop` takes tiles dropped on its header; `scrollRef`, `bind` and `overlay` serve a marquee.',
@@ -146,7 +160,7 @@ const Overview = overviewStory({
   ],
   instead: '[VirtualList] for rows in a column, or [ItemCard] for a few cards.',
   playground: Playground,
-  variants: [Long, Small, Few, Wide, Folders, Marquee, Jump, Buttons, Picking, Reordering],
+  variants: [Long, Small, Few, Wide, Tileset, Folders, Marquee, Jump, Buttons, Picking, Reordering],
   states: {
     render: (props: StateProps) => <VirtualGridFrame count={40} {...props} />,
     list: FILLED_AND_EMPTY,
@@ -155,4 +169,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Buttons, Few, Folders, Jump, Long, Marquee, Overview, Picking, Playground, Reordering, Small, Wide };
+export { Buttons, Few, Folders, Jump, Long, Marquee, Overview, Picking, Playground, Reordering, Small, Tileset, Wide };

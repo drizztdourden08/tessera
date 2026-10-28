@@ -11,6 +11,7 @@ interface VirtualGridFrameProps {
   tileSize?: VirtualSize;
   tileWidth?: VirtualSize;
   tileHeight?: VirtualSize;
+  columns?: number;
   onActiveChange?: (index: number) => void;
 }
 
@@ -21,7 +22,7 @@ const renderTile = (tile: TileEntry) => (
 );
 
 const VirtualGridFrame = (props: VirtualGridFrameProps) => {
-  const { count, tileSize, tileWidth, tileHeight, onActiveChange } = props;
+  const { count, tileSize, tileWidth, tileHeight, columns, onActiveChange } = props;
   const items = useMemo(() => tilesOf(count), [count]);
   return (
     <Box className="virtual-grid-story">
@@ -33,6 +34,7 @@ const VirtualGridFrame = (props: VirtualGridFrameProps) => {
         tileSize={tileSize}
         tileWidth={tileWidth}
         tileHeight={tileHeight}
+        columns={columns}
         onActiveChange={onActiveChange}
       />
     </Box>

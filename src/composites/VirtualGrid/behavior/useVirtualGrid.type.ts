@@ -12,6 +12,7 @@ interface UseVirtualGridInput<T> {
   getKey: (item: T, index: number) => string;
   overscan?: number;
   sizeKey: string;
+  columns?: number;
   collapsed?: readonly string[];
   defaultCollapsed?: readonly string[];
   onToggleSection?: (key: string, collapsed: boolean) => void;
@@ -27,6 +28,7 @@ interface VirtualGridModel<T> extends VirtualFocusModel {
   layout: GridLayout;
   rows: readonly number[];
   columns: number;
+  fixed: boolean;
   sectionKeys: readonly string[];
   collapsed: ReadonlySet<string>;
   setCollapsed: (key: string, collapsed: boolean) => void;
