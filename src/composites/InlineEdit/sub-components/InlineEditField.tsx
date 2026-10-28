@@ -12,6 +12,7 @@ const InlineEditField = (props: InlineEditFieldProps) => {
   const { name, value, placeholder, validate, multiline, size, dense, className, onCommit, onDone } = props;
   const { inlineEdit } = useTesseraStrings();
   const state = useInlineEditField({ value, validate, multiline, onCommit, onDone });
+  const compact = dense && !multiline;
   const shared = {
     autoFocus: true,
     value: state.draft,
@@ -25,8 +26,8 @@ const InlineEditField = (props: InlineEditFieldProps) => {
     <Field
       error={state.error}
       width="full"
-      size={dense ? 'sm' : size}
-      className={[dense && !multiline && 'inline-edit__field--dense', className].filter(Boolean).join(' ') || undefined}
+      size={compact ? 'sm' : size}
+      className={[compact && 'inline-edit__field--dense', className].filter(Boolean).join(' ') || undefined}
     >
       {multiline
         ? <Textarea {...shared} rows={MULTILINE_ROWS} onChange={(event) => state.setDraft(event.target.value)} />

@@ -164,8 +164,8 @@ const Overview = overviewStory({
     render: renderState,
     list: [
       STATE.idle,
-      { ...STATE.hover, target: '.group-tree__row' },
-      { ...STATE.focus, target: '.group-tree__row' },
+      { ...STATE.hover, target: '.tree__row' },
+      { ...STATE.focus, target: '.tree__row' },
       { ...STATE.open, name: 'Expanded' },
       STATE.selected,
       { name: 'Empty', props: { empty: true } },

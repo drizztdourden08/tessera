@@ -1,0 +1,13 @@
+/* @layer stories @kind style */
+.miller-columns-story {
+  inline-size: 100%;
+  max-inline-size: 48rem;
+}
+
+.miller-columns-story .miller-columns {
+  block-size: var(--size-224);
+}
+
+.miller-columns-story .virtual-list {
+  block-size: var(--size-128);
+}
