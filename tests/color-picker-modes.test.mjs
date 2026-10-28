@@ -72,3 +72,36 @@ describe('ColorPicker slots', () => {
     expect(source).toContain('<ColorPicker {...pickerProps} onClose={onClose} />');
   });
 });
+
+const BASE = {
+  value: '#3f8fd2',
+  onChange: () => undefined,
+  onAlphaChange: () => undefined,
+  original: '#ff0000',
+  swatchGroups: [{ label: 'Skin', colors: ['#f0d0a8', '#b86820'] }],
+  onReset: () => undefined,
+  onClose: () => undefined,
+};
+
+const buttonsOf = (markup) => [...markup.matchAll(/<button\b([^>]*)>([\s\S]*?)<\/button>/g)].map((m) => ({ attrs: m[1], text: m[2].replace(/<[^>]*>/g, '').trim() }));
+
+const named = (button) => /aria-label="[^"]+"|aria-labelledby="[^"]+"|title="[^"]+"/.test(button.attrs) || button.text !== '';
+
+describe('ColorPicker accessible names', () => {
+  it('names the current colour swatch with its hex', () => {
+    const markup = render({ ...BASE, modes: ['hsv'] });
+    expect(markup).toContain('aria-label="Current colour, #3f8fd2"');
+  });
+
+  it.each([['hsv'], ['rgb'], ['oklch']])('gives every button a name in %s mode', (mode) => {
+    const markup = render({ ...BASE, modes: ['hsv', 'rgb', 'oklch'], mode });
+    const buttons = buttonsOf(markup);
+    expect(buttons.length).toBeGreaterThan(4);
+    expect(buttons.filter((button) => !named(button))).toEqual([]);
+  });
+
+  it('gives every button a name with no modes', () => {
+    const buttons = buttonsOf(render(BASE));
+    expect(buttons.filter((button) => !named(button))).toEqual([]);
+  });
+});

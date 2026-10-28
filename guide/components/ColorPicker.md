@@ -37,7 +37,7 @@ ColorPicker is the colour panel placed in the page; import it from the color-pic
 
 ## Accessibility
 
-- The field, the sliders and the hex box are labelled and reachable by keyboard; swatches are buttons with the colour as their name.
+- The field, the sliders and the hex box are labelled and reachable by keyboard; swatches are buttons with the colour as their name, and the current colour swatch reads Current colour with its hex.
 - The model tabs follow the tab pattern with arrow keys, and the out of range notice is a status message.
 
 ## Example

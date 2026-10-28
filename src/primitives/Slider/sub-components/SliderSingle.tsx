@@ -14,7 +14,7 @@ const SliderSingle = (part: SliderPartProps<SliderSingleProps>) => {
 
   return (
     <>
-      <SliderTrack scale={scale} labels={labels} span={[scale.min, value]} readout={showValue && !input ? (mixedText ?? valueText(value, scale)) : null} range={false} orientation={orientation}>
+      <SliderTrack scale={scale} labels={labels} span={[scale.min, value]} readout={showValue && !input ? (mixedText ?? valueText(value, scale)) : null} range={false} orientation={orientation} trackBackground={props.trackBackground}>
         <SliderThumb value={value} scale={scale} disabled={disabled} label={accessibleName} mixedText={mixedText} labelledBy={labelledBy} describedBy={describedBy} id={id} name={name} keyStep={keyStep} orientation={orientation} onValue={setValue} />
       </SliderTrack>
       {input && <SliderNumber value={value} scale={scale} disabled={disabled} label={accessibleName} labelledBy={labelledBy} onValue={setValue} />}

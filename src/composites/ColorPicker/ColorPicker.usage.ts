@@ -20,7 +20,7 @@ const usage = {
     'name puts your own field under the title, such as a rename box, and footer puts your own content under the buttons.',
   ],
   a11y: [
-    'The field, the sliders and the hex box are labelled and reachable by keyboard; swatches are buttons with the colour as their name.',
+    'The field, the sliders and the hex box are labelled and reachable by keyboard; swatches are buttons with the colour as their name, and the current colour swatch reads Current colour with its hex.',
     'The model tabs follow the tab pattern with arrow keys, and the out of range notice is a status message.',
   ],
   tree: {

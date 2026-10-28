@@ -16,18 +16,21 @@ const TooltipBubble = (props: TooltipBubbleProps) => {
     );
   }
   return (
-    <Anchored
-      ref={bubbleRef}
-      id={id}
-      role="tooltip"
-      anchorRef={anchorRef}
-      placement={TOOLTIP_PLACES[placement]}
-      layer="tooltip"
-      className="tooltip"
-      data-placement={placement}
-    >
-      {children}
-    </Anchored>
+    <Portal layer="tooltip">
+      <Anchored
+        ref={bubbleRef}
+        id={id}
+        role="tooltip"
+        anchorRef={anchorRef}
+        placement={TOOLTIP_PLACES[placement]}
+        layer="tooltip"
+        portal={false}
+        className="tooltip"
+        data-placement={placement}
+      >
+        {children}
+      </Anchored>
+    </Portal>
   );
 };
 

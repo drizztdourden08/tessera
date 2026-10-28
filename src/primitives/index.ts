@@ -180,7 +180,7 @@ export { Canvas } from './Canvas';
 export type { CanvasProps } from './Canvas';
 export { Svg, SvgLine, SvgCircle, SvgRect, SvgPath, SvgText, SvgPolygon, SvgGroup, SvgClipPath } from './Svg';
 export { ColorSwatch } from './ColorSwatch';
-export type { ColorSwatchProps } from './ColorSwatch';
+export type { ColorSwatchProps, SwatchCorner, SwatchCornerMarks, SwatchSize } from './ColorSwatch';
 export { Sparkline } from './Sparkline';
 export type { SparklineBand, SparklineProps, SparklineTone, SparklineVariant } from './Sparkline';
 export { Gauge } from './Gauge';

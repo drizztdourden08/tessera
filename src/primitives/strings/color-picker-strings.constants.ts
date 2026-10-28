@@ -4,6 +4,7 @@ const COLOR_PICKER_STRINGS = {
   snapped: 'snapped',
   was: (hex: string) => `was ${hex}`,
   original: (hex: string) => `Original ${hex}`,
+  current: (hex: string) => `Current colour, ${hex}`,
   modes: 'Colour model',
   red: 'Red',
   green: 'Green',

@@ -10,6 +10,7 @@ interface SliderTrackProps {
   span: readonly [number, number];
   readout: ReactNode;
   range: boolean;
+  trackBackground?: string;
   orientation?: ScaleOrientation;
   rail?: RailHandlers;
   children: ReactNode;
