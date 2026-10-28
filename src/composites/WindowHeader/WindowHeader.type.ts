@@ -4,6 +4,8 @@ import type { BackAction } from '../../primitives/action-data';
 
 type WindowHeaderLook = 'record';
 
+type WindowHeaderActionsRow = 'title' | 'eyebrow';
+
 interface WindowHeaderProps {
   look?: WindowHeaderLook;
   eyebrow?: ReactNode;
@@ -15,14 +17,25 @@ interface WindowHeaderProps {
   back?: BackAction;
   extra?: ReactNode;
   actions?: ReactNode;
+  actionsRow?: WindowHeaderActionsRow;
   stackNarrow?: boolean;
   className?: string;
 }
 
-type WindowHeaderTitlesProps = Pick<WindowHeaderProps, 'eyebrow' | 'title' | 'titleId' | 'subtitle'>;
+type WindowHeaderTitlesProps = Pick<WindowHeaderProps, 'eyebrow' | 'title' | 'titleId' | 'subtitle'> & {
+  eyebrowActions?: ReactNode;
+};
+
+type WindowHeaderToolsProps = Pick<WindowHeaderProps, 'extra' | 'actions' | 'onClose'> & {
+  extraFits: boolean;
+};
+
+interface WindowHeaderActionsProps {
+  children: ReactNode;
+}
 
 interface WindowHeaderBackProps {
   back: BackAction;
 }
 
-export type { WindowHeaderBackProps, WindowHeaderLook, WindowHeaderProps, WindowHeaderTitlesProps };
+export type { WindowHeaderActionsProps, WindowHeaderActionsRow, WindowHeaderBackProps, WindowHeaderLook, WindowHeaderProps, WindowHeaderTitlesProps, WindowHeaderToolsProps };

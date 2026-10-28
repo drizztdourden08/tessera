@@ -15,6 +15,8 @@ export { DragGhost } from '../DragGhost';
 export type { DragGhostPoint, DragGhostProps } from '../DragGhost';
 export { MarqueeBox } from '../MarqueeBox';
 export type { MarqueeBoxProps } from '../MarqueeBox';
+export { Navigator } from '../Navigator';
+export type { NavigatorProps, NavigatorSurface, NavigatorViewport } from '../Navigator';
 export { readHorizontalMetrics, renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, stepVirtualSize, useVirtualWindow, visibleRange } from '../virtual';
 export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualAxis, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from '../virtual';
 export {
@@ -40,6 +42,8 @@ export { FileList } from '../FileList';
 export type { FileEntry, FileListProps } from '../FileList';
 export { ItemCard } from '../ItemCard';
 export type { ItemCardDensity, ItemCardLayout, ItemCardMediaHeight, ItemCardMediaSize, ItemCardMediaTone, ItemCardProps, ItemCardStatus } from '../ItemCard';
+export { Tile } from '../Tile';
+export type { TileCorner, TileCorners, TileProps } from '../Tile';
 export { SeatCard } from '../SeatCard';
 export type { SeatCardAddProps, SeatCardEmptyProps, SeatCardFilledProps, SeatCardProps } from '../SeatCard';
 export { SeatGrid } from '../SeatGrid';
@@ -55,7 +59,7 @@ export { Markdown, type MarkdownHeadingOffset, type MarkdownImageHandler, type M
 export { Rating, type RatingProps, type RatingSize } from '../Rating';
 export { Carousel, type CarouselProps, type CarouselSlide } from '../Carousel';
 export { MediaViewer, type MediaViewerItem, type MediaViewerKind, type MediaViewerProps } from '../MediaViewer';
-export { TrackTable, type TrackAlign, type TrackColumn, type TrackDrop, type TrackRowTone, type TrackTableProps } from '../TrackTable';
+export { TrackTable, type TrackAlign, type TrackColumn, type TrackDrop, type TrackHideBelow, type TrackRowTone, type TrackTableProps } from '../TrackTable';
 export { RowGrid, type RowGridColumn, type RowGridDensity, type RowGridProps } from '../RowGrid';
 export { KanbanBoard, moveCard } from '../KanbanBoard';
 export type { KanbanBoardProps, KanbanCardData, KanbanColumn, KanbanColumnHeight, KanbanColumnWidth, KanbanMove, KanbanPlace } from '../KanbanBoard';

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind barrel */
-export { WindowHeader, type WindowHeaderProps } from '../WindowHeader';
+export { WindowHeader, type WindowHeaderActionsRow, type WindowHeaderProps } from '../WindowHeader';
 export { WindowTitleBar } from '../WindowTitleBar';
 export type {
   WindowControl, WindowControlsConfig, WindowTitleBarAction, WindowTitleBarActionBar, WindowTitleBarCommandAction,
@@ -32,7 +32,7 @@ export type {
 } from '../DockLayout';
 export {
   MAX_LANES, MAX_PER_SIDE, MIN_SHARE, TOOLBAR_LAYOUT_V, ToolbarDock, canShowToolbar, createToolbarLayout, hideToolbar, isToolbarShown, migrateToolbarLayout,
-  moveToolbar, moveToolbarToSide, normalizeCorners, placeToolbar, setToolbarLabels, showToolbar, toggleToolbar, toolbarIdsOf, toolbarMenuGroups, toolbarOrientation, useToolbarLayout,
+  moveToolbar, moveToolbarToSide, normalizeCorners, placeToolbar, setToolbarColumns, setToolbarItems, setToolbarLabels, showToolbar, toggleToolbar, toolbarIdsOf, toolbarMenuGroups, toolbarOrientation, useToolbarLayout,
 } from '../ToolbarDock';
 export type {
   ToolbarCorner, ToolbarCornerClaim, ToolbarDefinition, ToolbarDockHandle, ToolbarDockProps, ToolbarLayout, ToolbarLayoutApi, ToolbarMenuWords, ToolbarPlace, ToolbarSide,

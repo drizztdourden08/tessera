@@ -1,17 +1,16 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import type { AnchorPickerVariant } from '../../src/composites';
-import type { ControlSize } from '../../src/primitives';
+import type { AnchorPickerSize, AnchorPickerVariant } from '../../src/composites';
 import { axis } from '../_template/axis';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { AnchorPickerDemo } from './_samples/AnchorPickerDemo';
 
-type AnchorPickerArgs = { label: string; variant: AnchorPickerVariant; size: ControlSize; disabled: boolean };
+type AnchorPickerArgs = { label: string; variant: AnchorPickerVariant; size: AnchorPickerSize; disabled: boolean };
 
 const VARIANTS: readonly AnchorPickerVariant[] = ['dots', 'arrows'];
-const SIZES: readonly ControlSize[] = ['sm', 'md'];
+const SIZES: readonly AnchorPickerSize[] = ['xs', 'sm', 'md'];
 
 const ARGS: AnchorPickerArgs = { label: 'Anchor', variant: 'dots', size: 'md', disabled: false };
 
@@ -51,6 +50,11 @@ const CanvasResize = {
   render: () => <AnchorPickerDemo variant="arrows" label="Keep this edge" initial="bottom-right" frame />,
 } satisfies StoryLiteStoryDefinition<AnchorPickerArgs>;
 
+const FreePoint = {
+  name: 'A custom point: no cell chosen, the grid outline is dashed',
+  render: () => <AnchorPickerDemo initial="custom" customLabel="Custom point" frame />,
+} satisfies StoryLiteStoryDefinition<AnchorPickerArgs>;
+
 const Disabled = {
   name: 'Disabled',
   render: () => <AnchorPickerDemo disabled initial="top" />,
@@ -72,12 +76,13 @@ const Overview = overviewStory({
     'The value is one of nine names, from `top-left` to `bottom-right`, and the app owns it.',
     'The `arrows` variant points away from the chosen cell, the look of a canvas resize dialog.',
     'The arrow keys move in two dimensions and choose; it is one radio group with one Tab stop.',
+    '`value="custom"` chooses no cell and dashes the outline; `size="xs"` fits a toolbar.',
   ],
   instead: '[SegmentedControl] to pick one of a few named options in a row.',
   playground: Playground,
-  variants: [Looks, Sizes, CanvasResize, Disabled],
+  variants: [Looks, Sizes, CanvasResize, FreePoint, Disabled],
   code: CODE,
 });
 
 export default meta;
-export { CanvasResize, Disabled, Looks, Overview, Playground, Sizes };
+export { CanvasResize, Disabled, FreePoint, Looks, Overview, Playground, Sizes };

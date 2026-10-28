@@ -59,6 +59,19 @@
   overflow-wrap: anywhere;
 }
 
+.window-header__eyebrow-row {
+  flex: 0 0 100%;
+  min-width: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.window-header__eyebrow-row > .window-header__eyebrow {
+  flex: 1 1 auto;
+}
+
 .window-header__actions {
   display: flex;
   flex-shrink: 0;

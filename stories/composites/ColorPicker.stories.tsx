@@ -2,8 +2,9 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
+import type { ColorMode } from '../../src/composites/ColorPicker';
 import { ColorPicker } from '../../src/composites/ColorPicker';
-import { Box, Text } from '../../src/primitives';
+import { Box, Text, TextInput } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { SWATCH_GROUPS } from './_samples/data-colors';
 
@@ -13,10 +14,14 @@ type ColorPickerArgs = {
   disableAlpha: boolean;
   showOriginal: boolean;
   showSwatches: boolean;
+  showModes?: boolean;
+  showSlots?: boolean;
 };
 
+const MODES: readonly ColorMode[] = ['hsv', 'oklch', 'rgb'];
+
 const PickerDemo = (args: ColorPickerArgs) => {
-  const { title, start, disableAlpha, showOriginal, showSwatches } = args;
+  const { title, start, disableAlpha, showOriginal, showSwatches, showModes, showSlots } = args;
   const [value, setValue] = useState(start);
   const [alpha, setAlpha] = useState(1);
   return (
@@ -31,19 +36,24 @@ const PickerDemo = (args: ColorPickerArgs) => {
         original={showOriginal ? start : undefined}
         onReset={showOriginal ? () => { setValue(start); setAlpha(1); } : undefined}
         swatchGroups={showSwatches ? SWATCH_GROUPS : undefined}
+        modes={showModes ? MODES : undefined}
+        name={showSlots ? <TextInput aria-label="Colour name" defaultValue="Harbor blue" /> : undefined}
+        footer={showSlots ? <Text className="story-label">Used in 12 frames</Text> : undefined}
       />
       <Text className="story-label">{disableAlpha ? value : `${value} at ${Math.round(alpha * 100)}%`}</Text>
     </Box>
   );
 };
 
-const ARGS: Partial<ColorPickerArgs> = { title: 'Team Harbor', start: '#3f8fd2', disableAlpha: false, showOriginal: true, showSwatches: true };
+const ARGS: Partial<ColorPickerArgs> = { title: 'Team Harbor', start: '#3f8fd2', disableAlpha: false, showOriginal: true, showSwatches: true, showModes: false, showSlots: false };
 
 const ARG_TYPES: PlaygroundArgTypes<ColorPickerArgs> = {
     title: { group: 'Content', control: 'text' },
     start: { group: 'Value', control: 'color', description: 'The colour the slot started at' },
     showOriginal: { group: 'Appearance', control: 'boolean', description: 'Show the starting colour as a reference and reset target' },
     showSwatches: { group: 'Appearance', control: 'boolean' },
+    showModes: { group: 'Appearance', control: 'boolean', description: 'Tabs for HSV, OKLCH and RGB over one value' },
+    showSlots: { group: 'Appearance', control: 'boolean', description: 'A name field under the title and a footer line' },
     disableAlpha: { group: 'Behaviour', control: 'boolean' },
   };
 
@@ -66,6 +76,7 @@ const AllVariants = {
       <PickerDemo title="Alpha, original and swatches" start="#3f8fd2" disableAlpha={false} showOriginal showSwatches />
       <PickerDemo title="No alpha" start="#d2663f" disableAlpha showOriginal={false} showSwatches />
       <PickerDemo title="Bare" start="#5fb34a" disableAlpha showOriginal={false} showSwatches={false} />
+      <PickerDemo title="Model tabs, name and footer" start="#3f8fd2" disableAlpha={false} showOriginal={false} showSwatches={false} showModes showSlots />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<ColorPickerArgs>;
@@ -94,6 +105,8 @@ const Overview = overviewStory({
     '`swatchGroups` lists quick colours, grouped by where each one comes from.',
     '`original` and `onReset` show the starting colour with a Reset button.',
     '`word` and `snapped` show the stored hardware word and whether the colour was snapped to it.',
+    '`modes` adds HSV, OKLCH and RGB tabs over one value; OKLCH clamps to sRGB and says when it did.',
+    '`name` and `footer` take your own content under the title and under the buttons.',
   ],
   instead: '[ColorPickerPopover] for a picker that floats beside a swatch.',
   playground: Playground,

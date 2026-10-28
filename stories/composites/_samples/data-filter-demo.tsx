@@ -10,6 +10,8 @@ type FilterDemoProps = {
   withClauses: boolean;
   placeholder: string;
   startWith?: readonly FilterClause[];
+  maxChips?: number;
+  parseToken?: boolean;
 };
 
 const STARTING_CLAUSES: readonly FilterClause[] = [
@@ -17,7 +19,7 @@ const STARTING_CLAUSES: readonly FilterClause[] = [
   createClause('checked', 'gte', 100),
 ];
 
-const FilterDemo = ({ withClauses, placeholder, startWith = STARTING_CLAUSES }: FilterDemoProps) => {
+const FilterDemo = ({ withClauses, placeholder, startWith = STARTING_CLAUSES, maxChips, parseToken }: FilterDemoProps) => {
   const [search, setSearch] = useState('');
   const [clauses, setClauses] = useState<readonly FilterClause[]>(startWith);
 
@@ -37,6 +39,8 @@ const FilterDemo = ({ withClauses, placeholder, startWith = STARTING_CLAUSES }: 
         schema={withClauses ? PLAYER_SCHEMA : undefined}
         clauses={withClauses ? clauses : undefined}
         onChange={withClauses ? setClauses : undefined}
+        maxChips={maxChips}
+        parseToken={parseToken}
       />
       <Text className="story-label">{`${shown.length} of ${PLAYERS.length} players`}</Text>
       <ListItemList label="Players">

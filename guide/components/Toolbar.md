@@ -40,7 +40,10 @@ Toolbar is the set of tools of an editor, with a hint on each and options beside
 - Options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.
 - MenuSide right or left says which side of a vertical toolbar its menus open on; a ToolbarDock slot hands it over, so a left bar opens right and a right bar opens left. Menus flip and stay inside the view near any edge, and look the same on every side.
 - Layout list draws each item as a row with its icon, name, description and shortcut, a group as a labelled set of rows and a number as a row with its field. Use it in a wide panel; it never folds and has no handle or caption.
-- Items that do not fit fold into More, in order; a group becomes a labelled set of choices and a number becomes a slider.
+- Items that do not fit fold into More; a group becomes a labelled set of choices and a number becomes a slider. Give an item a priority to choose what folds first: the lowest priority folds first, a missing one counts as 0, and equal priorities fold from the end. The items that stay keep their order.
+- Columns 2 puts a vertical bar in two columns, with a separator and the handle across both. columns auto stays in one column until the items do not fit, then wraps into two before it folds anything into More. columns 1 is the default, and a horizontal bar ignores it.
+- HiddenItems is a list of item ids to leave out, in the bar, in More and in the list. Separators left at an end or doubled are dropped. A ToolbarDock slot hands over the list a user chose.
+- OnContextMenu(itemId, event) on the toolbar, or onContextMenu(event) on one item, runs on a right click and on Shift+F10 or the Menu key while the item has focus. The toolbar stops the browser menu and leaves showing yours to the app; a group gives the id of the group and a number gives its own.
 - Handle draws a grip at the start. A dock wires its own pointer handlers through handleProps; the toolbar has no drag logic.
 - Give the toolbar a length: a row takes the width of its parent and a column the height of its parent. Without one, nothing folds.
 
@@ -86,6 +89,9 @@ const ToolRail = ({ tool, pick, undo }: ToolRailProps) => {
 - `handle` (optional): `boolean`.
 - `handleProps` (optional): `ToolbarHandleProps`.
 - `menuSide` (optional): `ToolbarMenuSide`, one of `'right'`, `'left'`.
+- `columns` (optional): `ToolbarColumns`, one of `1`, `2`, `'auto'`.
+- `hiddenItems` (optional): `readonly string[]`.
+- `onContextMenu` (optional): `(itemId: string, event: ToolbarContextEvent) => void`.
 - `className` (optional): `string`.
 
 ## Tokens

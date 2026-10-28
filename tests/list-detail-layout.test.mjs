@@ -174,3 +174,45 @@ describe('ListDetailLayout seam with both panes foldable', () => {
     expect(edge).toMatch(/\.list-detail-layout--paired [^{]*\.pane-edge__toggle--end \{[^}]*inset-inline-start: var\(--list-detail-seam\)/);
   });
 });
+
+describe('ListDetailLayout stacked state', () => {
+  const css = fs.readFileSync('src/composites/ListDetailLayout/ListDetailLayout.css', 'utf8');
+  const stacked = css.slice(css.indexOf('@container list-detail-layout (width < '));
+
+  it('measures its own width: a container on the layout root, never the viewport', () => {
+    expect(css).not.toMatch(/@media \((min|max)-width/);
+    expect(css).toMatch(/\.list-detail-layout \{[^}]*container: list-detail-layout \/ inline-size;[^}]*inline-size: 100%;[^}]*min-inline-size: 0;/);
+    expect(css.match(/@container list-detail-layout \(width (<|>=) 768px\)/g)).toHaveLength(2);
+  });
+
+  it('stacks at the compact breakpoint token', () => {
+    const size = fs.readFileSync('src/tokens/scale.css', 'utf8');
+    const canonical = fs.readFileSync('src/tokens/canonical.css', 'utf8');
+    expect(size).toContain('--size-768:  768px');
+    expect(canonical).toContain('--bp-compact: var(--size-768)');
+  });
+
+  it('hides the list only when a detail is open with Back, and never in the both view', () => {
+    const hidden = /\.list-detail-layout__panes\[data-view='(\w+)'\] > (\.[\w-]+)/g;
+    const rules = [...stacked.matchAll(hidden)].map((m) => `${m[1]} ${m[2]}`);
+    expect(rules).toContain('list .list-detail-layout__detail');
+    expect(rules).toContain('detail .list-detail-layout__list');
+    expect(rules).not.toContain('both .list-detail-layout__list');
+  });
+
+  it('draws the list before the detail, with no Back, when the app gives no onBack', () => {
+    const html = draw();
+    expect(html).toContain('data-view="both"');
+    expect(html).not.toContain('list-detail-layout__back');
+    expect(html.indexOf('list-detail-layout__list')).toBeLessThan(html.indexOf('list-detail-layout__detail'));
+  });
+
+  it('offers Back to the list while a detail is open, and none while the list is shown', () => {
+    const open = draw({ onBack: () => undefined });
+    expect(open).toContain('data-view="detail"');
+    expect(open).toContain('list-detail-layout__back');
+    const list = draw({ onBack: () => undefined, detail: null });
+    expect(list).toContain('data-view="list"');
+    expect(list).not.toContain('list-detail-layout__back');
+  });
+});

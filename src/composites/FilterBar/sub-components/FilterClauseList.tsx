@@ -5,19 +5,22 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import { toSchemaIndex } from '../../../data/schema/build-schema';
 import { addClause } from '../behavior/clause-list';
 import { removeClause } from '../behavior/remove-clause';
+import { splitChips } from '../behavior/split-chips';
 import { updateClauseById } from '../behavior/update-clause-by-id';
 import { valueForOperatorChange } from '../behavior/value-for-operator-change';
 import { AddFilterButton } from './AddFilterButton';
 import { FilterChip } from './FilterChip';
+import { FilterOverflow } from './FilterOverflow';
 import type { FilterClause } from '../../../data/filter/clause';
 import type { FilterClauseListProps } from './FilterClauseList.type';
 
 const FilterClauseList = (props: FilterClauseListProps) => {
-  const { schema, clauses, fields, onChange } = props;
+  const { schema, clauses, fields, maxChips, onChange } = props;
   const { filters } = useTesseraStrings();
   const index = useMemo(() => toSchemaIndex(schema), [schema]);
   const filteredPaths = useMemo(() => clauses.map((clause) => clause.path), [clauses]);
   const [fresh, setFresh] = useState<string | null>(null);
+  const { shown, folded } = splitChips(clauses, maxChips);
 
   const updateClause = useCallback((id: string, patch: Partial<FilterClause>) => {
     onChange(updateClauseById(clauses, id, patch));
@@ -39,7 +42,7 @@ const FilterClauseList = (props: FilterClauseListProps) => {
   return (
     <>
       <AddFilterButton schema={index} fields={fields} excludePaths={filteredPaths} onAdd={handleAdd} />
-      {clauses.map((clause) => {
+      {shown.map((clause) => {
         const field = index.byPath(clause.path);
         if (!field) return null;
         return (
@@ -56,6 +59,7 @@ const FilterClauseList = (props: FilterClauseListProps) => {
           />
         );
       })}
+      {folded.length > 0 && <FilterOverflow folded={folded} index={index} onRemove={(id) => onChange(removeClause(clauses, id))} />}
       {clauses.length > 1 && (
         <Button variant="ghost" size="sm" className="filter-bar__clear" onClick={() => onChange([])}>
           {filters.clearFilters}

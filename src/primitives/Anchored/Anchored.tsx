@@ -1,27 +1,26 @@
 /* @layer renderer-components @kind component */
 import { useCallback, useId, useRef } from 'react';
-import { useDismissListeners } from '../Portal/behavior/useDismissListeners';
 import { setNodeOnRef } from '../ScrollArea/behavior/set-node-on-ref';
 import { anchorIdent } from './behavior/anchor-ident';
+import { useAnchoredDismiss } from './behavior/useAnchoredDismiss';
 import { useAnchorName } from './behavior/useAnchorName';
 import { useAnchorSupport } from './behavior/useAnchorSupport';
-import { useOwnFallback } from './behavior/useOwnFallback';
 import { useShownPopover } from './behavior/useShownPopover';
-import { AnchoredFallback } from './sub-components/AnchoredFallback';
+import { AnchoredPlaced } from './sub-components/AnchoredPlaced';
 import type { AnchoredProps, AnchoredStyle } from './Anchored.type';
 import './Anchored.css';
 
 const Anchored = (props: AnchoredProps) => {
-  const { anchorRef, placement = 'bottom-start', flip = true, layer, portal, fallback, className, style, ref, children, ...popup } = props;
-  const { onDismiss, dismissOnEscape = true, dismissOnOutsidePress = true, ...rest } = popup;
+  const { anchorRef, anchorRect, boundary, placement = 'bottom-start', flip = true, layer, portal, fallback, className, style, ref, children, ...popup } = props;
+  const { onDismiss, dismissOnEscape, dismissOnOutsidePress, ...rest } = popup;
   const name = anchorIdent(useId());
-  const native = useAnchorSupport(anchorRef);
+  const noAnchor = useRef<HTMLElement | null>(null);
+  const anchor = anchorRef ?? noAnchor;
+  const native = useAnchorSupport(anchor) && anchorRect === undefined && boundary === undefined;
   const popupRef = useRef<HTMLDivElement | null>(null);
-  useAnchorName(native, anchorRef, name);
+  useAnchorName(native, anchor, name);
   useShownPopover(native, popupRef);
-  const dismiss = { escape: dismissOnEscape, outsidePress: dismissOnOutsidePress };
-  useDismissListeners({ open: onDismiss !== undefined, onClose: () => onDismiss?.(), contentRef: popupRef, triggerRef: anchorRef, ...dismiss });
-  const own = useOwnFallback(!native && fallback === undefined, anchorRef, placement);
+  useAnchoredDismiss({ onDismiss, dismissOnEscape, dismissOnOutsidePress, popupRef, anchor });
 
   const attach = useCallback((node: HTMLDivElement | null) => {
     popupRef.current = node;
@@ -29,21 +28,11 @@ const Anchored = (props: AnchoredProps) => {
   }, [ref]);
 
   if (!native) {
+    const spot = { anchor, anchorRect, boundary, placement, flip, popupRef };
     return (
-      <AnchoredFallback
-        nodeRef={attach}
-        anchorRef={anchorRef}
-        fit={flip}
-        layer={layer}
-        portal={portal}
-        fallback={fallback === undefined ? own : fallback}
-        place={fallback === undefined ? placement : undefined}
-        className={className}
-        style={style}
-        {...rest}
-      >
+      <AnchoredPlaced {...spot} nodeRef={attach} layer={layer} portal={portal} fallback={fallback} className={className} style={style} {...rest}>
         {children}
-      </AnchoredFallback>
+      </AnchoredPlaced>
     );
   }
 

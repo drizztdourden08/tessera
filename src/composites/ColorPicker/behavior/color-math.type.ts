@@ -5,4 +5,16 @@ interface Rgb {
   b: number;
 }
 
-export type { Rgb };
+interface Hsv {
+  h: number;
+  s: number;
+  v: number;
+}
+
+interface Oklch {
+  l: number;
+  c: number;
+  h: number;
+}
+
+export type { Hsv, Oklch, Rgb };

@@ -26,6 +26,7 @@ export { MASCOT_CLIP_GROUPS } from './motion/mascot-clip-groups.constants';
 export type { MascotClipGroup, MascotClipGroupId } from './motion/mascot-clip-group.type';
 export { MASCOT_CLIP_VARIANTS } from './motion/mascot-clip-variants.constants';
 export { BRAND_APPS, BRAND_FAMILY } from './family.constants';
+export { markInk } from './mark-ink';
 export { backdropGradientCss } from './backdrop-gradient-css';
 export type { BackdropGlow, BackdropGradient } from './backdrop-gradient.type';
 export { brandGradientCss } from './brand-gradient-css';
@@ -45,7 +46,7 @@ export type { IconArtFiles, IconArtKind, IconSizes } from './icon-files.type';
 export { sceneMarkup } from './scene/scene-markup';
 export type { SceneMarkupOptions } from './scene/scene.type';
 export type {
-  BrandApp, BrandAppIcon, BrandGradient, BrandGradientStops, BrandInfo, BrandInks, BrandMarkData, BrandMarkGround, BrandMarkPath,
+  BrandApp, BrandAppIcon, BrandCurrentInk, BrandGradient, BrandGradientStops, BrandInfo, BrandInkTone, BrandInks, BrandMarkData, BrandMarkGround, BrandMarkPath,
   BrandMascot, BrandMascotVariant, BrandPiece, BrandSceneData, BrandWordmarkSpec, MascotPose, SceneGroupNode, SceneNode, ScenePieceNode,
   ScenePoint, SceneTurn,
 } from './brand.type';

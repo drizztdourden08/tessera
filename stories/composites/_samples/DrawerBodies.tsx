@@ -13,6 +13,7 @@ type SampleDrawerProps = {
   label?: string;
   look?: 'default' | 'record';
   stackNarrow?: boolean;
+  headerActionsRow?: 'title' | 'eyebrow';
 };
 
 const ItemDetailsDrawer = (props: SampleDrawerProps) => {

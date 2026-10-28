@@ -32,6 +32,7 @@ TrackTable shares the width by fractions and drops the least needed columns by t
 - Give each column a fr, its share of the width; leave it out for 1.
 - Pass width on a column for a fixed size instead of a share: a size or space token name such as size-96, or a CSS length such as 6rem; it wins over fr.
 - Mark a column drop 1, 2 or 3 to hide it below 768, 640 or 480 px of table width; 1 leaves first.
+- Pass hideBelow on a column to pick the width yourself: 1280, 1120, 896, 768, 640 or 480 px of table width; it wins over drop, and the column leaves its grid track too, so no gap is left.
 - Never mark the column that names the row: it stays at every width.
 - Draw state with Status and groups with Tag inside cell; the table sets no look for them.
 - Put the table in a Card when it needs a frame; it draws no border or background.
@@ -85,4 +86,4 @@ const Agents = ({ agents }: { agents: Agent[] }) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-soft`, `--c-focus`, `--c-info-soft`, `--c-primary`, `--c-primary-soft`, `--c-secondary-soft`, `--c-text-muted`, `--c-warning`, `--c-warning-soft`, `--opacity-muted`, `--size-2`, `--size-32`, `--size-40`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--track-cols-0`, `--track-cols-1`, `--track-cols-2`, `--track-cols-3`, `--tracking-wide`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-soft`, `--c-focus`, `--c-info-soft`, `--c-primary`, `--c-primary-soft`, `--c-secondary-soft`, `--c-text-muted`, `--c-warning`, `--c-warning-soft`, `--opacity-muted`, `--size-2`, `--size-32`, `--size-40`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--track-cols-0`, `--track-cols-1120`, `--track-cols-1280`, `--track-cols-480`, `--track-cols-640`, `--track-cols-768`, `--track-cols-896`, `--tracking-wide`.
