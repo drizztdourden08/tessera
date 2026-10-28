@@ -70,6 +70,7 @@
   content: '';
   position: absolute;
   background: var(--c-text-muted);
+  pointer-events: none;
   opacity: 0;
   transition: opacity var(--duration-fast) var(--ease-standard);
 }
@@ -89,15 +90,8 @@
 
 .dock-corner--column::after {
   inset-inline: var(--space-xs);
+  inset-block-end: calc(-1 * var(--space-sm));
   block-size: var(--border-width-thick);
-}
-
-.dock-corner--column.dock-corner--start::after {
-  inset-block-end: 0;
-}
-
-.dock-corner--column.dock-corner--end::after {
-  inset-block-end: 0;
 }
 
 .dock-corner:hover::after,
