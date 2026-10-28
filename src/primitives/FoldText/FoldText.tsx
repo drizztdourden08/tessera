@@ -7,13 +7,13 @@ import type { FoldTextProps } from './FoldText.type';
 import './FoldText.css';
 
 const FoldText = (props: FoldTextProps) => {
-  const { truncate, fill, className, hint, children } = props;
+  const { truncate, fill, hug, className, hint, children } = props;
   const middle = truncate === 'middle' && typeof children === 'string';
 
   return (
-    <Box className={foldClass(fill === true || middle, className)}>
+    <Box className={foldClass(fill === true || (middle && hug !== true), className)}>
       {middle ? (
-        <Box className="fold-text__body"><FoldMiddle text={children} hint={hint} /></Box>
+        <Box className="fold-text__body"><FoldMiddle text={children} hint={hint} hug={hug} /></Box>
       ) : (
         <FoldLines lines={props.lines} overflow={props.overflow} hint={hint}>{children}</FoldLines>
       )}

@@ -25,8 +25,13 @@ interface BrandMarkGround {
   outline?: BrandRimTone;
 }
 
+type BrandInkTone = 'light' | 'dark';
+
+type BrandCurrentInk = Readonly<Record<BrandInkTone, string>>;
+
 interface BrandMarkData {
   viewBox: string;
+  currentInk?: BrandCurrentInk;
   paths: readonly BrandMarkPath[];
   pixelArt?: boolean;
   grounds?: Readonly<Partial<Record<Ground, BrandMarkGround>>>;
@@ -131,7 +136,7 @@ interface BrandInfo {
 }
 
 export type {
-  BrandApp, BrandAppIcon, BrandGradient, BrandGradientStops, BrandInfo, BrandInks, BrandMarkData, BrandMarkGround, BrandMarkPath,
+  BrandApp, BrandAppIcon, BrandCurrentInk, BrandGradient, BrandGradientStops, BrandInfo, BrandInkTone, BrandInks, BrandMarkData, BrandMarkGround, BrandMarkPath,
   BrandMascot, BrandMascotVariant, BrandPiece, BrandSceneData, BrandWordmarkSpec, MascotPose, SceneGroupNode, SceneNode, ScenePieceNode,
   ScenePoint, SceneTurn,
 };
