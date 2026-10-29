@@ -2,7 +2,10 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
+import { ControlMenuRow } from '../src/composites/ControlMenu';
+import { ControlMenuPanel } from '../src/composites/ControlMenu/sub-components/ControlMenuPanel';
 import { SplitButton } from '../src/composites/SplitButton';
+import { SplitButtonPanel } from '../src/composites/SplitButton/sub-components/SplitButtonPanel';
 import { chevronSizeOf } from '../src/composites/SplitButton/behavior/chevron-size-of';
 
 const ignore = () => undefined;
@@ -48,5 +51,25 @@ describe('SplitButton', () => {
     expect(chevronSizeOf('sm')).toBe('sm');
     expect(chevronSizeOf('md')).toBe('md');
     expect(chevronSizeOf('lg')).toBe('md');
+  });
+
+  it('opens a dialog from the chevron when it is given a panel, and stays a menu without one', () => {
+    const panel = () => h(ControlMenuRow, { label: 'Opacity' }, 'slider');
+    const html = draw({ panel, items: undefined });
+    expect(html).toContain('aria-haspopup="dialog"');
+    expect(html).toContain('aria-expanded="false"');
+    expect(html).not.toContain('control-menu');
+    expect(draw()).toContain('aria-haspopup="menu"');
+  });
+
+  it('draws the panel as a named dialog of control rows, apart from the button group', () => {
+    const ref = { current: null };
+    const render = (close) => h(ControlMenuRow, { label: 'Opacity' }, h('button', { onClick: close }, 'slider'));
+    const placed = renderToString(h(SplitButtonPanel, { id: 'p', anchorRef: ref, label: 'Onion options', render, onClose: ignore }));
+    expect(placed).toBe('<template></template>');
+    const body = renderToString(h(ControlMenuPanel, { id: 'p', label: 'Onion options', hints: false, filter: false, query: '', look: '', onQueryChange: ignore }, render(ignore)));
+    expect(body).toMatch(/role="dialog"[^>]*aria-label="Onion options"/);
+    expect(body).toContain('control-menu__row');
+    expect(body).not.toContain('control-menu__hint');
   });
 });

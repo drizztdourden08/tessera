@@ -15,7 +15,7 @@ import '../../theme/listbox-drop.css';
 import '../../theme/dropdown-look.css';
 import '../../theme/dropdown-trigger.css';
 import '../../theme/dropdown-sub-menu.css';
-import './ControlMenu.css';
+import '../../theme/control-menu.css';
 
 const ControlMenu = (props: ControlMenuProps) => {
   const { trigger, children, label, header, filter = false, filterPlaceholder, hints = true, align = 'auto' } = props;
