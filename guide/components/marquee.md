@@ -28,6 +28,7 @@ The source is `src/composites/marquee/index.ts`.
 - Spread bind on that box and draw rect with MarqueeBox inside it; rect is null when nobody drags.
 - Mark each item with data-marquee-key and pass its selector as itemSelector, or pass getRects with rects in the content space of the box.
 - A drag that starts on an item does nothing by default; pass canStart to change where a drag may start.
+- A press from outside the box never starts a drag, even one that bubbles through a portal such as a ContextMenu in a tile, so the menu still gets its click.
 - The drag starts after the pointer moves 4 pixels; pass threshold to change it, and enabled false to turn it off.
 - Shift adds to the selection, Ctrl or Cmd toggles the items inside, and Escape puts the selection back as it was.
 - Set touch-action none on the box when touch must drag, and pass autoScroll false to stop the scroll near its edges.
