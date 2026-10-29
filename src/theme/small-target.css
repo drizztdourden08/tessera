@@ -1,0 +1,66 @@
+/* @layer renderer-components @kind style */
+.btn--xs:not(.btn--pixel, :has(.icon--pixel)),
+.icon-btn--xs:not(:has(.icon--pixel)),
+.tag--selectable:not(.tag--lg) {
+  --target-radius: var(--radius-md);
+
+  position: relative;
+  box-sizing: border-box;
+  border-block-width: var(--hit-gutter);
+  border-image: linear-gradient(transparent, transparent) 1;
+  margin-block: calc(-1 * var(--hit-gutter));
+  background-clip: padding-box;
+  border-radius: calc(var(--target-radius) + var(--hit-gutter));
+}
+
+.btn--xs:not(.btn--pixel, :has(.icon--pixel)) {
+  min-block-size: var(--hit-area-min);
+}
+
+.tag--selectable:not(.tag--lg) {
+  --target-radius: var(--radius-sm);
+
+  height: var(--hit-area-min);
+}
+
+.tag--selectable.tag--pill:not(.tag--lg) {
+  --target-radius: var(--radius-pill);
+}
+
+.icon-btn--xs:not(:has(.icon--pixel)) {
+  width: var(--hit-area-min);
+  height: var(--hit-area-min);
+  margin-inline: calc(-1 * var(--hit-gutter));
+  border-inline-width: var(--hit-gutter);
+}
+
+.btn--xs:not(.btn--pixel, :has(.icon--pixel))::before,
+.tag--selectable:not(.tag--lg)::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline: calc(-1 * var(--border-width-thin));
+  border: var(--border-width-thin) solid;
+  border-color: inherit;
+  border-radius: var(--target-radius);
+  pointer-events: none;
+}
+
+.icon-btn--xs:not(:has(.icon--pixel))::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: var(--border-width-thin) solid;
+  border-color: inherit;
+  border-radius: var(--target-radius);
+  pointer-events: none;
+}
+
+:is(.btn--xs:not(.btn--pixel, :has(.icon--pixel)), .icon-btn--xs:not(:has(.icon--pixel)), .tag--selectable:not(.tag--lg)):focus-visible {
+  outline: none;
+}
+
+:is(.btn--xs:not(.btn--pixel, :has(.icon--pixel)), .icon-btn--xs:not(:has(.icon--pixel)), .tag--selectable:not(.tag--lg)):focus-visible::before {
+  outline: var(--border-width-thick) solid var(--c-focus);
+  outline-offset: var(--border-width-thin);
+}

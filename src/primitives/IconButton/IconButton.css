@@ -81,3 +81,12 @@
   background: transparent;
   color: var(--icon-btn-tone);
 }
+
+.icon-btn--xs:not(:has(.icon--pixel)):is(.icon-btn--tone-danger, .icon-btn--tone-info, .icon-btn--tone-accent):is(:hover, :active):not(:disabled) {
+  box-shadow: none;
+}
+
+.icon-btn--xs:not(:has(.icon--pixel)):is(.icon-btn--tone-danger, .icon-btn--tone-info, .icon-btn--tone-accent):is(:hover, :active):not(:disabled)::before {
+  box-shadow: 0 0 0 var(--border-width-thin) var(--c-bg),
+              0 0 0 calc(var(--border-width-thin) + var(--border-width-thick)) var(--icon-btn-tone);
+}

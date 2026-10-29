@@ -7,6 +7,7 @@ import { TagChip } from './sub-components/TagChip';
 import { TagToggle } from './sub-components/TagToggle';
 import type { TagProps } from './Tag.type';
 import './Tag.css';
+import '../../theme/small-target.css';
 
 const Tag = (props: TagProps) => {
   const {

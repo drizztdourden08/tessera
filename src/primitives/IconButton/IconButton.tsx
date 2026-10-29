@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import '../../theme/button-surface.css';
 import './IconButton.css';
+import '../../theme/small-target.css';
 import { useHintTarget } from '../hint/useHintTarget';
 import { Spinner } from '../Spinner';
 import { type IconButtonProps } from './IconButton.type';

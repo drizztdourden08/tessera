@@ -8,6 +8,7 @@ import { DENSITY_SIZE } from '../field-control/density.constants';
 import { useDensity } from '../field-control/useDensity';
 import { useHintTarget } from '../hint/useHintTarget';
 import './Button.css';
+import '../../theme/small-target.css';
 import type { ButtonProps } from './Button.type';
 import { buttonClass } from './behavior/button-class';
 import { plainLabel } from './behavior/plain-label';
