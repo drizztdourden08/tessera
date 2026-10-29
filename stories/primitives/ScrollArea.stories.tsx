@@ -187,7 +187,7 @@ const Overview = overviewStory({
   description: 'A scrollable region with a styled scrollbar, for content that can grow past a fixed height or width.',
   points: [
     '`axis` picks `y`, `x` or `both`; the other direction is clipped.',
-    '`scrollbar="slim"` draws a thin line along the edge that takes no width and widens under the pointer.',
+    '`scrollbar="slim"` draws a thin grey line that turns primary under the pointer and while dragged.',
     '`thumb="auto"` hides the slim line at rest; it shows on hover, scroll and focus inside.',
     'A slim area reserves its own end gutter, so cards and other opaque content never cover the line.',
     '`onScroll` and `scrollTo` let two areas move together, as in a side by side comparison.',

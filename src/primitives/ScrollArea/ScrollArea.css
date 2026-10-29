@@ -88,9 +88,10 @@
 
 .scroll-area[data-scrollbar='slim'] {
   --scroll-thumb-w: var(--scrollbar-slim);
+  --scroll-thumb-color: var(--c-border-strong);
 
   scrollbar-width: none;
-  background-image: linear-gradient(var(--c-primary), var(--c-primary)), linear-gradient(var(--c-primary), var(--c-primary));
+  background-image: linear-gradient(var(--scroll-thumb-color), var(--scroll-thumb-color)), linear-gradient(var(--scroll-thumb-color), var(--scroll-thumb-color));
   background-repeat: no-repeat;
   background-position:
     right var(--scroll-thumb-edge) top calc(var(--scroll-thumb-ends) * (1 - 2 * var(--scroll-thumb-y-progress, 0)) + var(--scroll-thumb-y-progress, 0) * 100%),
@@ -111,6 +112,7 @@
 
 .scroll-area[data-scrollbar='slim'][data-scroll-thumb] {
   --scroll-thumb-w: var(--scrollbar-slim-active);
+  --scroll-thumb-color: var(--c-primary);
 }
 
 .scroll-area[data-scrollbar='slim'][data-thumb='auto']:not(:hover, :focus-within, [data-scrolling], [data-scroll-thumb]) {

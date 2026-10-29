@@ -13,7 +13,7 @@ const usage = {
   ],
   rules: [
     'axis picks y, x or both; the other direction is clipped. It defaults to y.',
-    'scrollbar slim draws a thin line along the edge that widens under the pointer; native keeps the browser bar.',
+    'scrollbar slim draws a thin line along the edge. It rests in a quiet grey and widens and turns the primary colour under the pointer and while dragged; native keeps the browser bar.',
     'thumb auto, on a slim area, hides the line at rest and shows it under the pointer, while it scrolls and a moment after, and while focus is inside. It defaults to always.',
     'A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.',
     'Set fade to false when the edges of the content must not melt away.',
