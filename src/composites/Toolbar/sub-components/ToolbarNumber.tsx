@@ -4,6 +4,7 @@ import { Box } from '../../../primitives/Box';
 import { Tooltip, TooltipContent } from '../../../primitives/Tooltip';
 import { NumberField } from '../../NumberField';
 import { isContextKey } from '../behavior/is-context-key';
+import { numberClass } from '../behavior/number-class';
 import { ToolbarContext } from '../behavior/toolbar-context';
 import { STOP_ATTRIBUTE, TIP_SIDE } from '../Toolbar.constants';
 import { ToolbarRowKeys } from './ToolbarRowKeys';
@@ -15,7 +16,7 @@ const ToolbarNumber = ({ item, onContext }: ToolbarNumberProps) => {
   const field = (
     <NumberField
       size={size === 'md' ? 'md' : 'sm'}
-      className="toolbar__number"
+      className={numberClass(item)}
       value={item.value}
       min={item.min}
       max={item.max}
