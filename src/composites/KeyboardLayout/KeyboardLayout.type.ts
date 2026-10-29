@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { HTMLAttributes } from 'react';
-import type { ShortcutKey } from '../../primitives';
+import type { ShortcutKey } from '../../primitives/Shortcut';
 import type { KEYBOARD_SIZES } from './KeyboardLayout.constants';
 
 type KeyboardSize = (typeof KEYBOARD_SIZES)[number];

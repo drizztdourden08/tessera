@@ -1,6 +1,6 @@
 {
   "name": "@drizztdourden08/tessera",
-  "version": "0.91.0",
+  "version": "0.92.0",
   "description": "Tessera design system: tokens, primitives, composites and the headless data engine shared by Relic of the Past, Brock and Archipelia.",
   "type": "module",
   "packageManager": "pnpm@10.17.0",
@@ -18,7 +18,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./primitives": "./src/primitives/index.ts",
+    "./primitives/*": "./src/primitives/*/index.ts",
     "./composites": "./src/composites/index.ts",
+    "./composites/*": "./src/composites/*/index.ts",
     "./data": "./src/data/index.ts",
     "./brand": "./src/brand/index.ts",
     "./color-picker": "./src/composites/ColorPicker/index.ts",

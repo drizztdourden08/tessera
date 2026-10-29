@@ -18,7 +18,7 @@ const doubleClickOf = <T,>(input: TreeRowBindInput<T>, row: TreeFlatRow<T>): (()
 };
 
 const rowBinderOf = <T,>(input: TreeRowBindInput<T>): ((at: number) => TreeRowBind | undefined) => {
-  const { rows, nav, drag, expansion, selected } = input;
+  const { rows, nav, drag, expansion, selected, dragOutOf } = input;
   const keyDown = rowKeyDownOf(input);
   return (at) => {
     const row = rows[at];
@@ -32,6 +32,7 @@ const rowBinderOf = <T,>(input: TreeRowBindInput<T>): ((at: number) => TreeRowBi
       dragging: drag.dragging.has(row.key),
       state: { depth: row.depth, expanded: row.expanded, selected: picked, branch: row.branch, loading: row.loading, dropInto: mark === 'into' },
       pointer: drag.pointerOf(at),
+      dragOut: dragOutOf(at),
       onFocus: () => nav.activate(row.key),
       onKeyDown: (event) => keyDown(event, at),
       onClick: (event) => click(input, event, row),

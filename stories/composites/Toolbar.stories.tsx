@@ -9,6 +9,7 @@ import { ToolbarDemo } from './_samples/ToolbarDemo';
 import { ToolbarEdgeDemo } from './_samples/ToolbarEdgeDemo';
 import { ToolbarGroupsDemo } from './_samples/ToolbarGroupsDemo';
 import { ToolbarKindsDemo } from './_samples/ToolbarKindsDemo';
+import { ToolbarLabelledNumbersDemo } from './_samples/ToolbarLabelledNumbersDemo';
 import { TOOLBAR_ARG_TYPES, TOOLBAR_ARGS, TOOLBAR_CODE } from './_samples/toolbar-story.constants';
 import type { ToolbarArgs } from './_samples/toolbar-story.type';
 import './Toolbar.stories.css';
@@ -156,6 +157,11 @@ const KeyBadges = {
   ),
 } satisfies StoryLiteStoryDefinition<ToolbarArgs>;
 
+const LabelledNumbers = {
+  name: 'Labelled numbers: four fields with their labels keep a readable value, and fold whole when short',
+  render: () => <ToolbarLabelledNumbersDemo />,
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
 const InlineOptions = {
   name: 'Inline options: the options of the pressed tool open under its row in a list',
   render: () => <ToolbarKindsDemo layout="list" inlineOptions />,
@@ -174,7 +180,7 @@ const Overview = overviewStory({
   ],
   instead: '[ActionBar] for the buttons of one item, or [DropdownMenu] for actions that need no button of their own.',
   playground: Playground,
-  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List, RightEdge, Columns, Priority, GroupFold, BrushPicker, HiddenItems, ContextMenu, ItemKinds, KeyBadges, InlineOptions],
+  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List, RightEdge, Columns, Priority, GroupFold, BrushPicker, HiddenItems, ContextMenu, ItemKinds, KeyBadges, InlineOptions, LabelledNumbers],
   states: {
     render: (props: StateProps) => <ToolbarDemo {...props} />,
     list: [
@@ -189,5 +195,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  BrushPicker, ClickOpen, Columns, ContextMenu, GroupFold, HiddenItems, Horizontal, InlineOptions, ItemKinds, KeyBadges, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, Priority, RightEdge, TwoShortcuts, Vertical,
+  BrushPicker, ClickOpen, Columns, ContextMenu, GroupFold, HiddenItems, Horizontal, InlineOptions, ItemKinds, KeyBadges, LabelledNumbers, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, Priority, RightEdge, TwoShortcuts, Vertical,
 };

@@ -32,7 +32,7 @@ Space between items comes from the `gap` of `Flex`, `Stack` or `Grid`, never fro
 
 ## 8. Public imports only
 
-Import from the package root or one of its public subpaths, and nothing deeper:
+Import from the package root or one of its public subpaths, and nothing deeper. One component or hook folder also has a path of its own, such as `@drizztdourden08/tessera/primitives/Button` or `@drizztdourden08/tessera/composites/DataTable`, which loads that folder and what it uses, not the whole tier. A test file or a small module should import that way. The subpaths:
 
 - `@drizztdourden08/tessera`
 - `@drizztdourden08/tessera/brand`

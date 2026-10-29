@@ -9,6 +9,7 @@ interface TreeDragInput<T> {
   selected: ReadonlySet<string>;
   reorder: TreeReorder | undefined;
   filtering: boolean;
+  yieldsToDragOut: boolean;
   rootRef: RefObject<HTMLElement | null>;
   bodyRef: RefObject<HTMLElement | null>;
   rowHeight: number;

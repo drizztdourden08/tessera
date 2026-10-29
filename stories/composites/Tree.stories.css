@@ -9,3 +9,16 @@
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
 }
+
+.tree-story__drop {
+  box-sizing: border-box;
+  color: var(--c-text-muted);
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+}
+
+.tree-story__drop[data-over] {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+}

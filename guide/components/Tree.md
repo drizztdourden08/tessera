@@ -32,6 +32,9 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - A folder that is empty gives an empty list; a folder whose children are not loaded yet gives nothing and says so with isBranch.
 - Pass renderLead, renderLabel and renderTrail to fill the three slots of a row, before the text, as the text and after it; each gets the item and its state.
 - The tree has no toggles of its own for visibility or lock; put them in renderTrail.
+- Pass trail hover to fade the trail out at rest and show it when the row is hovered, focused, holds focus inside it or is picked; the row does not shift, a tab or an arrow into the row reveals the actions, and a screen with no hover keeps them shown.
+- Pass onDragOut(keys, event) to make the whole row a native drag source for other widgets; write the data with event.dataTransfer.setData, and keys holds the picked set when the row is picked, else the row.
+- With both onDragOut and reorder, a plain drag leaves the tree and Alt with the drag reorders (its modifier is alt); a touch drag still reorders, and a press on a button in the row starts neither.
 - Keep the open folders in the app with expandedKeys and onExpandedChange, or pass defaultExpandedKeys and let the tree keep them.
 - Pass selection with the picked keys and onChange to pick; mode single picks one row on each press, and mode multiple, the default, takes Ctrl, Shift, Space and Ctrl and A through useSelectionModel.
 - Pass openOnPick to fold a folder with the same press that picks it, and onActivate to hear Enter or a double click on a row.
@@ -43,7 +46,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - The into mark shows only on a folder that may take the drop; where it may not, the pointer gets the gap line, or no mark when that is refused too.
 - Alt with Up or Down moves the focused row, or the whole picked set, by one place, and maxDepth and canDrop apply to a key move as to a drag.
 - Alt with Up or Down moves the row among its siblings, Alt with Right drops it into the sibling above, and Alt with Left lifts it out of its parent; each move is announced in a polite live region.
-- Pass renderThumbnail in reorder to show the first three rows in the drag ghost.
+- Pass renderThumbnail in reorder to show the first three rows in the drag ghost; a drag out uses the same thumbnails and a count.
 - Pass guides to draw a line for each level, with the branch of the picked row lit; pass rowSize compact for 24 px rows.
 - Give the tree a height, since it scrolls inside its box and draws only the rows in view; scrollToKey on the ref brings a row into view.
 
@@ -95,6 +98,8 @@ const Files = ({ entries }: { entries: Entry[] }) => {
 - `loadingKeys` (optional): `ReadonlySet<string>`.
 - `filter` (optional): `(item: T) => boolean`.
 - `reorder` (optional): `TreeReorder`.
+- `onDragOut` (optional): `(keys: readonly string[], event: DragEvent<HTMLElement>) => void`.
+- `trail` (optional): `TreeTrailShow`, one of `'always'`, `'hover'`.
 - `guides` (optional): `boolean`.
 - `rowSize` (optional): `TreeRowSize`, one of `'compact'`, `'normal'`. Default `'normal'`.
 - `overscan` (optional): `number`.
