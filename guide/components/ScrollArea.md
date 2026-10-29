@@ -29,7 +29,8 @@ ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar
 ## Rules
 
 - Axis picks y, x or both; the other direction is clipped. It defaults to y.
-- Scrollbar slim draws a thin line along the edge that widens under the pointer; native keeps the browser bar.
+- Scrollbar slim draws a thin line along the edge. It rests in a quiet grey and widens and turns the primary colour under the pointer and while dragged; native keeps the browser bar.
+- Thumb auto, on a slim area, hides the line at rest and shows it under the pointer, while it scrolls and a moment after, and while focus is inside. It defaults to always.
 - A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.
 - Set fade to false when the edges of the content must not melt away.
 - Gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows.
@@ -60,6 +61,7 @@ const Library = ({ cards }: { cards: ReactNode[] }) => (
 - `axis` (optional): `ScrollAxis`, one of `'y'`, `'x'`, `'both'`. Default `'y'`.
 - `fade` (optional): `boolean`. Default `true`.
 - `scrollbar` (optional): `ScrollAreaScrollbar`, one of `'native'`, `'slim'`. Default `'native'`.
+- `thumb` (optional): `ScrollAreaThumb`, one of `'always'`, `'auto'`.
 - `gutter` (optional): `ScrollAreaGutter`, one of `'auto'`, `'stable'`. Default `'auto'`.
 - `onScroll` (optional): `(position: ScrollPosition) => void`.
 - `scrollTo` (optional): `Partial<ScrollPosition>`.
@@ -68,7 +70,7 @@ It also takes the 279 attributes it inherits through `Omit<ComponentPropsWithRef
 
 ## Tokens
 
-It draws on `--c-bg`, `--c-border`, `--c-primary`, `--c-text-muted`, `--radius-sm`, `--scroll-thumb-x-fraction`, `--scroll-thumb-x-progress`, `--scroll-thumb-y-fraction`, `--scroll-thumb-y-progress`, `--scrollbar-size`, `--scrollbar-slim`, `--scrollbar-slim-active`, `--scrollbar-slim-gutter`, `--size-16`, `--size-2`, `--size-24`, `--size-4`, `--transition-fast`.
+It draws on `--c-bg`, `--c-border`, `--c-border-strong`, `--c-primary`, `--c-text-muted`, `--radius-sm`, `--scroll-thumb-x-fraction`, `--scroll-thumb-x-progress`, `--scroll-thumb-y-fraction`, `--scroll-thumb-y-progress`, `--scrollbar-size`, `--scrollbar-slim`, `--scrollbar-slim-active`, `--scrollbar-slim-gutter`, `--scrollbar-slim-rest`, `--size-16`, `--size-2`, `--size-24`, `--size-4`, `--transition-fast`.
 
 ## Also exported from this folder
 

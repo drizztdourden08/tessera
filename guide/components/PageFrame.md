@@ -61,6 +61,7 @@ const AccountPage = () => (
 - `onScroll` (optional): `(position: ScrollPosition) => void`.
 - `fade` (optional): `boolean`.
 - `scrollbar` (optional): `ScrollAreaScrollbar`, one of `'native'`, `'slim'`.
+- `thumb` (optional): `ScrollAreaThumb`, one of `'always'`, `'auto'`.
 - `gutter` (optional): `ScrollAreaGutter`, one of `'auto'`, `'stable'`.
 - `scrollTo` (optional): `Partial<ScrollPosition>`.
 
