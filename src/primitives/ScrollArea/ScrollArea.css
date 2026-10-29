@@ -113,6 +113,10 @@
   --scroll-thumb-w: var(--scrollbar-slim-active);
 }
 
+.scroll-area[data-scrollbar='slim'][data-thumb='auto']:not(:hover, :focus-within, [data-scrolling], [data-scroll-thumb]) {
+  --scroll-thumb-w: var(--scrollbar-slim-rest);
+}
+
 .scroll-area[data-scrollbar='slim']::-webkit-scrollbar {
   display: none;
 }

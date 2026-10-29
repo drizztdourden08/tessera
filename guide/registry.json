@@ -2558,7 +2558,7 @@
         "rule": "PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document."
       },
       "example": "import { PageFrame, Title } from '@drizztdourden08/tessera';\n\nconst AccountPage = () => (\n  <PageFrame width=\"md\">\n    <Title>Account</Title>\n  </PageFrame>\n);\n",
-      "propsHash": "24f23bbef9a5f7cd",
+      "propsHash": "ce5e2bb0fb4c95ba",
       "props": {
         "own": [
           {
@@ -2609,6 +2609,15 @@
             "literals": [
               "'native'",
               "'slim'"
+            ]
+          },
+          {
+            "name": "thumb",
+            "optional": true,
+            "text": "ScrollAreaThumb",
+            "literals": [
+              "'always'",
+              "'auto'"
             ]
           },
           {
@@ -2829,6 +2838,7 @@
       "rules": [
         "axis picks y, x or both; the other direction is clipped. It defaults to y.",
         "scrollbar slim draws a thin line along the edge that widens under the pointer; native keeps the browser bar.",
+        "thumb auto, on a slim area, hides the line at rest and shows it under the pointer, while it scrolls and a moment after, and while focus is inside. It defaults to always.",
         "A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.",
         "Set fade to false when the edges of the content must not melt away.",
         "gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows.",
@@ -2846,7 +2856,7 @@
         "rule": "ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content."
       },
       "example": "import type { ReactNode } from 'react';\nimport { Grid, ScrollArea } from '@drizztdourden08/tessera';\n\nconst Library = ({ cards }: { cards: ReactNode[] }) => (\n  <ScrollArea scrollbar=\"slim\" className=\"library\">\n    <Grid minColWidth={224} gap=\"sm\">\n      {cards}\n    </Grid>\n  </ScrollArea>\n);\n",
-      "propsHash": "ae02f58aaaeaf969",
+      "propsHash": "5a425e0b9e3bf718",
       "props": {
         "own": [
           {
@@ -2875,6 +2885,15 @@
               "'slim'"
             ],
             "default": "'native'"
+          },
+          {
+            "name": "thumb",
+            "optional": true,
+            "text": "ScrollAreaThumb",
+            "literals": [
+              "'always'",
+              "'auto'"
+            ]
           },
           {
             "name": "gutter",
@@ -2925,6 +2944,7 @@
         "--scrollbar-slim",
         "--scrollbar-slim-active",
         "--scrollbar-slim-gutter",
+        "--scrollbar-slim-rest",
         "--size-16",
         "--size-2",
         "--size-24",

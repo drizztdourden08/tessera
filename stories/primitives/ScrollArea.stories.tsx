@@ -4,7 +4,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { ItemCard } from '../../src/composites';
 import { Box, Grid, ScrollArea, Text } from '../../src/primitives';
-import type { ScrollAreaScrollbar, ScrollAxis, ScrollPosition } from '../../src/primitives';
+import type { ScrollAreaScrollbar, ScrollAreaThumb, ScrollAxis, ScrollPosition } from '../../src/primitives';
 import { STORE_CARDS } from '../composites/_samples/item-card-samples.constants';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -13,6 +13,7 @@ import './ScrollArea.stories.css';
 type ScrollAreaArgs = {
   axis: ScrollAxis;
   scrollbar: ScrollAreaScrollbar;
+  thumb: ScrollAreaThumb;
   entries: number;
 };
 
@@ -32,11 +33,12 @@ const SETTINGS_KEYS = ['scale', 'aspect', 'vsync', 'shader', 'volume', 'latency'
 const configLines = (suffix: string) =>
   Array.from({ length: 30 }, (_, index) => `${SETTINGS_KEYS[index % SETTINGS_KEYS.length]}.${Math.floor(index / 10)} = ${suffix}${index}`);
 
-const ARGS: Partial<ScrollAreaArgs> = { axis: 'y', scrollbar: 'native', entries: 24 };
+const ARGS: Partial<ScrollAreaArgs> = { axis: 'y', scrollbar: 'native', thumb: 'always', entries: 24 };
 
 const ARG_TYPES: PlaygroundArgTypes<ScrollAreaArgs> = {
     entries: { group: 'Content', control: 'number' },
     scrollbar: { group: 'Appearance', control: 'select', options: ['native', 'slim'] },
+    thumb: { group: 'Appearance', control: 'select', options: ['always', 'auto'] },
     axis: { group: 'Layout', control: 'select', options: ['y', 'x', 'both'] },
   };
 
@@ -50,7 +52,7 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (
-    <ScrollArea axis={args.axis} scrollbar={args.scrollbar} className="scroll-demo">
+    <ScrollArea axis={args.axis} scrollbar={args.scrollbar} thumb={args.thumb} className="scroll-demo">
       {Array.from({ length: Math.max(0, args.entries) }, (_, index) => (
         <Box key={index} className="scroll-demo__entry">
           <Text variant="caption">{`Version 2.${Math.floor(index / 4)}.${index % 4}`}</Text>
@@ -129,6 +131,18 @@ const SlimGutter = {
   ),
 } satisfies StoryLiteStoryDefinition<ScrollAreaArgs>;
 
+const SlimAutoHide = {
+  name: 'Slim thumb auto hide',
+  render: () => (
+    <Demonstrator
+      columns={[{ key: 'always', label: 'thumb always' }, { key: 'auto', label: 'thumb auto' }]}
+      fill
+      align="stretch"
+      cell={(_row, thumb) => <ScrollArea scrollbar="slim" thumb={thumb === 'auto' ? 'auto' : 'always'} className="scroll-demo">{axisContent('y')}</ScrollArea>}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<ScrollAreaArgs>;
+
 const MirroredPanesDemo = () => {
   const [leftTarget, setLeftTarget] = useState<ScrollPosition | undefined>(undefined);
   const [rightTarget, setRightTarget] = useState<ScrollPosition | undefined>(undefined);
@@ -174,13 +188,14 @@ const Overview = overviewStory({
   points: [
     '`axis` picks `y`, `x` or `both`; the other direction is clipped.',
     '`scrollbar="slim"` draws a thin line along the edge that takes no width and widens under the pointer.',
+    '`thumb="auto"` hides the slim line at rest; it shows on hover, scroll and focus inside.',
     'A slim area reserves its own end gutter, so cards and other opaque content never cover the line.',
     '`onScroll` and `scrollTo` let two areas move together, as in a side by side comparison.',
   ],
   playground: Playground,
-  variants: [AllVariants, SlimGutter],
+  variants: [AllVariants, SlimGutter, SlimAutoHide],
   code: CODE,
 });
 
 export default meta;
-export { AllVariants, Horizontal, MirroredPanes, Overview, Playground, SlimGutter };
+export { AllVariants, Horizontal, MirroredPanes, Overview, Playground, SlimAutoHide, SlimGutter };
