@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { BrandMark } from './BrandMark';
-export type { BrandMarkProps, BrandMarkSize, BrandMarkVariant } from './BrandMark.type';
+export type { BrandMarkFit, BrandMarkProps, BrandMarkSize, BrandMarkVariant } from './BrandMark.type';

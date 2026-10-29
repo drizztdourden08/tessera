@@ -14,6 +14,15 @@ import { BrandMark, BrandWordmark, Mascot } from '@drizztdourden08/tessera/brand
 
 `size` takes `sm`, `md`, `lg`, `xl` or `xxl`. The `xxl` step, `--brand-mark-xxl`, is 256 px, for a large mark such as an empty start page. Archipelia's mark is drawn from true circles and straight bars, so it stays smooth at any size.
 
+## The height fit
+
+`fit="height"` makes `size` the height of the mark and lets the width follow the mark's own shape, so a wide mark such as Argus's keeps its whole box instead of sitting in a square. `size="h26"` and `size="h39"` are 26 and 39 px tall (`--brand-mark-h26`, `--brand-mark-h39`); `sm` to `xxl` work too. The default is `fit="square"`, and `fill` and the app icon stay square. `Logo` takes the same props; `Logo.Combined` does not.
+
+```tsx
+<Logo brand="argus" size="h26" fit="height" />
+<Logo brand="argus" size="h39" fit="height" />
+```
+
 ## The fill size
 
 `size="fill"` is the fluid step, for a mark that follows its parent, such as an idle backdrop that grows with the window. The mark takes the full inline size of its parent and stays square (`aspect-ratio: 1`). An optional cap comes from `--brand-mark-fill-max`, which is `none` by default; set it on the parent or the mark to stop the mark at a size, for example `--brand-mark-fill-max: var(--size-512)`.
