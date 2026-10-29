@@ -1,9 +1,11 @@
 /* @layer renderer-components @kind types */
-import type { ReactNode, Ref } from 'react';
+import type { DragEvent, ReactNode, Ref } from 'react';
 import type { ReorderModifier } from '../reorder';
 import type { ScrollAlign } from '../virtual';
 
 type TreeRowSize = 'compact' | 'normal';
+
+type TreeTrailShow = 'always' | 'hover';
 
 type TreeSelectionMode = 'single' | 'multiple';
 
@@ -67,6 +69,8 @@ interface TreeProps<T> extends TreeSlots<T> {
   loadingKeys?: ReadonlySet<string>;
   filter?: (item: T) => boolean;
   reorder?: TreeReorder;
+  onDragOut?: (keys: readonly string[], event: DragEvent<HTMLElement>) => void;
+  trail?: TreeTrailShow;
   guides?: boolean;
   rowSize?: TreeRowSize;
   overscan?: number;
@@ -107,5 +111,5 @@ interface TreeDropTarget {
 
 export type {
   TreeDropMark, TreeDropTarget, TreeFlatRow, TreeHandle, TreeKeyMove, TreeMoveRequest, TreeProps, TreeReorder, TreeRowSize, TreeRowState,
-  TreeSelection, TreeSelectionMode, TreeSlots,
+  TreeSelection, TreeSelectionMode, TreeSlots, TreeTrailShow,
 };

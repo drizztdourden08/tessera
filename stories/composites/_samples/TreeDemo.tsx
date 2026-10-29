@@ -18,8 +18,10 @@ const iconOf = (entry: TreeEntry, state: TreeRowState) => {
 const leadOf = (entry: TreeEntry, state: TreeRowState) => <Icon name={iconOf(entry, state)} />;
 const trailOf = (entry: TreeEntry) => (entry.children ? <Span tone="muted">{entry.children.length}</Span> : undefined);
 
+const filterOf = (needle: string) => (needle === '' ? undefined : (entry: TreeEntry) => entry.name.toLowerCase().includes(needle));
+
 const TreeDemo = (props: TreeDemoProps) => {
-  const { mode = 'multiple', reorder = false, guides = false, query = '', rowSize, openOnPick = false, maxDepth, start = PROJECT_FILES, open = ['src', 'components'] } = props;
+  const { mode = 'multiple', reorder = false, guides = false, query = '', rowSize, openOnPick = false, maxDepth, start = PROJECT_FILES, open = ['src', 'components'], trail, renderTrail, onDragOut } = props;
   const [items, setItems] = useState<readonly TreeEntry[]>(start);
   const [picked, setPicked] = useState<ReadonlySet<string>>(new Set());
   const [note, setNote] = useState('Nothing moved yet');
@@ -36,13 +38,15 @@ const TreeDemo = (props: TreeDemoProps) => {
         getChildren={childrenOf}
         getLabel={labelOf}
         renderLead={leadOf}
-        renderTrail={trailOf}
+        renderTrail={renderTrail ?? trailOf}
+        trail={trail}
+        onDragOut={onDragOut}
         defaultExpandedKeys={open}
         selection={{ selected: picked, onChange: setPicked, mode }}
         openOnPick={openOnPick}
         guides={guides}
         rowSize={rowSize}
-        filter={needle === '' ? undefined : (entry) => entry.name.toLowerCase().includes(needle)}
+        filter={filterOf(needle)}
         onActivate={(entry) => setNote(`Opened ${entry.name}`)}
         reorder={reorder ? {
           maxDepth,

@@ -26,6 +26,7 @@ const TreeRow = <T,>(props: TreeRowProps<T>) => {
       data-drop={bind.mark}
       {...{ [INDEX_ATTRIBUTE]: at, [KEY_ATTRIBUTE]: row.key }}
       {...bind.pointer}
+      {...bind.dragOut}
       onFocus={bind.onFocus}
       onKeyDown={bind.onKeyDown}
       onClick={bind.onClick}

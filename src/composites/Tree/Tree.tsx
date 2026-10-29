@@ -13,7 +13,7 @@ import '../../theme/visually-hidden.css';
 import './Tree.css';
 
 const Tree = <T,>(props: TreeProps<T>) => {
-  const { label, rowSize = 'normal', emptyLabel, openOnPick = false, getLabel, renderLead, renderLabel, renderTrail, selection, className } = props;
+  const { label, rowSize = 'normal', emptyLabel, openOnPick = false, getLabel, renderLead, renderLabel, renderTrail, selection, trail, className } = props;
   const { common } = useTesseraStrings();
   const { rows, nav, drag, bindOf, activeBranch } = useTree(props);
   const classes = ['tree', className].filter(Boolean).join(' ');
@@ -21,7 +21,7 @@ const Tree = <T,>(props: TreeProps<T>) => {
   if (rows.length === 0) return <Box className={`${classes} tree--empty`}>{emptyLabel ?? common.nothingToShow}</Box>;
 
   return (
-    <Box ref={nav.rootRef} className={classes} data-row-size={rowSize} onScroll={nav.onScroll}>
+    <Box ref={nav.rootRef} className={classes} data-row-size={rowSize} data-trail={trail} onScroll={nav.onScroll}>
       <Box
         ref={nav.bodyRef}
         role="tree"

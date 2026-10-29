@@ -7,9 +7,12 @@ import type { DragSession, ReorderHandlers, TreeRowPointer } from './useTreeDrag
 const far = (session: DragSession, event: PointerEvent<HTMLElement>): boolean =>
   session.down !== null && Math.hypot(event.clientX - session.down.x, event.clientY - session.down.y) > DRAG_THRESHOLD;
 
-const pointerHandlersOf = (base: ReorderHandlers, session: DragSession): TreeRowPointer => ({
+const yielding = (event: PointerEvent<HTMLElement>, yields: boolean): boolean => yields && !event.altKey && event.pointerType !== 'touch';
+
+const pointerHandlersOf = (base: ReorderHandlers, session: DragSession, yields: boolean): TreeRowPointer => ({
   onPointerDown: (event) => {
     if (isElement(event.target) && event.target.closest(INTERACTIVE)) return;
+    if (yielding(event, yields)) return;
     session.moved = false;
     session.down = { x: event.clientX, y: event.clientY };
     base.onPointerDown(event);
