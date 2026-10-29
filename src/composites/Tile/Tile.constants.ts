@@ -10,4 +10,6 @@ const TILE_CORNER_CLASS: Readonly<Record<TileCorner, string>> = {
   bottomEnd: 'bottom-end',
 };
 
-export { TILE_CORNER_CLASS, TILE_CORNERS };
+const MEDIA_ASPECT_PROPERTY = '--tile-media-aspect';
+
+export { MEDIA_ASPECT_PROPERTY, TILE_CORNER_CLASS, TILE_CORNERS };

@@ -27,6 +27,7 @@ const GridRows = <T,>(props: GridRowsProps<T>) => {
             depth={section.depth}
             into={model.into === section.key}
             actions={section.actions}
+            drop={model.dropOf(section)}
             onToggle={(next) => model.setCollapsed(section.key, next)}
             onActivate={model.activate}
             onNavigate={model.navigate}

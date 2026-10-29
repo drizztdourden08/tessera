@@ -12,7 +12,7 @@ import type { GridReorder, UseGridReorderInput } from './useGridReorder.type';
 const useGridReorder = <T,>(input: UseGridReorderInput<T>): GridReorder => {
   const { reorder, sections, layout, flat, keys, columns, holeKeys, indexOfKey, focusItem } = input;
   const owners = useMemo(() => (sections ? sections.flatMap((section) => section.items.map(() => section.key)) : []), [sections]);
-  const { commit, message, wanted } = useGridCommit({ reorder, sections, keys, owners, indexOfKey });
+  const { commit, message, wanted, announce } =useGridCommit({ reorder, sections, keys, owners, indexOfKey });
   const { drag, target, keysOf, handlersOf, swallowClick } = useGridDrag({ ...input, layout, onDrop: commit });
   const dragging = drag.dragging !== null && target !== null;
 
@@ -60,6 +60,7 @@ const useGridReorder = <T,>(input: UseGridReorderInput<T>): GridReorder => {
   return {
     active: reorder !== undefined,
     message,
+    announce,
     into: dragging && target.kind === 'into' ? target.section : null,
     ghost: dragging ? { count: drag.dragKeys.length, thumbnails, point: drag.point } : null,
     extrasOf,

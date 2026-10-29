@@ -31,6 +31,7 @@ interface GridGhost {
 interface GridReorder {
   active: boolean;
   message: string;
+  announce: (message: string) => void;
   into: string | null;
   ghost: GridGhost | null;
   extrasOf: (item: number, key: string) => Partial<VirtualGridCellBind>;

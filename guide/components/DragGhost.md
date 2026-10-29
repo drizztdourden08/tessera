@@ -29,6 +29,8 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Pass count, the number of items dragged, and thumbnails, a list of nodes; at most three are stacked, newest on top, and never more than count.
 - Pass point, the pointer in client pixels, to follow the pointer in a layer above the page; the point of useReorderDrag fits.
 - Pass point null while nobody drags and nothing is drawn; leave point out to draw the ghost in place, such as in a story.
+- For a native drag and drop, where the browser draws its own image, call useNativeDragGhost() and pass onDragStart(event, { count, thumbnails }) from the onDragStart of the dragged element; it draws the ghost off screen and hands it to setDragImage.
+- UseNativeDragGhost draws the ghost in a root of its own, so the thumbnails see the theme but not the providers of the dragged element; keep them plain.
 - It takes no pointer events, so the drop target below keeps its hover.
 - Keep each thumbnail small and free of its own size; the card cuts what does not fit.
 
@@ -64,4 +66,8 @@ const Pile = ({ names }: { names: string[] }) => {
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--radius-sm`, `--shadow-overlay`, `--size-64`, `--space-md`, `--space-sm`, `--space-xs`.
+It draws on `--border-width-thin`, `--c-border`, `--c-surface`, `--radius-sm`, `--shadow-overlay`, `--size-256`, `--size-64`, `--space-md`, `--space-sm`, `--space-xs`.
+
+## Also exported from this folder
+
+`useNativeDragGhost`.

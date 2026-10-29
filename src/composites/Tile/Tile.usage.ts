@@ -14,6 +14,7 @@ const usage = {
   ],
   rules: [
     'media is the picture or any node, such as an Image with fit contain. It fills a square and never changes the size of the tile.',
+    'mediaAspect sets the shape of the media: a ratio such as 4/3 or 16/9, or a number such as 1.5 for width over height. Leave it out for a square; a value that is not a positive ratio is ignored.',
     'name is the one line under the media; a long name is cut with an ellipsis and a plain string is also the title.',
     'corners takes topStart, topEnd, bottomStart and bottomEnd. Put a Badge, a Tag, an Icon or any small node in a corner; leave the rest out.',
     'The tile does not select itself. Pass selected and focused from the grid, and pass role, tabIndex and the handlers the grid gives you.',
@@ -47,7 +48,7 @@ const SpriteTile = ({ name, src, picked, frames }: SpriteTileProps) => (
   />
 );
 `,
-  propsHash: '8c89c78810df246a',
+  propsHash: '5bf907cb54ed66ae',
 } satisfies ComponentUsage;
 
 export { usage };

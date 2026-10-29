@@ -38,6 +38,8 @@ const usage = {
     'Give reorder ({ onMove, renderThumbnail }) to move tiles: drag a tile, or the picked tiles when it is one of them, or press Alt with an arrow; the grid draws an insertion line, scrolls near the edges, announces the move and shows a DragGhost with the count and up to three thumbnails.',
     'onMove gets the keys, the gap as an index in the flat order with the section it lands in, and the modifier held at the drop; the app moves the items, and the grid puts focus on the first moved tile once the items change.',
     'Give a section onDrop(keys) and a header becomes a drop target with an into mark; the drop does not call onMove.',
+    'Give a section onDropData(dataTransfer) and a header takes a native drop, such as files or items dragged from another widget, with or without reorder; it shows the same into mark and announces the drop, and onDrop and onDropData can both be set.',
+    'Give a section accepts(dataTransfer) to say which drags the header takes; it runs while the drag is over the header, where only types, kinds and the item count can be read, and the data itself is read in onDropData; leave it out to take every drag.',
     'For tile sizes in whole steps use stepVirtualSize on tileSize, such as from a slider.',
     'Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.',
     'Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.',

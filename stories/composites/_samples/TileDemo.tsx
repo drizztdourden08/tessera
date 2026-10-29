@@ -6,19 +6,20 @@ import '../Tile.stories.css';
 import { Badge, Box, Icon, Image } from '../../../src/primitives';
 import { SPRITE_URI } from '../../primitives/_samples/image-scenes.constants';
 
-type TileDemoProps = Partial<Pick<TileProps, 'name' | 'selected' | 'focused' | 'onClick'>> & {
+type TileDemoProps = Partial<Pick<TileProps, 'name' | 'selected' | 'focused' | 'onClick' | 'mediaAspect'>> & {
   corners?: boolean;
   width?: 'md' | 'lg';
 };
 
 const TileDemo = (props: TileDemoProps) => {
-  const { name = 'hero-idle.png', corners = true, selected, focused, width = 'md', onClick } = props;
+  const { name = 'hero-idle.png', corners = true, selected, focused, width = 'md', mediaAspect, onClick } = props;
   return (
     <Tile
       name={name}
       className={`tile-story__${width}`}
       selected={selected}
       focused={focused}
+      mediaAspect={mediaAspect}
       onClick={onClick}
       media={<Image src={SPRITE_URI} alt="" fit="integer" backdrop="checker" pixelated />}
       corners={corners ? {
@@ -44,4 +45,14 @@ const TileRow = () => {
   );
 };
 
-export { TileDemo, TileRow };
+const RATIOS = ['1', '4/3', '16/9', '3/4'] as const;
+
+const TileRatios = () => (
+  <Box className="story-row">
+    {RATIOS.map((ratio) => (
+      <TileDemo key={ratio} name={`ratio ${ratio}`} mediaAspect={ratio} corners={false} />
+    ))}
+  </Box>
+);
+
+export { TileDemo, TileRatios, TileRow };

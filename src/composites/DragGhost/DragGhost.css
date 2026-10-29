@@ -11,6 +11,14 @@
   transform: translate(var(--space-md), var(--space-md));
 }
 
+.native-drag-ghost {
+  position: fixed;
+  inset-block-start: calc(-1 * var(--size-256));
+  inset-inline-start: 0;
+  padding: var(--space-md);
+  pointer-events: none;
+}
+
 .drag-ghost__stack {
   position: relative;
   inline-size: var(--size-64);

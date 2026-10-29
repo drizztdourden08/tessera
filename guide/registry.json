@@ -8550,6 +8550,8 @@
         "Pass count, the number of items dragged, and thumbnails, a list of nodes; at most three are stacked, newest on top, and never more than count.",
         "Pass point, the pointer in client pixels, to follow the pointer in a layer above the page; the point of useReorderDrag fits.",
         "Pass point null while nobody drags and nothing is drawn; leave point out to draw the ghost in place, such as in a story.",
+        "For a native drag and drop, where the browser draws its own image, call useNativeDragGhost() and pass onDragStart(event, { count, thumbnails }) from the onDragStart of the dragged element; it draws the ghost off screen and hands it to setDragImage.",
+        "useNativeDragGhost draws the ghost in a root of its own, so the thumbnails see the theme but not the providers of the dragged element; keep them plain.",
         "It takes no pointer events, so the drop target below keeps its hover.",
         "Keep each thumbnail small and free of its own size; the card cuts what does not fit."
       ],
@@ -8596,6 +8598,7 @@
         "--c-surface",
         "--radius-sm",
         "--shadow-overlay",
+        "--size-256",
         "--size-64",
         "--space-md",
         "--space-sm",
@@ -8606,7 +8609,9 @@
         "route": "#/story/composites-dragghost--overview",
         "file": "stories/composites/DragGhost.stories.tsx"
       },
-      "parts": []
+      "parts": [
+        "useNativeDragGhost"
+      ]
     },
     {
       "name": "Drawer",
@@ -17030,6 +17035,7 @@
       ],
       "rules": [
         "media is the picture or any node, such as an Image with fit contain. It fills a square and never changes the size of the tile.",
+        "mediaAspect sets the shape of the media: a ratio such as 4/3 or 16/9, or a number such as 1.5 for width over height. Leave it out for a square; a value that is not a positive ratio is ignored.",
         "name is the one line under the media; a long name is cut with an ellipsis and a plain string is also the title.",
         "corners takes topStart, topEnd, bottomStart and bottomEnd. Put a Badge, a Tag, an Icon or any small node in a corner; leave the rest out.",
         "The tile does not select itself. Pass selected and focused from the grid, and pass role, tabIndex and the handlers the grid gives you.",
@@ -17049,13 +17055,18 @@
         "rule": "Tile gives every grid of thumbnails the same square media, name line and four corner marks."
       },
       "example": "import { Badge, Image, Tile } from '@drizztdourden08/tessera';\n\ninterface SpriteTileProps {\n  name: string;\n  src: string;\n  picked: boolean;\n  frames: number;\n}\n\nconst SpriteTile = ({ name, src, picked, frames }: SpriteTileProps) => (\n  <Tile\n    name={name}\n    selected={picked}\n    media={<Image src={src} alt=\"\" fit=\"integer\" backdrop=\"checker\" pixelated />}\n    corners={{ bottomEnd: <Badge variant=\"inline\" value={frames} label=\"Frame count\" /> }}\n  />\n);\n",
-      "propsHash": "8c89c78810df246a",
+      "propsHash": "5bf907cb54ed66ae",
       "props": {
         "own": [
           {
             "name": "media",
             "optional": false,
             "text": "ReactNode"
+          },
+          {
+            "name": "mediaAspect",
+            "optional": true,
+            "text": "number | string"
           },
           {
             "name": "name",
@@ -17105,7 +17116,8 @@
         "--radius-sm",
         "--space-2xs",
         "--space-xs",
-        "--text-sm"
+        "--text-sm",
+        "--tile-media-aspect"
       ],
       "gallery": {
         "title": "Composites · Data views/Tile",
@@ -18449,6 +18461,8 @@
         "Give reorder ({ onMove, renderThumbnail }) to move tiles: drag a tile, or the picked tiles when it is one of them, or press Alt with an arrow; the grid draws an insertion line, scrolls near the edges, announces the move and shows a DragGhost with the count and up to three thumbnails.",
         "onMove gets the keys, the gap as an index in the flat order with the section it lands in, and the modifier held at the drop; the app moves the items, and the grid puts focus on the first moved tile once the items change.",
         "Give a section onDrop(keys) and a header becomes a drop target with an into mark; the drop does not call onMove.",
+        "Give a section onDropData(dataTransfer) and a header takes a native drop, such as files or items dragged from another widget, with or without reorder; it shows the same into mark and announces the drop, and onDrop and onDropData can both be set.",
+        "Give a section accepts(dataTransfer) to say which drags the header takes; it runs while the drag is over the header, where only types, kinds and the item count can be read, and the data itself is read in onDropData; leave it out to take every drag.",
         "For tile sizes in whole steps use stepVirtualSize on tileSize, such as from a slider.",
         "Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.",
         "Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.",

@@ -66,3 +66,30 @@ describe('Tile', () => {
     expect(css).not.toMatch(/#[0-9a-f]{3,8}\b/i);
   });
 });
+
+describe('Tile media ratio', () => {
+  it('sets the media ratio as one custom property from a ratio or a number', () => {
+    expect(draw({ mediaAspect: '4/3' })).toContain('style="--tile-media-aspect:4 / 3"');
+    expect(draw({ mediaAspect: '16 / 9' })).toContain('--tile-media-aspect:16 / 9');
+    expect(draw({ mediaAspect: '1' })).toContain('--tile-media-aspect:1');
+    expect(draw({ mediaAspect: 1.5 })).toContain('--tile-media-aspect:1.5');
+  });
+
+  it('keeps the media square when the ratio is left out or not a positive ratio', () => {
+    for (const mediaAspect of [undefined, 0, -2, Number.NaN, '', 'wide', '4/0', '0/3', '1/2/3', '4/-3']) {
+      expect(draw({ mediaAspect })).not.toContain('--tile-media-aspect');
+    }
+  });
+
+  it('keeps the style of the host beside the ratio', () => {
+    const html = draw({ mediaAspect: '16/9', style: { color: 'red' } });
+    expect(html).toContain('color:red');
+    expect(html).toContain('--tile-media-aspect:16 / 9');
+    expect(draw({ style: { color: 'red' } })).toContain('style="color:red"');
+  });
+
+  it('reads the ratio in the CSS with a square default', () => {
+    const css = readFileSync(new URL('../src/composites/Tile/Tile.css', import.meta.url), 'utf8');
+    expect(css).toContain('aspect-ratio: var(--tile-media-aspect, 1);');
+  });
+});

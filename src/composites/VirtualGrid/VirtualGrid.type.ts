@@ -13,6 +13,8 @@ interface VirtualGridSection<T> {
   actions?: readonly ActionItem[];
   depth?: number;
   onDrop?: (keys: readonly string[]) => void;
+  onDropData?: (data: DataTransfer) => void;
+  accepts?: (data: DataTransfer) => boolean;
 }
 
 interface VirtualGridHandle {

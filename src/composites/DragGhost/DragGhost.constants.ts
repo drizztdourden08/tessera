@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind constants */
 const STACK_LIMIT = 3;
 
-export { STACK_LIMIT };
+const NATIVE_GHOST_CLASS = 'native-drag-ghost';
+
+export { NATIVE_GHOST_CLASS, STACK_LIMIT };
