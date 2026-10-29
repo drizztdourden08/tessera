@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind util */
 import { findKeyId } from '../../KeyboardLayout';
 import { MOUSE_TARGET } from '../ShortcutTour.constants';
-import type { MouseButton, ShortcutKey } from '../../../primitives';
+import type { MouseButton, ShortcutKey } from '../../../primitives/Shortcut';
 import type { KeyboardSize, KeyboardTarget } from '../../KeyboardLayout';
 import type { TourTarget } from '../ShortcutTour.type';
 

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives';
+import { Box } from '../../../primitives/Box';
 import type { SplitPaneSummaryProps } from './SplitPaneSummary.type';
 
 const SplitPaneSummary = ({ summary, header }: SplitPaneSummaryProps) => (

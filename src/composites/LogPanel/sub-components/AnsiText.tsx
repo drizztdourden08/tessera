@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Fragment, useMemo } from 'react';
-import { Span } from '../../../primitives';
+import { Span } from '../../../primitives/text-elements';
 import { ansiClass } from '../behavior/ansi-class';
 import { parseAnsi } from '../behavior/parse-ansi';
 import type { AnsiTextProps } from './AnsiText.type';

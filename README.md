@@ -14,7 +14,7 @@ import { Button } from '@drizztdourden08/tessera/primitives';
 import { DataTable } from '@drizztdourden08/tessera/composites';
 ```
 
-The colour pickers and the field kits have their own paths, `@drizztdourden08/tessera/color-picker`, `/color-picker-popover` and `/field-kits`, so an app that never uses them never loads them.
+The colour pickers and the field kits have their own paths, `@drizztdourden08/tessera/color-picker`, `/color-picker-popover` and `/field-kits`, so an app that never uses them never loads them. One component has a path too, such as `@drizztdourden08/tessera/primitives/Button` or `@drizztdourden08/tessera/composites/DataTable`, which loads that component and only what it uses. Test files should import that way, since the full barrels are about 5000 modules.
 
 An app's `theme.css` sets the palette seeds, unlayered, so they beat every Tessera layer:
 

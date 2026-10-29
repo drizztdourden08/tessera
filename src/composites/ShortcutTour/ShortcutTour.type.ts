@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { HTMLAttributes } from 'react';
-import type { MouseButton, ShortcutKey } from '../../primitives';
+import type { MouseButton, ShortcutKey } from '../../primitives/Shortcut';
 import type { KeyboardSize, KeyboardTarget, KeyRect } from '../KeyboardLayout';
 import type { MOUSE_TARGET } from './ShortcutTour.constants';
 
