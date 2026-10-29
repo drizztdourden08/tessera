@@ -7,4 +7,6 @@ const EDGE_SIZE = 32;
 
 const EDGE_SPEED = 18;
 
-export { EDGE_SIZE, EDGE_SPEED, KEY_ATTRIBUTE, THRESHOLD };
+const POPUP_SELECTOR = '[role="menu"], [role="dialog"], [role="listbox"], [role="tooltip"]';
+
+export { EDGE_SIZE, EDGE_SPEED, KEY_ATTRIBUTE, POPUP_SELECTOR, THRESHOLD };
