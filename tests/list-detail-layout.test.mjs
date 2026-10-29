@@ -200,6 +200,14 @@ describe('ListDetailLayout stacked state', () => {
     expect(rules).not.toContain('both .list-detail-layout__list');
   });
 
+  it('sizes the stacked list pane rows to the heading and the content, with no subgrid or shared row height', () => {
+    const rule = stacked.match(/\n\s+\.list-detail-layout__list \{([^}]*)\}/);
+    expect(rule).not.toBeNull();
+    expect(rule[1]).toMatch(/grid-template-rows: min-content minmax\(0, 1fr\);/);
+    expect(rule[1]).not.toContain('subgrid');
+    expect(stacked).not.toContain('subgrid');
+  });
+
   it('draws the list before the detail, with no Back, when the app gives no onBack', () => {
     const html = draw();
     expect(html).toContain('data-view="both"');

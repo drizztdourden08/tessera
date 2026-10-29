@@ -23,19 +23,20 @@ type ListDetailLayoutArgs = {
   startDetailCollapsed: boolean;
   narrow: boolean;
   docked: boolean;
+  titled: boolean;
 };
 
 const PICK = 'Pick a session to see who plays in it.';
 
 const ARGS: ListDetailLayoutArgs = {
   startSelected: true, emptyMessage: PICK, collapsible: true, startCollapsed: false,
-  ratio: false, detailCollapsible: false, startDetailCollapsed: false, narrow: false, docked: false,
+  ratio: false, detailCollapsible: false, startDetailCollapsed: false, narrow: false, docked: false, titled: false,
 };
 
 const LIST_RATIO = 0.6;
 
 const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
-  const { startSelected, emptyMessage, collapsible, startCollapsed, ratio, detailCollapsible, startDetailCollapsed, narrow, docked } = { ...ARGS, ...props };
+  const { startSelected, emptyMessage, collapsible, startCollapsed, ratio, detailCollapsible, startDetailCollapsed, narrow, docked, titled } = { ...ARGS, ...props };
   const [selectedId, setSelectedId] = useState<string | null>(startSelected ? SESSIONS[0].id : null);
   const selected = SESSIONS.find((s) => s.id === selectedId);
   return (
@@ -46,7 +47,7 @@ const LayoutDemo = (props: Partial<ListDetailLayoutArgs>) => {
         ))}</ListItemList> }]}
         detail={selected && <SessionDetail session={selected} />}
         listLabel="sessions"
-        listShowTitle={false}
+        listShowTitle={titled}
         emptyDetail={<EmptyState icon={<Icon name={NAV_ICONS.sessions} />} message={emptyMessage} />}
         onBack={() => setSelectedId(null)}
         collapsible={collapsible}
@@ -118,6 +119,11 @@ const Stacked = {
   render: () => <LayoutDemo startSelected={false} narrow />,
 } satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
 
+const StackedTitled = {
+  name: 'A small window with a list heading: the list sits right under the heading',
+  render: () => <LayoutDemo startSelected={false} narrow titled />,
+} satisfies StoryLiteStoryDefinition<ListDetailLayoutArgs>;
+
 const Docked = {
   name: 'A 950 px main area beside docked widgets: side by side, not stacked',
   render: () => <LayoutDemo docked />,
@@ -163,7 +169,7 @@ const Overview = overviewStory({
   ],
   instead: '[ListDetail] for an editor that asks before unsaved edits are lost, or [SplitPane] for two equal panes.',
   playground: Playground,
-  variants: [Resizable, Collapsed, RatioColumns, BothFoldable, BothListFolded, DetailFolded, Stacked, Docked, TableFill],
+  variants: [Resizable, Collapsed, RatioColumns, BothFoldable, BothListFolded, DetailFolded, Stacked, StackedTitled, Docked, TableFill],
   states: {
     render: renderState,
     list: [
@@ -175,4 +181,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { BothFoldable, BothListFolded, Collapsed, DetailFolded, Docked, Overview, Playground, RatioColumns, Resizable, Stacked, TableFill };
+export { BothFoldable, BothListFolded, Collapsed, DetailFolded, Docked, Overview, Playground, RatioColumns, Resizable, Stacked, StackedTitled, TableFill };

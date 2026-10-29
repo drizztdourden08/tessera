@@ -209,6 +209,10 @@
     flex: 1;
   }
 
+  .list-detail-layout__list {
+    grid-template-rows: min-content minmax(0, 1fr);
+  }
+
   .list-detail-layout__panes[data-view='both'] {
     overflow-y: auto;
   }
