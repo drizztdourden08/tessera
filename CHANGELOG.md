@@ -1,5 +1,16 @@
 # @drizztdourden08/tessera
 
+## 0.91.0
+
+### Minor Changes
+
+- 03f6d0c: `Tile` takes `mediaAspect`, a ratio such as `4/3` or `16/9` or a number, to shape its media; the default stays square. A `VirtualGrid` section takes `onDropData(dataTransfer)` and `accepts(dataTransfer)`, so its header takes a native drop of files or items from another widget with the same into mark and announcement, with or without `reorder`. `useNativeDragGhost()` makes `DragGhost` the drag image of a native drag and drop: its `onDragStart(event, { count, thumbnails })` draws the ghost off screen and calls `setDragImage`.
+- 28cbee8: A Toolbar separator takes a `priority`, and the items after it up to the next separator fold into More as one group, under that heading, so a group never splits across the bar and More. Without it the fold is unchanged. New pixel icons `pixel-ink-replace`, `pixel-ink-blend` and `pixel-symmetry-badge`. The Toolbar gets a brush picker story: a popover tool holding a ChoiceGrid of crisp brush cells with an Add from selection button, and `ChoiceGrid` documents the recipe.
+
+### Patch Changes
+
+- 463c4db: The primitives barrel is split into group barrels, one folder per gallery group such as `layout-exports` and `inputs-exports`, and `src/primitives/index.ts` re-exports them. Every name is still exported from `@drizztdourden08/tessera/primitives` and the package root. `tessera new primitive` writes the export into the barrel of the chosen group.
+
 ## 0.90.0
 
 ### Minor Changes
