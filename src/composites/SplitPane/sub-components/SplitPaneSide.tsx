@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind component */
-import { Box } from '../../../primitives';
+import { Box } from '../../../primitives/Box';
 import { PaneRail } from '../../pane-edge/PaneRail';
 import { isLined } from '../behavior/is-lined';
 import { paneClass } from '../behavior/pane-class';

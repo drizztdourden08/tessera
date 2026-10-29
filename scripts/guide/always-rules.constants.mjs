@@ -30,7 +30,7 @@ const ALWAYS_RULES = [
   },
   {
     title: 'Public imports only',
-    text: 'Import from the package root or one of its public subpaths, and nothing deeper:',
+    text: 'Import from the package root or one of its public subpaths, and nothing deeper. One component or hook folder also has a path of its own, such as `@drizztdourden08/tessera/primitives/Button` or `@drizztdourden08/tessera/composites/DataTable`, which loads that folder and what it uses, not the whole tier. A test file or a small module should import that way. The subpaths:',
   },
 ];
 

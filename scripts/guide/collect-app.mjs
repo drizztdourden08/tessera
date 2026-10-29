@@ -49,7 +49,7 @@ const collectApp = async (config) => {
   const findings = [
     ...duplicateParts(found), ...strays, ...trees.problems, ...programs.problems,
     ...usageFindings(components, context),
-    ...programs.programs.flatMap((program) => checkExamples(program, { packageName: PACKAGE_NAME, specifiers: tessera.specifiers, relative: true })),
+    ...programs.programs.flatMap((program) => checkExamples(program, { packageName: PACKAGE_NAME, specifiers: tessera.specifiers, patterns: tessera.patterns, relative: true })),
     ...placeLeaves(checkCoverage(components, trees.appLeaves), trees),
   ];
   return { config, scopes, tessera, tree: trees.tree, leaves: trees.appLeaves, sources: trees.sources, components, findings };

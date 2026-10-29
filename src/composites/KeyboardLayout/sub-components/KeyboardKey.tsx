@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
-import { Box, Shortcut } from '../../../primitives';
+import { Box } from '../../../primitives/Box';
+import { Shortcut } from '../../../primitives/Shortcut';
 import { cssVars } from '../behavior/css-vars';
 import type { KeyboardKeyProps } from './KeyboardKey.type';
 

@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind component */
-import { Box, Span, Text } from '../../../primitives';
+import { Box } from '../../../primitives/Box';
+import { Span } from '../../../primitives/text-elements';
+import { Text } from '../../../primitives/Text';
 import { REVIEW_MASK } from '../../../primitives/dom/review-mask.constants';
 import { logInk } from '../behavior/log-ink';
 import { lineTones } from '../behavior/line-tones';

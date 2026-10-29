@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind util */
-import { KEY_SPECS, MOUSE_SPECS } from '../../../primitives';
-import type { KeyName, MouseButton, ShortcutKey } from '../../../primitives';
+import { KEY_SPECS, MOUSE_SPECS } from '../../../primitives/Shortcut';
+import type { KeyName, MouseButton, ShortcutKey } from '../../../primitives/Shortcut';
 
 const isKeyName = (key: string): key is KeyName => Object.hasOwn(KEY_SPECS, key);
 
