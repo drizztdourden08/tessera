@@ -23,6 +23,7 @@ interface RowFeatureProps<T> {
   groupActions?: (groupKey: string, rows: readonly T[]) => readonly ActionItem[];
   onRowMove?: (fromKey: string, target: RowMoveTarget) => void;
   rowDragData?: (row: T) => Record<string, string>;
+  rowRef?: (row: T, key: string) => Ref<HTMLElement>;
   scrollRef?: Ref<HTMLElement>;
   bind?: DataTableBind;
   overlay?: ReactNode;

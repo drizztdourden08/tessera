@@ -20,6 +20,7 @@ interface UseRowContextInput<T> {
   resolveIdRefHref?: IdRefHrefResolver;
   reorder?: RowReorderBinding | null;
   rowDragData?: RowFeatureProps<T>['rowDragData'];
+  rowRef?: RowFeatureProps<T>['rowRef'];
   groupActions?: RowFeatureProps<T>['groupActions'];
   renderCell?: RowRenderContext<T>['renderCell'];
   rowState?: RowRenderContext<T>['rowState'];

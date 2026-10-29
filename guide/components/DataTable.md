@@ -39,6 +39,7 @@ DataTable gives every collection the same columns, menus and grouping, and draws
 - Pass groupActions(groupKey, rows) to draw icon buttons at the end of a group header, as the same action list as an ItemCard; rows holds every row of the group, collapsed or not, so select all in this folder needs no lookup.
 - Pass onRowMove(fromKey, target) to add a grip cell; the user drags the grip or presses Up or Down on it. target is index, the new place among the rows shown, beforeKey and afterKey, the rows the drop lands before and after, and groupKey, the group it lands in, none when ungrouped; use the keys and groupKey for grouped data, since a shown index does not map to it. A drop in another group arrives even when the order of the rows is unchanged.
 - Pass rowDragData(row) to make rows draggable to a drop target of the app; each entry of the record is written to the dataTransfer by type, and the app decides what a drop means.
+- Pass rowRef(row, key) to get the element of each drawn row, such as to make it a source of your own drag system; return a callback ref or an object ref, and it receives the element when the row is drawn and null when the row scrolls out or leaves, so rows of a long table attach and release as they scroll.
 - Pass renderCell(row, path) to draw a cell yourself, such as a thumbnail beside a name; return undefined to keep the schema rendering of that cell.
 - A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.
 - Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.
@@ -127,6 +128,7 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
 - `groupActions` (optional): `(groupKey: string, rows: readonly T[]) => readonly ActionItem[]`.
 - `onRowMove` (optional): `(fromKey: string, target: RowMoveTarget) => void`.
 - `rowDragData` (optional): `(row: T) => Record<string, string>`.
+- `rowRef` (optional): `(row: T, key: string) => Ref<HTMLElement>`.
 - `scrollRef` (optional): `Ref<HTMLElement>`.
 - `bind` (optional): `DataTableBind`.
 - `overlay` (optional): `ReactNode`.
