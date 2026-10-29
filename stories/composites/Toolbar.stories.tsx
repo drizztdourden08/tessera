@@ -4,8 +4,10 @@ import { Box } from '../../src/primitives';
 import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
+import { ToolbarBrushDemo } from './_samples/ToolbarBrushDemo';
 import { ToolbarDemo } from './_samples/ToolbarDemo';
 import { ToolbarEdgeDemo } from './_samples/ToolbarEdgeDemo';
+import { ToolbarGroupsDemo } from './_samples/ToolbarGroupsDemo';
 import { ToolbarKindsDemo } from './_samples/ToolbarKindsDemo';
 import { TOOLBAR_ARG_TYPES, TOOLBAR_ARGS, TOOLBAR_CODE } from './_samples/toolbar-story.constants';
 import type { ToolbarArgs } from './_samples/toolbar-story.type';
@@ -114,6 +116,16 @@ const Priority = {
   ),
 } satisfies StoryLiteStoryDefinition<ToolbarArgs>;
 
+const GroupFold = {
+  name: 'Group fold: priority on a named separator folds the whole group into More, never half of it',
+  render: () => <ToolbarGroupsDemo />,
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
+const BrushPicker = {
+  name: 'Brush picker: a popover tool holds a ChoiceGrid of crisp brushes, with Add from selection in its footer',
+  render: () => <ToolbarBrushDemo />,
+} satisfies StoryLiteStoryDefinition<ToolbarArgs>;
+
 const HiddenItems = {
   name: 'Hidden items: the Eraser, Fill and the Grid are left out, and the separators close up',
   render: () => <ToolbarDemo hiddenItems={['eraser', 'bucket', 'grid']} />,
@@ -156,13 +168,13 @@ const Overview = overviewStory({
     '`items` come from data: `button`, `toggle`, `group`, `number`, `popover` and `separator`, in any order.',
     'A bar shows an optional `caption` beside the icon unless `labels` is off; `layout="list"` makes labelled rows.',
     '`options` on a button or toggle open a [DropdownMenu] on hover, or on click with `openOn`.',
-    'Items that do not fit fold into More, lowest `priority` first; `columns` wraps a column into two first.',
+    'Items that do not fit fold into More, lowest `priority` first; on a separator it folds a group whole.',
     'A `group` can fold into one menu button or a slot; `openOn` hold opens a menu on a press and a drag picks.',
     '`badge`, `borrowed`, named separators, `keyBadges` and `inlineOptions` are opt-in; the defaults stay.',
   ],
   instead: '[ActionBar] for the buttons of one item, or [DropdownMenu] for actions that need no button of their own.',
   playground: Playground,
-  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List, RightEdge, Columns, Priority, HiddenItems, ContextMenu, ItemKinds, KeyBadges, InlineOptions],
+  variants: [Horizontal, Vertical, Overflow, Plain, PixelIcons, NodeIcon, ClickOpen, TwoShortcuts, List, RightEdge, Columns, Priority, GroupFold, BrushPicker, HiddenItems, ContextMenu, ItemKinds, KeyBadges, InlineOptions],
   states: {
     render: (props: StateProps) => <ToolbarDemo {...props} />,
     list: [
@@ -177,5 +189,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  ClickOpen, Columns, ContextMenu, HiddenItems, Horizontal, InlineOptions, ItemKinds, KeyBadges, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, Priority, RightEdge, TwoShortcuts, Vertical,
+  BrushPicker, ClickOpen, Columns, ContextMenu, GroupFold, HiddenItems, Horizontal, InlineOptions, ItemKinds, KeyBadges, List, NodeIcon, Overflow, Overview, PixelIcons, Plain, Playground, Priority, RightEdge, TwoShortcuts, Vertical,
 };

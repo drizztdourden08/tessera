@@ -37,6 +37,7 @@ ChoiceGrid is the strip or grid of cells where one is picked; draw each cell as 
 - Spread state.props from renderCell onto the cell you draw, such as a ColorSwatch with focusRing apart, so it keeps the role, the name and the Tab stop.
 - PickOnRelease picks on the pointer up over a cell, even when the press started elsewhere, so a palette opened at a point picks by release.
 - Footer takes an add button or a hint under the cells. A ramp strip is a ChoiceGrid of ColorSwatch cells.
+- A brush or pattern picker is a Toolbar popover item whose render returns a ChoiceGrid with columns. Draw each cell as an Image with fit integer and pixelated, or a small Svg grid, so the preview stays crisp, and put an Add from selection Button in footer.
 
 ## Accessibility
 

@@ -1,12 +1,19 @@
 /* @layer renderer-components @kind util */
 import type { ToolbarItem, ToolbarSplit } from '../Toolbar.type';
 import { itemPriorities } from './item-priorities';
+import { itemUnits } from './item-units';
 import { tidySeparators } from './tidy-separators';
 
 const keptIndices = (items: readonly ToolbarItem[], count: number): ReadonlySet<number> => {
   const priorities = itemPriorities(items);
-  const order = items.map((_item, index) => index).sort((left, right) => (priorities[right] ?? 0) - (priorities[left] ?? 0) || left - right);
-  return new Set(order.slice(0, count));
+  const priorityOf = (unit: readonly number[]): number => priorities[unit[0] ?? 0] ?? 0;
+  const units = itemUnits(items).sort((left, right) => priorityOf(right) - priorityOf(left) || (left[0] ?? 0) - (right[0] ?? 0));
+  const kept = new Set<number>();
+  for (const unit of units) {
+    if (kept.size + unit.length > count) break;
+    for (const index of unit) kept.add(index);
+  }
+  return kept;
 };
 
 const splitItems = (items: readonly ToolbarItem[], fit: number): ToolbarSplit => {

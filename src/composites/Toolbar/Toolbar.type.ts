@@ -113,6 +113,7 @@ interface ToolbarSeparator {
   kind: 'separator';
   id: string;
   label?: string;
+  priority?: number;
 }
 
 type ToolbarItem = ToolbarButton | ToolbarToggle | ToolbarChoices | ToolbarNumber | ToolbarPopover | ToolbarSeparator;
