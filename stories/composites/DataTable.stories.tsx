@@ -17,6 +17,7 @@ import { DataTableGroupActions } from './_samples/DataTableGroupActions';
 import { DataTableNoFooter } from './_samples/DataTableNoFooter';
 import { DataTableRowDrag } from './_samples/DataTableRowDrag';
 import { DataTableRowMarquee } from './_samples/DataTableRowMarquee';
+import { DataTableRowRef } from './_samples/DataTableRowRef';
 import { DataTableRowStates } from './_samples/DataTableRowStates';
 import { DataTableThumbnail } from './_samples/DataTableThumbnail';
 import { DataTableUnits } from './_samples/DataTableUnits';
@@ -117,6 +118,11 @@ const RowDrag = {
   render: () => <DataTableRowDrag />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
+const RowRef = {
+  name: 'Row ref: every drawn row becomes a typed drag source of the host',
+  render: () => <DataTableRowRef />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
 const RowMarquee = {
   name: 'Marquee over rows, in groups, with rows drawn as you scroll',
   render: () => <DataTableRowMarquee />,
@@ -202,7 +208,7 @@ const Overview = overviewStory({
     'Column menus sort, group, rename, resize and remove columns; `viewKey` keeps the layout between visits.',
     '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
     '`defaultExpanded` picks open groups, `virtualizeFrom` limits drawn rows, `footer={false}` hides the footer.',
-    '`groupActions` adds header buttons; `onRowMove` and `rowDragData` move rows; `getRects` feeds a marquee.',
+    '`groupActions` adds header buttons; `onRowMove`, `rowDragData`, `rowRef` move rows; `getRects` feeds a marquee.',
     '`renderCell`, `rowState` (fresh, edge), `rowHeight`, `headerCase` shape it; `renderDetail` adds a panel.',
   ],
   instead: '[ListItemRow] for a short list of rich rows with no columns to sort.',
@@ -223,5 +229,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, FreshRows, GroupActions, LongGroups, NoFooter, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail, Units,
+  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, FreshRows, GroupActions, LongGroups, NoFooter, Overview, Players, References, RowDrag, RowMarquee, RowRef, RowStates, Thumbnail, Units,
 };

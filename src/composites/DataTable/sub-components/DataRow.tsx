@@ -5,6 +5,7 @@ import { guardCellControl } from '../../../primitives/dom/guard-cell-control';
 import { placeProps } from '../behavior/place-props';
 import { rowAttrs } from '../behavior/row-attrs';
 import { rowCell } from '../behavior/row-cell';
+import { useRowRef } from '../behavior/useRowRef';
 import { DataCell } from './DataCell';
 import { RowGrip } from './RowGrip';
 import { SelectCell } from './SelectCell';
@@ -15,9 +16,11 @@ const DataRow = <T,>(props: DataRowProps<T>) => {
   const { row, context, index } = props;
   const {
     columns, draggingPath, getRowId, selectedId, onSelect, selection, onCellDragOver, onCellDrop, reorder,
+    rowRef,
   } = context;
   const { table } = useTesseraStrings();
   const id = getRowId(row);
+  const ref = useRowRef({ rowRef, row, id });
   const selected = selection ? selection.isSelected(id) : selectedId === id;
   const handleClick = guardCellControl(selection
     ? (event: MouseEvent<HTMLElement>) => selection.onRowClick(id, event)
@@ -27,6 +30,7 @@ const DataRow = <T,>(props: DataRowProps<T>) => {
   return (
     <Box
       {...placeProps(selected ? 'data-table__row data-table__row--selected' : 'data-table__row', index, true)}
+      ref={ref}
       role="row"
       aria-selected={selected}
       onClick={handleClick}

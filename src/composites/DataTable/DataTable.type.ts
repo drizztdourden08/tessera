@@ -126,6 +126,7 @@ interface RowRenderContext<T> {
   onCellDrop?: (index: number, event: DragEvent<HTMLElement>) => void;
   reorder?: RowReorderBinding | null;
   rowDragData?: RowFeatureProps<T>['rowDragData'];
+  rowRef?: RowFeatureProps<T>['rowRef'];
   groupActions?: RowFeatureProps<T>['groupActions'];
   renderCell?: DataTableProps<T>['renderCell'];
   rowState?: DataTableProps<T>['rowState'];
