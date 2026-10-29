@@ -40,7 +40,7 @@ Toolbar is the set of tools of an editor, with a hint on each and options beside
 - A separator can take a label. A list draws it as a heading, a horizontal bar with labels on draws it beside the line, and More uses it as the heading of the folded group.
 - KeyBadges draws the key of a tool on its button. It is off by default, only a vertical bar uses it, and only a shortcut of one key shows. It is the one place a shortcut sits on a button, so leave it off unless the product asks for it.
 - InlineOptions in a list opens the options of the pressed item under its row instead of in a menu.
-- A number item takes fineStep, ladder, presets, suffix, scrub, showLabel and mixed, and draws a NumberField; the wheel steps it while it has focus.
+- A number item takes fineStep, ladder, presets, suffix, scrub, showLabel and mixed, and draws a NumberField; the wheel steps it while it has focus. With showLabel the field sizes to its label and the widest value that min, max and step allow, so a short bar folds it into More instead of squeezing it.
 - Orientation horizontal shows the optional caption beside the icon; vertical shows icons only. The hint always carries the name, the description and the shortcut.
 - Labels false hides the caption in a horizontal bar, so it shows icons only. It defaults to true. A ToolbarDock passes its value for the toolbar in the render slot.
 - Icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.
@@ -107,4 +107,4 @@ const ToolRail = ({ tool, pick, undo }: ToolRailProps) => {
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-surface`, `--c-text-dim`, `--control-pad-sm`, `--radius-md`, `--shadow-overlay`, `--size-2`, `--size-4`, `--size-48`, `--size-96`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`.
+It draws on `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-surface`, `--c-text-dim`, `--control-pad-inline`, `--control-pad-sm`, `--radius-md`, `--shadow-overlay`, `--size-2`, `--size-4`, `--size-48`, `--size-96`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`.
