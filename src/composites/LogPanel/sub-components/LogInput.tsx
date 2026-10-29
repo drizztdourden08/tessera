@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind component */
-import { Box, Span, TextInput } from '../../../primitives';
+import { Box } from '../../../primitives/Box';
+import { Span } from '../../../primitives/text-elements';
+import { TextInput } from '../../../primitives/TextInput';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { useLogInput } from '../behavior/useLogInput';
 import { NO_INPUT } from './LogInput.constants';

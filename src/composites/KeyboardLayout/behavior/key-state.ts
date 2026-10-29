@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind util */
-import type { ShortcutState } from '../../../primitives';
+import type { ShortcutState } from '../../../primitives/Shortcut';
 import type { PlacedKey } from '../KeyboardLayout.type';
 
 const keyState = (key: PlacedKey, lit: ReadonlySet<string>, down: ReadonlySet<string>): ShortcutState => {

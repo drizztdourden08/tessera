@@ -10,11 +10,11 @@ const diagnosticText = (diagnostic) => {
   return `line ${line + 1}: ${text}`;
 };
 
-const importProblems = (source, { packageName, specifiers, relative }) =>
+const importProblems = (source, { packageName, specifiers, patterns = [], relative }) =>
   source.statements
     .filter((statement) => ts.isImportDeclaration(statement) && ts.isStringLiteral(statement.moduleSpecifier))
     .map((statement) => statement.moduleSpecifier.text)
-    .filter((spec) => (spec.startsWith('.') && !relative) || (spec.startsWith(packageName) && !specifiers.has(spec)))
+    .filter((spec) => (spec.startsWith('.') && !relative) || (spec.startsWith(packageName) && !specifiers.has(spec) && !patterns.some((pattern) => pattern.test(spec))))
     .map((spec) => `imports ${spec}; import from the package root or a public subpath`);
 
 const checkExamples = ({ program, exampleFiles }, imports) =>
