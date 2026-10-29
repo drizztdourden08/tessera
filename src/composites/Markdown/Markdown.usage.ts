@@ -30,6 +30,9 @@ const usage = {
     'Pass onImage to make each drawn image a button, focusable and pressed with Enter or Space, named by its alt text; it gets { src, alt }, so the app can open a lightbox. Without it images stay inert.',
     'Control characters (except tab and line breaks), private-use characters and lone surrogates are removed from the source before it is parsed; emoji and normal text stay.',
     'Pass linkIds, a rule or a list of rules with a pattern and an href function, so plain ids such as T-5 become links; they are made in text only, never in code or inside a link.',
+    'Set linkTone to neutral to draw links, such as the ids made by linkIds, in the text colour with an underline instead of the link accent; the other link tones are available too.',
+    'Set idLinkTone to give the links made by linkIds their own tone, such as neutral for ids while web links keep linkTone; without it ids follow linkTone.',
+    'Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; it works in text only, never in code, a link or a hex value such as 0x1F, and no other punctuation changes.',
     'A link that starts with a slash, such as /files/notes.md, is an app path: it is kept only when onLink is passed, and goes to onLink like any link.',
     'Whatever an href function gives still has to be an http, https or mailto address, or an app path with onLink; javascript addresses are always dropped, and data addresses only pass as the image types above.',
   ],
@@ -50,7 +53,7 @@ const UpdateNotes = ({ source, openExternal }: { source: string; openExternal: (
   <Markdown source={source} size="sm" headingOffset={2} hideTitle onLink={openExternal} />
 );
 `,
-  propsHash: 'b387c91de8011e9c',
+  propsHash: '04caf6341bd65294',
 } satisfies ComponentUsage;
 
 export { usage };

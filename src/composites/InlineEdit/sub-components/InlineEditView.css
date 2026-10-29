@@ -9,6 +9,12 @@
   text-align: start;
 }
 
+.inline-edit__view--dense {
+  box-sizing: border-box;
+  block-size: var(--size-24);
+  padding-block: 0;
+}
+
 .inline-edit__view:hover:not(:disabled) {
   background: var(--c-surface);
 }
@@ -35,6 +41,17 @@
 .inline-edit__view:hover .inline-edit__pen,
 .inline-edit__view:focus-visible .inline-edit__pen {
   opacity: 1;
+}
+
+.inline-edit__view--link .inline-edit__text {
+  font-style: italic;
+  text-decoration: underline dashed;
+  text-decoration-color: var(--c-border-strong);
+  text-underline-offset: var(--space-2xs);
+}
+
+.inline-edit__view--link:hover:not(:disabled) .inline-edit__text {
+  text-decoration-color: currentcolor;
 }
 
 .inline-edit__text--drawn {

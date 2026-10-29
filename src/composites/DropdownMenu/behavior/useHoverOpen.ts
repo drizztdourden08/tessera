@@ -7,7 +7,7 @@ import type { MenuHover } from '../DropdownMenu.type';
 import type { HoverOpenParams } from './useHoverOpen.type';
 
 const useHoverOpen = (params: HoverOpenParams): MenuHover => {
-  const { open, byHover, anchorRef, onOpen, onClose, enabled = true } = params;
+  const { open, byHover, anchorRef, onOpen, onClose, enabled = true, delay = HOVER_OPEN_DELAY } = params;
   const [inside, setInside] = useState(false);
   const [wasOpen, setWasOpen] = useState(open);
   if (wasOpen !== open) {
@@ -16,7 +16,7 @@ const useHoverOpen = (params: HoverOpenParams): MenuHover => {
   }
 
   const focusInMenu = (): boolean => ownerDocumentOf(anchorRef.current).activeElement?.closest(SURFACE_SELECTOR) != null;
-  useHeldTimeout(!enabled || !inside || open, HOVER_OPEN_DELAY, onOpen);
+  useHeldTimeout(!enabled || !inside || open, delay, onOpen);
   useHeldTimeout(!enabled || !byHover || !open || inside, HOVER_CLOSE_GRACE, () => {
     if (!focusInMenu()) onClose();
   });

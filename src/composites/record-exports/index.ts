@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind barrel */
 export { FilterBar } from '../FilterBar';
-export type { FilterBarProps } from '../FilterBar';
+export type { FilterBarProps, FilterTokenParser } from '../FilterBar';
 export { IDENTITY_PATH, RecordEditor, ReferencedBy } from '../RecordEditor';
 export type {
   EditorGroupModel, IdRefOption, IdRefOptionResolver, NumberBounds, NumberBoundsResolver,

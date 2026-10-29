@@ -4,6 +4,7 @@ import type {
   FieldOf, ListboxColumn, ListboxFieldProps, ListboxLook, ListboxValueProps, ValueDisplay, ValueOf,
 } from '../listbox/listbox.type';
 import type { ControlSize } from '../field-control/field-control.type';
+import type { FieldWidth } from '../field-control/field-width.type';
 
 interface SelectOption {
   value: string;
@@ -22,6 +23,7 @@ type MultiDisplay = 'count' | 'tags';
 
 interface SelectLookProps extends ListboxFieldProps {
   searchable?: boolean;
+  mixed?: boolean;
   multiDisplay?: MultiDisplay;
 }
 
@@ -51,6 +53,7 @@ type SelectProps<T = string, F extends FieldOf<T> = never> = SelectItemsProps<T,
 interface NativeSelectProps extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'size'> {
   size?: ControlSize;
   grow?: boolean;
+  width?: FieldWidth;
 }
 
 export type {

@@ -11,8 +11,10 @@ import { resolveSlotDefault } from './_samples/data-hints';
 import { DataTableCellControls } from './_samples/DataTableCellControls';
 import { DataTableControlled } from './_samples/DataTableControlled';
 import { DataTableDetailConfirm } from './_samples/DataTableDetailConfirm';
+import { DataTableFreshRows } from './_samples/DataTableFreshRows';
 import { DataTableDetailForm } from './_samples/DataTableDetailForm';
 import { DataTableGroupActions } from './_samples/DataTableGroupActions';
+import { DataTableNoFooter } from './_samples/DataTableNoFooter';
 import { DataTableRowDrag } from './_samples/DataTableRowDrag';
 import { DataTableRowMarquee } from './_samples/DataTableRowMarquee';
 import { DataTableRowStates } from './_samples/DataTableRowStates';
@@ -130,6 +132,11 @@ const CellControls = {
   render: () => <DataTableCellControls />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
+const NoFooter = {
+  name: 'No footer: footer false hides the count, the summary line and the options menu',
+  render: () => <DataTableNoFooter />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
 const Units = {
   name: 'Numbers with a unit: 12.4 MB, sorted as numbers',
   render: () => <DataTableUnits />,
@@ -138,6 +145,11 @@ const Units = {
 const RowStates = {
   name: 'Row states: active, pending, error and muted',
   render: () => <DataTableRowStates />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const FreshRows = {
+  name: 'Fresh rows and capital headers',
+  render: () => <DataTableFreshRows />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
 const Controlled = {
@@ -189,13 +201,13 @@ const Overview = overviewStory({
     'Give it `rows`, a `schema` and `getRowId`; columns follow the schema, and a number can carry a `unit`.',
     'Column menus sort, group, rename, resize and remove columns; `viewKey` keeps the layout between visits.',
     '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
-    '`defaultExpanded` picks the groups that start open; `virtualizeFrom` draws only the rows in view.',
+    '`defaultExpanded` picks open groups, `virtualizeFrom` limits drawn rows, `footer={false}` hides the footer.',
     '`groupActions` adds header buttons; `onRowMove` and `rowDragData` move rows; `getRects` feeds a marquee.',
-    '`renderCell`, `rowState` (with warning), `rowHeight` shape rows; `renderDetail` adds a panel; you own `sort`.',
+    '`renderCell`, `rowState` (fresh, edge), `rowHeight`, `headerCase` shape it; `renderDetail` adds a panel.',
   ],
   instead: '[ListItemRow] for a short list of rich rows with no columns to sort.',
   playground: Players,
-  variants: [AllVariants],
+  variants: [AllVariants, NoFooter],
   states: {
     render: renderState,
     list: [
@@ -211,5 +223,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, GroupActions, LongGroups, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail, Units,
+  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, FreshRows, GroupActions, LongGroups, NoFooter, Overview, Players, References, RowDrag, RowMarquee, RowStates, Thumbnail, Units,
 };

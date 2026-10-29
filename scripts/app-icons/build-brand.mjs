@@ -30,7 +30,7 @@ const buildBrand = async (root, id, loaded) => {
   const write = writer(root);
   for (const folder of OUTPUT_FOLDERS) rmSync(join(root, 'brand', id, folder), { recursive: true, force: true });
   const mark = markArt(brand.mark);
-  const dark = groundArt(brand, loaded, 'dark');
+  const dark = groundArt(loaded.drawn[id], loaded, 'dark');
   const face = brand.iconMark ? markArt(brand.iconMark) : undefined;
   const written = [write(`${id}.svg`, artFile(mark, brand.name))];
   if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, mark, dark.mark, face)));

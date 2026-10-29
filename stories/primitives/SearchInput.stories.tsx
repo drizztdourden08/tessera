@@ -10,6 +10,7 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { PresetFilter, StatefulSearch } from './_samples/search-input-demos';
+import { NarrowFillSearch, NarrowSearch } from './_samples/width-demos';
 import { SearchToolbar } from './_samples/SearchToolbar';
 import './SearchInput.stories.css';
 
@@ -68,6 +69,16 @@ const InToolbar = {
   render: () => <SearchToolbar />,
 } satisfies StoryLiteStoryDefinition<SearchInputArgs>;
 
+const NarrowWidth = {
+  name: 'width narrow: a 220 px field',
+  render: () => <NarrowSearch />,
+} satisfies StoryLiteStoryDefinition<SearchInputArgs>;
+
+const FillNarrow = {
+  name: 'width narrow-fill: fills a narrow row',
+  render: () => <NarrowFillSearch />,
+} satisfies StoryLiteStoryDefinition<SearchInputArgs>;
+
 const renderState = (props: StateProps) => <SearchInput value={props.disabled === true ? 'Hyrule Castle' : ''} onChange={() => undefined} {...props} />;
 
 const CODE = `import { useState } from 'react';
@@ -84,13 +95,12 @@ const Overview = overviewStory({
     'Use it in a filter bar, a palette or a nav.',
     'The clear button shows once there is a query, empties it and keeps the focus in the field.',
     '[[Esc]] empties it too; a host that handles Esc itself calls `preventDefault` to keep the query.',
-    '`value` and `onChange` hand the query as a string.',
-    '`start` swaps the search icon for another mark.',
-    '`grow={false}` keeps a set width that can shrink, to sit on one line with other tools in a toolbar.',
+    '`value` and `onChange` hand the query as a string; `start` swaps the search icon for another mark.',
+    '`grow={false}` keeps a set width; `width="narrow"` is 220 px and `narrow-fill` fills the row under 420 px.',
   ],
   instead: '[Combobox] when typing picks from a list.',
   playground: Playground,
-  variants: [Sizes, ClearButton, Filtering, InToolbar],
+  variants: [Sizes, ClearButton, Filtering, InToolbar, NarrowWidth, FillNarrow],
   states: {
     render: renderState,
     list: [
@@ -105,4 +115,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { ClearButton, Filtering, InToolbar, Overview, Playground, Sizes };
+export { ClearButton, FillNarrow, Filtering, InToolbar, NarrowWidth, Overview, Playground, Sizes };

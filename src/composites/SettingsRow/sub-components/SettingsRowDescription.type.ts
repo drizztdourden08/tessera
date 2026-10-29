@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { FoldOverflow } from '../../../primitives/fold-text/fold-text.type';
+import type { FoldOverflow } from '../../../primitives/FoldText';
 
 interface SettingsRowDescriptionProps {
   text: string;

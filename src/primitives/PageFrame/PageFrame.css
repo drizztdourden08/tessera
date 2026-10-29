@@ -4,6 +4,10 @@
   padding: var(--space-xl);
 }
 
+.page-frame[data-padding='md'] {
+  padding: var(--space-lg);
+}
+
 .page-frame[data-fill='true'] {
   block-size: 100%;
 }

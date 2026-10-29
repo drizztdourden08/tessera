@@ -66,6 +66,21 @@ const Variants = {
   ),
 } satisfies StoryLiteStoryDefinition<SectionHeaderArgs>;
 
+const LONG_TITLE = 'Randomizer seeds shared by the whole racing group this season, kept until the next reset';
+
+const LargeAndWrapping = {
+  name: 'Large title, with the count inline and a long title wrapping',
+  render: () => (
+    <Demonstrator
+      rows={axis(['one line', 'wraps with its count'])}
+      align="stretch"
+      cell={(kind) => (kind === 'one line'
+        ? <SectionHeader size="lg" title="Overview" count={12} />
+        : <Box className="story-column"><SectionHeader size="lg" wrap title={LONG_TITLE} count={12} /></Box>)}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<SectionHeaderArgs>;
+
 const InAPanel = {
   name: 'Heading a settings panel',
   render: () => (
@@ -94,11 +109,12 @@ const Overview = overviewStory({
     '`subtitle` sits beneath the title.',
     '`count` draws a [Badge] after the title, outside the title text; `hideZero` hides a count of 0.',
     'The title is a heading, `h3` unless `level` says otherwise.',
+    '`size="lg"` sets a larger plain title; `wrap` lets a long title wrap with its count inline.',
     '`action` sits on the right and takes anything, most often a button or a [Status].',
   ],
   playground: Playground,
-  variants: [Variants],
+  variants: [Variants, LargeAndWrapping],
 });
 
 export default meta;
-export { InAPanel, Overview, Playground, Variants };
+export { InAPanel, LargeAndWrapping, Overview, Playground, Variants };

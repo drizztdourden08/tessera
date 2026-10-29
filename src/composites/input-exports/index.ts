@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind barrel */
-export { AnchorPicker, type Anchor, type AnchorPickerProps, type AnchorPickerVariant } from '../AnchorPicker';
+export { SplitButton, type SplitButtonProps } from '../SplitButton';
+export { AnchorPicker, type Anchor, type AnchorPickerProps, type AnchorPickerSize, type AnchorPickerVariant, type AnchorValue } from '../AnchorPicker';
+export { ChoiceGrid, type ChoiceCell, type ChoiceCellProps, type ChoiceCellState, type ChoiceGridProps, type ChoiceRole, type ChoiceSection } from '../ChoiceGrid';
 export { SettingsRow } from '../SettingsRow';
 export type {
   SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsLoadProblem, SettingsOption, SettingsRowAction,
@@ -11,7 +13,7 @@ export { SettingsPage, type SettingsPageAnchor, type SettingsPageProps, type Set
 export { InlineCreateForm } from '../InlineCreateForm';
 export type { InlineCreateFormProps } from '../InlineCreateForm';
 export { InlineEdit } from '../InlineEdit';
-export type { InlineEditProps } from '../InlineEdit';
+export type { InlineEditLook, InlineEditProps } from '../InlineEdit';
 export { KeyValueEditor } from '../KeyValueEditor';
 export type { KeyValueEditorProps, KeyValueEntry, KeyValueKind, KeyValueRecord } from '../KeyValueEditor';
 export { FormRow } from '../FormRow';
@@ -22,3 +24,7 @@ export { PasswordInput, type PasswordInputProps, type PasswordMode, type Passwor
 export { namespacedTag, TagInput, type TagAdvice, type TagInputProps, type TagValidationResult, type TagValidator } from '../TagInput';
 export { MarkdownEditor, type MarkdownEditorActionId, type MarkdownEditorLayout, type MarkdownEditorProps } from '../MarkdownEditor';
 export { PathInput,type PathBrowse, type PathInputProps, type PathKind } from '../PathInput';
+export { NumberField } from '../NumberField';
+export type { NumberFieldProps, NumberPreset, NumberPresetInput } from '../NumberField';
+export { AngleField } from '../AngleField';
+export type { AngleFieldProps } from '../AngleField';

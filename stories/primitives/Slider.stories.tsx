@@ -133,6 +133,35 @@ const WithInput = {
   render: () => <Box className="story-column"><WithInputDemo /></Box>,
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
+const CHANNEL_TRACKS: Readonly<Record<string, string>> = {
+  Red: 'linear-gradient(to right, #000000, #ff0000)',
+  Hue: 'linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000)',
+};
+
+const ChannelTracksDemo = () => {
+  const [values, setValues] = useState<Readonly<Record<string, number>>>({ Red: 120, Hue: 200 });
+  return (
+    <Box className="story-column">
+      {Object.entries(CHANNEL_TRACKS).map(([name, gradient]) => (
+        <Slider
+          key={name}
+          label={name}
+          min={0}
+          max={name === 'Hue' ? 360 : 255}
+          value={values[name]}
+          onChange={(next) => setValues({ ...values, [name]: next })}
+          trackBackground={gradient}
+        />
+      ))}
+    </Box>
+  );
+};
+
+const ChannelTrack = {
+  name: 'A gradient as the track',
+  render: () => <ChannelTracksDemo />,
+} satisfies StoryLiteStoryDefinition<SliderArgs>;
+
 const BALANCING_ROWS: Readonly<Record<string, ReactNode>> = {
   'A named value': <BalancingSlider start={50} />,
   'Any value between': <BalancingSlider start={65} />,
@@ -176,13 +205,13 @@ const Overview = overviewStory({
     'One thumb gives a number and `range` a low and high pair; `stops` names positions, and the value is an index.',
     'With one thumb, `orientation="vertical"` stands it upright, the low end at the bottom and the value on top.',
     '`labels` writes labels under the track; [ScaleLabels] lists the whole rule syntax.',
-    '`formatValue` sets how the value reads, and `keyStep` sets a coarser stride for the arrow keys.',
+    '`formatValue` sets how the value reads, `keyStep` the arrow key stride, `trackBackground` the track image.',
     'It runs controlled with `value` and `onChange`, or on its own from `defaultValue`.',
     '`input` puts a [NumberInput] at its end, for an exact value such as one between two named `labels`.',
   ],
   instead: '[VolumeControl] for a volume slider with a mute button.',
   playground: Playground,
-  variants: [Kinds, Stops, Labels, Balancing, Upright, Sizes, WithInput],
+  variants: [Kinds, Stops, Labels, Balancing, Upright, Sizes, WithInput, ChannelTrack],
   states: {
     render: renderState,
     list: [
@@ -196,4 +225,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Balancing, Kinds, Labels, Overview, Playground, Sizes, Stops, Upright, WithInput };
+export { Balancing, ChannelTrack, Kinds, Labels, Overview, Playground, Sizes, Stops, Upright, WithInput };

@@ -35,6 +35,7 @@ Widget and WidgetManager give every tool panel the same frame, dock and options,
 - Give every widget of a kit, such as developer tools, the same group: it then never tabs or splits with a widget outside it.
 - A widget in its own window takes disabled, with the reason as a string, so it shows the state WidgetManager draws when docked.
 - Give a definition dockWeight to size it on an edge: weight 2 takes twice the room of 1, and none counts as 1.
+- Give a definition a sublabel to draw a muted label right after the title in the title bar; it shrinks before the title and a clipped one shows in a Tooltip, and a tab chip never shows it.
 - Give a definition an icon to draw it before the title or tab label; it is decorative, as the label names the widget.
 - Give a button in titleBarActions or widgetActions size xs, the 20 px of the built-in title bar buttons.
 - Give the widgets of a kit chrome compact or none in their definition, and pass the same chrome to a Widget in its own window.
@@ -89,7 +90,7 @@ const Dashboard = ({ definitions, running, io, panels }: DashboardProps) => {
 - `onClose`: `() => void`.
 - `children`: `ReactNode`.
 - `options` (optional): `ReactNode`.
-- `peek` (optional): `boolean`. Default `false`.
+- `peek` (optional): `boolean`.
 - `onPopOut` (optional): `() => void`.
 - `canPopOut` (optional): `boolean`.
 - `mode` (optional): `'in' | 'out'`.

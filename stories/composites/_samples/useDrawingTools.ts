@@ -12,7 +12,8 @@ const PIXEL_TOOL_ICONS = { pencil: 'pixel-pencil', eraser: 'pixel-eraser', bucke
 const TOOL_ORDER: readonly ToolId[] = ['pencil', 'eraser', 'bucket', 'pipette', 'hand'];
 
 const useDrawingTools = (options: DrawingToolOptions) => {
-  const { captions = false, pixel = false, bitmap = false, openOn = 'hover' } = options;
+  const { captions = false, pixel = false, bitmap = false, openOn = 'hover', priority = false } = options;
+  const keep = priority ? 2 : undefined;
   const [tool, setTool] = useState<ToolId>('pencil');
   const [size, setSize] = useState(2);
   const [shape, setShape] = useState('square');
@@ -52,8 +53,8 @@ const useDrawingTools = (options: DrawingToolOptions) => {
     },
     { kind: 'toggle', id: 'grid', label: 'Grid', icon: 'layout-grid', description: 'Show the pixel grid over the canvas.', shortcut: 'Ctrl+G', pressed: grid, onChange: setGrid },
     { kind: 'separator', id: 'before-history' },
-    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', description: 'Take back the last stroke.', shortcut: 'Ctrl+Z', onSelect: note('Undo') },
-    { kind: 'button', id: 'redo', label: 'Redo', icon: 'redo-2', description: 'Bring back the stroke you took back.', shortcut: 'Ctrl+Shift+Z', onSelect: note('Redo') },
+    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', description: 'Take back the last stroke.', shortcut: 'Ctrl+Z', priority: keep, onSelect: note('Undo') },
+    { kind: 'button', id: 'redo', label: 'Redo', icon: 'redo-2', description: 'Bring back the stroke you took back.', shortcut: 'Ctrl+Shift+Z', priority: keep, onSelect: note('Redo') },
   ];
 
   return { items, tool, size, shape, last };

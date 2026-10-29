@@ -29,8 +29,27 @@
   --brand-rim-width: var(--brand-rim-xl);
 }
 
-
 .brand-mark--xxl {
   --brand-mark-size: var(--brand-mark-xxl);
   --brand-rim-width: var(--brand-rim-xxl);
+}
+
+.brand-mark--h26 {
+  --brand-mark-size: var(--brand-mark-h26);
+  --brand-rim-width: var(--brand-rim-sm);
+}
+
+.brand-mark--h39 {
+  --brand-mark-size: var(--brand-mark-h39);
+  --brand-rim-width: var(--brand-rim-md);
+}
+
+.brand-mark--height { inline-size: auto; }
+
+.brand-mark--fill {
+  display: block;
+  inline-size: 100%;
+  max-inline-size: var(--brand-mark-fill-max);
+  block-size: auto;
+  aspect-ratio: 1;
 }

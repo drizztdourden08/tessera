@@ -15,6 +15,14 @@ const UNSAVED_DOCUMENTS: readonly DocumentTab[] = [
   { id: 'logo', title: 'logo-16px.bxl', icon: 'image' },
 ];
 
+const PHASE_DOCUMENTS: readonly DocumentTab[] = [
+  { id: 'plan', title: 'Plan the release', icon: 'image', status: { label: 'Planning', tone: 'info' } },
+  { id: 'build', title: 'Build the lobby', icon: 'image', status: { label: 'Running', tone: 'success', pulse: true }, unsaved: true },
+  { id: 'review', title: 'Review the seats', icon: 'image', status: { label: 'Needs you', tone: 'warning' } },
+  { id: 'fix', title: 'Fix the login', status: { label: 'Failed', tone: 'danger' } },
+  { id: 'notes', title: 'Notes' },
+];
+
 const MANY_DOCUMENTS: readonly DocumentTab[] = Array.from({ length: 24 }, (_, index) => ({
   id: `sprite-${String(index + 1)}`,
   title: `sprite-sheet-${String(index + 1)}.bxl`,
@@ -22,13 +30,14 @@ const MANY_DOCUMENTS: readonly DocumentTab[] = Array.from({ length: 24 }, (_, in
   unsaved: index % 6 === 2,
 }));
 
-const DOCUMENT_SETS: Readonly<Record<DocumentSet, readonly DocumentTab[]>> = { three: THREE_DOCUMENTS, many: MANY_DOCUMENTS, unsaved: UNSAVED_DOCUMENTS, none: [] };
+const DOCUMENT_SETS: Readonly<Record<DocumentSet, readonly DocumentTab[]>> = { three: THREE_DOCUMENTS, many: MANY_DOCUMENTS, unsaved: UNSAVED_DOCUMENTS, phases: PHASE_DOCUMENTS, none: [] };
 
-const DOCUMENT_TABS_ARGS: DocumentTabsArgs = { documents: 'three', menu: false };
+const DOCUMENT_TABS_ARGS: DocumentTabsArgs = { documents: 'three', menu: false, look: 'flat' };
 
 const DOCUMENT_TABS_ARG_TYPES: PlaygroundArgTypes<DocumentTabsArgs> = {
-  documents: { group: 'Content', control: 'select', options: ['three', 'many', 'unsaved', 'none'], description: 'How many documents the strip starts with.' },
+  documents: { group: 'Content', control: 'select', options: ['three', 'many', 'unsaved', 'phases', 'none'], description: 'How many documents the strip starts with.' },
   menu: { group: 'Content', control: 'boolean', description: 'The menu that lists every open document.' },
+  look: { group: 'Appearance', control: 'select', options: ['flat', 'raised'], description: 'Flat tabs on the ground, or raised tabs with a surface fill and a lifted selected tab.' },
 };
 
 const DOCUMENT_TABS_CODE = `import { DocumentTabs } from '@drizztdourden08/tessera';

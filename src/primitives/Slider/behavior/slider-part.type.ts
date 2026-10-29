@@ -6,6 +6,7 @@ interface SliderPartProps<P> {
   scale: ValueScale;
   disabled: boolean;
   accessibleName?: string;
+  mixedText?: string;
   labelledBy?: string;
   describedBy?: string;
 }

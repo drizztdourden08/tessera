@@ -12,7 +12,7 @@ import type { GridHeaderProps } from './GridHeader.type';
 import '../../../theme/focus-ring.css';
 
 const GridHeader = (props: GridHeaderProps) => {
-  const { stop, label, count, columns, collapsed, tabbable, depth = 0, actions = [], onToggle, onActivate, onNavigate } = props;
+  const { stop, label, count, columns, collapsed, tabbable, depth = 0, into = false, actions = [], drop, onToggle, onActivate, onNavigate } = props;
   const press = (event: KeyboardEvent<HTMLElement>) => {
     const next = event.target === event.currentTarget ? headerToggle(event.key, collapsed) : undefined;
     if (next === undefined) {
@@ -31,7 +31,9 @@ const GridHeader = (props: GridHeaderProps) => {
       tabIndex={tabbable ? 0 : -1}
       aria-colindex={1}
       aria-colspan={columns}
+      data-drop={into ? 'into' : undefined}
       aria-expanded={!collapsed}
+      {...drop}
       {...{ [CELL_ATTRIBUTE]: stop, [KIND_ATTRIBUTE]: 'header' }}
       onClick={() => onToggle(!collapsed)}
       onFocus={() => onActivate(stop)}

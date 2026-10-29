@@ -60,9 +60,9 @@
   text-transform: uppercase;
   letter-spacing: var(--tracking-wide);
   opacity: 0.7;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: flex;
+  align-items: baseline;
+  min-inline-size: 0;
 }
 
 .widget__tabs {
@@ -193,4 +193,11 @@
   .widget {
     transition: none;
   }
+}
+
+.widget--peek .widget__off {
+  flex: 0 0 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
 }

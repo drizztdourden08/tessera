@@ -12,3 +12,7 @@
   gap: var(--space-sm);
   inline-size: 100%;
 }
+
+.virtual-list-story--strip {
+  block-size: var(--size-64);
+}

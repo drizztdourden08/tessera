@@ -11,6 +11,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { CommandLine } from './_samples/CommandLine';
 import { ICON_CASES, iconCase } from './_samples/text-input-icons';
 
 type InputType = 'text' | 'password' | 'email' | 'search';
@@ -115,6 +116,11 @@ const InField = {
   ),
 } satisfies StoryLiteStoryDefinition<TextInputArgs>;
 
+const Command = {
+  name: 'mono and readOnly: a command line that grows beside Copy and Run',
+  render: () => <CommandLine />,
+} satisfies StoryLiteStoryDefinition<TextInputArgs>;
+
 const renderState = (props: StateProps) => <TextInput placeholder="Player name" {...props} />;
 
 const renderError = (props: StateProps) => (
@@ -130,12 +136,13 @@ const Overview = overviewStory({
     'It takes every native input attribute and forwards its ref.',
     '`invalid`, or a [Field] with an error, draws the error look.',
     '`start` and `end` put an icon at either end; one with `onClick` becomes a button that needs a label.',
-    'With an icon set, the input sits in a frame that takes the `className`.',
+    '`mono` sets the monospace face; with `readOnly` it shows a command or path that grows beside buttons.',
+    '`grow={false}` fixes the width to a token that can shrink, for a toolbar, as on [Select] and [SearchInput].',
     '`onEnter` gets the value when Enter is pressed, as do [PasswordInput] and [SearchInput].',
   ],
   instead: '[SearchInput] for a search, [PasswordInput] for a password, or [Textarea] for longer text.',
   playground: Playground,
-  variants: [Types, Icons, Sizes, InField, OnEnter],
+  variants: [Types, Icons, Sizes, InField, OnEnter, Command],
   states: {
     render: renderState,
     list: [
@@ -151,4 +158,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Icons, InField, OnEnter, Overview, Playground, Sizes, Types };
+export { Command, Icons, InField, OnEnter, Overview, Playground, Sizes, Types };

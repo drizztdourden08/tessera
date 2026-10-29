@@ -65,6 +65,14 @@
   flex: 1 1 0;
 }
 
+.content-header--plain {
+  border-bottom: none;
+}
+
+.content-header--plain::before {
+  content: none;
+}
+
 .content-header__actions {
   display: flex;
   flex-shrink: 0;

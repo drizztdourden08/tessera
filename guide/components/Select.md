@@ -30,10 +30,14 @@ Select is the field that opens a list of options, plain or grouped, and picks on
 
 ## Rules
 
+- Mixed shows the word Mixed in place of the chosen option, for a selection whose values differ. Choosing an option calls onChange, and the app clears mixed.
 - Pass options for a plain list and groups for options under headings. Pass items for objects of your own, with the field that holds the value.
 - When options and groups are both given, the options come first with no heading, then each group under its label. A group never hides the options.
 - An option that sits in a group is not repeated in options; put it in one place only.
 - The app owns the value: pass value and onChange for one choice, values and onValuesChange for several.
+- Pass grow={false} to keep a fixed width (the token --field-w-inline, 256 px, shrinking to 160 px) beside other tools in a toolbar; TextInput, SearchInput and Combobox take the same prop.
+- Pass width="fit" to size the control to its content, or width="narrow" for a 220 px control; TextInput, SearchInput and Combobox take the same prop.
+- Pass width="narrow-fill" for the 220 px control that fills its row when the nearest container is under 420 px wide; it needs an ancestor with a container type, such as a drawer or a window header.
 - Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen.
 
 ## Accessibility
@@ -78,6 +82,7 @@ const TintPicker = ({ tint, onTint }: TintPickerProps) => (
 - `renderOption` (optional): `(option: SelectOption, isSelected: boolean) => ReactNode`.
 - `items` (optional): `readonly T[]`.
 - `searchable` (optional): `boolean`.
+- `mixed` (optional): `boolean`.
 - `multiDisplay` (optional): `MultiDisplay`, one of `'count'`, `'tags'`.
 - `loading` (optional): `boolean`.
 - `emptyText` (optional): `ReactNode`.
@@ -90,6 +95,7 @@ const TintPicker = ({ tint, onTint }: TintPickerProps) => (
 - `inline` (optional): `boolean`.
 - `size` (optional): `ControlSize`, one of `'sm'`, `'md'`.
 - `grow` (optional): `boolean`.
+- `width` (optional): `FieldWidth`, one of `'fit'`, `'narrow'`, `'narrow-fill'`.
 - `className` (optional): `string`.
 - `id` (optional): `string`.
 - `aria-label` (optional): `string`.
@@ -107,7 +113,7 @@ const TintPicker = ({ tint, onTint }: TintPickerProps) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-soft`, `--c-hover`, `--c-inset`, `--c-primary`, `--c-primary-soft`, `--c-primary-text`, `--c-sunken`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--field-w-inline`, `--field-w-inline-min`, `--leading-normal`, `--listbox-attach`, `--listbox-columns`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-14`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--z-popover`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-soft`, `--c-hover`, `--c-inset`, `--c-primary`, `--c-primary-soft`, `--c-primary-text`, `--c-sunken`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--field-w-inline`, `--field-w-inline-min`, `--field-w-narrow`, `--leading-normal`, `--listbox-attach`, `--listbox-columns`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-14`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--z-popover`, `--z-sticky`.
 
 ## Also exported from this folder
 

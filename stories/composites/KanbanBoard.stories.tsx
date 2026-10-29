@@ -18,7 +18,7 @@ const Playground = {
   args: KANBAN_ARGS,
   argTypes: KANBAN_ARG_TYPES,
   render: (args) => (
-    <KanbanDemo key={`${args.folded}-${String(args.emptyReview)}`} width={args.width} folded={args.folded} emptyReview={args.emptyReview} slots={args.slots} addForm={args.addForm} />
+    <KanbanDemo key={`${args.folded}-${String(args.emptyReview)}`} width={args.width} columnWidth={args.columnWidth} folded={args.folded} emptyReview={args.emptyReview} slots={args.slots} addForm={args.addForm} edges={args.edges} columnHeight={args.columnHeight} grip={args.grip} foldable={args.foldable} stack={args.stack} />
   ),
 } satisfies PlaygroundStory<KanbanArgs>;
 
@@ -37,6 +37,16 @@ const Narrow = {
   render: () => <KanbanDemo width="narrow" />,
 } satisfies StoryLiteStoryDefinition<KanbanArgs>;
 
+const Fill = {
+  name: 'Fill: the columns share the width; in a narrow box they keep a minimum and the board scrolls',
+  render: () => (
+    <>
+      <KanbanDemo columnWidth="fill" />
+      <KanbanDemo columnWidth="fill" width="narrow" />
+    </>
+  ),
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
 const Empty = {
   name: 'An empty column still takes a card',
   render: () => <KanbanDemo emptyReview />,
@@ -52,6 +62,36 @@ const AddForm = {
   render: () => <KanbanDemo addForm />,
 } satisfies StoryLiteStoryDefinition<KanbanArgs>;
 
+const CardEdges = {
+  name: 'cardEdgeTone: a danger edge on the cards that need the user',
+  render: () => <KanbanDemo edges />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
+const FitHeight = {
+  name: 'columnHeight fit: each column is as tall as its cards',
+  render: () => <KanbanDemo columnHeight="fit" />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
+const NoGrip = {
+  name: 'grip off: no drag grip; focus a card and press the arrow keys to move it',
+  render: () => <KanbanDemo grip={false} />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
+const NoFold = {
+  name: 'foldable off: no fold chevron on any column',
+  render: () => <KanbanDemo foldable={false} />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
+const Stacked = {
+  name: 'stack: under 420 px the columns stack top to bottom; wide, the board is unchanged',
+  render: () => (
+    <>
+      <KanbanDemo stack />
+      <KanbanDemo stack width="phone" />
+    </>
+  ),
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
 const FOLDS: readonly FoldedColumn[] = ['none', 'doing'];
 
 const Overview = overviewStory({
@@ -62,12 +102,12 @@ const Overview = overviewStory({
     'Drag the grip, or press [[Up]] and [[Down]] to move within a column and [[Left]] and [[Right]] to change column.',
     'Each move is announced, and focus stays on the card, even in its new column.',
     'A header has the count, `badge`, `action` and a fold button; `top` adds a form above the cards.',
-    '`renderCard` draws the inside of a card, such as a title and tags, in a standard frame.',
-    'Each column scrolls on its own and the board scrolls sideways when it is narrow.',
+    '`renderCard` draws the inside of a card; `cardEdgeTone` gives a card a coloured edge, such as `danger`.',
+    'Opt-in looks: `columnWidth="fill"`, `columnHeight="fit"`, `grip={false}`, `foldable={false}` and `stack`.',
   ],
   instead: '[RowGrid] for one list edited in place, or [DataTable] for many records to sort and filter.',
   playground: Playground,
-  variants: [Live, HeaderSlots, AddForm, Folded, Narrow, Empty],
+  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, AddForm, CardEdges, Folded, Narrow, Empty],
   states: {
     render: (props: StateProps) => <KanbanDemo folded={(props.folded as FoldedColumn | undefined) ?? 'none'} />,
     list: FOLDS.map((folded) => ({ name: folded === 'none' ? 'all open' : 'one folded', props: { folded } })),
@@ -76,4 +116,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AddForm, Empty, Folded, HeaderSlots, Live, Narrow, Overview, Playground };
+export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, HeaderSlots, Live, Narrow, NoFold, NoGrip, Overview, Playground, Stacked };

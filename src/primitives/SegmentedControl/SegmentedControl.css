@@ -36,3 +36,12 @@
   min-inline-size: var(--size-24);
   padding: 0 var(--space-xs);
 }
+
+.segmented--neutral .segmented__indicator {
+  background: var(--c-border-strong);
+  border-color: var(--c-border-strong);
+}
+
+.segmented--neutral .segmented__btn--active {
+  color: var(--c-text);
+}

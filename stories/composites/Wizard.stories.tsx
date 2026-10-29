@@ -7,6 +7,7 @@ import type { StepperOrientation } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
+import { AsyncStepWizard } from './_samples/AsyncStepWizard';
 import { frozenWizard } from './_samples/frozen-wizard';
 import { ProfileWizardDemo } from './_samples/ProfileWizardDemo';
 import { INITIAL_ROM_IMPORT, ROM_FILE, ROM_IMPORT_STEPS } from './_samples/rom-import-data';
@@ -55,6 +56,11 @@ const StepsOnTop = {
 const Compact = {
   name: 'Compact progress, in a narrow panel',
   render: () => <RomImportPanel title="Import a ROM" orientation="horizontal" compact short />,
+} satisfies StoryLiteStoryDefinition<WizardArgs>;
+
+const AppWorking = {
+  name: 'The app works on a step, then moves on',
+  render: () => <AsyncStepWizard />,
 } satisfies StoryLiteStoryDefinition<WizardArgs>;
 
 const FAILED = 'Extraction stopped: the data folder is full. Free some space, then import again; the ROM is untouched.';
@@ -111,14 +117,14 @@ const Overview = overviewStory({
   points: [
     '`useWizard` holds the steps, the input, the errors and the finish; pass what it returns as `wizard`.',
     'Each step definition sets its label, its `validate` check, its `hint` and the look of its buttons.',
-    'Next stays off until the step is valid, and a step with `when` shows only when it applies.',
-    'A failed finish keeps every input and shows the error on the last step.',
+    'Next stays off until the step is valid; a failed finish keeps every input and shows the error.',
+    '`busy` holds the buttons while the app works; `goTo(id, { force: true })` then moves past the checks.',
     '`orientation` puts the [Stepper] on top or down the left.',
     'Leaving with unsaved input asks first, through [WizardExitGuard].',
   ],
   instead: '[WizardDialog] for the same wizard in a dialog.',
   playground: Playground,
-  variants: [ProfileInScreen, StepsOnTop, Compact],
+  variants: [ProfileInScreen, StepsOnTop, Compact, AppWorking],
   states: {
     render: renderState,
     list: [
@@ -132,4 +138,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, Overview, Playground, ProfileInScreen, StepsOnTop };
+export { AppWorking, Compact, Overview, Playground, ProfileInScreen, StepsOnTop };

@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
-import { Box, Button, Disclosure, Flex, Paragraph, StatRow, Stack } from '../../src/primitives';
+import { Box, Button, Disclosure, Flex, Paragraph, StatRow, Stack, Text } from '../../src/primitives';
 import type { DisclosureSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
@@ -96,6 +96,41 @@ const Controlled = {
   render: () => <ControlledGroups />,
 } satisfies StoryLiteStoryDefinition<DisclosureArgs>;
 
+const EndCount = () => {
+  const [clicks, setClicks] = useState(0);
+  return (
+    <Stack gap="xs" className="disclosure-story__frame">
+      <Disclosure summary="Players" end={<Button size="sm" variant="secondary" onClick={() => setClicks(clicks + 1)}>Add</Button>}>
+        {FACTS.map(([label, value]) => <StatRow key={label} label={label} value={value} />)}
+      </Disclosure>
+      <Text variant="caption">{`Add pressed ${clicks} times; the list stays as it is.`}</Text>
+    </Stack>
+  );
+};
+
+const AtTheEnd = {
+  name: 'A Button at the end of the line',
+  render: () => <EndCount />,
+} satisfies StoryLiteStoryDefinition<DisclosureArgs>;
+
+const WrapEndRow = (props: { wrap: boolean; width: string }) => (
+  <Box className={`disclosure-story__frame disclosure-story__frame--${props.width}`}>
+    <Disclosure summary="Players on the server" wrapEnd={props.wrap} end={<Button size="sm" variant="secondary">Add player</Button>}>
+      {FACTS.map(([label, value]) => <StatRow key={label} label={label} value={value} />)}
+    </Disclosure>
+  </Box>
+);
+
+const WrapEnd = {
+  name: 'The end slot drops under the line when narrow',
+  render: () => (
+    <Demonstrator
+      rows={axis(['wide', 'narrow'] as const)}
+      cell={(width) => <WrapEndRow wrap width={width} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<DisclosureArgs>;
+
 const Styled = {
   name: 'A body with a class of its own',
   render: () => (
@@ -130,12 +165,12 @@ const Overview = overviewStory({
     '`defaultOpen` starts it open and `onOpenChange` reports each toggle; a later change opens or closes it.',
     '`open` with `onOpenChange` hands the state to the app, such as an Open all button over a list of groups.',
     '`size` `sm` sets the line in small text; closed content stays in the page, so find in page reaches it.',
-    '`bodyClassName` styles the body, such as a column of rows with a gap, without reaching into its class.',
-    '[LoadError] puts the raw error behind one; [TaskProgress] puts its log behind one.',
+    '`end` sits at the right and never toggles; `wrapEnd` drops it under the line below 384 px.',
+    '`bodyClassName` styles the body; [LoadError] puts the raw error behind one.',
   ],
   instead: '[Tabs] to switch between views, or [Dialog] for content that needs the whole screen.',
   playground: Playground,
-  variants: [Uses, Controlled, Sizes, Styled],
+  variants: [Uses, Controlled, AtTheEnd, WrapEnd, Sizes, Styled],
   states: {
     render: (props: StateProps) => <Sample {...(props as Partial<DisclosureArgs>)} />,
     list: [STATE.idle, { ...STATE.hover, target: 'summary' }, { ...STATE.focus, target: 'summary' }, { name: 'Open', props: { open: true } }],
@@ -144,4 +179,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Controlled, Overview, Playground, Sizes, Styled, Uses };
+export { AtTheEnd, Controlled, Overview, Playground, Sizes, Styled, Uses, WrapEnd };

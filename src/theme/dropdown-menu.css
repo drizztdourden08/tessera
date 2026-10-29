@@ -153,7 +153,7 @@
 }
 
 .dropdown__item:disabled {
-  color: var(--c-text-muted);
+  opacity: var(--opacity-disabled);
   cursor: default;
 }
 
@@ -178,10 +178,6 @@
   font-size: var(--text-xs);
 }
 
-.dropdown__item:disabled .dropdown__description {
-  color: var(--c-text-muted);
-}
-
 .dropdown__chevron {
   margin-left: auto;
   font-size: var(--text-base);
@@ -197,4 +193,9 @@
 
 .dropdown__submenu-trigger {
   position: relative;
+}
+
+.dropdown-look--roomy .dropdown__item {
+  padding-block: var(--space-sm);
+  font-size: var(--text-md);
 }

@@ -1,8 +1,9 @@
 /* @layer renderer-components @kind util */
 import type { MenuGroup, MenuItem, MenuNode } from '../../DropdownMenu/DropdownMenu.type';
+import { choiceGroup } from './choice-group';
 import { menuIcon } from './menu-icon';
 import { menuShortcut } from './menu-shortcut';
-import type { ToolbarButton, ToolbarChoices, ToolbarItem, ToolbarNumber, ToolbarToggle } from '../Toolbar.type';
+import type { ToolbarButton, ToolbarItem, ToolbarNumber, ToolbarPopover, ToolbarToggle } from '../Toolbar.type';
 
 const optionNodes = (groups: readonly MenuGroup[]): MenuNode[] =>
   groups.flatMap((group, index) => [...(index > 0 ? [{ separator: true } as const] : []), ...group.items]);
@@ -26,38 +27,31 @@ const numberEntry = (item: ToolbarNumber): MenuItem => ({
   value: item.value, min: item.min, max: item.max, step: item.step, onChange: item.onChange,
 });
 
-const choiceGroup = (item: ToolbarChoices): MenuGroup => ({
-  id: item.id,
-  label: item.label,
-  items: item.choices.map((choice) => ({
-    id: `${item.id}:${choice.value}`,
-    label: choice.label,
-    icon: menuIcon(choice.icon),
-    description: choice.description,
-    shortcut: menuShortcut(choice.shortcut),
-    disabled: choice.disabled,
-    kind: 'radio' as const,
-    checked: item.value === choice.value,
-    onSelect: () => item.onChange(choice.value),
-  })),
+const popoverEntry = (item: ToolbarPopover): MenuItem => ({
+  id: item.id, label: item.label, icon: menuIcon(item.icon), description: item.description, disabled: item.disabled === true || item.onFold === undefined, onSelect: item.onFold,
 });
 
-const entryOf = (item: ToolbarButton | ToolbarToggle | ToolbarNumber): MenuItem => {
+const entryOf = (item: ToolbarButton | ToolbarToggle | ToolbarNumber | ToolbarPopover): MenuItem => {
   if (item.kind === 'button') return buttonEntry(item);
   if (item.kind === 'toggle') return toggleEntry(item);
+  if (item.kind === 'popover') return popoverEntry(item);
   return numberEntry(item);
 };
 
 const foldedGroups = (folded: readonly ToolbarItem[]): MenuGroup[] => {
   const groups: MenuGroup[] = [];
   let run: MenuNode[] = [];
+  let heading: string | undefined;
   const flush = (): void => {
-    if (run.length > 0) groups.push({ id: `folded-${groups.length}`, items: run });
+    if (run.length > 0) groups.push({ id: `folded-${groups.length}`, label: heading, items: run });
     run = [];
+    heading = undefined;
   };
   folded.forEach((item: ToolbarItem) => {
-    if (item.kind === 'separator') flush();
-    else if (item.kind === 'group') {
+    if (item.kind === 'separator') {
+      flush();
+      heading = item.label;
+    } else if (item.kind === 'group') {
       flush();
       groups.push(choiceGroup(item));
     } else run.push(entryOf(item));

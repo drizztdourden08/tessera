@@ -7,13 +7,15 @@ import { CRITERIA, INLINE_EDIT_CODE } from './_samples/inline-edit.constants';
 import type { InlineEditArgs } from './_samples/inline-edit.type';
 import './InlineEdit.stories.css';
 
-const ARGS: Partial<InlineEditArgs> = { initial: 'Fix the login redirect', placeholder: 'Add a title', multiline: false, disabled: false, validated: false };
+const ARGS: Partial<InlineEditArgs> = { initial: 'Fix the login redirect', placeholder: 'Add a title', multiline: false, disabled: false, validated: false, link: false, dense: false };
 
 const ARG_TYPES: PlaygroundArgTypes<InlineEditArgs> = {
   initial: { group: 'Content', control: 'text', description: 'The text before any edit.' },
   placeholder: { group: 'Content', control: 'text', description: 'Shown, muted, when the text is empty.' },
   multiline: { group: 'Behaviour', control: 'boolean', description: 'Edit in a text area; Enter adds a line and Mod+Enter commits.' },
   disabled: { group: 'State', control: 'boolean', description: 'Shows the text and does not let it be edited.' },
+  link: { group: 'Appearance', control: 'boolean', description: 'Pass look link: a dashed underline, in italic.' },
+  dense: { group: 'Appearance', control: 'boolean', description: 'Fit a 24 px row: the field is 24 px high and the message shows beside it.' },
   validated: { group: 'Behaviour', control: 'boolean', description: 'Needs 3 to 40 characters; the message shows under the field.' },
 };
 
@@ -26,7 +28,7 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <InlineEditDemo key={`${args.multiline}-${args.disabled}`} {...args} />,
+  render: (args) => <InlineEditDemo key={`${args.multiline}-${args.disabled}-${args.link}-${args.dense}`} {...args} />,
 } satisfies PlaygroundStory<InlineEditArgs>;
 
 const Line = {
@@ -54,6 +56,16 @@ const Rendered = {
   render: () => <InlineEditDemo initial={CRITERIA} multiline markdown label="Acceptance criteria" />,
 } satisfies StoryLiteStoryDefinition<InlineEditArgs>;
 
+const LinkLook = {
+  name: 'Link look: a dashed underline, in italic',
+  render: () => <InlineEditDemo initial="Fix the login redirect" label="Title" link />,
+} satisfies StoryLiteStoryDefinition<InlineEditArgs>;
+
+const Dense = {
+  name: 'Dense: a 24 px row, the message beside the field, and a click away commits',
+  render: () => <InlineEditDemo initial="Fix" label="Layer name" dense validated />,
+} satisfies StoryLiteStoryDefinition<InlineEditArgs>;
+
 const Disabled = {
   name: 'Disabled',
   render: () => <InlineEditDemo initial="Fix the login redirect" disabled />,
@@ -66,15 +78,15 @@ const Overview = overviewStory({
     '`value` is the text and `onCommit(value)` takes the new one; the app keeps the state.',
     '[[Enter]] or leaving the field commits, and [[Escape]] cancels and restores the text.',
     '`validate(value)` returns a message to show under the field and keep the text from being committed.',
-    '`multiline` edits in a text area, where Enter adds a line and Mod+Enter commits.',
-    '`placeholder` stands in for an empty text, and `disabled` shows the text only.',
+    '`multiline` edits in a text area; `placeholder` stands in for an empty text; `disabled` shows text only.',
+    '`look="link"` draws a dashed underline in italic; `dense` fits a 24 px row, the message beside the field.',
     '`renderValue(value)` draws the text when not edited, such as inline Markdown; its links do not start the edit.',
   ],
   instead: '[InlineCreateForm] to make a new thing from a name, or [TextInput] for a field that is always open.',
   playground: Playground,
-  variants: [Line, Empty, Validated, Multiline, Rendered, Disabled],
+  variants: [Line, Empty, Validated, Multiline, Rendered, LinkLook, Dense, Disabled],
   code: INLINE_EDIT_CODE,
 });
 
 export default meta;
-export { Disabled, Empty, Line, Multiline, Overview, Playground, Rendered, Validated };
+export { Dense, Disabled, Empty, Line, LinkLook, Multiline, Overview, Playground, Rendered, Validated };

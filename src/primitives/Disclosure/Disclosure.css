@@ -25,6 +25,18 @@
   display: none;
 }
 
+.disclosure--has-end > .disclosure__summary {
+  align-self: stretch;
+}
+
+.disclosure__end {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  margin-inline-start: auto;
+  cursor: default;
+}
+
 .disclosure__summary:hover {
   background: var(--c-hover);
   color: var(--c-text);
@@ -55,5 +67,20 @@
 @media (prefers-reduced-motion: reduce) {
   .disclosure__chevron {
     transition: none;
+  }
+}
+
+.disclosure--wrap-end {
+  container: disclosure / inline-size;
+}
+
+.disclosure--wrap-end > .disclosure__summary {
+  flex-wrap: wrap;
+}
+
+@container disclosure (width < 384px) {
+  .disclosure--wrap-end > .disclosure__summary > .disclosure__end {
+    flex-basis: 100%;
+    margin-inline-start: 0;
   }
 }

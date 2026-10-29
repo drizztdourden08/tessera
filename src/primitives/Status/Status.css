@@ -33,12 +33,47 @@
   text-transform: uppercase;
 }
 
+.status--sm {
+  box-sizing: border-box;
+  height: var(--status-h-sm);
+  font-size: var(--text-xs);
+}
+
+.status--pill.status--sm {
+  padding-block: 0;
+}
+
+.status--reasoned {
+  color: var(--c-text);
+}
+
+.status__reason {
+  color: var(--status-ink);
+}
+
+.status--pill .status__reason {
+  color: var(--status-strong);
+}
+
 .status__dot {
   flex: none;
   width: var(--size-6);
   height: var(--size-6);
   border-radius: var(--radius-round);
   background: var(--status-ink);
+}
+
+.status--dot-lg .status__dot {
+  width: var(--size-8);
+  height: var(--size-8);
+}
+
+.status--halo .status__dot {
+  box-shadow: 0 0 0 var(--size-3) var(--status-edge);
+}
+
+.status--halo {
+  gap: var(--space-sm);
 }
 
 .status--success {

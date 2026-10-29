@@ -1,0 +1,165 @@
+/* @layer renderer-components @kind style */
+.tree {
+  --tree-pad: var(--row-inset);
+  --tree-twisty: var(--size-16);
+  --tree-indent: var(--size-20);
+  --tree-row-h: var(--size-28);
+
+  position: relative;
+  box-sizing: border-box;
+  inline-size: 100%;
+  block-size: 100%;
+  min-inline-size: 0;
+  min-block-size: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  font-size: var(--text-sm);
+}
+
+.tree[data-row-size='compact'] {
+  --tree-row-h: var(--size-24);
+}
+
+.tree--empty {
+  padding: var(--space-md);
+  color: var(--c-text-muted);
+}
+
+.tree__body {
+  position: relative;
+  inline-size: 100%;
+  block-size: calc(var(--tree-count) * var(--tree-row-h));
+}
+
+.tree__row {
+  position: absolute;
+  inset-block-start: calc(var(--tree-index) * var(--tree-row-h));
+  inset-inline-start: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  box-sizing: border-box;
+  inline-size: 100%;
+  block-size: var(--tree-row-h);
+  min-inline-size: 0;
+  padding-inline-start: var(--tree-row-indent);
+  border-radius: var(--radius-sm);
+  color: var(--c-text-dim);
+  cursor: pointer;
+  user-select: none;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.tree__row:hover {
+  background: var(--c-hover);
+  color: var(--c-text);
+}
+
+.tree__row--selected,
+.tree__row--selected:hover {
+  background: var(--c-selected);
+  color: var(--c-text);
+}
+
+.tree__row--selected::before {
+  content: '';
+  position: absolute;
+  inset-block: var(--space-xs);
+  inset-inline-start: 0;
+  inline-size: var(--border-width-thick);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+}
+
+.tree__row--dragging {
+  opacity: var(--opacity-disabled);
+}
+
+.tree__row[data-drop='before']::after,
+.tree__row[data-drop='after']::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--tree-row-indent) 0;
+  block-size: var(--border-width-thick);
+  border-radius: var(--radius-pill);
+  background: var(--c-primary);
+  pointer-events: none;
+}
+
+.tree__row[data-drop='before']::after {
+  inset-block-start: 0;
+}
+
+.tree__row[data-drop='after']::after {
+  inset-block-end: 0;
+}
+
+.tree__row[data-drop='into'] {
+  background: var(--c-primary-soft);
+  outline: var(--border-width-thin) solid var(--c-primary);
+  outline-offset: calc(-1 * var(--border-width-thin));
+}
+
+.tree__guide {
+  position: absolute;
+  inset-block: 0;
+  inline-size: var(--border-width-thin);
+  background: var(--c-border);
+  pointer-events: none;
+}
+
+.tree__guide--active {
+  background: var(--c-primary-dim);
+}
+
+.tree__twisty {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  inline-size: var(--tree-twisty);
+  color: var(--c-text-muted);
+}
+
+.tree__row:hover .tree__twisty {
+  color: var(--c-text-dim);
+}
+
+.tree__chevron {
+  transition: transform var(--transition-fast);
+}
+
+.tree__chevron--open {
+  transform: rotate(90deg);
+}
+
+.tree__lead {
+  display: flex;
+  flex: none;
+  align-items: center;
+  color: var(--c-text-muted);
+  font-size: var(--text-base);
+}
+
+.tree__row--selected .tree__lead {
+  color: var(--c-primary);
+}
+
+.tree__label {
+  display: flex;
+  flex: 1;
+  align-items: baseline;
+  gap: var(--space-sm);
+  min-inline-size: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tree__trail {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-xs);
+  padding-inline-end: var(--space-xs);
+}

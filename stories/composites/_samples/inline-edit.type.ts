@@ -5,6 +5,8 @@ type InlineEditArgs = {
   multiline: boolean;
   disabled: boolean;
   validated: boolean;
+  link: boolean;
+  dense: boolean;
 };
 
 interface InlineEditDemoProps {
@@ -14,6 +16,8 @@ interface InlineEditDemoProps {
   multiline?: boolean;
   disabled?: boolean;
   validated?: boolean;
+  link?: boolean;
+  dense?: boolean;
   markdown?: boolean;
 }
 

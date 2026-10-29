@@ -1,48 +1,33 @@
 /* @layer renderer-components @kind component */
-import { useCallback } from 'react';
 import { Box } from '../../primitives/Box';
-import { Text } from '../../primitives/Text';
-import { Button } from '../../primitives/Button';
 import { ColorSwatch } from '../../primitives/ColorSwatch';
 import { FieldControlBoundary } from '../../primitives/FieldControlBoundary';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { PickerWheel } from './sub-components/PickerWheel';
 import { ColorFields } from './sub-components/ColorFields';
 import { ColorMeta } from './sub-components/ColorMeta';
+import { PickerActions } from './sub-components/PickerActions';
+import { PickerBody } from './sub-components/PickerBody';
+import { PickerHeader } from './sub-components/PickerHeader';
 import { QuickAssign } from './sub-components/QuickAssign';
-import { useWheelColor } from './behavior/useWheelColor';
+import { NO_MODES } from './behavior/color-modes.constants';
 import { useHexInput } from './behavior/useHexInput';
 import './ColorPicker.css';
-import type { ColorResult } from 'react-color';
 import type { ColorPickerProps } from './ColorPicker.type';
 
 const ColorPicker = (props: ColorPickerProps) => {
-  const {
-    value, onChange, alpha = 1, onAlphaChange, disableAlpha = false,
-    title, original, word, snapped = false, onReset, onClose, swatchGroups,
-  } = props;
-  const { common } = useTesseraStrings();
-
-  const { seed, beginDrag, followWheel } = useWheelColor(value, alpha, disableAlpha);
+  const { value, onChange, alpha = 1, onAlphaChange, disableAlpha = false, modes = NO_MODES, swatchGroups } = props;
+  const { colorPicker } = useTesseraStrings();
   const { hexInput, commitHex } = useHexInput(value, onChange);
-
-  const handleWheelChange = useCallback((c: ColorResult) => {
-    followWheel(c.hsl);
-    onChange(c.hex);
-    if (!disableAlpha && onAlphaChange && c.rgb.a !== undefined) onAlphaChange(c.rgb.a);
-  }, [followWheel, onChange, onAlphaChange, disableAlpha]);
+  const panel = { value, onChange, alpha, onAlphaChange, disableAlpha };
 
   return (
     <FieldControlBoundary>
     <Box className="color-picker">
-      {title && <Text variant="subtitle" className="color-picker__title">{title}</Text>}
-
-      <Box className="color-picker__wheel" onMouseDownCapture={beginDrag}>
-        <PickerWheel color={seed} onChange={handleWheelChange} disableAlpha={disableAlpha} />
-      </Box>
+      <PickerHeader title={props.title} name={props.name} />
+      <PickerBody panel={panel} modes={modes} mode={props.mode} onModeChange={props.onModeChange} />
 
       <Box className="color-picker__hex-row">
-        <ColorSwatch color={value} className="color-picker__swatch" disabled />
+        <ColorSwatch color={value} className="color-picker__swatch" aria-label={colorPicker.current(value)} disabled />
         <ColorFields
           value={value}
           onChange={onChange}
@@ -51,16 +36,13 @@ const ColorPicker = (props: ColorPickerProps) => {
           alpha={alpha}
           onAlphaChange={onAlphaChange}
           disableAlpha={disableAlpha}
+          hexOnly={modes.length > 0}
         />
       </Box>
 
-      <ColorMeta value={value} original={original} word={word} snapped={snapped} />
+      <ColorMeta value={value} original={props.original} word={props.word} snapped={props.snapped ?? false} />
       <QuickAssign value={value} onChange={onChange} swatchGroups={swatchGroups} />
-
-      <Box className="color-picker__actions">
-        {onReset && <Button variant="secondary" size="sm" onClick={onReset}>{common.reset}</Button>}
-        {onClose && <Button variant="primary" size="sm" onClick={onClose}>{common.done}</Button>}
-      </Box>
+      <PickerActions onReset={props.onReset} onClose={props.onClose} footer={props.footer} />
     </Box>
     </FieldControlBoundary>
   );

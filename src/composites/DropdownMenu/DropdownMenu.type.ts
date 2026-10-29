@@ -4,10 +4,11 @@ import type { IconifyIcon } from '@iconify/types';
 import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 import type { ButtonVariant } from '../../primitives/Button/Button.type';
 import type { IconName, IconPath } from '../../primitives/Icon';
+import type { SelectOption } from '../../primitives/Select';
 import type { DropAlign } from '../../primitives/listbox/drop-placement.type';
 import type { ShortcutKey } from '../../primitives/Shortcut';
 
-type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm' | 'slider';
+type MenuItemKind = 'action' | 'check' | 'radio' | 'confirm' | 'slider' | 'select';
 
 type MenuItemTone = 'danger';
 
@@ -32,6 +33,9 @@ interface MenuItem {
   step?: number;
   formatValue?: (value: number) => string;
   onChange?: (value: number) => void;
+  options?: readonly SelectOption[];
+  selected?: string;
+  onPick?: (value: string) => void;
   children?: readonly MenuNode[];
   onSelect?: () => void;
   onCancel?: () => void;
@@ -65,6 +69,8 @@ type MenuIntensity = 'strong' | 'medium' | 'subtle';
 
 type MenuSize = 'xs' | 'sm' | 'md';
 
+type MenuItemSize = 'default' | 'roomy';
+
 type MenuIconSide = 'start' | 'end';
 
 type MenuTriggerIcon = MenuItemIcon | 'hamburger';
@@ -81,6 +87,7 @@ interface MenuBaseProps {
   label?: string;
   variant?: MenuVariant;
   intensity?: MenuIntensity;
+  itemSize?: MenuItemSize;
   closeOnSelect?: boolean;
   filter?: boolean;
   filterPlaceholder?: string;
@@ -110,6 +117,6 @@ interface TriggerMenuProps extends MenuBaseProps {
 type DropdownMenuProps = AnchoredMenuProps | TriggerMenuProps;
 
 export type {
-  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuBaseProps, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone,
+  AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuBaseProps, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemSize, MenuItemTone,
   MenuNode, MenuSeparator, MenuSide, MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant, TriggerMenuProps,
 };

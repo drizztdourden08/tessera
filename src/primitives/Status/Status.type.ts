@@ -6,6 +6,10 @@ type StatusTone = 'neutral' | 'success' | 'warning' | 'danger' | 'info' | 'prima
 
 type StatusVariant = 'text' | 'pill';
 
+type StatusSize = 'sm' | 'md';
+
+type StatusDotSize = 'md' | 'lg';
+
 interface StatusDef {
   label: string;
   tone: StatusTone;
@@ -19,8 +23,14 @@ type StatusKey<Map extends StatusMap> = Extract<keyof Map, string>;
 
 interface StatusLook extends HTMLAttributes<HTMLSpanElement> {
   variant?: StatusVariant;
+  size?: StatusSize;
   dot?: boolean;
+  dotSize?: StatusDotSize;
+  halo?: boolean;
+  reason?: string;
 }
+
+type StatusLookInput = Pick<StatusLook, 'variant' | 'size' | 'dot' | 'dotSize' | 'halo' | 'reason'>;
 
 interface StatusWordProps extends StatusLook {
   tone?: StatusTone;
@@ -42,6 +52,15 @@ interface StatusMapProps<Map extends StatusMap> extends StatusLook {
 
 type StatusProps<Map extends StatusMap = StatusMap> = StatusWordProps | StatusMapProps<Map>;
 
+interface StatusClassLook {
+  variant: StatusVariant;
+  size: StatusSize;
+  withDot: boolean;
+  dotSize: StatusDotSize;
+  halo: boolean;
+  reasoned: boolean;
+}
+
 interface DrawnStatus {
   tone: StatusTone;
   pulse: boolean;
@@ -50,4 +69,4 @@ interface DrawnStatus {
   key?: string;
 }
 
-export type { DrawnStatus, StatusDef, StatusKey, StatusMap, StatusMapProps, StatusProps, StatusTone, StatusVariant };
+export type { DrawnStatus, StatusClassLook, StatusDef, StatusKey, StatusLookInput, StatusMap, StatusMapProps, StatusProps, StatusTone, StatusVariant };

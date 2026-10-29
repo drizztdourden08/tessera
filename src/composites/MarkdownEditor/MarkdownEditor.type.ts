@@ -20,6 +20,9 @@ interface MarkdownEditorProps {
   placeholder?: string;
   disabled?: boolean;
   layout?: MarkdownEditorLayout;
+  compact?: boolean;
+  preview?: boolean;
+  toolbarEnd?: ReactNode;
   rows?: number;
   onLink?: MarkdownLinkHandler;
   images?: MarkdownImages;
@@ -69,9 +72,21 @@ interface MarkdownEditorActionSpec {
   key?: string;
 }
 
+interface MarkdownEditorPreviewToggle {
+  active: boolean;
+  disabled: boolean;
+  onToggle: () => void;
+}
+
 interface MarkdownEditorToolbarProps {
   disabled: boolean;
   onAction: (id: MarkdownEditorActionId) => void;
+  toggle?: MarkdownEditorPreviewToggle;
+  end?: ReactNode;
+}
+
+interface MarkdownEditorPreviewToggleProps {
+  toggle: MarkdownEditorPreviewToggle;
 }
 
 interface MarkdownEditorActionButtonProps {
@@ -81,11 +96,21 @@ interface MarkdownEditorActionButtonProps {
 }
 
 interface MarkdownEditorMode {
-  mode: MarkdownEditorLayout;
+  mode: MarkdownEditorLayout | 'compact' | 'write';
   tabbed: boolean;
   pane: MarkdownEditorPane;
   setPane: (pane: MarkdownEditorPane) => void;
   writing: boolean;
+  previewShown: boolean;
+  previewDrawn: boolean;
+  toggle: MarkdownEditorPreviewToggle | undefined;
+}
+
+interface MarkdownEditorModeOptions {
+  layout: MarkdownEditorLayout | undefined;
+  compact: boolean | undefined;
+  disabled: boolean;
+  preview: boolean | undefined;
 }
 
 interface MarkdownEditorTabsProps {
@@ -103,6 +128,6 @@ interface MarkdownEditorPreviewProps {
 
 export type {
   MarkdownEditorActionButtonProps, MarkdownEditorActionId, MarkdownEditorActionSpec, MarkdownEditorLayout, MarkdownEditorListStyle,
-  MarkdownEditorCounterProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode,
-  MarkdownEditorPreviewProps, MarkdownEditorProps, MarkdownEditorTabsProps, MarkdownEditorToolbarProps, TextEdit,
+  MarkdownEditorCounterProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode, MarkdownEditorModeOptions,
+  MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorPreviewToggleProps, MarkdownEditorProps, MarkdownEditorTabsProps, MarkdownEditorToolbarProps, TextEdit,
 };

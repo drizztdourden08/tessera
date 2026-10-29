@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { Drawer, ListItemRow } from '../../../src/composites';
-import { Badge, Box, Button, Checkbox, Field, Icon, SearchInput, Select, StatRow, Text, Toggle } from '../../../src/primitives';
+import { Badge, Box, Button, Checkbox, Field, Icon, IconButton, SearchInput, Select, StatRow, Text, Toggle } from '../../../src/primitives';
 import { FILE_FACTS, FILE_STATUSES, NOTICES, RECENT_SEARCHES, SORT_OPTIONS } from './drawer-data';
 import type { SampleNotice } from './drawer-data';
 
@@ -9,8 +9,11 @@ type SampleDrawerProps = {
   open: boolean;
   close: () => void;
   side: 'left' | 'right' | 'top';
-  size?: 'md' | 'lg' | 'xl';
+  size?: 'md' | 'lg' | 'wide' | 'xl';
   label?: string;
+  look?: 'default' | 'record';
+  stackNarrow?: boolean;
+  headerActionsRow?: 'title' | 'eyebrow';
 };
 
 const ItemDetailsDrawer = (props: SampleDrawerProps) => {
@@ -27,6 +30,36 @@ const ItemDetailsDrawer = (props: SampleDrawerProps) => {
           <Button variant="primary" onClick={close}>Open</Button>
         </>
       )}
+    >
+      {FILE_FACTS.map(([label, value]) => <StatRow key={label} label={label} value={value} />)}
+    </Drawer>
+  );
+};
+
+const RECORD_CHIPS = (
+  <>
+    <Badge variant="inline" value="Done" color="success" />
+    <Badge variant="inline" value="Sonnet" color="info" />
+  </>
+);
+
+const RecordDrawer = (props: SampleDrawerProps) => {
+  const { close, ...drawer } = props;
+  return (
+    <Drawer
+      {...drawer}
+      onClose={close}
+      eyebrow={drawer.look === 'record' ? RECORD_CHIPS : 'Incident INC-20481'}
+      title="Checkout requests time out for customers paying with a saved card in the Nordic region"
+      subtitle="Opened 3 days ago"
+      headerActions={(
+        <>
+          <IconButton size="sm" variant="ghost" label="Pin record"><Icon name="pin" size={16} /></IconButton>
+          <IconButton size="sm" variant="ghost" label="Open in a new view"><Icon name="external-link" size={16} /></IconButton>
+          <IconButton size="sm" variant="ghost" label="Copy link"><Icon name="copy" size={16} /></IconButton>
+        </>
+      )}
+      actions={<Button variant="primary" onClick={close}>Acknowledge</Button>}
     >
       {FILE_FACTS.map(([label, value]) => <StatRow key={label} label={label} value={value} />)}
     </Drawer>
@@ -108,5 +141,5 @@ const SearchSheetDrawer = (props: SampleDrawerProps) => {
   );
 };
 
-export { FilterPanelDrawer, ItemDetailsDrawer, NotificationsDrawer, SearchSheetDrawer };
+export { FilterPanelDrawer, ItemDetailsDrawer, NotificationsDrawer, RecordDrawer, SearchSheetDrawer };
 export type { SampleDrawerProps };

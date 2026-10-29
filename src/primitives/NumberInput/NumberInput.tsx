@@ -4,7 +4,9 @@ import '../../theme/field-surface.css';
 import './NumberInput.css';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { InputAdornmentSlot } from '../field-control/InputAdornmentSlot';
+import { mixedProps } from '../field-control/mixed-props';
 import { useControlSize } from '../field-control/useControlSize';
+import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import type { NumberInputProps } from './NumberInput.type';
 import { columnVars } from './behavior/column-vars';
 import { digitColumns } from './behavior/digit-columns';
@@ -15,15 +17,16 @@ import { NumberInputSteps } from './sub-components/NumberInputSteps';
 
 const NumberInput = (props: NumberInputProps) => {
   const {
-    onChange, className, value, min, max, step, disabled = false, buttons, sizeToContent = false,
+    onChange, className, value, min, max, step, disabled = false, buttons, sizeToContent = false, mixed, onStep,
     invalid, size, start, end, id, 'aria-describedby': ownDescribedBy, ...rest
   } = props;
   const control = useFieldControl(id, ownDescribedBy);
+  const { fields } = useTesseraStrings();
   const controlSize = useControlSize(size);
   const isInvalid = invalid ?? control.invalid ?? false;
   const locked = disabled || rest.readOnly === true;
   const sides = buttons === 'sides';
-  const stepBy = (dir: 1 | -1): void => onChange?.(stepValue(value, dir, { step, min, max }));
+  const stepBy = (dir: 1 | -1): void => (onStep ? onStep(dir) : onChange?.(stepValue(value, dir, { step, min, max })));
   const steps = { size: controlSize, disabled, onStep: stepBy };
   const columns = digitColumns(sizeToContent, max, step);
 
@@ -44,6 +47,7 @@ const NumberInput = (props: NumberInputProps) => {
         aria-describedby={control.describedBy}
         aria-invalid={isInvalid ? true : undefined}
         {...rest}
+        {...mixedProps(mixed, fields.mixed)}
       />
       <InputAdornmentSlot className="number-input__slot" adornment={end} size={controlSize} disabled={locked} />
       <NumberInputSteps at={sides ? 'end' : 'stack'} {...steps} />

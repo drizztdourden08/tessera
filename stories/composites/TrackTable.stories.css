@@ -1,0 +1,39 @@
+/* @layer stories @kind style */
+.track-story {
+  max-inline-size: 100%;
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-bg);
+}
+
+.track-story--wide {
+  inline-size: var(--size-896);
+}
+
+.track-story--medium {
+  inline-size: var(--size-640);
+}
+
+.track-story--narrow {
+  inline-size: var(--track-drop-3);
+}
+
+.track-story--tiny {
+  inline-size: var(--size-336);
+}
+
+.track-story--step-full {
+  inline-size: var(--track-hide-1280);
+}
+
+.track-story--step-large {
+  inline-size: var(--size-1024);
+}
+
+.track-story--step-medium {
+  inline-size: var(--size-768);
+}
+
+.track-story--step-small {
+  inline-size: var(--size-640);
+}

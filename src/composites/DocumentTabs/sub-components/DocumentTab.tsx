@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Icon } from '../../../primitives/Icon';
 import { Pressable } from '../../../primitives/Pressable';
+import { Status } from '../../../primitives/Status';
 import { Span } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import '../../../theme/focus-ring.css';
@@ -32,6 +33,11 @@ const DocumentTab = ({ tab, index, domId, total, active, tabbable, hover, drag, 
       {...middleClose(() => onClose(tab.id))}
     >
       {tab.icon && <Icon name={tab.icon} size={ICON_SIZE} className="document-tabs__icon" />}
+      {tab.status && (
+        <Status dot tone={tab.status.tone} pulse={tab.status.pulse} className="document-tabs__phase">
+          <Span className="visually-hidden">{tab.status.label}</Span>
+        </Status>
+      )}
       <Span className="document-tabs__title">{tab.title}</Span>
       {tab.unsaved && <Span className="visually-hidden">{documentTabs.unsaved}</Span>}
     </Pressable>

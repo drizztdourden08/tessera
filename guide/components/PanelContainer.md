@@ -27,6 +27,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 
 - Pass title for the heading and children for the body.
 - The title is always shown above the body without a card surface or border.
+- Pass sublabel for a muted label right after the title; it shrinks first, then the title, and a clipped one shows in a Tooltip.
 - Pass action for a control in the header.
 - Pass fill to take the room left in a flex column; the body then has a definite height, so a DataTable inside scrolls on its own.
 
@@ -47,6 +48,7 @@ import { PanelContainer } from '@drizztdourden08/tessera';
 ## Props
 
 - `title`: `ReactNode`.
+- `sublabel` (optional): `ReactNode`.
 - `action` (optional): `ReactNode`.
 - `level` (optional): `HeadingLevel`, one of `1`, `2`, `3`, `4`, `5`, `6`. Default `3`.
 - `fill` (optional): `boolean`. Default `false`.

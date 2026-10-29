@@ -8,12 +8,13 @@ import { readoutChars } from '../behavior/readout-chars';
 import type { SliderTrackProps } from './SliderTrack.type';
 
 const SliderTrack = (props: SliderTrackProps) => {
-  const { scale, labels, span, readout, range, orientation, rail, children } = props;
+  const { scale, labels, span, readout, range, orientation, rail, trackBackground, children } = props;
   const { min, max, step, stops, formatValue } = scale;
   const chars = useMemo(() => readoutChars({ min, max, step, stops, formatValue }, range), [min, max, step, stops, formatValue, range]);
   const fill = {
     '--slider-lo': `${percentAlong(span[0], scale)}%`,
     '--slider-hi': `${percentAlong(span[1], scale)}%`,
+    '--slider-track-background': trackBackground,
   } as CSSProperties;
 
   return (

@@ -13,10 +13,10 @@ import type { MarkdownProps } from './Markdown.type';
 import './Markdown.css';
 
 const Markdown = (props: MarkdownProps) => {
-  const { children, source, onLink, headingOffset = DEFAULT_HEADING_OFFSET, hideTitle = false, size = 'md', images, onImage, linkIds, className } = props;
-  const settings = useMemo(() => ({ onLink, headingOffset, size, images, onImage }), [onLink, headingOffset, size, images, onImage]);
+  const { children, source, onLink, headingOffset = DEFAULT_HEADING_OFFSET, hideTitle = false, size = 'md', images, onImage, linkIds, smartTimes = false, linkTone, idLinkTone, className } = props;
+  const settings = useMemo(() => ({ onLink, headingOffset, size, images, onImage, linkTone, idLinkTone }), [onLink, headingOffset, size, images, onImage, linkTone, idLinkTone]);
   const allowPaths = onLink !== undefined;
-  const plugins = useMemo(() => remarkPlugins({ hideTitle, rules: [linkIds ?? []].flat(), allowPaths }), [hideTitle, linkIds, allowPaths]);
+  const plugins = useMemo(() => remarkPlugins({ hideTitle, rules: [linkIds ?? []].flat(), allowPaths, smart: smartTimes }), [hideTitle, linkIds, allowPaths, smartTimes]);
   const text = children ?? source;
   const clean = useMemo(() => (text === undefined ? undefined : stripUnsafeChars(text)), [text]);
   return (

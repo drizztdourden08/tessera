@@ -1,6 +1,10 @@
 /* @layer renderer-components @kind barrel */
 export { GroupTree, type GroupTreeProps, type TreeNode } from '../GroupTree';
-export { DocumentTabs,type DocumentTab, type DocumentTabsProps } from '../DocumentTabs';
+export { MillerColumns } from '../MillerColumns';
+export type { MillerColumnsProps, MillerColumnsSelection } from '../MillerColumns';
+export { Tree } from '../Tree';
+export type { TreeHandle, TreeMoveRequest, TreeProps, TreeReorder, TreeRowSize, TreeRowState, TreeSelection, TreeSelectionMode } from '../Tree';
+export { DocumentTabs,type DocumentTab, type DocumentTabStatus, type DocumentTabsProps } from '../DocumentTabs';
 export { SearchResults } from '../SearchResults';
 export type { SearchResultsGroup, SearchResultsHit, SearchResultsJump, SearchResultsProps } from '../SearchResults';
 export { SearchResultGroup } from '../SearchResultGroup';
@@ -9,10 +13,11 @@ export { SearchResultHit } from '../SearchResultHit';
 export type { SearchResultHitProps } from '../SearchResultHit';
 export { DropdownMenu, useHoverOpen } from '../DropdownMenu';
 export type {
-  DropdownMenuProps, HoverOpenParams, MenuAlign, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
+  DropdownMenuProps, HoverOpenParams, MenuAlign, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemSize, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
   MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
 } from '../DropdownMenu';
 export { ContextMenu, type ContextMenuPoint, type ContextMenuProps } from '../ContextMenu';
+export { Breadcrumbs, type BreadcrumbSegment, type BreadcrumbsProps } from '../Breadcrumbs';
 export { FloatingSwitch, type FloatingSwitchItem, type FloatingSwitchProps } from '../FloatingSwitch';
 export {
   CONTROLLER_SILHOUETTE_PATHS, CONTROLLER_SILHOUETTE_VARIANTS, CONTROLLER_SILHOUETTE_VIEW_BOX, ControllerSilhouette,

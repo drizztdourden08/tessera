@@ -96,3 +96,12 @@
   display: block;
   padding: var(--space-sm) var(--space-xs) var(--space-xs);
 }
+
+.dropdown__menu .dropdown__select {
+  cursor: default;
+}
+
+.dropdown__menu .dropdown__select-field {
+  grid-area: 2 / 3 / auto / span 2;
+  min-width: var(--size-160);
+}

@@ -28,38 +28,36 @@ interface GroupTreeProps<T> {
   className?: string;
 }
 
-interface TreeGroupRow<T> {
-  kind: 'group';
+interface GroupEntryBase {
   key: string;
-  depth: number;
-  parentKey: string | null;
-  position: number;
-  setSize: number;
+  label: string;
+}
+
+interface GroupGroupEntry<T> extends GroupEntryBase {
+  kind: 'group';
   node: TreeNode<T>;
   count: number;
-  expanded: boolean;
-  ancestors: readonly string[];
+  children: readonly GroupEntry<T>[];
 }
 
-interface TreeItemRow<T> {
+interface GroupItemEntry<T> extends GroupEntryBase {
   kind: 'item';
-  key: string;
-  depth: number;
-  parentKey: string | null;
-  position: number;
-  setSize: number;
   item: T;
   itemKey: string;
-  ancestors: readonly string[];
+  children: undefined;
 }
 
-type TreeRow<T> = TreeGroupRow<T> | TreeItemRow<T>;
+type GroupEntry<T> = GroupGroupEntry<T> | GroupItemEntry<T>;
 
-type TreeMove =
-  | { kind: 'focus'; index: number }
-  | { kind: 'expand'; key: string }
-  | { kind: 'collapse'; key: string }
-  | { kind: 'select'; index: number }
-  | { kind: 'none' };
+interface GroupEntries<T> {
+  top: readonly GroupEntry<T>[];
+  byKey: ReadonlyMap<string, GroupEntry<T>>;
+  bySelection: ReadonlyMap<string, readonly string[]>;
+}
 
-export type { GroupTreeProps, TreeGroupRow, TreeItemRow, TreeMove, TreeNode, TreeRow };
+interface GroupCollector<T> {
+  byKey: Map<string, GroupEntry<T>>;
+  bySelection: Map<string, string[]>;
+}
+
+export type { GroupCollector, GroupEntries, GroupEntry, GroupTreeProps, TreeNode };

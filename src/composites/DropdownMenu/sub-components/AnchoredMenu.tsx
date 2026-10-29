@@ -16,10 +16,10 @@ import type { AnchoredMenuProps } from '../DropdownMenu.type';
 const ignore = (): void => undefined;
 
 const AnchoredMenu = (props: AnchoredMenuProps) => {
-  const { groups, anchorRef, side, align, inline = false, label, variant = 'primary', intensity = 'strong' } = props;
+  const { groups, anchorRef, side, align, inline = false, label, variant = 'primary', intensity = 'strong', itemSize } = props;
   const { closeOnSelect = true, filter = false, filterPlaceholder, focusOnOpen, hover, onClose = ignore, className } = props;
   const menuRef = useRef<HTMLDivElement>(null);
-  const look = menuLookClass(variant, intensity);
+  const look = menuLookClass(variant, intensity, itemSize);
   const { anchor, placement, fallback } = useMenuAnchor({ anchorRef, side, align, inline, onOutOfView: onClose });
   useFocusReturn(menuRef, anchor);
   useDismissListeners({ open: !inline, onClose, contentRef: menuRef, triggerRef: anchor, level: 'menu' });

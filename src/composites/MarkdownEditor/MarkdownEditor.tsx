@@ -7,8 +7,8 @@ import { counterShown } from './behavior/counter-shown';
 import { useAutoFocus } from './behavior/useAutoFocus';
 import { useEditorKeys } from './behavior/useEditorKeys';
 import { useEditorMode } from './behavior/useEditorMode';
+import { rowsOf } from './behavior/rows-of';
 import { useMarkdownActions } from './behavior/useMarkdownActions';
-import { DEFAULT_ROWS } from './MarkdownEditor.constants';
 import type { MarkdownEditorProps } from './MarkdownEditor.type';
 import { MarkdownEditorCounter } from './sub-components/MarkdownEditorCounter';
 import { MarkdownEditorPreview } from './sub-components/MarkdownEditorPreview';
@@ -18,11 +18,11 @@ import './MarkdownEditor.css';
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
   const {
-    value, onChange, label, hint, error, placeholder, disabled = false, layout, rows = DEFAULT_ROWS, onLink, images, linkIds, onSubmit, onEscape, maxLength, autoFocus = false, className,
+    value, onChange, label, hint, error, placeholder, disabled = false, layout, compact, preview, toolbarEnd, rows, onLink, images, linkIds, onSubmit, onEscape, maxLength, autoFocus = false, className,
   } = props;
   const rootRef = useRef<HTMLElement | null>(null);
   const areaRef = useRef<HTMLTextAreaElement | null>(null);
-  const { mode, tabbed, pane, setPane, writing } = useEditorMode(rootRef, layout);
+  const { mode, tabbed, pane, setPane, writing, previewShown, previewDrawn, toggle } = useEditorMode(rootRef, { layout, compact, disabled, preview });
   useAutoFocus(areaRef, autoFocus && !disabled, setPane);
   const off = disabled || !writing;
   const { run, onKeyDown: onShortcut } = useMarkdownActions(areaRef, off);
@@ -31,7 +31,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   return (
     <Field label={label} hint={hint} error={error} width="full">
       <Box ref={rootRef} className={['markdown-editor', className].filter(Boolean).join(' ')} data-layout={mode}>
-        <MarkdownEditorToolbar disabled={off} onAction={run} />
+        <MarkdownEditorToolbar disabled={off} onAction={run} toggle={toggle} end={toolbarEnd} />
         {tabbed && <MarkdownEditorTabs pane={pane} onPane={setPane} />}
         <Box className="markdown-editor__panes">
           <Box className="markdown-editor__write" hidden={!writing}>
@@ -39,7 +39,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
               ref={areaRef}
               aria-label={props['aria-label']}
               value={value}
-              rows={rows}
+              rows={rowsOf(rows, compact)}
               maxLength={maxLength}
               placeholder={placeholder}
               disabled={disabled}
@@ -48,7 +48,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
             />
             {maxLength !== undefined && counterShown(value.length, maxLength) && <MarkdownEditorCounter count={value.length} max={maxLength} />}
           </Box>
-          <MarkdownEditorPreview value={value} onLink={onLink} images={images} linkIds={linkIds} hidden={tabbed && pane !== 'preview'} />
+          {previewDrawn && <MarkdownEditorPreview value={value} onLink={onLink} images={images} linkIds={linkIds} hidden={!previewShown} />}
         </Box>
       </Box>
     </Field>

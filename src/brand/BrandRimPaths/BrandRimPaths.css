@@ -10,3 +10,18 @@
 .brand-rim--fine {
   stroke-width: max(var(--brand-rim-width, var(--brand-rim-sm)), calc(2 * var(--brand-rim-sm)));
 }
+
+.brand-mark--fill .brand-rim,
+.pixel-wordmark--fill .brand-rim {
+  stroke-width: calc(2 * var(--brand-rim-fill));
+}
+
+.brand-mark--fill .brand-rim--fine,
+.pixel-wordmark--fill .brand-rim--fine {
+  stroke-width: calc(2 * var(--brand-rim-fill-fine));
+}
+
+.brand-mark--fill .brand-rim > *,
+.pixel-wordmark--fill .brand-rim > * {
+  vector-effect: none;
+}

@@ -12,21 +12,22 @@ import { SliderTrack } from './SliderTrack';
 const pairOf = (pair: SliderPair | undefined): [number, number] | undefined => (pair ? [pair[0], pair[1]] : undefined);
 
 const SliderRange = (part: SliderPartProps<SliderRangeProps>) => {
-  const { props, scale, disabled, accessibleName } = part;
+  const { props, scale, disabled, accessibleName, mixedText } = part;
   const { value: given, defaultValue, onChange, keyStep, labels, showValue = true, id, name } = props;
   const [pair, setPair] = useSliderValue(pairOf(given), pairOf(defaultValue) ?? [scale.min, scale.max], onChange);
   const thumbs = useRangeThumbs(pair, setPair, scale);
   const drag = useRangeDrag(thumbs, scale, disabled);
   const edge = (which: string) => (accessibleName ? `${accessibleName} ${which}` : which);
-  const shared = { scale, disabled, name, keyStep };
+  const shared = { scale, disabled, name, keyStep, mixedText };
 
   return (
     <SliderTrack
       scale={scale}
       labels={labels}
       span={[thumbs.low, thumbs.high]}
-      readout={showValue ? <>{valueText(thumbs.low, scale)}<Span className="slider__value-to" />{valueText(thumbs.high, scale)}</> : null}
+      readout={showValue ? mixedText ?? <>{valueText(thumbs.low, scale)}<Span className="slider__value-to" />{valueText(thumbs.high, scale)}</> : null}
       range
+      trackBackground={props.trackBackground}
       rail={drag.rail}
     >
       <SliderThumb

@@ -6,6 +6,8 @@
   container: list-detail-layout / inline-size;
   display: flex;
   flex: 1;
+  inline-size: 100%;
+  min-inline-size: 0;
   flex-direction: column;
   min-height: 0;
   overflow: hidden;

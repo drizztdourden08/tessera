@@ -4,7 +4,7 @@ import type { ToolbarItem } from '../Toolbar.type';
 
 const itemStops = (item: ToolbarItem): string[] => {
   if (item.kind === 'separator') return [];
-  if (item.kind === 'group') return item.choices.map((choice) => `${item.id}:${choice.value}`);
+  if (item.kind === 'group' && item.display !== 'menu' && item.display !== 'slot') return item.choices.map((choice) => `${item.id}:${choice.value}`);
   return [item.id];
 };
 

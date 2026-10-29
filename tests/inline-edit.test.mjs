@@ -4,7 +4,8 @@ import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { InlineEdit } from '../src/composites/InlineEdit';
 import { useInlineEditField } from '../src/composites/InlineEdit/behavior/useInlineEditField';
-import { guardCellControl } from '../src/composites/DataTable/behavior/guard-cell-control';
+import { InlineEditField } from '../src/composites/InlineEdit/sub-components/InlineEditField';
+import { guardCellControl } from '../src/primitives/dom/guard-cell-control';
 import { nameEditKey } from '../src/primitives/field-control/name-edit-key';
 
 const noop = () => undefined;
@@ -140,5 +141,36 @@ describe('InlineEdit validate', () => {
     seen.state.onBlur();
     expect(seen.commits).toEqual([]);
     expect(seen.done).toEqual([]);
+  });
+});
+
+describe('InlineEdit dense', () => {
+  const view = (props) => renderToString(h(InlineEdit, { value: 'Fix', onCommit: noop, ...props }));
+  const field = (props) => renderToString(h(InlineEditField, {
+    name: 'Layer', value: 'Fix', placeholder: undefined, validate: undefined, multiline: false, size: undefined, dense: true, className: undefined, onCommit: noop, onDone: noop, ...props,
+  }));
+
+  it('draws the text button for a 24 px row only when asked', () => {
+    expect(view({ dense: true })).toContain('inline-edit__view--dense');
+    expect(view({})).not.toContain('inline-edit__view--dense');
+    expect(view({ dense: true, multiline: true })).not.toContain('inline-edit__view--dense');
+  });
+
+  it('draws the field small and dense, with the message of validate on one line beside it', () => {
+    const html = field({ validate: () => 'Use at least 3 characters.' });
+    expect(html).toContain('inline-edit__field--dense');
+    expect(html).toContain('control-size--sm');
+    expect(html).toContain('Use at least 3 characters.');
+    expect(html).toContain('role="alert"');
+  });
+
+  it('keeps the field as before when it is not dense', () => {
+    const html = field({ dense: false });
+    expect(html).not.toContain('inline-edit__field--dense');
+    expect(html).not.toContain('control-size--sm');
+  });
+
+  it('does not make a text area dense', () => {
+    expect(field({ multiline: true })).not.toContain('inline-edit__field--dense');
   });
 });

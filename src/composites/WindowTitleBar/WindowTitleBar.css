@@ -8,8 +8,8 @@
   flex-shrink: 0;
   align-items: center;
   height: var(--titlebar-height);
-  border-bottom: var(--border-width-thin) solid var(--c-border);
-  background: var(--c-surface);
+  border-bottom: var(--border-width-thin) solid var(--c-chrome-border);
+  background: var(--c-chrome);
   transition: transform var(--duration-slow) var(--ease-standard), opacity var(--duration-slow) var(--ease-standard);
 }
 

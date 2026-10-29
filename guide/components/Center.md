@@ -60,5 +60,6 @@ const LobbyWaiting = () => (
 - `gap` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`.
 - `wrap` (optional): `boolean`.
 - `inline` (optional): `boolean`.
+- `container` (optional): `boolean`.
 
 It also takes the 277 attributes it inherits through `HTMLAttributes<HTMLElement>`.

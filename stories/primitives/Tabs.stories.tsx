@@ -1,9 +1,9 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Box, Icon, Tabs, Text } from '../../src/primitives';
+import { StatefulTabs } from './_samples/StatefulTabs';
 import type { TabItem } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -46,18 +46,6 @@ const meta = {
   title: 'Primitives · Navigation/Tabs',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<TabsArgs>;
-
-const StatefulTabs = (props: { tabs: TabItem[]; iconOnly?: boolean }) => {
-  const { tabs, iconOnly } = props;
-  const [active, setActive] = useState(tabs[0]?.id ?? '');
-  const current = tabs.find((tab) => tab.id === active);
-  return (
-    <Box className="story-column">
-      <Tabs tabs={tabs} activeTab={active} onTabChange={setActive} iconOnly={iconOnly} />
-      <Text className="story-label">Active: {current?.label}</Text>
-    </Box>
-  );
-};
 
 const PlaygroundDemo = (props: TabsArgs) => {
   const { iconOnly, withBadges: showBadges } = props;
@@ -131,6 +119,39 @@ const Titled = {
   ),
 } satisfies StoryLiteStoryDefinition<TabsArgs>;
 
+const SolidBadges = {
+  name: 'Solid count badges',
+  render: () => (
+    <Demonstrator
+      rows={axis(['tint', 'solid'] as const)}
+      align="stretch"
+      cell={(fill) => <StatefulTabs tabs={TONED_TABS} badgeFill={fill} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TabsArgs>;
+
+const Sizes = {
+  name: 'Sizes',
+  render: () => (
+    <Demonstrator
+      rows={axis(['md', 'lg'] as const)}
+      align="stretch"
+      cell={(size) => <StatefulTabs tabs={withBadges(SETTINGS_TABS)} size={size} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TabsArgs>;
+
+const ActiveTone = {
+  name: 'Active label in the text colour',
+  render: () => (
+    <Demonstrator
+      rows={axis(['accent', 'neutral'] as const)}
+      align="stretch"
+      cell={(tone) => <StatefulTabs tabs={withBadges(SETTINGS_TABS)} selectedTone={tone} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TabsArgs>;
+
 const Layouts = {
   name: 'Layouts',
   render: () => (
@@ -154,8 +175,8 @@ const Overview = overviewStory({
   component: 'Tabs',
   description: 'A row of tabs that switches between the views of one screen, such as the sections of a settings page.',
   points: [
-    'Each tab has a label, an optional icon and count `badge`; `badgeTone` tints it, `badgeTitle` explains it.',
-    '`iconOnly` hides the labels and keeps each one as the tab title.',
+    'Each tab has a label, an icon and a count `badge`; `badgeTone` tints it, `badgeFill="solid"` fills it.',
+    '`iconOnly` keeps labels as titles; `size="lg"` is 40 px tall; `selectedTone="neutral"` shows it in text colour.',
     'When the tabs run out of room the strip scrolls sideways, with an arrow at each edge that has more.',
     'The arrow keys, [[Home]] and [[End]] move the selection.',
     '`disabled` greys a tab out and the arrows skip it; `disabledReason` shows on hover and focus and is read out.',
@@ -163,7 +184,7 @@ const Overview = overviewStory({
   ],
   instead: '[SegmentedControl] for a choice that sets a value instead of switching views.',
   playground: Playground,
-  variants: [Layouts, Tones, Titled, Disabled],
+  variants: [Layouts, Sizes, ActiveTone, Tones, SolidBadges, Titled, Disabled],
   states: {
     render: renderState,
     list: [
@@ -190,4 +211,4 @@ const [active, setActive] = useState('general');
 });
 
 export default meta;
-export { Disabled, Layouts, Overview, Playground, Titled, Tones };
+export { ActiveTone, Disabled, Layouts, Overview, Playground, Sizes, SolidBadges, Titled, Tones };

@@ -1,5 +1,152 @@
 # @drizztdourden08/tessera
 
+## 0.91.0
+
+### Minor Changes
+
+- 03f6d0c: `Tile` takes `mediaAspect`, a ratio such as `4/3` or `16/9` or a number, to shape its media; the default stays square. A `VirtualGrid` section takes `onDropData(dataTransfer)` and `accepts(dataTransfer)`, so its header takes a native drop of files or items from another widget with the same into mark and announcement, with or without `reorder`. `useNativeDragGhost()` makes `DragGhost` the drag image of a native drag and drop: its `onDragStart(event, { count, thumbnails })` draws the ghost off screen and calls `setDragImage`.
+- 28cbee8: A Toolbar separator takes a `priority`, and the items after it up to the next separator fold into More as one group, under that heading, so a group never splits across the bar and More. Without it the fold is unchanged. New pixel icons `pixel-ink-replace`, `pixel-ink-blend` and `pixel-symmetry-badge`. The Toolbar gets a brush picker story: a popover tool holding a ChoiceGrid of crisp brush cells with an Add from selection button, and `ChoiceGrid` documents the recipe.
+
+### Patch Changes
+
+- 463c4db: The primitives barrel is split into group barrels, one folder per gallery group such as `layout-exports` and `inputs-exports`, and `src/primitives/index.ts` re-exports them. Every name is still exported from `@drizztdourden08/tessera/primitives` and the package root. `tessera new primitive` writes the export into the barrel of the chosen group.
+
+## 0.90.0
+
+### Minor Changes
+
+- af13bd1: VirtualGrid takes a `columns` prop that fixes the tiles in every row, such as the width of a tileset. Rows break at that count whatever the width, tiles keep their `tileSize`, and a box narrower than the columns scrolls sideways. The arrow and Page keys, the Shift rectangle, the marquee rects, reorder and sections all use the fixed count. Without `columns` the count still follows the width.
+
+### Patch Changes
+
+- a2c616f: DockLayout turns a corner from the seam. The pointer part is now a 24 px zone at the end of the seam divider, inside its 8 px band, so it covers no title bar button and no widget content in either panel. A Delete button in the bottom corner of a docked widget needs no padding to stay clickable. The zone belongs to the divider, which stays one target and keeps its axe spacing. A corner whose panel edge meets the stage gutter turns from the end of the seam beside that panel. Drag toward the panel to give the corner away. The keyboard part stays a button and a tab stop with the same label, arrow keys and live status, but it has no pointer box, so it is no axe target. On hover or focus the short bar is drawn in the middle of the seam, not on the panel edge. The focus ring is drawn around the seam corner. Row and column corners work the same way. Tests pin the zones inside the seam, clear of every title bar, content box and corner button, and the keyboard route of every handle.
+
+## 0.89.1
+
+### Patch Changes
+
+- c81ad2a: DockLayout column corner handles are 24 by 24 px, up from 24 by 8 px, so they pass the axe target-size rule. The hit area sits 8 px above the seam and reaches 32 px up into the panel above it, so the widget title bar buttons below the seam stay uncovered and fully clickable. The seam centre is 12 px from the hit area, which keeps the seam divider inside the axe spacing exception. The drawn line stays on the seam and looks the same. Row corner handles are unchanged. Tests pin the 24 by 24 size, the 8 px lift and the 12 px clearance.
+
+## 0.89.0
+
+### Minor Changes
+
+- 84e8f19: Six changes from the Bxel palette widget. Tooltip draws its bubble in the tooltip layer instead of inside its anchor, so a Tooltip around a listbox option no longer breaks the required children of the list. ColorPicker names its current colour swatch with the new string `colorPicker.current`, for example Current colour, #3f8fd2. The Slider thumbs now have a 24 px hit area at both sizes, and the drawn size is unchanged. Slider takes `trackBackground`, a CSS image such as a gradient that becomes the track itself, for a single thumb and for a range. ColorSwatch `marks` also takes an object keyed by corner name (`top-start`, `top-end`, `bottom-end`, `bottom-start`) so an app can map its own corner numbers, the array order is unchanged, and the marks now grow and shrink with the swatch size, including a `fill` swatch. ColorSwatch also takes `size="xs"`, 16 px, so a swatch can be the icon of a DropdownMenu item, whose `icon` already accepts any element.
+- 0a8714d: SeatCard takes `selected` on filled and attention seats, drawn like a selected ItemCard with `aria-current` on the name button, and a new `held` state for a seat reserved for a player, with `label`, `hint` and optional `actions`.
+- c4af4e0: `Tree` is a new virtual tree of any depth. It draws only the rows in view, so ten thousand rows open at once, and it has the tree roles and keys: arrows, Right and Left to fold, Home, End, a typed letter and the star for all siblings. `selection` picks one row or many through `useSelectionModel`, `getChildren` with `isBranch`, `onLoadChildren` and `loadingKeys` load a folder when it opens, and `filter` keeps the matches with the folders above them. `reorder` drags rows to a gap or into a folder with `DragGhost`, shows the into mark only where `maxDepth` and `canDrop` allow the drop, opens a closed folder after a hold, limits the depth with `maxDepth`, and Alt with an arrow moves rows in and out of a parent; each move is announced and given to `onMove` as the keys, the parent and the index. The row has three slots, `renderLead`, `renderLabel` and `renderTrail`, and no toggles of its own.
+
+  `GroupTree` is rebuilt on `Tree` and keeps its props and behaviour. Its rows now use the classes of `Tree`, so a story that targeted the group row classes targets `tree__row`.
+
+  `MillerColumns` shows nested items as side by side columns, each a `VirtualList`, with one shared `selection`, a `path` the app may own, Right and Left between columns and `onOpen` for a leaf. `useToggleSweep` lets the user press a toggle and drag over the others to set them all to one value, committing once through `onEnd` with every key it touched, showing the keys reached so far in `touched` and `value`, and calling `onSet` for each key only when the app wants a live change. `InlineEdit` takes `dense` to fit a 24 px row, with the message of `validate` on one line beside the field.
+
+### Patch Changes
+
+- 211a3dc: Holding Alt no longer remounts the content of a docked widget. A peeking Widget keeps its body mounted and only collapses it with CSS, so focus stays in the control and Alt with an arrow key reaches it. `useDockKeys` also ignores Alt pressed while focus is inside widget content.
+
+## 0.88.0
+
+### Minor Changes
+
+- 16205fa: Four new composites and six opt-in options for a project browser and a canvas. Breadcrumbs shows the levels of a path as buttons with icons, a menu of the places next to each segment, a fold of the middle segments behind an ellipsis through `maxVisible`, a drop target per segment through `onDropOn`, a trailing slot, and a PathInput that opens on a click at the end through `onPathSubmit`. Tile is a square media slot with a name line, four corner slots and separate `selected` and `focused` looks. SplitButton joins a main action to a chevron menu and takes `pressed` to toggle. Navigator is a small map of a large surface with a frame the user drags or moves by arrow keys, read aloud as a percent of the surface. FilterBar takes `maxChips`, which folds the extra chips into a +N menu where each can be removed, and `parseToken`, which turns a typed `key:value` word into a chip. Anchored takes `anchorRect`, a rect or a function that reads one, and `boundary`, which keeps the popup inside a scroll box. SplitPane takes `summary` and `header` for a collapsed stacked pane. AnchorPicker takes `value="custom"` for a free point and `size="xs"`. Image takes `backdrop="checker"` and `fit="integer"`. ContentHeader gains a usage example for the header of one subject.
+- 8ac4e70: Colour, swatches and the choice grid. `ColorPicker` takes `modes` to show HSV, OKLCH and RGB tabs over one value, with `mode` and `onModeChange` to control the tab. The OKLCH tab clamps to sRGB by lowering chroma and shows a notice while the typed colour is outside the range. It also takes a `name` slot under the title and a `footer` slot under the buttons, and `ColorPickerPopover` passes them on. `ColorSwatch` takes `marks` for up to four corner marks, `unused` for a dashed struck look, `mixed` for a dash over the colour, and `focusRing` set to `apart` so the focus ring sits outside the selected ring. The new `ChoiceGrid` is a row or grid of any cells picked as one radio group or listbox, with one Tab stop, arrows, Home and End, sections, `columns`, `renderCell`, a `footer` slot and `pickOnRelease`. A RampStrip recipe in its usage file builds from it. Thirty nine pixel icons join the set: eight for the canvas views, thirteen for drawing and painting, and eighteen for selecting, transforming, scaling, zooming and the tile map.
+- c44f9e0: A disabled item in DropdownMenu, ContextMenu and every menu built on them is now drawn at the disabled opacity, the same as a disabled Button, so the whole item reads as unavailable instead of only a slightly dimmer label. ColorSwatch takes `fill`, which stretches it to the width of its grid cell and keeps it square; set `--swatch-aspect` on the cell for another shape.
+- d81ef52: Number fields, a Mixed state and new Toolbar item kinds, all opt-in. `NumberField` scrubs by dragging its label, steps with the wheel and the arrow keys, takes a fine step with Shift, walks a `ladder` of stops and offers `presets` and a `suffix`; a zoom field is a ladder from 25 to 12800 percent. `AngleField` adds a dial and snaps to 15, 22.5 or 45 degrees. The wheel step is now the `useWheelStep` hook, and `VolumeControl` uses it. `TextInput`, `NumberInput`, `Select`, `Checkbox`, `Slider` and `ToggleGroup` take `mixed` and show Mixed until a new value is set; `NumberInput` takes `onStep`. `Toolbar` groups take `display` menu or slot, items take `openOn` hold with `holdDelay` and `dwell`, a drag from a held menu picks on release, `popover` items open a panel, items take `badge` and `borrowed`, separators take a `label`, a number item draws a `NumberField`, and `keyBadges` draws the key on the tools of a vertical bar, off by default. `inlineOptions` opens the options of the pressed item under its row in a list.
+- 1195a7c: `useSelectionModel` is the new picking kit in `composites/selection`, taken out of the row selection of `DataTable`, which behaves as before. It takes the keys in display order and the selected set, and gives `click`, `toggle`, `extend`, `step`, `checkAll`, `selectAll`, `clear`, `allState` and an `onKeyDown` for Ctrl and A, Space, Shift with Space, Escape and type ahead. With `cellOf` Shift takes the rectangle between two cells, and `isHole` skips keys that cannot be picked. The helpers `rectKeys`, `toggledKey` and `typeAheadIndex` come with it.
+
+  `VirtualGrid` takes `selection`, `holes`, `getLabel` and `reorder`. A drag moves the picked tiles with an insertion line, edge scroll and a polite announcement, Alt with an arrow moves them by key, and a section with `onDrop` takes tiles on its header with an into mark. `VirtualList` takes `orientation` set to horizontal with `itemSize`, `selection`, `getLabel`, and a `ref` with `scrollToIndex` and `getRects` for a marquee. The `virtual` kit gains `readHorizontalMetrics`, `stepVirtualSize` and an `axis` for `useVirtualFocus`.
+
+  `useReorderDrag` takes `keys` for a set, `scrollRef` for edge scroll and `onDrop(from, to, drop)` with the keys, the gap and the modifier held. It returns `dragKeys` and `point`. `moveSet`, `stepGap` and `modifierOf` are new, and `DragGhost` draws a count with up to three stacked thumbnails at the pointer. `useMarqueeSelect` returns `cells`, the bounds of the cells hit, from rects that carry a `cell`, and `hitItems` and `cellRectOf` are exported.
+
+## 0.87.0
+
+### Minor Changes
+
+- 038246e: Five opt-in additions for Argus, with every default unchanged. The Argus mark now draws in `currentColor`, so the app sets its colour: white on the dark app, the primary colour for emphasis. `BrandMarkData` takes `currentInk`, the black and white a file uses, and `markInk` applies it. `pnpm icons` writes `brand/argus` in black for light grounds and `brand/dark-ground/argus` in white, and the splash uses the white one. `Card` and `Flex` take `container`, which makes them an inline size container, so `width="narrow-fill"` fields inside have a container to measure. `TrackTable` columns take `hideBelow` with 1280, 1120, 896, 768, 640 or 480, backed by the `--track-hide-*` and `--track-drop-*` tokens; `drop` 1, 2 and 3 stay as 768, 640 and 480, and a hidden column removes its grid track too. The row templates are now named by width, such as `--track-cols-768`. `FoldText` takes `hug` with `truncate="middle"` to take only the width its text needs, so a button can sit right after it. `Drawer` takes `headerActionsRow="eyebrow"` and `WindowHeader` takes `actionsRow="eyebrow"` to put the header actions in the id and tag row.
+- 8a47495: Toolbar layout fields, all opt-in. `ToolbarLayout` takes `items`, the item ids a user hid in each toolbar, and `columns`, 1, 2 or auto for each toolbar. `migrateToolbarLayout` drops unknown toolbars and values that are not allowed, and an older layout migrates with neither field. `setToolbarItems` and `setToolbarColumns` edit them, and a `ToolbarSlot` hands `hiddenItems` and `columns` to the toolbar. `Toolbar` takes `hiddenItems`, `columns` and `onContextMenu(itemId, event)`, which also runs on Shift+F10. A vertical bar with `columns` auto wraps into two columns before it folds into More. An item takes `priority`, so the lowest folds first, and its own `onContextMenu`. The package exports `ToolbarColumns` and `ToolbarContextEvent`.
+
+### Patch Changes
+
+- 2842418: ListDetailLayout takes the full width of its parent, so a parent that sizes its children to their content no longer shrinks the layout under 768 px and stacks its panes in a wide main area.
+
+## 0.86.0
+
+### Minor Changes
+
+- b439315: Argus joins the family as a brand. `BrandApp` takes `argus`, and `BRAND_FAMILY.argus` carries its mark, wordmark, gradient and backdrop. The mark is a geometric letter A merged with a watchful eye, drawn in one slate grey until Argus picks a hue. It is a straight app icon with a light outline on a dark ground. The icon files are written under `brand/argus` and the ground and rim folders, the Argus gradient and backdrop tokens are in `brand.css`, and `Hero` takes `data-brand="argus"`. Argus appears in the brand pages and in the brand icons. It has no mascot and no palette yet.
+
+## 0.85.0
+
+### Minor Changes
+
+- 6afb5e6: Five opt-in options for the Argus Node design; every default look stays the same. `Select`, `Combobox`, `TextInput` and `SearchInput` take `width="narrow-fill"`, the 220 px control that fills its row when the nearest container is under 420 px wide, set by the `--field-w-fill-below` token. Tabs takes `badgeFill="solid"` to draw the count as a solid Badge in its tone instead of the tinted one, and the package exports `TabBadgeFill`. Tag and Status take `reason`, a short cause drawn after the name in the tone while the name stays in the text colour. Markdown takes `idLinkTone`, a tone for the links made by `linkIds` apart from the web links, which keep `linkTone`. The DropdownMenu `select` item already draws its label above the Select, so it needs no option.
+- bcf0df1: Four opt-in options for dense data screens. Drawer takes `stackNarrow`, passed to its header. A TrackTable column takes `width`, a fixed size from a size or space token name or a CSS length. FoldText takes `fill`, which contains the text width so a table cell does not widen, and `truncate="middle"`, which keeps the start and end of a string such as a path and shows the full text in a tip. TextInput takes `mono` for the monospace face, so a read only command line can grow beside Copy and Run buttons.
+
+## 0.84.0
+
+### Minor Changes
+
+- d2000d5: Nine more opt-in options for the Argus Node design; every default look stays the same. DropdownMenu takes an item `kind="select"` with `options`, `selected` and `onPick` for a labelled Select row beside the action rows, which keeps the menu open and the arrow keys working. Markdown takes `linkTone` to draw links, including id links, in the text colour with `neutral`. DataTable `rowState` takes `edge` for a left bar with no tint. Link takes `tone="info"`, underlined in the info colour. Disclosure takes `wrapEnd` to drop the end slot under the summary below 384 px, which adds the `--disclosure-wrap` token. Tabs takes `selectedTone="neutral"` for the active label in the text colour. TagPicker takes `pill` for round chips. Tag takes `size="lg"` for 24 px. Text takes `size="md"` for the 13 px step.
+- 006f171: Eight opt-in options for the Argus Node design; every default look stays the same. Tabs takes `size="lg"` for 40 px tabs. SegmentedControl and a selectable Tag take `selectedTone="neutral"` for a grey selected fill instead of the accent. Tag takes `outlined` for an edge with no fill. DropdownMenu takes `itemSize="roomy"` for 13 px text and taller rows, which adds the `--size-13` and `--text-md` tokens. The `book` icon joins `robot` and `flask`. Markdown takes `smartTimes` to draw a multiplication sign for an x between two digits, as in 1920x1080.
+- b0f6601: KanbanBoard has four opt-in layout props. `grip={false}` hides the drag grip, and the keyboard moves stay on a hidden grip button that shows a focus ring on the card. `foldable={false}` removes the fold chevron from every column. `columnHeight="fit"` sizes each column to its cards instead of the board height. `stack` stacks the columns when the board is under 420 px wide, through a container query. `Select`, `Combobox` and `TextInput` take `width`: `fit` sizes the control to its content and `narrow` fixes it at 220 px, and `SearchInput` takes the same prop. The package exports `KanbanColumnHeight`.
+- 42bc94f: Link takes `tone="link"`, underlined at rest in the lavender link colour #9e9eff with a lighter hover. It adds the `--p-link` seed and the `--c-link` and `--c-link-hover` tokens, which every palette inherits.
+- bdf48d0: MarkdownEditor takes `preview={false}` for a write only editor. The Preview eye, the Write and Preview tabs and the preview pane are all left out in every layout. The toolbar and `toolbarEnd` still draw. The default stays `true`.
+- 99686d8: Four composites gain opt-in options, and every default stays. TrackTable takes `onRowClick(row)` to make each row a focus target that Enter and a click use, `rowDetail(row)` to draw a full width row under its row, and `rowTone(row)` to tint a row with the names of the DataTable `rowState`. InlineEdit takes `look="link"` for a dashed underline in italic. WindowHeader takes `stackNarrow`, which moves the close button into a tools row under the title when the header is under 420 px, set by the `--window-header-narrow` token. MarkdownEditor takes `toolbarEnd`, a node drawn at the right end of the toolbar. The package exports `TrackRowTone`.
+
+### Patch Changes
+
+- fd9ba3f: Callout draws its text in a div instead of a paragraph, so block children such as a Stack of rows or buttons are valid inside it.
+
+## 0.83.0
+
+### Minor Changes
+
+- 5ac7251: FoldText is a public primitive. It clamps text to `lines` lines, and `overflow` picks what happens past them: `more` adds the More and Less control, `hint` keeps the height and shows the full text in a tip beside it (or the node passed as `hint`), and `clip` cuts the text with no control. The control and the tip only show when the text runs past the lines. FormRow and SettingsRow draw their descriptions with it. The package exports `FoldText`, `FoldTextProps` and `FoldOverflow`.
+
+## 0.82.0
+
+### Minor Changes
+
+- 56ba559: Status takes `dotSize="lg"` for an 8 px dot and `halo` for a soft ring in the tone around the dot.
+  Tag takes `dot` to lead the label with a small dot in the tone of the tag.
+  IconButton `tone` takes `info` and `accent`, beside `danger`.
+  Card takes `header`, any content for the header row in place of the title, subtitle and actions.
+  New TrackTable: a flat table whose columns take `fr` shares of the width and `drop` 1, 2 or 3 to hide under container queries as the table narrows. The breakpoints are the `--track-drop-1` to `--track-drop-3` tokens.
+- 690285f: Drawer takes `look="record"`: header chips show as written and the title is plain text colour in sentence case. KanbanBoard takes `cardEdgeTone(card)`, which draws a coloured edge on the cards it returns a tone for.
+- DocumentTabs takes a `status` on a tab: a phase dot from the Status primitive before the title, with its label for screen readers. New SeatCard and SeatGrid lay out the seats of a lobby: a seat is filled, needs attention, is empty, or is a dashed button to add one.
+- 3fc5edb: A widget and a PanelContainer take a `sublabel`: a muted label right after the title in the title strip. WidgetDefinition and WidgetTab take `sublabel`, which the title bar of a single widget or of the open tab draws; the tab chips of a tabbed pane never show it. The sublabel has its own ellipsis and shrinks first, so the title only shrinks once the sublabel is gone, and when either is clipped the full text shows in a Tooltip. Both share one title strip part, so the look is the same.
+- 7595cc4: WizardDialog takes a `size` (`md`, `wide`, `lg` or `xl`, from 640 to 1024 px; the default `wide` is the 768 px it always had). Wizard and WizardDialog take a `busy` that holds Back, Next, Finish and the step list and shows the step's busy hint while the app works on something async. `wizard.goTo(id, { force: true })` moves to a step past the usual checks, for when that work is done.
+
+## 0.81.0
+
+### Minor Changes
+
+- e043a08: Tag takes `pill` for a fully rounded shape and `icon` for a leading icon.
+  Badge takes `icon` to lead a count with an icon.
+  Status takes `size="sm"`, a row 18 px tall.
+  DataTable `rowState` takes `'fresh'`, a soft info tint for new rows that selection still overrides.
+  New `flask` and `robot` icons in the interface set.
+  DataTable takes `headerCase="upper"` for capital column labels with wide letter spacing.
+  ContentHeader takes `variant="plain"`, a title row with no backdrop, gradient or border.
+  PageFrame takes `padding="md"` for 16 px of page padding; the default stays 24 px.
+  Tag takes `href` with `navigate` or `onClick` and renders as a link that keeps its chip look, focus ring and 24 px target.
+  New `git-branch` icon beside `git-fork`.
+  SectionHeader takes `size="lg"` for a larger plain title and `wrap` so a long title wraps with its count inline.
+- 8782694: Card takes `flush`: no padding in the body, so a table or a list runs edge to edge, with the border and radius kept and the children clipped to the radius. ListItemRow takes `lead`, an id or a code in the first column before the name (it shares that column with `icon`), and `flat`, a dense row with no fill or border until hover or selection. Disclosure takes `end`, a slot at the right of the summary for a count or a Button; a click inside it never toggles the disclosure. InlineCreateForm takes `dashed`, which draws the box border dashed in the same colour and width. A filter chip that toggles is the existing Tag with `selected` and `onSelect`, and `grow={false}` on TextInput, SearchInput, Select and Combobox is the existing fixed-width prop, now written in the Select usage rules.
+- c378845: Callout takes a `title`, a bold first line above the text, so a banner is a Callout with a title.
+
+## 0.80.0
+
+### Minor Changes
+
+- 5e14058: A palette can now set its neutrals with optional seeds: `--p-bg`, `--p-panel`, `--p-surface-fill`, `--p-sunken`, `--p-border`, `--p-border-strong`, `--p-chrome`, `--p-chrome-border` and the text steps `--p-text`, `--p-text-dim`, `--p-text-muted` and `--p-text-faint`; the title bar, status bar, toolbar dock and tool frame read the new `--c-chrome` role, and palettes that set none look the same as before. DocumentTabs takes `look="raised"` for tabs with a surface fill and a lifted selected tab, and `--document-tab-bg` and `--document-tab-bg-selected` set the tab fills for any look.
+- 0fda089: MarkdownEditor takes `compact` for a slim toolbar, a small box that grows with its text, and a preview behind a toggle. KanbanBoard takes `columnWidth="fill"` so the columns share the board width down to a minimum. DataTable takes `footer={false}` to leave out the summary line, the count and the options menu.
+- 488c6f5: Drawer takes an `eyebrow` above the title, `headerActions` icon buttons beside close, a wrapping title and a new `wide` size of 768 px; every size is full width under 480 px. Card takes `edgeTone` and `edge` (`left` or `border`) to colour its edge in a tone while the header stays neutral, and WindowHeader takes `eyebrow` and `actions`.
+- 4d2ec43: New `size="fill"` for Logo, BrandMark, Logo.Combined, the wordmarks, Mascot and AnimatedMascot: the mark fills its parent's width, stays square, scales its rim with it, and takes an optional cap from `--brand-mark-fill-max`.
+
+### Patch Changes
+
+- ca3a700: The `tokens.css` export is now a flat pre-built file at the package root, with every import inlined in order and the font paths rewritten to the package fonts. It holds the same rules as before, so an app's dev server no longer follows an import chain to load it.
+
 ## 0.79.0
 
 ### Minor Changes

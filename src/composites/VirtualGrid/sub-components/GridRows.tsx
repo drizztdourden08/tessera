@@ -25,7 +25,9 @@ const GridRows = <T,>(props: GridRowsProps<T>) => {
             collapsed={model.collapsed.has(section.key)}
             tabbable={row.stop === model.tabbable}
             depth={section.depth}
+            into={model.into === section.key}
             actions={section.actions}
+            drop={model.dropOf(section)}
             onToggle={(next) => model.setCollapsed(section.key, next)}
             onActivate={model.activate}
             onNavigate={model.navigate}
@@ -42,7 +44,7 @@ const GridRows = <T,>(props: GridRowsProps<T>) => {
           const key = getKey(item, at);
           const bind = gridCellBind({
             index: row.stop + offset, column: offset, itemKey: key, tabbable: row.stop + offset === model.tabbable, bare: renderTile !== undefined,
-            onActivate: model.activate, onNavigate: model.navigate,
+            extras: model.extrasOf(at, key), onActivate: model.activate, onKeyDown: (event) => model.cellKeys(event, row.stop + offset, at),
           });
           return renderTile ? <Fragment key={key}>{renderTile(item, at, bind)}</Fragment> : <GridCell key={key} bind={bind}>{renderItem?.(item, at)}</GridCell>;
         })}

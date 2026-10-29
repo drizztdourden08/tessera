@@ -20,5 +20,5 @@ const foldersOf = (folders: number, perFolder: number): readonly FolderEntry[] =
     items: Array.from({ length: perFolder + folder * 3 }, (__, at) => ({ id: `f${folder + 1}-t${at}`, name: `${at + 1}` })),
   }));
 
-export type { TileEntry };
+export type { FolderEntry, TileEntry };
 export { foldersOf, tilesOf };

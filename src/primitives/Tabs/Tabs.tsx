@@ -6,13 +6,14 @@ import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings
 import { rovingIndex } from '../field-control/roving-index';
 import { ScrollStrip } from '../scroll-strip/ScrollStrip';
 import { STEP_BY_KEY } from './behavior/tab-steps.constants';
+import { tabsClass } from './behavior/tabs-class';
 import type { TabsProps } from './Tabs.type';
 import { TabsTab } from './sub-components/TabsTab';
 import type { KeyboardEvent } from 'react';
 import { isHTMLElement } from '../dom/is-html-element';
 
 const Tabs = (props: TabsProps) => {
-  const { tabs, activeTab, onTabChange, iconOnly = false, hideZero = false } = props;
+  const { tabs, activeTab, onTabChange, iconOnly = false, hideZero = false, size = 'md', selectedTone = 'accent', badgeFill = 'tint' } = props;
   const trackRef = useRef<HTMLElement | null>(null);
   const { fields } = useTesseraStrings();
 
@@ -31,7 +32,7 @@ const Tabs = (props: TabsProps) => {
   return (
     <ScrollStrip
       as="nav"
-      className="tabs"
+      className={tabsClass(size, selectedTone)}
       trackClassName="tabs__strip"
       trackRole="tablist"
       trackRef={trackRef}
@@ -44,6 +45,7 @@ const Tabs = (props: TabsProps) => {
           active={activeTab === tab.id}
           iconOnly={iconOnly}
           hideZero={hideZero}
+          badgeFill={badgeFill}
           onTabChange={onTabChange}
           onKeyDown={(event) => handleKeyDown(event, index)}
         />

@@ -21,6 +21,10 @@ const usage = {
     'For a grid, pass columns from columnsOf(list, REORDER_ITEM_SELECTOR) so up and down move by a row.',
     'Call expect(id) of useMoveFocus before the move so focus follows the item, and announce a sentence such as Layer moved to 3 of 8 in a live region that shows its message.',
     'Draw the drop mark and the dragging state from dropMark(index, total) and dragging; the hook sets no style.',
+    'To drag a set, pass keys(from), which gives the keys that move with the grabbed item, such as the picked ones; dragKeys holds them while the drag runs and onDrop gets them in its third argument with before, the gap, and modifier, the Alt, Ctrl or Shift held at the drop.',
+    'Put the set at the gap with moveSet(order, keys, before), which keeps the order of the set; for a key move of a set call stepGap(order, keys, by) and give its result to moveSet.',
+    'Pass scrollRef, the box that scrolls, and the drag scrolls it near an edge and keeps the gap up to date while the pointer rests.',
+    'The point of the drag is in point, in client pixels; give it to DragGhost to show the count and a stack of thumbnails at the pointer.',
   ],
   a11y: [
     'Keys move an item without a pointer: use the alt chord when plain arrows already move focus, and the plain chord when they do not.',
@@ -65,7 +69,7 @@ const LayerList = ({ layers, onMove }: { layers: Layer[]; onMove: (from: number,
   );
 };
 `,
-  propsHash: '0b90624d3248f2f5',
+  propsHash: '4efd9bedb16cbfb7',
 } satisfies HookUsage;
 
 export { usage };

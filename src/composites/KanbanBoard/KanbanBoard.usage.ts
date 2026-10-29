@@ -19,10 +19,16 @@ const usage = {
     'Read to.index as the place the card has after the move, in its new column; moveCard applies a move to the columns for you.',
     'Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.',
     'Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.',
+    'Pass cardEdgeTone to draw a coloured edge on some cards, such as danger for a card that needs the user; return undefined for a card with no edge.',
     'Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.',
+    'Set columnWidth to fill so the columns share the board width instead of a fixed width; each keeps a minimum, and the board scrolls sideways when the minimums do not fit.',
     'Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.',
     'Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.',
     'Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.',
+    'Pass columnHeight="fit" to size each column to its cards instead of the board height; a column taller than the board still scrolls its cards.',
+    'Pass grip={false} to hide the drag grip: the cards no longer drag by pointer, and the arrow keys still move a card from a hidden grip button that shows a focus ring on the card.',
+    'Pass foldable={false} to remove the fold chevron from every column; a column listed in collapsed or defaultCollapsed then stays open.',
+    'Pass stack to stack the columns top to bottom when the board is under 420 px wide, through a container query on a wrapper; the default board scrolls sideways at any width.',
     'Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids.',
   ],
   a11y: [
@@ -70,7 +76,7 @@ const Tasks = () => {
   );
 };
 `,
-  propsHash: '571541c4fd1c5f3e',
+  propsHash: '83aeff1e1122a7c5',
 } satisfies ComponentUsage;
 
 export { usage };

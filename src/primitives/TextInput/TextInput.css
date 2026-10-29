@@ -42,6 +42,14 @@
   opacity: var(--opacity-disabled);
 }
 
+.text-input--mono {
+  font-family: var(--font-mono);
+}
+
+.text-input[data-mixed]::placeholder {
+  font-style: italic;
+}
+
 .text-input:focus-visible {
   outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: var(--border-width-thin);

@@ -10,7 +10,7 @@ export { ResizeHandle, usePaneSize, type PaneSize, type PaneSizeHandle, type Pan
 export { SideNavLayout, type SideNavLayoutPaneScroll, type SideNavLayoutProps } from '../SideNavLayout';
 export { SiteHeader, type SiteHeaderBrand, type SiteHeaderProps, type SiteLink } from '../SiteHeader';
 export { SiteFooter, type SiteFooterProps } from '../SiteFooter';
-export { Drawer, type DrawerProps, type DrawerSize } from '../Drawer';
+export { Drawer, type DrawerLook, type DrawerProps, type DrawerSize } from '../Drawer';
 export { ScreenLayer } from '../ScreenLayer';
 export type { ScreenLayerMove, ScreenLayerProps, ScreenLayerSize } from '../ScreenLayer';
 export { ScreenWindow } from '../ScreenWindow';
@@ -28,6 +28,6 @@ export { Hero } from '../Hero';
 export type { HeroArt, HeroArtMotion, HeroProps, HeroShade, HeroSize } from '../Hero';
 export { FactsPanel, type FactsPanelFact, type FactsPanelGroup, type FactsPanelLayout, type FactsPanelProps } from '../FactsPanel';
 export { ContentHeader } from '../ContentHeader';
-export type { ContentHeaderLevel, ContentHeaderProps } from '../ContentHeader';
+export type { ContentHeaderLevel, ContentHeaderProps, ContentHeaderVariant } from '../ContentHeader';
 export { Splash } from '../Splash';
 export type { SplashAction, SplashBar, SplashProgress, SplashProps } from '../Splash';

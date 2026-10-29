@@ -14,10 +14,14 @@ const usage = {
     { case: 'The options are actions, not values for a field.', use: 'DropdownMenu' },
   ],
   rules: [
+    'mixed shows the word Mixed in place of the chosen option, for a selection whose values differ. Choosing an option calls onChange, and the app clears mixed.',
     'Pass options for a plain list and groups for options under headings. Pass items for objects of your own, with the field that holds the value.',
     'When options and groups are both given, the options come first with no heading, then each group under its label. A group never hides the options.',
     'An option that sits in a group is not repeated in options; put it in one place only.',
     'The app owns the value: pass value and onChange for one choice, values and onValuesChange for several.',
+    'Pass grow={false} to keep a fixed width (the token --field-w-inline, 256 px, shrinking to 160 px) beside other tools in a toolbar; TextInput, SearchInput and Combobox take the same prop.',
+    'Pass width="fit" to size the control to its content, or width="narrow" for a 220 px control; TextInput, SearchInput and Combobox take the same prop.',
+    'Pass width="narrow-fill" for the 220 px control that fills its row when the nearest container is under 420 px wide; it needs an ancestor with a container type, such as a drawer or a window header.',
     'Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen.',
   ],
   a11y: [
@@ -47,7 +51,7 @@ const TintPicker = ({ tint, onTint }: TintPickerProps) => (
   />
 );
 `,
-  propsHash: '542d397cacd3e04d',
+  propsHash: '6a1ae43de34ed0c3',
 } satisfies ComponentUsage;
 
 export { usage };

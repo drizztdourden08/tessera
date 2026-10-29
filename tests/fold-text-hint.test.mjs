@@ -4,8 +4,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { FormRow } from '../src/composites/FormRow';
 import { SettingsRow } from '../src/composites/SettingsRow';
-import { foldState } from '../src/primitives/fold-text/fold-state';
-import { FoldText } from '../src/primitives/fold-text/FoldText';
+import { foldState } from '../src/primitives/FoldText/behavior/fold-state';
+import { FoldText } from '../src/primitives/FoldText/FoldText';
 
 const noop = () => undefined;
 const LONG = 'Items the player starts the game with, on top of what the world gives. '.repeat(5);

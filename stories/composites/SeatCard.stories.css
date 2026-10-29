@@ -1,0 +1,4 @@
+/* @layer stories @kind style */
+.seat-card-story__one {
+  inline-size: var(--size-256);
+}

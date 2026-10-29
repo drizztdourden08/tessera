@@ -1,0 +1,11 @@
+/* @layer stories @kind style */
+.tree-story {
+  inline-size: 100%;
+  max-inline-size: 28rem;
+}
+
+.tree-story .tree {
+  block-size: var(--size-256);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+}

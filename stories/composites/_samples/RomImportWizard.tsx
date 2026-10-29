@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import { useCallback } from 'react';
 import { FactsPanel, useWizard, Wizard, WizardDialog, WizardReview } from '../../../src/composites';
-import type { CreateOutcome, WizardApi } from '../../../src/composites';
+import type { CreateOutcome, WizardApi, WizardDialogSize } from '../../../src/composites';
 import { Button, Callout, DropZone, Field, Icon, TextInput, Toggle } from '../../../src/primitives';
 import type { StepperOrientation } from '../../../src/primitives';
 import { INITIAL_ROM_IMPORT, ROM_CHECKS, ROM_FILE, ROM_IMPORT_STEPS, romImportReview } from './rom-import-data';
@@ -12,6 +12,7 @@ type RomImportWizardProps = {
   orientation: StepperOrientation;
   compact: boolean;
   open?: boolean;
+  size?: WizardDialogSize;
   onExit: () => void;
   onOpened?: (label: string) => void;
 };
@@ -47,7 +48,7 @@ const RomImportBody = ({ wizard }: { wizard: WizardApi<RomImportDraft> }) => {
 };
 
 const RomImportWizard = (props: RomImportWizardProps) => {
-  const { title, orientation, compact, open, onExit, onOpened } = props;
+  const { title, orientation, compact, open, size, onExit, onOpened } = props;
   const onFinish = useCallback(async (draft: RomImportDraft): Promise<CreateOutcome> => {
     await new Promise((resolve) => {
       setTimeout(resolve, 1200);
@@ -59,7 +60,7 @@ const RomImportWizard = (props: RomImportWizardProps) => {
   const body = <RomImportBody wizard={wizard} />;
   return open === undefined
     ? <Wizard {...frame} title={title}>{body}</Wizard>
-    : <WizardDialog {...frame} open={open} title={title}>{body}</WizardDialog>;
+    : <WizardDialog {...frame} open={open} size={size} title={title}>{body}</WizardDialog>;
 };
 
 export { RomImportBody, RomImportWizard };

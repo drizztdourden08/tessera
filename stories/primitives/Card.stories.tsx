@@ -1,15 +1,18 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Button, ButtonRow, Card, Flex, Stack, Status, Text } from '../../src/primitives';
-import type { CardProps, CardTone } from '../../src/primitives';
+import { Box, Button, ButtonRow, Card, Stack, Text } from '../../src/primitives';
+import type { CardEdge, CardProps, CardTone } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import './_samples/CardFill.css';
-import { PageWithCards, toneCard, TONES } from './_samples/card-headers';
+import { CardContainer } from './_samples/ContainerRows';
+import { CardFlush } from './_samples/CardFlush';
+import { CardFreeHeader } from './_samples/CardFreeHeader';
+import { SessionPickerDemo } from './_samples/CardSessionPicker';
+import { edgeCard, PageWithCards, toneCard, TONES } from './_samples/card-headers';
 
 type CardVariant = NonNullable<CardProps['variant']>;
 
@@ -31,12 +34,6 @@ const SAMPLES: Record<CardVariant, { title: string; body: string }> = {
   interactive: { title: 'Saturday multiworld', body: 'Click to open the session.' },
   danger: { title: 'Delete profile', body: 'Removes every save state and setting in this profile.' },
 };
-
-const SESSIONS = [
-  { id: 'sat', name: 'Saturday multiworld', players: 4, status: 'Running' },
-  { id: 'relay', name: 'Relay practice', players: 2, status: 'Paused' },
-  { id: 'solo', name: 'Solo seed 48213', players: 1, status: 'Finished' },
-];
 
 const ARGS: Partial<CardArgs> = { variant: 'default', header: true, subtitle: '', count: 4, tone: 'neutral', actions: true, ...SAMPLES.default };
 
@@ -109,6 +106,18 @@ const HeaderTones = {
   render: () => <Demonstrator rows={axis(TONES)} align="stretch" cell={toneCard} />,
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
+const EDGES: readonly CardEdge[] = ['left', 'border'];
+
+const EdgeTones = {
+  name: 'Edge tones',
+  render: () => <Demonstrator rows={axis(TONES)} columns={axis(EDGES)} align="stretch" cell={edgeCard} />,
+} satisfies StoryLiteStoryDefinition<CardArgs>;
+
+const FreeHeader = {
+  name: 'A free header row',
+  render: () => <CardFreeHeader />,
+} satisfies StoryLiteStoryDefinition<CardArgs>;
+
 const OnAPage = {
   name: 'Under a ContentHeader and a SectionHeader',
   render: () => <PageWithCards />,
@@ -129,27 +138,15 @@ const FillingBody = {
   ),
 } satisfies StoryLiteStoryDefinition<CardArgs>;
 
-const SessionPickerDemo = () => {
-  const [picked, setPicked] = useState<string | null>(null);
-  const current = SESSIONS.find((session) => session.id === picked);
+const Flush = {
+  name: 'Flush, a table edge to edge',
+  render: () => <CardFlush />,
+} satisfies StoryLiteStoryDefinition<CardArgs>;
 
-  return (
-    <Box className="story-column">
-      {SESSIONS.map((session) => (
-        <Card key={session.id} variant="interactive" onClick={() => setPicked(session.id)}>
-          <Flex justify="between" align="center" gap="md">
-            <Box>
-              <Text as="div">{session.name}</Text>
-              <Text variant="caption">{`${session.players} players`}</Text>
-            </Box>
-            <Status tone={session.status === 'Running' ? 'success' : 'neutral'}>{session.status}</Status>
-          </Flex>
-        </Card>
-      ))}
-      <Text variant="caption">{current ? `Opened: ${current.name}` : 'Pick a session.'}</Text>
-    </Box>
-  );
-};
+const Container = {
+  name: 'A container for its fields',
+  render: () => <CardContainer />,
+} satisfies StoryLiteStoryDefinition<CardArgs>;
 
 const Interactive = {
   name: 'Interactive list',
@@ -170,15 +167,15 @@ const Overview = overviewStory({
   description: 'A bordered surface that groups related content, such as a summary, a list entry or a settings block.',
   points: [
     '`default` is the plain panel; `danger` frames a destructive choice.',
-    '`title` draws a header row in the [SectionHeader] look, with `subtitle`, `count`, `hideZero` and `actions`.',
-    '`tone` tints the header row, such as `warning` for a card of problems.',
+    '`title` draws a header row in the [SectionHeader] look; `header` swaps it for any content you lay out.',
+    '`tone` tints the header row; `edgeTone` colours the left edge, or the border with `edge="border"`.',
     '`fill` makes the body take the card height left under the header, and scroll when its child is taller.',
+    '`flush` drops the body padding so a table or list runs edge to edge; `container` makes it a size container.',
     '`interactive` lights the border on hover for a card clicked whole; **give it a `tabIndex` and a `role`**.',
-    'It sets no inner layout: put a [Stack] or [Flex] inside.',
   ],
   instead: '[ContentHeader] for the header of a whole page, or [SectionHeader] for a heading outside a card.',
   playground: Playground,
-  variants: [AllVariants, HeaderTones, OnAPage, FillingBody],
+  variants: [AllVariants, HeaderTones, FreeHeader, EdgeTones, OnAPage, FillingBody, Flush, Container],
   states: {
     render: renderState,
     list: [
@@ -190,4 +187,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AllVariants, FillingBody, HeaderTones, Interactive, OnAPage, Overview, Playground };
+export { AllVariants, Container, EdgeTones, FillingBody, FreeHeader, Flush, HeaderTones, Interactive, OnAPage, Overview, Playground };

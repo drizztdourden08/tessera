@@ -25,6 +25,8 @@ interface VirtualMetrics {
   head?: number;
 }
 
+type VirtualAxis = 'vertical' | 'horizontal';
+
 type ScrollAlign = 'start' | 'center' | 'end' | 'nearest';
 
 interface SpanInput {
@@ -60,6 +62,7 @@ interface VirtualItemsInput<T> {
   getKey: (item: T, index: number) => string;
   overscan?: number;
   sizeKey?: string;
+  axis?: VirtualAxis;
   onActiveChange?: (index: number) => void;
 }
 
@@ -81,4 +84,4 @@ interface ShowInput {
   scrollTop: number;
 }
 
-export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput };
+export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualAxis, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput };

@@ -3,7 +3,7 @@ import { Box } from '../../../primitives/Box';
 import { HelpTip } from '../../../primitives/field-control/HelpTip';
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
-import { FoldText } from '../../../primitives/fold-text/FoldText';
+import { FoldText } from '../../../primitives/FoldText';
 import { Status } from '../../../primitives/Status';
 import { Tag } from '../../../primitives/Tag';
 import { Text } from '../../../primitives/Text';

@@ -12,6 +12,7 @@ interface WidgetDockApi {
   definitionOf: (id: WidgetId) => WidgetDefinition | undefined;
   labelOf: (id: WidgetId) => string;
   iconOf: (id: WidgetId) => IconName | undefined;
+  sublabelOf: (id: WidgetId) => string | undefined;
   contentOf: (id: WidgetId) => ReactNode;
   actionsOf: (id: WidgetId) => ReactNode;
   disabledOf: (id: WidgetId) => WidgetDisabledState | null;

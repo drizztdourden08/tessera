@@ -57,6 +57,18 @@
   inset-inline-end: 0;
 }
 
+.toggle-group__btn--mixed {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--c-primary-soft) 0,
+    var(--c-primary-soft) var(--size-4),
+    transparent var(--size-4),
+    transparent var(--size-8)
+  );
+  color: var(--c-text-muted);
+  font-style: italic;
+}
+
 .toggle-group__btn:disabled {
   opacity: var(--opacity-disabled);
   cursor: not-allowed;

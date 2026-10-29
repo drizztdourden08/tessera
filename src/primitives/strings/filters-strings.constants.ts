@@ -15,6 +15,7 @@ const FILTER_STRINGS = {
   moreValues: (shown: string, more: number) => `${shown} +${more}`,
   editValueNamed: (label: string) => `Change the ${label} filter value`,
   clearFilters: 'Clear filters',
+  moreFilters: (count: number) => `Show ${count} more ${count === 1 ? 'filter' : 'filters'}`,
 };
 
 export { FILTER_STRINGS };

@@ -4,11 +4,13 @@ import { Box } from '../../../primitives/Box';
 import { Small } from '../../../primitives/text-elements';
 import { TooltipContent } from '../../../primitives/Tooltip';
 import { ToolbarContext } from '../behavior/toolbar-context';
+import { ToolbarChoiceMenu } from './ToolbarChoiceMenu';
 import { ToolbarTool } from './ToolbarTool';
 import type { ToolbarGroupProps } from './ToolbarItemView.type';
 
-const ToolbarGroup = ({ item }: ToolbarGroupProps) => {
+const ToolbarGroup = ({ item, onContext }: ToolbarGroupProps) => {
   const { layout } = useContext(ToolbarContext);
+  if (item.display === 'menu' || item.display === 'slot') return <ToolbarChoiceMenu item={item} onContext={onContext} />;
   const list = layout === 'list';
   return (
     <Box role="group" aria-label={item.label} className={list ? 'toolbar__set' : 'toolbar__group'}>
@@ -25,6 +27,7 @@ const ToolbarGroup = ({ item }: ToolbarGroupProps) => {
           active={item.value === choice.value}
           disabled={item.disabled === true || choice.disabled === true}
           onPress={() => item.onChange(choice.value)}
+          onContext={onContext}
         />
       ))}
     </Box>

@@ -2,6 +2,7 @@
 import type { KeyboardEvent, ReactNode, RefObject } from 'react';
 import type { ControlName } from '../field-control/control-name.type';
 import type { ControlSize } from '../field-control/field-control.type';
+import type { SelectedTone } from '../field-control/selected-tone.type';
 import type { Hint, HintHandlers, HintReport } from '../hint/hint.type';
 import type { IconName } from '../Icon/Icon.type';
 import type { OptionTooltip, TooltipPlacement } from '../Tooltip';
@@ -39,6 +40,7 @@ interface SegmentedControlProps<T extends string = string> extends ControlName {
   label?: string;
   description?: string;
   size?: ControlSize;
+  selectedTone?: SelectedTone;
   disabled?: boolean;
   className?: string;
 }

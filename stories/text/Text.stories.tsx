@@ -139,6 +139,17 @@ const Tones = {
   ),
 } satisfies StoryLiteStoryDefinition<TextArgs>;
 
+const Sizes = {
+  name: 'The 13 px step',
+  render: () => (
+    <Stack gap="xs">
+      <Text variant="body">Body, 14 px: items found in your world are sent to their owner.</Text>
+      <Text variant="body" size="md">Body with size md, 13 px: items found in your world are sent to their owner.</Text>
+      <Text variant="caption">Caption, 12 px: items found in your world are sent to their owner.</Text>
+    </Stack>
+  ),
+} satisfies StoryLiteStoryDefinition<TextArgs>;
+
 const Figures = {
   name: 'Code type and tabular figures',
   render: () => (
@@ -170,15 +181,15 @@ const Overview = overviewStory({
   points: [
     'Every element hangs off it by full and short name, such as `Text.P`, `Text.Strong` or `Text.Sc`.',
     '`variant` picks a role: `title`, `subtitle`, `body`, `label`, `caption`, or `overline` over a group.',
-    'With no `variant` it takes the size and colour of its parent.',
+    'With no `variant` it takes the size and colour of its parent; `size="md"` sets 13 px.',
     '`as` swaps the default `<span>` for another element, such as `p` or `label`.',
     '`weight` and `italic` set the face; `mono` the code face, `numeric` tabular figures.',
     '`tone` colours it as on [Span]: `muted` for captions, `danger` for errors, `faint` for decoration only.',
   ],
   instead: '[Title] for headings.',
   playground: Playground,
-  variants: [Passage, Members, AllVariants, Tones, Figures, Composed],
+  variants: [Passage, Members, AllVariants, Sizes, Tones, Figures, Composed],
 });
 
 export default meta;
-export { AllVariants, Composed, Figures, Members, Overview, Passage, Playground, Tones };
+export { AllVariants, Composed, Figures, Members, Overview, Passage, Playground, Sizes, Tones };

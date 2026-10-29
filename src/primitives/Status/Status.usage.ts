@@ -16,7 +16,10 @@ const usage = {
     'Pass a word and a tone for a state that shows in one place; pass map and value for a kind of state that shows on several screens.',
     'Declare each table once with defineStatuses, in a constants file beside the model it describes, and import it where the state shows.',
     'Give every word in sentence case; the pill variant sets it in capitals itself.',
+    'Set size to sm for a row 18px tall, such as inside a table cell; leave it out for the normal size.',
+    'Set dotSize to lg for an 8px dot, and halo for a soft ring in the tone behind it, such as a node that is up; halo draws the dot even without dot.',
     'Set pulse only on states that are still moving, such as starting or syncing.',
+    'Pass reason to draw a short cause after the word, such as Failed with the reason timed out; the word then draws in the text colour and only the reason takes the tone.',
     'Pass fallback for a value that can be missing, such as a state not fetched yet.',
   ],
   a11y: [
@@ -43,7 +46,7 @@ const EngineState = ({ state }: { state?: 'ready' | 'building' | 'failed' }) => 
   <Status map={ENGINE_STATES} value={state} fallback="unknown" dot />
 );
 `,
-  propsHash: '0f2e7a81aebe29c7',
+  propsHash: '6c230d5c3af63097',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -11,7 +11,7 @@ import { ToggleGroupButton } from './sub-components/ToggleGroupButton';
 import type { ToggleGroupProps } from './ToggleGroup.type';
 
 const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
-  const { value, options, onChange, onHint, tooltipPlacement = 'top', label, description, disabled = false, size } = props;
+  const { value, mixed = [], options, onChange, onHint, tooltipPlacement = 'top', label, description, disabled = false, size } = props;
   const controlSize = useControlSize(size);
   const { handlersFor } = useHintReport<T>({ hintOf: (key) => options.find((opt) => opt.value === key)?.hint, onHint });
 
@@ -31,6 +31,7 @@ const ToggleGroup = <T extends string = string>(props: ToggleGroupProps<T>) => {
             key={opt.value}
             option={opt}
             active={value.includes(opt.value)}
+            mixed={mixed.includes(opt.value) && !value.includes(opt.value)}
             groupDisabled={disabled}
             first={index === 0}
             last={index === options.length - 1}

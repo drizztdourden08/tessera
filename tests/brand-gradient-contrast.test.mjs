@@ -9,7 +9,8 @@ const SLOW_RUNNER_MS = 20_000;
 
 describe('brand gradients', () => {
   it.each(BRAND_APPS)('the %s mark reads at 3:1 or more on every stop of its gradient', (app) => {
-    const svg = readFileSync(new URL(`../brand/${app}.svg`, import.meta.url), 'utf8');
+    const file = BRAND_FAMILY[app].mark.currentInk ? `dark-ground/${app}.svg` : `${app}.svg`;
+    const svg = readFileSync(new URL(`../brand/${file}`, import.meta.url), 'utf8');
     expect(Math.min(...markContrast(svg, BRAND_FAMILY[app].gradient.stops))).toBeGreaterThanOrEqual(GRAPHICS_CONTRAST);
   }, SLOW_RUNNER_MS);
 });

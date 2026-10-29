@@ -1,12 +1,15 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Card, Flex, Stack, Tag, Text } from '../../src/primitives';
+import { Flex, Tag } from '../../src/primitives';
 import type {
   TagCategoryColor, TagColor, TagCustomColor, TagLook, TagNormalColor, TagUrgencyColor, TagVariant,
 } from '../../src/primitives';
 import { axis } from '../_template/axis';
+import { FaultTags } from './_samples/FaultChips';
+import { TagOnItems } from './_samples/TagOnItems';
+import { TagNeutralRow } from './_samples/TagNeutralRow';
+import { TagSelectableRow } from './_samples/TagSelectableRow';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
@@ -29,12 +32,6 @@ const URGENCY: readonly TagUrgencyColor[] = ['success', 'warning', 'danger', 'in
 const CATEGORY: readonly TagCategoryColor[] = ['rose', 'orange', 'amber', 'lime', 'green', 'teal', 'cyan', 'blue', 'violet', 'pink'];
 
 const COLORS: Readonly<Record<NamedVariant, readonly TagColor[]>> = { normal: NORMAL, urgency: URGENCY, category: CATEGORY };
-
-const GAMES: readonly { name: string; tags: readonly { label: string; look: TagLook }[] }[] = [
-  { name: 'A Link to the Past', tags: [{ label: 'Zelda', look: { variant: 'category', color: 'green' } }, { label: 'Stable', look: { variant: 'urgency', color: 'success' } }] },
-  { name: 'Super Metroid', tags: [{ label: 'Metroid', look: { variant: 'category', color: 'violet' } }, { label: 'Beta', look: { variant: 'urgency', color: 'warning' } }] },
-  { name: 'Pokemon Red', tags: [{ label: 'Pokemon', look: { variant: 'category', color: 'rose' } }, { label: 'Featured', look: { color: 'primary' } }] },
-];
 
 const ARGS: Partial<TagArgs> = { label: 'Zelda', variant: 'category', color: 'green', removable: false, disabled: false };
 
@@ -105,40 +102,77 @@ const Removable = {
   ),
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
-const SelectableRow = () => {
-  const [picked, setPicked] = useState<readonly string[]>(['Defeat Ganon']);
-  const toggle = (goal: string) => setPicked((now) => (now.includes(goal) ? now.filter((g) => g !== goal) : [...now, goal]));
-  return (
+const PillIcons = {
+  name: 'Pill shape, a leading icon and a 24 px size',
+  render: () => (
     <Flex gap="md" align="center" wrap>
-      {['Defeat Ganon', 'Triforce hunt', 'Pedestal'].map((goal) => (
-        <Tag key={goal} color="primary" selected={picked.includes(goal)} onSelect={() => toggle(goal)}>{goal}</Tag>
-      ))}
-      <Tag variant="category" color="teal" selected={picked.includes('Teal')} onSelect={() => toggle('Teal')}>Teal</Tag>
+      <Tag pill>Pill</Tag>
+      <Tag pill icon="flask" color="primary">Experiment</Tag>
+      <Tag pill icon="robot" variant="urgency" color="info">Automated</Tag>
+      <Tag icon="flask" variant="category" color="teal">Lab</Tag>
+      <Tag pill icon="robot" onRemove={noop}>agent:argus</Tag>
+      <Tag size="lg" pill icon="flask" color="primary">Large, 24 px</Tag>
     </Flex>
-  );
-};
+  ),
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
+const Outlined = {
+  name: 'Outlined: an edge and no fill',
+  render: () => (
+    <Flex gap="md" align="center" wrap>
+      <Tag outlined pill icon="book">Docs</Tag>
+      <Tag outlined pill icon="flask" color="primary">Experiment</Tag>
+      <Tag outlined pill icon="robot" variant="urgency" color="info">Automated</Tag>
+      <Tag outlined pill icon="flask" variant="category" color="teal">Lab</Tag>
+      <Tag outlined variant="custom" color="#2e8b57">Custom</Tag>
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
+const AsLinks = {
+  name: 'As a link: href, with navigate or onClick',
+  render: () => (
+    <Flex gap="md" align="center" wrap>
+      <Tag href="#branch" pill icon="git-branch" color="primary">main</Tag>
+      <Tag href="#release" variant="category" color="teal" navigate={noop}>release</Tag>
+      <Tag href="#docs" variant="urgency" color="info" onClick={noop}>Docs</Tag>
+      <Tag href="#off" disabled>Disabled</Tag>
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
+const Dotted = {
+  name: 'A tone-coloured dot before the label',
+  render: () => (
+    <Flex gap="md" align="center" wrap>
+      <Tag dot>Idle</Tag>
+      <Tag dot color="primary">Featured</Tag>
+      <Tag dot pill variant="urgency" color="success">Online</Tag>
+      <Tag dot pill variant="urgency" color="danger">Offline</Tag>
+      <Tag dot variant="urgency" color="warning" onRemove={noop}>Syncing</Tag>
+      <Tag dot variant="custom" color="#2e8b57">Link</Tag>
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
+const Fault = {
+  name: 'Fault chip: a reason in the tone',
+  render: () => <FaultTags />,
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
+const NeutralSelected = {
+  name: 'Neutral selection: a grey fill when on',
+  render: () => <TagNeutralRow />,
+} satisfies StoryLiteStoryDefinition<TagArgs>;
 
 const Selectable = {
   name: 'Selectable, as in TagPicker',
-  render: () => <SelectableRow />,
+  render: () => <TagSelectableRow />,
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
 const OnItems = {
   name: 'Categorising items',
-  render: () => (
-    <Box className="story-column">
-      <Card>
-        <Stack gap="sm">
-          {GAMES.map((game) => (
-            <Flex key={game.name} justify="between" align="center" gap="md">
-              <Text>{game.name}</Text>
-              <Flex gap="xs">{game.tags.map((tag) => <Tag key={tag.label} {...tag.look}>{tag.label}</Tag>)}</Flex>
-            </Flex>
-          ))}
-        </Stack>
-      </Card>
-    </Box>
-  ),
+  render: () => <TagOnItems />,
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
 const renderState = (props: StateProps) => (
@@ -152,12 +186,13 @@ const Overview = overviewStory({
     'Every tag shares one shape, so the tags of a field, a picker and a list read as one family.',
     '`variant` picks the palette and `color` picks from it: `normal`, `urgency` or `category`.',
     '`onRemove` adds a remove button, as in [TagInput]: a 16 px glyph that takes clicks on 24 by 24 px.',
-    '`selected` with `onSelect` makes it a toggle, as in [TagPicker]: grey until it is picked.',
+    '`selected` with `onSelect` makes a toggle chip, as in [TagPicker]; `selectedTone="neutral"` fills it grey.',
     '`variant="custom"` fills it with a hex colour from app data, with black or white text, whichever reads best.',
+    '`pill` rounds it, `dot` and `icon` lead, `outlined` clears the fill, `size="lg"` is 24 px, `reason` adds a cause.',
   ],
   instead: '[Status] for a word that names a state.',
   playground: Playground,
-  variants: [Variants, Custom, Removable, Selectable, OnItems],
+  variants: [Variants, Custom, PillIcons, Outlined, Dotted, AsLinks, Removable, Selectable, NeutralSelected, Fault, OnItems],
   states: {
     render: renderState,
     list: [
@@ -179,4 +214,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Custom, OnItems, Overview, Playground, Removable, Selectable, Variants };
+export { AsLinks, Custom, Dotted, Fault, NeutralSelected, OnItems, Outlined, Overview, PillIcons, Playground, Removable, Selectable, Variants };

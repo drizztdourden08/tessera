@@ -3,6 +3,7 @@ import type { DragEvent, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { SchemaIndex } from '../../data/schema/build-schema';
 import type { FieldDescriptor } from '../../data/schema/field-descriptor';
 import type { ColumnMove, SortEntry, TableColumn } from '../../data/table/types';
+import type { SelectAllState } from '../selection';
 import type { VirtualSize } from '../virtual';
 import type { ViewKey } from '../../data/view-state/snapshot';
 import type { ViewStorage } from '../../data/view-state/use-view-state';
@@ -14,7 +15,9 @@ import type { RowFeatureProps, RowReorderBinding } from './behavior/row-features
 
 type DefaultExpanded = readonly string[] | ((groupKey: string, path: string) => boolean);
 
-type RowState = 'active' | 'pending' | 'error' | 'warning' | 'muted';
+type RowState = 'active' | 'pending' | 'error' | 'warning' | 'muted' | 'fresh' | 'edge';
+
+type HeaderCase = 'normal' | 'upper';
 
 interface DataTableProps<T> extends RowFeatureProps<T> {
   rows: readonly T[];
@@ -32,6 +35,7 @@ interface DataTableProps<T> extends RowFeatureProps<T> {
   onSelectionChange?: (ids: ReadonlySet<string>) => void;
   selectable?: boolean;
   countLabel?: readonly [one: string, many: string];
+  footer?: boolean;
   emptyMessage?: string;
   resolveTargetFields?: IdRefTargetFieldResolver;
   resolveIdRefDisplay?: IdRefDisplayResolver;
@@ -39,6 +43,7 @@ interface DataTableProps<T> extends RowFeatureProps<T> {
   resolveIdRefHref?: IdRefHrefResolver;
   renderCell?: (row: T, path: string) => ReactNode | undefined;
   rowState?: (row: T) => RowState | undefined;
+  headerCase?: HeaderCase;
   rowHeight?: VirtualSize;
   sort?: readonly SortEntry[];
   onSortChange?: (sort: readonly SortEntry[]) => void;
@@ -93,8 +98,6 @@ interface ColumnDragBinding {
   onSurfaceDrop: (event: DragEvent<HTMLElement>) => void;
 }
 
-type SelectAllState = 'none' | 'some' | 'all';
-
 interface RowSelectionBinding {
   selectable: boolean;
   isSelected: (id: string) => boolean;
@@ -144,6 +147,6 @@ interface TrackFallbacks {
 
 export type {
   ColumnActions, ColumnDragBinding, ColumnDragStart,
-  DataTableProps, DefaultExpanded, RowRenderContext, RowSelectionBinding, RowState, SelectAllState, TableActions,
+  DataTableProps, DefaultExpanded, HeaderCase, RowRenderContext, RowSelectionBinding, RowState, TableActions,
   TrackFallbacks, TrackOverride,
 };

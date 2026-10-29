@@ -21,11 +21,14 @@ const usage = {
     'Give an action that deletes, such as Delete in a row menu, tone danger, so it reads in the danger tone at rest; a confirm item turns red only while it asks.',
     'Pass confirm on such an item for words of your own; the item returns to its label on Escape, on leaving it or after four seconds.',
     'An item icon is a name from the set, iconify data such as an imported Lucide icon, Icon path data, or any element.',
+    'A disabled item is drawn at the disabled opacity like a disabled button: label, icon, shortcut and description dim together, and it takes no hover or focus.',
     'Split groups by meaning with a label or a separator; turn on filter past about a dozen items.',
     'Give an item onHighlight to start loading what it opens: it runs once each time the item is hovered, focused or reached with the arrow keys, and never while it is disabled.',
     'Give an item data to put data attributes on it, such as { "data-menu-entry": "rename" }, and ariaDescription for a hint a screen reader adds after the label; description is already read as part of the item.',
     'The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.',
     'size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.',
+    'itemSize roomy sets the items at 13 px with taller rows, for a menu that reads as a list of choices; default keeps the compact rows. Sub-menus follow their parent.',
+    'Give an item kind select, with options, selected and onPick, to put a labelled Select inside the menu beside the action rows; picking a value never closes the menu, and the arrow keys walk through the select row like any other row.',
     'align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge.',
     'Anchored menus take side: below or above a button, right or left of a tool in a rail. Right and left line up with the top of the anchor and flip to the other side when there is no room.',
     'openOnHover on a trigger opens the menu after a short delay and closes it a moment after the pointer leaves both; click and the arrow keys still work. An anchored menu takes the same through hover, with focusOnOpen off so a hover does not take focus.',
@@ -64,7 +67,7 @@ const LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {
   return <DropdownMenu trigger={{ label: 'Layout', icon: 'layout-grid' }} groups={groups} />;
 };
 `,
-  propsHash: '14c1c2939968d4a2',
+  propsHash: '7fbd046daea15745',
 } satisfies ComponentUsage;
 
 export { usage };

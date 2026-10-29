@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind test */
 import { describe, expect, it, vi } from 'vitest';
-import { cellControlEvent } from '../src/composites/DataTable/behavior/cell-control-event';
-import { guardCellControl } from '../src/composites/DataTable/behavior/guard-cell-control';
+import { cellControlEvent } from '../src/primitives/dom/cell-control-event';
+import { guardCellControl } from '../src/primitives/dom/guard-cell-control';
 
 const node = (tag, parent = null, attrs = {}) => {
   const self = {

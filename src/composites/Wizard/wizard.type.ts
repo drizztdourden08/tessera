@@ -68,6 +68,10 @@ interface WizardView<V extends WizardValues> {
   canGoTo: (id: string) => boolean;
 }
 
+interface WizardGoOptions {
+  force?: boolean;
+}
+
 interface WizardApi<V extends WizardValues> extends WizardView<V> {
   values: V;
   visited: readonly string[];
@@ -79,7 +83,7 @@ interface WizardApi<V extends WizardValues> extends WizardView<V> {
   setError: (id: string, error: string | null) => void;
   goNext: () => void;
   goBack: () => void;
-  goTo: (id: string) => void;
+  goTo: (id: string, options?: WizardGoOptions) => void;
   finish: () => Promise<void>;
   reset: () => void;
 }
@@ -87,6 +91,6 @@ interface WizardApi<V extends WizardValues> extends WizardView<V> {
 type WizardMoves<V extends WizardValues> = Pick<WizardApi<V>, 'goNext' | 'goBack' | 'goTo' | 'setValue' | 'update' | 'setError'>;
 
 export type {
-  WizardAction, WizardApi, WizardButtonLook, WizardMoves, WizardOptions, WizardProblem, WizardState, WizardStepButtons, WizardStepDef, WizardValues,
+  WizardAction, WizardApi, WizardButtonLook, WizardGoOptions, WizardMoves, WizardOptions, WizardProblem, WizardState, WizardStepButtons, WizardStepDef, WizardValues,
   WizardView,
 };

@@ -14,7 +14,29 @@ import { BrandMark, BrandWordmark, Mascot } from '@drizztdourden08/tessera/brand
 
 `size` takes `sm`, `md`, `lg`, `xl` or `xxl`. The `xxl` step, `--brand-mark-xxl`, is 256 px, for a large mark such as an empty start page. Archipelia's mark is drawn from true circles and straight bars, so it stays smooth at any size.
 
-The path data is in `src/brand/marks/`, the names, colours and descriptions in `src/brand/family.constants.ts`. The SVG files in this folder (`tessera.svg`, `rotp.svg`, `archipelia.svg`, `brock.svg`, `bxel.svg`) are the same marks for use outside code. Every app has a wordmark set in the pixel alphabet (`PixelWordmark`): the brand data holds only its text and four gradient colours, and `brand/*-wordmark.svg` are the same wordmarks as files. Uppercase letters draw at capital size and lowercase smaller, so Relic of the Past is `RELIC of the PAST`. The alphabet's letters for RELIC OF THE PAST come from that wordmark's artwork; the others are drawn in the same stroke. The gallery shows the whole family on the **Brand / Brand** page, and each part on its own on the **Logo**, **WordMark**, **Combined** and **Mascot** pages. The brand gradients are on **Colours / Gradients**.
+## The height fit
+
+`fit="height"` makes `size` the height of the mark and lets the width follow the mark's own shape, so a wide mark such as Argus's keeps its whole box instead of sitting in a square. `size="h26"` and `size="h39"` are 26 and 39 px tall (`--brand-mark-h26`, `--brand-mark-h39`); `sm` to `xxl` work too. The default is `fit="square"`, and `fill` and the app icon stay square. `Logo` takes the same props; `Logo.Combined` does not.
+
+```tsx
+<Logo brand="argus" size="h26" fit="height" />
+<Logo brand="argus" size="h39" fit="height" />
+```
+
+## The fill size
+
+`size="fill"` is the fluid step, for a mark that follows its parent, such as an idle backdrop that grows with the window. The mark takes the full inline size of its parent and stays square (`aspect-ratio: 1`). An optional cap comes from `--brand-mark-fill-max`, which is `none` by default; set it on the parent or the mark to stop the mark at a size, for example `--brand-mark-fill-max: var(--size-512)`.
+
+```tsx
+<Logo brand="archipelia" size="fill" />
+<Logo.Combined brand="archipelia" direction="stacked" size="fill" />
+```
+
+- The rim scales with the mark. At `fill` it is drawn in the mark's own units as a share of its side (`--brand-rim-fill`, 2.5 percent, and `--brand-rim-fill-fine`, 1.25 percent, for the dark ground outline), so it never stays 6 px on a huge mark.
+- `Logo.Combined` fills its parent. Stacked, the mark and the wordmark both take the full width. Inline, the mark takes a quarter of the row and the wordmark the rest, so the wordmark scales with the mark. `PixelWordmark` and `BrandWordmark` take `size="fill"` too, to fill their parent's width.
+- `Mascot` and `AnimatedMascot` take `size="fill"`: the mascot fills the inline size and keeps its own proportions, with the same cap.
+
+The path data is in `src/brand/marks/`, the names, colours and descriptions in `src/brand/family.constants.ts`. The SVG files in this folder (`tessera.svg`, `rotp.svg`, `archipelia.svg`, `brock.svg`, `bxel.svg`, `argus.svg`) are the same marks for use outside code. Every app has a wordmark set in the pixel alphabet (`PixelWordmark`): the brand data holds only its text and four gradient colours, and `brand/*-wordmark.svg` are the same wordmarks as files. Uppercase letters draw at capital size and lowercase smaller, so Relic of the Past is `RELIC of the PAST`. The alphabet's letters for RELIC OF THE PAST come from that wordmark's artwork; the others are drawn in the same stroke. The gallery shows the whole family on the **Brand / Brand** page, and each part on its own on the **Logo**, **WordMark**, **Combined** and **Mascot** pages. The brand gradients are on **Colours / Gradients**.
 
 ## Brand gradients
 
@@ -27,6 +49,7 @@ Each brand has one gradient, drawn behind its mark on a splash window or a hero 
 | Archipelia | `#ece6ff`, `#e2d8ff`, `#c1a8ff` | Its tile into its wordmark lilacs, under a dark purple mark |
 | Brock | `#ffc66e`, `#ffb341`, `#ff9416` | Its wordmark oranges, light enough for the dark ink mark |
 | Bxel | `#2a1560`, `#1a0d38`, `#140b26` | Deep purple into Night, under the crimson and violet pixel mark |
+| Argus | `#2e2e33`, `#1c1c20`, `#0e0e12` | Dark greys into the splash ground, under its white eye mark |
 
 ## App icons
 
@@ -71,6 +94,10 @@ Each icon is pixel art: a dark page with a folded corner on a transparent ground
 - `icon.ico` holding 16 to 256, and `icon.icns` holding 16 to 1024.
 
 The gallery shows them on the **Brand / File types** page.
+
+## Marks that follow the app colour
+
+Argus draws its mark in `currentColor`, so the app sets the colour with CSS `color`: white on the dark app, the primary colour for emphasis. Its mark data holds `currentInk`, the black for light grounds and the white for dark ones, and `markInk` returns the mark with the inks of a tone, `light` or `dark`, for a file or an image. `pnpm icons` writes `brand/argus` in black and `brand/dark-ground/argus` in white, and the splash uses the white one. A mark without `currentInk` is unchanged.
 
 ## Rims
 

@@ -6,6 +6,7 @@ import type { StatusKey, StatusTone, StatusVariant } from '../../src/primitives'
 import { overviewStory } from '../_template/overview-story';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
+import { FaultStatuses } from './_samples/FaultChips';
 import { StatusPalettes } from './_samples/StatusPalettes';
 import { ENGINE_STATES, PLAYER_STATUSES, SESSION_STATUSES } from './_samples/status-tables.constants';
 
@@ -16,6 +17,8 @@ type StatusArgs = {
   tone: StatusTone;
   variant: StatusVariant;
   dot: boolean;
+  dotSize: 'md' | 'lg';
+  halo: boolean;
   pulse: boolean;
   source: 'word' | 'map';
   value: SessionKey;
@@ -47,7 +50,7 @@ const SESSION_KEYS = Object.keys(SESSION_STATUSES) as SessionKey[];
 
 const ENGINE_KEYS = Object.keys(ENGINE_STATES) as StatusKey<typeof ENGINE_STATES>[];
 
-const ARGS: Partial<StatusArgs> = { label: 'Connected', tone: 'success', variant: 'text', dot: false, pulse: false, source: 'word', value: 'hosting' };
+const ARGS: Partial<StatusArgs> = { label: 'Connected', tone: 'success', variant: 'text', dot: false, dotSize: 'md', halo: false, pulse: false, source: 'word', value: 'hosting' };
 
 const ARG_TYPES: PlaygroundArgTypes<StatusArgs> = {
   source: { group: 'Content', control: 'select', options: ['word', 'map'], description: 'A word with its tone, or a key of a table declared with defineStatuses.' },
@@ -56,6 +59,8 @@ const ARG_TYPES: PlaygroundArgTypes<StatusArgs> = {
   tone: { group: 'Appearance', control: 'select', options: [...TONES] },
   variant: { group: 'Appearance', control: 'select', options: ['text', 'pill'] },
   dot: { group: 'Appearance', control: 'boolean', description: 'Leads the word with a dot in its tone.' },
+  dotSize: { group: 'Appearance', control: 'select', options: ['md', 'lg'], description: 'md is a 6 px dot; lg is 8 px.' },
+  halo: { group: 'Appearance', control: 'boolean', description: 'A soft ring in the tone around the dot. Draws the dot even when dot is off.' },
   pulse: { group: 'Motion', control: 'boolean', description: 'Fades in and out, for a state that is still changing. With a dot, only the dot fades.' },
 };
 
@@ -69,8 +74,8 @@ const Playground = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => (args.source === 'map'
-    ? <Status map={SESSION_STATUSES} value={args.value} variant={args.variant} dot={args.dot} />
-    : <Status tone={args.tone} variant={args.variant} dot={args.dot} pulse={args.pulse}>{args.label}</Status>),
+    ? <Status map={SESSION_STATUSES} value={args.value} variant={args.variant} dot={args.dot} dotSize={args.dotSize} halo={args.halo} />
+    : <Status tone={args.tone} variant={args.variant} dot={args.dot} dotSize={args.dotSize} halo={args.halo} pulse={args.pulse}>{args.label}</Status>),
 } satisfies PlaygroundStory<StatusArgs>;
 
 const Tones = {
@@ -81,6 +86,30 @@ const Tones = {
       columns={axis(LOOKS)}
       cell={(tone, look) => (
         <Status tone={tone} variant={look.startsWith('pill') ? 'pill' : 'text'} dot={look.endsWith('dot')}>{LABELS[tone]}</Status>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<StatusArgs>;
+
+const Sizes = {
+  name: 'Normal and sm, 18 px tall',
+  render: () => (
+    <Demonstrator
+      rows={axis(['md', 'sm'] as const)}
+      columns={axis(['text', 'pill'] as const)}
+      cell={(size, variant) => <Status tone="success" size={size} variant={variant} dot={variant === 'text'}>Connected</Status>}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<StatusArgs>;
+
+const NodeDots = {
+  name: 'Dot size and halo, as a node',
+  render: () => (
+    <Demonstrator
+      rows={axis(['success', 'warning', 'danger', 'info', 'neutral'] as const)}
+      columns={axis(['6 px dot', '8 px dot', '8 px with halo'] as const)}
+      cell={(tone, look) => (
+        <Status tone={tone} dot dotSize={look === '6 px dot' ? 'md' : 'lg'} halo={look.endsWith('halo')}>{LABELS[tone]}</Status>
       )}
     />
   ),
@@ -152,6 +181,11 @@ const Fallback = {
   ),
 } satisfies StoryLiteStoryDefinition<StatusArgs>;
 
+const Fault = {
+  name: 'Fault word: a reason in the tone',
+  render: () => <FaultStatuses />,
+} satisfies StoryLiteStoryDefinition<StatusArgs>;
+
 const Overview = overviewStory({
   component: 'Status',
   description: 'A read-only word that says what state something is in, such as connected, syncing or draft.',
@@ -159,13 +193,14 @@ const Overview = overviewStory({
     '`text` draws the word in its tone; `pill` draws it in capitals on a filled pill, for a record header.',
     'Pass the word as children with its `tone`, `neutral` by default, and `pulse` for a state still changing.',
     'Or pass `map`, a table from `defineStatuses`, and `value`, one of its keys: the table gives the word and tone.',
-    '`fallback` names the key drawn while `value` is missing or not in the table.',
-    '`dot` leads the word with a dot; a table entry with an `icon` draws the icon there instead.',
+    '`size="sm"` shrinks it to 18 px tall; `fallback` names the key drawn when `value` is missing.',
+    '`dot` leads the word with a dot; `dotSize="lg"` makes it 8 px and `halo` rings it in the tone.',
+    '`reason` adds a cause after the word; the word keeps the text colour and the reason takes the tone.',
   ],
   instead: '[Badge] for a count, or [Tag] for a value that sorts an item into a group.',
   playground: Playground,
-  variants: [Tones, EveryPalette, Pulsing, ScreenList, OneTable, WithIcons, Fallback],
+  variants: [Tones, Sizes, NodeDots, EveryPalette, Pulsing, ScreenList, OneTable, WithIcons, Fallback, Fault],
 });
 
 export default meta;
-export { EveryPalette, Fallback, OneTable, Overview, Playground, Pulsing, ScreenList, Tones, WithIcons };
+export { EveryPalette, Fallback, Fault, NodeDots, OneTable, Overview, Playground, Pulsing, ScreenList, Sizes, Tones, WithIcons };

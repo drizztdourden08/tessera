@@ -110,6 +110,7 @@ const Overview = overviewStory({
     '`variant="subtle"` keeps a dotted underline at rest, for a link among dense data such as a table cell.',
     'A click loads the page; with `navigate`, a plain click calls `navigate(href)` and the page stays.',
     'With `navigate`, middle click, [[Ctrl]] click and Copy link still work. Wrap it once in your own `AppLink`.',
+    '`tone="info"` and `tone="link"` underline it at rest, in the info or the lavender link colour.',
     'A `className` you pass wins over its look.',
   ],
   instead: '[Button] for an action that stays on the page.',

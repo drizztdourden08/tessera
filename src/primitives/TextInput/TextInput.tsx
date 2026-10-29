@@ -4,18 +4,23 @@ import { Box } from '../Box';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { growClass } from '../field-control/grow-class';
 import { InputAdornmentSlot } from '../field-control/InputAdornmentSlot';
+import { mixedProps } from '../field-control/mixed-props';
 import { useControlSize } from '../field-control/useControlSize';
+import { widthClass } from '../field-control/width-class';
+import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import '../../theme/control-size.css';
 import '../../theme/field-surface.css';
 import './TextInput.css';
 import { enterKeyDown } from './behavior/enter-key-down';
 import { frameClass } from './behavior/frame-class';
+import { inputClass } from './behavior/input-class';
 import { type TextInputProps } from './TextInput.type';
 
 const TextInput = forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
-  const { className: ownClass, grow, id, invalid, size, start, end, onEnter, onKeyDown, 'aria-describedby': ownDescribedBy, ...rest } = props;
+  const { className: ownClass, grow, mono, mixed, width, id, invalid, size, start, end, onEnter, onKeyDown, 'aria-describedby': ownDescribedBy, ...rest } = props;
   const control = useFieldControl(id, ownDescribedBy);
-  const className = growClass(grow, ownClass);
+  const { fields } = useTesseraStrings();
+  const className = widthClass(width, growClass(grow, ownClass));
   const controlSize = useControlSize(size);
   const isInvalid = invalid ?? control.invalid ?? false;
   const framed = start !== undefined || end !== undefined;
@@ -24,11 +29,12 @@ const TextInput = forwardRef<HTMLInputElement, TextInputProps>((props, ref) => {
   const input = (
     <input
       ref={ref}
-      className={framed ? 'text-input' : `text-input control-size--${controlSize} ${className}`}
+      className={inputClass(framed, controlSize, className, mono)}
       id={control.id}
       aria-describedby={control.describedBy}
       aria-invalid={isInvalid ? true : undefined}
       {...rest}
+      {...mixedProps(mixed, fields.mixed)}
       onKeyDown={enterKeyDown(onKeyDown, onEnter)}
     />
   );

@@ -1,19 +1,20 @@
 /* @layer stories @kind story */
-import { useEffect, useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Button, Image } from '../../src/primitives';
+import { Box, Image } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { ImageFits } from './_samples/ImageFits';
+import { ImageBackdrops } from './_samples/ImageBackdrops';
 import { ImageFrames } from './_samples/ImageFrames';
 import { ImagePixels } from './_samples/ImagePixels';
 import { MISSING_URI as BROKEN_URI } from './_samples/image-frame-samples.constants';
 import { DUSK_URI, VALLEY_URI } from './_samples/image-scenes.constants';
 import { ImageSaveSlots } from './_samples/ImageSaveSlots';
+import { ImageSlowArrival } from './_samples/ImageSlowArrival';
 import './Image.stories.css';
 
 type Picture = 'valley' | 'dusk' | 'broken' | 'on its way' | 'none';
@@ -26,8 +27,6 @@ type ImageArgs = {
   placeholder: 'auto' | 'none';
   withFallback: boolean;
 };
-
-const ARRIVAL_MS = 2500;
 
 const SOURCES: Record<Picture, string | undefined> = {
   valley: VALLEY_URI,
@@ -87,30 +86,9 @@ const renderState = (props: StateProps) => (
   <Image className="image-demo" src={DUSK_URI} alt="Screenshot of the ridge at dusk" {...props} />
 );
 
-const Arrival = () => {
-  const [arrived, setArrived] = useState(false);
-  useEffect(() => {
-    const timer = setTimeout(() => setArrived(true), ARRIVAL_MS);
-    return () => clearTimeout(timer);
-  }, []);
-  return <Image className="image-demo" src={arrived ? VALLEY_URI : undefined} pending alt="Screenshot of the valley at midday" />;
-};
-
-const SlowArrival = () => {
-  const [round, setRound] = useState(0);
-  return (
-    <Box className="story-column">
-      <Arrival key={round} />
-      <Box>
-        <Button size="sm" variant="secondary" onClick={() => setRound((value) => value + 1)}>Load again</Button>
-      </Box>
-    </Box>
-  );
-};
-
 const SlowSource = {
   name: 'A source that arrives after a pause',
-  render: () => <SlowArrival />,
+  render: () => <ImageSlowArrival />,
 } satisfies StoryLiteStoryDefinition<ImageArgs>;
 
 const FALLBACKS = ['source fails', 'no source'] as const;
@@ -171,20 +149,25 @@ const Pixels = {
   render: () => <ImagePixels />,
 } satisfies StoryLiteStoryDefinition<ImageArgs>;
 
+const Backdrops = {
+  name: 'backdrop checker and fit integer, a sprite at whole-number scale',
+  render: () => <ImageBackdrops />,
+} satisfies StoryLiteStoryDefinition<ImageArgs>;
+
 const Overview = overviewStory({
   component: 'Image',
   description: 'The image element of the design system, which holds its space so the layout never jumps while it loads.',
   points: [
     'It takes its box from `width` and `height` or `aspectRatio`, and falls back to 16 / 9.',
-    'While the source loads it draws a picture outline that pulses.',
-    'A source that fails shows the outline in the danger colour with a cross; `fallback` replaces it.',
+    'Loading pulses a picture outline; a failed source shows it with a cross, and `fallback` replaces it.',
     '`pending` marks a source that is still on its way; `fit` sets how it fills its box, `cover` by default.',
+    '`fit="integer"` draws a sprite at the largest whole-number scale; `backdrop="checker"` shows its holes.',
     '`frame` rounds the corners and keeps a small picture from shrinking in a row; set its size with a class.',
     '`pixelated` keeps a sprite sharp, `auto` at 256 px or less; `usePixelArt` tells the same for your own img.',
   ],
   instead: '[Video] for moving pictures.',
   playground: Playground,
-  variants: [SlowSource, WithFallback, Sizes, Fits, Pixels, Framed, SaveSlots],
+  variants: [SlowSource, WithFallback, Sizes, Fits, Pixels, Backdrops, Framed, SaveSlots],
   states: {
     render: renderState,
     list: [
@@ -197,4 +180,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Fits, Framed, Overview, Pixels, Playground, SaveSlots, Sizes, SlowSource, WithFallback };
+export { Backdrops, Fits, Framed, Overview, Pixels, Playground, SaveSlots, Sizes, SlowSource, WithFallback };

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ToolbarChoices, ToolbarItem, ToolbarNumber } from '../Toolbar.type';
+import type { ToolbarChoices, ToolbarContextEvent, ToolbarItem, ToolbarNumber, ToolbarPopover, ToolbarSeparator } from '../Toolbar.type';
 
 interface ToolbarItemViewProps {
   item: ToolbarItem;
@@ -7,10 +7,21 @@ interface ToolbarItemViewProps {
 
 interface ToolbarNumberProps {
   item: ToolbarNumber;
+  onContext?: (event: ToolbarContextEvent) => void;
 }
 
 interface ToolbarGroupProps {
   item: ToolbarChoices;
+  onContext?: (event: ToolbarContextEvent) => void;
 }
 
-export type { ToolbarGroupProps, ToolbarItemViewProps, ToolbarNumberProps };
+interface ToolbarPopoverProps {
+  item: ToolbarPopover;
+  onContext?: (event: ToolbarContextEvent) => void;
+}
+
+interface ToolbarSeparatorViewProps {
+  item: ToolbarSeparator;
+}
+
+export type { ToolbarGroupProps, ToolbarItemViewProps, ToolbarNumberProps, ToolbarPopoverProps, ToolbarSeparatorViewProps };

@@ -1,29 +1,29 @@
 /* @layer renderer-components @kind hook */
-import { useCallback, useMemo, useRef, useState } from 'react';
-import { useVirtualFocus } from '../../virtual/useVirtualFocus';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useVirtualWindow } from '../../virtual/useVirtualWindow';
-import { CELL_ATTRIBUTE, DEFAULT_COLUMNS, DEFAULT_OVERSCAN, ROW_ATTRIBUTE } from '../VirtualGrid.constants';
+import { DEFAULT_COLUMNS, DEFAULT_OVERSCAN, ROW_ATTRIBUTE } from '../VirtualGrid.constants';
+import { gridFixedColumns } from './grid-fixed-columns';
 import { gridHeights } from './grid-heights';
 import { gridLayout } from './grid-layout';
 import { gridSections } from './grid-sections';
-import { itemOfStop } from './item-of-stop';
-import { nextCell } from './next-cell';
 import { readGridMetrics } from './read-grid-metrics';
 import { rowOfStop } from './row-of-stop';
-import { rowPlace } from './row-place';
 import { rowRange } from './row-range';
 import { scrollOffset } from './scroll-offset';
 import { useGridCollapsed } from './useGridCollapsed';
 import { useGridColumns } from './useGridColumns';
-import { useGridRects } from './useGridRects';
-import type { KeyboardEvent } from 'react';
+import { useGridFocus } from './useGridFocus';
+import { useGridDropData } from './useGridDropData';
+import { useGridInteraction } from './useGridInteraction';
 import type { ScrollAlign, VirtualMetrics } from '../../virtual';
 import type { UseVirtualGridInput, VirtualGridModel } from './useVirtualGrid.type';
 
 const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> => {
   const { items, sections, getKey, overscan = DEFAULT_OVERSCAN, sizeKey, onActiveChange } = input;
   const rootRef = useRef<HTMLElement>(null);
-  const [columns, setColumns] = useState(DEFAULT_COLUMNS);
+  const [measured, setColumns] = useState(DEFAULT_COLUMNS);
+  const fixed = gridFixedColumns(input.columns);
+  const columns = fixed ?? measured;
   const tileWidth = useRef(0);
   const { set: collapsed, setCollapsed } = useGridCollapsed(input);
   const { flat, shapes, keys } = useMemo(() => gridSections(items, sections, collapsed), [items, sections, collapsed]);
@@ -51,20 +51,11 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
   }, []);
   useGridColumns({ rootRef, bodyRef, fallbackTile: metrics.rowHeight, refitKey: `${sizeKey}-${layout.tileRows}`, onColumns: fit });
 
-  const resolve = useCallback((event: KeyboardEvent<HTMLElement>, stop: number, page: number) => {
-    const to = nextCell(event.key, layout, stop, { ctrl: event.ctrlKey || event.metaKey, page });
-    return to === undefined ? undefined : { index: to, row: rowOfStop(layout, to) };
-  }, [layout]);
-  const spanOf = useCallback((row: number) => {
-    const entry = placed[row];
-    return entry ? rowPlace(entry, heights) : { top: 0, height: 0 };
-  }, [placed, heights]);
-  const follow = useCallback((stop: number) => {
-    const item = itemOfStop(layout, stop);
-    if (item >= 0) onActiveChange?.(item);
-  }, [layout, onActiveChange]);
-  const { active, activate, navigate } = useVirtualFocus({
-    rootRef, bodyRef, cellAttribute: CELL_ATTRIBUTE, metrics, onScroll, resolve, spanOf, onActiveChange: follow,
+  const touch = useGridInteraction({ ...input, flat, layout, heights, columns, sectionKeys: keys, rootRef, bodyRef, tileWidth });
+  const dropData = useGridDropData({ sections, announce: touch.moving.announce });
+  const { active, activate, jump, navigate } = useGridFocus({ layout, heights, rootRef, bodyRef, metrics, onScroll, onMove: touch.onMove, onActiveChange });
+  useEffect(() => {
+    touch.jumpRef.current = jump;
   });
 
   const clamped = Math.min(active, Math.max(0, layout.stops - 1));
@@ -78,11 +69,12 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
     onScroll();
   }, [layout, heights, onScroll]);
 
-  const getRects = useGridRects({ rootRef, bodyRef, tileWidth, layout, heights, flat, getKey });
-
   return {
-    rootRef, bodyRef, flat, layout, rows: indices, columns, sectionKeys: keys, collapsed, setCollapsed, tabbable, onScroll,
-    onFocus: slice.onFocus, onBlur: slice.onBlur, activate, navigate, scrollToIndex, getRects,
+    rootRef, bodyRef, flat, layout, rows: indices, columns, fixed: fixed !== undefined, sectionKeys: keys, collapsed, setCollapsed, tabbable, onScroll,
+    onFocus: slice.onFocus, onBlur: slice.onBlur, activate, navigate, scrollToIndex, getRects: touch.getRects,
+    selecting: touch.selecting, reordering: touch.moving.active, announcing: touch.moving.active || dropData.active, message: touch.moving.message,
+    into: touch.moving.into ?? dropData.hot, dropOf: dropData.dropOf, ghost: touch.moving.ghost,
+    extrasOf: touch.extrasOf, cellKeys: (event, stop, item) => touch.cellKeys(event, stop, item, navigate),
   };
 };
 

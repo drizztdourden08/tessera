@@ -1,5 +1,5 @@
 /* @layer stories @kind story */
-import type { StoryLiteMeta } from '@storylite/storylite';
+import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SplitPane } from '../../src/composites';
 import type { CollapsedSide, SplitOrientation } from '../../src/composites';
@@ -7,6 +7,7 @@ import { Box, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import { EditorSplit, FilesSplit } from './_samples/SplitPaneDemos';
+import { SummarySplit } from './_samples/SplitPaneSummaryDemo';
 import type { SplitSettings } from './_samples/SplitPaneDemos';
 import { RESIZE_HANDLE_STATES } from './_samples/resize-handle-states.constants';
 import './SplitPane.stories.css';
@@ -74,6 +75,11 @@ const EditorAndConsole = {
   render: (args) => <SplitFrame scene="editor" settings={{ ...args, orientation: 'vertical', defaultRatio: 0.7 }} />,
 } satisfies PlaygroundStory<SplitArgs>;
 
+const SummaryLine = {
+  name: 'Collapsed to a summary line: the folded pane keeps a header and one line of text',
+  render: () => <SummarySplit />,
+} satisfies StoryLiteStoryDefinition<SplitArgs>;
+
 const renderState = (props: StateProps) => (
   <Box className="story-frame split-pane-story__state">
     <SplitPane
@@ -113,13 +119,13 @@ const Overview = overviewStory({
   points: [
     '`orientation` puts the panes side by side or one above the other.',
     '`minRatio` and `maxRatio` keep both panes usable; `defaultRatio` sets the first split.',
-    'A pane pulled under its minimum, or an arrow key at the end, folds to a rail; drag the rail out to open.',
-    'A round [CollapseToggle] beside the line folds either pane too; `collapsible={false}` drops folding.',
+    'A pane pulled under its minimum, or a round [CollapseToggle], folds it to a rail; `collapsible={false}` drops it.',
+    'Stacked panes fold to one line: `summary` is its text and `header` a slot before it.',
     'The line takes the arrow keys, [[Home]] and [[End]]; [[Enter]] folds or opens a pane and a double click resets it.',
     '**The parent needs a size:** the split fills it.',
   ],
   playground: Playground,
-  variants: [EditorAndConsole],
+  variants: [EditorAndConsole, SummaryLine],
   states: {
     render: renderState,
     list: [
@@ -131,4 +137,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { EditorAndConsole, Overview, Playground };
+export { EditorAndConsole, Overview, Playground, SummaryLine };

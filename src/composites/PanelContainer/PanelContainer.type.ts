@@ -4,6 +4,7 @@ import type { HeadingLevel } from '../../primitives/Title/Title.type';
 
 interface PanelContainerProps {
   title: ReactNode;
+  sublabel?: ReactNode;
   action?: ReactNode;
   level?: HeadingLevel;
   fill?: boolean;

@@ -25,7 +25,7 @@ FloatingPrompt asks the user to answer before going on in one region, with actio
 
 - The whole app must wait for the answer. Use [Dialog](Dialog.md) instead.
 - A short message passes by itself and needs no answer. Use [Toast](Toast.md) instead.
-- A note stays on the page and blocks nothing. Use `Callout` instead.
+- A note stays on the page and blocks nothing. Use [Callout](Callout.md) instead.
 
 ## Rules
 

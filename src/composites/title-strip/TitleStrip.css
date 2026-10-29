@@ -1,0 +1,31 @@
+/* @layer renderer-components @kind style */
+.title-strip {
+  align-items: baseline;
+  gap: var(--space-xs);
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}
+
+.title-strip__title,
+.title-strip__sublabel {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title-strip__title {
+  flex: 0 1 auto;
+}
+
+.title-strip__sublabel {
+  flex: 0 1000 auto;
+  color: var(--c-text-muted);
+  font-weight: var(--weight-normal);
+  letter-spacing: var(--tracking-normal);
+  text-transform: none;
+}
+
+.title-strip__full {
+  color: var(--c-text-muted);
+}

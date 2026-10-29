@@ -124,3 +124,27 @@
   min-inline-size: var(--field-w-inline-min);
   max-inline-size: 100%;
 }
+
+:is(.select, .select-trigger, .combobox, .text-input, .text-input-frame).control-fit {
+  flex: none;
+  inline-size: fit-content;
+}
+
+:is(.select, .select-trigger, .combobox, .text-input, .text-input-frame).control-narrow {
+  flex: 0 1 var(--field-w-narrow);
+  inline-size: var(--field-w-narrow);
+  max-inline-size: 100%;
+}
+
+:is(.select, .select-trigger, .combobox, .text-input, .text-input-frame).control-narrow-fill {
+  flex: 0 1 var(--field-w-narrow);
+  inline-size: var(--field-w-narrow);
+  max-inline-size: 100%;
+}
+
+@container (width < 420px) {
+  :is(.select, .select-trigger, .combobox, .text-input, .text-input-frame).control-narrow-fill {
+    flex: 1 1 auto;
+    inline-size: 100%;
+  }
+}

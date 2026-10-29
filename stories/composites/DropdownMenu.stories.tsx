@@ -2,17 +2,21 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DropdownMenu } from '../../src/composites';
-import type { MenuGroup, MenuIntensity, MenuSize, MenuTrigger, MenuVariant } from '../../src/composites';
+import type { MenuIntensity, MenuSize, MenuTrigger, MenuVariant } from '../../src/composites';
 import { overviewStory } from '../_template/overview-story';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { buildTitleMenu } from './_samples/data-title-menu';
-import { ICON_SOURCE_MENU } from './_samples/data-menu-icon-sources';
+import { COLOR_ICON_MENU, ICON_SOURCE_MENU } from './_samples/data-menu-icon-sources';
 import { CATEGORY_MENU, EDIT_MENU, NESTED_MENU, SUBTITLE_MENU } from './_samples/data-menu-features';
 import { ChoiceDemo, MenuDemo } from './_samples/menu-demos';
+import { DANGER_MENU } from './_samples/data-menu-danger';
+import { DISABLED_MENU } from './_samples/data-menu-disabled';
 import { MenuConfirmDemo } from './_samples/MenuConfirmDemo';
+import { MenuRoomyDemo } from './_samples/MenuRoomyDemo';
+import { MenuSelectDemo } from './_samples/MenuSelectDemo';
 import { MenuSliderDemo } from './_samples/MenuSliderDemo';
 import { JoinDemos, MarksDemo, NestedDemo } from './_samples/menu-join-demos';
 import { MarkMorphDemo } from './_samples/menu-mark-demos';
@@ -35,20 +39,7 @@ const INSIDE = {
 } as const;
 const ignore = (): void => undefined;
 
-const DANGER_MENU: MenuGroup[] = [{
-  id: 'session',
-  items: [
-    { id: 'rename', icon: 'pencil', label: 'Rename' },
-    { id: 'duplicate', icon: 'copy', label: 'Duplicate' },
-    { id: 'reset', icon: 'rotate-ccw', label: 'Reset options', kind: 'confirm' },
-    { separator: true },
-    { id: 'delete', icon: 'trash-2', label: 'Delete session', tone: 'danger', shortcut: 'Del' },
-  ],
-}];
-
-const ARGS: Partial<MenuDemoArgs> = {
-  variant: 'primary', intensity: 'strong', size: 'sm', iconOnly: true, iconSide: 'end', filter: false, closeOnSelect: true,
-};
+const ARGS: Partial<MenuDemoArgs> = { variant: 'primary', intensity: 'strong', size: 'sm', iconOnly: true, iconSide: 'end', filter: false, closeOnSelect: true };
 
 const ARG_TYPES: PlaygroundArgTypes<MenuDemoArgs> = {
   variant: { group: 'Appearance', control: 'select', options: [...VARIANTS], description: 'The colour of the trigger and of the edge' },
@@ -103,6 +94,11 @@ const Triggers = {
   ),
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
+const RoomyRows = {
+  name: 'Roomy rows: 13 px text and taller items',
+  render: () => <MenuRoomyDemo />,
+} satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
 const Inside = {
   name: 'Icons, categories, shortcuts and subtitles',
   render: () => (
@@ -115,6 +111,7 @@ const Inside = {
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const IconSources = { name: 'Icons from a name, iconify data, path data or any element', render: () => <DropdownMenu inline groups={ICON_SOURCE_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+const ColourIcons = { name: 'A colour swatch as the icon of an item', render: () => <DropdownMenu inline groups={COLOR_ICON_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const Commands = {
   name: 'Check and radio',
@@ -141,6 +138,7 @@ const Confirm = {
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const Danger = { name: 'A danger item for Delete, beside a confirm item that only turns red while it asks', render: () => <DropdownMenu inline groups={DANGER_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+const Disabled = { name: 'Disabled items, dimmed so they read as unavailable', render: () => <DropdownMenu inline groups={DISABLED_MENU} /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const SubMenus = {
   name: 'Sub-menus and filter',
@@ -195,6 +193,8 @@ const groups: MenuGroup[] = [
 
 const Sliders = { name: 'A slider row, moved with Left and Right', render: () => <MenuSliderDemo /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
+const Selects = { name: 'Select rows beside actions, kept open while you pick', render: () => <MenuSelectDemo /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
 const Overview = overviewStory({
   component: 'DropdownMenu',
   description: 'A menu of actions, checks and sub-menus, built from data, that hangs from its own button.',
@@ -202,13 +202,13 @@ const Overview = overviewStory({
     '`groups` lists the items: a `label`, an `icon` (a name, iconify data, path data or an element), `onSelect`.',
     '`trigger` draws a [Button], or an [IconButton] with `iconOnly`; its icon keeps its shape while open.',
     '`checked` or `kind="radio"` shows a faint dot that turns into a check or radio; `children` opens a sub-menu.',
-    '`tone="danger"` draws Delete in red, `kind="confirm"` asks Click again to, `kind="slider"` sets a level.',
+    '`tone="danger"` draws Delete red, `kind="confirm"` asks, `kind="slider"` sets a level, `kind="select"` picks.',
     'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
-    '`filter` adds a search field over every level; `anchorRef` hangs the menu from a table header or a row.',
+    '`filter` adds a search field; `anchorRef` hangs it from a row; `disabled` dims an item to the disabled level.',
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, Inside, IconSources, Commands, MarkMorph, Confirm, Sliders, Danger, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, RoomyRows, Inside, IconSources, ColourIcons, Commands, MarkMorph, Confirm, Sliders, Selects, Danger, Disabled, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -223,4 +223,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Commands, Confirm, Danger, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, SubMenus, Triggers, Variants };
+export { ColourIcons, Commands, Confirm, Danger, Disabled, Selects, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SubMenus, Triggers, Variants };

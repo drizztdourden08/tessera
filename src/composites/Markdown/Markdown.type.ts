@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { CSSProperties, ReactNode } from 'react';
 import type { ExtraProps } from 'react-markdown';
+import type { LinkTone } from '../../primitives/Link/Link.type';
 import type { CodeBlockLanguage } from '../CodeBlock/CodeBlock.type';
 
 type MarkdownSize = 'sm' | 'md' | 'inline';
@@ -35,6 +36,9 @@ interface MarkdownProps {
   images?: MarkdownImages;
   onImage?: MarkdownImageHandler;
   linkIds?: MarkdownLinkId | MarkdownLinkId[];
+  smartTimes?: boolean;
+  linkTone?: LinkTone;
+  idLinkTone?: LinkTone;
   className?: string;
 }
 
@@ -44,6 +48,8 @@ interface MarkdownSettings {
   size: MarkdownSize;
   images?: MarkdownImages;
   onImage?: MarkdownImageHandler;
+  linkTone?: LinkTone;
+  idLinkTone?: LinkTone;
 }
 
 interface MarkdownPartProps extends ExtraProps {
@@ -52,6 +58,7 @@ interface MarkdownPartProps extends ExtraProps {
 
 interface MarkdownLinkProps extends MarkdownPartProps {
   href?: string;
+  'data-id-link'?: string;
 }
 
 interface MarkdownListProps extends MarkdownPartProps {
@@ -90,6 +97,7 @@ interface MarkdownTextNode {
   value?: string;
   url?: string;
   title?: string | null;
+  data?: { hProperties: Record<string, string> };
   children?: MarkdownTextNode[];
 }
 
@@ -104,6 +112,7 @@ interface LinkIdsOptions {
 
 interface RemarkPluginOptions extends LinkIdsOptions {
   hideTitle: boolean;
+  smart: boolean;
 }
 
 export type {

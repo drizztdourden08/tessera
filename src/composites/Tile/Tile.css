@@ -1,0 +1,75 @@
+/* @layer renderer-components @kind style */
+.tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  box-sizing: border-box;
+  inline-size: 100%;
+  min-inline-size: 0;
+  padding: var(--space-xs);
+  border: var(--border-width-thin) solid transparent;
+  border-radius: var(--radius-md);
+  color: var(--c-text);
+}
+
+.tile:hover {
+  background: var(--c-hover);
+}
+
+.tile[data-selected] {
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+}
+
+.tile[data-focused] {
+  outline: var(--border-width-thick) solid var(--c-focus);
+  outline-offset: calc(-1 * var(--border-width-thick));
+}
+
+.tile__media {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: var(--tile-media-aspect, 1);
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--c-sunken);
+}
+
+.tile__corner {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  max-inline-size: 60%;
+}
+
+.tile__corner--top-start {
+  inset-block-start: var(--space-2xs);
+  inset-inline-start: var(--space-2xs);
+}
+
+.tile__corner--top-end {
+  inset-block-start: var(--space-2xs);
+  inset-inline-end: var(--space-2xs);
+}
+
+.tile__corner--bottom-start {
+  inset-block-end: var(--space-2xs);
+  inset-inline-start: var(--space-2xs);
+}
+
+.tile__corner--bottom-end {
+  inset-block-end: var(--space-2xs);
+  inset-inline-end: var(--space-2xs);
+}
+
+.tile__name {
+  display: block;
+  overflow: hidden;
+  font-size: var(--text-sm);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

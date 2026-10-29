@@ -1,18 +1,17 @@
 /* @layer renderer-components @kind component */
 import { Icon } from '../../Icon';
 import { activeOptionId } from '../../listbox/active-option-id';
-import { ListboxValue } from '../../listbox/ListboxValue';
 import { Span } from '../../text-elements';
 import { triggerClass } from '../behavior/trigger-class';
-import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
+import { SelectTriggerValue } from './SelectTriggerValue';
 import type { SelectTriggerProps } from './SelectTrigger.type';
 
 const SelectTrigger = <T, V>(props: SelectTriggerProps<T, V>) => {
   const { select, setup, look } = props;
   const { drop, model, control, field } = select;
   const { open } = drop;
-  const { fields } = useTesseraStrings();
   const full = setup.valueDisplay === 'full' || setup.valueComponent !== undefined;
+  const mixed = look.mixed === true;
 
   return (
     <button
@@ -20,7 +19,7 @@ const SelectTrigger = <T, V>(props: SelectTriggerProps<T, V>) => {
       type="button"
       role="combobox"
       id={control.id}
-      className={triggerClass({ open, disabled: field.disabled, size: field.size, full, className: field.className })}
+      className={triggerClass({ open, disabled: field.disabled, size: field.size, full, mixed, className: field.className })}
       disabled={field.disabled}
       aria-label={look['aria-label']}
       aria-labelledby={look['aria-labelledby']}
@@ -36,12 +35,7 @@ const SelectTrigger = <T, V>(props: SelectTriggerProps<T, V>) => {
       onKeyDown={select.onKeyDown}
     >
       <Span className="select-trigger__value">
-        <ListboxValue
-          displays={select.displays}
-          look={setup}
-          placeholder={look.placeholder ?? fields.selectPlaceholder}
-          tags={setup.max > 1 && look.multiDisplay === 'tags'}
-        />
+        <SelectTriggerValue {...props} />
       </Span>
       <Icon name="chevron-down" className="select-trigger__chevron" />
     </button>

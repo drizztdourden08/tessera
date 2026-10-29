@@ -7,8 +7,19 @@ type AnchoredPlacement =
   | 'bottom-start' | 'bottom-end' | 'bottom-center' | 'top-start' | 'top-end' | 'top-center'
   | 'right-start' | 'right-center' | 'left-start' | 'left-center';
 
+interface AnchoredRect {
+  left: number;
+  top: number;
+  width: number;
+  height: number;
+}
+
+type AnchoredRectSource = AnchoredRect | (() => AnchoredRect | null);
+
 interface AnchoredProps extends HTMLAttributes<HTMLDivElement> {
-  anchorRef: RefObject<HTMLElement | null>;
+  anchorRef?: RefObject<HTMLElement | null>;
+  anchorRect?: AnchoredRectSource;
+  boundary?: RefObject<HTMLElement | null>;
   placement?: AnchoredPlacement;
   flip?: boolean;
   layer?: PortalLayer;
@@ -23,4 +34,4 @@ interface AnchoredProps extends HTMLAttributes<HTMLDivElement> {
 
 type AnchoredStyle = CSSProperties & Record<'--anchored-name', string>;
 
-export type { AnchoredPlacement, AnchoredProps, AnchoredStyle };
+export type { AnchoredPlacement, AnchoredProps, AnchoredRect, AnchoredRectSource, AnchoredStyle };

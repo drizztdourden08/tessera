@@ -15,7 +15,7 @@ import '../../theme/list-item-slots.css';
 import type { ListItemRowProps } from './ListItemRow.type';
 
 const ListItemRow = (props: ListItemRowProps) => {
-  const { name, meta, icon, media, columns, action, actionVisibility = 'always', nameAction, selected = false, tabIndex, onClick, onDoubleClick, onContextMenu, onKeyDown, data } = props;
+  const { name, meta, icon, lead, media, columns, action, actionVisibility = 'always', nameAction, selected = false, tabIndex, onClick, onDoubleClick, onContextMenu, onKeyDown, data } = props;
   const list = useContext(ListItemContext);
   const rowRef = useRef<HTMLElement>(null);
   const interactive = onClick !== undefined || onDoubleClick !== undefined;
@@ -24,7 +24,7 @@ const ListItemRow = (props: ListItemRowProps) => {
   const anchorStyle = useNameAnchor(nameAction != null);
   const style = mediaStyle || anchorStyle ? { ...frame.style, ...mediaStyle, ...anchorStyle } : frame.style;
   const drag = { draggable: props.draggable, onDragStart: props.onDragStart, onDragEnd: props.onDragEnd };
-  const body = <ListItemBody name={name} meta={meta} icon={icon} media={media} columns={columns} />;
+  const body = <ListItemBody name={name} meta={meta} icon={icon} lead={lead} media={media} columns={columns} />;
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => rowActivate({ onClick, onDoubleClick }, event.detail);
 

@@ -117,6 +117,26 @@ describe('DropdownMenu', () => {
   });
 });
 
+describe('a disabled item', () => {
+  const sheet = readFileSync(new URL('../src/theme/dropdown-menu.css', import.meta.url), 'utf8');
+
+  it('dims to the disabled opacity, like a disabled button, instead of only changing the text colour', () => {
+    expect(sheet).toMatch(/\.dropdown__item:disabled \{\s*opacity: var\(--opacity-disabled\);\s*cursor: default;/);
+    expect(sheet).not.toMatch(/\.dropdown__item:disabled[^{]*\{[^}]*color:/);
+  });
+
+  it('renders the item as a disabled button and takes no hover look', () => {
+    const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'g', items: [{ id: 'paste', label: 'Paste', disabled: true }] }] }));
+    expect(html).toMatch(/<button[^>]*disabled=""[^>]*class="[^"]*dropdown__item|<button[^>]*class="[^"]*dropdown__item[^"]*"[^>]*disabled=""/);
+    expect(sheet).toMatch(/\.dropdown__item:is\(:hover, :focus-visible, :has\(:focus-visible\)\):not\(:disabled\)/);
+  });
+
+  it('is shared by the context menu, which draws its items through DropdownMenu', () => {
+    const point = readFileSync(new URL('../src/composites/ContextMenu/sub-components/PointMenu.tsx', import.meta.url), 'utf8');
+    expect(point).toContain('<DropdownMenu {...menu}');
+  });
+});
+
 describe('closesOnPick', () => {
   it('keeps the menu open for a check or a radio item and closes it for an action', () => {
     expect(closesOnPick('check', true)).toBe(false);

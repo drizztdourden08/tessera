@@ -10,6 +10,9 @@ import { VirtualGridFolders } from './_samples/VirtualGridFolders';
 import { VirtualGridFrame } from './_samples/VirtualGridFrame';
 import { VirtualGridJump } from './_samples/VirtualGridJump';
 import { VirtualGridMarquee } from './_samples/VirtualGridMarquee';
+import { VirtualGridNativeDrop } from './_samples/VirtualGridNativeDrop';
+import { VirtualGridPicker } from './_samples/VirtualGridPicker';
+import { VirtualGridReorder } from './_samples/VirtualGridReorder';
 import { FILLED_AND_EMPTY } from './_samples/virtual-states.constants';
 import './VirtualGrid.stories.css';
 
@@ -59,6 +62,11 @@ const Wide = {
   render: () => <VirtualGridFrame count={600} tileWidth="size-128" tileHeight="size-64" />,
 } satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
 
+const Tileset = {
+  name: 'Six columns with columns: every row holds six tiles, whatever the width',
+  render: () => <VirtualGridFrame count={96} tileSize="size-64" columns={6} />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
 const Folders = {
   name: 'Folders with actions and depth: click a header, or use Enter, Space, Left and Right on it',
   render: () => <VirtualGridFolders folders={6} perFolder={40} />,
@@ -77,6 +85,21 @@ const Jump = {
 const Buttons = {
   name: 'Button tiles: the tile is the cell, one tab stop for the grid',
   render: () => <VirtualGridButtons count={300} />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
+const Picking = {
+  name: 'Selection: click, Ctrl, Shift for a rectangle, Ctrl+A, Space, type a number; every seventh tile is a hole',
+  render: () => <VirtualGridPicker count={300} />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
+const Reordering = {
+  name: 'Reorder: drag tiles, the picked set or a header, or press Alt with an arrow',
+  render: () => <VirtualGridReorder />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
+const NativeDrop = {
+  name: 'Native drop on a header with onDropData and accepts, without reorder',
+  render: () => <VirtualGridNativeDrop />,
 } satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
 
 const CODE = `import { VirtualGrid } from '@drizztdourden08/tessera';
@@ -101,10 +124,29 @@ const CODE = `import { VirtualGrid } from '@drizztdourden08/tessera';
 />
 
 <VirtualGrid
+  label="Tileset"
+  items={tiles}
+  getKey={(tile) => tile.id}
+  renderItem={(tile) => tile.name}
+  tileSize="size-64"
+  columns={6}
+/>
+
+<VirtualGrid
   label="Frames"
   items={frames}
   getKey={(frame) => frame.id}
   renderTile={(frame, index, cell) => <Button {...cell} onClick={() => open(frame)}>{frame.name}</Button>}
+/>
+
+<VirtualGrid
+  label="Frames"
+  items={frames}
+  getKey={(frame) => frame.id}
+  getLabel={(frame) => frame.name}
+  renderItem={(frame) => frame.name}
+  selection={{ selected, onChange: setSelected }}
+  reorder={{ onMove: (move) => moveFrames(move.keys, move.to) }}
 />
 
 gridRef.current?.scrollToIndex(1200, 'center');
@@ -115,16 +157,16 @@ const Overview = overviewStory({
   component: 'VirtualGrid',
   description: 'A very long grid of equal tiles, in sections if wanted, where only the rows in view are drawn, with the keys to move through it.',
   points: [
-    '`items`, `getKey` and `renderItem` draw the tiles; `getKey` returns a stable id for each item.',
-    '`tileSize` sets a square tile; `tileWidth` and `tileHeight` size a tile that is not square.',
-    '`sections` groups the tiles under collapsing headers; a section takes `actions` and `depth`.',
-    '`scrollRef`, `bind` and `overlay` let a marquee pick tiles; each tile carries `data-marquee-key`.',
-    'A `ref` gives `scrollToIndex(index, align)` and `getRects()`, the rects of all tiles for a marquee.',
+    '`items`, `getKey` and `renderItem` draw the tiles; `sections` group them under headers.',
+    '`tileSize`, or `tileWidth` and `tileHeight`, size the tiles; `columns` fixes the tiles in a row.',
+    '`selection` picks with click, Ctrl, Shift (a rectangle), Ctrl+A and Space; `holes` skip tiles.',
+    '`getLabel` adds type ahead; `reorder` moves the picked tiles by drag or Alt with an arrow.',
+    'A section `onDrop` takes tiles dropped on its header, `onDropData` a native drop; `bind` serves a marquee.',
     '`renderTile` hands the cell props to the app tile, so a button tile is the cell and the one tab stop.',
   ],
   instead: '[VirtualList] for rows in a column, or [ItemCard] for a few cards.',
   playground: Playground,
-  variants: [Long, Small, Few, Wide, Folders, Marquee, Jump, Buttons],
+  variants: [Long, Small, Few, Wide, Tileset, Folders, Marquee, Jump, Buttons, Picking, Reordering, NativeDrop],
   states: {
     render: (props: StateProps) => <VirtualGridFrame count={40} {...props} />,
     list: FILLED_AND_EMPTY,
@@ -133,4 +175,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Buttons, Few, Folders, Jump, Long, Marquee, Overview, Playground, Small, Wide };
+export { Buttons, Few, Folders, Jump, Long, Marquee, NativeDrop, Overview, Picking, Playground, Reordering, Small, Tileset, Wide };
