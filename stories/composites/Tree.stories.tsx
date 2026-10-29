@@ -5,7 +5,9 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { TreeBigDemo } from './_samples/TreeBigDemo';
+import { TreeActionsDemo } from './_samples/TreeActionsDemo';
 import { TreeDemo } from './_samples/TreeDemo';
+import { TreeDragOutDemo } from './_samples/TreeDragOutDemo';
 import { TreeLazyDemo } from './_samples/TreeLazyDemo';
 import type { TreeArgs } from './_samples/tree-demo.type';
 import './Tree.stories.css';
@@ -41,6 +43,16 @@ const Files = {
 const Reorder = {
   name: 'Reorder: drag to a gap or into a folder, or Alt with the arrows, depth limit 3',
   render: () => <TreeDemo reorder guides maxDepth={3} />,
+} satisfies StoryLiteStoryDefinition<TreeArgs>;
+
+const HoverActions = {
+  name: 'Trail actions show on hover, focus or a picked row; Tab reaches them',
+  render: () => <TreeActionsDemo />,
+} satisfies StoryLiteStoryDefinition<TreeArgs>;
+
+const DragOut = {
+  name: 'Drag a row out to another widget; Alt with the drag reorders',
+  render: () => <TreeDragOutDemo />,
 } satisfies StoryLiteStoryDefinition<TreeArgs>;
 
 const Single = {
@@ -82,14 +94,14 @@ const Overview = overviewStory({
   points: [
     '`getChildren` gives the children of an item; thousands of rows draw only what is in view.',
     'The keys of a tree: arrows, [[Right]] and [[Left]] to fold, [[Home]], [[End]] and a typed letter.',
-    '`selection` picks many rows through `useSelectionModel`, or one with `mode="single"`.',
+    '`selection` picks many rows, or one with `mode="single"`; `onLoadChildren` loads a folder when it opens.',
     '`reorder` drags rows to a gap or into a folder; [[Alt]] with an arrow moves by key and is announced.',
-    '`onLoadChildren` loads a folder when it opens; `filter` keeps the folders above its matches.',
-    '`renderLead`, `renderLabel` and `renderTrail` are the row slots; the tree adds no toggles.',
+    '`renderLead`, `renderLabel` and `renderTrail` fill the row; `trail="hover"` hides the trail until hover or focus.',
+    '`onDragOut` makes the whole row a native drag source; with `reorder`, [[Alt]] with the drag reorders instead.',
   ],
   instead: '[GroupTree] for counted groups with one picked row, or [VirtualList] for a flat list.',
   playground: Playground,
-  variants: [Files, Reorder, Single, Filtered, Lazy, Big],
+  variants: [Files, Reorder, HoverActions, DragOut, Single, Filtered, Lazy, Big],
   states: {
     render: (props: StateProps) => <TreeDemo mode="single" guides open={props.open === true ? ['src', 'components'] : []} />,
     list: [
@@ -103,4 +115,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Big, Files, Filtered, Lazy, Overview, Playground, Reorder, Single };
+export { Big, DragOut, Files, Filtered, HoverActions, Lazy, Overview, Playground, Reorder, Single };

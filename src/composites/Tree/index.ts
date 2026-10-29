@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind barrel */
 export { Tree } from './Tree';
 export type {
-  TreeHandle, TreeMoveRequest, TreeProps, TreeReorder, TreeRowSize, TreeRowState, TreeSelection, TreeSelectionMode,
+  TreeHandle, TreeMoveRequest, TreeProps, TreeReorder, TreeRowSize, TreeRowState, TreeSelection, TreeSelectionMode, TreeTrailShow,
 } from './Tree.type';
