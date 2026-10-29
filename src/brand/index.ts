@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind barrel */
 export { BrandMark } from './BrandMark';
-export type { BrandMarkProps, BrandMarkSize, BrandMarkVariant } from './BrandMark';
+export type { BrandMarkFit, BrandMarkProps, BrandMarkSize, BrandMarkVariant } from './BrandMark';
 export { BrandWordmark } from './BrandWordmark';
 export type { BrandWordmarkProps } from './BrandWordmark';
 export { PixelWordmark, buildPixelWordmark, PIXEL_FONT } from './PixelWordmark';

@@ -20,7 +20,7 @@ interface AnimatedMascotProps {
   playing?: boolean;
   speed?: number;
   loop?: boolean;
-  size?: BrandMarkSize;
+  size?: Exclude<BrandMarkSize, 'h26' | 'h39'>;
   scale?: number;
   title?: string;
   className?: string;

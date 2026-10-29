@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { PixelWordmarkSize } from '../PixelWordmark';
-import type { BrandMarkSize, BrandMarkVariant } from '../BrandMark';
+import type { BrandMarkFit, BrandMarkSize, BrandMarkVariant } from '../BrandMark';
 import type { BrandApp } from '../brand.type';
 import type { BrandRim } from '../rim.type';
 
@@ -9,6 +9,7 @@ type LogoDirection = 'stacked' | 'inline';
 interface LogoProps {
   brand?: BrandApp;
   size?: BrandMarkSize;
+  fit?: BrandMarkFit;
   variant?: BrandMarkVariant;
   rim?: BrandRim;
   title?: string;
@@ -23,7 +24,7 @@ interface LogoWordmarkProps {
   className?: string;
 }
 
-interface LogoCombinedProps extends LogoProps {
+interface LogoCombinedProps extends Omit<LogoProps, 'fit'> {
   direction?: LogoDirection;
 }
 

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { BRAND_FAMILY, MASCOT_CLIPS, Mascot } from '../../src/brand';
-import type { AnimatedMascotBrand, BrandMarkSize } from '../../src/brand';
+import type { AnimatedMascotBrand, MascotProps } from '../../src/brand';
 import { Stack, Text } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -24,7 +24,7 @@ import { StageTabs } from './_samples/stage/StageTabs';
 
 type Draw = (brand: AnimatedMascotBrand) => ReactNode;
 
-const SIZES: readonly BrandMarkSize[] = ['sm', 'md', 'lg', 'xl'];
+const SIZES: readonly NonNullable<MascotProps['size']>[] = ['sm', 'md', 'lg', 'xl'];
 
 const ARG_TYPES: PlaygroundArgTypes<MascotPlaygroundArgs> = {
   variant: { group: 'Appearance', control: 'select', options: MASCOT_VARIANT_IDS, description: 'mascot draws the mascot of the tab above. hookshop is a Sentri variant; on the others it draws the plain mascot.' },
