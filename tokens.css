@@ -15,6 +15,7 @@
   --size-14:   14px;
   --size-16:   16px;
   --size-20:   20px;
+  --size-22:   22px;
   --size-24:   24px;
   --size-28:   28px;
   --size-32:   32px;
@@ -396,6 +397,8 @@ input, select {
   --brand-mark-lg: var(--size-48);
   --brand-mark-xl: var(--size-128);
   --brand-mark-xxl: var(--size-256);
+  --brand-mark-h26: calc(26 * var(--size-1));
+  --brand-mark-h39: calc(39 * var(--size-1));
   --brand-rim-sm: var(--size-1);
   --brand-rim-md: calc(1.5 * var(--size-1));
   --brand-rim-lg: var(--size-2);
