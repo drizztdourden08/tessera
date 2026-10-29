@@ -27,11 +27,11 @@ const Tile = (props: TileProps) => {
     >
       <Box className="tile__media">
         {media}
-        {corners !== undefined && <TileCornerSlots corners={corners} />}
       </Box>
       {name !== undefined && (
         <Span className="tile__name" title={typeof name === 'string' ? name : undefined}>{name}</Span>
       )}
+      {corners !== undefined && <TileCornerSlots corners={corners} />}
     </Box>
   );
 };

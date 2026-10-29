@@ -27,6 +27,13 @@ describe('Tile', () => {
     expect(html).not.toContain('tile__corner--bottom-start');
   });
 
+  it('draws the name before the corner slots so a text badge reads after it', () => {
+    const html = draw({ name: 'hero', corners: { topEnd: '3' } });
+    expect(html.indexOf('tile__name')).toBeGreaterThan(html.indexOf('tile__media'));
+    expect(html.indexOf('tile__name')).toBeLessThan(html.indexOf('tile__corners'));
+    expect(html.indexOf('tile__corners')).toBeLessThan(html.indexOf('tile__corner--top-end'));
+  });
+
   it('draws all four corners', () => {
     const html = draw({ corners: { topStart: 1, topEnd: 2, bottomStart: 3, bottomEnd: 4 } });
     expect(html.match(/tile__corner /g)).toHaveLength(4);

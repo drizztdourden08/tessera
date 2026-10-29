@@ -4,13 +4,13 @@ import { TILE_CORNER_CLASS, TILE_CORNERS } from '../Tile.constants';
 import type { TileCornerSlotsProps } from '../Tile.type';
 
 const TileCornerSlots = ({ corners }: TileCornerSlotsProps) => (
-  <>
+  <Box className="tile__corners">
     {TILE_CORNERS.map((corner) => {
       const content = corners[corner];
       if (content === undefined || content === null || content === false) return null;
       return <Box key={corner} className={`tile__corner tile__corner--${TILE_CORNER_CLASS[corner]}`}>{content}</Box>;
     })}
-  </>
+  </Box>
 );
 
 export { TileCornerSlots };

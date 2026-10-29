@@ -24,6 +24,7 @@ const usage = {
   a11y: [
     'The tile is plain content: the grid gives it a role such as option or gridcell and its tab stop.',
     'A corner mark that carries meaning needs its own label, since the corner is not read as text.',
+    'The corners come after the name in the document, so a text badge in a corner, such as a count, reads after the name, the same order a user sees.',
     'The name is the text of the tile; give media an empty alt unless it says something the name does not.',
   ],
   tree: {

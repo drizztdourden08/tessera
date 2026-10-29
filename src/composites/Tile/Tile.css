@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind style */
 .tile {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-xs);
   box-sizing: border-box;
   inline-size: 100%;
@@ -27,6 +27,7 @@
 }
 
 .tile__media {
+  grid-area: 1 / 1;
   position: relative;
   display: flex;
   align-items: center;
@@ -37,7 +38,16 @@
   background: var(--c-sunken);
 }
 
+.tile__corners {
+  position: relative;
+  grid-area: 1 / 1;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  pointer-events: none;
+}
+
 .tile__corner {
+  pointer-events: auto;
   position: absolute;
   display: flex;
   align-items: center;
@@ -66,6 +76,7 @@
 }
 
 .tile__name {
+  grid-area: 2 / 1;
   display: block;
   overflow: hidden;
   font-size: var(--text-sm);
