@@ -18,7 +18,9 @@
   "exports": {
     ".": "./src/index.ts",
     "./primitives": "./src/primitives/index.ts",
+    "./primitives/*": "./src/primitives/*/index.ts",
     "./composites": "./src/composites/index.ts",
+    "./composites/*": "./src/composites/*/index.ts",
     "./data": "./src/data/index.ts",
     "./brand": "./src/brand/index.ts",
     "./color-picker": "./src/composites/ColorPicker/index.ts",

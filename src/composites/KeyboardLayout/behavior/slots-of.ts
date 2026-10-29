@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind util */
-import type { PrintableKey } from '../../../primitives';
+import type { PrintableKey } from '../../../primitives/Shortcut';
 import type { KeySlot } from '../KeyboardLayout.type';
 
 const slotsOf = (keys: string, shifted: string): KeySlot[] => [...keys].map((key, index) => {
