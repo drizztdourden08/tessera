@@ -53,7 +53,7 @@
 .action-tile__tools {
   display: flex;
   flex: none;
-  gap: var(--space-2xs);
+  gap: var(--space-xs);
   margin-inline-start: auto;
 }
 

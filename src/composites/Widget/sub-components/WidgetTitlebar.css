@@ -72,6 +72,8 @@
 }
 
 .widget__btn {
+  --target-gutter: var(--hit-gutter-none);
+
   min-inline-size: var(--hit-area-min);
   min-block-size: var(--hit-area-min);
 }

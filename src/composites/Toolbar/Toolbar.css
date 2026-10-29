@@ -156,6 +156,8 @@
 }
 
 .toolbar__measure-row {
+  --target-gutter: var(--hit-gutter-none);
+
   display: flex;
   align-items: center;
   gap: var(--space-xs);

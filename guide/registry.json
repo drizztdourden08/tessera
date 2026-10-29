@@ -4944,6 +4944,7 @@
         }
       },
       "tokens": [
+        "--hit-gutter-none",
         "--space-xs"
       ],
       "gallery": {
@@ -17521,6 +17522,7 @@
         "--c-text-dim",
         "--control-pad-inline",
         "--control-pad-sm",
+        "--hit-gutter-none",
         "--radius-md",
         "--shadow-overlay",
         "--size-2",
@@ -19182,6 +19184,7 @@
         "--ease-standard",
         "--font-mono",
         "--hit-area-min",
+        "--hit-gutter-none",
         "--radius-lg",
         "--radius-md",
         "--radius-sm",

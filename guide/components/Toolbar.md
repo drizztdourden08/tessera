@@ -107,4 +107,4 @@ const ToolRail = ({ tool, pick, undo }: ToolRailProps) => {
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-surface`, `--c-text-dim`, `--control-pad-inline`, `--control-pad-sm`, `--radius-md`, `--shadow-overlay`, `--size-2`, `--size-4`, `--size-48`, `--size-96`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`.
+It draws on `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-surface`, `--c-text-dim`, `--control-pad-inline`, `--control-pad-sm`, `--hit-gutter-none`, `--radius-md`, `--shadow-overlay`, `--size-2`, `--size-4`, `--size-48`, `--size-96`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`.

@@ -411,6 +411,8 @@ input, select {
   --pixel-wordmark-md: calc(58 * var(--size-1));
   --pixel-wordmark-lg: calc(87 * var(--size-1));
   --control-h-xs: var(--size-20);
+  --hit-gutter: calc((var(--hit-area-min) - var(--control-h-xs)) / 2);
+  --hit-gutter-none: calc(0 * var(--size-1));
   --control-h-sm: var(--size-28);
   --control-h-md: calc(39 * var(--size-1));
   --control-h-lg: var(--size-56);

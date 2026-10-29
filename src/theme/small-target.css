@@ -1,40 +1,45 @@
 /* @layer renderer-components @kind style */
-.btn--xs:not(.btn--pixel, :has(.icon--pixel)),
-.icon-btn--xs:not(:has(.icon--pixel)),
+.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *),
+.icon-btn--xs:not(:has(.icon--pixel), .btn-group > *),
 .tag--selectable:not(.tag--lg) {
   --target-radius: var(--radius-md);
 
   position: relative;
   box-sizing: border-box;
-  border-block-width: var(--hit-gutter);
+  border-block-width: var(--target-gutter, var(--hit-gutter));
   border-image: linear-gradient(transparent, transparent) 1;
-  margin-block: calc(-1 * var(--hit-gutter));
-  background-clip: padding-box;
-  border-radius: calc(var(--target-radius) + var(--hit-gutter));
+  margin-block: calc(-1 * var(--target-gutter, var(--hit-gutter)));
+  border-radius: calc(var(--target-radius) + var(--target-gutter, var(--hit-gutter)));
 }
 
-.btn--xs:not(.btn--pixel, :has(.icon--pixel)) {
-  min-block-size: var(--hit-area-min);
+.btn--xs.btn--xs.btn--xs.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *),
+.icon-btn--xs.icon-btn--xs.icon-btn--xs.icon-btn--xs:not(:has(.icon--pixel), .btn-group > *),
+.tag--selectable.tag--selectable.tag--selectable.tag--selectable:not(.tag--lg) {
+  background-clip: padding-box;
+}
+
+.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *) {
+  min-block-size: calc(var(--control-h-xs) + 2 * var(--target-gutter, var(--hit-gutter)));
 }
 
 .tag--selectable:not(.tag--lg) {
   --target-radius: var(--radius-sm);
 
-  height: var(--hit-area-min);
+  height: calc(var(--control-h-xs) + 2 * var(--target-gutter, var(--hit-gutter)));
 }
 
 .tag--selectable.tag--pill:not(.tag--lg) {
   --target-radius: var(--radius-pill);
 }
 
-.icon-btn--xs:not(:has(.icon--pixel)) {
-  width: var(--hit-area-min);
-  height: var(--hit-area-min);
-  margin-inline: calc(-1 * var(--hit-gutter));
-  border-inline-width: var(--hit-gutter);
+.icon-btn--xs:not(:has(.icon--pixel), .btn-group > *) {
+  width: calc(var(--control-h-xs) + 2 * var(--target-gutter, var(--hit-gutter)));
+  height: calc(var(--control-h-xs) + 2 * var(--target-gutter, var(--hit-gutter)));
+  margin-inline: calc(-1 * var(--target-gutter, var(--hit-gutter)));
+  border-inline-width: var(--target-gutter, var(--hit-gutter));
 }
 
-.btn--xs:not(.btn--pixel, :has(.icon--pixel))::before,
+.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *)::before,
 .tag--selectable:not(.tag--lg)::before {
   content: '';
   position: absolute;
@@ -46,7 +51,7 @@
   pointer-events: none;
 }
 
-.icon-btn--xs:not(:has(.icon--pixel))::before {
+.icon-btn--xs:not(:has(.icon--pixel), .btn-group > *)::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -56,11 +61,41 @@
   pointer-events: none;
 }
 
-:is(.btn--xs:not(.btn--pixel, :has(.icon--pixel)), .icon-btn--xs:not(:has(.icon--pixel)), .tag--selectable:not(.tag--lg)):focus-visible {
+:is(.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *), .icon-btn--xs:not(:has(.icon--pixel), .btn-group > *), .tag--selectable:not(.tag--lg)):focus-visible {
   outline: none;
 }
 
-:is(.btn--xs:not(.btn--pixel, :has(.icon--pixel)), .icon-btn--xs:not(:has(.icon--pixel)), .tag--selectable:not(.tag--lg)):focus-visible::before {
+:is(.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *), .icon-btn--xs:not(:has(.icon--pixel), .btn-group > *), .tag--selectable:not(.tag--lg)):focus-visible::before {
   outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: var(--border-width-thin);
+}
+
+.btn.btn--gradient.btn--xs.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *) {
+  box-shadow: none;
+}
+
+.btn--gradient.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *)::before {
+  box-shadow: 0 0 var(--glow-reach) var(--tone-glow);
+}
+
+.btn--gradient.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *):is(:hover, :focus-visible):not(:disabled, [aria-disabled='true'])::before {
+  box-shadow: 0 0 var(--glow-reach-strong) var(--tone-glow-strong);
+}
+
+.btn--gradient.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *):active:not(:disabled, [aria-disabled='true'])::before {
+  box-shadow: 0 0 var(--glow-reach) var(--tone-glow);
+}
+
+.btn--gradient.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *):is(:disabled, [aria-disabled='true'])::before {
+  box-shadow: none;
+}
+
+@media (forced-colors: active) {
+  :is(.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *), .icon-btn--xs:not(:has(.icon--pixel), .btn-group > *), .tag--selectable:not(.tag--lg)):focus-visible::before {
+    outline-color: Highlight;
+  }
+
+  :is(.btn--xs:not(.btn--pixel, :has(.icon--pixel), .btn-group > *), .icon-btn--xs:not(:has(.icon--pixel), .btn-group > *), .tag--selectable:not(.tag--lg)):hover:not(:disabled)::before {
+    border-color: Highlight;
+  }
 }

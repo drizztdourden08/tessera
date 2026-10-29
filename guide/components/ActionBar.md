@@ -80,4 +80,4 @@ const PresetHeader = ({ name, onDuplicate, onDelete, onSave }: PresetHeaderProps
 
 ## Tokens
 
-It draws on `--space-xs`.
+It draws on `--hit-gutter-none`, `--space-xs`.

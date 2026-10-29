@@ -35,6 +35,8 @@
 }
 
 .action-bar__measure-row {
+  --target-gutter: var(--hit-gutter-none);
+
   display: flex;
   inline-size: max-content;
   gap: var(--space-xs);

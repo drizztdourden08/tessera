@@ -19,7 +19,7 @@
 }
 
 .document-tabs__tab[data-unsaved='yes'] {
-  padding-inline-end: calc(var(--space-xs) + var(--space-2xs) + var(--control-h-xs) + var(--space-2xs) + var(--size-8));
+  padding-inline-end: calc(var(--space-xs) + var(--space-2xs) + var(--control-h-xs) + var(--space-xs) + var(--size-8));
 }
 
 .document-tabs__tab:is(:hover, [data-hover='yes']) {
