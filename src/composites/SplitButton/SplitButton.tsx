@@ -1,19 +1,21 @@
 /* @layer renderer-components @kind component */
-import { useRef, useState } from 'react';
+import { useId, useRef, useState } from 'react';
 import { Button } from '../../primitives/Button';
 import { ButtonGroup } from '../../primitives/ButtonGroup';
 import { Icon } from '../../primitives/Icon';
 import { IconButton } from '../../primitives/IconButton';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { DropdownMenu } from '../DropdownMenu';
 import { chevronSizeOf } from './behavior/chevron-size-of';
+import { SplitButtonPopup } from './sub-components/SplitButtonPopup';
 import type { SplitButtonProps } from './SplitButton.type';
 
 const SplitButton = (props: SplitButtonProps) => {
-  const { label, items, onClick, icon, variant = 'secondary', size = 'md', pressed, disabled, menuLabel, className } = props;
+  const { label, items, panel, onClick, icon, variant = 'secondary', size = 'md', pressed, disabled, menuLabel, className } = props;
   const { common } = useTesseraStrings();
   const chevronRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
+  const panelId = useId();
+  const close = (): void => setOpen(false);
 
   return (
     <>
@@ -36,16 +38,17 @@ const SplitButton = (props: SplitButtonProps) => {
           size={chevronSizeOf(size)}
           label={menuLabel ?? common.options}
           disabled={disabled}
-          aria-haspopup="menu"
+          aria-haspopup={panel === undefined ? 'menu' : 'dialog'}
           aria-expanded={open}
+          aria-controls={open && panel !== undefined ? panelId : undefined}
           className="split-button__chevron"
           onClick={() => setOpen((wasOpen) => !wasOpen)}
         >
           <Icon name="chevron-down" />
         </IconButton>
       </ButtonGroup>
-      {open && items.length > 0 && (
-        <DropdownMenu groups={[{ id: 'split-items', items }]} anchorRef={chevronRef} align="end" onClose={() => setOpen(false)} />
+      {open && (
+        <SplitButtonPopup id={panelId} anchorRef={chevronRef} label={menuLabel ?? common.options} items={items} panel={panel} onClose={close} />
       )}
     </>
   );

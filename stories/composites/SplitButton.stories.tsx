@@ -6,6 +6,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { SplitButtonDemo } from './_samples/SplitButtonDemo';
+import { SplitButtonPanelDemo } from './_samples/SplitButtonPanelDemo';
 
 type SplitButtonArgs = { label: string; variant: ButtonVariant; size: ButtonSize; pressed: boolean; toggle: boolean; disabled: boolean };
 
@@ -50,6 +51,11 @@ const Toggle = {
   render: () => <SplitButtonDemo label="Snap" toggle />,
 } satisfies StoryLiteStoryDefinition<SplitButtonArgs>;
 
+const Panel = {
+  name: 'Panel: the chevron opens control rows, such as an onion skin',
+  render: () => <SplitButtonPanelDemo />,
+} satisfies StoryLiteStoryDefinition<SplitButtonArgs>;
+
 const CODE = `import { SplitButton } from '@drizztdourden08/tessera';
 
 <SplitButton
@@ -60,6 +66,18 @@ const CODE = `import { SplitButton } from '@drizztdourden08/tessera';
     { id: 'folder', label: 'New folder', onSelect: createFolder },
     { id: 'template', label: 'New from template', onSelect: createFromTemplate },
   ]}
+/>
+
+<SplitButton
+  label="Onion"
+  pressed={onion}
+  onClick={() => setOnion(!onion)}
+  menuLabel="Onion skin options"
+  panel={() => (
+    <ControlMenuRow label="Opacity">
+      <Slider size="sm" value={opacity} min={0} max={100} onChange={setOpacity} />
+    </ControlMenuRow>
+  )}
 />`;
 
 const Overview = overviewStory({
@@ -70,13 +88,14 @@ const Overview = overviewStory({
     '`label` and `onClick` are the main action; `items` are the menu behind the chevron.',
     '`pressed` makes the main button a toggle with an on look and `aria-pressed`.',
     '`variant` and `size` follow [Button]; the chevron matches both.',
+    '`panel` opens [ControlMenu] rows behind the chevron instead of `items`; using them keeps it open.',
     'The chevron is named by `menuLabel` and reports `aria-haspopup` and `aria-expanded`.',
   ],
   instead: '[DropdownMenu] when no action is the usual choice.',
   playground: Playground,
-  variants: [Variants, Sizes, Toggle],
+  variants: [Variants, Sizes, Toggle, Panel],
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, Sizes, Toggle, Variants };
+export { Overview, Panel, Playground, Sizes, Toggle, Variants };
