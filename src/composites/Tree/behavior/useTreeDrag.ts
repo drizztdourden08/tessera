@@ -18,7 +18,7 @@ import { useTreeCommit } from './useTreeCommit';
 import type { DragSession, TreeDrag, TreeDragInput } from './useTreeDrag.type';
 
 const useTreeDrag = <T,>(input: TreeDragInput<T>): TreeDrag => {
-  const { rows, indexOfKey, selected, reorder, filtering, rootRef, bodyRef, rowHeight, getLabel, childCount, setExpanded, jump } = input;
+  const { rows, indexOfKey, selected, reorder, filtering, yieldsToDragOut, rootRef, bodyRef, rowHeight, getLabel, childCount, setExpanded, jump } = input;
   const enabled = reorder !== undefined && !filtering;
   const { commit, message } = useTreeCommit({ rows, indexOfKey, reorder, getLabel, childCount, setExpanded, jump });
   const moving = useRef<readonly string[]>(NO_KEYS);
@@ -57,7 +57,7 @@ const useTreeDrag = <T,>(input: TreeDragInput<T>): TreeDrag => {
     ghost: ghostOf(active, drag, reorder),
     dragging,
     markOf: (at) => dropMarkFor(found, rows.length, at),
-    pointerOf: (at) => (enabled ? pointerHandlersOf(drag.handlers(at), session.current) : undefined),
+    pointerOf: (at) => (enabled ? pointerHandlersOf(drag.handlers(at), session.current, yieldsToDragOut) : undefined),
     keyMove: keyMoverOf({ reorder, enabled, rows, indexOfKey, selected, childCount, commit }),
     swallowClick: () => takeFlag(swallow),
   };

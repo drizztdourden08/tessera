@@ -5,12 +5,13 @@ import type { TreeProps } from '../Tree.type';
 import { activeBranchOf } from './active-branch-of';
 import { rowBinderOf } from './row-binder-of';
 import { useTreeDrag } from './useTreeDrag';
+import { useTreeDragOut } from './useTreeDragOut';
 import { useTreeNav } from './useTreeNav';
 import { useTreeRows } from './useTreeRows';
 import type { TreeModel } from './useTree.type';
 
 const useTree = <T,>(props: TreeProps<T>): TreeModel<T> => {
-  const { items, getChildren, getLabel, selection, reorder, rowSize = 'normal', overscan, openOnPick = false, onActivate, guides = false, ref } = props;
+  const { items, getChildren, getLabel, selection, reorder, onDragOut, rowSize = 'normal', overscan, openOnPick = false, onActivate, guides = false, ref } = props;
   const { rows, keys, indexOfKey, expansion, filtering } = useTreeRows(props);
   const nav = useTreeNav({ rows, keys, indexOfKey, getLabel, selection, rowSize, overscan });
   const selected = selection?.selected;
@@ -22,10 +23,11 @@ const useTree = <T,>(props: TreeProps<T>): TreeModel<T> => {
   }, [items, rows, indexOfKey, getChildren]);
 
   const drag = useTreeDrag({
-    rows, indexOfKey, selected: selected ?? NO_SET, reorder, filtering, rootRef: nav.rootRef, bodyRef: nav.bodyRef,
+    rows, indexOfKey, selected: selected ?? NO_SET, reorder, filtering, yieldsToDragOut: onDragOut !== undefined, rootRef: nav.rootRef, bodyRef: nav.bodyRef,
     rowHeight: nav.metrics.rowHeight, getLabel, childCount, setExpanded: expansion.setExpanded, jump: nav.jump,
   });
-  const bindOf = rowBinderOf({ rows, nav, drag, expansion, selected, openOnPick, onActivate });
+  const { dragOutOf } = useTreeDragOut({ rows, selected: selected ?? NO_SET, onDragOut, renderThumbnail: reorder?.renderThumbnail, reorderOn: drag.enabled });
+  const bindOf = rowBinderOf({ rows, nav, drag, expansion, selected, openOnPick, onActivate, dragOutOf });
   const activeBranch = useMemo(() => (guides ? activeBranchOf(rows, indexOfKey, selected) : null), [guides, rows, indexOfKey, selected]);
   useImperativeHandle(ref, () => ({ scrollToKey: nav.scrollToKey }), [nav.scrollToKey]);
 

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind util */
-import type { ShortcutKey } from '../../../primitives';
+import type { ShortcutKey } from '../../../primitives/Shortcut';
 import type { KeyRow, KeySlot, PlacedKey } from '../KeyboardLayout.type';
 
 const keyOf = (slot: KeySlot): ShortcutKey => {

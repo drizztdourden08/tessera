@@ -2,6 +2,7 @@
 import type { FocusEventHandler, KeyboardEventHandler, MouseEventHandler } from 'react';
 import type { TreeDropMark, TreeFlatRow, TreeRowState } from '../Tree.type';
 import type { TreeDrag, TreeRowPointer } from './useTreeDrag.type';
+import type { TreeRowDragOut } from './useTreeDragOut.type';
 import type { TreeExpansion } from './useTreeExpansion.type';
 import type { TreeNav } from './useTreeNav.type';
 
@@ -13,6 +14,7 @@ interface TreeRowBindInput<T> {
   selected: ReadonlySet<string> | undefined;
   openOnPick: boolean;
   onActivate?: (item: T) => void;
+  dragOutOf: (at: number) => TreeRowDragOut | undefined;
 }
 
 interface TreeRowBind {
@@ -22,6 +24,7 @@ interface TreeRowBind {
   dragging: boolean;
   state: TreeRowState;
   pointer: TreeRowPointer | undefined;
+  dragOut: TreeRowDragOut | undefined;
   onFocus: FocusEventHandler<HTMLElement>;
   onKeyDown: KeyboardEventHandler<HTMLElement>;
   onClick: MouseEventHandler<HTMLElement>;

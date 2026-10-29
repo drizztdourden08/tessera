@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind component */
 import { useId } from 'react';
-import { Box } from '../../primitives';
+import { Box } from '../../primitives/Box';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { PaneEdge } from '../pane-edge/PaneEdge';
 import { splitOptionsOf } from './behavior/split-options-of';

@@ -41,3 +41,40 @@ describe('brand mark paths', () => {
     }
   });
 });
+
+describe('Brock and Tessera mark redraw', () => {
+  it.each([
+    ['brock', 8, ['403 320L407 317', '579 337L582 343L583 352', '812 919L813 920']],
+    ['tessera', 21, ['762 443L716 442L715 440', '863 267L866 272L865 279', '523 538L546 541L547 543']],
+  ])('draws the %s mark from clean edges, not the old trace', (app, count, traceChunks) => {
+    const { paths } = BRAND_FAMILY[app].mark;
+    expect(paths).toHaveLength(count);
+    const all = paths.map((p) => p.d).join('');
+    for (const chunk of traceChunks) expect(all).not.toContain(chunk);
+    const html = renderToString(h(Logo, { brand: app, size: 'xxl' }));
+    expect(html).toContain('brand-mark--xxl');
+    for (const p of paths) expect(html).toContain(p.d);
+  });
+
+  it('keeps the Brock faces meeting at shared corners', () => {
+    const [body, , , side, shoulder, , top, accent] = BRAND_FAMILY.brock.mark.paths.map((p) => p.d);
+    const first = (d) => d.slice(1, d.indexOf('L'));
+    expect(first(accent)).toBe(first(side));
+    expect(first(accent)).toBe(first(shoulder));
+    expect(body).toContain(first(accent));
+    expect(body).toContain(first(top));
+  });
+
+  it('ships the redrawn Brock and Tessera marks in every brand file', () => {
+    const files = {
+      brock: ['brock.svg', 'brock/icon/icon.svg', 'light-rim/brock.svg', 'dark-ground/brock.svg'],
+      tessera: ['tessera.svg', 'light-rim/tessera.svg', 'dark-ground/tessera.svg'],
+    };
+    for (const [app, list] of Object.entries(files)) {
+      for (const file of list) {
+        const svg = readFileSync(new URL(`../brand/${file}`, import.meta.url), 'utf8');
+        for (const p of BRAND_FAMILY[app].mark.paths) expect(svg).toContain(p.d);
+      }
+    }
+  });
+});

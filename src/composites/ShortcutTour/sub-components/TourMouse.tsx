@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
-import { Box, Shortcut } from '../../../primitives';
+import { Box } from '../../../primitives/Box';
+import { Shortcut } from '../../../primitives/Shortcut';
 import type { TourMouseProps } from './TourMouse.type';
 
 const TourMouse = (props: TourMouseProps) => {

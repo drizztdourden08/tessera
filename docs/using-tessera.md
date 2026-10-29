@@ -201,6 +201,7 @@ const AppLink = (props: Omit<LinkProps, 'navigate'>) => {
 | `@drizztdourden08/tessera` | everything below, from one place |
 | `/primitives` | tier 1: layout, text, icons, buttons, inputs, feedback, `TesseraProvider` |
 | `/composites` | tier 2: dialogs, menus, navigation, tables, wizards, widgets |
+| `/primitives/<Folder>`, `/composites/<Folder>` | one component or hook folder and only what it imports, for example `/primitives/Button` or `/composites/DataTable` |
 | `/data` | the headless schema, table, filter and view-state engine |
 | `/brand` | logos, wordmarks, mascots and brand data |
 | `/color-picker`, `/color-picker-popover` | the colour pickers |
@@ -216,6 +217,12 @@ const AppLink = (props: Omit<LinkProps, 'navigate'>) => {
 | `/tessera.config.schema.json` | the schema of `tessera.config.json` |
 
 The colour pickers and the field kits have their own paths so an app that never uses them never loads them.
+
+### One component per import
+
+`/primitives` and `/composites` load every component of the tier, about 5000 modules once a bundler or a test runner has followed them. A folder path loads one component and the folders it uses. `@drizztdourden08/tessera/primitives/Button` resolves to `src/primitives/Button/index.ts`, and `@drizztdourden08/tessera/composites/DataTable` to `src/composites/DataTable/index.ts`. The group barrels resolve the same way, for example `/primitives/layout-exports`, as do the composite kits such as `/composites/selection` and `/composites/wheel-step`.
+
+Use the folder path in test files and in any module that needs one or two components, since a test run that imports the whole barrel pays for the whole barrel on every file. The names are the same as in the barrel, so moving an import between the two changes nothing else. A folder that has no `index.ts` (the shared helpers such as `dom` and `media`) has no path.
 
 ## Window drag regions
 

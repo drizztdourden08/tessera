@@ -4,6 +4,7 @@ import { EXAMPLE_DIR, TESSERA_WORDS, TREE_MODULE } from './guide.constants.mjs';
 import { createGuideProgram } from './guide-program.mjs';
 import { checkCoverage } from './check-coverage.mjs';
 import { checkExamples } from './check-examples.mjs';
+import { codeEntries } from './code-entries.mjs';
 import { componentFacts } from './component-facts.mjs';
 import { findComponents } from './find-components.mjs';
 import { galleryPages } from './gallery-pages.mjs';
@@ -16,6 +17,7 @@ import { moduleFacts } from './module-facts.mjs';
 import { loadUsages } from './load-usages.mjs';
 import { publicExports } from './public-exports.mjs';
 import { slashed } from './slashed.mjs';
+import { subpathPatterns } from './subpath-patterns.mjs';
 import { treeLeaves } from './tree-leaves.mjs';
 import { usageFindings } from './usage-findings.mjs';
 
@@ -24,7 +26,7 @@ const examplesOf = (root, components) => components
   .map((c) => ({ name: c.name, file: `${root}/${EXAMPLE_DIR}/${c.name}.example.tsx`, text: c.usage.example }));
 
 const programFor = (root, manifest, components) => {
-  const entries = Object.values(manifest.exports).filter((target) => /\.tsx?$/.test(target)).map((target) => target.slice(2));
+  const entries = codeEntries(manifest).map(([, target]) => target.slice(2));
   const files = components.filter((c) => c.usage).map((c) => c.file);
   return createGuideProgram({
     tsconfig: `${root}/tsconfig.json`,
@@ -51,7 +53,7 @@ const collectGuide = async (rootDir, { usageDir } = {}) => {
   const findings = [
     ...strays,
     ...usageFindings([...components, ...modules], { componentNames, leafKeys: leafKeys(leaves), words: TESSERA_WORDS }),
-    ...checkExamples(program, { packageName: manifest.name, specifiers }),
+    ...checkExamples(program, { packageName: manifest.name, specifiers, patterns: subpathPatterns(manifest) }),
     ...checkCoverage(components, leaves),
   ];
   return { packageName: manifest.name, specifiers: [...specifiers].sort(), tree, leaves, components, modules, findings };

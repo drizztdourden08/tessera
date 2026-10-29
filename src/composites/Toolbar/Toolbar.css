@@ -77,6 +77,68 @@
   inline-size: var(--size-48);
 }
 
+.toolbar__number--labelled,
+.toolbar[data-orientation='vertical'] .toolbar__number--labelled {
+  inline-size: auto;
+}
+
+.toolbar__number--cols-1 .number-input__field {
+  inline-size: calc(1ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-2 .number-input__field {
+  inline-size: calc(2ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-3 .number-input__field {
+  inline-size: calc(3ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-4 .number-input__field {
+  inline-size: calc(4ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-5 .number-input__field {
+  inline-size: calc(5ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-6 .number-input__field {
+  inline-size: calc(6ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-7 .number-input__field {
+  inline-size: calc(7ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-8 .number-input__field {
+  inline-size: calc(8ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-9 .number-input__field {
+  inline-size: calc(9ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-10 .number-input__field {
+  inline-size: calc(10ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-11 .number-input__field {
+  inline-size: calc(11ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--cols-12 .number-input__field {
+  inline-size: calc(12ch + (var(--control-pad-inline) * 2) + 0.75ch);
+}
+
+.toolbar__number--labelled .number-field__input {
+  flex: none;
+  inline-size: auto;
+}
+
+.toolbar__number--labelled .number-input__field {
+  flex: none;
+}
+
 .toolbar__handle {
   cursor: grab;
   touch-action: none;
