@@ -39,6 +39,7 @@ export default standardsEslint({
     { files: ['src/composites/DataTable/sub-components/VirtualRows.tsx'], why: 'the body height follows the number of rows, set as one custom property' },
     { files: ['src/composites/VirtualList/VirtualList.tsx'], why: 'the body height follows the number of items, set as one custom property' },
     { files: ['src/composites/VirtualList/sub-components/VirtualItem.tsx'], why: 'a row sits at its index, set as one custom property' },
+    { files: ['src/composites/Tile/Tile.tsx'], why: 'the media ratio the host passes in is set as one custom property' },
     { files: ['src/composites/VirtualGrid/VirtualGrid.tsx'], why: 'the tile size and the body height follow the tile token and the number of rows, set as custom properties' },
     { files: ['src/composites/VirtualGrid/sub-components/GridRow.tsx'], why: 'a row of tiles sits at its index, set as one custom property' },
     { files: ['src/composites/VirtualGrid/sub-components/GridHeader.tsx'], why: 'a section header indents by its depth, set as one custom property' },

@@ -11,8 +11,8 @@ export type {
   VirtualGridBind, VirtualGridCellBind, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridSection,
   VirtualGridSelection,
 } from '../VirtualGrid';
-export { DragGhost } from '../DragGhost';
-export type { DragGhostPoint, DragGhostProps } from '../DragGhost';
+export { DragGhost, useNativeDragGhost } from '../DragGhost';
+export type { DragGhostPoint, DragGhostProps, NativeDragGhost, NativeDragGhostInput } from '../DragGhost';
 export { MarqueeBox } from '../MarqueeBox';
 export type { MarqueeBoxProps } from '../MarqueeBox';
 export { Navigator } from '../Navigator';

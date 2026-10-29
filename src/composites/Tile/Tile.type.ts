@@ -7,6 +7,7 @@ type TileCorners = Partial<Record<TileCorner, ReactNode>>;
 
 interface TileProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   media: ReactNode;
+  mediaAspect?: number | string;
   name?: ReactNode;
   corners?: TileCorners;
   selected?: boolean;

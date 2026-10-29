@@ -13,6 +13,7 @@ import { scrollOffset } from './scroll-offset';
 import { useGridCollapsed } from './useGridCollapsed';
 import { useGridColumns } from './useGridColumns';
 import { useGridFocus } from './useGridFocus';
+import { useGridDropData } from './useGridDropData';
 import { useGridInteraction } from './useGridInteraction';
 import type { ScrollAlign, VirtualMetrics } from '../../virtual';
 import type { UseVirtualGridInput, VirtualGridModel } from './useVirtualGrid.type';
@@ -51,6 +52,7 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
   useGridColumns({ rootRef, bodyRef, fallbackTile: metrics.rowHeight, refitKey: `${sizeKey}-${layout.tileRows}`, onColumns: fit });
 
   const touch = useGridInteraction({ ...input, flat, layout, heights, columns, sectionKeys: keys, rootRef, bodyRef, tileWidth });
+  const dropData = useGridDropData({ sections, announce: touch.moving.announce });
   const { active, activate, jump, navigate } = useGridFocus({ layout, heights, rootRef, bodyRef, metrics, onScroll, onMove: touch.onMove, onActiveChange });
   useEffect(() => {
     touch.jumpRef.current = jump;
@@ -70,7 +72,8 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
   return {
     rootRef, bodyRef, flat, layout, rows: indices, columns, fixed: fixed !== undefined, sectionKeys: keys, collapsed, setCollapsed, tabbable, onScroll,
     onFocus: slice.onFocus, onBlur: slice.onBlur, activate, navigate, scrollToIndex, getRects: touch.getRects,
-    selecting: touch.selecting, reordering: touch.moving.active, message: touch.moving.message, into: touch.moving.into, ghost: touch.moving.ghost,
+    selecting: touch.selecting, reordering: touch.moving.active, announcing: touch.moving.active || dropData.active, message: touch.moving.message,
+    into: touch.moving.into ?? dropData.hot, dropOf: dropData.dropOf, ghost: touch.moving.ghost,
     extrasOf: touch.extrasOf, cellKeys: (event, stop, item) => touch.cellKeys(event, stop, item, navigate),
   };
 };

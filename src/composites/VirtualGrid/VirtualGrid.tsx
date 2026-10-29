@@ -42,7 +42,7 @@ const VirtualGrid = <T,>(props: VirtualGridProps<T>) => {
       </Box>
       {overlay}
       {model.ghost && <DragGhost count={model.ghost.count} thumbnails={model.ghost.thumbnails} point={model.ghost.point} />}
-      {model.reordering && <Box className="visually-hidden" aria-live="polite">{model.message}</Box>}
+      {model.announcing && <Box className="visually-hidden" aria-live="polite">{model.message}</Box>}
     </Box>
   );
 };

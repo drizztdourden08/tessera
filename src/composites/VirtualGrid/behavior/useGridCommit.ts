@@ -32,7 +32,7 @@ const useGridCommit = <T,>(input: UseGridCommitInput<T>): GridCommit => {
     else gap(moving, to.index, to.section, modifier);
   };
 
-  return { commit, message, wanted };
+  return { commit, message, wanted, announce: setMessage };
 };
 
 export { useGridCommit };

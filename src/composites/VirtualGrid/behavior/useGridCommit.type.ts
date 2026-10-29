@@ -15,6 +15,7 @@ interface UseGridCommitInput<T> {
 interface GridCommit {
   commit: (moving: readonly string[], to: GridTarget, modifier: ReorderModifier) => void;
   message: string;
+  announce: (message: string) => void;
   wanted: RefObject<string | null>;
 }
 

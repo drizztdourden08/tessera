@@ -4,6 +4,7 @@ import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { DragGhostSample } from './_samples/DragGhostSample';
+import { NativeDragGhostSample } from './_samples/NativeDragGhostSample';
 import './DragGhost.stories.css';
 
 type DragGhostArgs = {
@@ -40,11 +41,20 @@ const Many = {
   render: () => <DragGhostSample count={24} thumbnails={5} />,
 } satisfies StoryLiteStoryDefinition<DragGhostArgs>;
 
-const CODE = `import { DragGhost, useReorderDrag } from '@drizztdourden08/tessera';
+const Native = {
+  name: 'Native drag and drop: the ghost is the drag image of a draggable element',
+  render: () => <NativeDragGhostSample count={4} />,
+} satisfies StoryLiteStoryDefinition<DragGhostArgs>;
+
+const CODE = `import { DragGhost, useNativeDragGhost, useReorderDrag } from '@drizztdourden08/tessera';
 
 const drag = useReorderDrag({ listRef, selector: REORDER_ITEM_SELECTOR, keys: pickedKeys, onDrop });
 
-<DragGhost count={drag.dragKeys.length} thumbnails={thumbnails} point={drag.point} />`;
+<DragGhost count={drag.dragKeys.length} thumbnails={thumbnails} point={drag.point} />
+
+const ghost = useNativeDragGhost();
+
+<Button draggable onDragStart={(event) => ghost.onDragStart(event, { count: 3, thumbnails })}>Drag</Button>`;
 
 const Overview = overviewStory({
   component: 'DragGhost',
@@ -55,10 +65,11 @@ const Overview = overviewStory({
     '`point` places it at the pointer in a layer above the page; `null` draws nothing.',
     'Without `point` it draws in place, as in these stories.',
     'It takes no pointer events, so the drop target below keeps its hover.',
+    '`useNativeDragGhost` draws it as the drag image of a native drag and drop, with a count.',
   ],
   instead: '[MarqueeBox] for the rectangle of a drag that picks items.',
   playground: Playground,
-  variants: [One, Many],
+  variants: [One, Many, Native],
   states: {
     render: (props: StateProps) => <DragGhostSample count={3} thumbnails={3} {...props} />,
     list: [
@@ -70,4 +81,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Many, One, Overview, Playground };
+export { Many, Native, One, Overview, Playground };

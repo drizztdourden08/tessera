@@ -8,6 +8,28 @@
   block-size: var(--size-160);
 }
 
+.drag-ghost-story--native {
+  gap: var(--space-md);
+  inline-size: var(--size-448);
+  max-inline-size: 100%;
+}
+
+.drag-ghost-story__source,
+.drag-ghost-story__target {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  block-size: var(--size-96);
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-sm);
+}
+
+.drag-ghost-story__source {
+  cursor: grab;
+}
+
 .drag-ghost-story__thumb {
   display: flex;
   align-items: center;
