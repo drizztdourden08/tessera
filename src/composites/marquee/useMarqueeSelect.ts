@@ -4,7 +4,7 @@ import { marqueeItemRects } from './marquee-item-rects';
 import { startMarquee } from './marquee-session';
 import { THRESHOLD } from './marquee.constants';
 import { modifiersOf } from './modifiers-of';
-import { startsOnBackground } from './starts-on-background';
+import { mayStart } from './may-start';
 import type { PointerEvent as ReactPointerEvent } from 'react';
 import type { Rect } from '../rect-drag/rect-drag.type';
 import type { MarqueeCellRect, MarqueeOptions, MarqueeSelect } from './marquee.type';
@@ -23,9 +23,7 @@ const useMarqueeSelect = (options: MarqueeOptions): MarqueeSelect => {
   const onPointerDown = useCallback((event: ReactPointerEvent<HTMLElement>) => {
     const current = latest.current;
     const container = current.containerRef.current;
-    if (!container || current.enabled === false || event.button !== 0 || stop.current) return;
-    const canStart = current.canStart ?? startsOnBackground(current.itemSelector);
-    if (!canStart(event)) return;
+    if (!container || stop.current || !mayStart(current, container, event)) return;
     const selector = current.itemSelector ?? '';
     stop.current = startMarquee({
       container,
