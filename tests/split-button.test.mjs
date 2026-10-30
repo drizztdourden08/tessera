@@ -5,6 +5,7 @@ import { describe, expect, it } from 'vitest';
 import { ControlMenuRow } from '../src/composites/ControlMenu';
 import { ControlMenuPanel } from '../src/composites/ControlMenu/sub-components/ControlMenuPanel';
 import { SplitButton } from '../src/composites/SplitButton';
+import { SplitButtonMain } from '../src/composites/SplitButton/sub-components/SplitButtonMain';
 import { SplitButtonPanel } from '../src/composites/SplitButton/sub-components/SplitButtonPanel';
 import { chevronSizeOf } from '../src/composites/SplitButton/behavior/chevron-size-of';
 
@@ -41,7 +42,41 @@ describe('SplitButton', () => {
     expect(on).toContain('aria-pressed="true"');
     expect(on).toContain('btn--active');
   });
+});
 
+describe('SplitButton icon-only main button', () => {
+  it('draws the main button as the icon alone with a tooltip anchor, keeping the label as its name', () => {
+    const icon = h('i', { className: 'plus-mark' });
+    const html = draw({ icon, iconOnly: true, pressed: true });
+    expect(html).toContain('tooltip-anchor');
+    expect(html).toMatch(/<button[^>]*aria-label="New file"[^>]*aria-pressed="true"/);
+    expect(html).toContain('icon-btn--active');
+    expect(html).not.toContain('New file</span>');
+    expect(html.match(/<button/g)).toHaveLength(2);
+  });
+
+  it('keeps the text button without an icon or without iconOnly, and adds no tooltip', () => {
+    const icon = h('i', { className: 'plus-mark' });
+    expect(draw({ iconOnly: true })).toContain('New file</span></button>');
+    expect(draw({ iconOnly: true })).not.toContain('tooltip-anchor');
+    expect(draw({ icon })).not.toContain('tooltip-anchor');
+    expect(draw({ icon })).toContain('New file</span></button>');
+  });
+
+  it('adds the tooltip to a text button when it has a shortcut', () => {
+    const html = draw({ shortcut: 'F3' });
+    expect(html).toContain('tooltip-anchor');
+    expect(html).toContain('New file</span></button>');
+  });
+
+  it('hands the label and the shortcut to the tooltip content', () => {
+    const tipped = SplitButtonMain({ label: 'Onion', icon: h('i'), iconOnly: true, shortcut: 'F3', variant: 'secondary', size: 'md', onClick: ignore });
+    expect(tipped.props.content.props).toMatchObject({ name: 'Onion', shortcut: 'F3' });
+    expect(tipped.props.children.props).toMatchObject({ label: 'Onion', size: 'md' });
+  });
+});
+
+describe('SplitButton disabled state, chevron and panel', () => {
   it('disables both buttons', () => {
     expect(draw({ disabled: true }).match(/disabled=""/g)).toHaveLength(2);
   });

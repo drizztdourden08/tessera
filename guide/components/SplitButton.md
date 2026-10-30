@@ -36,6 +36,8 @@ SplitButton gives the usual action one press and keeps its variants one step beh
 - Pass panel instead of items when the chevron should open settings: it renders ControlMenuRow rows (sliders, segmented choices, toggles) in a panel under the chevron and receives close.
 - A panel stays open while its controls change; a click outside or Escape closes it. Call close from a control only when the choice should end the visit.
 - Pass pressed for a toggle: the main button shows the on look and reports aria-pressed. Leave it out for a plain action.
+- Pass iconOnly with an icon to draw the main button as the icon alone, for a compact bar; a tooltip shows the label and the label still names the button. Without an icon it stays a text button.
+- Pass shortcut, keys such as F3, to show the key hint in the tooltip of the main button; it is a hint, the app binds the key. It also adds the tooltip to a text button.
 - Variant and size follow Button; the chevron takes the same variant and a matching size.
 - Pass menuLabel when Options does not say what the menu holds, such as New options.
 - Keep the menu to a few related actions; more belong in a DropdownMenu.
@@ -43,6 +45,7 @@ SplitButton gives the usual action one press and keeps its variants one step beh
 ## Accessibility
 
 - The pair is a group named by the label; the main button and the chevron are two tab stops.
+- An icon-only main button keeps the label as its accessible name; the tooltip repeats it with the shortcut.
 - The chevron is named by menuLabel, reports aria-haspopup and aria-expanded, and opens the menu with a click, Enter or Space.
 - The menu returns focus to the chevron when it closes.
 - With panel the chevron reports aria-haspopup dialog; the panel takes focus on its first control, is named by menuLabel, and Escape returns focus to the chevron.
@@ -77,6 +80,8 @@ const NewMenu = ({ createFile, createFolder }: NewMenuProps) => (
 - `panel` (optional): `(close: () => void) => ReactNode`.
 - `onClick`: `() => void`.
 - `icon` (optional): `ReactNode`.
+- `iconOnly` (optional): `boolean`.
+- `shortcut` (optional): `ShortcutSpec`.
 - `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`. Default `'secondary'`.
 - `size` (optional): `ButtonSize`, one of `'xs'`, `'sm'`, `'md'`, `'lg'`. Default `'md'`.
 - `pressed` (optional): `boolean`.
@@ -86,4 +91,4 @@ const NewMenu = ({ createFile, createFolder }: NewMenuProps) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-bright`, `--c-danger-soft`, `--c-focus`, `--c-hairline`, `--c-hover`, `--c-info`, `--c-info-bright`, `--c-info-soft`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-secondary`, `--c-secondary-bright`, `--c-secondary-soft`, `--c-success`, `--c-success-bright`, `--c-success-soft`, `--c-surface`, `--c-tertiary`, `--c-tertiary-bright`, `--c-tertiary-soft`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--c-warning-bright`, `--c-warning-soft`, `--control-sub-width`, `--duration-fast`, `--leading-normal`, `--menu-no-halo`, `--opacity-disabled`, `--radius-md`, `--shadow-2`, `--shadow-dropdown`, `--size-1`, `--size-128`, `--size-16`, `--size-160`, `--size-192`, `--size-224`, `--size-24`, `--size-256`, `--size-4`, `--size-448`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-md`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--tracking-wide`, `--transition-fast`, `--weight-medium`, `--weight-semi`, `--z-modal`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-bright`, `--c-danger-soft`, `--c-focus`, `--c-hairline`, `--c-hover`, `--c-info`, `--c-info-bright`, `--c-info-soft`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-secondary`, `--c-secondary-bright`, `--c-secondary-soft`, `--c-success`, `--c-success-bright`, `--c-success-soft`, `--c-surface`, `--c-tertiary`, `--c-tertiary-bright`, `--c-tertiary-soft`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--c-warning-bright`, `--c-warning-soft`, `--control-sub-width`, `--duration-fast`, `--leading-normal`, `--menu-no-halo`, `--opacity-disabled`, `--radius-md`, `--shadow-2`, `--shadow-dropdown`, `--size-1`, `--size-128`, `--size-16`, `--size-160`, `--size-192`, `--size-224`, `--size-24`, `--size-256`, `--size-4`, `--size-448`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-md`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--tracking-wide`, `--transition-fast`, `--weight-medium`, `--weight-semi`, `--z-base`, `--z-modal`, `--z-sticky`.

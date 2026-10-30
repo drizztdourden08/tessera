@@ -49,6 +49,7 @@ interface TreeHandle {
 interface TreeSlots<T> {
   renderLead?: (item: T, state: TreeRowState) => ReactNode;
   renderLabel?: (item: T, state: TreeRowState) => ReactNode;
+  renderBadges?: (item: T, state: TreeRowState) => ReactNode;
   renderTrail?: (item: T, state: TreeRowState) => ReactNode;
 }
 

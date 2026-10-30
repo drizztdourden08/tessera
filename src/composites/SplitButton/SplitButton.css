@@ -1,0 +1,22 @@
+/* @layer renderer-components @kind style */
+.split-button > .tooltip-anchor {
+  align-items: stretch;
+}
+
+.split-button > .tooltip-anchor > .split-button__main {
+  position: relative;
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+
+.split-button > .tooltip-anchor > :is(.btn--ghost, .icon-btn--ghost):not(.btn--active, .icon-btn--active) {
+  border-color: var(--c-border);
+}
+
+.split-button > .tooltip-anchor > :is(:hover:not(:disabled), [aria-pressed='true']) {
+  z-index: var(--z-base);
+}
+
+.split-button > .tooltip-anchor > :focus-visible {
+  z-index: var(--z-sticky);
+}

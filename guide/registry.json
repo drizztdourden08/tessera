@@ -16191,12 +16191,15 @@
         "Pass panel instead of items when the chevron should open settings: it renders ControlMenuRow rows (sliders, segmented choices, toggles) in a panel under the chevron and receives close.",
         "A panel stays open while its controls change; a click outside or Escape closes it. Call close from a control only when the choice should end the visit.",
         "Pass pressed for a toggle: the main button shows the on look and reports aria-pressed. Leave it out for a plain action.",
+        "Pass iconOnly with an icon to draw the main button as the icon alone, for a compact bar; a tooltip shows the label and the label still names the button. Without an icon it stays a text button.",
+        "Pass shortcut, keys such as F3, to show the key hint in the tooltip of the main button; it is a hint, the app binds the key. It also adds the tooltip to a text button.",
         "variant and size follow Button; the chevron takes the same variant and a matching size.",
         "Pass menuLabel when Options does not say what the menu holds, such as New options.",
         "Keep the menu to a few related actions; more belong in a DropdownMenu."
       ],
       "a11y": [
         "The pair is a group named by the label; the main button and the chevron are two tab stops.",
+        "An icon-only main button keeps the label as its accessible name; the tooltip repeats it with the shortcut.",
         "The chevron is named by menuLabel, reports aria-haspopup and aria-expanded, and opens the menu with a click, Enter or Space.",
         "The menu returns focus to the chevron when it closes.",
         "With panel the chevron reports aria-haspopup dialog; the panel takes focus on its first control, is named by menuLabel, and Escape returns focus to the chevron."
@@ -16210,7 +16213,7 @@
         "rule": "SplitButton gives the usual action one press and keeps its variants one step behind a chevron."
       },
       "example": "import { Icon, SplitButton } from '@drizztdourden08/tessera';\n\ninterface NewMenuProps {\n  createFile: () => void;\n  createFolder: () => void;\n}\n\nconst NewMenu = ({ createFile, createFolder }: NewMenuProps) => (\n  <SplitButton\n    label=\"New file\"\n    icon={<Icon name=\"plus\" />}\n    onClick={createFile}\n    menuLabel=\"New options\"\n    items={[\n      { id: 'folder', label: 'New folder', onSelect: createFolder },\n    ]}\n  />\n);\n",
-      "propsHash": "ea3abece708fd38c",
+      "propsHash": "72c3b4b15bdf0c44",
       "props": {
         "own": [
           {
@@ -16237,6 +16240,16 @@
             "name": "icon",
             "optional": true,
             "text": "ReactNode"
+          },
+          {
+            "name": "iconOnly",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "shortcut",
+            "optional": true,
+            "text": "ShortcutSpec"
           },
           {
             "name": "variant",
@@ -16358,7 +16371,9 @@
         "--transition-fast",
         "--weight-medium",
         "--weight-semi",
-        "--z-modal"
+        "--z-base",
+        "--z-modal",
+        "--z-sticky"
       ],
       "gallery": {
         "title": "Composites · Actions/SplitButton",
@@ -17891,8 +17906,9 @@
       "rules": [
         "Pass items, the top level, with getKey, getChildren and getLabel; getChildren gives the children of an item, or nothing for a leaf.",
         "A folder that is empty gives an empty list; a folder whose children are not loaded yet gives nothing and says so with isBranch.",
-        "Pass renderLead, renderLabel and renderTrail to fill the three slots of a row, before the text, as the text and after it; each gets the item and its state.",
+        "Pass renderLead, renderLabel, renderBadges and renderTrail to fill the four slots of a row, before the text, as the text, after it and at the end; each gets the item and its state.",
         "The tree has no toggles of its own for visibility or lock; put them in renderTrail.",
+        "Pass renderBadges for status marks that always show, such as modified or locked; it sits between the label and the trail and trail hover never hides it.",
         "Pass trail hover to fade the trail out at rest and show it when the row is hovered, focused, holds focus inside it or is picked; the row does not shift, a tab or an arrow into the row reveals the actions, and a screen with no hover keeps them shown.",
         "Pass onDragOut(keys, event) to make the whole row a native drag source for other widgets; write the data with event.dataTransfer.setData, and keys holds the picked set when the row is picked, else the row.",
         "With both onDragOut and reorder, a plain drag leaves the tree and Alt with the drag reorders (its modifier is alt); a touch drag still reorders, and a press on a button in the row starts neither.",
@@ -17919,7 +17935,7 @@
       ],
       "buildingBlock": true,
       "example": "import { useState } from 'react';\nimport { Tree } from '@drizztdourden08/tessera';\n\ntype Entry = { id: string; name: string; children?: Entry[] };\n\nconst Files = ({ entries }: { entries: Entry[] }) => {\n  const [picked, setPicked] = useState<ReadonlySet<string>>(new Set());\n  return (\n    <Tree\n      label=\"Files\"\n      items={entries}\n      getKey={(entry) => entry.id}\n      getChildren={(entry) => entry.children}\n      getLabel={(entry) => entry.name}\n      selection={{ selected: picked, onChange: setPicked }}\n    />\n  );\n};\n",
-      "propsHash": "27cb1fe19882e6df",
+      "propsHash": "984ef3ba6ba675d0",
       "props": {
         "own": [
           {
@@ -18059,6 +18075,11 @@
           },
           {
             "name": "renderLabel",
+            "optional": true,
+            "text": "(item: T, state: TreeRowState) => ReactNode"
+          },
+          {
+            "name": "renderBadges",
             "optional": true,
             "text": "(item: T, state: TreeRowState) => ReactNode"
           },

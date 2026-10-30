@@ -16,8 +16,9 @@ const usage = {
   rules: [
     'Pass items, the top level, with getKey, getChildren and getLabel; getChildren gives the children of an item, or nothing for a leaf.',
     'A folder that is empty gives an empty list; a folder whose children are not loaded yet gives nothing and says so with isBranch.',
-    'Pass renderLead, renderLabel and renderTrail to fill the three slots of a row, before the text, as the text and after it; each gets the item and its state.',
+    'Pass renderLead, renderLabel, renderBadges and renderTrail to fill the four slots of a row, before the text, as the text, after it and at the end; each gets the item and its state.',
     'The tree has no toggles of its own for visibility or lock; put them in renderTrail.',
+    'Pass renderBadges for status marks that always show, such as modified or locked; it sits between the label and the trail and trail hover never hides it.',
     'Pass trail hover to fade the trail out at rest and show it when the row is hovered, focused, holds focus inside it or is picked; the row does not shift, a tab or an arrow into the row reveals the actions, and a screen with no hover keeps them shown.',
     'Pass onDragOut(keys, event) to make the whole row a native drag source for other widgets; write the data with event.dataTransfer.setData, and keys holds the picked set when the row is picked, else the row.',
     'With both onDragOut and reorder, a plain drag leaves the tree and Alt with the drag reorders (its modifier is alt); a touch drag still reorders, and a press on a button in the row starts neither.',
@@ -62,7 +63,7 @@ const Files = ({ entries }: { entries: Entry[] }) => {
   );
 };
 `,
-  propsHash: '27cb1fe19882e6df',
+  propsHash: '984ef3ba6ba675d0',
 } satisfies ComponentUsage;
 
 export { usage };

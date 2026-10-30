@@ -156,6 +156,7 @@
   text-overflow: ellipsis;
 }
 
+.tree__badges,
 .tree__trail {
   display: flex;
   flex: none;

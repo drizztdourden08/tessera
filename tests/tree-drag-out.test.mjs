@@ -24,6 +24,14 @@ describe('Tree trail', () => {
     expect(draw({ trail: 'always' })).toContain('data-trail="always"');
     expect(draw({ trail: 'hover', renderTrail: () => 'x' })).toContain('data-trail="hover"');
   });
+
+  it('draws badges in their own span before the trail and draws neither span when a slot is empty', () => {
+    const html = draw({ trail: 'hover', renderBadges: () => 'new', renderTrail: () => 'x' });
+    expect(html).toMatch(/tree__label">a<\/span><span[^>]*tree__badges">new<\/span><span[^>]*tree__trail">x<\/span>/);
+    expect(draw({ renderTrail: () => 'x' })).not.toContain('tree__badges');
+    expect(draw({ renderBadges: () => 'new' })).not.toContain('tree__trail');
+    expect(draw({ renderBadges: () => undefined })).not.toContain('tree__badges');
+  });
 });
 
 describe('Tree drag out', () => {
