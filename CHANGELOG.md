@@ -1,5 +1,17 @@
 # @drizztdourden08/tessera
 
+## 0.94.0
+
+### Minor Changes
+
+- 2375697: `DataTable` takes `rowRef(row, key)`, which returns a ref for the element of that row. The host gets each drawn row element, so a row can become a source of its own drag system, not only of the browser drag and drop of `rowDragData`. The ref may be a callback ref or an object ref. Rows of a long table mount and unmount as they scroll, and the ref receives the element on mount and is released on unmount. Without `rowRef` nothing changes.
+- 0e9e776: The pixel icon `pixel-map-stamp-capture` is now named `pixel-stamp-capture`, the name the tile map tools ask for. The drawing is the same. `pixel-map-wand` is redrawn as a wand with a star tip over a small grid of cells, where four connected cells are filled and the rest are outlined. The icon `pixel-map-same-tile` was already in the set.
+
+### Patch Changes
+
+- 575fcf4: `useMarqueeSelect` starts a drag only from a press inside its box and outside any menu, dialog, listbox or tooltip in it. A press on a ContextMenu opened from a tile, drawn in place or through a portal, no longer starts a marquee, so the menu item gets its click.
+- 5880bd4: `Tile` now puts its name before the corner marks in the document. A text badge such as a count in a corner used to read before the name, so the accessible name said "3 hero" while the visible order is "hero 3", and the label in name check failed. The corners are placed over the media with the same look as before, so nothing moves on screen.
+
 ## 0.93.2
 
 ### Patch Changes
