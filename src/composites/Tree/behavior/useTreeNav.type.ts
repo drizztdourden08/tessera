@@ -39,6 +39,7 @@ interface TreeNav {
   jump: (index: number) => void;
   navigate: (event: KeyboardEvent<HTMLElement>, index: number) => void;
   scrollToKey: (key: string, align?: ScrollAlign) => void;
+  scrollToTop: () => void;
 }
 
 export type { TreeNav, TreeNavInput, TreeSelectInput };

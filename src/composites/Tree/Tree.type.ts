@@ -44,6 +44,7 @@ interface TreeReorder {
 
 interface TreeHandle {
   scrollToKey: (key: string, align?: ScrollAlign) => void;
+  scrollToTop: () => void;
 }
 
 interface TreeSlots<T> {

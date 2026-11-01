@@ -29,7 +29,7 @@ const useTree = <T,>(props: TreeProps<T>): TreeModel<T> => {
   const { dragOutOf } = useTreeDragOut({ rows, selected: selected ?? NO_SET, onDragOut, renderThumbnail: reorder?.renderThumbnail, reorderOn: drag.enabled });
   const bindOf = rowBinderOf({ rows, nav, drag, expansion, selected, openOnPick, onActivate, dragOutOf });
   const activeBranch = useMemo(() => (guides ? activeBranchOf(rows, indexOfKey, selected) : null), [guides, rows, indexOfKey, selected]);
-  useImperativeHandle(ref, () => ({ scrollToKey: nav.scrollToKey }), [nav.scrollToKey]);
+  useImperativeHandle(ref, () => ({ scrollToKey: nav.scrollToKey, scrollToTop: nav.scrollToTop }), [nav.scrollToKey, nav.scrollToTop]);
 
   return { rows, nav, drag, bindOf, activeBranch };
 };

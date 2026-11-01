@@ -8,6 +8,7 @@ import { useVirtualWindow } from '../../virtual/useVirtualWindow';
 import { INDEX_ATTRIBUTE } from '../Tree.constants';
 import type { KeyTarget } from '../../virtual/virtual-focus.type';
 import type { ScrollAlign } from '../../virtual';
+import { scrollToTop } from './scroll-to-top';
 import { selectionModeOf } from './selection-mode-of';
 import { tabbableOf } from './tabbable-of';
 import { treeKeyMove } from './tree-key-move';
@@ -53,12 +54,14 @@ const useTreeNav = <T,>(input: TreeNavInput<T>): TreeNav => {
     slice.onScroll();
   }, [indexOfKey, slice]);
 
+  const toTop = useCallback(() => scrollToTop(rootRef.current, slice.onScroll), [slice]);
+
   const pick = useCallback((key: string) => selection?.onChange(new Set([key])), [selection]);
   const jumpTo = useCallback((index: number) => jump(index, index), [jump]);
   const activeAt = activeKey === null ? undefined : indexOfKey.get(activeKey);
 
   return {
-    rootRef, bodyRef: slice.bodyRef, indices: slice.indices, metrics: slice.metrics, mode, select, pick, scrollToKey, navigate,
+    rootRef, bodyRef: slice.bodyRef, indices: slice.indices, metrics: slice.metrics, mode, select, pick, scrollToKey, scrollToTop: toTop, navigate,
     tabbable: tabbableOf(slice.indices, activeAt, selection?.selected, indexOfKey),
     onScroll: slice.onScroll, onFocus: slice.onFocus, onBlur: slice.onBlur, activate: setActiveKey, jump: jumpTo,
   };
