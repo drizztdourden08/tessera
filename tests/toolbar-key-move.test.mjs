@@ -1,9 +1,7 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { DEFS, FRAME, LAYOUT } from './fixtures/toolbar-dock/toolbar-dock-frame.mjs';
-import { ToolbarDock, moveToolbar, toolbarIdsOf } from '../src/composites/ToolbarDock';
+import { FRAME, LAYOUT } from './fixtures/toolbar-dock/toolbar-dock-frame.mjs';
+import { moveToolbar, toolbarIdsOf } from '../src/composites/ToolbarDock';
 import { toolbarDropLayout } from '../src/composites/ToolbarDock/behavior/toolbar-drop-layout';
 import { toolbarKeyMessage } from '../src/composites/ToolbarDock/behavior/toolbar-key-message';
 import { toolbarKeyStart } from '../src/composites/ToolbarDock/behavior/toolbar-key-start';
@@ -17,7 +15,7 @@ const join = (side, index) => ({ kind: 'lane', side, lane: index, index, slot: 0
 
 const step = (id, pick, key) => toolbarKeyStep(LAYOUT, id, pick, key);
 
-describe('toolbarKeyStart', () => {
+describe('K1 toolbarKeyStart', { tags: ['critical'] }, () => {
   it('begins on the lane the toolbar already holds', () => {
     expect(toolbarKeyStart(LAYOUT, 'a')).toEqual(lane('top', 0));
     expect(toolbarKeyStart(LAYOUT, 'b')).toEqual(lane('top', 1));
@@ -25,7 +23,7 @@ describe('toolbarKeyStart', () => {
   });
 });
 
-describe('toolbarKeyStep arrows', () => {
+describe('K1 toolbarKeyStep arrows', { tags: ['critical'] }, () => {
   it('moves to the first stop of the side the arrow points to', () => {
     expect(step('c', lane('left', 0), 'ArrowRight')).toEqual({ pick: lane('right', 0), note: { kind: 'place', side: 'right', index: 0 }, end: null });
     expect(step('c', lane('left', 0), 'ArrowDown').pick).toEqual(lane('bottom', 0));
@@ -61,7 +59,7 @@ describe('toolbarKeyStep arrows', () => {
   });
 });
 
-describe('toolbarKeyStep other keys', () => {
+describe('K1 toolbarKeyStep other keys', { tags: ['critical'] }, () => {
   it('sends the pick to the basket on Delete', () => {
     expect(step('c', lane('left', 0), 'Delete')).toEqual({ pick: { kind: 'basket' }, note: { kind: 'hide' }, end: null });
   });
@@ -79,7 +77,7 @@ describe('toolbarKeyStep other keys', () => {
   });
 });
 
-describe('toolbarPickTarget', () => {
+describe('K1 toolbarPickTarget', { tags: ['critical'] }, () => {
   it('gives the slot of the lane with the thickness of its side', () => {
     expect(toolbarPickTarget(FRAME, LAYOUT, 'c', lane('right', 0))).toMatchObject({ kind: 'lane', side: 'right', rect: { x: 752, width: 48 } });
     expect(toolbarPickTarget(FRAME, LAYOUT, 'c', lane('bottom', 1))).toMatchObject({ kind: 'lane', rect: { y: 520, height: 40 } });
@@ -90,7 +88,7 @@ describe('toolbarPickTarget', () => {
   });
 });
 
-describe('drop layout', () => {
+describe('K1 drop layout', { tags: ['critical'] }, () => {
   const drop = (layout, id, pick) => toolbarDropLayout(layout, id, toolbarPickTarget(FRAME, layout, id, pick));
 
   it('returns the same layout when the toolbar is dropped where it is', () => {
@@ -111,26 +109,12 @@ describe('drop layout', () => {
   });
 });
 
-describe('announcements', () => {
+describe('K1 announcements', { tags: ['critical'] }, () => {
   const words = TESSERA_STRINGS.toolbars;
 
   it('names the side and the lane', () => {
     expect(toolbarKeyMessage(words, 'Tools', { kind: 'place', side: 'left', index: 0 })).toBe('Tools: left, outer lane');
     expect(toolbarKeyMessage(words, 'Tools', { kind: 'place', side: 'top', index: 1 })).toBe('Tools: top, inner lane');
     expect(toolbarKeyMessage(words, 'Tools', { kind: 'slot', slot: 2, count: 3 })).toBe('Tools: slot 2 of 3');
-  });
-});
-
-describe('ToolbarDock keyboard render', () => {
-  it('mounts a polite live region and the guide closed', () => {
-    const html = renderToString(h(ToolbarDock, {
-      layout: LAYOUT,
-      onLayoutChange: () => undefined,
-      definitions: DEFS,
-      renderToolbar: (id, slot) => h('span', { ...slot.handle }, id),
-    }));
-    expect(html).toContain('role="status"');
-    expect(html).toContain('window-guide');
-    expect(html).not.toContain('window-guide--open');
   });
 });

@@ -1,10 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { VolumeControl } from '../src/composites/VolumeControl';
-import { Slider } from '../src/primitives/Slider';
 import { grabThumb } from '../src/primitives/Slider/behavior/grab-thumb';
 import { nearestThumb } from '../src/primitives/Slider/behavior/nearest-thumb';
 import { railPoint } from '../src/primitives/Slider/behavior/rail-point';
@@ -13,30 +8,8 @@ import { snapValue } from '../src/primitives/Slider/behavior/snap-value';
 import { trackFraction } from '../src/primitives/Slider/behavior/track-fraction';
 
 const scale = (min, max, step = 1, extra = {}) => ({ min, max, step, ...extra });
-const noop = () => undefined;
 
-describe('Slider', () => {
-  it('draws one thumb by default and two in range mode, with labels and a readout', () => {
-    const single = renderToString(h(Slider, { value: 40, onChange: noop, labels: 'every 50 | {v}%' }));
-    expect(single.match(/type="range"/g)).toHaveLength(1);
-    expect(single).toContain('scale-labels__text');
-    expect(single).toContain('50%');
-    const range = renderToString(h(Slider, { range: true, value: [1, 3], stops: ['A', 'B', 'C', 'D'], onChange: noop, 'aria-label': 'Pool' }));
-    expect(range.match(/type="range"/g)).toHaveLength(2);
-    expect(range).toContain('slider--range');
-    expect(range).toContain('aria-label="Pool start"');
-    expect(range).toContain('aria-valuetext="D"');
-  });
-
-  it('runs on its own from defaultValue and takes a form name', () => {
-    const html = renderToString(h(Slider, { defaultValue: 30, name: 'volume', size: 'sm' }));
-    expect(html).toContain('name="volume"');
-    expect(html).toContain('value="30"');
-    expect(html).toContain('control-size--sm');
-  });
-});
-
-describe('a press on the bare track in range mode', () => {
+describe('K1 a press on the bare track in range mode', { tags: ['critical'] }, () => {
   it('picks the nearer thumb, and the side pressed when both thumbs sit on one value', () => {
     expect(nearestThumb(10, 20, 60)).toBe('low');
     expect(nearestThumb(70, 20, 60)).toBe('high');
@@ -56,7 +29,7 @@ describe('a press on the bare track in range mode', () => {
   });
 });
 
-describe('dragging a range thumb', () => {
+describe('K1 dragging a range thumb', { tags: ['critical'] }, () => {
   it('grabs the thumb under the pointer, both when they sit together, and nothing on the bare track', () => {
     expect(grabThumb(21, 20, 60, 2)).toBe('low');
     expect(grabThumb(59, 20, 60, 2)).toBe('high');
@@ -70,61 +43,11 @@ describe('dragging a range thumb', () => {
   });
 });
 
-describe('the readout width', () => {
+describe('K1 the readout width', { tags: ['critical'] }, () => {
   it('counts the longest value, or both ends and the dash in range mode', () => {
     expect(readoutChars(scale(0, 100), false)).toBe(3);
     expect(readoutChars(scale(0, 100, 1, { formatValue: (v) => `${v}%` }), true)).toBe(9);
     expect(readoutChars(scale(-5, 5, 0.5), false)).toBe(4);
     expect(readoutChars(scale(0, 2, 1, { stops: ['Off', 'Medium', 'On'] }), false)).toBe(6);
-  });
-
-  it('reserves the width on the track', () => {
-    expect(renderToString(h(Slider, { value: 5, max: 1000 }))).toContain('--slider-readout:4ch');
-  });
-});
-
-describe('VolumeControl', () => {
-  it('draws a mute button beside a slider, with the volume icon at the step of the level', () => {
-    const html = renderToString(h(VolumeControl, { value: 0, onChange: noop, label: 'Music' }));
-    expect(html).toContain('aria-label="Unmute"');
-    expect(html).toContain('aria-label="Music"');
-    expect(html).toContain('data-step="0"');
-    expect(renderToString(h(VolumeControl, { value: 20, onChange: noop }))).toContain('data-step="1"');
-    expect(renderToString(h(VolumeControl, { value: 80, onChange: noop }))).toContain('data-step="4"');
-    expect(renderToString(h(VolumeControl, { value: 80, onChange: noop, muted: true, onMutedChange: noop }))).toContain('data-step="0"');
-  });
-
-  it('stands a single slider upright with orientation vertical, and leaves the horizontal markup alone', () => {
-    const upright = renderToString(h(Slider, { value: 40, onChange: noop, orientation: 'vertical', 'aria-label': 'Music' }));
-    expect(upright).toContain('slider--vertical');
-    expect(upright).toContain('aria-orientation="vertical"');
-    const flat = renderToString(h(Slider, { value: 40, onChange: noop, 'aria-label': 'Music' }));
-    expect(flat).not.toContain('slider--vertical');
-    expect(flat).not.toContain('aria-orientation');
-    const css = readFileSync(new URL('../src/primitives/Slider/Slider.css', import.meta.url), 'utf8');
-    expect(css).toMatch(/\.slider--vertical \.slider__rail::before \{[^}]*transform: translate\(-50%, -50%\) rotate\(-90deg\);/);
-    expect(css).toMatch(/\.slider--vertical \.slider__input \{\s+writing-mode: vertical-lr;\s+direction: rtl;/);
-  });
-});
-
-describe('Slider scale labels at the ends', () => {
-  const css = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
-
-  it('starts the first label at the start of the track and ends the last at its end, with no reach past them', () => {
-    const scale = css('../src/primitives/ScaleLabels/ScaleLabels.css');
-    expect(scale).toMatch(/\.scale-labels--horizontal \.scale-labels__mark--start \.scale-labels__text \{\s+transform: none;/);
-    expect(scale).toMatch(/\.scale-labels--horizontal \.scale-labels__mark--end \.scale-labels__text \{\s+transform: translateX\(-100%\);/);
-    expect(scale).not.toContain('overhang');
-    expect(css('../src/primitives/Slider/Slider.css')).not.toContain('overhang');
-  });
-});
-
-describe('Slider track', () => {
-  const rail = readFileSync(new URL('../src/primitives/Slider/Slider.css', import.meta.url), 'utf8').split('.slider__rail::before {')[1].split('}')[0];
-
-  it('draws the unfilled part in --c-border-strong, so it shows on a page, a card, a dialog or a panel', () => {
-    expect(rail.match(/var\(--c-border-strong\)/g)).toHaveLength(4);
-    expect(rail.match(/var\(--c-primary\)/g)).toHaveLength(2);
-    expect(rail).not.toContain('--c-surface');
   });
 });

@@ -30,7 +30,7 @@ const clicked = () => {
   return view;
 };
 
-describe('nextTooltipState', () => {
+describe('K1 nextTooltipState', { tags: ['critical'] }, () => {
   const held = { hover: true, focus: true, dismissed: false };
 
   it('closes on pointer leave and on blur, whatever held it open', () => {
@@ -48,7 +48,7 @@ describe('nextTooltipState', () => {
   });
 });
 
-describe('a hint shown by a click', () => {
+describe('K1 a hint shown by a click', { tags: ['critical'] }, () => {
   it('opens while the pointer is over it and closes on pointer leave', () => {
     const view = clicked();
     expect(view.current.open).toBe(true);
@@ -78,7 +78,7 @@ describe('a hint shown by a click', () => {
   });
 });
 
-describe('a hint shown by focus', () => {
+describe('K1 a hint shown by focus', { tags: ['critical'] }, () => {
   it('opens for keyboard focus only, not for focus a click gave', () => {
     const mouse = mount();
     mouse.act((tip) => tip.handlers.onFocus(MOUSE_FOCUS));

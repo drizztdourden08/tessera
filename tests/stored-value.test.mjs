@@ -28,7 +28,7 @@ const aNumber = (stored) => (typeof stored === 'number' ? stored : undefined);
 
 afterEach(() => vi.unstubAllGlobals());
 
-describe('readStored and writeStored', () => {
+describe('K3 readStored and writeStored', { tags: ['critical'] }, () => {
   it('writes a value as JSON under its key and reads it back through the check', () => {
     const items = memory();
     expect(writeStored('size', 42)).toBe(true);

@@ -7,7 +7,7 @@ import { visibleLayoutOf } from '../src/composites/Widget/behavior/visible-layou
 const source = { id: 'hints', fromKey: 'p1', fromTab: false, isMain: false, loneWidget: true, floating: false, start: { x: 0, y: 0 } };
 const view = { outside: true, swap: false, hot: null, preview: null, refused: false, overlay: false };
 
-describe('popping a widget out by dragging it past the edge', () => {
+describe('K1 popping a widget out by dragging it past the edge', { tags: ['critical'] }, () => {
   it('hands over the screen point where the pointer let go', () => {
     const onPopOut = vi.fn();
     releasePress({ source, pointerId: 1, live: true, view }, { onEdit: vi.fn(), onPopOut }, { screenX: 1820, screenY: 340 });
@@ -21,7 +21,7 @@ describe('popping a widget out by dragging it past the edge', () => {
   });
 });
 
-describe('which popped widgets pass the show rules', () => {
+describe('K1 which popped widgets pass the show rules', { tags: ['critical'] }, () => {
   const def = (id, extra = {}) => ({
     id, label: id, defaultVisibility: 'always', defaultSide: 'right', defaultDockedSize: 280,
     defaultFloatingSize: { width: 320, height: 240 }, popOut: true, ...extra,

@@ -2,15 +2,13 @@
 import { spawnSync } from 'node:child_process';
 import { rmSync } from 'node:fs';
 import { join } from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath } from 'node:url';
 import { afterAll, describe, expect, it } from 'vitest';
 import { usageExampleImports } from '../scripts/config/index.mjs';
 import { fixtureRepo } from './config-fixture.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const KNIP = join(ROOT, 'node_modules', 'knip', 'bin', 'knip.js');
-const COMPILER = pathToFileURL(join(ROOT, 'scripts', 'config', 'index.mjs')).href;
-const TIMEOUT = 60_000;
 
 const usageFile = (example) => `const usage = {\n  job: 'Main.',\n  example: \`${example}\`,\n};\n\nexport { usage };\n`;
 
@@ -43,7 +41,7 @@ const knip = (config) => {
   return spawnSync(process.execPath, [KNIP, '--config', name, '--include', 'files', '--no-progress'], { cwd: dir, encoding: 'utf8' }).stdout;
 };
 
-describe('the knip compiler for usage files', () => {
+describe('K1 the knip compiler for usage files', { tags: ['critical'] }, () => {
   it('adds the imports of the example as re-exports, under names nothing else uses', () => {
     const out = usageExampleImports(usageFile(EXAMPLE.replaceAll('\n', '\n')), 'src/views/Main/Main.usage.ts');
     expect(out.split('\n').filter((line) => line.startsWith('export ') && line.includes(' from '))).toEqual([
@@ -59,7 +57,9 @@ describe('the knip compiler for usage files', () => {
     const plain = usageFile('const Sample = () => null;');
     expect(usageExampleImports(plain, 'src/X/X.usage.ts')).toBe(plain);
   });
+});
 
+describe('E1 the knip compiler run by the real knip', { tags: ['e2e'] }, () => {
   it('keeps a part that only its usage example imports out of the unused files of knip', () => {
     const entry = ['src/main.ts', 'src/views/*/*.usage.ts'];
     const without = knip({ 'knip.json': { entry, project: ['src/**/*.{ts,tsx}'] } });
@@ -67,5 +67,5 @@ describe('the knip compiler for usage files', () => {
     const withCompiler = knip({ 'knip.config.mjs': config });
     expect(without).toContain('src/views/Only/Only.tsx');
     expect(withCompiler).not.toContain('Only.tsx');
-  }, TIMEOUT);
+  });
 });

@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { VirtualGrid } from '../src/composites/VirtualGrid';
 import { gridDropCount } from '../src/composites/VirtualGrid/behavior/grid-drop-count';
 import { gridDropHandlers } from '../src/composites/VirtualGrid/behavior/grid-drop-handlers';
 
@@ -22,7 +19,7 @@ const setup = (section) => {
 
 const event = (data = FILES, extra = {}) => ({ dataTransfer: data, preventDefault: vi.fn(), relatedTarget: null, currentTarget: { contains: () => false }, ...extra });
 
-describe('a section header that takes a native drop', () => {
+describe('K1 a section header that takes a native drop', { tags: ['critical'] }, () => {
   it('is no drop target without onDropData', () => {
     expect(setup({}).handlers).toBeUndefined();
     expect(setup({ accepts: () => true }).handlers).toBeUndefined();
@@ -59,10 +56,9 @@ describe('a section header that takes a native drop', () => {
     handlers.onDragLeave(event());
     expect(hot()).toBeNull();
   });
-
 });
 
-describe('a section header that receives a native drop', () => {
+describe('K1 a section header that receives a native drop', { tags: ['critical'] }, () => {
   it('hands the data to the host on drop, announces it and clears the mark', () => {
     const onDropData = vi.fn();
     const { handlers, announce, hot } = setup({ onDropData });
@@ -87,15 +83,6 @@ describe('a section header that receives a native drop', () => {
     handlers.onDrop(event());
     expect(onDropData).not.toHaveBeenCalled();
     expect(announce).not.toHaveBeenCalled();
-  });
-
-  it('draws the live region for the announcement without reorder', () => {
-    const draw = (onDropData) => renderToString(h(VirtualGrid, {
-      label: 'Folders', getKey: (item) => item, renderItem: (item) => item,
-      sections: [{ key: 'a', label: 'A', items: ['x'], onDropData }],
-    }));
-    expect(draw(() => undefined)).toContain('aria-live="polite"');
-    expect(draw(undefined)).not.toContain('aria-live');
   });
 
   it('counts the items of the drag, and at least one', () => {

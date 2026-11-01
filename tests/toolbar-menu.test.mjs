@@ -8,7 +8,7 @@ const def = (id, defaultSide) => ({ id, label: `Label ${id}`, defaultSide });
 
 const itemsOf = (groups) => groups[0].items;
 
-describe('toolbarMenuGroups', () => {
+describe('K1 toolbarMenuGroups', { tags: ['critical'] }, () => {
   it('lists one check item per toolbar, checked when shown', () => {
     const hidden = hideToolbar(LAYOUT, 'b');
     const groups = toolbarMenuGroups(DEFS, hidden, vi.fn(), TOOLBARS_STRINGS);

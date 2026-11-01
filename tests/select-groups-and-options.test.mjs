@@ -10,7 +10,7 @@ const GROUPS = [
   { label: 'Cool', options: [{ value: 'blue', label: 'Blue' }] },
 ];
 
-describe('Select with options and groups together', () => {
+describe('K1 Select with options and groups together', { tags: ['critical'] }, () => {
   it('lists the options first, then the options of each group', () => {
     expect(allOptionsOf(GROUPS, LOOSE).map((option) => option.value)).toEqual(['none', 'red', 'blue']);
   });

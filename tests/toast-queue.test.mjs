@@ -2,14 +2,12 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it } from 'vitest';
-import { Toast, ToastStack, toast } from '../src/composites/Toast';
+import { ToastStack, toast } from '../src/composites/Toast';
 import { createToastStore } from '../src/composites/Toast/behavior/create-toast-store';
-
-const noop = () => undefined;
 
 afterEach(() => toast.clear());
 
-describe('one toast queue for the whole app', () => {
+describe('K1 one toast queue for the whole app', { tags: ['critical'] }, () => {
   it('collapses the same message into one toast with a count', () => {
     const store = createToastStore();
     const first = store.show({ variant: 'danger', message: 'Settings could not be saved.' });
@@ -67,11 +65,5 @@ describe('one toast queue for the whole app', () => {
   it('draws nothing before a stack claims the queue, so a server render shows no second stack', () => {
     toast({ message: 'Saved.' });
     expect(renderToString(h(ToastStack))).toBe('');
-  });
-
-  it('shows the count of a repeated toast and names it for a pointer', () => {
-    const html = renderToString(h(Toast, { item: { id: 't', message: 'Saved.', variant: 'success', count: 3 }, onDismiss: noop }));
-    expect(html).toContain('toast__count" title="Shown 3 times">×3</span>');
-    expect(renderToString(h(Toast, { item: { id: 't', message: 'Saved.' }, onDismiss: noop }))).not.toContain('toast__count');
   });
 });

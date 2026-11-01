@@ -26,14 +26,14 @@ const ids = (steps) => steps.map((step) => step.id);
 const stateAt = (currentId, visited, values = VALUES) => ({ ...initialWizardState(values, currentId), visited });
 const succeed = async () => ({ success: true, id: 'p-7' });
 
-describe('visibleSteps', () => {
+describe('K1 visibleSteps', { tags: ['critical'] }, () => {
   it('drops a step whose when is false', () => {
     expect(ids(visibleSteps(STEPS, VALUES))).toEqual(['basics', 'mode', 'seed', 'settings', 'review']);
     expect(ids(visibleSteps(STEPS, { ...VALUES, mode: 'standard' }))).toEqual(['basics', 'mode', 'settings', 'review']);
   });
 });
 
-describe('currentIndex', () => {
+describe('K1 currentIndex', { tags: ['critical'] }, () => {
   it('finds the current step, or the nearest shown step before a hidden one', () => {
     const shown = visibleSteps(STEPS, { ...VALUES, mode: 'standard' });
     expect(currentIndex(STEPS, shown, 'settings')).toBe(2);
@@ -42,7 +42,7 @@ describe('currentIndex', () => {
   });
 });
 
-describe('canReach', () => {
+describe('K1 canReach', { tags: ['critical'] }, () => {
   const shown = visibleSteps(STEPS, VALUES);
   it('always goes back, never to the current step', () => {
     expect(canReach(shown, 3, 'basics', { visited: [], values: VALUES })).toBe(true);
@@ -59,7 +59,7 @@ describe('canReach', () => {
   });
 });
 
-describe('isDirty', () => {
+describe('K1 isDirty', { tags: ['critical'] }, () => {
   it('compares each value with the initial one', () => {
     expect(isDirty(VALUES, VALUES)).toBe(false);
     expect(isDirty({ ...VALUES }, VALUES)).toBe(false);
@@ -68,7 +68,7 @@ describe('isDirty', () => {
   });
 });
 
-describe('wizardReducer', () => {
+describe('K1 wizardReducer', { tags: ['critical'] }, () => {
   const start = initialWizardState(VALUES, 'basics');
 
   it('moves and records visited steps once', () => {
@@ -101,7 +101,7 @@ describe('wizardReducer', () => {
   });
 });
 
-describe('wizardView', () => {
+describe('K1 wizardView', { tags: ['critical'] }, () => {
   it('describes the current step among the shown ones', () => {
     const view = wizardView(STEPS, stateAt('settings', ['basics', 'mode', 'settings'], { ...VALUES, mode: 'standard' }));
     expect(ids(view.steps)).toEqual(['basics', 'mode', 'settings', 'review']);
@@ -129,7 +129,7 @@ describe('wizardView', () => {
   });
 });
 
-describe('wizardMoves', () => {
+describe('K1 wizardMoves', { tags: ['critical'] }, () => {
   it('goes next only when the step is valid, and back and to reachable steps', () => {
     const dispatch = vi.fn();
     const moves = wizardMoves(wizardView(STEPS, stateAt('mode', ['basics', 'mode'])), dispatch);
@@ -152,7 +152,7 @@ describe('wizardMoves', () => {
   });
 });
 
-describe('settleFinish', () => {
+describe('K1 settleFinish', { tags: ['critical'] }, () => {
   it('passes an outcome through and turns a throw into a failure', async () => {
     await expect(settleFinish(succeed, VALUES, 'fallback')).resolves.toEqual({ success: true, id: 'p-7' });
     const diskFull = async () => {
@@ -164,7 +164,7 @@ describe('settleFinish', () => {
   });
 });
 
-describe('finishWizard', () => {
+describe('K1 finishWizard', { tags: ['critical'] }, () => {
   const run = (state, onFinish, onFinished) => {
     const dispatch = vi.fn();
     const view = wizardView(STEPS, state);
@@ -208,7 +208,7 @@ describe('finishWizard', () => {
   });
 });
 
-describe('useWizard', () => {
+describe('K1 useWizard', { tags: ['critical'] }, () => {
   it('opens on the first shown step, clean and idle', () => {
     let seen;
     const Probe = () => {

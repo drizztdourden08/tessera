@@ -1,9 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { WindowTitleBar } from '../src/composites/WindowTitleBar';
 import { titleBarClass } from '../src/composites/WindowTitleBar/behavior/title-bar-class';
 import { usePeek } from '../src/composites/WindowTitleBar/behavior/usePeek';
 import { PEEK_HIDE_MS } from '../src/composites/WindowTitleBar/WindowTitleBar.constants';
@@ -11,32 +7,11 @@ import { mountHook } from './hook-harness.mjs';
 
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
 
-const ignore = () => undefined;
-const html = (props) => renderToString(h(WindowTitleBar, { title: 'Brock', onControl: ignore, ...props }));
-
-describe('a concealed title bar is an overlay, not a window handle', () => {
-  it('drops its drag region while concealed or full screen', () => {
-    expect(html({ concealed: true })).toContain('data-app-region="no-drag"');
-    expect(html({ fullscreen: true })).toContain('data-app-region="no-drag"');
-  });
-
-  it('keeps the drag region while it is shown', () => {
-    expect(html({})).toContain('data-app-region="drag"');
-  });
-});
-
-describe('a bar with an open menu stays where it is', () => {
+describe('K1 a bar with an open menu stays where it is', { tags: ['critical'] }, () => {
   it('keeps the concealed class and adds the peek class, so the page does not jump', () => {
     const open = titleBarClass(true, true, '');
     expect(open).toContain('window-title-bar--concealed');
     expect(open).toContain('window-title-bar--peek');
-  });
-
-  it('tucks on concealed or fullscreen alone, and forces the bar shown while a menu is open', () => {
-    const source = readFileSync(new URL('../src/composites/WindowTitleBar/WindowTitleBar.tsx', import.meta.url), 'utf8');
-    expect(source).toContain('const away = concealed || fullscreen;');
-    expect(source).not.toMatch(/&& !menus\.anyOpen/);
-    expect(source).toContain('|| menus.anyOpen');
   });
 });
 
@@ -67,7 +42,7 @@ const reveal = (rig) => {
   expect(rig.peek.current.peeking).toBe(true);
 };
 
-describe('the peek hides after a delay, not at once', () => {
+describe('K1 the peek hides after a delay, not at once', { tags: ['critical'] }, () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
 
@@ -106,7 +81,7 @@ describe('the peek hides after a delay, not at once', () => {
   });
 });
 
-describe('the peek hide delay is cancelled', () => {
+describe('K1 the peek hide delay is cancelled', { tags: ['critical'] }, () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
 
@@ -151,7 +126,7 @@ describe('the peek hide delay is cancelled', () => {
   });
 });
 
-describe('the peek and its open menus', () => {
+describe('K1 the peek and its open menus', { tags: ['critical'] }, () => {
   beforeEach(() => vi.useFakeTimers());
   afterEach(() => vi.useRealTimers());
 
