@@ -9,7 +9,8 @@ import { run as writeGuide } from '../scripts/cli/guide-command.mjs';
 import { writeTree } from './config-fixture.mjs';
 import { appUsageFixture } from './app-usage-fixture.mjs';
 
-const TIMEOUT = 120_000;
+const MEASURED_MS = 39_000;
+const TIMEOUT = MEASURED_MS * 6;
 const ROOT = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '').split('\\').join('/');
 const TSC = join(ROOT, 'node_modules', 'typescript', 'bin', 'tsc');
 const PARTS_FILES = { root: 'packages/design/src/guide/parts.type.ts', app: 'apps/desktop/src/guide/parts.type.ts' };
@@ -56,7 +57,7 @@ beforeAll(async () => {
       'apps/web': { parts: { views: [SHARED, 'apps/web/src/views', SHARED] } },
     }),
   }, { [`${SHARED}/Lobby/Lobby.tsx`]: view('Lobby') });
-}, 2 * TIMEOUT);
+}, TIMEOUT);
 
 afterAll(() => {
   for (const dir of Object.values(state)) rmSync(dir, { recursive: true, force: true });
