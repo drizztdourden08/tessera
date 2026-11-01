@@ -23,9 +23,18 @@ interface GridLayout {
   items: number;
 }
 
+interface GridOffsets {
+  above: readonly number[];
+  heads: readonly number[];
+  tiles: readonly number[];
+  sizes: readonly number[];
+  average: number;
+}
+
 interface GridHeights {
   tile: number;
   head: number;
+  offsets?: GridOffsets;
 }
 
-export type { GridHeights, GridLayout, LayoutRow, SectionShape };
+export type { GridHeights, GridLayout, GridOffsets, LayoutRow, SectionShape };

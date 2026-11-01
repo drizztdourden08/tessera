@@ -5,6 +5,8 @@ import type { MarqueeItem } from '../marquee';
 import type { ReorderModifier } from '../reorder';
 import type { ScrollAlign, VirtualSize } from '../virtual';
 
+type VirtualGridRowHeight = 'fixed' | 'measured';
+
 interface VirtualGridSection<T> {
   key: string;
   label: ReactNode;
@@ -85,6 +87,7 @@ interface VirtualGridBase<T> {
   tileWidth?: VirtualSize;
   tileHeight?: VirtualSize;
   columns?: number;
+  rowHeight?: VirtualGridRowHeight;
   overscan?: number;
   selection?: VirtualGridSelection;
   getLabel?: (item: T, index: number) => string;
@@ -114,6 +117,6 @@ interface VirtualGridSectioned<T> extends VirtualGridBase<T> {
 type VirtualGridProps<T> = (VirtualGridFlat<T> | VirtualGridSectioned<T>) & (VirtualGridDrawItem<T> | VirtualGridDrawTile<T>);
 
 export type {
-  VirtualGridBind, VirtualGridCellBind, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridSection,
+  VirtualGridBind, VirtualGridCellBind, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
   VirtualGridSelection,
 };

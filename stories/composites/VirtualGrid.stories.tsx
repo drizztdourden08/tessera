@@ -10,6 +10,7 @@ import { VirtualGridFolders } from './_samples/VirtualGridFolders';
 import { VirtualGridFrame } from './_samples/VirtualGridFrame';
 import { VirtualGridJump } from './_samples/VirtualGridJump';
 import { VirtualGridMarquee } from './_samples/VirtualGridMarquee';
+import { VirtualGridMeasured } from './_samples/VirtualGridMeasured';
 import { VirtualGridNativeDrop } from './_samples/VirtualGridNativeDrop';
 import { VirtualGridPicker } from './_samples/VirtualGridPicker';
 import { VirtualGridReorder } from './_samples/VirtualGridReorder';
@@ -70,6 +71,11 @@ const Tileset = {
 const Folders = {
   name: 'Folders with actions and depth: click a header, or use Enter, Space, Left and Right on it',
   render: () => <VirtualGridFolders folders={6} perFolder={40} />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
+const MeasuredRows = {
+  name: 'Measured rows with rowHeight: cards of 1 to 6 lines, each row as tall as its tallest card',
+  render: () => <VirtualGridMeasured sections={3} perSection={30} />,
 } satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
 
 const Marquee = {
@@ -133,6 +139,16 @@ const CODE = `import { VirtualGrid } from '@drizztdourden08/tessera';
 />
 
 <VirtualGrid
+  label="Cards"
+  sections={groups}
+  getKey={(card) => card.id}
+  renderItem={(card) => <CardBody card={card} />}
+  tileWidth="size-128"
+  tileHeight="size-48"
+  rowHeight="measured"
+/>
+
+<VirtualGrid
   label="Frames"
   items={frames}
   getKey={(frame) => frame.id}
@@ -158,15 +174,16 @@ const Overview = overviewStory({
   description: 'A very long grid of equal tiles, in sections if wanted, where only the rows in view are drawn, with the keys to move through it.',
   points: [
     '`items`, `getKey` and `renderItem` draw the tiles; `sections` group them under headers.',
-    '`tileSize`, or `tileWidth` and `tileHeight`, size the tiles; `columns` fixes the tiles in a row.',
+    '`tileSize`, or `tileWidth` and `tileHeight`, size the tiles; with `measured` rows they are the least.',
     '`selection` picks with click, Ctrl, Shift (a rectangle), Ctrl+A and Space; `holes` skip tiles.',
     '`getLabel` adds type ahead; `reorder` moves the picked tiles by drag or Alt with an arrow.',
     'A section `onDrop` takes tiles dropped on its header, `onDropData` a native drop; `bind` serves a marquee.',
     '`renderTile` hands the cell props to the app tile, so a button tile is the cell and the one tab stop.',
+    '`columns` fixes the tiles in a row; `rowHeight="measured"` makes each row as tall as its tallest tile.',
   ],
   instead: '[VirtualList] for rows in a column, or [ItemCard] for a few cards.',
   playground: Playground,
-  variants: [Long, Small, Few, Wide, Tileset, Folders, Marquee, Jump, Buttons, Picking, Reordering, NativeDrop],
+  variants: [Long, Small, Few, Wide, Tileset, Folders, Marquee, MeasuredRows, Jump, Buttons, Picking, Reordering, NativeDrop],
   states: {
     render: (props: StateProps) => <VirtualGridFrame count={40} {...props} />,
     list: FILLED_AND_EMPTY,
@@ -175,4 +192,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Buttons, Few, Folders, Jump, Long, Marquee, NativeDrop, Overview, Picking, Playground, Reordering, Small, Tileset, Wide };
+export { Buttons, Few, Folders, Jump, Long, Marquee, MeasuredRows, NativeDrop, Overview, Picking, Playground, Reordering, Small, Tileset, Wide };

@@ -41,6 +41,7 @@ const usage = {
     'Give a section onDropData(dataTransfer) and a header takes a native drop, such as files or items dragged from another widget, with or without reorder; it shows the same into mark and announces the drop, and onDrop and onDropData can both be set.',
     'Give a section accepts(dataTransfer) to say which drags the header takes; it runs while the drag is over the header, where only types, kinds and the item count can be read, and the data itself is read in onDropData; leave it out to take every drag.',
     'For tile sizes in whole steps use stepVirtualSize on tileSize, such as from a slider.',
+    'Give rowHeight="measured" when tiles hold different amounts of content, such as cards: each row is as tall as its tallest tile, tileHeight becomes the least and the guess for rows not drawn yet, the grid measures the drawn rows and keeps the scroll steady when a row above grows; leave it out for the fixed height, which costs nothing.',
     'Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.',
     'Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.',
     'Use onActiveChange to follow the tile that holds focus, such as to show its detail beside the grid.',
@@ -117,7 +118,7 @@ const Library = ({ folders }: { folders: Folder[] }) => (
   />
 );
 `,
-  propsHash: 'e9ddebebc1280c1d',
+  propsHash: '04d0ec97e7619c62',
 } satisfies ComponentUsage;
 
 export { usage };

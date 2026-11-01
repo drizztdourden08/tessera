@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind hook */
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useVirtualFocus } from '../../virtual/useVirtualFocus';
 import { CELL_ATTRIBUTE } from '../VirtualGrid.constants';
 import { itemOfStop } from './item-of-stop';
@@ -13,20 +13,21 @@ import type { UseGridFocusInput } from './useGridFocus.type';
 const useGridFocus = (input: UseGridFocusInput): VirtualFocus => {
   const { layout, heights, rootRef, bodyRef, metrics, onScroll, onMove, onActiveChange } = input;
   const { rows: placed } = layout;
+  const paging = useMemo(() => (heights.offsets?.average ? { ...metrics, rowHeight: heights.offsets.average } : metrics), [metrics, heights.offsets]);
   const resolve = useCallback((event: KeyboardEvent<HTMLElement>, stop: number, page: number) => {
     const to = nextCell(event.key, layout, stop, { ctrl: event.ctrlKey || event.metaKey, page });
     return to === undefined ? undefined : { index: to, row: rowOfStop(layout, to) };
   }, [layout]);
   const spanOf = useCallback((row: number) => {
     const entry = placed[row];
-    return entry ? rowPlace(entry, heights) : { top: 0, height: 0 };
+    return entry ? rowPlace(entry, heights, row) : { top: 0, height: 0 };
   }, [placed, heights]);
   const follow = useCallback((stop: number) => {
     const item = itemOfStop(layout, stop);
     if (item >= 0) onActiveChange?.(item);
   }, [layout, onActiveChange]);
   return useVirtualFocus({
-    rootRef, bodyRef, cellAttribute: CELL_ATTRIBUTE, metrics, onScroll, resolve, spanOf, onMove, onActiveChange: follow,
+    rootRef, bodyRef, cellAttribute: CELL_ATTRIBUTE, metrics: paging, onScroll, resolve, spanOf, onMove, onActiveChange: follow,
   });
 };
 

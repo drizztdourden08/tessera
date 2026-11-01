@@ -7,14 +7,18 @@ import { gridHeights } from './grid-heights';
 import { gridLayout } from './grid-layout';
 import { gridSections } from './grid-sections';
 import { readGridMetrics } from './read-grid-metrics';
+import { readMeasuredMetrics } from './read-measured-metrics';
 import { rowOfStop } from './row-of-stop';
 import { rowRange } from './row-range';
 import { scrollOffset } from './scroll-offset';
+import { useGridAnchor } from './useGridAnchor';
 import { useGridCollapsed } from './useGridCollapsed';
 import { useGridColumns } from './useGridColumns';
 import { useGridFocus } from './useGridFocus';
 import { useGridDropData } from './useGridDropData';
 import { useGridInteraction } from './useGridInteraction';
+import { useGridMeasure } from './useGridMeasure';
+import { useGridOffsets } from './useGridOffsets';
 import type { ScrollAlign, VirtualMetrics } from '../../virtual';
 import type { UseVirtualGridInput, VirtualGridModel } from './useVirtualGrid.type';
 
@@ -37,14 +41,19 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
     const item = flat[entry.first];
     return item === undefined ? undefined : `row-${getKey(item, entry.first)}`;
   }, [placed, keys, flat, getKey]);
+  const measuring = input.rowHeight === 'measured';
+  const { offsets, record } = useGridOffsets({ enabled: measuring, layout, keyAt });
   const rangeOf = useCallback((metrics: VirtualMetrics, over: number) => rowRange({
-    rows: placed, heights: gridHeights(metrics), scrollTop: metrics.top, viewport: metrics.viewport, overscan: over,
-  }), [placed]);
+    rows: placed, heights: gridHeights(metrics, offsets), scrollTop: metrics.top, viewport: metrics.viewport, overscan: over,
+  }), [placed, offsets]);
   const slice = useVirtualWindow({
-    enabled: true, count: placed.length, keyAt, rootRef, indexAttribute: ROW_ATTRIBUTE, overscan, sizeKey, readMetrics: readGridMetrics, rangeOf,
+    enabled: true, count: placed.length, keyAt, rootRef, indexAttribute: ROW_ATTRIBUTE, overscan, sizeKey,
+    readMetrics: measuring ? readMeasuredMetrics : readGridMetrics, rangeOf,
   });
   const { bodyRef, indices, metrics, onScroll } = slice;
-  const heights = useMemo(() => gridHeights(metrics), [metrics]);
+  const heights = useMemo(() => gridHeights(metrics, offsets), [metrics, offsets]);
+  useGridMeasure({ enabled: measuring, bodyRef, drawn: indices.join(','), keyAt, record });
+  useGridAnchor({ rootRef, rows: placed, heights, onScroll });
   const fit = useCallback((count: number, tile: number) => {
     tileWidth.current = tile;
     setColumns(count);
@@ -70,7 +79,7 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
   }, [layout, heights, onScroll]);
 
   return {
-    rootRef, bodyRef, flat, layout, rows: indices, columns, fixed: fixed !== undefined, sectionKeys: keys, collapsed, setCollapsed, tabbable, onScroll,
+    rootRef, bodyRef, flat, layout, heights, measured: measuring, rows: indices, columns, fixed: fixed !== undefined, sectionKeys: keys, collapsed, setCollapsed, tabbable, onScroll,
     onFocus: slice.onFocus, onBlur: slice.onBlur, activate, navigate, scrollToIndex, getRects: touch.getRects,
     selecting: touch.selecting, reordering: touch.moving.active, announcing: touch.moving.active || dropData.active, message: touch.moving.message,
     into: touch.moving.into ?? dropData.hot, dropOf: dropData.dropOf, ghost: touch.moving.ghost,

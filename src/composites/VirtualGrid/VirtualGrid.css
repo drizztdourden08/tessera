@@ -37,6 +37,30 @@
   overflow: hidden;
 }
 
+.virtual-grid--measured {
+  overflow-anchor: none;
+}
+
+.virtual-grid--measured .virtual-grid__body {
+  block-size: var(--vg-total);
+}
+
+.virtual-grid--measured .virtual-grid__row {
+  inset-block-start: var(--vg-top);
+  block-size: auto;
+  min-block-size: var(--vg-tile-h);
+}
+
+.virtual-grid--measured .virtual-grid__row--header {
+  block-size: var(--vg-head);
+  min-block-size: 0;
+}
+
+.virtual-grid--measured .virtual-grid__cell {
+  block-size: auto;
+  min-block-size: var(--vg-tile-h);
+}
+
 .virtual-grid__cell--bare {
   padding: 0;
 }
