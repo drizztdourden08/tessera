@@ -132,7 +132,6 @@ interface ToolbarProps {
   menuSide?: ToolbarMenuSide;
   columns?: ToolbarColumns;
   hiddenItems?: readonly string[];
-  keyBadges?: boolean;
   inlineOptions?: boolean;
   onContextMenu?: (itemId: string, event: ToolbarContextEvent) => void;
   className?: string;

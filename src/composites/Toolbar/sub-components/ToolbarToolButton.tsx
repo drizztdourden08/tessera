@@ -4,7 +4,6 @@ import { Button } from '../../../primitives/Button';
 import { Icon } from '../../../primitives/Icon';
 import { isIconName } from '../../../primitives/Icon/behavior/is-icon-name';
 import { IconButton } from '../../../primitives/IconButton';
-import { keyBadgeKeys } from '../behavior/key-badge-keys';
 import { ToolbarContext } from '../behavior/toolbar-context';
 import { toolAttributes } from '../behavior/tool-attributes';
 import { ToolbarRow } from './ToolbarRow';
@@ -14,10 +13,10 @@ import type { ToolbarToolButtonProps } from './ToolbarToolButton.type';
 const ToolbarToolButton = (props: ToolbarToolButtonProps) => {
   const { anchorRef, icon, label, caption, description, shortcut, active, disabled, badge, onClick, onContextMenu, onKeyDown, hover, hold } = props;
   const context = useContext(ToolbarContext);
-  const { orientation, layout, size, labels, keyBadges } = context;
+  const { orientation, layout, size, labels } = context;
   const attributes = { ref: anchorRef, active, disabled, className: 'toolbar__tool', onClick, onContextMenu, onKeyDown, ...toolAttributes(props, context), ...hover, ...hold };
   const glyph = typeof icon === 'string' && isIconName(icon) ? <Icon name={icon} /> : icon;
-  const decor = { badge, shortcut, keyBadge: keyBadges && layout === 'bar' && keyBadgeKeys(shortcut) !== undefined };
+  const decor = { badge };
   if (layout === 'list') {
     return <ToolbarToolDecor {...decor}><ToolbarRow glyph={glyph} label={label} description={description} shortcut={shortcut} size={size} attributes={attributes} /></ToolbarToolDecor>;
   }
