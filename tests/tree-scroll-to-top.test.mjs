@@ -2,7 +2,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { scrollToTop } from '../src/composites/Tree/behavior/scroll-to-top';
 
-describe('Tree scrollToTop', () => {
+describe('K1 Tree scrollToTop', { tags: ['critical'] }, () => {
   it('sets the scroll position to zero and refreshes the drawn rows', () => {
     const root = { scrollTop: 480 };
     const onScroll = vi.fn();

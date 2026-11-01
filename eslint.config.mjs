@@ -11,8 +11,24 @@ const DEMONSTRATOR = ['stories/_template/Demonstrator.tsx'];
 
 const SAMPLE_STORIES = ['stories/data/_samples/engine-grid.tsx'];
 
+const DATE_MESSAGE = 'Write a date with formatDate from the date-format primitive.';
+
+const DATE_FORMAT_ONLY = {
+  files: ['src/**/*.{ts,tsx}', 'stories/**/*.{ts,tsx}'],
+  ignores: ['src/primitives/date-format/**'],
+  rules: {
+    'no-restricted-properties': ['error',
+      { property: 'toLocaleDateString', message: DATE_MESSAGE },
+      { property: 'toLocaleTimeString', message: DATE_MESSAGE },
+      { object: 'Intl', property: 'DateTimeFormat', message: DATE_MESSAGE },
+      { object: 'Intl', property: 'RelativeTimeFormat', message: DATE_MESSAGE },
+    ],
+  },
+};
+
 export default standardsEslint({
   ignores: ['dist-storylite/**'],
+  extra: [DATE_FORMAT_ONLY],
   defaultExportGlobs: ['.storylite/config.ts', 'brock.workspace.mjs', 'scripts/standards/stylelint/*.mjs'],
   consoleGlobs: ['**/bin/**', '**/scripts/**', '**/tooling/**', '**/*.test.{ts,tsx,js,mjs}', 'src/primitives/dom/dev-warn.ts'],
   glyphContent: [

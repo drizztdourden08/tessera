@@ -9,7 +9,6 @@ import { findSlop } from '@drizztdourden08/standards/writing';
 import { checkShapes } from '@drizztdourden08/standards/structure';
 import { run } from '../scripts/cli/new-command.mjs';
 
-const TIMEOUT = 240_000;
 const ROOT = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '');
 const MODULES = join(ROOT, 'node_modules');
 const APP_FIXTURE = join(ROOT, 'tests', 'fixtures', 'cli', 'app');
@@ -103,8 +102,8 @@ const generateParts = (copy, parts) => {
   beforeAll(async () => {
     state.dir = copy();
     for (const part of parts) state.results.push(await runNew(state.dir, [part.kind, part.name, ...part.argv], part));
-  }, TIMEOUT);
-  afterAll(() => removeSandbox(state.dir), TIMEOUT);
+  });
+  afterAll(() => removeSandbox(state.dir));
   return state;
 };
 
@@ -112,4 +111,4 @@ const slopIn = (text) => findSlop(text).map((hit) => hit.match);
 
 const slop = (cwd, files) => files.flatMap((file) => slopIn(readFileSync(join(cwd, file), 'utf8')).map((match) => `${file}: ${match}`));
 
-export { appCopy, eslint, generateParts, pnpm, removeSandbox, ROOT, runNew, slop, slopIn, structure, stylelint, tesseraCopy, TIMEOUT, typecheck };
+export { appCopy, eslint, generateParts, pnpm, removeSandbox, ROOT, runNew, slop, slopIn, structure, stylelint, tesseraCopy, typecheck };
