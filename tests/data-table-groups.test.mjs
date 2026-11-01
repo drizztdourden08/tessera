@@ -28,7 +28,7 @@ const mount = (extra = {}, tree = TREE) => {
   return { hook, holder };
 };
 
-describe('which groups start expanded', () => {
+describe('K1 which groups start expanded', { tags: ['critical'] }, () => {
   it('opens every group when defaultExpanded is not given', () => {
     expect(collectGroupUids(TREE)).toEqual([UID.connected, UID.known]);
     const { holder } = mount();
@@ -69,7 +69,7 @@ describe('which groups start expanded', () => {
   });
 });
 
-describe('the rows a long table draws', () => {
+describe('K1 the rows a long table draws', { tags: ['critical'] }, () => {
   const base = { rowHeight: 40, viewport: 400, count: 900, overscan: 2 };
 
   it('starts at the top with the visible rows and the overscan below', () => {

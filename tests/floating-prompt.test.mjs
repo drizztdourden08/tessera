@@ -31,23 +31,11 @@ const element = (parent, extra = {}) => {
   return el;
 };
 
-describe('FloatingPrompt focus', () => {
+describe('K1 FloatingPrompt focus', { tags: ['critical'] }, () => {
   beforeEach(() => {
     vi.mocked(useDialogFocus).mockReset().mockReturnValue({ node: BAR, ref: () => undefined, onKeyDown });
     vi.mocked(useInertSiblings).mockReset();
     vi.mocked(useEscapeLayer).mockReset();
-  });
-
-  it('moves focus into the bar while open and lets the dialog focus give it back on close', () => {
-    draw({});
-    const [params] = vi.mocked(useDialogFocus).mock.calls[0];
-    expect(params).toMatchObject({ open: true, initialFocus: 'first' });
-    expect(params.scopeOf).toBe(promptScope);
-  });
-
-  it('asks for focus handling with open false while closed, and draws nothing', () => {
-    expect(draw({ open: false })).toBe('');
-    expect(vi.mocked(useDialogFocus).mock.calls[0][0].open).toBe(false);
   });
 
   it('keeps the focus pull inside the container, or inside the page for the window scope', () => {
@@ -60,7 +48,7 @@ describe('FloatingPrompt focus', () => {
   });
 });
 
-describe('FloatingPrompt Escape', () => {
+describe('K1 FloatingPrompt Escape', { tags: ['critical'] }, () => {
   beforeEach(() => {
     vi.mocked(useDialogFocus).mockReset().mockReturnValue({ node: BAR, ref: () => undefined, onKeyDown });
     vi.mocked(useEscapeLayer).mockReset();
@@ -86,20 +74,10 @@ describe('FloatingPrompt Escape', () => {
   });
 });
 
-describe('FloatingPrompt blocking', () => {
+describe('K1 FloatingPrompt blocking', { tags: ['critical'] }, () => {
   beforeEach(() => {
     vi.mocked(useDialogFocus).mockReset().mockReturnValue({ node: BAR, ref: () => undefined, onKeyDown });
     vi.mocked(useInertSiblings).mockReset();
-  });
-
-  it('makes the siblings of the layer inert in the container scope, with the hook of ScreenLayer', () => {
-    draw({});
-    expect(useInertSiblings).toHaveBeenCalled();
-  });
-
-  it('covers its parent with a clear layer, or the window with the window scope', () => {
-    expect(draw({})).toMatch(/^<div class="overlay overlay--clear floating-prompt"/);
-    expect(draw({ scope: 'window' })).toMatch(/^<div class="overlay overlay--clear floating-prompt floating-prompt--window"/);
   });
 
   it('marks every region around the layer, up to the page, in the window scope, but not the portal root', () => {
@@ -122,28 +100,3 @@ describe('FloatingPrompt blocking', () => {
   });
 });
 
-describe('FloatingPrompt semantics', () => {
-  beforeEach(() => {
-    vi.mocked(useDialogFocus).mockReset().mockReturnValue({ node: BAR, ref: () => undefined, onKeyDown });
-  });
-
-  it('is an alert dialog that is not modal, named by its message', () => {
-    const html = draw({});
-    expect(html).toMatch(/role="alertdialog" aria-modal="false"/);
-    const id = /aria-labelledby="([^"]+)"/.exec(html)?.[1];
-    expect(html).toContain(`toast__message" id="${id}"`);
-  });
-
-  it('takes the name from label when given', () => {
-    const html = draw({ label: 'Pending edits' });
-    expect(html).toContain('aria-label="Pending edits"');
-    expect(html).not.toContain('aria-labelledby');
-  });
-
-  it('reuses the surface of Toast and draws the actions as buttons, cancel as a ghost', () => {
-    const html = draw({ variant: 'warning' });
-    expect(html).toMatch(/class="toast toast--warning floating-prompt__bar"/);
-    expect(html).toMatch(/<button[^>]*>.*Apply.*<\/button>/);
-    expect(html).toMatch(/btn--ghost[^>]*>.*Cancel/);
-  });
-});

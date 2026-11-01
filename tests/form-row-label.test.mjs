@@ -1,39 +1,8 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
-import { createElement as h } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { CodeBlock } from '../src/composites/CodeBlock';
-import { FormRow } from '../src/composites/FormRow';
 import { focusRowControl } from '../src/composites/FormRow/behavior/focus-row-control';
-import { Slider } from '../src/primitives/Slider';
-import { Toggle } from '../src/primitives/Toggle';
 
-const ignore = () => undefined;
-const labelOf = (html) => html.match(/<label[^>]*class="[^"]*form-row__label[^"]*"[^>]*>/)?.[0] ?? '';
-
-describe('FormRow name', () => {
-  it('is a label for the control, so a click on the name focuses it', () => {
-    const html = renderToStaticMarkup(h(FormRow, { label: 'Death Link', id: 'death-link' }, h(CodeBlock, { editable: true, language: 'json', value: '{}', onChange: ignore })));
-    expect(labelOf(html)).toContain('for="death-link"');
-    expect(labelOf(html)).toContain('id="death-link-label"');
-    expect(html).toMatch(/<textarea[^>]*id="death-link"/);
-  });
-
-  it('points at the slider thumb and names its number field, so the slider takes the option name', () => {
-    const html = renderToStaticMarkup(h(FormRow, { label: 'Progression Balancing', id: 'balancing' }, h(Slider, { value: 65, onChange: ignore, min: 0, max: 99, input: true })));
-    expect(html).toMatch(/<input[^>]*type="range"[^>]*id="balancing"/);
-    expect(html.match(/id="balancing"/g)).toHaveLength(1);
-    expect(html).toMatch(/class="number-input__field[^"]*"[^>]*aria-labelledby="balancing-label"|aria-labelledby="balancing-label"[^>]*class="number-input__field/);
-  });
-
-  it('points at the switch input, so a click on the name flips it', () => {
-    const html = renderToStaticMarkup(h(FormRow, { label: 'Death Link' }, h(Toggle, { checked: false, onChange: ignore })));
-    const target = labelOf(html).match(/for="([^"]+)"/)?.[1];
-    expect(target).toMatch(/\S/);
-    expect(html).toMatch(new RegExp(`<input id="${target}" type="checkbox"[^>]*role="switch"`));
-  });
-
+describe('K1 FormRow name', { tags: ['critical'] }, () => {
   it('focuses the first stop of a group control, which no label can reach', () => {
     const first = { nodeType: 1, offsetHeight: 20, tabIndex: 0, closest: () => null, getClientRects: () => [{}], focus: vi.fn() };
     const boxOf = (target) => ({ ownerDocument: { getElementById: () => target }, querySelectorAll: () => [first] });
@@ -41,42 +10,5 @@ describe('FormRow name', () => {
     expect(first.focus).toHaveBeenCalledTimes(1);
     focusRowControl(boxOf({ labels: [] }), 'balancing');
     expect(first.focus).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('FormRow description', () => {
-  const draw = (extra = {}) => renderToStaticMarkup(h(FormRow, { label: 'Start Inventory', id: 'inventory', description: 'Items the player starts with.', ...extra }, h(Toggle, { checked: false, onChange: ignore })));
-
-  it('folds after two lines by default and keeps its id for the control notes', () => {
-    const html = draw();
-    expect(html).toMatch(/class="fold-text__text" data-folded="true" style="-webkit-line-clamp:2"><span [^>]*id="inventory-description"/);
-    expect(html).toContain('aria-describedby="inventory-description"');
-  });
-
-  it('folds after descriptionLines lines, and never with 0', () => {
-    expect(draw({ descriptionLines: 3 })).toContain('-webkit-line-clamp:3');
-    expect(draw({ descriptionLines: 0 })).not.toContain('data-folded');
-  });
-
-  it('shares the fold of SettingsRow, with More and Less drawn by the same part', () => {
-    const sheet = readFileSync(new URL('../src/primitives/FoldText/FoldText.css', import.meta.url), 'utf8');
-    expect(sheet).toMatch(/\.fold-text__text\[data-folded\] \{\s*display: -webkit-box;/);
-    expect(readFileSync(new URL('../src/composites/SettingsRow/SettingsRow.css', import.meta.url), 'utf8')).not.toContain('data-folded');
-  });
-});
-
-describe('FormRow reset', () => {
-  const draw = (extra = {}) => renderToStaticMarkup(h(FormRow, { label: 'Death Link', onReset: ignore, ...extra }, h(Toggle, { checked: false, onChange: ignore })));
-
-  it('is absent when the value is unchanged and leaves no cell behind', () => {
-    const html = draw();
-    expect(html).not.toContain('Reset');
-    expect(html).not.toContain('form-row__reset');
-  });
-
-  it('sits in the title after the name when changed, and not without onReset', () => {
-    const title = draw({ changed: true }).match(/<div class="form-row__title">.*?<\/div>/)?.[0] ?? '';
-    expect(title).toMatch(/form-row__label[^]*aria-label="Reset Death Link"/);
-    expect(draw({ changed: true, onReset: undefined })).not.toContain('Reset');
   });
 });

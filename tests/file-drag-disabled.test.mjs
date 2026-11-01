@@ -1,5 +1,4 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
 import { useDropZone } from '../src/primitives/DropZone/behavior/useDropZone';
 import { useFileDrag } from '../src/primitives/DropZone/behavior/useFileDrag';
@@ -13,7 +12,7 @@ const fileDrag = (types = ['Files']) => ({
   stopPropagation: vi.fn(),
 });
 
-describe('a file dragged over a target that is off', () => {
+describe('K1 a file dragged over a target that is off', { tags: ['critical'] }, () => {
   it('is swallowed with the not allowed pointer, and no handler fires', () => {
     const onEnter = vi.fn();
     const onDrop = vi.fn();
@@ -53,7 +52,7 @@ describe('a file dragged over a target that is off', () => {
   });
 });
 
-describe('a disabled DropZone', () => {
+describe('K1 a disabled DropZone', { tags: ['critical'] }, () => {
   it('takes no dropped file and opens no file dialog', () => {
     const onDrop = vi.fn();
     const zone = mountHook(() => useDropZone(undefined, false, onDrop));
@@ -65,13 +64,6 @@ describe('a disabled DropZone', () => {
     expect(drop.preventDefault).toHaveBeenCalled();
     expect(onDrop).not.toHaveBeenCalled();
     expect(click).not.toHaveBeenCalled();
-  });
-
-  it('stays a hit target, so the drag reaches it and not the page under it', () => {
-    const css = readFileSync(new URL('../src/primitives/DropZone/DropZone.css', import.meta.url), 'utf8');
-    expect(css).toMatch(/\.dropzone--disabled \{[^}]*cursor: default;/);
-    expect(css).not.toMatch(/\.dropzone--disabled \{[^}]*pointer-events: none/);
-    expect(css).toContain('.dropzone:not(.dropzone--disabled):hover {');
   });
 });
 

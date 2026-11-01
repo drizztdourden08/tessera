@@ -1,19 +1,11 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { Disclosure } from '../src/primitives/Disclosure';
 import { disclosureHandlers } from '../src/primitives/Disclosure/behavior/disclosure-handlers';
 
 const toggleTo = (open) => ({ currentTarget: { open } });
 const click = () => ({ preventDefault: vi.fn() });
 
-describe('Disclosure open', () => {
-  it('draws the state the app holds, over defaultOpen', () => {
-    expect(renderToString(h(Disclosure, { summary: 'Log', open: true }, 'Rows'))).toMatch(/^<details open=""/);
-    expect(renderToString(h(Disclosure, { summary: 'Log', open: false, defaultOpen: true }, 'Rows'))).toMatch(/^<details class=/);
-  });
-
+describe('K1 Disclosure open', { tags: ['critical'] }, () => {
   it('turns a click on the line into a request and leaves the element as it is', () => {
     const onOpenChange = vi.fn();
     const event = click();

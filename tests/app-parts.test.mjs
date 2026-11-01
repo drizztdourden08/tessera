@@ -9,7 +9,6 @@ import { run as writeGuide } from '../scripts/cli/guide-command.mjs';
 import { writeTree } from './config-fixture.mjs';
 import { appUsageFixture } from './app-usage-fixture.mjs';
 
-const TIMEOUT = 120_000;
 const ROOT = fileURLToPath(new URL('..', import.meta.url)).replace(/[\\/]$/, '').split('\\').join('/');
 const TSC = join(ROOT, 'node_modules', 'typescript', 'bin', 'tsc');
 const PARTS_FILES = { root: 'packages/design/src/guide/parts.type.ts', app: 'apps/desktop/src/guide/parts.type.ts' };
@@ -56,19 +55,19 @@ beforeAll(async () => {
       'apps/web': { parts: { views: [SHARED, 'apps/web/src/views', SHARED] } },
     }),
   }, { [`${SHARED}/Lobby/Lobby.tsx`]: view('Lobby') });
-}, 2 * TIMEOUT);
+});
 
 afterAll(() => {
   for (const dir of Object.values(state)) rmSync(dir, { recursive: true, force: true });
 });
 
-describe('the parts modules of a monorepo with apps', () => {
+describe('E2 the parts modules of a monorepo with apps', { tags: ['e2e'] }, () => {
   it('keeps each part folder in the parts file of the config that names it', async () => {
     await command(writeGuide, state.split, '.');
     const [root, app] = files(state.split);
     expect(root).toContain(['      parts:', "        | 'RunePanel'", "        | 'SaveSlot'", "        | 'Shop';"].join('\n'));
     expect(app).toContain(['      parts:', "        | 'BadView'", "        | 'Bare'", "        | 'Home'", "        | 'SaveList';"].join('\n'));
-  }, TIMEOUT);
+  });
 
   it.each(PLACES.slice(0, 2))('writes from %s the files a run from the root writes, and tessera check passes from both places', async (place) => {
     const before = files(state.split);
@@ -78,17 +77,17 @@ describe('the parts modules of a monorepo with apps', () => {
     const results = await checkEverywhere(state.split);
     expect(results.map((result) => result.status)).toEqual([0, 0, 0]);
     for (const result of results) expect(result.out).not.toContain('parts-module');
-  }, TIMEOUT);
+  });
 });
 
-describe('a views folder shared by the root and two apps', () => {
+describe('E2 a views folder shared by the root and two apps', { tags: ['e2e'] }, () => {
   it('lists its parts once, in the parts file of the root', async () => {
     expect((await command(writeGuide, state.shared, '.')).status).toBe(0);
     const [root, app] = files(state.shared);
     expect(count(root, "'Lobby'")).toBe(1);
     expect(root).toContain(['      parts:', "        | 'Lobby'", "        | 'RunePanel'", "        | 'SaveSlot'", "        | 'Shop';"].join('\n'));
     expect(app).not.toContain('Lobby');
-  }, TIMEOUT);
+  });
 
   it.each(PLACES)('writes the same files from %s and counts the shared part once from every place', async (place) => {
     const before = files(state.shared);
@@ -102,7 +101,7 @@ describe('a views folder shared by the root and two apps', () => {
       expect(result.out).not.toContain('parts-module');
       expect(count(result.out, 'Lobby')).toBe(1);
     }
-  }, TIMEOUT);
+  });
 
   it('still flags two folders that hold a part of the same name', async () => {
     writeTree(state.shared, { 'apps/web/src/views/Lobby/Lobby.tsx': view('Lobby') });
@@ -111,10 +110,10 @@ describe('a views folder shared by the root and two apps', () => {
     expect(root.out).toContain(finding);
     expect(web.out).toContain(finding);
     expect(desktop.out).not.toContain('duplicate-part');
-  }, TIMEOUT);
+  });
 });
 
-describe('a parts file on its own', () => {
+describe('E2 a parts file on its own', { tags: ['e2e'] }, () => {
   const tscErrors = (dir, project) => spawnSync(process.execPath, [TSC, '--noEmit', '-p', project], { cwd: dir, encoding: 'utf8' }).stdout
     .split('\n').filter((line) => line.includes('error TS'));
 
@@ -129,7 +128,7 @@ describe('a parts file on its own', () => {
     });
     expect(tscErrors(join(state.split, 'apps/desktop'), 'tsconfig.parts.json')).toEqual([]);
     rmSync(join(state.split, 'apps/desktop/src/subpath.ts'));
-  }, TIMEOUT);
+  });
 
   it('lists no parts once a scope has none, and tessera check passes', async () => {
     const file = join(state.split, 'tessera.config.json');
@@ -148,5 +147,5 @@ describe('a parts file on its own', () => {
     } finally {
       writeFileSync(file, original);
     }
-  }, TIMEOUT);
+  });
 });

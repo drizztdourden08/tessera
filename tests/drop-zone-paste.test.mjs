@@ -5,7 +5,7 @@ import { mountHook } from './hook-harness.mjs';
 
 const file = (name, type) => ({ name, type });
 
-describe('Ctrl+V on a DropZone', () => {
+describe('K1 Ctrl+V on a DropZone', { tags: ['critical'] }, () => {
   const zoneIn = () => {
     const listeners = new Map();
     const view = { addEventListener: (type, fn) => listeners.set(type, fn), removeEventListener: (type) => listeners.delete(type) };

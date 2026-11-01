@@ -17,7 +17,7 @@ const rounded = (node) => (node.kind === 'split'
   : node);
 const rectsOf = (tree) => Object.fromEntries(layoutTree(tree, STAGE).leaves.map((leaf) => [leaf.node.key, leaf.rect]));
 
-describe('turnCorner take', () => {
+describe('K1 turnCorner take', { tags: ['critical'] }, () => {
   it('lets the top panel take the corner from the left panel', () => {
     const next = turnCorner(around(), 'T', 'start');
     expect(rounded(next)).toEqual(rounded(split('column', [
@@ -61,7 +61,7 @@ describe('turnCorner take', () => {
   });
 });
 
-describe('turnCorner give back', () => {
+describe('K1 turnCorner give back', { tags: ['critical'] }, () => {
   it('returns the original tree after a take and a give', () => {
     const start = around();
     const taken = turnCorner(start, 'T', 'start');
@@ -98,7 +98,7 @@ describe('turnCorner give back', () => {
   });
 });
 
-describe('turnCorner guards', () => {
+describe('K1 turnCorner guards', { tags: ['critical'] }, () => {
   it('refuses when the taker holds main', () => {
     const tree = split('row', [pane('L'), split('column', [split('row', [pane('P'), main], [0.4, 0.6]), pane('B')], [0.7, 0.3])], [0.3, 0.7]);
     expect(turnCorner(tree, 'P', 'start')).toBe(tree);
@@ -113,7 +113,7 @@ describe('turnCorner guards', () => {
   });
 });
 
-describe('applyEdit take-corner', () => {
+describe('K1 applyEdit take-corner', { tags: ['critical'] }, () => {
   const layout = { v: 2, dock: around(), floating: [], popped: [], frame: {} };
   const rect = { x: 0, y: 0, width: 600, height: 400 };
 
@@ -130,7 +130,7 @@ describe('applyEdit take-corner', () => {
   });
 });
 
-describe('cornerEnds', () => {
+describe('K1 cornerEnds', { tags: ['critical'] }, () => {
   const tree = around();
   const laid = layoutTree(tree, STAGE);
   const ends = cornerEnds(laid, tree);
@@ -172,7 +172,7 @@ describe('cornerEnds', () => {
   });
 });
 
-describe('corner keys and drags', () => {
+describe('K1 corner keys and drags', { tags: ['critical'] }, () => {
   const handle = { key: 'T', active: 'T', end: 'start', along: 'row', rect: STAGE, take: 200, give: 100, takeCorner: 'top-left', giveCorner: 'top-left' };
 
   it('maps outward arrows to take and inward arrows to give', () => {

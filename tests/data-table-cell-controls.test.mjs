@@ -29,7 +29,7 @@ const table = () => {
   return { row, cell, text: node('span', cell), button: node('button', cell), icon: node('svg', node('button', cell)) };
 };
 
-describe('cellControlEvent', () => {
+describe('K1 cellControlEvent', { tags: ['critical'] }, () => {
   it('is true for a button, a link and a marked element inside a cell', () => {
     const { row, button, cell } = table();
     expect(cellControlEvent({ target: button, currentTarget: row })).toBe(true);
@@ -55,7 +55,7 @@ describe('cellControlEvent', () => {
   });
 });
 
-describe('guardCellControl', () => {
+describe('K1 guardCellControl', { tags: ['critical'] }, () => {
   it('runs the row click for a plain cell', () => {
     const { row, text } = table();
     const onClick = vi.fn();

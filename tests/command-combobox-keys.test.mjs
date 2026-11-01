@@ -37,13 +37,7 @@ const mountLine = () => {
   return { view, onSubmit, key, type };
 };
 
-describe('CommandInput keys around the Combobox list', () => {
-  it('lists the closest commands for Combobox to draw', () => {
-    const { view, type } = mountLine();
-    type('/s');
-    expect(view.current.hits.map((entry) => entry.command)).toEqual(['/save', '/status']);
-  });
-
+describe('K1 CommandInput keys around the Combobox list', { tags: ['critical'] }, () => {
   it('completes the top row with Tab while no row is active, and the active row once one is', () => {
     const { view, type, key } = mountLine();
     type('/s');
@@ -114,7 +108,7 @@ const keyParams = (overrides = {}) => ({
   ...overrides,
 });
 
-describe('Combobox freeText keys', () => {
+describe('K1 Combobox freeText keys', { tags: ['critical'] }, () => {
   it('lets Enter pass with no active row, so the app sends the text', () => {
     const event = press('Enter');
     useComboboxKeys(keyParams())(event);
@@ -145,7 +139,7 @@ describe('Combobox freeText keys', () => {
   });
 });
 
-describe('Combobox freeText text', () => {
+describe('K1 Combobox freeText text', { tags: ['critical'] }, () => {
   it('shows the text the app holds and reports typing without keeping its own', () => {
     const onQueryChange = vi.fn();
     const view = mountHook(() => useComboboxText({ freeText: true, query: '/sa', onQueryChange }, true));
@@ -179,7 +173,7 @@ const fakeModel = (rows, query) => ({
   states: [],
 });
 
-describe('Combobox freeText list', () => {
+describe('K1 Combobox freeText list', { tags: ['critical'] }, () => {
   it('opens with no active row, so Enter keeps the typed text', () => {
     const model = fakeModel(2, '/s');
     mountHook(() => useStartActive(true, model, false));

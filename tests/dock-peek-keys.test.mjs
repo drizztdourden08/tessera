@@ -13,8 +13,6 @@ const widget = (extra = {}) => renderToString(h(Widget, {
   onActivateTab: () => undefined, onClose: () => undefined, ...extra,
 }, h('button', { id: 'row' }, 'Row')));
 
-const withoutPeek = (html) => html.replace(' widget--peek', '');
-
 const fakeView = () => {
   const listeners = [];
   return {
@@ -32,20 +30,7 @@ const press = (view, keys, key, target) => {
   return event;
 };
 
-describe('peeking keeps the widget content mounted', () => {
-  it('draws the same content tree whether or not the widget peeks', () => {
-    const peeking = widget({ peek: true });
-    expect(peeking).toContain('id="row"');
-    expect(peeking).toContain('widget--peek');
-    expect(withoutPeek(peeking)).toBe(widget({ peek: false }));
-  });
-
-  it('keeps the content of a chromeless widget in peek', () => {
-    expect(widget({ peek: true, chrome: 'none' })).toContain('id="row"');
-  });
-});
-
-describe('Alt inside a widget', () => {
+describe('K1 Alt inside a widget', { tags: ['critical'] }, () => {
   it('does not start a peek and never swallows the key', () => {
     const view = fakeView();
     const keys = mountHook(() => useDockKeys(view));

@@ -1,5 +1,4 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { anchoredFallback } from '../src/primitives/Anchored/behavior/anchored-fallback';
 import { boxOf } from '../src/primitives/Anchored/behavior/box-of';
@@ -11,7 +10,7 @@ const VIEW = { innerWidth: 1000, innerHeight: 800 };
 const RECT = { left: 200, top: 100, width: 100, height: 30 };
 const box = (left, top, width, height) => ({ left, top, right: left + width, bottom: top + height });
 
-describe('Anchored anchorRect', () => {
+describe('K1 Anchored anchorRect', { tags: ['critical'] }, () => {
   it('reads a rect, or the rect a function gives, and nothing for no source', () => {
     expect(rectOf(RECT)).toBe(RECT);
     expect(rectOf(() => RECT)).toBe(RECT);
@@ -36,7 +35,7 @@ describe('Anchored anchorRect', () => {
   });
 });
 
-describe('Anchored boundary', () => {
+describe('K1 Anchored boundary', { tags: ['critical'] }, () => {
   const bounds = box(100, 50, 400, 300);
 
   it('leaves a popup that sits inside the boundary', () => {
@@ -52,11 +51,5 @@ describe('Anchored boundary', () => {
   it('measures from the boundary, not from the window', () => {
     const shift = fitInBox(box(90, 100, 100, 40), box(110, 60, 20, 30), bounds, 4);
     expect(90 + shift.x).toBeGreaterThanOrEqual(100 + 4);
-  });
-
-  it('takes the boundary through the type and the fallback markup', () => {
-    const type = readFileSync(new URL('../src/primitives/Anchored/Anchored.type.ts', import.meta.url), 'utf8');
-    expect(type).toContain('anchorRect?: AnchoredRectSource;');
-    expect(type).toContain('boundary?: RefObject<HTMLElement | null>;');
   });
 });

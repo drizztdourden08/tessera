@@ -12,14 +12,13 @@ import { snapMove } from '../src/composites/DockLayout/behavior/snap-move';
 import { snapResize } from '../src/composites/DockLayout/behavior/snap-resize';
 import { snapResizeOf } from '../src/composites/DockLayout/behavior/snap-resize-of';
 import { viewFor } from '../src/composites/DockLayout/behavior/view-for';
-import { createDefaultLayout } from '../src/composites/Widget/behavior/create-default-layout';
 
 const STAGE = { x: 0, y: 0, width: 1000, height: 700 };
 const MAIN = { x: 8, y: 8, width: 984, height: 684 };
 const OTHER = { x: 600, y: 100, width: 200, height: 150 };
 const LINES = snapLinesOf([STAGE, MAIN, OTHER]);
 
-describe('a floating widget moved near an edge', () => {
+describe('K1 a floating widget moved near an edge', { tags: ['critical'] }, () => {
   it('snaps its nearest edge onto the edge within the distance, on each axis', () => {
     expect(snapMove({ x: 395, y: 13, width: 200, height: 100 }, LINES, 8)).toEqual({ x: 400, y: 8, width: 200, height: 100 });
     expect(snapMove({ x: 805, y: 300, width: 100, height: 100 }, LINES, 8)).toEqual({ x: 800, y: 300, width: 100, height: 100 });
@@ -48,7 +47,7 @@ describe('a floating widget moved near an edge', () => {
   });
 });
 
-describe('a floating widget resized near an edge', () => {
+describe('K1 a floating widget resized near an edge', { tags: ['critical'] }, () => {
   const limits = { bounds: MAIN, min: FLOAT_MIN };
 
   it('snaps only the edge it is held by', () => {
@@ -75,7 +74,7 @@ describe('a floating widget resized near an edge', () => {
   });
 });
 
-describe('a floating widget dragged on the stage', () => {
+describe('K1 a floating widget dragged on the stage', { tags: ['critical'] }, () => {
   const layout = { ...createDefaultLayout(), floating: [{ id: 'console', x: 0.3, y: 0.3, width: 200, height: 120 }] };
   const laid = layoutTree(layout.dock, MAIN);
   const strings = { dragSwapLabel: (s) => s, dragOverlayLabel: (s) => s };

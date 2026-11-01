@@ -26,7 +26,7 @@ const iconIn = (parent) => {
   return { svg, path: node('path', {}, svg, { svg: true }) };
 };
 
-describe('the drag handle a press starts from', () => {
+describe('K1 the drag handle a press starts from', { tags: ['critical'] }, () => {
   it('is found from the icon of a widget grip, the svg and its path alike', () => {
     const grip = node('div', { 'data-drag-widget': 'players' });
     const { svg, path } = iconIn(grip);
@@ -67,7 +67,7 @@ describe('the drag handle a press starts from', () => {
   });
 });
 
-describe('isElement', () => {
+describe('K1 isElement', { tags: ['critical'] }, () => {
   it('takes html and svg elements and nothing else', () => {
     expect(isElement(node('div'))).toBe(true);
     expect(isElement(node('svg', {}, null, { svg: true }))).toBe(true);

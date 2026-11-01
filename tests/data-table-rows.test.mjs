@@ -30,7 +30,7 @@ const rectsOf = (isExpanded) => rowRects({
   getRowId,
 });
 
-describe('group actions model', () => {
+describe('K1 group actions model', { tags: ['critical'] }, () => {
   const action = (id) => ({ id, label: id, onSelect: () => undefined });
 
   it('hands the group key and every row of the group to the app', () => {
@@ -54,7 +54,7 @@ describe('group actions model', () => {
   });
 });
 
-describe('row rects from the layout', () => {
+describe('K1 row rects from the layout', { tags: ['critical'] }, () => {
   it('gives a rect for every row of an open group, not only the drawn ones', () => {
     const rects = rectsOf(open(UID.connected, UID.known));
     expect(rects).toHaveLength(1003);
@@ -78,7 +78,7 @@ describe('row rects from the layout', () => {
   });
 });
 
-describe('drop index under virtualization', () => {
+describe('K1 drop index under virtualization', { tags: ['critical'] }, () => {
   const rects = rectsOf(open(UID.connected, UID.known));
   const yOfRow = (at, fraction) => rects[at].rect.y + rects[at].rect.height * fraction;
 
@@ -105,7 +105,7 @@ describe('drop index under virtualization', () => {
   });
 });
 
-describe('key based drop target', () => {
+describe('K1 key based drop target', { tags: ['critical'] }, () => {
   const FOLDERS = [group('Mine', ids('m', 3)), group('Shared', ids('s', 2)), group('Empty', [])];
   const items = flattenRows({ nodes: FOLDERS, isExpanded: () => true, getRowId });
   const keys = items.flatMap((item) => (item.kind === 'row' ? [item.row.id] : []));
@@ -147,7 +147,7 @@ describe('key based drop target', () => {
   });
 });
 
-describe('row drag attributes', () => {
+describe('K1 row drag attributes', { tags: ['critical'] }, () => {
   const reorder = (dragging) => ({
     total: 5,
     indexOf: (id) => Number(id.slice(1)),
@@ -175,7 +175,7 @@ describe('row drag attributes', () => {
   });
 });
 
-describe('row drag start', () => {
+describe('K1 row drag start', { tags: ['critical'] }, () => {
   const eventOf = (target, currentTarget) => ({
     target, currentTarget, preventDefault: vi.fn(), dataTransfer: { effectAllowed: '', setData: vi.fn() },
   });

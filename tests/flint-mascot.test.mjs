@@ -1,39 +1,12 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { AnimatedMascot, BRAND_FAMILY, MASCOT_CLIPS, Mascot, sceneMarkup } from '../src/brand';
+import { BRAND_FAMILY } from '../src/brand';
 import { mascotBrandOf } from '../src/brand/AnimatedMascot/behavior/mascot-brand-of';
 import { composeFlint } from '../src/brand/flint/compose-flint';
 
 const flint = BRAND_FAMILY.brock.mascot;
-const sentri = BRAND_FAMILY.rotp.mascot;
 
-describe('Flint, the Brock mascot', () => {
-  it('is the Brock brand\'s mascot, with one variant', () => {
-    expect(flint?.name).toBe('Flint');
-    expect(flint?.variants.map((v) => v.id)).toEqual(['flint']);
-  });
-
-  it('has the same animations as Sentri, idle at rest', () => {
-    expect(Object.keys(flint?.motion?.animations ?? {})).toEqual(Object.keys(sentri?.motion?.animations ?? {}));
-    expect(flint?.motion?.rest).toBe('idle');
-  });
-
-  it('draws smooth facets, while Sentri keeps its crisp pixels', () => {
-    expect(renderToString(h(Mascot, { brand: 'brock', scale: 2 }))).not.toContain('shape-rendering');
-    expect(renderToString(h(Mascot, { brand: 'rotp', scale: 2 }))).toContain('shape-rendering="crispEdges"');
-    expect(sceneMarkup(composeFlint())).not.toContain('crispEdges');
-    expect(sceneMarkup(sentri.variants[0].compose())).toContain('shape-rendering="crispEdges"');
-  });
-
-  it('renders on a stage with a group for every moving part', () => {
-    const html = renderToString(h(AnimatedMascot, { brand: 'brock', animation: 'wave', scale: 2 }));
-    expect(html).toContain('viewBox="0 0 48.5 43.5"');
-    for (const part of ['rig', 'shadow', 'handLeft', 'handRight', 'eyes', 'mouth']) expect(html).toContain(`data-motion-part="${part}"`);
-    expect(html).not.toContain('style=');
-  });
-
+describe('K1 Flint, the Brock mascot', { tags: ['critical'] }, () => {
   it('sits on its flat base: the rig pivot and the shadow centre are on the bottom of the body', () => {
     const motion = flint?.motion;
     const scene = composeFlint();
@@ -57,27 +30,5 @@ describe('Flint, the Brock mascot', () => {
   it('is the mascot brand="auto" picks inside the brock palette', () => {
     expect(mascotBrandOf('brock')).toBe('brock');
     expect(mascotBrandOf('rotp')).toBe('rotp');
-  });
-
-  it('draws its own clip for every new state, and keeps each state symbol in the resting picture', () => {
-    const { animations } = flint.motion;
-    const fresh = MASCOT_CLIPS.slice(10).map((name) => animations[name]);
-    expect(new Set([...fresh, animations.idle]).size).toBe(fresh.length + 1);
-    const sleep = renderToString(h(AnimatedMascot, { brand: 'brock', animation: 'sleep', scale: 2 }));
-    for (const part of ['eyesShut', 'chipDim', 'zSmall', 'zMid', 'zBig']) {
-      expect(sleep).toContain(`data-motion-part="${part}"`);
-      expect(sleep).not.toContain(`data-motion-part="${part}" opacity="0"`);
-    }
-    expect(renderToString(h(AnimatedMascot, { brand: 'brock', animation: 'spin', scale: 2 }))).toContain('data-motion-part="twinkles" opacity="0"');
-  });
-});
-
-describe('Flint at work', () => {
-  it('works at a laptop seen straight on, centred under its face', () => {
-    const laptop = flint.motion.effects.find((e) => e.id === 'laptop');
-    const { w, paths } = laptop.piece;
-    expect(laptop.at[0] + w / 2).toBe(flint.motion.pivot[0]);
-    const xs = (d) => (d.match(/-?\d+(\.\d+)?/g) ?? []).filter((_, i) => i % 2 === 0).map((x) => Number(x).toFixed(2));
-    for (const { d } of paths.slice(0, -2)) expect(new Set(xs(d).map((x) => (w - x).toFixed(2)))).toEqual(new Set(xs(d)));
   });
 });

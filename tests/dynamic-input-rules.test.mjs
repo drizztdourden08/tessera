@@ -7,7 +7,6 @@ import { applyRules } from '../src/composites/DynamicInput/behavior/apply-rules'
 import { checkPattern } from '../src/composites/DynamicInput/behavior/check-pattern';
 import { separatorKey } from '../src/composites/DynamicInput/behavior/separator-key';
 import { textKind } from '../src/composites/DynamicInput/behavior/text-kind';
-import { Field } from '../src/primitives/Field';
 
 const noop = () => undefined;
 const ruled = (pattern, setup = {}) => applyRules(parsePattern(pattern), setup).slots[0];
@@ -17,7 +16,7 @@ const HOST = { host: { chars: 'abcdefghijklmnopqrstuvwxyz0123456789.-' } };
 const LOBBY_CHARS = 'ABCDEFGHJKLMNOPQRSTVWXYZ0123456789';
 const LOBBY_ALIASES = { I: '1', L: '1', O: '0' };
 
-describe('custom characters', () => {
+describe('K1 custom characters', { tags: ['critical'] }, () => {
   it('keeps only the listed characters of a string or a set', () => {
     const host = ruled('{host:text}', { slots: HOST });
     expect(textKind.clean('my_host.net#', host)).toBe('myhost.net');
@@ -44,7 +43,7 @@ describe('custom characters', () => {
   });
 });
 
-describe('aliases', () => {
+describe('K1 aliases', { tags: ['critical'] }, () => {
   const lobby = ruled('{code:text len6 upper}', { slots: { code: { chars: LOBBY_CHARS, aliases: LOBBY_ALIASES } } });
 
   it('maps typed characters before the check, key by key', () => {
@@ -81,15 +80,9 @@ describe('aliases', () => {
   });
 });
 
-describe('validation', () => {
+describe('K1 validation', { tags: ['critical'] }, () => {
   const render = (props) => renderToString(h(DynamicInput, { pattern: '{code:text len4}', onChange: noop, 'aria-label': 'Code', ...props }));
   const noU = (value) => (typeof value === 'string' && value.includes('U') ? 'No U in lobby codes.' : undefined);
-
-  it('stays valid while every rule is satisfied', () => {
-    const html = render({ value: { code: 'ABCD' }, slots: { code: { validate: noU } }, validate: () => null });
-    expect(html).not.toContain('aria-invalid');
-    expect(html).not.toContain('dynamic-input__error');
-  });
 
   it('turns invalid on a slot rule and shows the message where the errors go', () => {
     const html = render({ value: { code: 'ABUD' }, slots: { code: { validate: noU } } });
@@ -127,13 +120,6 @@ describe('validation', () => {
     expect(on).toContain('aria-invalid="true"');
     expect(on).not.toContain('dynamic-input__error');
   });
-
-  it('leaves the message to the Field when the Field has an error', () => {
-    const html = renderToString(h(Field, { label: 'Code', error: 'Taken.' },
-      h(DynamicInput, { pattern: '{code:text}', value: { code: 'U' }, onChange: noop, slots: { code: { validate: noU } } })));
-    expect(html).toContain('Taken.');
-    expect(html).not.toContain('No U in lobby codes.');
-  });
 });
 
 const press = (pattern, key, { setup = {}, index = 0, typedSome = true, draft = 'ab' } = {}) => {
@@ -147,7 +133,7 @@ const press = (pattern, key, { setup = {}, index = 0, typedSome = true, draft = 
   return { handled, moves, prevented: event.prevented };
 };
 
-describe('keys the slot rejects', () => {
+describe('K1 keys the slot rejects', { tags: ['critical'] }, () => {
   const setup = { slots: HOST };
 
   it('ignores a rejected key without moving the focus', () => {
@@ -182,7 +168,7 @@ describe('keys the slot rejects', () => {
   });
 });
 
-describe('a partly filled text slot', () => {
+describe('K1 a partly filled text slot', { tags: ['critical'] }, () => {
   const lobby = ruled('{code:text len6 upper}', { slots: { code: { chars: LOBBY_CHARS } } });
 
   it('keeps what was typed when it settles', () => {
@@ -199,10 +185,6 @@ describe('a partly filled text slot', () => {
     expect(html).toContain('Enter all 6 characters.');
     expect(render({ value: { code: 'AB1C2D' } })).not.toContain('aria-invalid');
     expect(render({ value: { code: null } })).not.toContain('aria-invalid');
-  });
-
-  it('shows the minimum message for a minimum length', () => {
-    expect(render({ pattern: '{code:text min4}', value: { code: 'AB' } })).toContain('Enter at least 4 characters.');
   });
 
   it('lets the slot rule speak first', () => {

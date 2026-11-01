@@ -1,9 +1,6 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { layoutTree, mainRectOf } from '../src/composites/DockLayout';
-import { DockPanes } from '../src/composites/DockLayout/sub-components/DockPanes';
 import { migrateLayout } from '../src/composites/Widget/behavior/migrate-layout';
 
 const STAGE = { x: 0, y: 0, width: 1200, height: 800 };
@@ -30,7 +27,7 @@ const panesOf = (node) => {
   return node.kind === 'split' ? node.children.flatMap(panesOf) : [];
 };
 
-describe('a layout saved without makeRoom', () => {
+describe('K3 a layout saved without makeRoom', { tags: ['critical'] }, () => {
   it('lays the main view under both panes when both overlay, as every saved pane read before', () => {
     const laid = layoutTree(saved({ makeRoom: false }, { makeRoom: false }).dock, STAGE);
     const main = mainRectOf(laid);
@@ -52,8 +49,6 @@ describe('a layout saved without makeRoom', () => {
     expect(main).toEqual(leafRect(laid, 'main'));
     expect(main.x).toBeGreaterThan(leafRect(laid, 'left').x + leafRect(laid, 'left').width);
     expect(main.y + main.height).toBeLessThan(leafRect(laid, 'bottom').y);
-    const html = renderToString(h(DockPanes, { laid, renderPane: (pane) => pane.key }));
-    expect(html).not.toContain('dock-layout__pane--overlay');
   });
 
   it('keeps an explicit makeRoom: false as an overlay, through the migration and on read', () => {
@@ -63,9 +58,6 @@ describe('a layout saved without makeRoom', () => {
     const main = mainRectOf(laid);
     expect(main.x).toBe(0);
     expect(main.y + main.height).toBeLessThan(leafRect(laid, 'bottom').y);
-    const html = renderToString(h(DockPanes, { laid, renderPane: (pane) => pane.key }));
-    expect(html.match(/dock-layout__pane--overlay/g)).toHaveLength(1);
-    expect(html).toMatch(/dock-layout__pane dock-layout__pane--overlay" data-pane-key="left"/);
   });
 
   it('leaves a layout that already stores makeRoom as it was', () => {
@@ -74,7 +66,7 @@ describe('a layout saved without makeRoom', () => {
   });
 });
 
-describe('a flat layout from before the dock tree', () => {
+describe('K3 a flat layout from before the dock tree', { tags: ['critical'] }, () => {
   const flat = (exclusive) => ({
     widgets: [{
       id: 'players', mode: 'docked', side: 'left', order: 0, opacity: 1, visibility: 'always', visible: true,

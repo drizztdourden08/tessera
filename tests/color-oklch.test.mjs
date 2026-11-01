@@ -9,7 +9,7 @@ import { oklchToHex } from '../src/composites/ColorPicker/behavior/oklch-to-hex'
 import { oklchToRgb } from '../src/composites/ColorPicker/behavior/oklch-to-rgb';
 import { rgbToOklch } from '../src/composites/ColorPicker/behavior/rgb-to-oklch';
 
-describe('rgb to oklch, against known values', () => {
+describe('K1 rgb to oklch, against known values', { tags: ['critical'] }, () => {
   it('reads white as full lightness with no chroma', () => {
     const white = rgbToOklch({ r: 255, g: 255, b: 255 });
     expect(white.l).toBeCloseTo(1, 4);
@@ -36,7 +36,7 @@ describe('rgb to oklch, against known values', () => {
   });
 });
 
-describe('oklch back to hex', () => {
+describe('K1 oklch back to hex', { tags: ['critical'] }, () => {
   it('round trips colours that sit inside sRGB', () => {
     for (const hex of ['#ff0000', '#00ff00', '#0000ff', '#38a048', '#e84830', '#808080', '#ffffff', '#000000', '#3f8fd2']) {
       expect(oklchToHex(hexToOklch(hex))).toBe(hex);
@@ -48,7 +48,7 @@ describe('oklch back to hex', () => {
   });
 });
 
-describe('gamut clamping', () => {
+describe('K1 gamut clamping', { tags: ['critical'] }, () => {
   it('knows a colour that fits sRGB and one that does not', () => {
     expect(oklchInGamut(hexToOklch('#38a048'))).toBe(true);
     expect(oklchInGamut({ l: 0.7, c: 0.1, h: 150 })).toBe(true);
@@ -84,7 +84,7 @@ describe('gamut clamping', () => {
   });
 });
 
-describe('hsv', () => {
+describe('K1 hsv', { tags: ['critical'] }, () => {
   it('reads known colours', () => {
     expect(hexToHsv('#ff0000')).toEqual({ h: 0, s: 100, v: 100 });
     expect(hexToHsv('#00ff00')).toEqual({ h: 120, s: 100, v: 100 });

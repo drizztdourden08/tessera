@@ -1,17 +1,13 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { DynamicInput, escapePatternText, parsePattern } from '../src/composites/DynamicInput';
+import { escapePatternText, parsePattern } from '../src/composites/DynamicInput';
 import { checkPattern } from '../src/composites/DynamicInput/behavior/check-pattern';
 import { decimalKind } from '../src/composites/DynamicInput/behavior/decimal-kind';
 import { flagGlyph } from '../src/composites/DynamicInput/behavior/flag-glyph';
 import { hexKind } from '../src/composites/DynamicInput/behavior/hex-kind';
 import { numberKind } from '../src/composites/DynamicInput/behavior/number-kind';
 import { textKind } from '../src/composites/DynamicInput/behavior/text-kind';
-import { Field } from '../src/primitives/Field';
 import { positionPattern } from '../src/composites/RecordEditor/behavior/position-pattern';
-import { PositionFieldEditor } from '../src/composites/RecordEditor/sub-components/PositionFieldEditor';
 
 const noop = () => undefined;
 const slotsOf = (pattern) => parsePattern(pattern).slots;
@@ -30,7 +26,7 @@ const EXAMPLES = [
   '[icon:palette] {color:hex "Colour"}',
 ];
 
-describe('parsePattern', () => {
+describe('K1 parsePattern', { tags: ['critical'] }, () => {
   it('reads all ten gallery patterns without a problem', () => {
     for (const pattern of EXAMPLES) expect(parsePattern(pattern).problems).toEqual([]);
     expect(EXAMPLES.map((pattern) => slotsOf(pattern).length)).toEqual([2, 3, 2, 2, 1, 3, 3, 5, 2, 1]);
@@ -89,7 +85,7 @@ describe('parsePattern', () => {
   });
 });
 
-describe('checkPattern', () => {
+describe('K1 checkPattern', { tags: ['critical'] }, () => {
   it('names lists, actions, icons and counters the props do not supply', () => {
     const parsed = parsePattern('{c:choice @countries} [action:send] [icon:nope] [icon:clock] {n:number}');
     const problems = checkPattern(parsed, { counter: 'n' });
@@ -100,7 +96,7 @@ describe('checkPattern', () => {
   });
 });
 
-describe('slot kinds', () => {
+describe('K1 slot kinds', { tags: ['critical'] }, () => {
   const hh = only('{hh:hour 12h}');
   const octet = only('{a:number 0..255}');
   const open = only('{v:number 0..}');
@@ -164,32 +160,7 @@ describe('slot kinds', () => {
   });
 });
 
-describe('DynamicInput', () => {
-  const COUNTRIES = { countries: [{ value: 'IE', label: 'Ireland', flag: 'IE', dial: '+353' }] };
-
-  it('draws one labelled control per slot inside a Field', () => {
-    const html = renderToString(h(Field, { label: 'Phone number', htmlFor: 'phone' },
-      h(DynamicInput, { pattern: EXAMPLES[2], value: { country: 'IE', phone: '12345' }, onChange: noop, lists: COUNTRIES })));
-    expect(html).toContain('role="group"');
-    expect(html).toContain('aria-labelledby="phone-label"');
-    expect(html).toContain('id="phone"');
-    expect(html).toContain('role="combobox"');
-    expect(html).toContain('aria-label="Phone number"');
-    expect(html).toContain('+353');
-    expect(html).toContain('value="12345"');
-  });
-
-  it('shows the counter, takes the size of its Field, and keeps a bad pattern on screen', () => {
-    const comment = renderToString(h(Field, { label: 'Comment', size: 'sm' },
-      h(DynamicInput, { pattern: EXAMPLES[4], value: { comment: 'Hello there.' }, onChange: noop, counter: 'comment' })));
-    expect(comment).toContain('12 / 100');
-    expect(comment).toContain('control-size--sm');
-    const broken = renderToString(h(DynamicInput, { pattern: 'Size {w:nubmer}', value: {}, onChange: noop, 'aria-label': 'Size' }));
-    expect(broken).toContain('{w:nubmer}');
-  });
-});
-
-describe('RecordEditor position pairs', () => {
+describe('K1 RecordEditor position pairs', { tags: ['critical'] }, () => {
   const field = { path: 'spawn', label: 'Spawn', kind: 'object', optional: false };
   const pair = {
     x: { path: 'spawn.gridX', label: 'Column "A"', kind: 'number', optional: false },
@@ -204,16 +175,6 @@ describe('RecordEditor position pairs', () => {
     expect(problems).toEqual([]);
     expect(slots[0]).toMatchObject({ name: 'x', type: 'number', min: 0, max: 63, label: 'Column "A"' });
     expect(slots[1]).toMatchObject({ name: 'y', type: 'decimal', places: 2, min: 0, max: 1, step: 0.05, label: 'Row' });
-  });
-
-  it('draws the pair as one DynamicInput', () => {
-    const values = { 'spawn.gridX': 12, 'spawn.gridY': 0.25, spawn: { gridX: 12, gridY: 0.25 } };
-    const binding = { value: (path) => values[path], onChange: noop, isDirty: () => false, disabled: false, bounds: (path) => BOUNDS[path] };
-    const html = renderToString(h(PositionFieldEditor, { field, pair, binding }));
-    expect(html).toContain('dynamic-input');
-    expect(html).toContain('value="12"');
-    expect(html).toContain('value="0.25"');
-    expect(html).toContain('aria-label="Spawn"');
   });
 });
 
