@@ -8,7 +8,6 @@ import { stepStatus } from '../src/primitives/Stepper/behavior/step-status';
 import { waveOf } from '../src/primitives/Stepper/behavior/wave-of';
 
 const noop = () => undefined;
-const count = (html, needle) => html.split(needle).length - 1;
 
 describe('K1 stepStatus', { tags: ['critical'] }, () => {
   it('marks steps before the current one done, and a step with a problem as an error', () => {

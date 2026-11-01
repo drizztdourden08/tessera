@@ -12,6 +12,7 @@ import { snapMove } from '../src/composites/DockLayout/behavior/snap-move';
 import { snapResize } from '../src/composites/DockLayout/behavior/snap-resize';
 import { snapResizeOf } from '../src/composites/DockLayout/behavior/snap-resize-of';
 import { viewFor } from '../src/composites/DockLayout/behavior/view-for';
+import { createDefaultLayout } from '../src/composites/Widget/behavior/create-default-layout';
 
 const STAGE = { x: 0, y: 0, width: 1000, height: 700 };
 const MAIN = { x: 8, y: 8, width: 984, height: 684 };

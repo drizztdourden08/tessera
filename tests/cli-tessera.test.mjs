@@ -4,6 +4,8 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { eslint, generateParts, pnpm, runNew, slop, slopIn, structure, stylelint, tesseraCopy, typecheck } from './cli-sandbox.mjs';
 
+const EDITED = ['src/primitives/layout-exports/index.ts', 'src/composites/index.ts', '.storylite/catalogue-primitives.constants.ts', '.storylite/catalogue-composites.constants.ts', '.storylite/sidebar-icons.constants.ts'];
+
 const PARTS = [
   { kind: 'primitive', name: 'QuestBanner', folder: 'src/primitives/QuestBanner', argv: ['--group', 'Layout', '--tree', 'actions > one action > a visible word'] },
   { kind: 'composite', name: 'LootTable', folder: 'src/composites/LootTable', argv: ['--group', 'Content', '--icon', 'puzzle'] },

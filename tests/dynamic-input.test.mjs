@@ -161,7 +161,6 @@ describe('K1 slot kinds', { tags: ['critical'] }, () => {
 });
 
 describe('K1 RecordEditor position pairs', { tags: ['critical'] }, () => {
-  const field = { path: 'spawn', label: 'Spawn', kind: 'object', optional: false };
   const pair = {
     x: { path: 'spawn.gridX', label: 'Column "A"', kind: 'number', optional: false },
     y: { path: 'spawn.gridY', label: 'Row', kind: 'number', optional: false },

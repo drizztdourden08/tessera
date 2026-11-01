@@ -1,17 +1,9 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { useDockKeys } from '../src/composites/DockLayout';
-import { Widget } from '../src/composites/Widget';
 import { mountHook } from './hook-harness.mjs';
 
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
-
-const widget = (extra = {}) => renderToString(h(Widget, {
-  id: 'layers', tabs: [{ id: 'layers', label: 'Layers' }], activeId: 'layers', paneKey: 'p1', opacity: 1,
-  onActivateTab: () => undefined, onClose: () => undefined, ...extra,
-}, h('button', { id: 'row' }, 'Row')));
 
 const fakeView = () => {
   const listeners = [];

@@ -102,4 +102,3 @@ describe('K1 Toolbar overflow split', { tags: ['critical'] }, () => {
     expect(entry.children[2]).toMatchObject({ label: '1 px' });
   });
 });
-});

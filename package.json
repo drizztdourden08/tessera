@@ -86,8 +86,8 @@
   ],
   "scripts": {
     "typecheck": "tsc --noEmit && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide",
-    "lint": "standards lint && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide && pnpm guide --check",
-    "lint:all": "standards lint --all && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide && pnpm guide --check",
+    "lint": "standards lint && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide && pnpm guide --check && node scripts/storylite/check-descriptions.mjs && node scripts/tokens/check-contrast.mjs",
+    "lint:all": "standards lint --all && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide && pnpm guide --check && node scripts/storylite/check-descriptions.mjs && node scripts/tokens/check-contrast.mjs",
     "lint:md": "markdownlint-cli2",
     "test": "standards test",
     "test:pr": "standards test pr",
@@ -136,7 +136,6 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.31.1",
-    "@drizztdourden08/brock-build": "^0.101.0",
     "@drizztdourden08/brock-thread": "^0.87.1",
     "@drizztdourden08/standards": "^0.14.2",
     "@resvg/resvg-js": "^2.6.2",

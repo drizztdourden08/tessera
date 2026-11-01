@@ -1,5 +1,4 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
 import { describe, expect, it } from 'vitest';
 import { BRAND_FAMILY, BRAND_APPS, MASCOT_CLIP_GROUPS, MASCOT_CLIP_VARIANTS, MASCOT_CLIPS } from '../src/brand';
 import { motionKeyframes } from '../src/brand/MascotStage/behavior/motion-keyframes';

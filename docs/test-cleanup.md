@@ -30,7 +30,8 @@ Every critical case was checked for a real process, a socket, a real build, a pa
 ## Lint rules
 
 - Added: dates are written only by the date-format primitive. `eslint.config.mjs` reports `.toLocaleDateString`, `.toLocaleTimeString`, `Intl.DateTimeFormat` and `Intl.RelativeTimeFormat` under `src/` and `stories/`, except `src/primitives/date-format/`. It replaces the deleted `date-format-only` test. It uses `no-restricted-properties`, so it does not touch the `no-restricted-syntax` selectors.
-- Dropped: every other candidate the parts listed (token and stylesheet reads such as dialog sizes, track-drop tokens, palette contrast, width and hit-area rules; the brand SVG marks; the TrueType copies of the title font; export map and barrel checks; page description limits; leftover class names). They were stylesheet or source text checks, and each needs a rule that is more than a few lines.
+- Kept as check scripts: the overview description limits (`scripts/storylite/check-descriptions.mjs`, from the deleted `overview-descriptions` test) and the splash and status colour contrast (`scripts/tokens/check-contrast.mjs`, from the deleted `splash-contrast` and `status-tones` tests) now run at the end of `pnpm lint` and `pnpm lint:all`. Each prints its problems and exits 1 on any.
+- Dropped: every other candidate the parts listed (token and stylesheet reads such as dialog sizes, track-drop tokens, width and hit-area rules; the brand SVG marks; the TrueType copies of the title font; export map and barrel checks; leftover class names). They were stylesheet or source text checks, and each needs a rule that is more than a few lines.
 
 ## Part 1: the first file, to guided-tour-parts
 

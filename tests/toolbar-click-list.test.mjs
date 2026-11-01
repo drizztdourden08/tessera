@@ -48,4 +48,3 @@ describe('K1 Toolbar two shortcuts', { tags: ['critical'] }, () => {
     expect(foldedGroups([button('undo', { shortcut: 'Ctrl+Z' })])[0].items[0].shortcut).toBe('Ctrl+Z');
   });
 });
-});

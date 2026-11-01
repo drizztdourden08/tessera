@@ -3,7 +3,7 @@ import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { runNew, slopIn } from './cli-sandbox.mjs';
-import { fixtureRepo, WORKSPACES_CONFIG } from './config-fixture.mjs';
+import { fixtureRepo, MONOREPO, WORKSPACES_CONFIG } from './config-fixture.mjs';
 
 const state = { dir: '', results: {} };
 const read = (path) => readFileSync(join(state.dir, path), 'utf8');

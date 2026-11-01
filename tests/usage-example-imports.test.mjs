@@ -2,12 +2,13 @@
 import { spawnSync } from 'node:child_process';
 import { rmSync } from 'node:fs';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { afterAll, describe, expect, it } from 'vitest';
 import { usageExampleImports } from '../scripts/config/index.mjs';
 import { fixtureRepo } from './config-fixture.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
+const COMPILER = pathToFileURL(join(ROOT, 'scripts', 'config', 'index.mjs')).href;
 const KNIP = join(ROOT, 'node_modules', 'knip', 'bin', 'knip.js');
 
 const usageFile = (example) => `const usage = {\n  job: 'Main.',\n  example: \`${example}\`,\n};\n\nexport { usage };\n`;

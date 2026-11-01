@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { appCopy, eslint, generateParts, removeSandbox, runNew, slop, slopIn, structure, stylelint, typecheck } from './cli-sandbox.mjs';
 
+const TREE_ANSWERS = ['2', '2', '1'];
 const WARNING = 'tessera: Most primitives and composites belong in Tessera. Build it there unless only this app will ever need it.';
 
 const PARTS = [

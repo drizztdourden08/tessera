@@ -3,7 +3,7 @@ import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import { findTesseraConfig, loadTesseraConfig } from '../scripts/config/index.mjs';
-import { CONFIG, fixtureRepo, WORKSPACES_CONFIG } from './config-fixture.mjs';
+import { CONFIG, fixtureRepo, MONOREPO, WORKSPACES_CONFIG } from './config-fixture.mjs';
 
 const made = [];
 const repo = (files) => {
