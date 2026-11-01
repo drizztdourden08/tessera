@@ -13,7 +13,7 @@ import '../../theme/visually-hidden.css';
 import './Tree.css';
 
 const Tree = <T,>(props: TreeProps<T>) => {
-  const { label, rowSize = 'normal', emptyLabel, openOnPick = false, getLabel, renderLead, renderLabel, renderTrail, selection, trail, className } = props;
+  const { label, rowSize = 'normal', emptyLabel, openOnPick = false, getLabel, renderLead, renderLabel, renderBadges, renderTrail, selection, trail, className } = props;
   const { common } = useTesseraStrings();
   const { rows, nav, drag, bindOf, activeBranch } = useTree(props);
   const classes = ['tree', className].filter(Boolean).join(' ');
@@ -47,6 +47,7 @@ const Tree = <T,>(props: TreeProps<T>) => {
               getLabel={getLabel}
               renderLead={renderLead}
               renderLabel={renderLabel}
+              renderBadges={renderBadges}
               renderTrail={renderTrail}
             />
           );

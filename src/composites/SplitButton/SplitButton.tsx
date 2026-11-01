@@ -1,16 +1,17 @@
 /* @layer renderer-components @kind component */
 import { useId, useRef, useState } from 'react';
-import { Button } from '../../primitives/Button';
 import { ButtonGroup } from '../../primitives/ButtonGroup';
 import { Icon } from '../../primitives/Icon';
 import { IconButton } from '../../primitives/IconButton';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { chevronSizeOf } from './behavior/chevron-size-of';
+import { SplitButtonMain } from './sub-components/SplitButtonMain';
 import { SplitButtonPopup } from './sub-components/SplitButtonPopup';
+import './SplitButton.css';
 import type { SplitButtonProps } from './SplitButton.type';
 
 const SplitButton = (props: SplitButtonProps) => {
-  const { label, items, panel, onClick, icon, variant = 'secondary', size = 'md', pressed, disabled, menuLabel, className } = props;
+  const { label, items, panel, onClick, icon, iconOnly, shortcut, variant = 'secondary', size = 'md', pressed, disabled, menuLabel, className } = props;
   const { common } = useTesseraStrings();
   const chevronRef = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
@@ -20,18 +21,17 @@ const SplitButton = (props: SplitButtonProps) => {
   return (
     <>
       <ButtonGroup aria-label={label} className={['split-button', className].filter(Boolean).join(' ')}>
-        <Button
+        <SplitButtonMain
+          label={label}
+          icon={icon}
+          iconOnly={iconOnly}
+          shortcut={shortcut}
           variant={variant}
           size={size}
-          icon={icon}
-          active={pressed === true}
-          aria-pressed={pressed}
+          pressed={pressed}
           disabled={disabled}
-          className="split-button__main"
           onClick={onClick}
-        >
-          {label}
-        </Button>
+        />
         <IconButton
           ref={chevronRef}
           variant={variant}

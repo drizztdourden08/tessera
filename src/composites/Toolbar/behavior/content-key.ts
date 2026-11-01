@@ -12,9 +12,9 @@ const partOf = (item: ToolbarItem): string => {
 };
 
 const contentKey = (props: ToolbarProps): string => {
-  const { items, orientation = 'horizontal', size = 'sm', handle = false, labels = true, columns = 1, keyBadges = false } = props;
+  const { items, orientation = 'horizontal', size = 'sm', handle = false, labels = true, columns = 1 } = props;
   const parts = items.map(partOf);
-  return [orientation, size, handle, labels, columns, keyBadges, ...parts].join('|');
+  return [orientation, size, handle, labels, columns, ...parts].join('|');
 };
 
 export { contentKey };

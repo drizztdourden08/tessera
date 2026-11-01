@@ -3,7 +3,7 @@ import type { DragEvent, ReactNode, Ref } from 'react';
 import type { ReorderModifier } from '../reorder';
 import type { ScrollAlign } from '../virtual';
 
-type TreeRowSize = 'compact' | 'normal';
+type TreeRowSize = 'compact' | 'normal' | 'roomy';
 
 type TreeTrailShow = 'always' | 'hover';
 
@@ -50,6 +50,7 @@ interface TreeHandle {
 interface TreeSlots<T> {
   renderLead?: (item: T, state: TreeRowState) => ReactNode;
   renderLabel?: (item: T, state: TreeRowState) => ReactNode;
+  renderBadges?: (item: T, state: TreeRowState) => ReactNode;
   renderTrail?: (item: T, state: TreeRowState) => ReactNode;
 }
 

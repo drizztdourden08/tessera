@@ -544,3 +544,20 @@ Deleted cases that would have been critical:
 All kept cases are critical. `data-table-row-ref` lost the case that only asserted the host ref was called with the row and key (W6); the next case checks the outcome. `small-target` read stylesheets and class names. `data-table-row-ref-render` rendered markup.
 
 Deleted cases that would have been critical: `small-target` (the 24 px hit area and its stylesheet rules, read from CSS text, K1 token invariant shaped).
+
+## Batch 0.95.0
+
+Merge of main into integrate/0.95.0. Main's cleaned and tagged files are the base. The branch cases below were judged against the same rules. Nothing was run.
+
+| file | verdict | rule | cases before | cases after | tag |
+|---|---|---|---|---|---|
+| split-button.test.mjs | main's version, 5 branch cases dropped | W3, W6 | 5 | 0 | main's 1 critical case stays |
+| toolbar-item-kinds.test.mjs | main's version, key badge case dropped | W8 | 1 | 0 | key-badge-keys no longer exists |
+| tree-drag-out.test.mjs | main's version, 1 branch case dropped | W3 | 1 | 0 | main's cases stay critical |
+| scroll-area-slim-round.test.mjs | wipe | W1, W3 | 4 | 0 | - |
+| tree-row-size-roomy.test.mjs | wipe | W1 | 4 | 0 | - |
+| virtual-grid-measured.test.mjs | trim | K1, W3 | 20 | 18 | critical 18 |
+| virtual-grid-sections.test.mjs | keep | K1 | 15 | 15 | critical 15 |
+| virtual-grid-fixture.mjs | new helper | jscpd | - | - | shared `GROUPS` and `HEIGHTS` for the two virtual-grid files |
+
+`virtual-grid-measured` lost the `rowHeight` prop cases, which only checked a class name and style variables (W3).

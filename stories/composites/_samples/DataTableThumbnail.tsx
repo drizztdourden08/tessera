@@ -1,6 +1,7 @@
 /* @layer stories @kind component */
 import { DataTable } from '../../../src/composites';
 import { Box, Text } from '../../../src/primitives';
+import './StoryThumb.css';
 import { PLAYER_SCHEMA, PLAYERS } from './data-players';
 import type { PlayerRow } from './data-players';
 
@@ -12,7 +13,7 @@ const renderCell = (player: PlayerRow, path: string) => {
   if (path !== 'name') return undefined;
   return (
     <Box className="data-table-thumb-cell">
-      <Box className="data-table-thumb">{player.name.slice(0, 1)}</Box>
+      <Box className="story-thumb data-table-thumb">{player.name.slice(0, 1)}</Box>
       <Text>{player.name}</Text>
     </Box>
   );

@@ -20,6 +20,10 @@
   --tree-row-h: var(--size-24);
 }
 
+.tree[data-row-size='roomy'] {
+  --tree-row-h: var(--size-48);
+}
+
 .tree--empty {
   padding: var(--space-md);
   color: var(--c-text-muted);
@@ -156,6 +160,7 @@
   text-overflow: ellipsis;
 }
 
+.tree__badges,
 .tree__trail {
   display: flex;
   flex: none;

@@ -30,8 +30,9 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 
 - Pass items, the top level, with getKey, getChildren and getLabel; getChildren gives the children of an item, or nothing for a leaf.
 - A folder that is empty gives an empty list; a folder whose children are not loaded yet gives nothing and says so with isBranch.
-- Pass renderLead, renderLabel and renderTrail to fill the three slots of a row, before the text, as the text and after it; each gets the item and its state.
+- Pass renderLead, renderLabel, renderBadges and renderTrail to fill the four slots of a row, before the text, as the text, after it and at the end; each gets the item and its state.
 - The tree has no toggles of its own for visibility or lock; put them in renderTrail.
+- Pass renderBadges for status marks that always show, such as modified or locked; it sits between the label and the trail and trail hover never hides it.
 - Pass trail hover to fade the trail out at rest and show it when the row is hovered, focused, holds focus inside it or is picked; the row does not shift, a tab or an arrow into the row reveals the actions, and a screen with no hover keeps them shown.
 - Pass onDragOut(keys, event) to make the whole row a native drag source for other widgets; write the data with event.dataTransfer.setData, and keys holds the picked set when the row is picked, else the row.
 - With both onDragOut and reorder, a plain drag leaves the tree and Alt with the drag reorders (its modifier is alt); a touch drag still reorders, and a press on a button in the row starts neither.
@@ -48,6 +49,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Alt with Up or Down moves the row among its siblings, Alt with Right drops it into the sibling above, and Alt with Left lifts it out of its parent; each move is announced in a polite live region.
 - Pass renderThumbnail in reorder to show the first three rows in the drag ghost; a drag out uses the same thumbnails and a count.
 - Pass guides to draw a line for each level, with the branch of the picked row lit; pass rowSize compact for 24 px rows.
+- Pass rowSize roomy for 48 px rows that carry a thumbnail or two lines in renderLead or renderLabel; the row height is measured from the drawn row, so drag, keys and the drawn window follow, and the lead, label and trail stay centred.
 - Give the tree a height, since it scrolls inside its box and draws only the rows in view; scrollToKey on the ref brings a row into view, but does nothing for a key the filter hides, so call scrollToTop on the ref after a filter change to go back to the first row.
 
 ## Accessibility
@@ -101,15 +103,16 @@ const Files = ({ entries }: { entries: Entry[] }) => {
 - `onDragOut` (optional): `(keys: readonly string[], event: DragEvent<HTMLElement>) => void`.
 - `trail` (optional): `TreeTrailShow`, one of `'always'`, `'hover'`.
 - `guides` (optional): `boolean`.
-- `rowSize` (optional): `TreeRowSize`, one of `'compact'`, `'normal'`. Default `'normal'`.
+- `rowSize` (optional): `TreeRowSize`, one of `'compact'`, `'normal'`, `'roomy'`. Default `'normal'`.
 - `overscan` (optional): `number`.
 - `emptyLabel` (optional): `string`.
 - `ref` (optional): `Ref<TreeHandle>`.
 - `className` (optional): `string`.
 - `renderLead` (optional): `(item: T, state: TreeRowState) => ReactNode`.
 - `renderLabel` (optional): `(item: T, state: TreeRowState) => ReactNode`.
+- `renderBadges` (optional): `(item: T, state: TreeRowState) => ReactNode`.
 - `renderTrail` (optional): `(item: T, state: TreeRowState) => ReactNode`.
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-dim`, `--c-primary-soft`, `--c-selected`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--opacity-disabled`, `--radius-pill`, `--radius-sm`, `--row-inset`, `--size-1`, `--size-16`, `--size-20`, `--size-24`, `--size-28`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--transition-fast`, `--tree-count`, `--tree-index`, `--tree-row-indent`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-dim`, `--c-primary-soft`, `--c-selected`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--opacity-disabled`, `--radius-pill`, `--radius-sm`, `--row-inset`, `--size-1`, `--size-16`, `--size-20`, `--size-24`, `--size-28`, `--size-48`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--transition-fast`, `--tree-count`, `--tree-index`, `--tree-row-indent`.

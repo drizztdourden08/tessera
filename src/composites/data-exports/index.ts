@@ -8,7 +8,7 @@ export { VirtualList } from '../VirtualList';
 export type { VirtualListBind, VirtualListHandle, VirtualListProps, VirtualListRowSize, VirtualListSelection } from '../VirtualList';
 export { VirtualGrid } from '../VirtualGrid';
 export type {
-  VirtualGridBind, VirtualGridCellBind, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridSection,
+  VirtualGridBind, VirtualGridCellBind, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
   VirtualGridSelection,
 } from '../VirtualGrid';
 export { DragGhost, useNativeDragGhost } from '../DragGhost';

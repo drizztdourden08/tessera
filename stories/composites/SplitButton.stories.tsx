@@ -6,6 +6,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { SplitButtonDemo } from './_samples/SplitButtonDemo';
+import { SplitButtonIconDemo } from './_samples/SplitButtonIconDemo';
 import { SplitButtonPanelDemo } from './_samples/SplitButtonPanelDemo';
 
 type SplitButtonArgs = { label: string; variant: ButtonVariant; size: ButtonSize; pressed: boolean; toggle: boolean; disabled: boolean };
@@ -56,7 +57,12 @@ const Panel = {
   render: () => <SplitButtonPanelDemo />,
 } satisfies StoryLiteStoryDefinition<SplitButtonArgs>;
 
-const CODE = `import { SplitButton } from '@drizztdourden08/tessera';
+const IconOnly = {
+  name: 'Icon only: the main button shows the icon, a tooltip shows the label and F3',
+  render: () => <Demonstrator rows={axis(['rest', 'pressed'] as const)} cell={(state) => <SplitButtonIconDemo pressed={state === 'pressed'} />} />,
+} satisfies StoryLiteStoryDefinition<SplitButtonArgs>;
+
+const CODE =`import { SplitButton } from '@drizztdourden08/tessera';
 
 <SplitButton
   label="New file"
@@ -85,17 +91,17 @@ const Overview = overviewStory({
   description: 'A button that runs its main action, joined to a chevron that opens the related actions.',
   points: [
     'Use it when one action is the usual choice and its variants sit one step behind it.',
-    '`label` and `onClick` are the main action; `items` are the menu behind the chevron.',
+    '`label` and `onClick` are the main action; `items` are the menu behind the chevron, named by `menuLabel`.',
     '`pressed` makes the main button a toggle with an on look and `aria-pressed`.',
     '`variant` and `size` follow [Button]; the chevron matches both.',
     '`panel` opens [ControlMenu] rows behind the chevron instead of `items`; using them keeps it open.',
-    'The chevron is named by `menuLabel` and reports `aria-haspopup` and `aria-expanded`.',
+    '`iconOnly` with `shortcut` draws the icon alone; its tooltip shows the label and the key.',
   ],
   instead: '[DropdownMenu] when no action is the usual choice.',
   playground: Playground,
-  variants: [Variants, Sizes, Toggle, Panel],
+  variants: [Variants, Sizes, Toggle, Panel, IconOnly],
   code: CODE,
 });
 
 export default meta;
-export { Overview, Panel, Playground, Sizes, Toggle, Variants };
+export { IconOnly, Overview, Panel, Playground, Sizes, Toggle, Variants };

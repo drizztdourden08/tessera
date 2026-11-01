@@ -1,23 +1,7 @@
 /* @layer renderer-components @kind logic */
-import { rowPlace } from './row-place';
+import { firstRowFrom } from './first-row-from';
 import type { RowRange } from '../../virtual';
-import type { GridHeights, LayoutRow } from './grid-layout.type';
 import type { RangeInput } from './row-range.type';
-
-const firstRowFrom = (rows: readonly LayoutRow[], heights: GridHeights, edge: number, inclusive: boolean): number => {
-  let low = 0;
-  let high = rows.length;
-  while (low < high) {
-    const middle = Math.floor((low + high) / 2);
-    const row = rows[middle];
-    if (!row) break;
-    const place = rowPlace(row, heights);
-    const reached = inclusive ? place.top + place.height > edge : place.top >= edge;
-    if (reached) high = middle;
-    else low = middle + 1;
-  }
-  return low;
-};
 
 const rowRange = (input: RangeInput): RowRange => {
   const { rows, heights, scrollTop, viewport, overscan } = input;

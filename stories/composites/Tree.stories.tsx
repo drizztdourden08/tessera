@@ -9,6 +9,7 @@ import { TreeActionsDemo } from './_samples/TreeActionsDemo';
 import { TreeDemo } from './_samples/TreeDemo';
 import { TreeDragOutDemo } from './_samples/TreeDragOutDemo';
 import { TreeLazyDemo } from './_samples/TreeLazyDemo';
+import { TreeRoomyDemo } from './_samples/TreeRoomyDemo';
 import type { TreeArgs } from './_samples/tree-demo.type';
 import './Tree.stories.css';
 
@@ -50,6 +51,11 @@ const HoverActions = {
   render: () => <TreeActionsDemo />,
 } satisfies StoryLiteStoryDefinition<TreeArgs>;
 
+const BadgesAndActions = {
+  name: 'Badges always show; trail actions wait for hover, focus or a picked row',
+  render: () => <TreeActionsDemo badges />,
+} satisfies StoryLiteStoryDefinition<TreeArgs>;
+
 const DragOut = {
   name: 'Drag a row out to another widget; Alt with the drag reorders',
   render: () => <TreeDragOutDemo />,
@@ -68,6 +74,11 @@ const Filtered = {
 const Lazy = {
   name: 'Lazy children: a folder loads when it opens and shows a spinner',
   render: () => <TreeLazyDemo />,
+} satisfies StoryLiteStoryDefinition<TreeArgs>;
+
+const RoomyRows = {
+  name: 'Roomy rows: a 40 px thumbnail before each label',
+  render: () => <TreeRoomyDemo />,
 } satisfies StoryLiteStoryDefinition<TreeArgs>;
 
 const Big = {
@@ -96,12 +107,12 @@ const Overview = overviewStory({
     'The keys of a tree: arrows, [[Right]] and [[Left]] to fold, [[Home]], [[End]] and a typed letter.',
     '`selection` picks many rows, or one with `mode="single"`; `onLoadChildren` loads a folder when it opens.',
     '`reorder` drags rows to a gap or into a folder; [[Alt]] with an arrow moves by key and is announced.',
-    '`renderLead`, `renderLabel` and `renderTrail` fill the row; `trail="hover"` hides the trail until hover or focus.',
+    'Slots: `renderLead`, `renderLabel`, `renderBadges` (always on) and `renderTrail` (`trail="hover"` hides it).',
     '`onDragOut` makes the whole row a native drag source; with `reorder`, [[Alt]] with the drag reorders instead.',
   ],
   instead: '[GroupTree] for counted groups with one picked row, or [VirtualList] for a flat list.',
   playground: Playground,
-  variants: [Files, Reorder, HoverActions, DragOut, Single, Filtered, Lazy, Big],
+  variants: [Files, Reorder, HoverActions, BadgesAndActions, DragOut, Single, Filtered, Lazy, RoomyRows, Big],
   states: {
     render: (props: StateProps) => <TreeDemo mode="single" guides open={props.open === true ? ['src', 'components'] : []} />,
     list: [
@@ -115,4 +126,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Big, DragOut, Files, Filtered, HoverActions, Lazy, Overview, Playground, Reorder, Single };
+export { BadgesAndActions, Big, DragOut, Files, Filtered, HoverActions, Lazy, Overview, Playground, Reorder, RoomyRows, Single };

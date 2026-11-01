@@ -91,13 +91,27 @@
   --scroll-thumb-color: var(--c-border-strong);
 
   scrollbar-width: none;
-  background-image: linear-gradient(var(--scroll-thumb-color), var(--scroll-thumb-color)), linear-gradient(var(--scroll-thumb-color), var(--scroll-thumb-color));
+  background-image:
+    linear-gradient(to bottom, transparent calc(var(--scroll-thumb-w) / 2), var(--scroll-thumb-color) calc(var(--scroll-thumb-w) / 2), var(--scroll-thumb-color) calc(100% - var(--scroll-thumb-w) / 2), transparent calc(100% - var(--scroll-thumb-w) / 2)),
+    radial-gradient(circle calc(var(--scroll-thumb-w) / 2) at 50% calc(var(--scroll-thumb-w) / 2), var(--scroll-thumb-color) calc((var(--scroll-thumb-w) - var(--size-1)) / 2), transparent calc((var(--scroll-thumb-w) + var(--size-1)) / 2)),
+    radial-gradient(circle calc(var(--scroll-thumb-w) / 2) at 50% calc(100% - var(--scroll-thumb-w) / 2), var(--scroll-thumb-color) calc((var(--scroll-thumb-w) - var(--size-1)) / 2), transparent calc((var(--scroll-thumb-w) + var(--size-1)) / 2)),
+    linear-gradient(to right, transparent calc(var(--scroll-thumb-w) / 2), var(--scroll-thumb-color) calc(var(--scroll-thumb-w) / 2), var(--scroll-thumb-color) calc(100% - var(--scroll-thumb-w) / 2), transparent calc(100% - var(--scroll-thumb-w) / 2)),
+    radial-gradient(circle calc(var(--scroll-thumb-w) / 2) at calc(var(--scroll-thumb-w) / 2) 50%, var(--scroll-thumb-color) calc((var(--scroll-thumb-w) - var(--size-1)) / 2), transparent calc((var(--scroll-thumb-w) + var(--size-1)) / 2)),
+    radial-gradient(circle calc(var(--scroll-thumb-w) / 2) at calc(100% - var(--scroll-thumb-w) / 2) 50%, var(--scroll-thumb-color) calc((var(--scroll-thumb-w) - var(--size-1)) / 2), transparent calc((var(--scroll-thumb-w) + var(--size-1)) / 2));
   background-repeat: no-repeat;
   background-position:
     right var(--scroll-thumb-edge) top calc(var(--scroll-thumb-ends) * (1 - 2 * var(--scroll-thumb-y-progress, 0)) + var(--scroll-thumb-y-progress, 0) * 100%),
+    right var(--scroll-thumb-edge) top calc(var(--scroll-thumb-ends) * (1 - 2 * var(--scroll-thumb-y-progress, 0)) + var(--scroll-thumb-y-progress, 0) * 100%),
+    right var(--scroll-thumb-edge) top calc(var(--scroll-thumb-ends) * (1 - 2 * var(--scroll-thumb-y-progress, 0)) + var(--scroll-thumb-y-progress, 0) * 100%),
+    left calc(var(--scroll-thumb-ends) * (1 - 2 * var(--scroll-thumb-x-progress, 0)) + var(--scroll-thumb-x-progress, 0) * 100%) bottom var(--scroll-thumb-edge),
+    left calc(var(--scroll-thumb-ends) * (1 - 2 * var(--scroll-thumb-x-progress, 0)) + var(--scroll-thumb-x-progress, 0) * 100%) bottom var(--scroll-thumb-edge),
     left calc(var(--scroll-thumb-ends) * (1 - 2 * var(--scroll-thumb-x-progress, 0)) + var(--scroll-thumb-x-progress, 0) * 100%) bottom var(--scroll-thumb-edge);
   background-size:
     var(--scroll-thumb-y-w, 0) min(100% - 2 * var(--scroll-thumb-ends), max(var(--scroll-thumb-min), var(--scroll-thumb-y-fraction, 0) * (100% - 2 * var(--scroll-thumb-ends)))),
+    var(--scroll-thumb-y-w, 0) min(100% - 2 * var(--scroll-thumb-ends), max(var(--scroll-thumb-min), var(--scroll-thumb-y-fraction, 0) * (100% - 2 * var(--scroll-thumb-ends)))),
+    var(--scroll-thumb-y-w, 0) min(100% - 2 * var(--scroll-thumb-ends), max(var(--scroll-thumb-min), var(--scroll-thumb-y-fraction, 0) * (100% - 2 * var(--scroll-thumb-ends)))),
+    min(100% - 2 * var(--scroll-thumb-ends), max(var(--scroll-thumb-min), var(--scroll-thumb-x-fraction, 0) * (100% - 2 * var(--scroll-thumb-ends)))) var(--scroll-thumb-x-w, 0),
+    min(100% - 2 * var(--scroll-thumb-ends), max(var(--scroll-thumb-min), var(--scroll-thumb-x-fraction, 0) * (100% - 2 * var(--scroll-thumb-ends)))) var(--scroll-thumb-x-w, 0),
     min(100% - 2 * var(--scroll-thumb-ends), max(var(--scroll-thumb-min), var(--scroll-thumb-x-fraction, 0) * (100% - 2 * var(--scroll-thumb-ends)))) var(--scroll-thumb-x-w, 0);
   transition: background-size var(--transition-fast);
 }

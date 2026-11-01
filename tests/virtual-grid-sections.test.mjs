@@ -7,16 +7,9 @@ import { rowOfItem } from '../src/composites/VirtualGrid/behavior/row-of-item';
 import { rowRange } from '../src/composites/VirtualGrid/behavior/row-range';
 import { scrollOffset } from '../src/composites/VirtualGrid/behavior/scroll-offset';
 import { scrollTopForSpan } from '../src/composites/virtual/scroll-top-for-span';
+import { GROUPS, HEIGHTS } from './virtual-grid-fixture.mjs';
 
 const flat = (count, columns = 5) => gridLayout([{ header: false, count, collapsed: false }], columns);
-
-const GROUPS = [
-  { header: true, count: 7, collapsed: false },
-  { header: true, count: 4, collapsed: true },
-  { header: true, count: 3, collapsed: false },
-];
-
-const HEIGHTS = { tile: 96, head: 32 };
 
 describe('K1 the row math of sections', { tags: ['critical'] }, () => {
   const layout = gridLayout(GROUPS, 3);

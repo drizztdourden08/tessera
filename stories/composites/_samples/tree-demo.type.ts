@@ -23,6 +23,7 @@ interface TreeDemoProps {
   start?: readonly TreeEntry[];
   open?: readonly string[];
   trail?: TreeTrailShow;
+  renderBadges?: (entry: TreeEntry, state: TreeRowState) => ReactNode;
   renderTrail?: (entry: TreeEntry, state: TreeRowState) => ReactNode;
   onDragOut?: (keys: readonly string[], event: DragEvent<HTMLElement>) => void;
 }

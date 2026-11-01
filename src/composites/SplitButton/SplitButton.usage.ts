@@ -20,12 +20,15 @@ const usage = {
     'Pass panel instead of items when the chevron should open settings: it renders ControlMenuRow rows (sliders, segmented choices, toggles) in a panel under the chevron and receives close.',
     'A panel stays open while its controls change; a click outside or Escape closes it. Call close from a control only when the choice should end the visit.',
     'Pass pressed for a toggle: the main button shows the on look and reports aria-pressed. Leave it out for a plain action.',
+    'Pass iconOnly with an icon to draw the main button as the icon alone, for a compact bar; a tooltip shows the label and the label still names the button. Without an icon it stays a text button.',
+    'Pass shortcut, keys such as F3, to show the key hint in the tooltip of the main button; it is a hint, the app binds the key. It also adds the tooltip to a text button.',
     'variant and size follow Button; the chevron takes the same variant and a matching size.',
     'Pass menuLabel when Options does not say what the menu holds, such as New options.',
     'Keep the menu to a few related actions; more belong in a DropdownMenu.',
   ],
   a11y: [
     'The pair is a group named by the label; the main button and the chevron are two tab stops.',
+    'An icon-only main button keeps the label as its accessible name; the tooltip repeats it with the shortcut.',
     'The chevron is named by menuLabel, reports aria-haspopup and aria-expanded, and opens the menu with a click, Enter or Space.',
     'The menu returns focus to the chevron when it closes.',
     'With panel the chevron reports aria-haspopup dialog; the panel takes focus on its first control, is named by menuLabel, and Escape returns focus to the chevron.',
@@ -53,7 +56,7 @@ const NewMenu = ({ createFile, createFolder }: NewMenuProps) => (
   />
 );
 `,
-  propsHash: 'ea3abece708fd38c',
+  propsHash: '72c3b4b15bdf0c44',
 } satisfies ComponentUsage;
 
 export { usage };

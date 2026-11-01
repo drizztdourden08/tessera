@@ -6,9 +6,10 @@ import type { OffsetInput } from './scroll-offset.type';
 
 const scrollOffset = (input: OffsetInput): number => {
   const { layout, heights, index, viewport, scrollTop, align } = input;
-  const row = layout.rows[rowOfItem(layout, index)];
+  const at = rowOfItem(layout, index);
+  const row = layout.rows[at];
   if (!row) return scrollTop;
-  return scrollTopForSpan({ ...rowPlace(row, heights), viewport, scrollTop }, align);
+  return scrollTopForSpan({ ...rowPlace(row, heights, at), viewport, scrollTop }, align);
 };
 
 export { scrollOffset };

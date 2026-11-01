@@ -2946,6 +2946,7 @@
         "--scrollbar-slim-active",
         "--scrollbar-slim-gutter",
         "--scrollbar-slim-rest",
+        "--size-1",
         "--size-16",
         "--size-2",
         "--size-24",
@@ -16191,12 +16192,15 @@
         "Pass panel instead of items when the chevron should open settings: it renders ControlMenuRow rows (sliders, segmented choices, toggles) in a panel under the chevron and receives close.",
         "A panel stays open while its controls change; a click outside or Escape closes it. Call close from a control only when the choice should end the visit.",
         "Pass pressed for a toggle: the main button shows the on look and reports aria-pressed. Leave it out for a plain action.",
+        "Pass iconOnly with an icon to draw the main button as the icon alone, for a compact bar; a tooltip shows the label and the label still names the button. Without an icon it stays a text button.",
+        "Pass shortcut, keys such as F3, to show the key hint in the tooltip of the main button; it is a hint, the app binds the key. It also adds the tooltip to a text button.",
         "variant and size follow Button; the chevron takes the same variant and a matching size.",
         "Pass menuLabel when Options does not say what the menu holds, such as New options.",
         "Keep the menu to a few related actions; more belong in a DropdownMenu."
       ],
       "a11y": [
         "The pair is a group named by the label; the main button and the chevron are two tab stops.",
+        "An icon-only main button keeps the label as its accessible name; the tooltip repeats it with the shortcut.",
         "The chevron is named by menuLabel, reports aria-haspopup and aria-expanded, and opens the menu with a click, Enter or Space.",
         "The menu returns focus to the chevron when it closes.",
         "With panel the chevron reports aria-haspopup dialog; the panel takes focus on its first control, is named by menuLabel, and Escape returns focus to the chevron."
@@ -16210,7 +16214,7 @@
         "rule": "SplitButton gives the usual action one press and keeps its variants one step behind a chevron."
       },
       "example": "import { Icon, SplitButton } from '@drizztdourden08/tessera';\n\ninterface NewMenuProps {\n  createFile: () => void;\n  createFolder: () => void;\n}\n\nconst NewMenu = ({ createFile, createFolder }: NewMenuProps) => (\n  <SplitButton\n    label=\"New file\"\n    icon={<Icon name=\"plus\" />}\n    onClick={createFile}\n    menuLabel=\"New options\"\n    items={[\n      { id: 'folder', label: 'New folder', onSelect: createFolder },\n    ]}\n  />\n);\n",
-      "propsHash": "ea3abece708fd38c",
+      "propsHash": "72c3b4b15bdf0c44",
       "props": {
         "own": [
           {
@@ -16237,6 +16241,16 @@
             "name": "icon",
             "optional": true,
             "text": "ReactNode"
+          },
+          {
+            "name": "iconOnly",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "shortcut",
+            "optional": true,
+            "text": "ShortcutSpec"
           },
           {
             "name": "variant",
@@ -16358,7 +16372,9 @@
         "--transition-fast",
         "--weight-medium",
         "--weight-semi",
-        "--z-modal"
+        "--z-base",
+        "--z-modal",
+        "--z-sticky"
       ],
       "gallery": {
         "title": "Composites · Actions/SplitButton",
@@ -17380,13 +17396,12 @@
         "A popover item has a render(close) function. The panel opens beside the tool, moves focus into itself and gives focus back on Escape or when render calls close. In More it runs onFold, or shows disabled when there is none.",
         "badge draws a small glyph with a description on a tool, such as the number of stamps; borrowed shows a tool in the look of another one, with a dashed outline.",
         "A separator can take a label. A list draws it as a heading, a horizontal bar with labels on draws it beside the line, and More uses it as the heading of the folded group.",
-        "keyBadges draws the key of a tool on its button. It is off by default, only a vertical bar uses it, and only a shortcut of one key shows. It is the one place a shortcut sits on a button, so leave it off unless the product asks for it.",
         "inlineOptions in a list opens the options of the pressed item under its row instead of in a menu.",
         "A number item takes fineStep, ladder, presets, suffix, scrub, showLabel and mixed, and draws a NumberField; the wheel steps it while it has focus. With showLabel the field sizes to its label and the widest value that min, max and step allow, so a short bar folds it into More instead of squeezing it.",
         "orientation horizontal shows the optional caption beside the icon; vertical shows icons only. The hint always carries the name, the description and the shortcut.",
         "labels false hides the caption in a horizontal bar, so it shows icons only. It defaults to true. A ToolbarDock passes its value for the toolbar in the render slot.",
         "icon is a name from the set or any node, such as your own bitmap. A name keeps its icon size and the 24 px snap of a pixel icon; a node is drawn as given, in the button and in More.",
-        "Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button, except with keyBadges.",
+        "Give shortcut as text such as Ctrl+Z, as keys, or as a list of { label, keys } such as Smaller and Larger. The hint draws one Shortcut row for each; the folded menu keeps the first. It never sits on the button, only in the hint.",
         "options on a button or toggle are DropdownMenu groups. They open on hover below a row and beside a column, and with the arrow key that points away from the toolbar. openOn click opens them on a press instead, and the press still runs onSelect or onChange.",
         "menuSide right or left says which side of a vertical toolbar its menus open on; a ToolbarDock slot hands it over, so a left bar opens right and a right bar opens left. Menus flip and stay inside the view near any edge, and look the same on every side.",
         "layout list draws each item as a row with its icon, name, description and shortcut, a group as a labelled set of rows and a number as a row with its field. Use it in a wide panel; it never folds and has no handle or caption.",
@@ -17414,7 +17429,7 @@
         "rule": "Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them."
       },
       "example": "import { Toolbar } from '@drizztdourden08/tessera';\nimport type { ToolbarItem } from '@drizztdourden08/tessera';\n\ninterface ToolRailProps {\n  tool: string;\n  pick: (tool: string) => void;\n  undo: () => void;\n}\n\nconst ToolRail = ({ tool, pick, undo }: ToolRailProps) => {\n  const items: ToolbarItem[] = [\n    { kind: 'toggle', id: 'pencil', label: 'Pencil', icon: 'pencil', description: 'Draw one pixel at a time.', shortcut: 'P', pressed: tool === 'pencil', onChange: () => pick('pencil') },\n    { kind: 'toggle', id: 'eraser', label: 'Eraser', icon: 'eraser', description: 'Clear pixels.', shortcut: 'E', pressed: tool === 'eraser', onChange: () => pick('eraser') },\n    { kind: 'separator', id: 'tools-end' },\n    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', shortcut: 'Ctrl+Z', onSelect: undo },\n  ];\n  return <Toolbar label=\"Drawing tools\" orientation=\"vertical\" items={items} />;\n};\n",
-      "propsHash": "ddba1bacfc4faccc",
+      "propsHash": "cb46279a1d8a07fd",
       "props": {
         "own": [
           {
@@ -17493,11 +17508,6 @@
             "name": "hiddenItems",
             "optional": true,
             "text": "readonly string[]"
-          },
-          {
-            "name": "keyBadges",
-            "optional": true,
-            "text": "boolean"
           },
           {
             "name": "inlineOptions",
@@ -17891,8 +17901,9 @@
       "rules": [
         "Pass items, the top level, with getKey, getChildren and getLabel; getChildren gives the children of an item, or nothing for a leaf.",
         "A folder that is empty gives an empty list; a folder whose children are not loaded yet gives nothing and says so with isBranch.",
-        "Pass renderLead, renderLabel and renderTrail to fill the three slots of a row, before the text, as the text and after it; each gets the item and its state.",
+        "Pass renderLead, renderLabel, renderBadges and renderTrail to fill the four slots of a row, before the text, as the text, after it and at the end; each gets the item and its state.",
         "The tree has no toggles of its own for visibility or lock; put them in renderTrail.",
+        "Pass renderBadges for status marks that always show, such as modified or locked; it sits between the label and the trail and trail hover never hides it.",
         "Pass trail hover to fade the trail out at rest and show it when the row is hovered, focused, holds focus inside it or is picked; the row does not shift, a tab or an arrow into the row reveals the actions, and a screen with no hover keeps them shown.",
         "Pass onDragOut(keys, event) to make the whole row a native drag source for other widgets; write the data with event.dataTransfer.setData, and keys holds the picked set when the row is picked, else the row.",
         "With both onDragOut and reorder, a plain drag leaves the tree and Alt with the drag reorders (its modifier is alt); a touch drag still reorders, and a press on a button in the row starts neither.",
@@ -17909,6 +17920,7 @@
         "Alt with Up or Down moves the row among its siblings, Alt with Right drops it into the sibling above, and Alt with Left lifts it out of its parent; each move is announced in a polite live region.",
         "Pass renderThumbnail in reorder to show the first three rows in the drag ghost; a drag out uses the same thumbnails and a count.",
         "Pass guides to draw a line for each level, with the branch of the picked row lit; pass rowSize compact for 24 px rows.",
+        "Pass rowSize roomy for 48 px rows that carry a thumbnail or two lines in renderLead or renderLabel; the row height is measured from the drawn row, so drag, keys and the drawn window follow, and the lead, label and trail stay centred.",
         "Give the tree a height, since it scrolls inside its box and draws only the rows in view; scrollToKey on the ref brings a row into view, but does nothing for a key the filter hides, so call scrollToTop on the ref after a filter change to go back to the first row."
       ],
       "a11y": [
@@ -17919,7 +17931,7 @@
       ],
       "buildingBlock": true,
       "example": "import { useState } from 'react';\nimport { Tree } from '@drizztdourden08/tessera';\n\ntype Entry = { id: string; name: string; children?: Entry[] };\n\nconst Files = ({ entries }: { entries: Entry[] }) => {\n  const [picked, setPicked] = useState<ReadonlySet<string>>(new Set());\n  return (\n    <Tree\n      label=\"Files\"\n      items={entries}\n      getKey={(entry) => entry.id}\n      getChildren={(entry) => entry.children}\n      getLabel={(entry) => entry.name}\n      selection={{ selected: picked, onChange: setPicked }}\n    />\n  );\n};\n",
-      "propsHash": "27cb1fe19882e6df",
+      "propsHash": "d7af713907be659f",
       "props": {
         "own": [
           {
@@ -18028,7 +18040,8 @@
             "text": "TreeRowSize",
             "literals": [
               "'compact'",
-              "'normal'"
+              "'normal'",
+              "'roomy'"
             ],
             "default": "'normal'"
           },
@@ -18059,6 +18072,11 @@
           },
           {
             "name": "renderLabel",
+            "optional": true,
+            "text": "(item: T, state: TreeRowState) => ReactNode"
+          },
+          {
+            "name": "renderBadges",
             "optional": true,
             "text": "(item: T, state: TreeRowState) => ReactNode"
           },
@@ -18096,6 +18114,7 @@
         "--size-20",
         "--size-24",
         "--size-28",
+        "--size-48",
         "--space-md",
         "--space-sm",
         "--space-xs",
@@ -18591,6 +18610,7 @@
         "Give a section onDropData(dataTransfer) and a header takes a native drop, such as files or items dragged from another widget, with or without reorder; it shows the same into mark and announces the drop, and onDrop and onDropData can both be set.",
         "Give a section accepts(dataTransfer) to say which drags the header takes; it runs while the drag is over the header, where only types, kinds and the item count can be read, and the data itself is read in onDropData; leave it out to take every drag.",
         "For tile sizes in whole steps use stepVirtualSize on tileSize, such as from a slider.",
+        "Give rowHeight=\"measured\" when tiles hold different amounts of content, such as cards: each row is as tall as its tallest tile, tileHeight becomes the least and the guess for rows not drawn yet, the grid measures the drawn rows and keeps the scroll steady when a row above grows; leave it out for the fixed height, which costs nothing.",
         "Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.",
         "Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.",
         "Use onActiveChange to follow the tile that holds focus, such as to show its detail beside the grid."
@@ -18614,7 +18634,7 @@
         "rule": "VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly."
       },
       "example": "import { Button, VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n\nconst Buttons = ({ frames, open }: { frames: Frame[]; open: (frame: Frame) => void }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderTile={(frame, _index, cell) => (\n      <Button {...cell} onClick={() => open(frame)}>{frame.name}</Button>\n    )}\n  />\n);\n\ninterface Folder {\n  key: string;\n  label: string;\n  items: Frame[];\n}\n\nconst Tileset = ({ tiles }: { tiles: Frame[] }) => (\n  <VirtualGrid\n    label=\"Tileset\"\n    items={tiles}\n    getKey={(tile) => tile.id}\n    renderItem={(tile) => tile.name}\n    tileSize=\"size-64\"\n    columns={6}\n  />\n);\n\nconst Library = ({ folders }: { folders: Folder[] }) => (\n  <VirtualGrid\n    label=\"Library\"\n    sections={folders}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileWidth=\"size-128\"\n    tileHeight=\"size-64\"\n    defaultCollapsed={['archive']}\n  />\n);\n",
-      "propsHash": "e9ddebebc1280c1d",
+      "propsHash": "04d0ec97e7619c62",
       "props": {
         "own": [
           {
@@ -18657,6 +18677,15 @@
             "name": "columns",
             "optional": true,
             "text": "number"
+          },
+          {
+            "name": "rowHeight",
+            "optional": true,
+            "text": "VirtualGridRowHeight",
+            "literals": [
+              "'fixed'",
+              "'measured'"
+            ]
           },
           {
             "name": "overscan",
@@ -18772,7 +18801,9 @@
         "--vg-headers",
         "--vg-heads",
         "--vg-row",
-        "--vg-rows"
+        "--vg-rows",
+        "--vg-top",
+        "--vg-total"
       ],
       "gallery": {
         "title": "Composites · Lists/VirtualGrid",

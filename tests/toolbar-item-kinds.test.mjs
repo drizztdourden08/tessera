@@ -4,7 +4,6 @@ import { describe, expect, it } from 'vitest';
 import { choiceGroup } from '../src/composites/Toolbar/behavior/choice-group';
 import { contentKey } from '../src/composites/Toolbar/behavior/content-key';
 import { foldedGroups } from '../src/composites/Toolbar/behavior/folded-groups';
-import { keyBadgeKeys } from '../src/composites/Toolbar/behavior/key-badge-keys';
 import { panelPlacement } from '../src/composites/Toolbar/behavior/panel-placement';
 import { stopIds } from '../src/composites/Toolbar/behavior/stop-ids';
 import { tidySeparators } from '../src/composites/Toolbar/behavior/tidy-separators';
@@ -59,13 +58,5 @@ describe('K1 named separators', { tags: ['critical'] }, () => {
   it('is part of the content key, so a new name measures again', () => {
     const key = (label) => contentKey({ label: 'T', items: [{ kind: 'separator', id: 's', label }] });
     expect(key('A')).not.toBe(key('B'));
-  });
-});
-
-describe('K1 key badges, off by default and only in a vertical rail', { tags: ['critical'] }, () => {
-  it('reads a single key as a badge and skips a shortcut of several keys', () => {
-    expect(keyBadgeKeys('P')).toEqual(['P']);
-    expect(keyBadgeKeys('Ctrl+Z')).toBeUndefined();
-    expect(keyBadgeKeys(undefined)).toBeUndefined();
   });
 });
