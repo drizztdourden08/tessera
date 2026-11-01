@@ -10,7 +10,6 @@ const manifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SEMVER = /^\d+\.\d+\.\d+$/;
 const IDENTIFIER = /^[A-Za-z_$][\w$]*$/;
-const PROGRAM_TIMEOUT = 60_000;
 const parts = (version) => version.split('.').map(Number);
 const older = (a, b) => {
   const [x, y] = [parts(a), parts(b)];
@@ -69,7 +68,7 @@ const followed = ({ at, name, move }) => {
   return place;
 };
 
-describe('RENAMES.json', () => {
+describe('S4 RENAMES.json', { tags: ['standard'] }, () => {
   it('lists releases oldest first, with next only as the last one', () => {
     const versions = releases.map((release) => release.version);
     const named = versions.filter((version) => version !== 'next');
@@ -93,12 +92,14 @@ describe('RENAMES.json', () => {
     const unknown = allMoves.filter(({ move }) => !ENTRIES.has(move.to)).map(({ release, name, move }) => `${release.version} ${name} -> ${move.to}`);
     expect(unknown).toEqual([]);
   });
+});
 
+describe('E2 RENAMES.json exports', { tags: ['e2e'] }, () => {
   it('finds every moved name in the barrel of its entry point, after the later releases', () => {
     const exported = exportsOf();
     const places = allMoves.map((item) => ({ item, place: followed(item) })).filter(({ place }) => place !== null);
     expect(places.filter(({ place }) => place.broken).map(({ place }) => place.broken)).toEqual([]);
     const missing = places.filter(({ place }) => !exported.get(place.entry)?.has(place.name));
     expect(missing.map(({ item, place }) => `${item.release.version} ${item.name}: ${place.name} is not exported from ${place.entry}`)).toEqual([]);
-  }, PROGRAM_TIMEOUT);
+  });
 });

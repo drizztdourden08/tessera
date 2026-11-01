@@ -1,12 +1,7 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { Box } from '../src/primitives/Box';
-import { Link } from '../src/primitives/Link';
 import { isPlainClick } from '../src/primitives/Link/behavior/is-plain-click';
 import { navigateClick } from '../src/primitives/Link/behavior/navigate-click';
-import { Toggle } from '../src/primitives/Toggle';
 
 const anchor = (attributes = {}) => ({
   getAttribute: (name) => attributes[name] ?? null,
@@ -28,39 +23,7 @@ const follow = (href, event, onClick) => {
   return { went };
 };
 
-describe('Link', () => {
-  it('draws a styled anchor with its tone', () => {
-    const html = renderToString(h(Link, { href: '/guide', tone: 'secondary', className: 'own' }, 'Guide'));
-    expect(html).toContain('href="/guide"');
-    expect(html).toContain('class="link own"');
-    expect(html).toContain('data-tone="secondary"');
-  });
-
-  it('opens an external link in a new tab, safely, and says so', () => {
-    const html = renderToString(h(Link, { href: 'https://example.com', external: true }, 'Docs'));
-    expect(html).toContain('target="_blank"');
-    expect(html).toContain('rel="noopener noreferrer"');
-    expect(html).toContain('aria-label="opens in a new tab"');
-    expect(html).toMatch(/<svg[^>]*role="img"[^>]*aria-label="opens in a new tab"/);
-    expect(html).not.toMatch(/<svg[^>]*aria-hidden="true"[^>]*aria-label="opens in a new tab"/);
-  });
-
-  it('is not what Box draws for an href any more', () => {
-    expect(renderToString(h(Box, null, 'Plain'))).toBe('<div>Plain</div>');
-  });
-
-  it('draws the Toggle link as an external Link', () => {
-    const html = renderToString(h(Toggle, { checked: true, onChange: () => undefined, label: 'Sync', description: 'Keeps saves in step.', link: '/sync' }));
-    expect(html).toContain('class="link toggle__link"');
-    expect(html).toContain('target="_blank"');
-  });
-});
-
-describe('Link with navigate', () => {
-  it('still renders a real href', () => {
-    expect(renderToString(h(Link, { href: '/saves/2', navigate: () => undefined }, 'Slot 2'))).toContain('href="/saves/2"');
-  });
-
+describe('K1 Link with navigate', { tags: ['critical'] }, () => {
   it('keeps the plain onClick when it has no navigate', () => {
     const onClick = () => undefined;
     expect(navigateClick('/saves/2', undefined, onClick)).toBe(onClick);

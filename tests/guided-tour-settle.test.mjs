@@ -57,7 +57,7 @@ const NONE = [];
 
 const at = (top) => ({ left: 100, top, width: 200, height: 40 });
 
-describe('watchSpot', () => {
+describe('K1 watchSpot', { tags: ['critical'] }, () => {
   it('asks again on a resize of the nodes or the body, a window resize, a scroll, a font load and once the fonts are ready', async () => {
     const { view, doc, fonts, observers, fontsDone } = fakeView();
     const node = nodeIn(doc, at(0));
@@ -89,7 +89,7 @@ describe('watchSpot', () => {
   });
 });
 
-describe('the spotlight hole', () => {
+describe('K1 the spotlight hole', { tags: ['critical'] }, () => {
   const ring = { current: null };
 
   it('follows a target that moves without resizing once the fonts finish loading', async () => {

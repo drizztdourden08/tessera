@@ -33,7 +33,7 @@ const filterThenClear = (view) => {
   expect(shown(view)).toEqual([CHUNK, 1000 - CHUNK]);
 };
 
-describe('LogPanel window, pinned to the newest rows', () => {
+describe('K1 LogPanel window, pinned to the newest rows', { tags: ['critical'] }, () => {
   it('grows with a log that starts empty and receives rows one at a time', () => {
     const view = mountLog([]);
     expect(shown(view)).toEqual([0, 0]);
@@ -61,7 +61,7 @@ describe('LogPanel window, pinned to the newest rows', () => {
   });
 });
 
-describe('LogPanel window, Load older', () => {
+describe('K1 LogPanel window, Load older', { tags: ['critical'] }, () => {
   it('mounts CHUNK more older rows each time, up to the whole log', () => {
     const view = mountLog(rowsUpTo(1000));
     expect(shown(view)).toEqual([CHUNK, 600]);
@@ -72,7 +72,7 @@ describe('LogPanel window, Load older', () => {
   });
 });
 
-describe('LogPanel window, scrolled away from the newest rows', () => {
+describe('K1 LogPanel window, scrolled away from the newest rows', { tags: ['critical'] }, () => {
   it('keeps the loaded older rows and adds new rows below them', () => {
     const view = mountLog(rowsUpTo(1000));
     view.log.act((win) => win.loadOlder());
@@ -109,7 +109,7 @@ describe('LogPanel window, scrolled away from the newest rows', () => {
   });
 });
 
-describe('appendedSince', () => {
+describe('K1 appendedSince', { tags: ['critical'] }, () => {
   it('counts rows added at the end, and at the end of a log that drops its oldest rows', () => {
     expect(appendedSince(rowsUpTo(12), 'r9', 10)).toBe(2);
     expect(appendedSince(rowsUpTo(10, 2), 'r9', 10)).toBe(2);

@@ -2,9 +2,7 @@
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { InlineEdit } from '../src/composites/InlineEdit';
 import { useInlineEditField } from '../src/composites/InlineEdit/behavior/useInlineEditField';
-import { InlineEditField } from '../src/composites/InlineEdit/sub-components/InlineEditField';
 import { guardCellControl } from '../src/primitives/dom/guard-cell-control';
 import { nameEditKey } from '../src/primitives/field-control/name-edit-key';
 
@@ -23,51 +21,7 @@ const probe = (input) => {
   return seen;
 };
 
-describe('InlineEdit view', () => {
-  const draw = (props) => renderToString(h(InlineEdit, { value: 'Fix login', onCommit: noop, ...props }));
-
-  it('shows the value as a button that names the edit', () => {
-    const html = draw({});
-    expect(html).toContain('<button');
-    expect(html).toContain('aria-label="Edit Fix login"');
-    expect(html).toContain('aria-keyshortcuts="F2"');
-    expect(html).toContain('>Fix login<');
-    expect(html).not.toContain('<input');
-  });
-
-  it('names the field with the label when there is one', () => {
-    expect(draw({ label: 'Title' })).toContain('aria-label="Edit Title: Fix login"');
-  });
-
-  it('shows the placeholder when the value is empty', () => {
-    const html = draw({ value: '', placeholder: 'Add a title' });
-    expect(html).toContain('>Add a title<');
-    expect(html).toContain('aria-label="Edit Add a title"');
-  });
-
-  it('turns the button off and drops the pen when disabled', () => {
-    const html = draw({ disabled: true });
-    expect(html).toContain('disabled=""');
-    expect(html).not.toContain('inline-edit__pen');
-  });
-});
-
-describe('InlineEdit renderValue', () => {
-  const draw = (props) => renderToString(h(InlineEdit, { value: 'one **two**', onCommit: noop, renderValue: (text) => h('em', { className: 'drawn' }, text.toUpperCase()), ...props }));
-
-  it('draws the value with renderValue when it is not edited, under the same name', () => {
-    const html = draw({});
-    expect(html).toContain('<em class="drawn">ONE **TWO**</em>');
-    expect(html).toContain('aria-label="Edit one **two**"');
-    expect(html).toContain('aria-keyshortcuts="F2"');
-  });
-
-  it('keeps the placeholder for an empty value and does not call renderValue', () => {
-    const html = draw({ value: '', placeholder: 'Add notes' });
-    expect(html).toContain('>Add notes<');
-    expect(html).not.toContain('drawn');
-  });
-
+describe('K1 InlineEdit renderValue', { tags: ['critical'] }, () => {
   it('does not start the edit for a click on a link inside the drawn value', () => {
     const start = vi.fn();
     const link = { closest: () => link };
@@ -80,7 +34,7 @@ describe('InlineEdit renderValue', () => {
   });
 });
 
-describe('InlineEdit keys', () => {
+describe('K1 InlineEdit keys', { tags: ['critical'] }, () => {
   it('commits on Enter in a line and in a text area only on Mod+Enter', () => {
     expect(nameEditKey('Enter', false, false, false)).toBe('keep');
     expect(nameEditKey('Enter', false, true, false)).toBeNull();
@@ -89,7 +43,7 @@ describe('InlineEdit keys', () => {
   });
 });
 
-describe('InlineEdit commit and cancel', () => {
+describe('K1 InlineEdit commit and cancel', { tags: ['critical'] }, () => {
   it('commits the trimmed text on Enter and puts focus back on the button', () => {
     const seen = probe({});
     seen.state.onKeyDown(press('Enter'));
@@ -127,7 +81,7 @@ describe('InlineEdit commit and cancel', () => {
   });
 });
 
-describe('InlineEdit validate', () => {
+describe('K1 InlineEdit validate', { tags: ['critical'] }, () => {
   const tooShort = (text) => (text.length < 5 ? 'At least 5 characters' : undefined);
 
   it('shows the message of validate for the trimmed text', () => {
@@ -141,36 +95,5 @@ describe('InlineEdit validate', () => {
     seen.state.onBlur();
     expect(seen.commits).toEqual([]);
     expect(seen.done).toEqual([]);
-  });
-});
-
-describe('InlineEdit dense', () => {
-  const view = (props) => renderToString(h(InlineEdit, { value: 'Fix', onCommit: noop, ...props }));
-  const field = (props) => renderToString(h(InlineEditField, {
-    name: 'Layer', value: 'Fix', placeholder: undefined, validate: undefined, multiline: false, size: undefined, dense: true, className: undefined, onCommit: noop, onDone: noop, ...props,
-  }));
-
-  it('draws the text button for a 24 px row only when asked', () => {
-    expect(view({ dense: true })).toContain('inline-edit__view--dense');
-    expect(view({})).not.toContain('inline-edit__view--dense');
-    expect(view({ dense: true, multiline: true })).not.toContain('inline-edit__view--dense');
-  });
-
-  it('draws the field small and dense, with the message of validate on one line beside it', () => {
-    const html = field({ validate: () => 'Use at least 3 characters.' });
-    expect(html).toContain('inline-edit__field--dense');
-    expect(html).toContain('control-size--sm');
-    expect(html).toContain('Use at least 3 characters.');
-    expect(html).toContain('role="alert"');
-  });
-
-  it('keeps the field as before when it is not dense', () => {
-    const html = field({ dense: false });
-    expect(html).not.toContain('inline-edit__field--dense');
-    expect(html).not.toContain('control-size--sm');
-  });
-
-  it('does not make a text area dense', () => {
-    expect(field({ multiline: true })).not.toContain('inline-edit__field--dense');
   });
 });

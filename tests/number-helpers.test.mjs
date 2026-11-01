@@ -6,7 +6,7 @@ import { clampNumber } from '../src/primitives/value-rule/clamp-number';
 import { formatDecimal } from '../src/primitives/value-rule/format-decimal';
 import { formatNumber } from '../src/primitives/value-rule/format-number';
 
-describe('clampNumber', () => {
+describe('K1 clampNumber', { tags: ['critical'] }, () => {
   it('keeps a number inside its bounds, either bound left out', () => {
     expect(clampNumber(5, 0, 10)).toBe(5);
     expect(clampNumber(-3, 0, 10)).toBe(0);
@@ -27,7 +27,7 @@ describe('clampNumber', () => {
   });
 });
 
-describe('formatDecimal', () => {
+describe('K1 formatDecimal', { tags: ['critical'] }, () => {
   it('writes a number with its places, grouping, padding and sign', () => {
     expect(formatDecimal(1234.5, { minDecimals: 2, maxDecimals: 2, grouping: true })).toBe('1,234.50');
     expect(formatDecimal(7, { minDecimals: 0, maxDecimals: 0, grouping: false, pad: 3 })).toBe('007');

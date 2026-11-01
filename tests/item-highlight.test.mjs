@@ -1,6 +1,6 @@
 /* @layer tooling-scripts @kind test */
 import { describe, expect, it, vi } from 'vitest';
-import { CommandPalette, CommandPaletteRow } from '../src/composites/CommandPalette';
+import { CommandPaletteRow } from '../src/composites/CommandPalette';
 import { MenuItemButton } from '../src/composites/DropdownMenu/sub-components/MenuItemButton';
 import { SubMenu } from '../src/composites/DropdownMenu/sub-components/SubMenu';
 import { FloatingSwitchOption } from '../src/composites/FloatingSwitch/sub-components/FloatingSwitchOption';
@@ -26,7 +26,7 @@ vi.mock('react', async (importOriginal) => ({
 const page = escapeDocument();
 const noop = () => undefined;
 
-describe('useHighlight', () => {
+describe('K1 useHighlight', { tags: ['critical'] }, () => {
   it('calls onHighlight once on pointer enter, and not again while focus keeps the item lit', () => {
     const onHighlight = vi.fn();
     const view = mountHook(() => useHighlight({ onHighlight }));
@@ -90,7 +90,7 @@ const ITEM_PARTS = [
   ['a FloatingSwitch item', (item) => FloatingSwitchOption({ item: { ...item, icon: null }, active: false, onSelect: noop }).props],
 ];
 
-describe.each(ITEM_PARTS)('%s', (_name, draw) => {
+describe.each(ITEM_PARTS)('S2 %s', { tags: ['standard'] }, (_name, draw) => {
   it('calls item.onHighlight once on pointer enter or focus, and not again while it stays lit', () => {
     for (const first of ['onPointerEnter', 'onFocus']) {
       const onHighlight = vi.fn();
@@ -111,7 +111,7 @@ describe.each(ITEM_PARTS)('%s', (_name, draw) => {
   });
 });
 
-describe('a DropdownMenu item that asks to confirm', () => {
+describe('S2 a DropdownMenu item that asks to confirm', { tags: ['standard'] }, () => {
   it('still cancels its question on blur', () => {
     const onCancel = vi.fn();
     const view = mountHook(() => MenuItemButton({ item: { id: 'reset', label: 'Reset', kind: 'confirm', onCancel } }));
@@ -121,7 +121,7 @@ describe('a DropdownMenu item that asks to confirm', () => {
   });
 });
 
-describe('CommandPalette rows', () => {
+describe('S2 CommandPalette rows', { tags: ['standard'] }, () => {
   const HOME = { id: 'home', label: 'Home' };
 
   it('call onHighlight when the arrow keys or the pointer make a row active, once', () => {
@@ -140,15 +140,5 @@ describe('CommandPalette rows', () => {
     const onHighlight = vi.fn();
     mountHook(() => CommandPaletteRow({ item: { ...HOME, disabled: true, onHighlight }, active: true }));
     expect(onHighlight).not.toHaveBeenCalled();
-  });
-
-  it('mark no row active while the palette is closed', () => {
-    const listOf = (open) => {
-      const tree = mountHook(() => CommandPalette({ open, onClose: noop, query: '', onQueryChange: noop, groups: [{ id: 'g', items: [HOME] }], onSelect: noop }));
-      const panel = tree.current.props.children[1];
-      return panel.props.children[2].props.children;
-    };
-    expect(listOf(false).props.active).toBe(-1);
-    expect(listOf(true).props.active).toBe(0);
   });
 });

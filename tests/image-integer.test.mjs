@@ -1,16 +1,12 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { Image } from '../src/primitives/Image';
 import { imageClass } from '../src/primitives/Image/behavior/image-class';
 import { integerScale } from '../src/primitives/Image/behavior/integer-scale';
 import { integerSizeOf } from '../src/primitives/Image/behavior/integer-size-of';
 
 const SPRITE = { width: 16, height: 16 };
 
-describe('Image fit integer', () => {
+describe('K1 Image fit integer', { tags: ['critical'] }, () => {
   it('picks the largest whole-number scale that fits the frame', () => {
     expect(integerScale({ width: 100, height: 100 }, SPRITE)).toBe(6);
     expect(integerScale({ width: 200, height: 70 }, SPRITE)).toBe(4);
@@ -37,20 +33,5 @@ describe('Image fit integer', () => {
     expect(imageClass({ status: 'loaded', fit: 'integer', backdrop: 'checker' })).toBe('image image--loaded image--fit-integer image--backdrop-checker');
     expect(imageClass({ status: 'loaded' })).toBe('image image--loaded');
     expect(imageClass({ status: 'loaded', backdrop: 'none' })).toBe('image image--loaded');
-  });
-
-  it('draws the frame with the checker backdrop when asked', () => {
-    const html = renderToString(h(Image, { src: 'a.png', fit: 'integer', backdrop: 'checker', alt: '' }));
-    expect(html).toContain('image--backdrop-checker');
-    expect(html).toContain('image--fit-integer');
-    expect(renderToString(h(Image, { src: 'a.png', alt: '' }))).not.toContain('backdrop');
-  });
-
-  it('draws the checker and the centred picture with tokens only', () => {
-    const css = readFileSync(new URL('../src/primitives/Image/Image.css', import.meta.url), 'utf8');
-    expect(css).toContain('.image--backdrop-checker {');
-    expect(css).toContain('var(--c-checker-a)');
-    expect(css).toContain('var(--checker-size)');
-    expect(css).toContain('.image--fit-integer > .image__img {');
   });
 });

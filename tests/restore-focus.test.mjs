@@ -10,7 +10,7 @@ const fakeTarget = (active, connected = true) => {
   return { isConnected: connected, ownerDocument: doc, focused: false, focus() { this.focused = true; } };
 };
 
-describe('restoreFocus after a controlled close', () => {
+describe('K1 restoreFocus after a controlled close', { tags: ['critical'] }, () => {
   it('returns focus to the trigger when the closed menu left focus on the body', () => {
     const target = fakeTarget(BODY);
     expect(restoreFocus(target)).toBe(true);

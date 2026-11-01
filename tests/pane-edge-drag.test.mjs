@@ -6,7 +6,7 @@ const origin = (extra = {}) => ({ pointer: 100, start: 300, last: 300, pixelsPer
 const rules = (extra = {}) => ({ min: 240, max: 480, sides: ['low', 'high'], ...extra });
 const at = (from, extra) => dragStep(origin(extra), 100 + (from - (extra?.start ?? 300)), rules());
 
-describe('dragStep, an open pane', () => {
+describe('K1 dragStep, an open pane', { tags: ['critical'] }, () => {
   it('folds the low side past min minus the snap, and rebases the origin on the pointer', () => {
     const step = dragStep(origin(), -20, rules());
     expect(step.outcome).toEqual({ kind: 'fold', side: 'low' });
@@ -50,7 +50,7 @@ describe('dragStep, an open pane', () => {
   });
 });
 
-describe('dragStep, a folded pane', () => {
+describe('K1 dragStep, a folded pane', { tags: ['critical'] }, () => {
   const low = (extra) => origin({ pointer: 0, start: 0, last: 0, folded: 'low', moved: true, ...extra });
   const high = (extra) => origin({ pointer: 0, start: 480, last: 480, folded: 'high', moved: true, ...extra });
 
