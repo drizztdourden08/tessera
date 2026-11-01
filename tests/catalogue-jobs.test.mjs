@@ -17,7 +17,7 @@ writeFileSync(join(ROOT, 'src/primitives/Button/Button.usage.ts'), "const usage 
 
 afterAll(() => rmSync(ROOT, { recursive: true }));
 
-describe('the gallery catalogue', () => {
+describe('K1 the gallery catalogue', { tags: ['critical'] }, () => {
   it('takes a summary from the usage job, and keeps its own text where no usage file exists', () => {
     const [entry, other] = withUsageJobs(ROOT, TIERS)[0].groups[0].entries;
     expect(entry.summary).toBe('A button with a visible word that runs one action.');

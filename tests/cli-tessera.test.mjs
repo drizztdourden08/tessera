@@ -2,9 +2,7 @@
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { eslint, generateParts, pnpm, runNew, slop, slopIn, structure, stylelint, tesseraCopy, TIMEOUT, typecheck } from './cli-sandbox.mjs';
-
-const EDITED = ['src/primitives/layout-exports/index.ts', 'src/composites/index.ts', '.storylite/catalogue-primitives.constants.ts', '.storylite/catalogue-composites.constants.ts', '.storylite/sidebar-icons.constants.ts'];
+import { eslint, generateParts, pnpm, runNew, slop, slopIn, structure, stylelint, tesseraCopy, typecheck } from './cli-sandbox.mjs';
 
 const PARTS = [
   { kind: 'primitive', name: 'QuestBanner', folder: 'src/primitives/QuestBanner', argv: ['--group', 'Layout', '--tree', 'actions > one action > a visible word'] },
@@ -13,7 +11,7 @@ const PARTS = [
 
 const made = generateParts(tesseraCopy, PARTS);
 
-describe('tessera new in the Tessera repo', () => {
+describe('E2 tessera new in the Tessera repo', { tags: ['e2e'] }, () => {
   it('creates a primitive and a composite, then runs pnpm guide', () => {
     expect(made.results.map((result) => result.status)).toEqual([0, 0]);
     for (const file of made.files) expect(existsSync(join(made.dir, file)), file).toBe(true);
@@ -37,23 +35,23 @@ describe('tessera new in the Tessera repo', () => {
   });
 });
 
-describe('the gates on what tessera new writes in Tessera', () => {
+describe('E2 the gates on what tessera new writes in Tessera', { tags: ['e2e'] }, () => {
   it('keeps guide/ in step: pnpm guide --check passes with the new usage files', () => {
     const check = pnpm(made.dir, 'guide --check');
     expect(check.status, `${check.stdout}${check.stderr}`).toBe(0);
     expect(made.read('guide/components/QuestBanner.md')).toContain('# QuestBanner');
-  }, TIMEOUT);
+  });
 
   it('passes eslint, with the edited catalogue, sidebar and barrels', () => {
     const lint = eslint(made.dir, [...made.code, ...EDITED]);
     expect(lint.status, lint.output).toBe(0);
-  }, TIMEOUT);
+  });
 
   it('passes stylelint and the typecheck', () => {
     const lint = stylelint(made.dir, made.styles);
     expect(lint.status, lint.output).toBe(0);
     expect(typecheck(made.dir, made.code)).toEqual([]);
-  }, TIMEOUT);
+  });
 
   it('passes the standards folder shape', () => {
     for (const part of PARTS) expect(structure(made.dir, part.folder)).toEqual([]);
@@ -65,7 +63,7 @@ describe('the gates on what tessera new writes in Tessera', () => {
   });
 });
 
-describe('what tessera new refuses in Tessera', () => {
+describe('E2 what tessera new refuses in Tessera', { tags: ['e2e'] }, () => {
   it('refuses a compound or a view, which belong to an app', async () => {
     for (const kind of ['compound', 'view']) {
       const result = await runNew(made.dir, [kind, 'SaveSlot']);

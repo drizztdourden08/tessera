@@ -8,7 +8,7 @@ import { mountHook } from './hook-harness.mjs';
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks, useId: () => 'r1', useContext: () => ({}) }));
 vi.mock('../src/primitives/TesseraProvider/behavior/useTesseraStrings', async () => ({ useTesseraStrings: () => (TESSERA_STRINGS) }));
 
-describe('KeyValueEditor onProblem', () => {
+describe('K1 KeyValueEditor onProblem', { tags: ['critical'] }, () => {
   const mount = (value, extra = {}) => {
     const calls = { onChange: vi.fn(), onProblem: vi.fn() };
     const view = mountHook(() => useKeyValueRows({ value, keys: ['Lamp', 'Hookshot'], ...calls, ...extra }));
@@ -43,7 +43,7 @@ describe('KeyValueEditor onProblem', () => {
   });
 });
 
-describe('PathInput onBlur', () => {
+describe('K1 PathInput onBlur', { tags: ['critical'] }, () => {
   it('hands the blur event to the app as the box loses focus', () => {
     const onBlur = vi.fn();
     const view = mountHook(() => usePathInput({ value: 'C:\\Games\\Bram.txt', onChange: vi.fn(), onBlur }));

@@ -3,7 +3,7 @@ import { existsSync, readFileSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { runNew, slopIn } from './cli-sandbox.mjs';
-import { fixtureRepo, MONOREPO, WORKSPACES_CONFIG } from './config-fixture.mjs';
+import { fixtureRepo, WORKSPACES_CONFIG } from './config-fixture.mjs';
 
 const state = { dir: '', results: {} };
 const read = (path) => readFileSync(join(state.dir, path), 'utf8');
@@ -21,7 +21,7 @@ beforeAll(async () => {
 
 afterAll(() => rmSync(state.dir, { recursive: true, force: true }));
 
-describe('tessera new in a monorepo with tessera.config.json', () => {
+describe('K2 tessera new in a monorepo with tessera.config.json', { tags: ['critical'] }, () => {
   it('writes a view into the parts.views of the app it runs in', () => {
     expect(state.results.view.status).toBe(0);
     expect(has('apps/desktop/src/views/SaveList/SaveList.tsx')).toBe(true);
@@ -65,7 +65,7 @@ describe('tessera new in a monorepo with tessera.config.json', () => {
   });
 });
 
-describe('tessera new across workspace packages, with no package key', () => {
+describe('K2 tessera new across workspace packages, with no package key', { tags: ['critical'] }, () => {
   const ws = { dir: '', results: {} };
   const wsRead = (path) => readFileSync(join(ws.dir, path), 'utf8');
   const wsHas = (path) => existsSync(join(ws.dir, path));
@@ -112,7 +112,7 @@ describe('tessera new across workspace packages, with no package key', () => {
   });
 });
 
-describe('tessera new with a tessera.config.json but no Tessera', () => {
+describe('K2 tessera new with a tessera.config.json but no Tessera', { tags: ['critical'] }, () => {
   it('says Tessera is not installed in the app or the repo root', async () => {
     const dir = fixtureRepo({ ...MONOREPO, 'package.json': { name: 'fixture-root', private: true } });
     const result = await runNew(join(dir, 'apps/desktop'), ['compound', 'SaveSlot']);

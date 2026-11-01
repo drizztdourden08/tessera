@@ -12,7 +12,7 @@ const base = {
 };
 const atRow = (top, bottom) => ({ ...base, row: { ...base.row, top, bottom } });
 
-describe('subMenuJoin', () => {
+describe('K1 subMenuJoin', { tags: ['critical'] }, () => {
   const full = { corner: 6, fillet: 3 };
   const square = { corner: 0, fillet: 0 };
 
@@ -57,7 +57,7 @@ describe('subMenuJoin', () => {
   });
 });
 
-describe('joinPieces', () => {
+describe('K1 joinPieces', { tags: ['critical'] }, () => {
   const piece = (pieces, key) => pieces.find((one) => one.key === key);
 
   it('runs the flat edge straight into the border of the sub-menu and keeps the curve of the parent', () => {
@@ -69,7 +69,7 @@ describe('joinPieces', () => {
   });
 });
 
-describe('safeAreaStyle', () => {
+describe('K1 safeAreaStyle', { tags: ['critical'] }, () => {
   const join = subMenuJoin(atRow(130, 160));
 
   const row = { top: 5, bottom: 35, edge: -7 };

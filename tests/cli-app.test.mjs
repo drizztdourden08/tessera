@@ -3,10 +3,9 @@ import { existsSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { appCopy, eslint, generateParts, removeSandbox, runNew, slop, slopIn, structure, stylelint, TIMEOUT, typecheck } from './cli-sandbox.mjs';
+import { appCopy, eslint, generateParts, removeSandbox, runNew, slop, slopIn, structure, stylelint, typecheck } from './cli-sandbox.mjs';
 
 const WARNING = 'tessera: Most primitives and composites belong in Tessera. Build it there unless only this app will ever need it.';
-const TREE_ANSWERS = ['2', '2', '1'];
 
 const PARTS = [
   { kind: 'compound', name: 'SaveSlot', folder: 'src/compounds/SaveSlot', argv: ['--tree', 'a status, a count or a label > a label and its value'] },
@@ -17,7 +16,7 @@ const PARTS = [
 
 const made = generateParts(appCopy, PARTS);
 
-describe('tessera new in an app that uses Tessera', () => {
+describe('E2 tessera new in an app that uses Tessera', { tags: ['e2e'] }, () => {
   it('creates each kind in the app folders, with a StoryLite story, and runs no pnpm guide', () => {
     expect(made.results.map((result) => result.status)).toEqual([0, 0, 0, 0]);
     for (const file of made.files) expect(existsSync(join(made.dir, file)), file).toBe(true);
@@ -50,7 +49,7 @@ describe('tessera new in an app that uses Tessera', () => {
   });
 });
 
-describe('the warning and the gates in an app', () => {
+describe('E2 the warning and the gates in an app', { tags: ['e2e'] }, () => {
   it('writes nothing for an app primitive when the warning is not confirmed', async () => {
     const quiet = await runNew(made.dir, ['primitive', 'GameCanvas']);
     const declined = await runNew(made.dir, ['composite', 'GameFrame'], { interactive: true, answers: ['n'] });
@@ -66,7 +65,7 @@ describe('the warning and the gates in an app', () => {
     const styles = stylelint(made.dir, made.styles);
     expect(styles.status, styles.output).toBe(0);
     expect(typecheck(made.dir, made.code)).toEqual([]);
-  }, TIMEOUT);
+  });
 
   it('passes the standards folder shape and the prose rules', () => {
     for (const part of PARTS) expect(structure(made.dir, part.folder)).toEqual([]);
@@ -85,7 +84,7 @@ describe('the warning and the gates in an app', () => {
   });
 });
 
-describe('tessera new outside Tessera and its apps', () => {
+describe('E2 tessera new outside Tessera and its apps', { tags: ['e2e'] }, () => {
   it('says where to run it', async () => {
     const dir = mkdtempSync(join(tmpdir(), 'tessera-cli-'));
     writeFileSync(join(dir, 'package.json'), '{ "name": "elsewhere" }');

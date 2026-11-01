@@ -27,7 +27,7 @@ afterEach(() => {
   vi.unstubAllGlobals();
 });
 
-describe('a carousel that turns by itself', () => {
+describe('S2 a carousel that turns by itself', { tags: ['standard'] }, () => {
 
   it('moves to the next slide after turnEvery, and wraps round after the last', () => {
     const carousel = mount();
@@ -66,7 +66,7 @@ describe('a carousel that turns by itself', () => {
 
 });
 
-describe('a carousel that holds still', () => {
+describe('S2 a carousel that holds still', { tags: ['standard'] }, () => {
   it('holds still on a hidden tab and off screen', () => {
     view.visible = false;
     const hidden = mount();
@@ -110,7 +110,7 @@ describe('a carousel that holds still', () => {
   });
 });
 
-describe('a carousel turned by hand', () => {
+describe('S2 a carousel turned by hand', { tags: ['standard'] }, () => {
   it('cannot turn without turnEvery or with one slide', () => {
     expect(mount({ turnEvery: null }).current.canTurn).toBe(false);
     expect(mount({ count: 1 }).current.canTurn).toBe(false);

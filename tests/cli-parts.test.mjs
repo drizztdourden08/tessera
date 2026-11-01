@@ -18,7 +18,7 @@ const scripted = (answers) => {
   return { out, io: { log: (line) => out.push(line), ask: async () => answers.shift() ?? '' } };
 };
 
-describe('the tessera bin', () => {
+describe('E2 the tessera bin', { tags: ['e2e'] }, () => {
   it('prints its commands and its version', () => {
     expect(tessera('--help').stdout).toContain('new <kind> <Name>');
     expect(tessera('--version').stdout.trim()).toBe(VERSION);
@@ -41,7 +41,7 @@ describe('the tessera bin', () => {
   });
 });
 
-describe('the arguments of tessera new', () => {
+describe('K1 the arguments of tessera new', { tags: ['critical'] }, () => {
   it('reads the kind, the name, the values and the switches', () => {
     expect(parseArgs(['view', 'SaveList', '--group', 'Saves', '--tree=layout > a plain block', '--dry-run', '-y'])).toEqual({
       positionals: ['view', 'SaveList'],
@@ -60,7 +60,7 @@ describe('the arguments of tessera new', () => {
   });
 });
 
-describe('the decision tree', () => {
+describe('K1 the decision tree', { tags: ['critical'] }, () => {
   const tree = readTree();
 
   it('takes a path that ends on an answer with no further question', () => {
@@ -81,7 +81,7 @@ describe('the decision tree', () => {
   });
 });
 
-describe('adding to a list in a source file', () => {
+describe('K1 adding to a list in a source file', { tags: ['critical'] }, () => {
   it('adds a line to a list written one item per line', () => {
     expect(insertInList('const A = [\n  1,\n  2,\n];\n', 10, '3')).toBe('const A = [\n  1,\n  2,\n  3,\n];\n');
   });
@@ -92,7 +92,7 @@ describe('adding to a list in a source file', () => {
   });
 });
 
-describe('runTessera', () => {
+describe('K2 runTessera', { tags: ['critical'] }, () => {
   it('runs a command in a given folder and resolves to its exit code', async () => {
     const { runTessera } = await import('../scripts/cli/index.mjs');
     expect(await runTessera(['--version'])).toBe(0);

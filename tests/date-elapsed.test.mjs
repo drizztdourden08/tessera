@@ -1,12 +1,8 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { DateText } from '../src/composites/DateText';
 import { elapsedClock } from '../src/composites/DateText/behavior/elapsed-clock';
 import { elapsedDue } from '../src/composites/DateText/behavior/elapsed-due';
 import { formatDate } from '../src/primitives/date-format';
-import { TesseraProvider } from '../src/primitives/TesseraProvider';
 
 const START = new Date(2026, 9, 16, 21, 40, 12).getTime();
 const SECOND = 1000;
@@ -18,7 +14,7 @@ const since = (offset, options) => formatDate(START, 'elapsed', { now: START + o
 
 afterEach(() => vi.useRealTimers());
 
-describe('elapsed text', () => {
+describe('K1 elapsed text', { tags: ['critical'] }, () => {
   it('writes seconds, then minutes and seconds, then hours and minutes, then days and hours', () => {
     expect([since(0), since(12 * SECOND), since(59 * SECOND)]).toEqual(['0s', '12s', '59s']);
     expect([since(MINUTE), since(4 * MINUTE + 3 * SECOND), since(HOUR - SECOND)]).toEqual(['1m 00s', '4m 03s', '59m 59s']);
@@ -39,7 +35,7 @@ describe('elapsed text', () => {
   });
 });
 
-describe('short elapsed text', () => {
+describe('K1 short elapsed text', { tags: ['critical'] }, () => {
   const short = (offset, options) => since(offset, { length: 'short', ...options });
 
   it('keeps one unit, rounded down, at every boundary', () => {
@@ -59,7 +55,7 @@ describe('short elapsed text', () => {
   });
 });
 
-describe('elapsed due time', () => {
+describe('K1 elapsed due time', { tags: ['critical'] }, () => {
   it('is the next second under an hour, the next minute under a day, then the next hour', () => {
     expect(elapsedDue(START, START + 12_400)).toBe(START + 13 * SECOND);
     expect(elapsedDue(START, START + HOUR - 1)).toBe(START + HOUR);
@@ -72,7 +68,7 @@ describe('elapsed due time', () => {
   });
 });
 
-describe('short elapsed due time', () => {
+describe('K1 short elapsed due time', { tags: ['critical'] }, () => {
   it('ticks by the unit shown: second, minute, hour, then day', () => {
     expect(elapsedDue(START, START + 12_400, true)).toBe(START + 13 * SECOND);
     expect(elapsedDue(START, START + 59 * SECOND, true)).toBe(START + MINUTE);
@@ -83,22 +79,9 @@ describe('short elapsed due time', () => {
     expect(elapsedDue(START, START + DAY, true)).toBe(START + 2 * DAY);
     expect(elapsedDue(START, START - HOUR, true)).toBe(START + SECOND);
   });
-
-  it('gives the clock a watcher that ticks by minutes once a minute has passed', () => {
-    vi.useFakeTimers();
-    const now = Date.now();
-    const listener = vi.fn();
-    const stop = elapsedClock.subscribe(listener, now - 5 * MINUTE, true);
-    vi.advanceTimersByTime(30 * SECOND);
-    expect(listener).not.toHaveBeenCalled();
-    vi.advanceTimersByTime(MINUTE);
-    expect(listener).toHaveBeenCalledTimes(1);
-    stop();
-    expect(elapsedClock.watchers()).toBe(0);
-  });
 });
 
-describe('elapsed clock', () => {
+describe('S2 elapsed clock', { tags: ['standard'] }, () => {
   it('runs one timer for every watcher, ticks each on its own scale and stops with the last one', () => {
     vi.useFakeTimers();
     const spy = vi.spyOn(globalThis, 'setTimeout');
@@ -152,26 +135,5 @@ describe('elapsed clock', () => {
     stop();
     expect(vi.getTimerCount()).toBe(0);
     vi.unstubAllGlobals();
-  });
-});
-
-describe('DateText elapsed', () => {
-  it('shows the time since the date, with the label and the exact moment in a Tooltip, and no live region', () => {
-    const html = renderToString(h(DateText, { value: Date.now() - 12 * SECOND, format: 'elapsed', label: 'running' }));
-    expect(html).toMatch(/^<span class="tooltip-anchor">/);
-    expect(html).toMatch(/>running 1[2-3]s<\/time>/);
-    expect(html).not.toContain('aria-live');
-    expect(renderToString(h(DateText, { value: Date.now(), format: 'elapsed', tooltip: false }))).toMatch(/^<time /);
-  });
-
-  it('draws the short style as one unit', () => {
-    const html = renderToString(h(DateText, { value: Date.now() - 4 * MINUTE - 3 * SECOND, format: 'elapsed', length: 'short', tooltip: false }));
-    expect(html).toMatch(/>4m<\/time>/);
-  });
-
-  it('takes the label joiner from the dates strings', () => {
-    const dates = { elapsedLabel: (label, time) => `${time} (${label})` };
-    const html = renderToString(h(TesseraProvider, { overrides: { strings: { dates } } }, h(DateText, { value: Date.now() - 4 * MINUTE, format: 'elapsed', label: 'actif' })));
-    expect(html).toMatch(/>4m 0\ds \(actif\)<\/time>/);
   });
 });

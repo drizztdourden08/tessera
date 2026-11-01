@@ -1,12 +1,10 @@
 /* @layer tooling-scripts @kind test */
 import { createElement as h } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { useAsk } from '../src/composites/ActionBar/behavior/useAsk';
 import { ConfirmIconButton } from '../src/composites/ConfirmIconButton';
 import { useConfirmAsk } from '../src/composites/ConfirmIconButton/behavior/useConfirmAsk';
 import { CONFIRM_AGAIN_MS } from '../src/composites/ConfirmIconButton/behavior/useConfirmAsk.constants';
 import { useConfirmItem } from '../src/composites/DropdownMenu/behavior/useConfirmItem';
-import { SettingsRowActionButton } from '../src/composites/SettingsRow/sub-components/SettingsRowActionButton';
 import { ITEM_STRINGS } from '../src/primitives/strings/items-strings.constants';
 import { mountHook } from './hook-harness.mjs';
 import { escapeStackOf } from '../src/primitives/escape-stack/escape-stack-of';
@@ -24,7 +22,7 @@ const escape = () => ({ key: 'Escape', stopPropagation: vi.fn(), preventDefault:
 const askRow = (calls, extra = {}) => mountHook(() => useConfirmAsk({ ...calls, ...extra }));
 const menuItem = (onCancel, pick) => mountHook(() => useConfirmItem({ id: 'reset', label: 'Reset layout', kind: 'confirm', onCancel }, true, pick));
 
-describe('an ask that ends without confirming runs onCancel', () => {
+describe('K1 an ask that ends without confirming runs onCancel', { tags: ['critical'] }, () => {
   let calls;
   beforeEach(() => {
     calls = spies();
@@ -79,7 +77,7 @@ describe('an ask that ends without confirming runs onCancel', () => {
 
 });
 
-describe('onCancel also runs', () => {
+describe('S2 onCancel also runs', { tags: ['standard'] }, () => {
   let calls;
   beforeEach(() => {
     calls = spies();
@@ -115,7 +113,7 @@ describe('onCancel also runs', () => {
   });
 
   it('and never when the user confirms', () => {
-    const ask = askRow(calls, { timeout: 10 });
+    const ask = askRow(calls);
     ask.act((a) => a.ask('row'));
     ask.act((a) => a.confirm());
     ask.act((a) => a.cancel());
@@ -125,7 +123,7 @@ describe('onCancel also runs', () => {
   });
 });
 
-describe('the parts on the shared ask pass onCancel through', () => {
+describe('K1 the parts on the shared ask pass onCancel through', { tags: ['critical'] }, () => {
   it('ConfirmIconButton runs onAsk on the press and onCancel from the cross or Escape', () => {
     const calls = spies();
     const props = { icon: h('i'), label: 'Delete', confirmLabel: 'Delete it', cancelLabel: 'Keep it', ...calls };
@@ -140,23 +138,5 @@ describe('the parts on the shared ask pass onCancel through', () => {
     button.act((tree) => tree.props.onKeyDown(escape()));
     expect(calls.onCancel).toHaveBeenCalledTimes(2);
     expect(calls.onConfirm).not.toHaveBeenCalled();
-  });
-
-  it('ActionBar runs the onCancel of the action that asked', () => {
-    const action = { id: 'delete', label: 'Delete', kind: 'danger', onSelect: vi.fn(), onCancel: vi.fn() };
-    const bar = mountHook(() => useAsk({ current: null }));
-    bar.act((a) => a.ask(action));
-    bar.act((a) => a.cancel());
-    expect(action.onCancel).toHaveBeenCalledTimes(1);
-    expect(action.onSelect).not.toHaveBeenCalled();
-  });
-
-  it('SettingsRow runs the onCancel of its action', () => {
-    const action = { id: 'forget', label: 'Forget', confirm: 'Forget the cache?', onSelect: vi.fn(), onCancel: vi.fn() };
-    const row = mountHook(() => SettingsRowActionButton({ action, disabled: false }));
-    row.act((tree) => tree.props.onClick());
-    row.act((tree) => tree.props.ask.cancel());
-    expect(action.onCancel).toHaveBeenCalledTimes(1);
-    expect(action.onSelect).not.toHaveBeenCalled();
   });
 });

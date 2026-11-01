@@ -33,7 +33,7 @@ const mount = (doc, extra = {}) => {
   return { onClose, popup, trigger };
 };
 
-describe('dismissing a popup', () => {
+describe('K1 dismissing a popup', { tags: ['critical'] }, () => {
   it('closes on Escape through the shared stack at the popover level', () => {
     const doc = pressPage();
     const { onClose } = mount(doc);

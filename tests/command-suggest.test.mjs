@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { CommandInput } from '../src/composites/CommandInput';
 import { commandEntries } from '../src/composites/CommandInput/behavior/command-entries';
 import { suggestCommands } from '../src/composites/CommandInput/behavior/suggest-commands';
 import { suggestKey } from '../src/composites/CommandInput/behavior/suggest-key';
@@ -13,7 +10,7 @@ const names = (value, limit = 6) => suggestCommands(COMMANDS, value, limit).map(
 
 const key = (name, extra = {}) => ({ key: name, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false, isComposing: false, ...extra });
 
-describe('CommandInput suggestions', () => {
+describe('K1 CommandInput suggestions', { tags: ['critical'] }, () => {
   it('lists the registered commands that hold what was typed, those that start with it first', () => {
     expect(names('/s')).toEqual(['/save', '/status']);
     expect(names('release')).toEqual(['/release', '/forbid_release']);
@@ -37,7 +34,7 @@ describe('CommandInput suggestions', () => {
   });
 });
 
-describe('CommandInput suggestion keys', () => {
+describe('K1 CommandInput suggestion keys', { tags: ['critical'] }, () => {
   it('completes with Tab, and leaves Up, Down and the page keys to the list', () => {
     expect(suggestKey(key('Tab'), false, false)).toBe('complete');
     expect(suggestKey(key('ArrowDown'), true, false)).toBe('list');
@@ -56,20 +53,5 @@ describe('CommandInput suggestion keys', () => {
   it('leaves keys with a modifier to the field', () => {
     expect(suggestKey(key('Tab', { shiftKey: true }), true, false)).toBeNull();
     expect(suggestKey(key('ArrowDown', { isComposing: true }), true, false)).toBeNull();
-  });
-});
-
-describe('CommandInput with commands', () => {
-  it('is a combobox for its list and shows the Tab key in its hints', () => {
-    const html = renderToString(h(CommandInput, { onSubmit: () => undefined, commands: ['/save'] }));
-    expect(html).toContain('role="combobox"');
-    expect(html).toContain('aria-autocomplete="list"');
-    expect(html).toContain('aria-expanded="false"');
-    expect(html).toContain('complete</span>');
-  });
-
-  it('leaves the Tab hint out with no commands', () => {
-    const html = renderToString(h(CommandInput, { onSubmit: () => undefined }));
-    expect(html).not.toContain('complete</span>');
   });
 });

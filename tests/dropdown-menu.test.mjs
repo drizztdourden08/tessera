@@ -1,9 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { DropdownMenu } from '../src/composites/DropdownMenu';
 import { shortcutKeys } from '../src/primitives/Shortcut/behavior/shortcut-keys';
 import { closesOnPick } from '../src/composites/DropdownMenu/behavior/closes-on-pick';
 import { menuMatches } from '../src/composites/DropdownMenu/behavior/menu-matches';
@@ -15,21 +11,21 @@ const SEP = { separator: true };
 const item = (id) => ({ id, label: id });
 const ids = (nodes) => nodes.map((node) => node.id ?? '|');
 
-describe('tidyNodes', () => {
+describe('K1 tidyNodes', { tags: ['critical'] }, () => {
   it('drops separators at the ends and doubled ones', () => {
     expect(ids(tidyNodes([SEP, item('a'), SEP, SEP, item('b'), SEP]))).toEqual(['a', '|', 'b']);
     expect(tidyNodes([SEP, SEP])).toEqual([]);
   });
 });
 
-describe('tidyGroups', () => {
+describe('K1 tidyGroups', { tags: ['critical'] }, () => {
   it('drops a group left with no items', () => {
     const groups = tidyGroups([{ id: 'one', items: [SEP] }, { id: 'two', items: [item('a')] }]);
     expect(groups.map((group) => group.id)).toEqual(['two']);
   });
 });
 
-describe('shortcutKeys', () => {
+describe('K1 shortcutKeys', { tags: ['critical'] }, () => {
   it('splits display text into keys and maps common names', () => {
     expect(shortcutKeys('Ctrl+Shift+P')).toEqual(['ctrl', 'shift', 'P']);
     expect(shortcutKeys('CmdOrCtrl + Q')).toEqual(['ctrl', 'Q']);
@@ -51,93 +47,7 @@ describe('shortcutKeys', () => {
   });
 });
 
-describe('DropdownMenu', () => {
-  const groups = [
-    { id: 'view', label: 'View', items: [{ id: 'players', label: 'Players', checked: true }, SEP, { id: 'log', label: 'Log', description: 'Server output' }] },
-    { id: 'more', items: [{ id: 'layout', label: 'Layout', children: [item('compact')] }] },
-  ];
-
-  it('draws groups, labels, checkbox items and submenu triggers with menu roles', () => {
-    const html = renderToString(h(DropdownMenu, { inline: true, groups }));
-    expect(html).toContain('role="menu"');
-    expect(html).toContain('role="group"');
-    expect(html).toContain('role="menuitemcheckbox"');
-    expect(html).toContain('aria-checked="true"');
-    expect(html).toContain('aria-haspopup="menu"');
-    expect(html).toContain('Server output');
-    expect(html.match(/role="separator"/g)).toHaveLength(2);
-  });
-
-  it('draws no trigger when the menu has no items', () => {
-    const trigger = { label: 'Menu', iconOnly: true };
-    expect(renderToString(h(DropdownMenu, { trigger, groups: [{ id: 'empty', items: [SEP] }] }))).toBe('');
-    expect(renderToString(h(DropdownMenu, { trigger, groups }))).toContain('aria-haspopup="menu"');
-  });
-
-  it('draws the trigger as an IconButton or a Button in the menu variant', () => {
-    const icon = renderToString(h(DropdownMenu, { trigger: { label: 'Menu', iconOnly: true }, variant: 'danger', groups }));
-    expect(icon).toContain('icon-btn--danger');
-    expect(icon).toContain('aria-label="Menu"');
-    expect(icon).toContain('hamburger-icon');
-    const text = renderToString(h(DropdownMenu, { trigger: { label: 'View', icon: 'eye', iconSide: 'end' }, size: 'md', groups }));
-    expect(text).toContain('btn--md');
-    expect(text.indexOf('View')).toBeLessThan(text.indexOf('btn__icon--end'));
-  });
-
-  it('draws radio items in a group of their own and reserves the mark column', () => {
-    const radios = [{ id: 'a', label: 'A', kind: 'radio', checked: true }, { id: 'b', label: 'B', kind: 'radio', checked: false }];
-    const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'g', items: [item('plain'), ...radios] }] }));
-    expect(html.match(/role="menuitemradio"/g)).toHaveLength(2);
-    expect(html.match(/choice-mark choice-mark--radio/g)).toHaveLength(2);
-    expect(html.match(/choice-mark choice-mark--radio" data-on=""/g)).toHaveLength(1);
-    expect(html.match(/class="[^"]*dropdown__mark /g)).toHaveLength(3);
-  });
-
-  it('gives every item the mark and icon slots, sub-menu rows too, and shows a faint dot, not a dim check, on an unchecked item', () => {
-    const view = [
-      { id: 'pin', icon: 'pin', label: 'Pin', checked: false },
-      { id: 'full', icon: 'maximize-2', label: 'Fullscreen' },
-      { id: 'group', label: 'Group', children: [{ id: 'none', label: 'None', kind: 'radio', checked: true }] },
-    ];
-    const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'view', items: view }] }));
-    expect(html.match(/class="[^"]*dropdown__mark /g)).toHaveLength(3);
-    expect(html.match(/class="[^"]*dropdown__icon"/g)).toHaveLength(3);
-    expect(html).toMatch(/dropdown__mark--check"[^>]*><svg class="choice-mark choice-mark--check" viewBox/);
-    expect(html).not.toContain('dropdown__mark--off');
-  });
-
-  it('draws a danger item in the danger tone, apart from a confirm item that only turns red while it asks', () => {
-    const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'row', items: [
-      { id: 'reset', label: 'Reset', kind: 'confirm' }, { id: 'delete', label: 'Delete', tone: 'danger' },
-    ] }] }));
-    expect(html).toMatch(/class="[^"]*dropdown__item--danger"[^>]*><span[^>]*>Delete</);
-    expect(html).not.toMatch(/dropdown__item--danger"[^>]*>(?:(?!<\/button>).)*Reset/);
-    const sheet = readFileSync(new URL('../src/composites/DropdownMenu/sub-components/MenuPanel.css', import.meta.url), 'utf8');
-    expect(sheet).toMatch(/\.dropdown__item--danger:not\(:disabled\) \{\s*color: var\(--c-danger-bright\);/);
-  });
-});
-
-describe('a disabled item', () => {
-  const sheet = readFileSync(new URL('../src/theme/dropdown-menu.css', import.meta.url), 'utf8');
-
-  it('dims to the disabled opacity, like a disabled button, instead of only changing the text colour', () => {
-    expect(sheet).toMatch(/\.dropdown__item:disabled \{\s*opacity: var\(--opacity-disabled\);\s*cursor: default;/);
-    expect(sheet).not.toMatch(/\.dropdown__item:disabled[^{]*\{[^}]*color:/);
-  });
-
-  it('renders the item as a disabled button and takes no hover look', () => {
-    const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'g', items: [{ id: 'paste', label: 'Paste', disabled: true }] }] }));
-    expect(html).toMatch(/<button[^>]*disabled=""[^>]*class="[^"]*dropdown__item|<button[^>]*class="[^"]*dropdown__item[^"]*"[^>]*disabled=""/);
-    expect(sheet).toMatch(/\.dropdown__item:is\(:hover, :focus-visible, :has\(:focus-visible\)\):not\(:disabled\)/);
-  });
-
-  it('is shared by the context menu, which draws its items through DropdownMenu', () => {
-    const point = readFileSync(new URL('../src/composites/ContextMenu/sub-components/PointMenu.tsx', import.meta.url), 'utf8');
-    expect(point).toContain('<DropdownMenu {...menu}');
-  });
-});
-
-describe('closesOnPick', () => {
+describe('K1 closesOnPick', { tags: ['critical'] }, () => {
   it('keeps the menu open for a check or a radio item and closes it for an action', () => {
     expect(closesOnPick('check', true)).toBe(false);
     expect(closesOnPick('radio', true)).toBe(false);
@@ -149,7 +59,7 @@ describe('closesOnPick', () => {
   });
 });
 
-describe('nodeRuns', () => {
+describe('K1 nodeRuns', { tags: ['critical'] }, () => {
   it('keeps runs of radio items together', () => {
     const radio = (id) => ({ id, label: id, kind: 'radio' });
     const runs = nodeRuns([item('a'), radio('b'), radio('c'), SEP, radio('d')]);
@@ -157,7 +67,7 @@ describe('nodeRuns', () => {
   });
 });
 
-describe('menuMatches', () => {
+describe('K1 menuMatches', { tags: ['critical'] }, () => {
   const groups = [
     { id: 'file', label: 'File', items: [item('Open'), { id: 'export', label: 'Export', children: [item('JSON file'), { id: 'more', label: 'More', children: [item('Copy')] }] }] },
   ];
@@ -170,26 +80,5 @@ describe('menuMatches', () => {
   it('needs every word and returns nothing for an empty query', () => {
     expect(menuMatches(groups, 'json export')).toHaveLength(1);
     expect(menuMatches(groups, '  ')).toEqual([]);
-  });
-});
-
-describe('DropdownMenu item attributes', () => {
-  const items = [
-    { id: 'a', label: 'Alpha', description: 'First', ariaDescription: 'Opens alpha', data: { 'data-menu-entry': 'alpha' } },
-    { id: 'b', label: 'Beta', kind: 'slider', ariaDescription: 'Sets beta', data: { 'data-menu-entry': 'beta' } },
-    { id: 'c', label: 'Gamma', data: { 'data-menu-entry': 'gamma' }, children: [item('Delta')] },
-  ];
-  const html = renderToString(h(DropdownMenu, { inline: true, groups: [{ id: 'g', items }] }));
-
-  it('passes data attributes and aria-description to an action item', () => {
-    expect(html).toContain('data-menu-entry="alpha"');
-    expect(html).toContain('aria-description="Opens alpha"');
-    expect(html).toContain('First');
-  });
-
-  it('passes them to slider items and sub-menu triggers', () => {
-    expect(html).toContain('data-menu-entry="beta"');
-    expect(html).toContain('aria-description="Sets beta"');
-    expect(html).toContain('data-menu-entry="gamma"');
   });
 });

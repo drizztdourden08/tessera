@@ -17,7 +17,7 @@ const paletteWithRow = (state, onClose, onCancel) => () => ({
   row: useConfirmAsk({ onConfirm: vi.fn(), onCancel }),
 });
 
-describe('CommandPalette on the shared Escape stack', () => {
+describe('K1 CommandPalette on the shared Escape stack', { tags: ['critical'] }, () => {
   it('cancels the question of a row on the first Escape and closes on the next', () => {
     const state = { open: true };
     const onClose = vi.fn(() => {
@@ -64,7 +64,7 @@ describe('CommandPalette on the shared Escape stack', () => {
   });
 });
 
-describe('CommandPalette takes arrows and typing from anywhere in its panel', () => {
+describe('K1 CommandPalette takes arrows and typing from anywhere in its panel', { tags: ['critical'] }, () => {
   const keyFrom = (target, key, extra = {}) => ({ key, target, defaultPrevented: false, preventDefault: vi.fn(), ctrlKey: false, metaKey: false, altKey: false, ...extra });
   const paletteWithInput = () => {
     const view = mountHook(paletteWithRow({ open: true }, vi.fn(), vi.fn()));

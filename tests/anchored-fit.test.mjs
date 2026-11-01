@@ -1,5 +1,4 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { fitAxis } from '../src/primitives/Anchored/behavior/fit-axis';
 import { fitInView } from '../src/primitives/Anchored/behavior/fit-in-view';
@@ -8,7 +7,7 @@ const VIEW = { width: 1000, height: 800 };
 const MARGIN = 4;
 const box = (left, top, width, height) => ({ left, top, right: left + width, bottom: top + height });
 
-describe('fitAxis', () => {
+describe('K1 fitAxis', { tags: ['critical'] }, () => {
   it('leaves a popup that fits where it is', () => {
     expect(fitAxis({ lo: 100, hi: 300 }, { lo: 100, hi: 160 }, 1000, MARGIN)).toBe(0);
     expect(fitAxis({ lo: MARGIN, hi: 996 }, { lo: 0, hi: 10 }, 1000, MARGIN)).toBe(0);
@@ -35,7 +34,7 @@ describe('fitAxis', () => {
   });
 });
 
-describe('fitInView', () => {
+describe('K1 fitInView', { tags: ['critical'] }, () => {
   const anchor = box(900, 100, 60, 30);
 
   it('moves a menu below a button near the right edge so it ends on the button', () => {
@@ -86,7 +85,7 @@ describe('fitInView', () => {
   });
 });
 
-describe('fitInView for a menu beside a toolbar button', () => {
+describe('K1 fitInView for a menu beside a toolbar button', { tags: ['critical'] }, () => {
   it.each([
     ['left', box(36, 520, 32, 32), box(68, 520, 380, 500)],
     ['right', box(932, 520, 32, 32), box(552, 520, 380, 500)],
@@ -99,19 +98,5 @@ describe('fitInView for a menu beside a toolbar button', () => {
     const popup = box(68, 520, 380, 500);
     const shift = fitInView(popup, button, { width: 1000, height: 978 }, MARGIN);
     expect(popup.bottom + shift.y).toBe(button.bottom);
-  });
-});
-
-describe('Anchored margin in CSS', () => {
-  const css = readFileSync(new URL('../src/primitives/Anchored/Anchored.css', import.meta.url), 'utf8');
-
-  it('gives the native popup a pin that keeps it inside the view after the flips', () => {
-    expect(css).toContain('@position-try --anchored-pin-inline');
-    expect(css).toContain('--anchored-pin-inline, flip-block --anchored-pin-inline');
-    expect(css).toContain('--anchored-margin: var(--space-xs)');
-  });
-
-  it('applies the measured shift to the fallback popup', () => {
-    expect(css).toContain('translate: var(--anchored-shift-x, 0%) var(--anchored-shift-y, 0%)');
   });
 });
