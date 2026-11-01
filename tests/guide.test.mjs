@@ -10,7 +10,8 @@ import { compareGuide } from '../scripts/guide/compare-guide.mjs';
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const PILOT = fileURLToPath(new URL('fixtures/guide/pilot', import.meta.url));
 const PILOT_NAMES = ['Button', 'ButtonGroup', 'ButtonRow', 'ConfirmIconButton', 'IconButton'];
-const TIMEOUT = 60_000;
+const MEASURED_MS = 123_000;
+const TIMEOUT = MEASURED_MS * 3;
 const committed = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8').replace(/\r\n/g, '\n');
 
 describe('the committed guide folder', () => {

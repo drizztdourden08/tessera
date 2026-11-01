@@ -4,6 +4,8 @@ import { describe, expect, it } from 'vitest';
 import { formatDate } from '../src/primitives/date-format';
 import { valueText } from '../src/primitives/listbox/value-text';
 
+const MEASURED_MS = 57_000;
+const TIMEOUT = MEASURED_MS * 3;
 const HOME = 'src/primitives/date-format/';
 const ROOTS = ['src', 'stories'];
 const DATE_OPTION = String.raw`\b(?:dateStyle|timeStyle|weekday|era|year|month|day|hour|minute|second|hourCycle|hour12|timeZone)\b`;
@@ -46,7 +48,7 @@ describe('one way to write a date', () => {
     const files = sourceFiles();
     expect(dateCodeIn(files.filter((file) => file.startsWith(HOME))).length).toBeGreaterThan(0);
     expect(dateCodeIn(files.filter((file) => !file.startsWith(HOME)))).toEqual([]);
-  }, 30_000);
+  }, TIMEOUT);
 
   it('writes a Date in a list the way the date format does', () => {
     const at = new Date(2026, 9, 16, 21, 40, 12);

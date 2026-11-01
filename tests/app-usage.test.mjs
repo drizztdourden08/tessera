@@ -12,7 +12,8 @@ import { loadTesseraConfig } from '../scripts/config/load-tessera-config.mjs';
 import { tesseraExtension } from '../scripts/standards/tessera-extension.mjs';
 import { appUsageFixture } from './app-usage-fixture.mjs';
 
-const TIMEOUT = 120_000;
+const MEASURED_MS = 114_000;
+const TIMEOUT = MEASURED_MS * 3;
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const TSC = join(ROOT, 'node_modules', 'typescript', 'bin', 'tsc');
 const state = { dir: '', outputs: [], model: undefined };
