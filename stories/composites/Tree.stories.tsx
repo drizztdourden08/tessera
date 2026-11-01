@@ -5,9 +5,11 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { TreeBigDemo } from './_samples/TreeBigDemo';
-import { TreeActionsDemo } from './_samples/TreeActionsDemo';import { TreeDemo } from './_samples/TreeDemo';
+import { TreeActionsDemo } from './_samples/TreeActionsDemo';
+import { TreeDemo } from './_samples/TreeDemo';
 import { TreeDragOutDemo } from './_samples/TreeDragOutDemo';
 import { TreeLazyDemo } from './_samples/TreeLazyDemo';
+import { TreeRoomyDemo } from './_samples/TreeRoomyDemo';
 import type { TreeArgs } from './_samples/tree-demo.type';
 import './Tree.stories.css';
 
@@ -74,6 +76,11 @@ const Lazy = {
   render: () => <TreeLazyDemo />,
 } satisfies StoryLiteStoryDefinition<TreeArgs>;
 
+const RoomyRows = {
+  name: 'Roomy rows: a 40 px thumbnail before each label',
+  render: () => <TreeRoomyDemo />,
+} satisfies StoryLiteStoryDefinition<TreeArgs>;
+
 const Big = {
   name: '10,100 rows drawn only where they are in view',
   render: () => <TreeBigDemo />,
@@ -105,7 +112,7 @@ const Overview = overviewStory({
   ],
   instead: '[GroupTree] for counted groups with one picked row, or [VirtualList] for a flat list.',
   playground: Playground,
-  variants: [Files, Reorder, HoverActions, BadgesAndActions, DragOut, Single, Filtered, Lazy, Big],
+  variants: [Files, Reorder, HoverActions, BadgesAndActions, DragOut, Single, Filtered, Lazy, RoomyRows, Big],
   states: {
     render: (props: StateProps) => <TreeDemo mode="single" guides open={props.open === true ? ['src', 'components'] : []} />,
     list: [
@@ -119,4 +126,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { BadgesAndActions, Big, DragOut, Files, Filtered, HoverActions, Lazy, Overview, Playground, Reorder, Single };
+export { BadgesAndActions, Big, DragOut, Files, Filtered, HoverActions, Lazy, Overview, Playground, Reorder, RoomyRows, Single };
