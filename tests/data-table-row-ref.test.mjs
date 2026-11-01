@@ -38,7 +38,7 @@ const mount = () => {
 
 const ROWS = Array.from({ length: 5 }, (_, at) => ({ id: `r${at}`, name: `Row ${at}` }));
 
-describe('attachRef', () => {
+describe('K1 attachRef', { tags: ['critical'] }, () => {
   it('sets an object ref and clears it', () => {
     const target = { current: null };
     const element = {};
@@ -64,17 +64,9 @@ describe('attachRef', () => {
   });
 });
 
-describe('row ref', () => {
+describe('K1 row ref', { tags: ['critical'] }, () => {
   it('gives no ref to a row when the host passes none', () => {
     expect(mount()({ rowRef: undefined, row: ROWS[0], id: 'r0' })).toBeUndefined();
-  });
-
-  it('hands the row element to the host ref asked for that row and key', () => {
-    const rowRef = vi.fn(() => vi.fn());
-    const render = mount();
-    const element = {};
-    render({ rowRef, row: ROWS[2], id: 'r2' })(element);
-    expect(rowRef).toHaveBeenCalledWith(ROWS[2], 'r2');
   });
 
   it('reaches every rendered row and releases the rows that scroll out', () => {

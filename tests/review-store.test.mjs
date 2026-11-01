@@ -18,7 +18,7 @@ writeFileSync(join(STORE, '.storylite/review-notes.json'), JSON.stringify({ 'Cor
 afterEach(() => { delete process.env[REVIEW_STORE_ENV]; });
 afterAll(() => { rmSync(STORE, { recursive: true }); rmSync(COPY, { recursive: true }); });
 
-describe('a shared review store', () => {
+describe('S2 a shared review store', { tags: ['standard'] }, () => {
   it('reads the notes and statuses from the store, not from the copy it runs in', () => {
     process.env[REVIEW_STORE_ENV] = STORE;
     expect(readNotes(COPY)['Core · Brand/Mascot']?.text).toBe('shared note');

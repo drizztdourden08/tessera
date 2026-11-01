@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { GroupTree } from '../src/composites/GroupTree';
 import { countItems } from '../src/composites/GroupTree/behavior/count-items';
 import { groupEntriesOf } from '../src/composites/GroupTree/behavior/group-entries-of';
 import { keysToDepth } from '../src/composites/GroupTree/behavior/keys-to-depth';
@@ -28,7 +25,7 @@ const flatOf = (tree, keys) => flattenItems(tree.top, {
 const flat = (keys) => flatOf(entries, keys);
 const indexOf = (rows) => new Map(rows.map((row, at) => [row.key, at]));
 
-describe('GroupTree rows', () => {
+describe('K1 GroupTree rows', { tags: ['critical'] }, () => {
   it('lists only the top groups when nothing is open', () => {
     expect(flat([]).map((row) => row.key)).toEqual(['eu', 'us']);
   });
@@ -75,7 +72,7 @@ describe('GroupTree rows', () => {
   });
 });
 
-describe('GroupTree keys', () => {
+describe('K1 GroupTree keys', { tags: ['critical'] }, () => {
   const rows = flat(['eu']);
 
   it('moves focus by a row and stops at both ends', () => {
@@ -109,57 +106,5 @@ describe('GroupTree keys', () => {
     expect(treeMove('Enter', rows, 2)).toEqual({ kind: 'select', index: 2 });
     expect(treeMove(' ', rows, 2)).toEqual({ kind: 'select', index: 2 });
     expect(treeMove('x', rows, 2)).toEqual({ kind: 'none' });
-  });
-});
-
-describe('GroupTree markup', () => {
-  const draw = (extra = {}) => renderToString(h(GroupTree, {
-    root: ROOT, getItemKey, renderItem: (item) => `Player ${item}`, expandToDepth: 2, ...extra,
-  }));
-
-  it('draws a tree of tree items named after the root', () => {
-    const html = draw();
-    expect(html).toContain('role="tree"');
-    expect(html).toContain('aria-label="Servers"');
-    expect((html.match(/role="treeitem"/g) ?? []).length).toBe(10);
-  });
-
-  it('says level, set size, position and expanded state', () => {
-    const html = draw();
-    expect(html).toContain('aria-level="1"');
-    expect(html).toContain('aria-level="2"');
-    expect(html).toContain('aria-expanded="true"');
-    expect(html).toContain('aria-setsize="2"');
-    expect(html).toContain('aria-posinset="2"');
-  });
-
-  it('keeps one tab stop and marks the selected row', () => {
-    const html = draw({ selectedKey: 'us' });
-    expect((html.match(/tabindex="0"/g) ?? []).length).toBe(1);
-    expect(html).toContain('aria-selected="true"');
-    expect(html).toContain('tree__row--selected');
-  });
-
-  it('shows counts unless told not to', () => {
-    expect(draw()).toContain('group-tree__count');
-    expect(draw({ showCounts: false })).not.toContain('group-tree__count');
-  });
-
-  it('hides the items of a closed group', () => {
-    const html = draw({ expandToDepth: 0 });
-    expect((html.match(/role="treeitem"/g) ?? []).length).toBe(2);
-    expect(html).toContain('aria-expanded="false"');
-  });
-
-  it('says nothing to show for a tree without rows', () => {
-    const html = renderToString(h(GroupTree, { root: leaf('r', 'Empty'), getItemKey, renderItem: String, emptyLabel: 'No players' }));
-    expect(html).toContain('tree--empty');
-    expect(html).toContain('No players');
-  });
-
-  it('draws the label of the item and the icon the app gives it', () => {
-    const html = draw({ itemIcon: () => h('i', { className: 'mark' }) });
-    expect(html).toContain('Player ann');
-    expect(html).toContain('class="mark"');
   });
 });

@@ -8,7 +8,7 @@ import { DEFS, bar, v2 } from './fixtures/toolbar-dock/toolbar-layout-kit.mjs';
 
 const read = (extra) => migrateToolbarLayout(v2({ top: [[bar('a')]], left: [[bar('c')]] }, extra), DEFS);
 
-describe('migrateToolbarLayout items', () => {
+describe('K1 migrateToolbarLayout items', { tags: ['critical'] }, () => {
   it.each([
     ['keeps hidden ids of a known toolbar', { a: ['x', 'y'], c: ['z'] }, { a: ['x', 'y'], c: ['z'] }],
     ['drops an unknown toolbar', { a: ['x'], zzz: ['y'] }, { a: ['x'] }],
@@ -28,7 +28,7 @@ describe('migrateToolbarLayout items', () => {
   });
 });
 
-describe('migrateToolbarLayout columns', () => {
+describe('K1 migrateToolbarLayout columns', { tags: ['critical'] }, () => {
   it.each([
     ['keeps 1, 2 and auto', { a: 1, c: 2, b: 'auto' }, { a: 1, c: 2, b: 'auto' }],
     ['drops an unknown toolbar', { a: 2, zzz: 2 }, { a: 2 }],
@@ -40,7 +40,7 @@ describe('migrateToolbarLayout columns', () => {
   });
 });
 
-describe('old layouts', () => {
+describe('K1 old layouts', { tags: ['critical'] }, () => {
   it('has neither field when the saved layout had none', () => {
     const layout = read({});
     expect('items' in layout).toBe(false);
@@ -56,7 +56,7 @@ describe('old layouts', () => {
   });
 });
 
-describe('setToolbarItems', () => {
+describe('K1 setToolbarItems', { tags: ['critical'] }, () => {
   it('sets the hidden ids of a toolbar and keeps the others', () => {
     const layout = setToolbarItems(setToolbarItems(createToolbarLayout(DEFS), 'b', ['q']), 'a', ['x', 'y']);
     expect(layout.items).toEqual({ b: ['q'], a: ['x', 'y'] });
@@ -82,7 +82,7 @@ describe('setToolbarItems', () => {
   });
 });
 
-describe('setToolbarColumns', () => {
+describe('K1 setToolbarColumns', { tags: ['critical'] }, () => {
   it('sets, changes and clears the count of a toolbar', () => {
     const two = setToolbarColumns(createToolbarLayout(DEFS), 'c', 2);
     expect(two.columns).toEqual({ c: 2 });
@@ -104,7 +104,7 @@ describe('setToolbarColumns', () => {
   });
 });
 
-describe('toolbarSlotFields', () => {
+describe('K1 toolbarSlotFields', { tags: ['critical'] }, () => {
   it('gives the hidden items and the count of a toolbar, and nothing for the rest', () => {
     const layout = setToolbarColumns(setToolbarItems(createToolbarLayout(DEFS), 'a', ['x']), 'a', 2);
     expect(toolbarSlotFields(layout, 'a')).toEqual({ hiddenItems: ['x'], columns: 2 });

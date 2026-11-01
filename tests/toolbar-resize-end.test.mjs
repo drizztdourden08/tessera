@@ -16,7 +16,7 @@ const placeOf = (layout, id) => layout.sides.top[0].find((place) => place.id ===
 
 const shape = (layout) => layout.sides.top[0].map(({ id, start, size }) => [id, Number(start.toFixed(6)) + 0, Number(size.toFixed(6)) + 0]);
 
-describe('resizeToolbarEnd, end handle', () => {
+describe('K1 resizeToolbarEnd, end handle', { tags: ['critical'] }, () => {
   it('grows into a gap and leaves the neighbours alone', () => {
     const next = resizeToolbarEnd(THREE, METRICS, { id: 'a', end: 'end' }, 250);
     expect(shape(next)).toEqual([['a', 0, 0.25], ['b', 0.3, 0.2], ['c', 0.6, 0.2]]);
@@ -67,7 +67,7 @@ describe('resizeToolbarEnd, end handle', () => {
   });
 });
 
-describe('resizeToolbarEnd, start handle', () => {
+describe('K1 resizeToolbarEnd, start handle', { tags: ['critical'] }, () => {
   it('shrinks a bar from its start without moving the end', () => {
     const next = resizeToolbarEnd(THREE, METRICS, { id: 'c', end: 'start' }, 700);
     expect(shape(next)).toEqual([['a', 0, 0.2], ['b', 0.3, 0.2], ['c', 0.7, 0.1]]);
@@ -94,7 +94,7 @@ describe('resizeToolbarEnd, start handle', () => {
   });
 });
 
-describe('resizeToolbarEnd on a vertical side', () => {
+describe('K1 resizeToolbarEnd on a vertical side', { tags: ['critical'] }, () => {
   it('measures the lane along its own axis', () => {
     const layout = { ...BASE, sides: { ...BASE.sides, left: [[{ id: 'l', start: 0, size: 0.5 }]] } };
     const next = resizeToolbarEnd(layout, METRICS, { id: 'l', end: 'end' }, 300);
@@ -104,7 +104,7 @@ describe('resizeToolbarEnd on a vertical side', () => {
   });
 });
 
-describe('toolbarEndRange', () => {
+describe('K1 toolbarEndRange', { tags: ['critical'] }, () => {
   it('gives value, min and max in pixels for an end handle', () => {
     expect(toolbarEndRange(THREE, METRICS, 'a', 'end')).toEqual({ value: 200, min: 32, max: 600, span: 1000 });
     expect(toolbarEndRange(THREE, METRICS, 'c', 'end')).toEqual({ value: 800, min: 632, max: 1000, span: 1000 });

@@ -2,7 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import { templateFor } from '../src/primitives/Grid/behavior/template-for';
 
-describe('Grid fit', () => {
+describe('K1 Grid fit', { tags: ['critical'] }, () => {
   it('keeps empty tracks by default', () => {
     expect(templateFor(undefined, 288)).toEqual({ gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 288px), 1fr))' });
   });

@@ -47,7 +47,7 @@ const CONNECTION = rectOf(770, 313, 420, 259);
 
 const holeAround = ({ left, top, width, height }) => ({ x: left, y: top, width, height, radius: 0 });
 
-describe('a tall step, then a normal one', () => {
+describe('K1 a tall step, then a normal one', { tags: ['critical'] }, () => {
   it('lights the second target on the second step, not the hole of the first', () => {
     const { doc, flush } = fakeView();
     const players = nodeIn(doc, PLAYERS);
@@ -97,7 +97,7 @@ describe('a tall step, then a normal one', () => {
   });
 });
 
-describe('scrollToTarget', () => {
+describe('K1 scrollToTarget', { tags: ['critical'] }, () => {
   it('brings the top edge of a target taller than the window into view', () => {
     const { doc } = fakeView();
     const players = nodeIn(doc, PLAYERS);
@@ -113,7 +113,7 @@ describe('scrollToTarget', () => {
   });
 });
 
-describe('the mascot stand', () => {
+describe('K1 the mascot stand', { tags: ['critical'] }, () => {
   const spotFor = (rect) => {
     const hole = holeAround(rect);
     const place = bubblePlace(hole, BUBBLE, VIEW);

@@ -13,7 +13,7 @@ const layout = { ...createDefaultLayout(), floating: IDS.map((id) => ({ id, x: 0
 const gates = { definitions: DEFINITIONS, pageOpen: false, developerToolsEnabled: false, forcedIds: [], contentIds: IDS };
 const shown = (contextActive, extra = {}) => visibleLayoutOf(layout, { ...gates, contextActive, ...extra }).floating.map((f) => f.id);
 
-describe('the context of each widget', () => {
+describe('K1 the context of each widget', { tags: ['critical'] }, () => {
   it('asks the function once per context only widget, with its own definition', () => {
     const running = { session: true, race: false };
     const ask = vi.fn((definition) => running[definition.context]);
@@ -30,5 +30,4 @@ describe('the context of each widget', () => {
     expect(shown(() => false, { forcedIds: ['hints'] })).toEqual(['log', 'hints']);
     expect(shown(() => true, { pageOpen: true })).toEqual(['log']);
   });
-
 });

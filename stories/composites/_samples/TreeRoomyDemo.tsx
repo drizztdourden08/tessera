@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Tree } from '../../../src/composites';
 import { Box, Text } from '../../../src/primitives';
+import './StoryThumb.css';
 import { PROJECT_FILES } from './tree-entries';
 import type { TreeEntry } from './tree-entries';
 
@@ -10,7 +11,7 @@ const childrenOf = (entry: TreeEntry) => entry.children;
 const labelOf = (entry: TreeEntry) => entry.name;
 const OPEN: readonly string[] = ['src', 'components'];
 
-const thumbOf = (entry: TreeEntry) => <Box className="tree-story__thumb">{entry.name.slice(0, 1).toUpperCase()}</Box>;
+const thumbOf = (entry: TreeEntry) => <Box className="story-thumb tree-story__thumb">{entry.name.slice(0, 1).toUpperCase()}</Box>;
 
 const TreeRoomyDemo = () => {
   const [picked, setPicked] = useState<ReadonlySet<string>>(new Set());

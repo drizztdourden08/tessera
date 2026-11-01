@@ -23,7 +23,7 @@ const ORDERS = [
 
 const opener = (doc, closed) => (level) => [level, pushEscape(doc, level, () => closed.push(level))];
 
-describe('one press of Escape closes one thing, the innermost', () => {
+describe('K1 one press of Escape closes one thing, the innermost', { tags: ['critical'] }, () => {
   it.each(ORDERS)('a menu in a dialog in a screen, opened in the order %s, %s, %s', (...order) => {
     const doc = escapeDocument();
     const closed = [];
@@ -65,7 +65,7 @@ describe('one press of Escape closes one thing, the innermost', () => {
 
 });
 
-describe('what the Escape stack leaves alone', () => {
+describe('K1 what the Escape stack leaves alone', { tags: ['critical'] }, () => {
   it('leaves a key an inner editor already handled, and every other key', () => {
     const doc = escapeDocument();
     const dialog = vi.fn();
@@ -101,7 +101,7 @@ describe('what the Escape stack leaves alone', () => {
 
 const node = (doc, inside = []) => ({ nodeType: 1, ownerDocument: doc, contains: (target) => inside.includes(target) });
 
-describe('the parts on the stack', () => {
+describe('K1 the parts on the stack', { tags: ['critical'] }, () => {
   it('ScreenLayer, DialogShell and a menu close one by one, innermost first', () => {
     const doc = escapeDocument();
     const open = { screen: true, dialog: true, menu: true };
@@ -139,7 +139,7 @@ describe('the parts on the stack', () => {
   });
 });
 
-describe('useEscapeStack', () => {
+describe('K1 useEscapeStack', { tags: ['critical'] }, () => {
   it('registers a level for the app while active and reads the depth at any time', () => {
     const onEscape = vi.fn();
     const state = { active: true };
@@ -156,7 +156,7 @@ describe('useEscapeStack', () => {
   });
 });
 
-describe('a screen beside another screen', () => {
+describe('K1 a screen beside another screen', { tags: ['critical'] }, () => {
   it('takes only a key pressed inside it, or on the page body', () => {
     const doc = escapeDocument();
     doc.body = { nodeType: 1 };

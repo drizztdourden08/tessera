@@ -44,7 +44,7 @@ const key = (name, held = {}, extra = {}) => {
   return { key: name, ctrlKey: false, metaKey: false, altKey: false, shiftKey: false, timeStamp: 0, target, currentTarget: target, preventDefault: vi.fn(), ...held, ...extra };
 };
 
-describe('useSelectionModel', () => {
+describe('K1 useSelectionModel', { tags: ['critical'] }, () => {
   it('picks one on a click and calls onPick', () => {
     const onPick = vi.fn();
     const { state, fresh } = modelOf({ onPick });
@@ -99,7 +99,7 @@ describe('useSelectionModel', () => {
   });
 });
 
-describe('the keys of useSelectionModel', () => {
+describe('K1 the keys of useSelectionModel', { tags: ['critical'] }, () => {
   it('selects all with Ctrl+A and clears with Escape', () => {
     const { state, fresh } = modelOf();
     const all = key('a', { ctrlKey: true });

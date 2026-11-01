@@ -29,7 +29,7 @@ const fakeFrame = (rect, parts = []) => {
 
 const key = (name, shiftKey = false) => ({ key: name, shiftKey, preventDefault: vi.fn() });
 
-describe('moving the window', () => {
+describe('K1 moving the window', { tags: ['critical'] }, () => {
   it('steps 16 px with the arrow keys and 64 px with Shift', () => {
     expect(keyStep('ArrowRight', false)).toEqual({ x: 16, y: 0 });
     expect(keyStep('ArrowUp', true)).toEqual({ x: 0, y: -64 });
@@ -74,7 +74,7 @@ describe('moving the window', () => {
   });
 });
 
-describe('the window lock', () => {
+describe('K1 the window lock', { tags: ['critical'] }, () => {
   beforeEach(() => {
     const store = new Map();
     vi.stubGlobal('localStorage', { getItem: (k) => store.get(k) ?? null, setItem: (k, v) => store.set(k, v) });
@@ -127,7 +127,7 @@ describe('the window lock', () => {
   });
 });
 
-describe('Escape on a window with no title row', () => {
+describe('K1 Escape on a window with no title row', { tags: ['critical'] }, () => {
   it('still closes the window', () => {
     const page = escapeDocument();
     const onClose = vi.fn();

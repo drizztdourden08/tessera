@@ -8,7 +8,7 @@ import { dockedShare } from '../src/composites/Widget/behavior/docked-share';
 const STAGE = { x: 0, y: 0, width: 1200, height: 800 };
 const rectOf = (layout, id) => layoutTree(layout.dock, STAGE).leaves.find((leaf) => leaf.node.kind === 'pane' && leaf.node.widgets.includes(id))?.rect;
 
-describe('a widget opened on an edge', () => {
+describe('K1 a widget opened on an edge', { tags: ['critical'] }, () => {
   it('takes its defaultDockedSize as its share of the view, within 12 to 45 percent', () => {
     expect(dockedShare('right', 300, 1200)).toBe(0.25);
     expect(dockedShare('right', 50, 1200)).toBe(0.12);

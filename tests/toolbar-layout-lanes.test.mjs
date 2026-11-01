@@ -13,7 +13,7 @@ const dense = (size, over = {}) => migrateToolbarLayout(v2({
   ...over,
 }), defs);
 
-describe('lanes with several toolbars', () => {
+describe('K1 lanes with several toolbars', { tags: ['critical'] }, () => {
   it('opens a new lane before sharing a gap', () => {
     const layout = migrateToolbarLayout(v2({ top: [[bar('top1', 0, 0.3), bar('top2', 0.5, 0.5)]] }), defs);
     const next = showToolbar(layout, 'x', defs);
@@ -49,7 +49,7 @@ describe('lanes with several toolbars', () => {
   });
 });
 
-describe('MIN_SHARE', () => {
+describe('K1 MIN_SHARE', { tags: ['critical'] }, () => {
   it('refuses a gap below MIN_SHARE on every side', () => {
     const layout = dense(0.9);
     expect(1 - 0.9).toBeLessThan(MIN_SHARE);
@@ -73,7 +73,7 @@ describe('MIN_SHARE', () => {
   });
 });
 
-describe('normalizeCorners', () => {
+describe('K1 normalizeCorners', { tags: ['critical'] }, () => {
   const claims = (layout, topLeft, bottomLeft = layout.corners['bottom-left']) => ({
     ...layout,
     corners: { ...layout.corners, 'top-left': topLeft, 'bottom-left': bottomLeft },

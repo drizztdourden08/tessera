@@ -28,7 +28,7 @@ const spot = (at, over = {}) => ({ side: 'top', lane: 0, index: 0, at, ...over }
 
 const shape = (placed, lane = 0) => placed.layout.sides.top[lane].map(({ id, start, size }) => [id, Number(start.toFixed(4)) + 0, Number(size.toFixed(4)) + 0]);
 
-describe('toolbarPlaceAt, insertion point', () => {
+describe('K1 toolbarPlaceAt, insertion point', { tags: ['critical'] }, () => {
   it.each([
     ['the lane start', 0, [['x', 0, 0.3], ['a', 0.3, 0.2], ['b', 0.5, 0.2], ['c', 0.7, 0.2]]],
     ['between two bars', 0.2, [['a', 0, 0.2], ['x', 0.2, 0.3], ['b', 0.5, 0.2], ['c', 0.7, 0.2]]],
@@ -92,7 +92,7 @@ describe('toolbarPlaceAt, insertion point', () => {
   });
 });
 
-describe('toolbarSnapAt', () => {
+describe('K1 toolbarSnapAt', { tags: ['critical'] }, () => {
   const PLACES = [place('a', 0, 0.2), place('b', 0.3, 0.2)];
 
   it.each([
@@ -118,7 +118,7 @@ describe('toolbarSnapAt', () => {
   });
 });
 
-describe('toolbarLaneSlots', () => {
+describe('K1 toolbarLaneSlots', { tags: ['critical'] }, () => {
   it.each([
     ['an empty lane', [], undefined, [0]],
     ['one full bar', [place('a', 0, 1)], undefined, [0, 1]],
@@ -137,7 +137,7 @@ describe('toolbarLaneSlots', () => {
   });
 });
 
-describe('slot keys in pick mode', () => {
+describe('K1 slot keys in pick mode', { tags: ['critical'] }, () => {
   const pick = (slot) => ({ kind: 'lane', side: 'top', lane: 0, index: 0, slot });
 
   const press = (from, key) => toolbarKeyStep(THREE, 'x', pick(from), key);
@@ -181,7 +181,7 @@ describe('slot keys in pick mode', () => {
   });
 });
 
-describe('toolbarDropAt with a pointer', () => {
+describe('K1 toolbarDropAt with a pointer', { tags: ['critical'] }, () => {
   const at = (id, layout, x, y) => toolbarDropAt(FRAME, layout, id, { x, y });
 
   it('turns the pointer into a fraction of the lane and previews the computed placement', () => {

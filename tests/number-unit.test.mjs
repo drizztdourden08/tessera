@@ -16,7 +16,7 @@ const SCHEMA = buildSchema(ROWS, { units: { memory: 'MB' } });
 const memory = SCHEMA.find((field) => field.path === 'memory');
 const cell = (row) => renderToString(h('div', null, cellContent(row, 'memory', memory)));
 
-describe('a number field with a unit', () => {
+describe('K1 a number field with a unit', { tags: ['critical'] }, () => {
   it('takes the unit from the schema config', () => {
     expect(memory.unit).toBe('MB');
     expect(SCHEMA.find((field) => field.path === 'name').unit).toBeUndefined();

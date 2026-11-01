@@ -7,7 +7,7 @@ import { toggleValue } from '../src/primitives/field-control/toggle-value';
 const trackIn = (direction, clientWidth) => ({ clientWidth, ownerDocument: { defaultView: { getComputedStyle: () => ({ direction }) } } });
 const item = { offsetLeft: 30, offsetWidth: 50 };
 
-describe('the sliding marker of SegmentedControl and FloatingSwitch', () => {
+describe('K1 the sliding marker of SegmentedControl and FloatingSwitch', { tags: ['critical'] }, () => {
   it('measures the chosen item from the left and from the start of the track', () => {
     expect(activeBoxOf(trackIn('ltr', 200), item)).toEqual({ left: 30, start: 30, size: 50 });
     expect(activeBoxOf(trackIn('rtl', 200), item)).toEqual({ left: 30, start: 120, size: 50 });
@@ -21,7 +21,7 @@ describe('the sliding marker of SegmentedControl and FloatingSwitch', () => {
   });
 });
 
-describe('toggleValue', () => {
+describe('K1 toggleValue', { tags: ['critical'] }, () => {
   it('adds a value that is out and takes out a value that is in, keeping the order', () => {
     expect(toggleValue(['a', 'b'], 'c')).toEqual(['a', 'b', 'c']);
     expect(toggleValue(['a', 'b', 'c'], 'b')).toEqual(['a', 'c']);

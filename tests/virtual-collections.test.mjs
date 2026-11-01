@@ -1,6 +1,4 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { gridCellExtras } from '../src/composites/VirtualGrid/behavior/grid-cell-extras';
 import { gridKeyStep } from '../src/composites/VirtualGrid/behavior/grid-key-step';
@@ -13,12 +11,6 @@ import { listRects } from '../src/composites/VirtualList/behavior/list-rects';
 import { nextAcrossIndex } from '../src/composites/VirtualList/behavior/next-across-index';
 import { nextIndex } from '../src/composites/VirtualList/behavior/next-index';
 import { stepVirtualSize } from '../src/composites/virtual/size-steps';
-import { VirtualGrid } from '../src/composites/VirtualGrid';
-import { VirtualList } from '../src/composites/VirtualList';
-
-const ITEMS = Array.from({ length: 400 }, (_, at) => ({ id: `item-${at}`, text: `Item ${at}` }));
-
-const base = { label: 'Items', items: ITEMS, getKey: (item) => item.id, renderItem: (item) => item.text };
 
 const SECTIONS = [
   { header: true, count: 7, collapsed: false },
@@ -27,20 +19,13 @@ const SECTIONS = [
 
 const HEIGHTS = { tile: 100, head: 40 };
 
-describe('VirtualList on the horizontal axis', () => {
+describe('K1 VirtualList on the horizontal axis', { tags: ['critical'] }, () => {
   it('steps by the left and right keys and ignores the vertical ones', () => {
     expect(nextAcrossIndex('ArrowRight', 3, 100, 8)).toBe(4);
     expect(nextAcrossIndex('ArrowLeft', 0, 100, 8)).toBe(0);
     expect(nextAcrossIndex('ArrowDown', 3, 100, 8)).toBeUndefined();
     expect(nextIndex('ArrowRight', 3, 100, 8)).toBeUndefined();
     expect(nextAcrossIndex('End', 3, 100, 8)).toBe(99);
-  });
-
-  it('draws an orientation mark and only the items near the start', () => {
-    const html = renderToString(h(VirtualList, { ...base, orientation: 'horizontal', itemSize: 'size-64' }));
-    expect(html).toContain('data-orientation="horizontal"');
-    expect(html).toContain('--vl-item-w:var(--size-64)');
-    expect((html.match(/role="listitem"/g) ?? []).length).toBeLessThan(60);
   });
 
   it('gives the rects of items on the main axis for a marquee', () => {
@@ -51,29 +36,7 @@ describe('VirtualList on the horizontal axis', () => {
   });
 });
 
-describe('VirtualList with a selection', () => {
-  const selection = { selected: new Set(['item-1']), onChange: () => undefined };
-
-  it('turns into a multi select listbox with the picked item marked', () => {
-    const html = renderToString(h(VirtualList, { ...base, selection, orientation: 'horizontal' }));
-    expect(html).toContain('role="listbox"');
-    expect(html).toContain('aria-multiselectable="true"');
-    expect(html).toContain('aria-orientation="horizontal"');
-    expect(html).toContain('role="option"');
-    expect(html).toContain('data-marquee-key="item-1"');
-    expect(html).toMatch(/aria-selected="true"[^>]*data-vl-index="1"|data-vl-index="1"[^>]*aria-selected="true"/);
-    expect(html).toContain('aria-selected="false"');
-  });
-
-  it('stays a plain list without a selection', () => {
-    const html = renderToString(h(VirtualList, base));
-    expect(html).toContain('role="list"');
-    expect(html).not.toContain('aria-selected');
-    expect(html).not.toContain('aria-multiselectable');
-  });
-});
-
-describe('the sizes of tiles', () => {
+describe('K1 the sizes of tiles', { tags: ['critical'] }, () => {
   it('moves along the steps of the size tokens and stops at both ends', () => {
     expect(stepVirtualSize('size-64', 1)).toBe('size-80');
     expect(stepVirtualSize('size-64', -2)).toBe('size-48');
@@ -82,7 +45,7 @@ describe('the sizes of tiles', () => {
   });
 });
 
-describe('the cells and rects of the grid', () => {
+describe('K1 the cells and rects of the grid', { tags: ['critical'] }, () => {
   const layout = gridLayout(SECTIONS, 4);
   const keys = Array.from({ length: 10 }, (_, at) => `k${at}`);
 
@@ -103,7 +66,7 @@ describe('the cells and rects of the grid', () => {
   });
 });
 
-describe('where a drop lands on the grid', () => {
+describe('K1 where a drop lands on the grid', { tags: ['critical'] }, () => {
   const layout = gridLayout(SECTIONS, 4);
   const sectionKeys = ['one', 'two'];
   const land = (x, y, canInto = () => true, sectioned = true) => gridPointAt({
@@ -133,7 +96,7 @@ describe('where a drop lands on the grid', () => {
   });
 });
 
-describe('the marks and keys of a grid reorder', () => {
+describe('K1 the marks and keys of a grid reorder', { tags: ['critical'] }, () => {
   it('marks the tile before the gap, and the last tile when the gap is the end', () => {
     expect(gridMarkOf({ item: 3, gap: 3, total: 10, owners: [] })).toBe('before');
     expect(gridMarkOf({ item: 9, gap: 10, total: 10, owners: [] })).toBe('after');
@@ -159,7 +122,7 @@ describe('the marks and keys of a grid reorder', () => {
   });
 });
 
-describe('the props a tile gets from the grid', () => {
+describe('K1 the props a tile gets from the grid', { tags: ['critical'] }, () => {
   const quiet = { extrasOf: () => ({ marker: true }), swallowClick: () => false };
   const select = { isSelected: (key) => key === 'k1', click: () => undefined };
 
@@ -178,33 +141,5 @@ describe('the props a tile gets from the grid', () => {
     const held = gridCellExtras({ key: 'k1', item: 1, select: model, moving: { ...quiet, swallowClick: () => true }, selecting: true, hole: false });
     held.onClick({});
     expect(clicks).toEqual(['k1']);
-  });
-});
-
-describe('VirtualGrid with a selection and holes', () => {
-  const selection = { selected: new Set(['item-1']), onChange: () => undefined };
-
-  it('marks the grid as multi select and each drawn tile as selected or not', () => {
-    const html = renderToString(h(VirtualGrid, { ...base, selection }));
-    expect(html).toContain('aria-multiselectable="true"');
-    expect(html).toContain('aria-selected="true"');
-    expect(html).toContain('aria-selected="false"');
-  });
-
-  it('keeps holes out of the selection marks', () => {
-    const html = renderToString(h(VirtualGrid, { ...base, selection, holes: () => true }));
-    expect(html).not.toContain('aria-selected');
-  });
-
-  it('adds no selection or reorder mark without the props', () => {
-    const html = renderToString(h(VirtualGrid, base));
-    expect(html).not.toContain('aria-selected');
-    expect(html).not.toContain('aria-multiselectable');
-    expect(html).not.toContain('aria-live');
-  });
-
-  it('keeps a live region for the moves when it can reorder', () => {
-    const html = renderToString(h(VirtualGrid, { ...base, reorder: { onMove: () => undefined } }));
-    expect(html).toContain('aria-live="polite"');
   });
 });

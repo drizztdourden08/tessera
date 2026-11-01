@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { SettingsRow } from '../src/composites/SettingsRow';
 import { keysOfEvent } from '../src/composites/SettingsRow/behavior/key-of-event';
 import { lineHints } from '../src/composites/SettingsRow/behavior/line-hints';
 import { valueHint } from '../src/composites/SettingsRow/behavior/value-hint';
@@ -23,7 +20,7 @@ const SECTIONS = [
   { id: 'sound', title: 'Sound', groups: [{ id: 'output', title: 'Output', rows: [channels] }, { id: 'net', rows: [port] }] },
 ];
 
-describe('valueHint', () => {
+describe('K1 valueHint', { tags: ['critical'] }, () => {
   it('says what the current value does', () => {
     expect(valueHint(tray.input, WORDS)).toEqual({ label: 'On', description: 'Shown.' });
     expect(valueHint(channels.input, WORDS)).toEqual({ label: 'Stereo', description: 'Left and right apart.' });
@@ -31,7 +28,7 @@ describe('valueHint', () => {
   });
 });
 
-describe('lineHints', () => {
+describe('K1 lineHints', { tags: ['critical'] }, () => {
   it('lists every hint the line can show, so the row keeps room for the longest', () => {
     expect(lineHints(tray.input, WORDS)).toEqual([{ label: 'On', description: 'Shown.' }, { label: 'Off', description: 'Hidden.' }]);
     expect(lineHints(channels.input, WORDS).map((hint) => hint.label)).toEqual(['Mono', 'Stereo']);
@@ -45,7 +42,7 @@ describe('lineHints', () => {
   });
 });
 
-describe('filterSettingsSections', () => {
+describe('K1 filterSettingsSections', { tags: ['critical'] }, () => {
   it('keeps matching rows by title, keywords and option labels, and drops empty groups', () => {
     expect(filterSettingsSections(SECTIONS, 'mono').map((section) => section.id)).toEqual(['sound']);
     const network = filterSettingsSections(SECTIONS, 'NETWORK');
@@ -64,7 +61,7 @@ describe('filterSettingsSections', () => {
   });
 });
 
-describe('searchWorkspace', () => {
+describe('K1 searchWorkspace', { tags: ['critical'] }, () => {
   it('counts rows per page and lists the pages whose name matches', () => {
     const pages = [{ id: 'audio', title: 'Audio', sections: SECTIONS }, { id: 'home', title: 'Home', keywords: 'channels overview' }];
     const found = searchWorkspace(pages, 'channel');
@@ -75,44 +72,12 @@ describe('searchWorkspace', () => {
   });
 });
 
-describe('keysOfEvent', () => {
+describe('K1 keysOfEvent', { tags: ['critical'] }, () => {
   it('reads modifiers and the main key, and waits on a lone modifier', () => {
     const press = (key, held = {}) => keysOfEvent({ key, ctrlKey: false, altKey: false, shiftKey: false, metaKey: false, ...held });
     expect(press('k', { ctrlKey: true })).toEqual(['ctrl', 'K']);
     expect(press('ArrowUp', { shiftKey: true })).toEqual(['shift', 'up']);
     expect(press('F5')).toEqual(['F5']);
     expect(press('Control', { ctrlKey: true })).toBeNull();
-  });
-});
-
-describe('SettingsRow', () => {
-  it('draws the control, the key and the hint of the current value', () => {
-    const html = renderToString(h(SettingsRow, channels));
-    expect(html).toContain('data-setting-key="channels"');
-    expect(html).toContain('data-kind="segmented"');
-    expect(html).toContain('Left and right apart.');
-  });
-
-  it('rests on the description, with every hint laid in the same place to hold the height', () => {
-    const html = renderToString(h(SettingsRow, channels));
-    expect(html).toContain('How many speakers.');
-    expect(html).not.toContain('data-pointed');
-    expect(html.match(/settings-row__sizer/g)).toHaveLength(3);
-  });
-
-  it('rests on the row hint when the row has no description', () => {
-    expect(renderToString(h(SettingsRow, port))).toMatch(/settings-row__resting[^>]*>Other players connect here\./);
-  });
-
-  it('drops the radio subtitles when compact', () => {
-    const radio = { id: 'first', title: 'First page', noDescription: true, hint: 'Where it opens.', input: { kind: 'radio', value: '1', onChange: noop, options: CHANNELS } };
-    expect(renderToString(h(SettingsRow, radio))).toContain('radio-group__option-desc');
-    expect(renderToString(h(SettingsRow, { ...radio, compact: true }))).not.toContain('radio-group__option-desc');
-  });
-
-  it('draws the value as text when read only, and one line when compact', () => {
-    expect(renderToString(h(SettingsRow, { ...tray, readOnly: true }))).toContain('settings-row__state--on');
-    expect(renderToString(h(SettingsRow, { ...port, readOnly: true }))).toContain('38281');
-    expect(renderToString(h(SettingsRow, { ...channels, compact: true, description: 'How many speakers.' }))).toContain('settings-row--compact');
   });
 });

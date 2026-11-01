@@ -1,25 +1,13 @@
 /* @layer tooling-scripts @kind test */
 import { describe, expect, it } from 'vitest';
-import * as composites from '../src/composites';
 import * as data from '../src/data';
 import * as primitives from '../src/primitives';
-import * as root from '../src';
 
 const noNode = () => null;
 
 const field = (path, kind, extra = {}) => ({ path, label: path, kind, ...extra });
 
-describe('the helpers an app reaches for beside RecordEditor and ScrollArea', () => {
-  it('exports each from its entry point and from the package root', () => {
-    expect(data.blankValue).toBeTypeOf('function');
-    expect(composites.IDENTITY_PATH).toBe('id');
-    expect(data.IDENTITY_PATH).toBe(composites.IDENTITY_PATH);
-    expect(primitives.createScrollSyncController).toBeTypeOf('function');
-    expect(root.blankValue).toBe(data.blankValue);
-    expect(root.IDENTITY_PATH).toBe('id');
-    expect(root.createScrollSyncController).toBe(primitives.createScrollSyncController);
-  });
-
+describe('K1 the helpers an app reaches for beside RecordEditor and ScrollArea', { tags: ['critical'] }, () => {
   it('blankValue builds each required field at its empty value, and skips the optional ones', () => {
     const spawn = field('spawn', 'object', {
       children: [

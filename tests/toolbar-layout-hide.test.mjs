@@ -5,7 +5,7 @@ import {
 } from '../src/composites/ToolbarDock';
 import { DEFS, bar, def, fullDefs, v2 } from './fixtures/toolbar-dock/toolbar-layout-kit.mjs';
 
-describe('hideToolbar', () => {
+describe('K1 hideToolbar', { tags: ['critical'] }, () => {
   it('records the spot, drops the emptied lane and its corner claim', () => {
     const layout = createToolbarLayout(DEFS);
     const hidden = hideToolbar(layout, 'a');
@@ -47,7 +47,7 @@ describe('hideToolbar', () => {
   });
 });
 
-describe('showToolbar', () => {
+describe('K1 showToolbar', { tags: ['critical'] }, () => {
   it('hide then show returns to last', () => {
     const layout = createToolbarLayout(DEFS);
     const back = showToolbar(hideToolbar(layout, 'a'), 'a', DEFS);

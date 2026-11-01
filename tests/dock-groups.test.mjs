@@ -41,7 +41,7 @@ const sourceOf = (id) => {
 const at = (pointer) => ({ pointer, client: pointer, onScreen: { x: pointer.x + 500, y: pointer.y + 500 }, view: VIEW });
 const NO_KEYS = { shift: false, ctrl: false };
 
-describe('the drop a host checks', () => {
+describe('K1 the drop a host checks', { tags: ['critical'] }, () => {
   it('names the kind, the slot, the pane and the side', () => {
     const pane = leafOf('players').node;
     expect(dropOf({ at: 'tab', key: pane.key }, laid)).toEqual({ kind: 'tab', slot: 'pane', pane, edge: null });
@@ -52,7 +52,7 @@ describe('the drop a host checks', () => {
   });
 });
 
-describe('widgets in different groups', () => {
+describe('K1 widgets in different groups', { tags: ['critical'] }, () => {
 
   it('never tab or split into each other, and widgets with no group form one group', () => {
     expect(byGroup('console', dropOf({ at: 'tab', key: players.key }, laid))).toBe(false);
@@ -108,7 +108,7 @@ describe('widgets in different groups', () => {
   });
 });
 
-describe('a host rule on any drop', () => {
+describe('K1 a host rule on any drop', { tags: ['critical'] }, () => {
   it('can refuse floating, and the main view then docks beside itself', () => {
     const ctx = contextWith((id, drop) => drop.kind !== 'float');
     const main = mainRectOf(laid);

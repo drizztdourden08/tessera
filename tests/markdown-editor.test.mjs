@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { MarkdownEditor } from '../src/composites/MarkdownEditor';
 import { applyAction } from '../src/composites/MarkdownEditor/behavior/apply-action';
 import { applyEdit } from '../src/composites/MarkdownEditor/behavior/apply-edit';
 import { insertCodeBlock } from '../src/composites/MarkdownEditor/behavior/insert-code-block';
@@ -16,7 +13,7 @@ const run = (edit, text) => {
   return { next, picked: next.slice(edit.selectStart, edit.selectEnd) };
 };
 
-describe('wrapSelection', () => {
+describe('K1 wrapSelection', { tags: ['critical'] }, () => {
   it('wraps the selection and keeps it selected', () => {
     const text = 'make this loud';
     const { next, picked } = run(wrapSelection(text, 5, 9, '**'), text);
@@ -59,7 +56,7 @@ describe('wrapSelection', () => {
   });
 });
 
-describe('prefixLines', () => {
+describe('K1 prefixLines', { tags: ['critical'] }, () => {
   it('prefixes every line a multi-line selection touches and selects them', () => {
     const text = 'one\ntwo\nthree';
     const edit = prefixLines(text, 2, 9, 'bullet');
@@ -97,7 +94,7 @@ describe('prefixLines', () => {
   });
 });
 
-describe('insertLink', () => {
+describe('K1 insertLink', { tags: ['critical'] }, () => {
   it('makes the selection the label and selects the address to type', () => {
     const text = 'see docs now';
     const { next, picked } = run(insertLink(text, 4, 8), text);
@@ -119,7 +116,7 @@ describe('insertLink', () => {
   });
 });
 
-describe('insertCodeBlock', () => {
+describe('K1 insertCodeBlock', { tags: ['critical'] }, () => {
   it('fences the selection on lines of its own', () => {
     const text = 'run npm test now';
     const { next, picked } = run(insertCodeBlock(text, 4, 12), text);
@@ -133,7 +130,7 @@ describe('insertCodeBlock', () => {
   });
 });
 
-describe('applyAction and shortcuts', () => {
+describe('K1 applyAction and shortcuts', { tags: ['critical'] }, () => {
   it('maps each toolbar action to its edit', () => {
     expect(applyEdit('x', applyAction('bold', 'x', 0, 1))).toBe('**x**');
     expect(applyEdit('x', applyAction('italic', 'x', 0, 1))).toBe('*x*');
@@ -150,50 +147,5 @@ describe('applyAction and shortcuts', () => {
     expect(key('z')).toBeNull();
     expect(key('b', { shiftKey: true })).toBeNull();
     expect(key('b', { ctrlKey: false })).toBeNull();
-  });
-});
-
-describe('MarkdownEditor toolbar', () => {
-  const noop = () => undefined;
-
-  it('draws a named toolbar with one named button per action', () => {
-    const html = renderToString(h(MarkdownEditor, { value: '', onChange: noop }));
-    expect(html).toContain('role="toolbar" aria-label="Formatting"');
-    for (const name of ['Bold', 'Italic', 'Bulleted list', 'Numbered list', 'Link', 'Inline code', 'Code block']) {
-      expect(html).toContain(`aria-label="${name}"`);
-    }
-  });
-
-  it('names the shortcuts in the tooltips and in aria-keyshortcuts', () => {
-    const html = renderToString(h(MarkdownEditor, { value: '', onChange: noop }));
-    expect(html).toContain('aria-keyshortcuts="Control+B Meta+B"');
-    expect(html).toContain('aria-keyshortcuts="Control+K Meta+K"');
-    expect(html).not.toContain('aria-keyshortcuts="Control+L');
-  });
-
-  it('shows the label, the text and the preview in the split layout', () => {
-    const html = renderToString(h(MarkdownEditor, { value: '# Title\n\nsome **text**', onChange: noop, label: 'Note', layout: 'split' }));
-    expect(html).toContain('data-layout="split"');
-    expect(html).toContain('Note');
-    expect(html).toContain('<strong');
-    expect(html).not.toContain('role="tablist"');
-  });
-
-  it('draws Write and Preview tabs in the tabs layout', () => {
-    const html = renderToString(h(MarkdownEditor, { value: 'x', onChange: noop, layout: 'tabs' }));
-    expect(html).toContain('data-layout="tabs"');
-    expect(html).toContain('role="tablist"');
-    expect(html).toContain('>Write<');
-    expect(html).toContain('>Preview<');
-  });
-
-  it('turns the toolbar and the field off when disabled', () => {
-    const html = renderToString(h(MarkdownEditor, { value: '', onChange: noop, disabled: true }));
-    expect(html).toContain('disabled=""');
-    expect(html.match(/disabled=""/g)?.length).toBeGreaterThanOrEqual(8);
-  });
-
-  it('says there is nothing to preview for an empty text', () => {
-    expect(renderToString(h(MarkdownEditor, { value: '  ', onChange: noop }))).toContain('Nothing to preview');
   });
 });

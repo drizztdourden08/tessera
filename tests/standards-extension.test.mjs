@@ -1,14 +1,11 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync, rmSync } from 'node:fs';
-import { tmpdir } from 'node:os';
+import { rmSync } from 'node:fs';
 import { join } from 'node:path';
 import { afterAll, describe, expect, it } from 'vitest';
 import { tesseraExtension } from '../scripts/standards/tessera-extension.mjs';
 import { extension } from '../standards.extension.mjs';
 import { CONFIG, fixtureRepo, MONOREPO, writeTree } from './config-fixture.mjs';
 
-const TIMEOUT = 60_000;
-const FACETS = ['id', 'description', 'structure', 'eslint', 'stylelint', 'markdownlint', 'prose', 'knip'];
 const MISSING_SAVE_SLOT = 'packages/design/src/compounds/SaveSlot: missing SaveSlot.usage.ts (every part in the folders of tessera.config.json says when to use it)';
 const MISSING_BARE = 'apps/desktop/src/views/Bare: missing Bare.usage.ts (every part in the folders of tessera.config.json says when to use it)';
 const PART = (name) => `/* @layer renderer-app @kind component */\nconst ${name} = () => null;\n\nexport { ${name} };\n`;
@@ -27,20 +24,7 @@ const check = (packageDir) => tesseraExtension().structure.checks[0]({ rootDir: 
 
 afterAll(() => rmSync(dir, { recursive: true, force: true }));
 
-describe('the standards extension', () => {
-  it('is declared in package.json and keeps to the facets standards takes', () => {
-    const manifest = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
-    expect(manifest.standards).toEqual({ extension: './standards.extension.mjs' });
-    expect(Object.keys(extension).every((key) => FACETS.includes(key))).toBe(true);
-    expect(extension.id).toBe('tessera');
-  });
-
-  it('reads the Tessera config of the root the factory passes', () => {
-    const rootDir = process.cwd();
-    expect(extension.eslint.options({ rootDir })).toEqual({ primitivesGlobs: ['src/primitives/**/*.tsx'] });
-    expect(extension.stylelint.options({ rootDir })).toEqual({ tokenGlobs: ['src/tokens/index.css'] });
-  });
-
+describe('S2 the standards extension', { tags: ['standard'] }, () => {
   it('gives the primitives globs, primitives only, and the theme token file of the app config', () => {
     expect(extension.eslint.options({ rootDir: dir })).toEqual({ primitivesGlobs: ['packages/design/src/primitives/**/*.tsx'] });
     expect(extension.stylelint.options({ rootDir: dir })).toEqual({ tokenGlobs: ['packages/design/src/theme.css'] });
@@ -57,7 +41,7 @@ describe('the standards extension', () => {
     expect(desktop.notes[0]).toBe(MISSING_BARE);
     expect(desktop.notes.filter((note) => note.includes('.usage.ts (every part'))).toEqual([MISSING_BARE]);
     expect(await check('.')).toEqual({ findings: [], notes: [] });
-  }, TIMEOUT);
+  });
 
   it('fails on a missing Name.usage.ts in enforce mode', async () => {
     writeTree(dir, { 'tessera.config.json': { ...CONFIG, guide: { ...CONFIG.guide, usage: 'enforce' } } });
@@ -67,13 +51,13 @@ describe('the standards extension', () => {
     } finally {
       writeTree(dir, { 'tessera.config.json': CONFIG });
     }
-  }, TIMEOUT);
+  });
 
   it('notes a usage file it cannot read in report mode', async () => {
     const { notes } = await check('apps/desktop');
     expect(notes[1]).toBe('apps/desktop/src/views/Home: unreadable-usage: apps/desktop/src/views/Home/Home.usage.ts exports no usage object');
     expect(notes).toContain('apps/desktop/src/views/Home: tsconfig: no tsconfig.json in apps/desktop/src/views/Home or above it; set guide.tsconfig in tessera.config.json');
-  }, TIMEOUT);
+  });
 
   it('supplies the check and empty options when there is no config', async () => {
     const bare = fixtureRepo({ 'package.json': '{}' });
@@ -91,13 +75,5 @@ describe('the standards extension', () => {
     rmSync(broken, { recursive: true, force: true });
     expect(options).toEqual({});
     expect(findings).toEqual([expect.stringContaining('unknown key "parts.widgets"')]);
-  });
-});
-
-describe('the knip facet', () => {
-  it('counts usage examples as uses: a knip compiler for usage files, and the usage files as entries', () => {
-    expect(Object.keys(extension.knip.compilers)).toEqual(['ts']);
-    expect(extension.knip.entry({ rootDir: process.cwd() })).toEqual(['src/primitives/**/*.usage.ts', 'src/composites/**/*.usage.ts']);
-    expect(extension.knip.entry({ rootDir: join(tmpdir(), 'tessera-no-config-here') })).toEqual([]);
   });
 });

@@ -9,7 +9,7 @@ vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(a
 
 const wheel = (deltaY) => ({ deltaY, preventDefault: vi.fn() });
 
-describe('useVolumeWheel', () => {
+describe('K1 useVolumeWheel', { tags: ['critical'] }, () => {
   it('listens on the button, and on the panel while it is open, without a passive listener', () => {
     const anchor = listenerNode();
     const panel = listenerNode();
@@ -40,7 +40,7 @@ describe('useVolumeWheel', () => {
   });
 });
 
-describe('useFocusBack', () => {
+describe('K1 useFocusBack', { tags: ['critical'] }, () => {
   const button = () => {
     const doc = { body: {}, activeElement: null };
     const own = { ownerDocument: doc, focus: vi.fn() };

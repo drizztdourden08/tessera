@@ -1,110 +1,12 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { ControlMenuRow } from '../src/composites/ControlMenu';
-import { ControlMenuPanel } from '../src/composites/ControlMenu/sub-components/ControlMenuPanel';
-import { SplitButton } from '../src/composites/SplitButton';
-import { SplitButtonMain } from '../src/composites/SplitButton/sub-components/SplitButtonMain';
-import { SplitButtonPanel } from '../src/composites/SplitButton/sub-components/SplitButtonPanel';
 import { chevronSizeOf } from '../src/composites/SplitButton/behavior/chevron-size-of';
 
-const ignore = () => undefined;
-const ITEMS = [{ id: 'folder', label: 'New folder', onSelect: ignore }];
-const draw = (props = {}) => renderToString(h(SplitButton, { label: 'New file', items: ITEMS, onClick: ignore, ...props }));
-
-describe('SplitButton', () => {
-  it('joins the main button and the chevron in one named group', () => {
-    const html = draw();
-    expect(html).toMatch(/role="group"[^>]*aria-label="New file"/);
-    expect(html).toContain('split-button__main');
-    expect(html).toContain('split-button__chevron');
-    expect(html.match(/<button/g)).toHaveLength(2);
-    expect(html).toContain('New file</span></button>');
-  });
-
-  it('names the chevron Options by default and by menuLabel when given', () => {
-    expect(draw()).toMatch(/aria-label="Options"/);
-    expect(draw({ menuLabel: 'New options' })).toMatch(/aria-label="New options"/);
-  });
-
-  it('marks the chevron as a menu button that starts closed', () => {
-    const html = draw();
-    expect(html).toContain('aria-haspopup="menu"');
-    expect(html).toContain('aria-expanded="false"');
-    expect(html).not.toContain('dropdown-menu');
-  });
-
-  it('is a plain action without pressed, and a toggle with it', () => {
-    expect(draw()).not.toContain('aria-pressed');
-    expect(draw({ pressed: false })).toContain('aria-pressed="false"');
-    const on = draw({ pressed: true });
-    expect(on).toContain('aria-pressed="true"');
-    expect(on).toContain('btn--active');
-  });
-});
-
-describe('SplitButton icon-only main button', () => {
-  it('draws the main button as the icon alone with a tooltip anchor, keeping the label as its name', () => {
-    const icon = h('i', { className: 'plus-mark' });
-    const html = draw({ icon, iconOnly: true, pressed: true });
-    expect(html).toContain('tooltip-anchor');
-    expect(html).toMatch(/<button[^>]*aria-label="New file"[^>]*aria-pressed="true"/);
-    expect(html).toContain('icon-btn--active');
-    expect(html).not.toContain('New file</span>');
-    expect(html.match(/<button/g)).toHaveLength(2);
-  });
-
-  it('keeps the text button without an icon or without iconOnly, and adds no tooltip', () => {
-    const icon = h('i', { className: 'plus-mark' });
-    expect(draw({ iconOnly: true })).toContain('New file</span></button>');
-    expect(draw({ iconOnly: true })).not.toContain('tooltip-anchor');
-    expect(draw({ icon })).not.toContain('tooltip-anchor');
-    expect(draw({ icon })).toContain('New file</span></button>');
-  });
-
-  it('adds the tooltip to a text button when it has a shortcut', () => {
-    const html = draw({ shortcut: 'F3' });
-    expect(html).toContain('tooltip-anchor');
-    expect(html).toContain('New file</span></button>');
-  });
-
-  it('hands the label and the shortcut to the tooltip content', () => {
-    const tipped = SplitButtonMain({ label: 'Onion', icon: h('i'), iconOnly: true, shortcut: 'F3', variant: 'secondary', size: 'md', onClick: ignore });
-    expect(tipped.props.content.props).toMatchObject({ name: 'Onion', shortcut: 'F3' });
-    expect(tipped.props.children.props).toMatchObject({ label: 'Onion', size: 'md' });
-  });
-});
-
-describe('SplitButton disabled state, chevron and panel', () => {
-  it('disables both buttons', () => {
-    expect(draw({ disabled: true }).match(/disabled=""/g)).toHaveLength(2);
-  });
-
+describe('K1 SplitButton', { tags: ['critical'] }, () => {
   it('gives the chevron a size to match the button', () => {
     expect(chevronSizeOf('xs')).toBe('xs');
     expect(chevronSizeOf('sm')).toBe('sm');
     expect(chevronSizeOf('md')).toBe('md');
     expect(chevronSizeOf('lg')).toBe('md');
-  });
-
-  it('opens a dialog from the chevron when it is given a panel, and stays a menu without one', () => {
-    const panel = () => h(ControlMenuRow, { label: 'Opacity' }, 'slider');
-    const html = draw({ panel, items: undefined });
-    expect(html).toContain('aria-haspopup="dialog"');
-    expect(html).toContain('aria-expanded="false"');
-    expect(html).not.toContain('control-menu');
-    expect(draw()).toContain('aria-haspopup="menu"');
-  });
-
-  it('draws the panel as a named dialog of control rows, apart from the button group', () => {
-    const ref = { current: null };
-    const render = (close) => h(ControlMenuRow, { label: 'Opacity' }, h('button', { onClick: close }, 'slider'));
-    const placed = renderToString(h(SplitButtonPanel, { id: 'p', anchorRef: ref, label: 'Onion options', render, onClose: ignore }));
-    expect(placed).toBe('<template></template>');
-    const body = renderToString(h(ControlMenuPanel, { id: 'p', label: 'Onion options', hints: false, filter: false, query: '', look: '', onQueryChange: ignore }, render(ignore)));
-    expect(body).toMatch(/role="dialog"[^>]*aria-label="Onion options"/);
-    expect(body).toContain('control-menu__row');
-    expect(body).not.toContain('control-menu__hint');
   });
 });

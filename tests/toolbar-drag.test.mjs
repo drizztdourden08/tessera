@@ -11,7 +11,7 @@ const zoneOf = (zones, side) => zones.find((zone) => zone.side === side);
 
 const drop = (id, point) => toolbarDropAt(FRAME, LAYOUT, id, point);
 
-describe('toolbarZones', () => {
+describe('K1 toolbarZones', { tags: ['critical'] }, () => {
   it('counts the lanes of every side without the dragged toolbar', () => {
     const zones = toolbarZones(FRAME, LAYOUT, 'c');
     expect(zoneOf(zones, 'left').others).toBe(0);
@@ -32,7 +32,7 @@ describe('toolbarZones', () => {
   });
 });
 
-describe('toolbarDropAt', () => {
+describe('K1 toolbarDropAt', { tags: ['critical'] }, () => {
   it('refuses a side that holds two other toolbars', () => {
     const target = drop('c', { x: 400, y: 10 });
     expect(target).toMatchObject({ kind: 'refused', side: 'top' });

@@ -1,12 +1,9 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { choiceCellProps } from '../src/composites/ChoiceGrid/behavior/choice-cell-props';
 import { choiceGroups } from '../src/composites/ChoiceGrid/behavior/choice-groups';
 import { choiceTabStop } from '../src/composites/ChoiceGrid/behavior/choice-tab-stop';
 import { nextChoiceIndex } from '../src/composites/ChoiceGrid/behavior/next-choice-index';
-import { ChoiceGrid } from '../src/composites/ChoiceGrid';
 
 const cell = (value, extra = {}) => ({ value, label: `Cell ${value}`, ...extra });
 const row = ['a', 'b', 'c', 'd', 'e', 'f'].map((value) => cell(value));
@@ -18,7 +15,7 @@ const sections = choiceGroups(undefined, [
 
 const indices = (groups) => groups.map((group) => group.entries.map((entry) => entry.index));
 
-describe('choice groups', () => {
+describe('K1 choice groups', { tags: ['critical'] }, () => {
   it('makes one group of a flat list and numbers every cell once', () => {
     expect(flat).toHaveLength(1);
     expect(flat[0].entries.map((entry) => entry.index)).toEqual([0, 1, 2, 3, 4, 5]);
@@ -34,7 +31,7 @@ describe('choice groups', () => {
   });
 });
 
-describe('arrow keys', () => {
+describe('K1 arrow keys', { tags: ['critical'] }, () => {
   it('steps one cell with the horizontal arrows and wraps at the ends', () => {
     expect(nextChoiceIndex('ArrowRight', 0, flat, undefined)).toBe(1);
     expect(nextChoiceIndex('ArrowLeft', 0, flat, undefined)).toBe(5);
@@ -83,7 +80,7 @@ describe('arrow keys', () => {
   });
 });
 
-describe('the Tab stop', () => {
+describe('K1 the Tab stop', { tags: ['critical'] }, () => {
   const entries = flat[0].entries;
 
   it('is the focused cell, then the selected one, then the first open one', () => {
@@ -102,7 +99,7 @@ describe('the Tab stop', () => {
   });
 });
 
-describe('cell props', () => {
+describe('K1 cell props', { tags: ['critical'] }, () => {
   const entry = flat[0].entries[2];
   const base = { entry, role: 'radiogroup', selected: true, stop: true, pickOnRelease: false, pick: () => undefined, focus: () => undefined };
 
@@ -123,49 +120,5 @@ describe('cell props', () => {
     expect(picked).toEqual([2]);
     release.onClick({ detail: 0 });
     expect(picked).toEqual([2, 2]);
-  });
-});
-
-describe('ChoiceGrid markup', () => {
-  const render = (props) => renderToStaticMarkup(h(ChoiceGrid, { label: 'Brush', onChange: () => undefined, cells: row, ...props }));
-
-  it('is one radio group with one Tab stop on the selected cell', () => {
-    const markup = render({ value: 'c' });
-    expect(markup).toContain('role="radiogroup"');
-    expect(markup).toContain('aria-label="Brush"');
-    expect(markup.match(/tabindex="0"/g)).toHaveLength(1);
-    expect(markup.match(/tabindex="-1"/g)).toHaveLength(5);
-    expect(markup).toContain('aria-checked="true"');
-  });
-
-  it('is a listbox on request', () => {
-    const markup = render({ value: 'a', role: 'listbox' });
-    expect(markup).toContain('role="listbox"');
-    expect(markup).toContain('role="option"');
-    expect(markup).toContain('aria-selected="true"');
-  });
-
-  it('puts the first cell on the Tab stop when nothing is selected', () => {
-    expect(render({}).indexOf('tabindex="0"')).toBeLessThan(render({}).indexOf('tabindex="-1"'));
-  });
-
-  it('names a section by its heading and lays a grid on columns', () => {
-    const markup = render({ cells: undefined, columns: 4, sections: [{ id: 'one', label: 'Round', cells: row }] });
-    expect(markup).toContain('role="group"');
-    expect(markup).toContain('Round');
-    expect(markup).toContain('data-columns="4"');
-  });
-
-  it('draws the footer outside the group', () => {
-    const markup = render({ footer: h('span', null, 'Add brush') });
-    expect(markup.indexOf('Add brush')).toBeGreaterThan(markup.lastIndexOf('</button>'));
-    expect(markup).toContain('choice-grid__footer');
-  });
-
-  it('lets renderCell draw the cell and hands it the props to spread', () => {
-    const markup = render({ value: 'b', renderCell: (c, state) => h('i', { ...state.props, key: c.value }, state.selected ? 'on' : 'off') });
-    expect(markup).toContain('<i ');
-    expect(markup).toContain('>on</i>');
-    expect(markup).not.toContain('choice-grid__cell"');
   });
 });

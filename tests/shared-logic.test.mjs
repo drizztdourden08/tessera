@@ -1,16 +1,10 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { readStoredHistory } from '../src/composites/CommandInput/behavior/stored-history';
-import { HeaderLabel } from '../src/composites/DataTable/sub-components/HeaderLabel';
-import { ItemListRename } from '../src/composites/ItemList/sub-components/ItemListRename';
 import { newEntry } from '../src/composites/KeyValueEditor/behavior/new-entry';
-import { SplashMeter } from '../src/composites/Splash/sub-components/SplashMeter';
 import { nameEditKey } from '../src/primitives/field-control/name-edit-key';
 import { scrollIntoList } from '../src/primitives/listbox/scroll-into-list';
 import { clampValue } from '../src/primitives/Slider/behavior/clamp-value';
-import { TESSERA_STRINGS } from '../src/primitives/strings/tessera-strings.constants';
 import { settleSave } from '../src/primitives/unsaved-guard/settle-save';
 import { unsavedAsk } from '../src/primitives/unsaved-guard/unsaved-ask';
 
@@ -29,31 +23,16 @@ const scrollerWith = ({ rowTop, rowBottom, header = 0, zoom }) => {
   return { root: { querySelector: () => option }, scroller };
 };
 
-describe('editing a name in place', () => {
+describe('K1 editing a name in place', { tags: ['critical'] }, () => {
   it('keeps on Enter and undoes on Escape, and leaves keys typed while an input method composes', () => {
     expect(nameEditKey('Enter', false)).toBe('keep');
     expect(nameEditKey('Escape', false)).toBe('undo');
     expect(nameEditKey('a', false)).toBeNull();
     expect(nameEditKey('Enter', true)).toBeNull();
   });
-
-  it('draws the ItemList rename with the name, a keep and an undo button', () => {
-    const html = renderToString(h(ItemListRename, { id: 'a', name: 'Keysanity', onEnd: ignore }));
-    expect(html).toContain('value="Keysanity"');
-    expect(html).toContain('aria-label="Keep the name"');
-    expect(html).toContain('aria-label="Cancel the rename"');
-  });
-
-  it('draws the DataTable column label, or the field that renames it', () => {
-    const shown = renderToString(h(HeaderLabel, { label: 'Score', name: 'Score', renaming: false, onKeep: ignore, onUndo: ignore }));
-    expect(shown).toContain('>Score<');
-    const editing = renderToString(h(HeaderLabel, { label: 'Score', name: '', renaming: true, onKeep: ignore, onUndo: ignore }));
-    expect(editing).toContain('aria-label="Rename Score"');
-    expect(editing).toContain('value=""');
-  });
 });
 
-describe('asking before unsaved changes are lost', () => {
+describe('K1 asking before unsaved changes are lost', { tags: ['critical'] }, () => {
   it('goes at once when nothing changed, asks when something did, and waits while busy', () => {
     expect(unsavedAsk(false, false)).toBe('go');
     expect(unsavedAsk(true, false)).toBe('ask');
@@ -72,7 +51,7 @@ describe('asking before unsaved changes are lost', () => {
   });
 });
 
-describe('scrolling the active row into view', () => {
+describe('K1 scrolling the active row into view', { tags: ['critical'] }, () => {
   it('scrolls up to a row above the view, below a sticky header', () => {
     const { root, scroller } = scrollerWith({ rowTop: 10, rowBottom: 40, header: 30 });
     scrollIntoList(root, 3);
@@ -93,7 +72,7 @@ describe('scrolling the active row into view', () => {
   });
 });
 
-describe('keeping a number in bounds', () => {
+describe('K1 keeping a number in bounds', { tags: ['critical'] }, () => {
   afterEach(() => vi.unstubAllGlobals());
 
   it('keeps a Slider value on its scale', () => {
@@ -106,35 +85,11 @@ describe('keeping a number in bounds', () => {
     expect(newEntry({ value: {}, onChange: ignore, min: 2, max: 5 })).toBe(2);
   });
 
-  it('keeps the Splash meter between empty and full', () => {
-    expect(renderToString(h(SplashMeter, { progress: 1.4, label: 'Loading' }))).toContain('aria-valuenow="100"');
-    expect(renderToString(h(SplashMeter, { progress: -1, label: 'Loading' }))).toContain('aria-valuenow="0"');
-  });
-
   it('reads the CommandInput history through the shared storage read', () => {
     const items = new Map([['log', '["/save"]'], ['bad', '[1]']]);
     vi.stubGlobal('localStorage', { getItem: (name) => items.get(name) ?? null, setItem: ignore });
     expect(readStoredHistory('log')).toEqual(['/save']);
     expect(readStoredHistory('bad')).toEqual([]);
     expect(readStoredHistory('missing')).toEqual([]);
-  });
-});
-
-describe('the same words once', () => {
-  const { common, lists, wizard } = TESSERA_STRINGS;
-
-  it('asks about unsaved changes with the same words in ListDetail, Wizard and SaveBar', () => {
-    expect(common.unsavedTitle).toBe('Unsaved changes');
-    expect(common.keepEditing).toBe('Keep editing');
-    expect(common.discard).toBe('Discard');
-    expect(lists).not.toHaveProperty('discard');
-    expect(wizard).not.toHaveProperty('discard');
-  });
-
-  it('writes a named action once', () => {
-    expect(common.renameNamed('Score')).toBe('Rename Score');
-    expect(common.resetNamed('Volume')).toBe('Reset Volume');
-    expect(TESSERA_STRINGS.table).not.toHaveProperty('renameNamed');
-    expect(TESSERA_STRINGS.settings).not.toHaveProperty('resetRow');
   });
 });

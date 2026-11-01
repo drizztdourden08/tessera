@@ -23,7 +23,7 @@ const CASES = [
   { name: 'NaN falls back to 1', existing: ['a'], weight: Number.NaN, expected: [0.5, 0.5] },
 ];
 
-describe('joinEdge sizes by weight', () => {
+describe('K1 joinEdge sizes by weight', { tags: ['critical'] }, () => {
   for (const { name, existing, weight, expected } of CASES) {
     it(name, () => {
       const tree = treeOf(existing.length === 1 ? pane(existing[0]) : column(existing));
@@ -36,7 +36,7 @@ describe('joinEdge sizes by weight', () => {
   }
 });
 
-describe('dockOnEdge and openWidget pass the weight on', () => {
+describe('K1 dockOnEdge and openWidget pass the weight on', { tags: ['critical'] }, () => {
   const base = { defaultVisibility: 'always', defaultSide: 'left', defaultDockedSize: 280, defaultFloatingSize: { width: 300, height: 200 } };
   const definitions = [{ id: 'a', label: 'A', ...base }, { id: 'b', label: 'B', ...base, dockWeight: 3 }];
 
@@ -64,7 +64,7 @@ describe('dockOnEdge and openWidget pass the weight on', () => {
   });
 });
 
-describe('three joins keep the weight of each widget', () => {
+describe('K1 three joins keep the weight of each widget', { tags: ['critical'] }, () => {
   const base = { defaultVisibility: 'always', defaultSide: 'left', defaultDockedSize: 280, defaultFloatingSize: { width: 300, height: 200 } };
   const defs = [
     { id: 'timeline', label: 'Timeline', ...base, dockWeight: 2 },
@@ -92,7 +92,7 @@ describe('three joins keep the weight of each widget', () => {
   });
 });
 
-describe('defaultDockedSize resizes the edge column a widget joins', () => {
+describe('K1 defaultDockedSize resizes the edge column a widget joins', { tags: ['critical'] }, () => {
   const widened = () => {
     const one = dockOnEdge(createDefaultLayout(), 'a', 'left', { size: 280 });
     return { ...one, dock: { ...one.dock, sizes: [0.4, 0.6] } };

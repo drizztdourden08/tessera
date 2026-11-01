@@ -13,7 +13,7 @@ vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(a
 
 const rowsUpTo = (count) => Array.from({ length: count }, (_, i) => ({ id: `line-${i}`, gutter: '', tag: 'LOG', kind: 'out', message: `text ${i}` }));
 
-describe('isAtBottom', () => {
+describe('K1 isAtBottom', { tags: ['critical'] }, () => {
   it('is true at the end and within the slack of it', () => {
     expect(isAtBottom({ scrollHeight: 1000, scrollTop: 700, clientHeight: 300 }, BOTTOM_SLACK)).toBe(true);
     expect(isAtBottom({ scrollHeight: 1000, scrollTop: 700 - BOTTOM_SLACK, clientHeight: 300 }, BOTTOM_SLACK)).toBe(true);
@@ -29,7 +29,7 @@ describe('isAtBottom', () => {
   });
 });
 
-describe('isFollowing', () => {
+describe('K1 isFollowing', { tags: ['critical'] }, () => {
   it('follows only when asked to and at the bottom', () => {
     expect(isFollowing(true, true)).toBe(true);
     expect(isFollowing(true, false)).toBe(false);
@@ -59,7 +59,7 @@ const mountTerminal = (start, follow = true, order = 'oldest-first') => {
   return { log, el, scrollTo, add, setFollow };
 };
 
-describe('stick to the bottom', () => {
+describe('K1 stick to the bottom', { tags: ['critical'] }, () => {
   it('keeps the view at the bottom while lines arrive', () => {
     const view = mountTerminal(rowsUpTo(50));
     view.scrollTo(9700);
@@ -105,7 +105,7 @@ describe('stick to the bottom', () => {
 
 const idsOf = (rows) => rows.map((row) => row.id);
 
-describe('shownRows', () => {
+describe('K1 shownRows', { tags: ['critical'] }, () => {
   it('keeps the oldest first order and the newest lines of the window', () => {
     expect(idsOf(shownRows(rowsUpTo(5), 3, 'oldest-first'))).toEqual(['line-2', 'line-3', 'line-4']);
   });
@@ -122,7 +122,7 @@ describe('shownRows', () => {
   });
 });
 
-describe('isAtFollowEdge', () => {
+describe('K1 isAtFollowEdge', { tags: ['critical'] }, () => {
   it('is the top in newest-first, within the slack', () => {
     expect(isAtFollowEdge({ scrollHeight: 1000, scrollTop: 0, clientHeight: 300 }, BOTTOM_SLACK, 'newest-first')).toBe(true);
     expect(isAtFollowEdge({ scrollHeight: 1000, scrollTop: BOTTOM_SLACK, clientHeight: 300 }, BOTTOM_SLACK, 'newest-first')).toBe(true);
@@ -136,7 +136,7 @@ describe('isAtFollowEdge', () => {
   });
 });
 
-describe('followScrollTop', () => {
+describe('K1 followScrollTop', { tags: ['critical'] }, () => {
   it('follows to the top in newest-first and to the end in oldest-first', () => {
     const box = { scrollHeight: 1000, scrollTop: 400, clientHeight: 300 };
     expect(followScrollTop(box, 'newest-first')).toBe(0);
@@ -144,7 +144,7 @@ describe('followScrollTop', () => {
   });
 });
 
-describe('stick to the top in newest-first', () => {
+describe('K1 stick to the top in newest-first', { tags: ['critical'] }, () => {
   it('keeps the view at the top while lines arrive', () => {
     const view = mountTerminal(rowsUpTo(50), true, 'newest-first');
     view.scrollTo(20);

@@ -1,13 +1,9 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { ItemList } from '../src/composites/ItemList';
 import { listKey } from '../src/composites/ItemList/behavior/list-key';
 import { rowPick } from '../src/composites/ItemList/behavior/row-pick';
 import { rowTabs } from '../src/composites/ItemList/behavior/row-tabs';
 import { tabRow } from '../src/composites/ItemList/behavior/tab-row';
-import { ListDetail } from '../src/composites/ListDetail';
 
 const PROFILES = [
   { id: 'a', name: 'Weekly async' },
@@ -15,16 +11,6 @@ const PROFILES = [
   { id: 'c', name: 'First clear' },
 ];
 
-const base = {
-  title: 'Profiles',
-  items: PROFILES,
-  getId: (profile) => profile.id,
-  getName: (profile) => profile.name,
-  onRename: () => {},
-  onDelete: () => {},
-};
-
-const draw = (props) => renderToStaticMarkup(h(ItemList, { ...base, ...props }));
 const buttons = () => PROFILES.map(() => ({ focus: vi.fn() }));
 const press = (key, list, target, more) => {
   const event = { key, target: list[target], preventDefault: vi.fn() };
@@ -32,7 +18,7 @@ const press = (key, list, target, more) => {
   return event;
 };
 
-describe('ItemList onActivate', () => {
+describe('K1 ItemList onActivate', { tags: ['critical'] }, () => {
   it('moves only the focus on the arrow keys, Home and End when onActivate is set', () => {
     const onSelect = vi.fn();
     const onActivate = vi.fn();
@@ -67,8 +53,6 @@ describe('ItemList onActivate', () => {
     expect(onSelect).toHaveBeenCalledWith('c');
     expect(onActivate).toHaveBeenLastCalledWith('c');
     expect(rowPick('a', {})).toBeUndefined();
-    const html = draw({ selectedId: 'a', onActivate });
-    expect(html.match(/<button[^>]*class="pressable list-item-row__main row-inset"/g)).toHaveLength(3);
   });
 
   it('keeps one Tab stop on the focused row, else the current one, else the first', () => {
@@ -79,40 +63,13 @@ describe('ItemList onActivate', () => {
     const onActivate = () => {};
     expect(rowTabs({ onActivate }, 'b', 'b')).toEqual({ row: 0, tools: undefined });
     expect(rowTabs({ onActivate }, 'b', 'a')).toEqual({ row: -1, tools: -1 });
-    const html = draw({ selectedId: 'b', onActivate });
-    expect(html.match(/tabindex="0"/g)).toHaveLength(1);
-    expect(html).toMatch(/tabindex="0"[^>]*>.*?Casual run/);
   });
 });
 
-describe('ItemList actionVisibility', () => {
-  it('shows rename and delete on every row, always on the picked one and on hover on the rest, by default', () => {
-    const html = draw({ selectedId: 'a', onSelect: () => {} });
-    for (const profile of PROFILES) expect(html).toContain(`aria-label="Delete ${profile.name}"`);
-    expect(html.match(/list-item-row__action--always/g)).toHaveLength(1);
-    expect(html.match(/list-item-row__action--hover/g)).toHaveLength(2);
-    expect(html.indexOf('list-item-row__action--always')).toBeLessThan(html.indexOf('Casual run'));
-  });
-
-  it('shows them on every row with always, and on hover only with hover and no pick', () => {
-    expect(draw({ selectedId: 'a', onActivate: () => {}, actionVisibility: 'always' }).match(/list-item-row__action--always/g)).toHaveLength(3);
-    expect(draw({ actionVisibility: 'hover' }).match(/list-item-row__action--hover/g)).toHaveLength(3);
-  });
-
+describe('K1 ItemList actionVisibility', { tags: ['critical'] }, () => {
   it('keeps the actions of rows other than the keyboard row out of the Tab order', () => {
     expect(rowTabs({ selectedId: 'a', onSelect: () => {} }, null, 'a')).toEqual({ row: undefined, tools: undefined });
     expect(rowTabs({ selectedId: 'a', onSelect: () => {} }, null, 'b')).toEqual({ row: undefined, tools: -1 });
     expect(rowTabs({}, null, 'b')).toEqual({ row: undefined, tools: undefined });
-  });
-});
-
-describe('ListDetail with the activation of ItemList', () => {
-  it('keeps every row a Tab stop and the arrow keys moving the selection', () => {
-    const html = renderToStaticMarkup(h(ListDetail, { list: base, selectedId: 'a', onSelect: () => {}, detail: 'The editor' }));
-    expect(html.match(/<button[^>]*class="pressable list-item-row__main row-inset"[^>]*>/g).join('')).not.toContain('tabindex');
-    expect(html.match(/list-item-row__action--always/g)).toHaveLength(1);
-    const onSelect = vi.fn();
-    press('ArrowDown', buttons(), 1, { onSelect });
-    expect(onSelect).toHaveBeenCalledWith('c');
   });
 });

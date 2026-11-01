@@ -5,7 +5,7 @@ import { DEFS, bar, def, v2 } from './fixtures/toolbar-dock/toolbar-layout-kit.m
 
 const SAVED_LAYOUT = { v: 1, sides: { top: ['a', 'b'], bottom: [], left: ['c'], right: [] }, hidden: ['d'], last: { a: { side: 'top', index: 0 } } };
 
-describe('migrateToolbarLayout input', () => {
+describe('K1 migrateToolbarLayout input', { tags: ['critical'] }, () => {
   it('rebuilds from definitions on a bad or missing version', () => {
     const fresh = createToolbarLayout(DEFS);
     expect(migrateToolbarLayout(null, DEFS)).toEqual(fresh);
@@ -29,7 +29,7 @@ describe('migrateToolbarLayout input', () => {
   });
 });
 
-describe('migrateToolbarLayout from v1', () => {
+describe('K1 migrateToolbarLayout from v1', { tags: ['critical'] }, () => {
   it('turns each id into a full-width lane and each last into a v2 spot', () => {
     expect(migrateToolbarLayout(SAVED_LAYOUT, DEFS)).toEqual({
       v: 2,
@@ -67,7 +67,7 @@ describe('migrateToolbarLayout from v1', () => {
   });
 });
 
-describe('migrateToolbarLayout from v2, keeping', () => {
+describe('K1 migrateToolbarLayout from v2, keeping', { tags: ['critical'] }, () => {
   it('keeps a valid layout as it is, and is idempotent', () => {
     const layout = hideToolbar(moveToolbar(createToolbarLayout(DEFS), 'a', 'right', 0), 'c');
     const once = migrateToolbarLayout(layout, DEFS);
@@ -103,7 +103,7 @@ describe('migrateToolbarLayout from v2, keeping', () => {
   });
 });
 
-describe('migrateToolbarLayout from v2, cleaning', () => {
+describe('K1 migrateToolbarLayout from v2, cleaning', { tags: ['critical'] }, () => {
   it('cleans ids, drops duplicates and unknown toolbars and places the missing ones', () => {
     const raw = v2({ top: [[bar('ghost'), bar('a', 0, 0.5), bar('a', 0.5, 0.5)]], bottom: [[bar('a')]] }, { hidden: ['b', 'zzz'] });
     const layout = migrateToolbarLayout(raw, DEFS);
@@ -130,7 +130,7 @@ describe('migrateToolbarLayout from v2, cleaning', () => {
   });
 });
 
-describe('migrateToolbarLayout from v2, fitting', () => {
+describe('K1 migrateToolbarLayout from v2, fitting', { tags: ['critical'] }, () => {
   it('clamps starts and sizes and drops places that have no size', () => {
     const raw = v2({ top: [[bar('a', -3, 7), bar('b', 0.2, 0), bar('c', Number.NaN, 0.3)]] });
     const layout = migrateToolbarLayout(raw, DEFS);

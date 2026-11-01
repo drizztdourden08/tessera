@@ -16,7 +16,7 @@ const grouped = [
   separator('view', { priority: 1 }), button('f'), button('g'),
 ];
 
-describe('groups on named separators', () => {
+describe('K1 groups on named separators', { tags: ['critical'] }, () => {
   it('gives each item the priority of the separator that opens its group', () => {
     expect(itemGroups(grouped)).toEqual([3, 3, 3, 3, 2, 2, 2, 1, 1, 1]);
     expect(itemPriorities(grouped)).toEqual([3, 3, 3, 3, 2, 2, 2, 1, 1, 1]);
@@ -38,7 +38,7 @@ describe('groups on named separators', () => {
   });
 });
 
-describe('splitItems with group priority', () => {
+describe('K1 splitItems with group priority', { tags: ['critical'] }, () => {
   it('folds the lowest group first, whole, under its heading', () => {
     const { shown, folded } = splitItems(grouped, 7);
     expect(ids(shown)).toEqual(['draw', 'a', 'b', 'c', 'shapes', 'd', 'e']);
@@ -80,7 +80,7 @@ describe('splitItems with group priority', () => {
   });
 });
 
-describe('splitItems without group priority', () => {
+describe('K1 splitItems without group priority', { tags: ['critical'] }, () => {
   const plain = [button('a', { priority: 1 }), separator('s'), button('b'), button('c', { priority: 5 })];
 
   it('behaves as before: a named separator stays with the item before it', () => {

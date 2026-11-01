@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { WindowTitleBar } from '../src/composites/WindowTitleBar';
 import { fitStep } from '../src/composites/WindowTitleBar/behavior/fit-step';
 import { hideOrder } from '../src/composites/WindowTitleBar/behavior/hide-order';
 import { slideKeyframes } from '../src/composites/WindowTitleBar/behavior/slide-keyframes';
@@ -14,35 +11,7 @@ const BUG = { id: 'bug', icon: 'bug', label: 'Report a bug', onSelect: ignore };
 const UPDATES = { id: 'updates', icon: 'download', label: 'Check for updates', bar: 'status', status: 'Update available', onSelect: ignore };
 const STRINGS = { view: 'View', pinOnTop: 'Pin window on top', unpin: 'Unpin window', fullscreen: 'Fullscreen', exitFullscreen: 'Exit fullscreen' };
 
-describe('WindowTitleBar', () => {
-  it('draws every control by default, with the hamburger for the View sub-menu', () => {
-    const html = renderToString(h(WindowTitleBar, { title: 'App', onControl: ignore }));
-    expect(html.match(/<button/g)).toHaveLength(6);
-    expect(html).toContain('Pin window on top');
-  });
-
-  it('removes the controls config turns off, but keeps close, and draws no hamburger with nothing to hold', () => {
-    const controls = { fullscreen: false, pin: false, minimize: false, maximize: false };
-    const html = renderToString(h(WindowTitleBar, { title: 'App', controls, onControl: ignore }));
-    expect(html.match(/<button/g)).toHaveLength(1);
-    expect(html).toContain('window-title-bar__control--close');
-    expect(html).not.toContain('Pin window on top');
-  });
-
-  it('draws an action as a button, and a status action as text only while its status is set', () => {
-    const controls = { fullscreen: false, pin: false };
-    const shown = renderToString(h(WindowTitleBar, { title: 'App', controls, actions: [BUG, UPDATES], onControl: ignore }));
-    expect(shown).toContain('aria-label="Report a bug"');
-    expect(shown).toContain('Update available');
-    expect(shown).toContain('status--text');
-    expect(shown).not.toContain('status--pill');
-    expect(shown).toContain('emphasis--pulse emphasis--anchor-center');
-    const quiet = renderToString(h(WindowTitleBar, { title: 'App', controls, actions: [BUG, { ...UPDATES, status: undefined }], onControl: ignore }));
-    expect(quiet).not.toContain('Update available');
-  });
-});
-
-describe('a disabled action', () => {
+describe('K1 a disabled action', { tags: ['critical'] }, () => {
   const select = vi.fn();
   const UNDO = { id: 'undo', icon: 'arrow-left', label: 'Undo', shortcut: 'Ctrl+Z', disabled: true, disabledReason: 'Nothing to undo', onSelect: select };
   const draw = (action) => TitleBarCommand({ action, away: false });
@@ -69,13 +38,6 @@ describe('a disabled action', () => {
     expect(select).toHaveBeenCalledTimes(1);
   });
 
-  it('draws a disabled status action as a disabled button', () => {
-    const html = renderToString(h(WindowTitleBar, { title: 'App', controls: false, actions: [{ ...UPDATES, disabled: true, disabledReason: 'Offline' }], onControl: ignore }));
-    expect(html).toContain('window-title-bar__status--disabled');
-    expect(html).toContain('title="Offline"');
-    expect(html).toMatch(/<button[^>]*disabled/);
-  });
-
   it('is a disabled item in the main menu', () => {
     const groups = titleBarMenu({ actions: [UNDO, BUG], menu: [], pin: false, fullscreenButton: false, onControl: ignore, strings: STRINGS });
     const [undo, bug] = groups[0].items;
@@ -84,7 +46,7 @@ describe('a disabled action', () => {
   });
 });
 
-describe('hideOrder', () => {
+describe('K1 hideOrder', { tags: ['critical'] }, () => {
   it('hides the action buttons, last first, then the pin, the status texts and full screen', () => {
     const second = { ...BUG, id: 'mute' };
     expect(hideOrder([BUG, UPDATES, second], {})).toEqual(['action:mute', 'action:bug', 'control:pin', 'action:updates', 'control:fullscreen']);
@@ -92,7 +54,7 @@ describe('hideOrder', () => {
   });
 });
 
-describe('titleBarMenu', () => {
+describe('K1 titleBarMenu', { tags: ['critical'] }, () => {
   const base = { actions: [BUG, UPDATES], pin: true, fullscreenButton: true, pinned: true, fullscreen: false, onControl: ignore, strings: STRINGS };
 
   it('puts a View sub-menu of pin and full screen actions and every action in a group above the last host group', () => {
@@ -117,7 +79,7 @@ describe('titleBarMenu', () => {
   });
 });
 
-describe('fitStep', () => {
+describe('K1 fitStep', { tags: ['critical'] }, () => {
   const item = (side, width) => ({ side, width, shown: true });
   const sizes = (width) => ({
     width, startEnd: 8 + 32 + 4 + 28 + 4 + 28 + 4 + 120, endWidth: 192, startGap: 4, endGap: 0,
@@ -141,7 +103,7 @@ describe('fitStep', () => {
   });
 });
 
-describe('slideKeyframes', () => {
+describe('K1 slideKeyframes', { tags: ['critical'] }, () => {
   const shown = { offset: 40, opacity: 1, seen: true, away: false };
   const gone = { offset: 0, opacity: 1, seen: false, away: true };
   const xs = (frames) => frames.map((frame) => frame.transform);

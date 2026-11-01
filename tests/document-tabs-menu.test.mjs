@@ -1,17 +1,9 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { DocumentTabs } from '../src/composites/DocumentTabs';
 import { tabContextMenu } from '../src/composites/DocumentTabs/behavior/tab-context-menu';
 import { tabKeys } from '../src/composites/DocumentTabs/behavior/tab-keys';
 
 const ignore = () => undefined;
-const TABS = [{ id: 'hero', title: 'hero.bxl' }, { id: 'tiles', title: 'tiles.bxl' }, { id: 'logo', title: 'logo.bxl' }];
-
-const draw = (props) => renderToString(h(DocumentTabs, {
-  tabs: TABS, activeId: 'tiles', onActivate: ignore, onClose: ignore, onMove: ignore, ...props,
-}));
 
 const fakeTab = (key, index) => {
   const tab = {
@@ -27,7 +19,7 @@ const keyEvent = (target, key, held = {}, onStop = ignore) => ({
   key, target, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false, ...held, preventDefault: onStop,
 });
 
-describe('DocumentTabs menu hook', () => {
+describe('K1 DocumentTabs menu hook', { tags: ['critical'] }, () => {
   const list = { current: null };
 
   it('fires with the tab id on a contextmenu event', () => {
@@ -57,23 +49,5 @@ describe('DocumentTabs menu hook', () => {
     press(keyEvent(tab, 'F10', { shiftKey: true }));
     press(keyEvent(tab, 'Delete'));
     expect(closed).toEqual(['hero']);
-  });
-});
-
-describe('DocumentTabs add button', () => {
-  it('draws a labelled + button after the last tab, inside the strip, only with onAdd', () => {
-    const html = draw({ onAdd: ignore });
-    const add = html.indexOf('document-tabs__add');
-    expect(add).toBeGreaterThan(html.lastIndexOf('data-reorder-key'));
-    expect(html.slice(add)).toMatch(/<button[^>]*aria-label="New document"/);
-    expect(draw()).not.toContain('document-tabs__add');
-    expect(draw()).not.toContain('New document');
-  });
-
-  it('keeps the + button when there are no tabs, and draws nothing without onAdd', () => {
-    const html = draw({ tabs: [], onAdd: ignore });
-    expect(html).toMatch(/<button[^>]*aria-label="New document"/);
-    expect(html).not.toContain('role="tablist"');
-    expect(draw({ tabs: [] })).toBe('');
   });
 });

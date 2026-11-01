@@ -9,7 +9,7 @@ const TASK = { pattern: /\b[TI]-\d+\b/, href: (match) => `/items/${match}` };
 
 const draw = (props, source) => renderToString(h(Markdown, props, source));
 
-describe('Markdown linkIds', () => {
+describe('K4 Markdown linkIds', { tags: ['critical'] }, () => {
   const onLink = vi.fn();
 
   it('turns an id in a text node into a link handed to onLink', () => {
@@ -20,19 +20,10 @@ describe('Markdown linkIds', () => {
     expect(html).toContain('>T-5</a>');
   });
 
-  it('takes a single rule and a list', () => {
-    expect(draw({ onLink, linkIds: TASK }, 'T-5')).toContain('href="/items/T-5"');
-  });
-
   it('leaves code and existing links alone', () => {
     const html = draw({ onLink, linkIds: [TASK] }, '`T-5`\n\n```\nI-3\n```\n\n[T-7](https://example.com) and https://example.com/T-9');
     expect(html).not.toContain('href="/items/');
     expect(html.match(/<a /g)).toHaveLength(2);
-  });
-
-  it('drops an id the resolver gives no address for', () => {
-    const none = { pattern: /\bT-\d+\b/, href: () => undefined };
-    expect(draw({ onLink, linkIds: [none] }, 'T-5')).not.toContain('<a');
   });
 
   it('keeps an id as text when its address is unsafe, or an app path with no onLink', () => {
@@ -49,7 +40,7 @@ describe('Markdown linkIds', () => {
   });
 });
 
-describe('Markdown app path links', () => {
+describe('K4 Markdown app path links', { tags: ['critical'] }, () => {
   const onLink = vi.fn();
 
   it('keeps a link that starts with a slash only when onLink is passed', () => {

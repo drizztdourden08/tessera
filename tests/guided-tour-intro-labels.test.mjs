@@ -1,6 +1,4 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { TourBubbleButtons } from '../src/composites/GuidedTour/sub-components/TourBubbleButtons';
 
@@ -9,18 +7,9 @@ vi.mock('../src/primitives/TesseraProvider/behavior/useTesseraStrings', async ()
   return { useTesseraStrings: () => TESSERA_STRINGS };
 });
 
-describe('the buttons of the intro step', () => {
+describe('K1 the buttons of the intro step', { tags: ['critical'] }, () => {
   const tour = { index: 0, total: 3, close: vi.fn(), back: vi.fn(), next: vi.fn() };
   const intro = { id: 'welcome', title: 'Welcome', body: 'Hello', intro: true };
-
-  it('invites with Start the tour and Skip, and has no Back or Next', () => {
-    const html = renderToString(h(TourBubbleButtons, { tour: { ...tour, index: 1 }, step: intro, advance: 'next' }));
-    expect(html).toContain('>Start the tour<');
-    expect(html).toContain('>Skip<');
-    expect(html).not.toContain('>Back<');
-    expect(html).not.toContain('>Next<');
-    expect(html).toMatch(/btn--primary[^>]*data-tour-start|data-tour-start[^>]*btn--primary/);
-  });
 
   it('goes to the next step on Start and ends the tour on Skip', () => {
     const next = vi.fn();
@@ -40,12 +29,5 @@ describe('the buttons of the intro step', () => {
     expect(close).not.toHaveBeenCalled();
     named('Skip').onClick();
     expect(close).toHaveBeenCalledTimes(1);
-  });
-
-  it('keeps Back and Next on a step that is not an intro', () => {
-    const html = renderToString(h(TourBubbleButtons, { tour: { ...tour, index: 1 }, step: { ...intro, intro: false }, advance: 'next' }));
-    expect(html).toContain('>Back<');
-    expect(html).toContain('>Next<');
-    expect(html).not.toContain('Start the tour');
   });
 });

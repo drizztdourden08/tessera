@@ -30,7 +30,7 @@ const hashOf = (parts) => {
 mkdirSync(join(ROOT, 'stories/primitives'), { recursive: true });
 afterAll(() => rmSync(ROOT, { recursive: true }));
 
-describe('the review hash', () => {
+describe('S2 the review hash', { tags: ['standard'] }, () => {
   it('ignores the overview description, points and instead line', () => {
     const before = hashOf({});
     expect(hashOf({ description: 'Runs an action when pressed, with \\\'quotes\\\'.' })).toBe(before);

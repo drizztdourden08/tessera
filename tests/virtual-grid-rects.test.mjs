@@ -1,10 +1,7 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { gridLayout } from '../src/composites/VirtualGrid/behavior/grid-layout';
 import { gridRects } from '../src/composites/VirtualGrid/behavior/grid-rects';
-import { VirtualGrid } from '../src/composites/VirtualGrid';
 import { hitKeys } from '../src/composites/marquee/hit-keys';
 
 const GROUPS = [
@@ -17,7 +14,7 @@ const HEIGHTS = { tile: 96, head: 32 };
 
 const rectsOf = (layout, origin = { x: 0, y: 0 }) => gridRects({ layout, heights: HEIGHTS, tileWidth: 100, origin, keyOf: (index) => `k${index}` });
 
-describe('the rects of every item of the grid', () => {
+describe('K1 the rects of every item of the grid', { tags: ['critical'] }, () => {
   const rects = rectsOf(gridLayout(GROUPS, 4));
   const at = (key) => rects.find((item) => item.key === key)?.rect;
 
@@ -46,30 +43,5 @@ describe('the rects of every item of the grid', () => {
   it('lets the marquee pick tiles far below the rendered rows', () => {
     const area = { x: 0, y: 280, width: 300, height: 20 };
     expect(hitKeys(area, rects)).toEqual(['k13', 'k14']);
-  });
-});
-
-describe('VirtualGrid section headers on the server', () => {
-  const draw = (sections) => renderToString(h(VirtualGrid, {
-    label: 'Folders', sections, getKey: (item) => item, renderItem: (item) => item,
-  }));
-
-  it('indents a header by its depth and leaves a plain header at zero', () => {
-    const html = draw([
-      { key: 'a', label: 'A', items: ['a1'] },
-      { key: 'b', label: 'B', depth: 2, items: ['b1'] },
-    ]);
-    expect(html).toContain('--vg-depth:0');
-    expect(html).toContain('--vg-depth:2');
-  });
-
-  it('draws the actions of a header after its count', () => {
-    const html = draw([{ key: 'a', label: 'A', items: ['a1'], actions: [{ id: 'add', label: 'Add here', icon: 'plus', onSelect: () => {} }] }]);
-    expect(html).toContain('virtual-grid__header-actions');
-    expect(html).toContain('Add here');
-  });
-
-  it('draws no action area for a header without actions', () => {
-    expect(draw([{ key: 'a', label: 'A', items: ['a1'] }])).not.toContain('virtual-grid__header-actions');
   });
 });

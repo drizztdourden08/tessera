@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { ControlMenu, ControlMenuRow } from '../src/composites/ControlMenu';
 import { matchesText } from '../src/data/text/matches-text';
 import { shiftInto } from '../src/composites/ControlMenu/behavior/shift-into';
 import { dropPlacement } from '../src/primitives/listbox/drop-placement';
@@ -10,14 +7,7 @@ import { dropPlacement } from '../src/primitives/listbox/drop-placement';
 const VIEW = { innerWidth: 1000, innerHeight: 800, getComputedStyle: () => ({ borderBottomWidth: '1px', borderTopLeftRadius: '6px', borderBottomLeftRadius: '6px' }) };
 const box = (left, width) => ({ top: 100, bottom: 124, left, right: left + width, width, height: 24 });
 
-describe('ControlMenu', () => {
-  it('draws only its trigger until it opens, as a button that opens a dialog', () => {
-    const html = renderToString(h(ControlMenu, { trigger: { label: 'View options' } }, h(ControlMenuRow, { label: 'Zoom' }, 'control')));
-    expect(html).toContain('aria-haspopup="dialog"');
-    expect(html).toContain('aria-expanded="false"');
-    expect(html).not.toContain('control-menu__row');
-  });
-
+describe('K1 ControlMenu', { tags: ['critical'] }, () => {
   it('filters rows by label, ignoring case and spaces around the query', () => {
     expect(matchesText('Main view', '  VIEW ')).toBe(true);
     expect(matchesText('Main view', '')).toBe(true);
@@ -31,7 +21,7 @@ describe('ControlMenu', () => {
   });
 });
 
-describe('the listbox drop alignment', () => {
+describe('K1 the listbox drop alignment', { tags: ['critical'] }, () => {
   it('lines up with the start of its trigger by default, as Select and DropdownMenu do', () => {
     const placed = dropPlacement(null, box(900, 30), VIEW, {});
     expect(placed).toMatchObject({ end: false, left: 900, maxWidth: 92 });

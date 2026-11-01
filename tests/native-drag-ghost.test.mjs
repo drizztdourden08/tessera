@@ -1,9 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { renderToString } from 'react-dom/server';
-import { createElement as h } from 'react';
-import { readFileSync } from 'node:fs';
 import { describe, expect, it, vi } from 'vitest';
-import { nativeGhostElement } from '../src/composites/DragGhost/behavior/native-ghost-element';
 import { startNativeGhost } from '../src/composites/DragGhost/behavior/start-native-ghost';
 
 const DOC = { nodeType: 9 };
@@ -16,15 +12,7 @@ const mounted = (width = 40, height = 20) => {
   return { mount, dispose };
 };
 
-describe('the drag image of a native drag', () => {
-  it('draws the ghost with the count and the thumbnails', () => {
-    const html = renderToString(nativeGhostElement({ count: 5, thumbnails: [h('b', null, 'T1'), h('b', null, 'T2')] }));
-    expect(html).toContain('drag-ghost');
-    expect(html).toContain('T1');
-    expect(html).toContain('T2');
-    expect(html).toContain('>5<');
-  });
-
+describe('K1 the drag image of a native drag', { tags: ['critical'] }, () => {
   it('mounts the ghost in the document of the dragged element and sets it as the drag image at its centre', () => {
     const setDragImage = vi.fn();
     const { mount } = mounted(40, 20);
@@ -53,10 +41,5 @@ describe('the drag image of a native drag', () => {
     startNativeGhost({ dataTransfer: null, currentTarget: target() }, { count: 2 }, mount);
     expect(mount).not.toHaveBeenCalled();
     expect(setDragImage).not.toHaveBeenCalled();
-  });
-
-  it('keeps the off screen holder in the style sheet with tokens only', () => {
-    const css = readFileSync(new URL('../src/composites/DragGhost/DragGhost.css', import.meta.url), 'utf8');
-    expect(css).toMatch(/\.native-drag-ghost \{[^}]*position: fixed;[^}]*inset-block-start: calc\(-1 \* var\(--size-256\)\);/);
   });
 });

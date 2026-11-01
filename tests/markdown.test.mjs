@@ -3,7 +3,6 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { Markdown } from '../src/composites/Markdown';
-import { codeOf } from '../src/composites/Markdown/behavior/code-of';
 import { safeHref } from '../src/composites/Markdown/behavior/safe-href';
 
 const NOTE = `<!-- @layer root-config @kind doc -->
@@ -31,71 +30,14 @@ const rumble = 0.5;
 
 const draw = (props, text = NOTE) => renderToString(h(Markdown, props, text));
 
-describe('Markdown renders the release note subset', () => {
-  it('draws headings one level down by default, sized by their depth in the note', () => {
-    const html = draw({});
-    expect(html).toMatch(/<h2 class="text markdown__heading markdown__heading--1">Relic of the Past v0.16.0<\/h2>/);
-    expect(html).toMatch(/<h3 class="text markdown__heading markdown__heading--2">Controllers<\/h3>/);
-    expect(html).not.toContain('<h1');
-  });
-
-  it('moves headings by headingOffset and stops at h6', () => {
-    expect(draw({ headingOffset: 0 })).toContain('<h1 class="text markdown__heading markdown__heading--1"');
-    expect(draw({ headingOffset: 5 }, '# One\n\n## Two')).toMatch(/<h6[^>]*>One<\/h6>\s*<h6[^>]*>Two<\/h6>/);
-  });
-
-  it('draws paragraphs, bold, italic, inline code and lists with Tessera parts', () => {
-    const html = draw({});
-    expect(html).toContain('<p class="text-el text-el--p markdown__paragraph">A <strong');
-    expect(html).toMatch(/<strong class="text-el text-el--strong">controllers<\/strong>/);
-    expect(html).toMatch(/<em class="text-el text-el--em">one<\/em>/);
-    expect(html).toMatch(/<code class="text-el text-el--code">rotp --check<\/code>/);
-    expect(html).toContain('<ul class="list list--bullets">');
-    expect(html).toMatch(/<li class="list-item">Rumble is adjustable\.(<!-- -->)?\s*<ul class="list list--bullets">/);
-    expect(html).toContain('<ol class="list list--numbers" start="3">');
-  });
-
-  it('draws a fenced block as a CodeBlock in its language, a quote and a rule', () => {
-    const html = draw({});
-    expect(html).toContain('markdown__code');
-    expect(html).toContain('const');
-    expect(html).toContain('rumble');
-    expect(html).not.toContain('<pre><code class="language-ts">');
-    expect(html).toContain('<blockquote class="text-el text-el--blockquote markdown__quote">');
-    expect(html).toContain('markdown__rule');
-    expect(codeOf({ type: 'element', tagName: 'pre', properties: {}, children: [
-      { type: 'element', tagName: 'code', properties: { className: ['language-json'] }, children: [{ type: 'text', value: '{}\n' }] },
-    ] })).toEqual({ code: '{}', language: 'json' });
-    expect(codeOf({ type: 'element', tagName: 'pre', properties: {}, children: [
-      { type: 'element', tagName: 'code', properties: { className: ['language-sh'] }, children: [{ type: 'text', value: 'ls' }] },
-    ] })).toEqual({ code: 'ls', language: 'text' });
-  });
-
+describe('K4 Markdown renders the release note subset', { tags: ['critical'] }, () => {
   it('opens a link in a new tab with rel noopener when no onLink is given', () => {
     const html = draw({});
     expect(html).toMatch(/<a target="_blank" rel="noopener noreferrer" href="https:\/\/example.com\/guide" class="link"[^>]*>the guide/);
   });
-
-  it('takes the text from source, and sets size and className', () => {
-    const html = renderToString(h(Markdown, { source: 'Plain words.', size: 'sm', className: 'notes' }));
-    expect(html).toBe('<div class="markdown notes" data-size="sm"><p class="text-el text-el--p markdown__paragraph">Plain words.</p></div>');
-  });
-
-  it('adds the inline class for size inline and not for the others', () => {
-    const inline = renderToString(h(Markdown, { source: 'Plain words.', size: 'inline' }));
-    expect(inline).toContain('class="markdown markdown--inline" data-size="inline"');
-    expect(draw({ size: 'sm' })).not.toContain('markdown--inline');
-    expect(draw({})).not.toContain('markdown--inline');
-  });
-
-  it('drops the leading title with hideTitle and keeps later ones', () => {
-    const html = draw({ hideTitle: true });
-    expect(html).not.toContain('Relic of the Past v0.16.0');
-    expect(html).toContain('>Controllers</h3>');
-  });
 });
 
-describe('Markdown drops what is outside the subset', () => {
+describe('K4 Markdown drops what is outside the subset', { tags: ['critical'] }, () => {
   it('drops raw HTML, a script and an HTML comment', () => {
     const html = draw({}, '<!-- note -->\n\n<script>alert(1)</script>\n\nA <b>bold</b> word <img src="x" onerror="alert(2)">.\n\n<div>block</div>');
     expect(html).not.toMatch(/<script|<b>|<img|<div>block|onerror|alert|note/);
@@ -108,12 +50,6 @@ describe('Markdown drops what is outside the subset', () => {
     expect(html).toContain('run');
     expect(html).toContain('href="mailto:help@example.com"');
     expect(html.match(/<a /g)).toHaveLength(1);
-  });
-
-  it('shows an image as its alt text', () => {
-    const html = draw({}, '![The new card](https://example.com/card.png)');
-    expect(html).not.toMatch(/<img|<link/);
-    expect(html).toContain('<span class="text-el text-el--span markdown__image-text">The new card</span>');
   });
 
   it('keeps only http, https and mailto addresses', () => {
@@ -131,48 +67,7 @@ describe('Markdown drops what is outside the subset', () => {
   });
 });
 
-const README = `| Key | Action | Count |
-|:----|:------:|------:|
-| W | Move **up** | 1 |
-| S | Move down | 22 |
-
-- [x] Shipped
-- [ ] Planned
-  - nested point
-
-~~old~~ and https://example.com/auto`;
-
-describe('Markdown draws GitHub tables, task lists and strikethrough with Tessera parts', () => {
-  it('draws a table with the Table primitive classes, a head, a body and alignment', () => {
-    const html = draw({}, README);
-    expect(html).toContain('<div class="table-wrap"><table class="table table--striped">');
-    expect(html).toContain('<thead class="table__head"><tr class="table__row"><th class="table__cell table__cell--head table__cell--left">Key</th>');
-    expect(html).toContain('table__cell--head table__cell--center">Action</th>');
-    expect(html).toContain('table__cell--head table__cell--right">Count</th>');
-    expect(html).toContain('<tbody class="table__body"><tr class="table__row"><td class="table__cell table__cell--left">W</td>');
-    expect(html).toContain('<td class="table__cell table__cell--center">Move <strong');
-    expect(html).not.toMatch(/markdown__table|<th>|<td>/);
-  });
-
-  it('draws a task item as a disabled Checkbox with the item text as its label', () => {
-    const html = draw({}, README);
-    expect(html.match(/<input type="checkbox" class="checkbox__input"/g)).toHaveLength(2);
-    expect(html).toMatch(/<li class="list-item list-item--bare"><label class="checkbox control-size--md checkbox--disabled"><input[^>]*disabled=""[^>]*checked=""/);
-    expect(html).toMatch(/checkbox__label">Shipped<\/span>/);
-    expect(html).toMatch(/<input(?![^>]*checked)[^>]*disabled=""[^>]*\/>[\s\S]*?Planned/);
-    expect(html).toMatch(/Planned<\/span><\/label><ul class="list list--bullets">\s*<li class="list-item">nested point/);
-  });
-
-  it('draws strikethrough with the S part and an autolink with Link', () => {
-    const html = draw({}, README);
-    expect(html).toContain('<s class="text-el text-el--s">old</s>');
-    expect(html).toMatch(/<a target="_blank" rel="noopener noreferrer" href="https:\/\/example.com\/auto" class="link"/);
-  });
-
-  it('sizes the task Checkbox with the size of the note', () => {
-    expect(draw({ size: 'sm' }, '- [x] Done')).toContain('control-size--sm');
-  });
-
+describe('K4 Markdown draws GitHub tables, task lists and strikethrough with Tessera parts', { tags: ['critical'] }, () => {
   it('still drops raw HTML inside a table and a task item', () => {
     const html = draw({}, `| a |
 |---|

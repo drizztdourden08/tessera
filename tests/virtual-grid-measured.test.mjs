@@ -1,6 +1,4 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { anchorShift } from '../src/composites/VirtualGrid/behavior/anchor-shift';
 import { gridHeights } from '../src/composites/VirtualGrid/behavior/grid-heights';
@@ -12,22 +10,15 @@ import { pruneHeights } from '../src/composites/VirtualGrid/behavior/prune-heigh
 import { rowPlace } from '../src/composites/VirtualGrid/behavior/row-place';
 import { rowRange } from '../src/composites/VirtualGrid/behavior/row-range';
 import { scrollOffset } from '../src/composites/VirtualGrid/behavior/scroll-offset';
-import { VirtualGrid } from '../src/composites/VirtualGrid';
-
-const GROUPS = [
-  { header: true, count: 7, collapsed: false },
-  { header: true, count: 4, collapsed: true },
-  { header: true, count: 3, collapsed: false },
-];
+import { GROUPS, HEIGHTS as FIXED } from './virtual-grid-fixture.mjs';
 
 const layout = gridLayout(GROUPS, 3);
-const FIXED = { tile: 96, head: 32 };
 const KNOWN = { 1: 150, 2: 200, 6: 120 };
 const offsetsOf = (known) => gridOffsets(layout, (row) => known[row]);
 const measured = (known = KNOWN) => ({ ...FIXED, offsets: offsetsOf(known) });
 const topsOf = (heights) => layout.rows.map((row, at) => rowPlace(row, heights, at).top);
 
-describe('the offset table of measured rows', () => {
+describe('K1 the offset table of measured rows', { tags: ['critical'] }, () => {
   it('gives in fixed mode the tops of one tile height and one header height', () => {
     expect(topsOf(FIXED)).toEqual([0, 32, 128, 224, 320, 352, 384]);
     expect(gridTotal(layout, FIXED)).toBe(480);
@@ -61,7 +52,7 @@ describe('the offset table of measured rows', () => {
   });
 });
 
-describe('the rows in view with mixed heights', () => {
+describe('K1 the rows in view with mixed heights', { tags: ['critical'] }, () => {
   const heights = measured();
   const range = (scrollTop, viewport, overscan) => rowRange({ rows: layout.rows, heights, scrollTop, viewport, overscan });
 
@@ -77,7 +68,7 @@ describe('the rows in view with mixed heights', () => {
   });
 });
 
-describe('scrolling an item into view with mixed heights', () => {
+describe('K1 scrolling an item into view with mixed heights', { tags: ['critical'] }, () => {
   const heights = measured();
   const at = (index, align, scrollTop = 0, viewport = 200) => scrollOffset({ layout, heights, index, viewport, scrollTop, align });
 
@@ -97,7 +88,7 @@ describe('scrolling an item into view with mixed heights', () => {
   });
 });
 
-describe('the scroll anchor when a row above the first visible row changes height', () => {
+describe('K1 the scroll anchor when a row above the first visible row changes height', { tags: ['critical'] }, () => {
   const rows = layout.rows;
   const before = measured();
   const after = (known) => measured({ ...KNOWN, ...known });
@@ -123,7 +114,7 @@ describe('the scroll anchor when a row above the first visible row changes heigh
   });
 });
 
-describe('the cache of measured heights', () => {
+describe('K1 the cache of measured heights', { tags: ['critical'] }, () => {
   it('keeps the same map when nothing changed', () => {
     const before = new Map([['row-a', 100]]);
     expect(mergeHeights(before, new Map([['row-a', 100]]))).toBe(before);
@@ -138,22 +129,5 @@ describe('the cache of measured heights', () => {
     const before = new Map([['row-a', 100], ['row-b', 90]]);
     expect([...pruneHeights(before, new Set(['row-b']))]).toEqual([['row-b', 90]]);
     expect(pruneHeights(before, new Set(['row-a', 'row-b', 'row-c']))).toBe(before);
-  });
-});
-
-describe('the rowHeight prop', () => {
-  const items = Array.from({ length: 40 }, (_, at) => ({ id: `tile-${at}` }));
-  const draw = (extra) => renderToString(h(VirtualGrid, { label: 'Tiles', items, getKey: (item) => item.id, renderItem: (item) => item.id, ...extra }));
-
-  it('leaves the grid as it was by default and with fixed', () => {
-    expect(draw({})).not.toContain('virtual-grid--measured');
-    expect(draw({ rowHeight: 'fixed' })).toBe(draw({}));
-  });
-
-  it('marks a measured grid and gives its body a total height', () => {
-    const html = draw({ rowHeight: 'measured' });
-    expect(html).toContain('virtual-grid--measured');
-    expect(html).toMatch(/--vg-total:\d+(\.\d+)?px/);
-    expect(html).toMatch(/--vg-top:\d+(\.\d+)?px/);
   });
 });

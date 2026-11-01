@@ -13,7 +13,7 @@ const HEIGHT = 10;
 
 const at = (y, extra = {}) => dropTargetOf({ rows, indexOfKey, y, rowHeight: HEIGHT, from: 4, moving: new Set(['c']), ...extra });
 
-describe('the drop target under the pointer', () => {
+describe('K1 the drop target under the pointer', { tags: ['critical'] }, () => {
   it('puts a gap before a row near its top and lifts the line to the top of the tree', () => {
     expect(at(2)).toMatchObject({ gap: 0, parentKey: null, index: 0, into: false });
     expect(at(-5)).toMatchObject({ gap: 0, parentKey: null, index: 0 });
@@ -54,7 +54,7 @@ describe('the drop target under the pointer', () => {
   });
 });
 
-describe('the move request', () => {
+describe('K1 the move request', { tags: ['critical'] }, () => {
   const request = (target, keys) => moveRequestOf({ rows, indexOfKey, target, keys, modifier: 'alt', childCount });
   const gap = (parentKey, index) => ({ gap: 0, parentKey, index, into: false, intoAt: -1 });
 
@@ -75,7 +75,7 @@ describe('the move request', () => {
   });
 });
 
-describe('the move by key', () => {
+describe('K1 the move by key', { tags: ['critical'] }, () => {
   const move = (key, direction, maxDepth) => keyMoveOf({ rows, indexOfKey, keys: [key], direction, maxDepth, childCount });
 
   it('moves among the siblings and stops at the ends', () => {

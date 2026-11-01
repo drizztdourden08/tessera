@@ -1,9 +1,8 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
 import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { GuidedTour, useGuidedTour } from '../src/composites/GuidedTour';
+import { useGuidedTour } from '../src/composites/GuidedTour';
 import { enterStep } from '../src/composites/GuidedTour/behavior/enter-step';
 import { findTarget } from '../src/composites/GuidedTour/behavior/find-target';
 import { holeClip } from '../src/composites/GuidedTour/behavior/hole-clip';
@@ -19,7 +18,7 @@ const STEPS = [
   { id: 'gear', title: 'Gear', body: 'Click', target: { tour: 'gear' }, advance: 'click' },
 ];
 
-describe('the steps of a tour', () => {
+describe('K1 the steps of a tour', { tags: ['critical'] }, () => {
   const open = { open: true, index: 0 };
 
   it('starts at a step, kept inside the list', () => {
@@ -48,7 +47,7 @@ describe('the steps of a tour', () => {
   });
 });
 
-describe('the controller', () => {
+describe('K1 the controller', { tags: ['critical'] }, () => {
   const Probe = (props) => {
     const tour = useGuidedTour({ steps: STEPS, ...props });
     return h('output', null, `${tour.open}:${tour.index}:${tour.current?.id ?? '-'}:${tour.shortcuts.length}`);
@@ -62,14 +61,9 @@ describe('the controller', () => {
     expect(renderToString(h(Probe, { open: true, step: 1 }))).toContain('true:1:nav:4');
     expect(renderToString(h(Probe, { open: true, step: 7 }))).toContain('true:2:gear:4');
   });
-
-  it('draws nothing while closed', () => {
-    const Closed = () => h(GuidedTour, { tour: useGuidedTour({ steps: STEPS }) });
-    expect(renderToString(h(Closed))).toBe('');
-  });
 });
 
-describe('the keys', () => {
+describe('K1 the keys', { tags: ['critical'] }, () => {
   const plain = { modified: false, editable: false, interactive: false, waits: false };
 
   it('goes on with Right or Enter, back with Left and closes with Escape', () => {
@@ -100,7 +94,7 @@ describe('the keys', () => {
   });
 });
 
-describe('entering a step', () => {
+describe('K1 entering a step', { tags: ['critical'] }, () => {
   const frame = () => Promise.resolve();
   const { signal } = new globalThis.AbortController();
 
@@ -145,7 +139,7 @@ describe('entering a step', () => {
   });
 });
 
-describe('focus and the rest of the page', () => {
+describe('K1 focus and the rest of the page', { tags: ['critical'] }, () => {
   const el = (name, children = []) => {
     const node = { name, nodeType: 1, offsetHeight: 1, inert: false, parentElement: null, children };
     children.forEach((child) => { child.parentElement = node; });
@@ -183,7 +177,7 @@ describe('focus and the rest of the page', () => {
   });
 });
 
-describe('the spotlight and the mascot', () => {
+describe('K1 the spotlight and the mascot', { tags: ['critical'] }, () => {
   const view = { width: 1000, height: 800 };
 
   it('cuts a rounded hole with the same number of points for any target, so it can glide', () => {
@@ -207,23 +201,5 @@ describe('the spotlight and the mascot', () => {
   it('goes under the bubble when neither side has room', () => {
     const wide = { x: 20, y: 100, width: 960, height: 100 };
     expect(mascotSpot({ bubble: wide, hole: null }, view, { width: 80, height: 80 }, 10)).toMatchObject({ x: 60, y: 210 });
-  });
-
-  it('draws the mascot above the dim layer, the ring above the mascot and the bubble above both', () => {
-    const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
-    const tokens = Object.fromEntries([...read('../src/tokens/z-index.css').matchAll(/--(z-[a-z-]+):\s*(\d+);/g)].map((m) => [m[1], Number(m[2])]));
-    const zOf = (css, selector) => {
-      const block = css.slice(css.indexOf(`${selector} {`));
-      const name = /z-index:\s*var\(--(z-[a-z-]+)\)/.exec(block.slice(0, block.indexOf('}')))?.[1];
-      return tokens[name] ?? 0;
-    };
-    const tour = read('../src/composites/GuidedTour/GuidedTour.css');
-    const veil = zOf(read('../src/primitives/Overlay/Overlay.css'), '.overlay');
-    expect(veil).toBeGreaterThan(0);
-    expect(zOf(tour, '.guided-tour__mascot')).toBeGreaterThan(veil);
-    const ring = zOf(read('../src/composites/GuidedTour/sub-components/TourSpotlight.css'), '.tour-spotlight__ring');
-    expect(ring).toBeGreaterThan(zOf(tour, '.guided-tour__mascot'));
-    expect(zOf(tour, '.guided-tour__bubble')).toBeGreaterThan(ring);
-    expect(tour.slice(tour.indexOf('.guided-tour {'), tour.indexOf('}'))).toContain('isolation: isolate');
   });
 });

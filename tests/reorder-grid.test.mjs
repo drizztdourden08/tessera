@@ -13,7 +13,7 @@ const gridOf = (columns, total) => ({
   querySelectorAll: () => Array.from({ length: total }, (_, index) => boxAt(index % columns, Math.floor(index / columns))),
 });
 
-describe('reorderStep on the grid axis', () => {
+describe('K1 reorderStep on the grid axis', { tags: ['critical'] }, () => {
   const options = { axis: 'grid', chord: 'plain', index: 5, total: 12, columns: 4 };
 
   it('steps one place on Left and Right and one row on Up and Down', () => {
@@ -49,7 +49,7 @@ describe('reorderStep on the grid axis', () => {
   });
 });
 
-describe('gridInsertionAt', () => {
+describe('K1 gridInsertionAt', { tags: ['critical'] }, () => {
   const list = gridOf(4, 10);
   const selector = '[data-swatch-index]';
 
@@ -74,7 +74,7 @@ describe('gridInsertionAt', () => {
   });
 });
 
-describe('pointerInsertion', () => {
+describe('K1 pointerInsertion', { tags: ['critical'] }, () => {
   it('reads both coordinates on the grid and one on a line', () => {
     const list = gridOf(4, 8);
     expect(pointerInsertion(list, '[data-swatch-index]', 'grid', { clientX: 21, clientY: 25 })).toBe(5);
@@ -83,7 +83,7 @@ describe('pointerInsertion', () => {
   });
 });
 
-describe('columnsOf', () => {
+describe('K1 columnsOf', { tags: ['critical'] }, () => {
   it('counts the cells that share the first row', () => {
     expect(columnsOf(gridOf(4, 10), '[data-swatch-index]')).toBe(4);
     expect(columnsOf(gridOf(7, 30), '[data-swatch-index]')).toBe(7);

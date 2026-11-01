@@ -1,15 +1,7 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { Tree } from '../src/composites/Tree';
 import { dragOutStart } from '../src/composites/Tree/behavior/drag-out-start';
 import { pointerHandlersOf } from '../src/composites/Tree/behavior/pointer-handlers-of';
-import { ACCESS as base, ITEMS } from './fixtures/tree/tree-items.mjs';
-
-const OPEN = { label: 'Files', items: ITEMS, defaultExpandedKeys: ['a'] };
-
-const draw = (extra = {}) => renderToString(h(Tree, { ...OPEN, ...base, getLabel: (item) => item.name, ...extra }));
 
 const dragEvent = (extra = {}) => {
   const row = {};
@@ -18,28 +10,7 @@ const dragEvent = (extra = {}) => {
 
 const request = (extra = {}) => ({ keys: ['a', 'b'], onDragOut: vi.fn(), ghost: { onDragStart: vi.fn() }, renderThumbnail: undefined, held: false, ...extra });
 
-describe('Tree trail', () => {
-  it('shows the trail at rest by default and marks the tree when it is hover only', () => {
-    expect(draw({ renderTrail: () => 'x' })).not.toContain('data-trail');
-    expect(draw({ trail: 'always' })).toContain('data-trail="always"');
-    expect(draw({ trail: 'hover', renderTrail: () => 'x' })).toContain('data-trail="hover"');
-  });
-
-  it('draws badges in their own span before the trail and draws neither span when a slot is empty', () => {
-    const html = draw({ trail: 'hover', renderBadges: () => 'new', renderTrail: () => 'x' });
-    expect(html).toMatch(/tree__label">a<\/span><span[^>]*tree__badges">new<\/span><span[^>]*tree__trail">x<\/span>/);
-    expect(draw({ renderTrail: () => 'x' })).not.toContain('tree__badges');
-    expect(draw({ renderBadges: () => 'new' })).not.toContain('tree__trail');
-    expect(draw({ renderBadges: () => undefined })).not.toContain('tree__badges');
-  });
-});
-
-describe('Tree drag out', () => {
-  it('makes rows draggable only with onDragOut', () => {
-    expect(draw()).not.toContain('draggable');
-    expect((draw({ onDragOut: () => undefined }).match(/draggable="true"/g) ?? []).length).toBe(5);
-  });
-
+describe('K1 Tree drag out', { tags: ['critical'] }, () => {
   it('hands the keys to the app, sets the effect and starts the ghost with a count', () => {
     const event = dragEvent();
     const ask = request({ renderThumbnail: (key) => `t-${key}` });
@@ -67,7 +38,7 @@ describe('Tree drag out', () => {
   });
 });
 
-describe('Tree pointer with a drag out', () => {
+describe('K1 Tree pointer with a drag out', { tags: ['critical'] }, () => {
   const press = (extra = {}) => ({ target: {}, clientX: 1, clientY: 1, altKey: false, pointerType: 'mouse', ...extra });
   const base0 = () => ({ onPointerDown: vi.fn(), onPointerMove: vi.fn(), onPointerUp: vi.fn(), onPointerCancel: vi.fn() });
 

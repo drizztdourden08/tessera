@@ -6,7 +6,7 @@ import { SIDE_ROOM } from '../src/composites/DropdownMenu/DropdownMenu.constants
 
 const rect = (left, right) => ({ left, right });
 
-describe('DropdownMenu side placement', () => {
+describe('K1 DropdownMenu side placement', { tags: ['critical'] }, () => {
   it('keeps below and above under or over the anchor on the chosen edge', () => {
     expect(menuPlacement('below', 'start')).toBe('bottom-start');
     expect(menuPlacement('below', 'end')).toBe('bottom-end');

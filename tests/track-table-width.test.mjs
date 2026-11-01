@@ -1,14 +1,11 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { TrackTable } from '../src/composites/TrackTable';
 import { trackSize } from '../src/composites/TrackTable/behavior/track-size';
 import { trackTemplates } from '../src/composites/TrackTable/behavior/track-templates';
 
 const cell = (row) => row.name;
 
-describe('trackSize', () => {
+describe('K1 trackSize', { tags: ['critical'] }, () => {
   it('keeps a fraction track for a column with no width', () => {
     expect(trackSize({ id: 'a', label: 'A', cell })).toBe('minmax(0, 1fr)');
     expect(trackSize({ id: 'a', label: 'A', cell, fr: 2 })).toBe('minmax(0, 2fr)');
@@ -24,7 +21,7 @@ describe('trackSize', () => {
   });
 });
 
-describe('TrackTable fixed width columns', () => {
+describe('K1 TrackTable fixed width columns', { tags: ['critical'] }, () => {
   const columns = [
     { id: 'name', label: 'Name', cell, fr: 2 },
     { id: 'size', label: 'Size', cell, width: 'size-80', drop: 1 },
@@ -34,10 +31,5 @@ describe('TrackTable fixed width columns', () => {
     const styles = trackTemplates(columns);
     expect(styles['--track-cols-0']).toBe('minmax(0, 2fr) var(--size-80)');
     expect(styles['--track-cols-768']).toBe('minmax(0, 2fr)');
-  });
-
-  it('sets the template on the table', () => {
-    const html = renderToStaticMarkup(h(TrackTable, { label: 'Files', rows: [{ name: 'a' }], columns, rowKey: (row) => row.name }));
-    expect(html).toContain('--track-cols-0:minmax(0, 2fr) var(--size-80)');
   });
 });

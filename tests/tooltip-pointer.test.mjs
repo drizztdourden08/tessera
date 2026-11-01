@@ -13,7 +13,7 @@ vi.mock('../src/primitives/Portal/behavior/useDismissListeners', () => ({ useDis
 const view = { width: 800, height: 600 };
 const bubble = { width: 200, height: 80 };
 
-describe('a tooltip placed by the pointer', () => {
+describe('K1 a tooltip placed by the pointer', { tags: ['critical'] }, () => {
   it('sits below and after the pointer when there is room', () => {
     expect(pointerPlacement({ pointer: { x: 100, y: 100 }, bubble, view })).toEqual({ x: 100 + POINTER_OFFSET, y: 100 + POINTER_OFFSET });
   });
@@ -34,7 +34,7 @@ const fakeBubble = () => {
   return { offsetWidth: 200, offsetHeight: 80, ownerDocument: doc, style: {} };
 };
 
-describe('usePointerFollow', () => {
+describe('K1 usePointerFollow', { tags: ['critical'] }, () => {
   it('places the bubble when it mounts and again on every move', () => {
     const bubbleRef = { current: null };
     const view = mountHook(() => usePointerFollow(bubbleRef));
@@ -47,7 +47,7 @@ describe('usePointerFollow', () => {
   });
 });
 
-describe('useTooltipOpen with a pointer', () => {
+describe('K1 useTooltipOpen with a pointer', { tags: ['critical'] }, () => {
   it('passes the entering and moving pointer on, and reports the hover', () => {
     const onPointer = vi.fn();
     const ref = fakeAnchor();

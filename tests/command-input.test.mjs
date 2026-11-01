@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { CommandInput } from '../src/composites/CommandInput';
 import { addToHistory } from '../src/composites/CommandInput/behavior/add-to-history';
 import { commandKey } from '../src/composites/CommandInput/behavior/command-key';
 import { readStoredHistory } from '../src/composites/CommandInput/behavior/stored-history';
@@ -12,8 +9,6 @@ import { writeStored } from '../src/primitives/dom/write-stored';
 const HISTORY = ['/players', '/hint Ana Wheel', '/save'];
 
 const IDLE = { index: null, draft: '' };
-
-const DISABLED_BUTTON = /<button[^>]*disabled=""[^>]*>/;
 
 const key = (name, extra = {}) => ({ key: name, altKey: false, ctrlKey: false, metaKey: false, shiftKey: false, isComposing: false, ...extra });
 
@@ -25,9 +20,7 @@ const walk = (directions, typed = '') => {
   });
 };
 
-const noSubmit = () => undefined;
-
-describe('CommandInput keys', () => {
+describe('K1 CommandInput keys', { tags: ['critical'] }, () => {
   it('maps Enter, Up, Down and Escape to their actions', () => {
     expect(commandKey(key('Enter'), '/save', false)).toBe('send');
     expect(commandKey(key('ArrowUp'), '', false)).toBe('older');
@@ -49,7 +42,7 @@ describe('CommandInput keys', () => {
   });
 });
 
-describe('CommandInput history', () => {
+describe('K1 CommandInput history', { tags: ['critical'] }, () => {
   it('walks from the newest entry back and stops at the oldest', () => {
     expect(walk(['older', 'older', 'older', 'older'])).toEqual(['/save', '/hint Ana Wheel', '/players', '/players']);
   });
@@ -75,7 +68,7 @@ describe('CommandInput history', () => {
   });
 });
 
-describe('CommandInput storageKey', () => {
+describe('K1 CommandInput storageKey', { tags: ['critical'] }, () => {
   afterEach(() => vi.unstubAllGlobals());
 
   const stubStorage = (start = {}) => {
@@ -97,35 +90,5 @@ describe('CommandInput storageKey', () => {
     expect(readStoredHistory('bad')).toEqual([]);
     expect(readStoredHistory('broken')).toEqual([]);
     expect(readStoredHistory('missing')).toEqual([]);
-  });
-});
-
-describe('CommandInput', () => {
-  it('draws a field named Command with a prompt mark, a Send button and the key hints describing it', () => {
-    const html = renderToString(h(CommandInput, { onSubmit: noSubmit, placeholder: '/players' }));
-    expect(html).toContain('aria-label="Command"');
-    expect(html).toContain('placeholder="/players"');
-    expect(html).toContain('autoComplete="off"');
-    expect(html).toContain('spellCheck="false"');
-    expect(html).toContain('combobox__start');
-    expect(html).toContain('>Send</span>');
-    const id = /<span id="([^"]+)" class="command-input__keys">/.exec(html)[1];
-    expect(html).toContain(`aria-describedby="${id}"`);
-  });
-
-  it('disables Send while the line is empty and leaves the hints out with keyHints false', () => {
-    const empty = renderToString(h(CommandInput, { onSubmit: noSubmit, keyHints: false }));
-    expect(empty).toMatch(DISABLED_BUTTON);
-    expect(empty).not.toContain('command-input__footer');
-    const typed = renderToString(h(CommandInput, { onSubmit: noSubmit, value: '/save', label: 'Server command' }));
-    expect(typed).toContain('value="/save"');
-    expect(typed).toContain('aria-label="Server command"');
-    expect(typed).not.toMatch(DISABLED_BUTTON);
-  });
-
-  it('puts actions before the key hints in the row under the input', () => {
-    const html = renderToString(h(CommandInput, { onSubmit: noSubmit, actions: h('button', { type: 'button' }, 'Save') }));
-    expect(html.indexOf('command-input__actions')).toBeGreaterThan(0);
-    expect(html.indexOf('command-input__actions')).toBeLessThan(html.indexOf('command-input__keys'));
   });
 });

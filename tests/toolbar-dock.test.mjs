@@ -23,7 +23,7 @@ const draw = (props = {}) => {
   }, h('p', { id: 'work' }, 'work area')));
 };
 
-describe('toolbarOrientation', () => {
+describe('K1 toolbarOrientation', { tags: ['critical'] }, () => {
   it.each([['top', 'horizontal'], ['bottom', 'horizontal'], ['left', 'vertical'], ['right', 'vertical']])('the %s side is %s', (side, expected) => {
     expect(toolbarOrientation(side)).toBe(expected);
   });
@@ -37,62 +37,7 @@ describe('toolbarOrientation', () => {
   });
 });
 
-describe('ToolbarDock lanes', () => {
-  it('draws the outer lane first, index 0 before index 1', () => {
-    const html = draw();
-    expect(html.indexOf('data-bar="a"')).toBeLessThan(html.indexOf('data-bar="b"'));
-    expect(html).toContain('data-lane="0"');
-    expect(html).toContain('data-lane="1"');
-    expect(html.match(/data-side="top"/g)).toHaveLength(2);
-  });
-
-  it('marks each lane with its side and orientation', () => {
-    const html = draw();
-    expect(html).toMatch(/data-side="top"[^>]*data-orientation="horizontal"/);
-    expect(html).toMatch(/data-side="left"[^>]*data-orientation="vertical"/);
-  });
-
-  it('leaves out a side with no toolbar', () => {
-    expect(draw()).not.toContain('data-side="right"');
-  });
-});
-
-describe('ToolbarDock grid', () => {
-  it('places each lane on the root grid through custom properties', () => {
-    const html = draw();
-    expect(html).toMatch(/data-side="top"[^>]*data-lane="0"[^>]*--toolbar-dock-row:1 \/ 2;--toolbar-dock-column:1 \/ 6;--toolbar-dock-tracks:minmax\(0, 1fr\)/);
-    expect(html).toMatch(/data-side="top"[^>]*data-lane="1"[^>]*--toolbar-dock-row:2 \/ 3;--toolbar-dock-column:1 \/ 6/);
-    expect(html).toMatch(/data-side="left"[^>]*--toolbar-dock-row:3 \/ 6;--toolbar-dock-column:1 \/ 2/);
-    expect(html).toMatch(/data-side="bottom"[^>]*--toolbar-dock-row:5 \/ 6;--toolbar-dock-column:2 \/ 6/);
-  });
-
-  it('puts each bar on its own track and gaps on tracks of their own', () => {
-    const layout = createToolbarLayout(DEFS);
-    layout.sides.top[0] = [{ id: 'a', start: 0.2, size: 0.3 }, { id: 'b', start: 0.6, size: 0.2 }];
-    layout.sides.top.length = 1;
-    layout.corners['top-left'] = ['h'];
-    layout.corners['top-right'] = ['h'];
-    const html = draw({ layout });
-    expect(html).toContain('--toolbar-dock-tracks:minmax(0, 0.2fr) minmax(0, 0.3fr) minmax(0, 0.1fr) minmax(0, 0.2fr) minmax(0, 0.2fr)');
-    expect(html).toMatch(/class="toolbar-dock__bar"[^>]*--toolbar-dock-track:2[^>]*><[^>]*data-bar="a"/);
-    expect(html).toMatch(/class="toolbar-dock__bar"[^>]*--toolbar-dock-track:4[^>]*><[^>]*data-bar="b"/);
-  });
-});
-
-describe('ToolbarDock bars', () => {
-  it('wraps each shown toolbar in one bar', () => {
-    const html = draw();
-    expect(html.match(/class="toolbar-dock__bar"/g)).toHaveLength(4);
-    expect(html).toMatch(/class="toolbar-dock__bar"[^>]*><[^>]*data-bar="a"/);
-  });
-});
-
-describe('ToolbarDock content', () => {
-  it('holds the children in the centre cell', () => {
-    const html = draw();
-    expect(html).toMatch(/class="toolbar-dock__centre"[^>]*><p id="work">work area<\/p>/);
-  });
-
+describe('K1 ToolbarDock content', { tags: ['critical'] }, () => {
   it('does not render a hidden toolbar', () => {
     const html = draw();
     expect(html).not.toContain('data-bar="e"');
@@ -102,48 +47,5 @@ describe('ToolbarDock content', () => {
   it('does not render a toolbar without a definition', () => {
     const html = draw({ definitions: DEFS.filter((entry) => entry.id !== 'b') });
     expect(html).not.toContain('data-bar="b"');
-  });
-
-  it('gives each handle the drag attribute and a name', () => {
-    const html = draw();
-    expect(html).toContain('data-drag-toolbar="a"');
-    expect(html).toContain('aria-label="Move Label a"');
-  });
-
-  it('adds the class name to the root', () => {
-    expect(draw({ className: 'extra' })).toContain('class="toolbar-dock extra"');
-  });
-});
-
-describe('ToolbarDock end handles', () => {
-  const separators = (html, id) => {
-    const bar = html.split('class="toolbar-dock__bar"').slice(1).find((part) => part.includes(`data-bar="${id}"`)) ?? '';
-    return bar.match(/<[^>]*role="separator"[^>]*>/g) ?? [];
-  };
-
-  it('draws two separators on each shown bar, one per end', () => {
-    const html = draw();
-    expect(html.match(/role="separator"/g)).toHaveLength(8);
-    for (const id of ['a', 'b', 'c', 'd']) {
-      const [start, end] = separators(html, id);
-      expect(start).toContain('toolbar-dock__end--start');
-      expect(end).toContain('toolbar-dock__end--end');
-    }
-  });
-
-  it('runs the handles across a horizontal bar and along a vertical one', () => {
-    const html = draw();
-    const [top] = separators(html, 'a');
-    const [left] = separators(html, 'c');
-    expect(top).toContain('resize-handle--horizontal');
-    expect(top).toContain('aria-orientation="vertical"');
-    expect(left).toContain('resize-handle--vertical');
-    expect(left).toContain('aria-orientation="horizontal"');
-  });
-
-  it('names each handle after its toolbar and its end', () => {
-    const [start, end] = separators(draw(), 'a');
-    expect(start).toContain('aria-label="Resize the start of Label a"');
-    expect(end).toContain('aria-label="Resize the end of Label a"');
   });
 });

@@ -19,7 +19,7 @@ const sizeOf = () => ({
   handle: { value: 300, min: 240, max: 480, onResize: vi.fn(), onResizeEnd: vi.fn(), onDragChange: vi.fn(), onReset: vi.fn() },
 });
 
-describe('paneEdgeOf', () => {
+describe('K1 paneEdgeOf', { tags: ['critical'] }, () => {
   it('hands the size to the handle with its edge, and offers the low side to fold when the pane can', () => {
     const size = sizeOf();
     const { handle, other } = paneEdgeOf({ edge: 'end', size, fold: paneFold() });
@@ -77,7 +77,7 @@ describe('paneEdgeOf', () => {
   });
 });
 
-describe('the small rules of the pane edge', () => {
+describe('K1 the small rules of the pane edge', { tags: ['critical'] }, () => {
   it('writes the columns of a pane pair: pixels, shares, or a folded side in the auto column', () => {
     expect(columnsOf({ size: 320, shares: false, folded: null })).toBe('320px auto minmax(0, 1fr)');
     expect(columnsOf({ size: 60, shares: true, folded: null })).toBe('minmax(0, 60fr) auto minmax(0, 40fr)');
@@ -114,7 +114,7 @@ describe('the small rules of the pane edge', () => {
   });
 });
 
-describe('usePaneFold', () => {
+describe('K1 usePaneFold', { tags: ['critical'] }, () => {
   const mount = (extra = {}) => {
     const onCollapsedChange = vi.fn();
     const options = { collapsible: true, collapsed: undefined, defaultCollapsed: false, onCollapsedChange, storageKey: undefined, ...extra };

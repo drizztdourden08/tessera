@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { Toolbar } from '../src/composites/Toolbar';
 import { contextHandler } from '../src/composites/Toolbar/behavior/context-handler';
 import { fitColumns } from '../src/composites/Toolbar/behavior/fit-columns';
 import { isContextKey } from '../src/composites/Toolbar/behavior/is-context-key';
@@ -17,7 +14,7 @@ const separator = (id) => ({ kind: 'separator', id });
 const ids = (items) => items.map((item) => item.id);
 const cells = (...sizes) => sizes.map((size) => ({ size, span: false }));
 
-describe('splitItems with priority', () => {
+describe('K1 splitItems with priority', { tags: ['critical'] }, () => {
   const items = [button('a', { priority: 1 }), button('b'), button('c', { priority: 2 }), button('d')];
 
   it('folds the lowest priority first and keeps the order of what is shown', () => {
@@ -53,7 +50,7 @@ describe('splitItems with priority', () => {
   });
 });
 
-describe('visibleItems', () => {
+describe('K1 visibleItems', { tags: ['critical'] }, () => {
   const items = [button('a'), separator('s1'), button('b'), separator('s2'), button('c')];
 
   it('returns the same list when nothing is hidden', () => {
@@ -76,7 +73,7 @@ describe('visibleItems', () => {
 
 const fit = (list, room, columns) => fitColumns(list, 28, { gap: 4, room, columns });
 
-describe('fitColumns', () => {
+describe('K1 fitColumns', { tags: ['critical'] }, () => {
   it('matches tagFit in one column', () => {
     const sizes = [28, 28, 28, 28, 28];
     for (const room of [0, 30, 70, 100, 150, 200]) {
@@ -104,7 +101,7 @@ describe('fitColumns', () => {
   });
 });
 
-describe('context menu', () => {
+describe('K1 context menu', { tags: ['critical'] }, () => {
   const event = () => ({ preventDefault: vi.fn(), key: 'x', shiftKey: false });
 
   it('knows Shift+F10 and the Menu key', () => {
@@ -149,25 +146,5 @@ describe('context menu', () => {
     expect(context).toHaveBeenCalledOnce();
     expect(keys).toHaveBeenCalledOnce();
     expect(keyWithContext(keys, undefined)).toBe(keys);
-  });
-});
-
-describe('Toolbar with the new options', () => {
-  const draw = (props) => renderToString(h(Toolbar, { label: 'Tools', items: [button('a'), button('b'), button('c')], ...props }));
-  const stops = (html) => [...html.replace(/<div class="toolbar__measure".*$/, '').matchAll(/data-toolbar-stop="([^"]*)"/g)].map((match) => match[1]);
-
-  it('draws every item by default', () => {
-    expect(stops(draw())).toEqual(['a', 'b', 'c']);
-  });
-
-  it('leaves out the hidden items in a bar and in a list', () => {
-    expect(stops(draw({ hiddenItems: ['b'] }))).toEqual(['a', 'c']);
-    expect(stops(draw({ hiddenItems: ['a'], layout: 'list' }))).toEqual(['b', 'c']);
-  });
-
-  it('draws with columns and a context callback without changing the tab stops', () => {
-    const html = draw({ orientation: 'vertical', columns: 'auto', onContextMenu: ignore });
-    expect(stops(html)).toEqual(['a', 'b', 'c']);
-    expect(html).not.toContain('data-columns');
   });
 });

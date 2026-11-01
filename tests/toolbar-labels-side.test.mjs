@@ -5,7 +5,7 @@ import {
 } from '../src/composites/ToolbarDock';
 import { DEFS, bar, def, fullDefs, v2 } from './fixtures/toolbar-dock/toolbar-layout-kit.mjs';
 
-describe('setToolbarLabels', () => {
+describe('K1 setToolbarLabels', { tags: ['critical'] }, () => {
   it.each([
     ['sets false on a layout with no map', undefined, false, { a: false }],
     ['sets true', undefined, true, { a: true }],
@@ -36,7 +36,7 @@ describe('setToolbarLabels', () => {
   });
 });
 
-describe('migrateToolbarLayout labels', () => {
+describe('K1 migrateToolbarLayout labels', { tags: ['critical'] }, () => {
   const read = (labels) => migrateToolbarLayout(v2({ top: [[bar('a')]], left: [[bar('c')]] }, { labels }), DEFS).labels;
 
   it.each([
@@ -63,7 +63,7 @@ describe('migrateToolbarLayout labels', () => {
   });
 });
 
-describe('moveToolbarToSide', () => {
+describe('K1 moveToolbarToSide', { tags: ['critical'] }, () => {
   it.each([
     ['right', 'a'],
     ['bottom', 'c'],
@@ -105,10 +105,9 @@ describe('moveToolbarToSide', () => {
     expect(moved.sides.top[1]).toEqual([bar('b', 0.5, 0.5)]);
     expect(moved.sides.left).toEqual([]);
   });
-
 });
 
-describe('moveToolbarToSide refusals and kept state', () => {
+describe('K1 moveToolbarToSide refusals and kept state', { tags: ['critical'] }, () => {
   it('is refused when the side has no room', () => {
     const layout = createToolbarLayout(fullDefs());
     expect(moveToolbarToSide(layout, 'top1', 'left')).toBe(layout);
