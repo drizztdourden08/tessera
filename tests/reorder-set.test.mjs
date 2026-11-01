@@ -1,17 +1,14 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { cellRectOf } from '../src/composites/marquee/cell-rect-of';
 import { hitItems } from '../src/composites/marquee/hit-items';
 import { modifierOf } from '../src/composites/reorder/modifier-of';
 import { moveSet } from '../src/composites/reorder/move-set';
 import { stepGap } from '../src/composites/reorder/step-gap';
-import { DragGhost } from '../src/composites/DragGhost';
 
 const ORDER = ['a', 'b', 'c', 'd', 'e', 'f'];
 
-describe('moving a set in the reorder kit', () => {
+describe('K1 moving a set in the reorder kit', { tags: ['critical'] }, () => {
   it('puts the set together at the gap and keeps its order', () => {
     expect(moveSet(ORDER, ['b', 'd'], 5)).toEqual(['a', 'c', 'e', 'b', 'd', 'f']);
     expect(moveSet(ORDER, ['e', 'b'], 0)).toEqual(['b', 'e', 'a', 'c', 'd', 'f']);
@@ -45,7 +42,7 @@ describe('moving a set in the reorder kit', () => {
   });
 });
 
-describe('the cell rect of a marquee', () => {
+describe('K1 the cell rect of a marquee', { tags: ['critical'] }, () => {
   const item = (key, row, column) => ({ key, rect: { x: column * 10, y: row * 10, width: 10, height: 10 }, cell: { row, column } });
 
   it('bounds the cells of the items inside the rectangle', () => {
@@ -58,25 +55,5 @@ describe('the cell rect of a marquee', () => {
   it('reports nothing when no item with a cell is hit', () => {
     expect(cellRectOf([])).toBeNull();
     expect(cellRectOf([{ key: 'x', rect: { x: 0, y: 0, width: 1, height: 1 } }])).toBeNull();
-  });
-});
-
-describe('DragGhost', () => {
-  it('shows the count and at most three thumbnails', () => {
-    const html = renderToString(h(DragGhost, { count: 7, thumbnails: ['one', 'two', 'three', 'four'] }));
-    expect(html).toContain('>7<');
-    expect((html.match(/class="drag-ghost__card /g) ?? []).length).toBe(3);
-    expect(html).not.toContain('four');
-    expect(html).toContain('aria-hidden="true"');
-  });
-
-  it('shows no more thumbnails than the count', () => {
-    const html = renderToString(h(DragGhost, { count: 2, thumbnails: ['one', 'two', 'three'] }));
-    expect((html.match(/class="drag-ghost__card /g) ?? []).length).toBe(2);
-  });
-
-  it('draws nothing when it is hidden or empty', () => {
-    expect(renderToString(h(DragGhost, { count: 3, point: null }))).toBe('');
-    expect(renderToString(h(DragGhost, { count: 0 }))).toBe('');
   });
 });

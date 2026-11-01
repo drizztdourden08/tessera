@@ -31,7 +31,7 @@ const ratio = (tokens, ground, name = '--c-primary-text') => {
   return luminanceRatio(relativeLuminance(ink), relativeLuminance(under));
 };
 
-describe('the primary text colour of every palette', () => {
+describe('S2 the primary text colour of every palette', { tags: ['standard'] }, () => {
   it.each(CASES.flatMap(({ name, tokens }) => GROUNDS.map((ground) => ({ name, tokens, ground, shown: ratio(tokens, ground).toFixed(2) }))))(
     '$name: --c-primary-text on $ground reaches 4.5:1 at $shown:1',
     ({ tokens, ground }) => {
@@ -43,7 +43,7 @@ describe('the primary text colour of every palette', () => {
 const LINK_ROWS = CASES.flatMap(({ name, tokens }) => ['--c-link', '--c-link-hover'].flatMap((ink) => GROUNDS.map((ground) => ({ name, tokens, ink, ground }))));
 const LINK_SHOWN = LINK_ROWS.map((row) => ({ ...row, shown: ratio(row.tokens, row.ground, row.ink).toFixed(2) }));
 
-describe('the link colour of every palette', () => {
+describe('S2 the link colour of every palette', { tags: ['standard'] }, () => {
   it.each(LINK_SHOWN)('$name: $ink on $ground reaches 4.5:1 at $shown:1', ({ tokens, ink, ground }) => {
     expect(ratio(tokens, ground, ink)).toBeGreaterThanOrEqual(NEED);
   });

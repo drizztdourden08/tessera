@@ -25,7 +25,7 @@ const fakeWindow = () => {
 
 const elementIn = (view) => ({ ownerDocument: { defaultView: view } });
 
-describe('observeResize', () => {
+describe('K1 observeResize', { tags: ['critical'] }, () => {
   it('watches every element given with one observer from their own window', () => {
     const { made, view } = fakeWindow();
     const first = elementIn(view);

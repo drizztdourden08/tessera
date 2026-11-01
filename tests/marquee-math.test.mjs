@@ -14,7 +14,7 @@ const NONE = { add: false, toggle: false };
 
 const tile = (key, x, y) => ({ key, rect: { x, y, width: 10, height: 10 } });
 
-describe('rectFromPoints', () => {
+describe('K1 rectFromPoints', { tags: ['critical'] }, () => {
   it('orders the corners whichever way the drag goes', () => {
     expect(rectFromPoints({ x: 30, y: 40 }, { x: 10, y: 5 })).toEqual({ x: 10, y: 5, width: 20, height: 35 });
     expect(rectFromPoints({ x: 10, y: 5 }, { x: 30, y: 40 })).toEqual({ x: 10, y: 5, width: 20, height: 35 });
@@ -25,7 +25,7 @@ describe('rectFromPoints', () => {
   });
 });
 
-describe('rectsIntersect and hitKeys', () => {
+describe('K1 rectsIntersect and hitKeys', { tags: ['critical'] }, () => {
   const area = { x: 5, y: 5, width: 20, height: 20 };
 
   it('counts an overlap and not a shared edge', () => {
@@ -49,7 +49,7 @@ describe('rectsIntersect and hitKeys', () => {
   });
 });
 
-describe('mergeSelection', () => {
+describe('K1 mergeSelection', { tags: ['critical'] }, () => {
   const base = ['a', 'b'];
 
   it('replaces the selection with no modifier', () => {
@@ -74,7 +74,7 @@ describe('mergeSelection', () => {
   });
 });
 
-describe('modifiersOf', () => {
+describe('K1 modifiersOf', { tags: ['critical'] }, () => {
   it('reads shift as add, and ctrl or meta as toggle', () => {
     expect(modifiersOf({ shiftKey: true, ctrlKey: false, metaKey: false })).toEqual({ add: true, toggle: false });
     expect(modifiersOf({ shiftKey: false, ctrlKey: true, metaKey: false })).toEqual({ add: false, toggle: true });
@@ -83,7 +83,7 @@ describe('modifiersOf', () => {
   });
 });
 
-describe('passedThreshold', () => {
+describe('K1 passedThreshold', { tags: ['critical'] }, () => {
   it('waits for the pointer to move far enough in any direction', () => {
     const from = { x: 10, y: 10 };
     expect(passedThreshold(from, { x: 12, y: 11 }, 4)).toBe(false);
@@ -92,7 +92,7 @@ describe('passedThreshold', () => {
   });
 });
 
-describe('edgeScrollDelta', () => {
+describe('K1 edgeScrollDelta', { tags: ['critical'] }, () => {
   const bounds = { x: 0, y: 0, width: 200, height: 100 };
 
   it('is zero away from the edges', () => {
@@ -109,7 +109,7 @@ describe('edgeScrollDelta', () => {
   });
 });
 
-describe('clampPoint and sameKeys', () => {
+describe('K1 clampPoint and sameKeys', { tags: ['critical'] }, () => {
   it('keeps a point inside the content', () => {
     expect(clampPoint({ x: -5, y: 900 }, 300, 400)).toEqual({ x: 0, y: 400 });
     expect(clampPoint({ x: 20, y: 30 }, 300, 400)).toEqual({ x: 20, y: 30 });

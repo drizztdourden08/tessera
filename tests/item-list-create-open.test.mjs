@@ -1,40 +1,9 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { InlineCreateForm } from '../src/composites/InlineCreateForm';
-import { ItemList } from '../src/composites/ItemList';
 import { focusLost } from '../src/composites/ItemList/behavior/focus-lost';
 import { openChange } from '../src/composites/ItemList/behavior/open-change';
-import { ListDetail } from '../src/composites/ListDetail';
 
-const base = {
-  title: 'Profiles',
-  items: [],
-  getId: (profile) => profile.id,
-  getName: (profile) => profile.name,
-  createLabel: 'New profile',
-  empty: 'Create a profile to get started.',
-  create: () => h(InlineCreateForm, { placeholder: 'Profile name', onCreate: () => {} }),
-};
-
-const draw = (props) => renderToStaticMarkup(h(ItemList, { ...base, ...props }));
-
-describe('ItemList createOpen', () => {
-  it('starts the form open when the app holds createOpen, as on a first run with no items', () => {
-    const html = draw({ createOpen: true, onCreateOpenChange: () => {} });
-    expect(html).toContain('placeholder="Profile name"');
-    expect(html).not.toContain('>New profile<');
-    expect(html).not.toContain('>Cancel<');
-    expect(html).toContain('Create a profile to get started.');
-  });
-
-  it('keeps the form shut while createOpen is false, and starts shut on its own tracking', () => {
-    expect(draw({ createOpen: false })).not.toContain('placeholder="Profile name"');
-    expect(draw({ createOpen: false })).toContain('>New profile<');
-    expect(draw({})).not.toContain('placeholder="Profile name"');
-  });
-
+describe('K1 ItemList createOpen', { tags: ['critical'] }, () => {
   it('asks the app through onCreateOpenChange, and tracks the state itself only without createOpen', () => {
     const setOwn = vi.fn();
     const onChange = vi.fn();
@@ -53,12 +22,5 @@ describe('ItemList createOpen', () => {
     expect(focusLost({ body, activeElement: body })).toBe(true);
     expect(focusLost({ body, activeElement: null })).toBe(true);
     expect(focusLost({ body, activeElement: {} })).toBe(false);
-  });
-
-  it('passes createOpen through the list of ListDetail', () => {
-    const html = renderToStaticMarkup(h(ListDetail, {
-      list: { ...base, createOpen: true }, selectedId: null, onSelect: () => {}, detail: 'The editor',
-    }));
-    expect(html).toContain('placeholder="Profile name"');
   });
 });

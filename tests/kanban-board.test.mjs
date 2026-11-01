@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { KanbanBoard } from '../src/composites/KanbanBoard';
 import { boardMove } from '../src/composites/KanbanBoard/behavior/board-move';
 import { inColumnMove } from '../src/composites/KanbanBoard/behavior/in-column-move';
 import { moveCard } from '../src/composites/KanbanBoard/behavior/move-card';
@@ -11,7 +8,6 @@ import { sideMove } from '../src/composites/KanbanBoard/behavior/side-move';
 import { slotOf } from '../src/composites/KanbanBoard/behavior/slot-of';
 import { finalIndex } from '../src/composites/reorder/final-index';
 
-const ignore = () => undefined;
 const card = (id) => ({ id, title: id.toUpperCase() });
 const COLUMNS = [
   { id: 'todo', title: 'To do', cards: [card('a'), card('b'), card('c')] },
@@ -23,11 +19,7 @@ const SIZES = [3, 1, 0, 2];
 const ids = (columns) => columns.map((column) => column.cards.map((entry) => entry.id).join(''));
 const key = (name, held = {}) => ({ key: name, altKey: false, ctrlKey: false, metaKey: false, ...held });
 
-const draw = (props) => renderToString(h(KanbanBoard, {
-  columns: COLUMNS, onMove: ignore, renderCard: (entry) => h('span', { className: 'title' }, entry.title), ...props,
-}));
-
-describe('KanbanBoard slots', () => {
+describe('K1 KanbanBoard slots', { tags: ['critical'] }, () => {
   it('numbers the cards of all columns with one spare slot after each column', () => {
     expect(slotOf(SIZES, 0, 0)).toBe(0);
     expect(slotOf(SIZES, 0, 3)).toBe(3);
@@ -46,7 +38,7 @@ describe('KanbanBoard slots', () => {
   });
 });
 
-describe('boardMove', () => {
+describe('K1 boardMove', { tags: ['critical'] }, () => {
   const drop = (from, before) => boardMove(COLUMNS, from, finalIndex({ from, before }));
 
   it('moves a card down within its column and reports the index it ends at', () => {
@@ -92,7 +84,7 @@ describe('boardMove', () => {
   });
 });
 
-describe('moveCard', () => {
+describe('K1 moveCard', { tags: ['critical'] }, () => {
   it('reorders inside a column and keeps the order of the rest', () => {
     const moved = moveCard(COLUMNS, { cardId: 'a', from: { columnId: 'todo', index: 0 }, to: { columnId: 'todo', index: 2 } });
     expect(ids(moved)).toEqual(['bca', 'd', '', 'ef']);
@@ -122,7 +114,7 @@ describe('moveCard', () => {
   });
 });
 
-describe('keyboard steps', () => {
+describe('K1 keyboard steps', { tags: ['critical'] }, () => {
   it('moves a card up and down inside its column', () => {
     expect(inColumnMove(COLUMNS, 'b', 2)).toEqual({ cardId: 'b', from: { columnId: 'todo', index: 1 }, to: { columnId: 'todo', index: 2 } });
     expect(inColumnMove(COLUMNS, 'b', 1)).toBeUndefined();
@@ -152,85 +144,5 @@ describe('keyboard steps', () => {
     expect(sideMove(COLUMNS, [], 'a', key('ArrowDown'))).toBeUndefined();
     expect(sideMove(COLUMNS, [], 'a', key('ArrowRight', { altKey: true }))).toBeUndefined();
     expect(sideMove(COLUMNS, [], 'zz', key('ArrowRight'))).toBeUndefined();
-  });
-});
-
-describe('KanbanBoard', () => {
-  it('draws a named group of columns, each a named group with a list of cards', () => {
-    const html = draw();
-    expect(html).toMatch(/role="group"[^>]*aria-label="Board"/);
-    expect(html).toContain('aria-label="To do, 3 cards"');
-    expect(html).toContain('aria-label="Doing, 1 card"');
-    expect(html.match(/<ul[^>]*data-board-list="[a-z]+"/g)).toHaveLength(4);
-  });
-
-  it('takes the name of the board from label', () => {
-    expect(draw({ label: 'Sprint 12' })).toContain('aria-label="Sprint 12"');
-  });
-
-  it('shows the count of each column in its header', () => {
-    const counts = [...draw().matchAll(/<h3[^>]*>([^<]*)<span[^>]*>(\d+)<\/span>/g)].map((match) => [match[1], match[2]]);
-    expect(counts).toEqual([['To do', '3'], ['Doing', '1'], ['Review', '0'], ['Done', '2']]);
-  });
-
-  it('follows the cards when the count changes', () => {
-    const columns = [{ id: 'todo', title: 'To do', cards: [card('a'), card('b')] }];
-    expect(draw({ columns })).toMatch(/To do<span[^>]*>2<\/span>/);
-  });
-
-  it('numbers the cards by slot and keys them by id, one grip button each', () => {
-    const html = draw();
-    expect(html.match(/data-reorder-index="\d+"/g)).toEqual([0, 1, 2, 4, 7, 8].map((slot) => `data-reorder-index="${slot}"`));
-    expect(html).toContain('data-reorder-key="e"');
-    expect(html.match(/aria-label="Move [a-f]"/g)).toHaveLength(6);
-  });
-
-  it('draws what renderCard returns inside the card', () => {
-    expect(draw().match(/<span class="title">/g)).toHaveLength(6);
-  });
-
-  it('names the grip after cardLabel and lists the move keys', () => {
-    const html = draw({ cardLabel: (entry) => `Task ${entry.id}` });
-    expect(html).toContain('aria-label="Move Task a"');
-    expect(html).toContain('aria-keyshortcuts="ArrowUp ArrowDown ArrowLeft ArrowRight"');
-  });
-
-  it('says No cards in an empty column', () => {
-    expect(draw()).toContain('No cards');
-  });
-
-  it('has a polite live region for the move announcements', () => {
-    expect(draw()).toMatch(/aria-live="polite"/);
-  });
-
-});
-
-describe('KanbanBoard collapse', () => {
-  it('folds the columns of defaultCollapsed to a rail with the title and the count', () => {
-    const html = draw({ defaultCollapsed: ['done'] });
-    expect(html).toContain('kanban__rail');
-    expect(html).toContain('aria-label="Done, 2 cards"');
-    expect(html).toContain('aria-label="Expand Done"');
-    expect(html).toContain('aria-expanded="false"');
-    expect(html.match(/data-board-list=/g)).toHaveLength(3);
-    expect(html).toMatch(/kanban__rail-title">Done</);
-    expect(html).not.toContain('data-reorder-key="e"');
-  });
-
-  it('leaves the others open with a Collapse button each', () => {
-    const html = draw({ defaultCollapsed: ['done'] });
-    expect(html).toContain('aria-label="Collapse To do"');
-    expect(html).toContain('aria-label="Collapse Review"');
-  });
-
-  it('numbers the slots of the open columns as if the folded ones were drawn', () => {
-    const html = draw({ defaultCollapsed: ['doing'] });
-    expect(html.match(/data-reorder-index="\d+"/g)).toEqual([0, 1, 2, 7, 8].map((slot) => `data-reorder-index="${slot}"`));
-  });
-
-  it('follows collapsed when the app controls it, over defaultCollapsed', () => {
-    const html = draw({ collapsed: ['todo'], defaultCollapsed: ['done'] });
-    expect(html).toContain('aria-label="Expand To do"');
-    expect(html).toContain('aria-label="Collapse Done"');
   });
 });

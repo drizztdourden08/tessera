@@ -41,7 +41,7 @@ beforeEach(() => {
 
 afterEach(() => vi.unstubAllGlobals());
 
-describe('the tour top layer', () => {
+describe('K1 the tour top layer', { tags: ['critical'] }, () => {
   it('shows the tour root as a popover when it mounts and listens for toggles in the capture phase', () => {
     const root = element();
     mountHook(() => useTopLayer(root));

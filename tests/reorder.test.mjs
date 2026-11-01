@@ -11,7 +11,7 @@ const boxOf = (left, top, width, height) => ({ getBoundingClientRect: () => ({ l
 
 const listOf = (...boxes) => ({ querySelectorAll: () => boxes });
 
-describe('reorderStep', () => {
+describe('K1 reorderStep', { tags: ['critical'] }, () => {
   it('steps one place on the vertical keys and stops at both ends', () => {
     const options = { axis: 'vertical', chord: 'plain', index: 1, total: 3 };
     expect(reorderStep(keys('ArrowUp'), options)).toBe(0);
@@ -44,7 +44,7 @@ describe('reorderStep', () => {
   });
 });
 
-describe('finalIndex and dropMarkOf', () => {
+describe('K1 finalIndex and dropMarkOf', { tags: ['critical'] }, () => {
   it('takes the slot the row leaves into account when it moves down', () => {
     expect(finalIndex({ from: 0, before: 3 })).toBe(2);
     expect(finalIndex({ from: 2, before: 0 })).toBe(0);
@@ -61,7 +61,7 @@ describe('finalIndex and dropMarkOf', () => {
   });
 });
 
-describe('insertionAt', () => {
+describe('K1 insertionAt', { tags: ['critical'] }, () => {
   const rows = listOf(boxOf(0, 0, 100, 20), boxOf(0, 20, 100, 20), boxOf(0, 40, 100, 20));
   const columns = listOf(boxOf(0, 0, 20, 100), boxOf(20, 0, 20, 100), boxOf(40, 0, 20, 100));
 

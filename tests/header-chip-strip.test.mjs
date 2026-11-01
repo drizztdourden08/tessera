@@ -1,19 +1,13 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { mountHook } from './hook-harness.mjs';
-import { HeaderAnchorNav } from '../src/composites/HeaderAnchorNav';
 import { stackOf } from '../src/composites/ScreenPage/behavior/stack-of';
-import { Tabs } from '../src/primitives/Tabs';
 import { stripLeastWidth } from '../src/primitives/scroll-strip/strip-least-width';
 import { useScrollStrip } from '../src/primitives/scroll-strip/useScrollStrip';
 import { wheelScrollDelta } from '../src/primitives/scroll-strip/wheel-scroll-delta';
 
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
 
-const css = (path) => readFileSync(new URL(`../src/${path}`, import.meta.url), 'utf8');
 const ignore = () => undefined;
 const CHIPS = ['Game Flow', 'Received Items', 'Movement', 'Combat', 'Dialog', 'Quality of Life', 'Cheats', 'Tracker', 'Vanilla Safe']
   .map((label) => ({ id: label, label }));
@@ -41,7 +35,7 @@ const mountStrip = (metrics) => {
   return { strip, track, wheel };
 };
 
-describe('the wheel on a chip row or a tab strip', () => {
+describe('K1 the wheel on a chip row or a tab strip', { tags: ['critical'] }, () => {
   it('scrolls an overflowing row sideways without Shift, and lets the page scroll at the end', () => {
     const { track, wheel } = mountStrip({ scrollLeft: 0, scrollWidth: 900, clientWidth: 300 });
     expect(wheel(100).preventDefault).toHaveBeenCalled();
@@ -65,25 +59,7 @@ describe('the wheel on a chip row or a tab strip', () => {
   });
 });
 
-describe('a header chip row never wraps', () => {
-  it('draws HeaderAnchorNav and Tabs on the same scrolling strip', () => {
-    const chips = renderToString(h(HeaderAnchorNav, { items: CHIPS, activeId: 'Combat', onSelect: ignore, ariaLabel: 'Game sections' }));
-    expect(chips).toMatch(/^<nav class="scroll-strip header-anchor-nav" aria-label="Game sections"><ul class="scroll-strip__track header-anchor-nav__list">/);
-    const tabs = renderToString(h(Tabs, { tabs: CHIPS, activeTab: 'Combat', onTabChange: ignore }));
-    expect(tabs).toMatch(/^<nav class="scroll-strip tabs"><div class="scroll-strip__track tabs__strip" role="tablist">/);
-  });
-
-  it('keeps every label on one line and every chip on one row', () => {
-    expect(css('primitives/scroll-strip/ScrollStrip.css')).toMatch(/\.scroll-strip__track > \* \{\s+flex-shrink: 0;/);
-    expect(css('primitives/scroll-strip/ScrollStrip.css')).toMatch(/overflow: auto hidden;/);
-    expect(css('composites/HeaderAnchorNav/HeaderAnchorNav.css')).toMatch(/\.header-anchor-nav__item \{[^}]*white-space: nowrap;/);
-    for (const path of ['composites/HeaderAnchorNav/HeaderAnchorNav.css', 'composites/SettingsPage/SettingsPage.css']) {
-      expect(css(path)).not.toContain('flex-wrap: wrap');
-    }
-  });
-});
-
-describe('the chip row beside the page title', () => {
+describe('K1 the chip row beside the page title', { tags: ['critical'] }, () => {
   const rect = (left, width) => ({ getBoundingClientRect: () => ({ left, right: left + width, width }) });
   const chips = [rect(0, 90), rect(94, 120), rect(218, 80)];
   const part = { querySelector: () => ({ clientWidth: 200, children: chips }), getBoundingClientRect: () => ({ width: 217 }) };

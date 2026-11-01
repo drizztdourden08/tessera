@@ -7,7 +7,7 @@ vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(a
 
 const FIELD = { path: 'place', label: 'Place', kind: 'idRef', optional: false, targetKind: 'place' };
 
-describe('IdRefOptionResolver', () => {
+describe('K1 IdRefOptionResolver', { tags: ['critical'] }, () => {
   it('gets the working record as a third argument, so a reference narrows by a sibling field', () => {
     const resolve = vi.fn((targetKind, field, record) => (record.region === 'marsh' ? [{ value: 'place-3', label: 'Ferry landing' }] : []));
     const state = { working: { region: 'coast', place: 'place-1' } };

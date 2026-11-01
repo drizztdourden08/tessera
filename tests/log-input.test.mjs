@@ -32,7 +32,7 @@ const mountInput = (answer = () => undefined) => {
   return { log, sent, typed, send, settled, press, value: () => log.current.value };
 };
 
-describe('LogPanel input, sending', () => {
+describe('K1 LogPanel input, sending', { tags: ['critical'] }, () => {
   it('sends the line and clears the field', () => {
     const input = mountInput();
     input.send('help');
@@ -58,7 +58,7 @@ describe('LogPanel input, sending', () => {
   });
 });
 
-describe('LogPanel input, history', () => {
+describe('K1 LogPanel input, history', { tags: ['critical'] }, () => {
   it('walks back through what was sent with Up and forward with Down', () => {
     const input = mountInput();
     ['one', 'two', 'three'].forEach(input.send);
@@ -104,7 +104,7 @@ describe('LogPanel input, history', () => {
   });
 });
 
-describe('LogPanel input, a refused or pending send', () => {
+describe('K1 LogPanel input, a refused or pending send', { tags: ['critical'] }, () => {
   it('clears the field when the app answers true or nothing', async () => {
     const input = mountInput(() => true);
     input.send('go');

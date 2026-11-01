@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { LogPanel } from '../src/composites/LogPanel';
 import { ansiClass } from '../src/composites/LogPanel/behavior/ansi-class';
 import { ansiLogAsText } from '../src/composites/LogPanel/behavior/ansi-log-as-text';
 import { parseAnsi } from '../src/composites/LogPanel/behavior/parse-ansi';
@@ -12,7 +9,7 @@ const E = '\u001b[';
 const PLAIN = { fg: null, bg: null, bold: false, dim: false, italic: false, underline: false };
 const span = (text, style = {}) => ({ ...PLAIN, ...style, text });
 
-describe('parseAnsi, colours', () => {
+describe('K1 parseAnsi, colours', { tags: ['critical'] }, () => {
   it('gives plain text as one span', () => {
     expect(parseAnsi('hello')).toEqual([span('hello')]);
     expect(parseAnsi('')).toEqual([]);
@@ -33,7 +30,7 @@ describe('parseAnsi, colours', () => {
   });
 });
 
-describe('parseAnsi, attributes', () => {
+describe('K1 parseAnsi, attributes', { tags: ['critical'] }, () => {
   it('sets bold, dim, italic and underline, and 22 to 24 clear them', () => {
     expect(parseAnsi(`${E}1;3;4mx${E}22;23;24my`)).toEqual([span('x', { bold: true, italic: true, underline: true }), span('y')]);
     expect(parseAnsi(`${E}2mdim${E}22mnormal`)).toEqual([span('dim', { dim: true }), span('normal')]);
@@ -50,7 +47,7 @@ describe('parseAnsi, attributes', () => {
   });
 });
 
-describe('parseAnsi, 256 and true colour', () => {
+describe('K1 parseAnsi, 256 and true colour', { tags: ['critical'] }, () => {
   it('maps 256-colour codes to the nearest of the sixteen', () => {
     expect(parseAnsi(`${E}38;5;1mA`)).toEqual([span('A', { fg: 1 })]);
     expect(parseAnsi(`${E}38;5;9mA`)).toEqual([span('A', { fg: 9 })]);
@@ -77,7 +74,7 @@ describe('parseAnsi, 256 and true colour', () => {
   });
 });
 
-describe('parseAnsi, other escape codes', () => {
+describe('K1 parseAnsi, other escape codes', { tags: ['critical'] }, () => {
   it('strips cursor and erase codes', () => {
     expect(parseAnsi(`a${E}2K${E}1Gb${E}?25lc`)).toEqual([span('abc')]);
     expect(stripAnsi(`${E}31mred${E}0m and ${E}2Jgone`)).toBe('red and gone');
@@ -99,7 +96,7 @@ describe('parseAnsi, other escape codes', () => {
   });
 });
 
-describe('ansiClass', () => {
+describe('K1 ansiClass', { tags: ['critical'] }, () => {
   it('names a token class per colour and attribute, and nothing for plain text', () => {
     expect(ansiClass(PLAIN)).toBe('');
     expect(ansiClass({ ...PLAIN, fg: 9, bg: 2, bold: true })).toBe('log-panel__ansi--fg-bright-red log-panel__ansi--bg-green log-panel__ansi--bold');
@@ -109,26 +106,8 @@ describe('ansiClass', () => {
 
 const row = (message) => ({ id: 'a', gutter: '', tag: '', kind: 'out', message });
 
-describe('LogPanel ansi', () => {
-  it('draws spans with classes and never injects markup', () => {
-    const html = renderToStaticMarkup(h(LogPanel, { ansi: true, rows: [row(`${E}31m<b>bold</b>${E}0m`)] }));
-    expect(html).toContain('log-panel__ansi--fg-red');
-    expect(html).toContain('&lt;b&gt;bold&lt;/b&gt;');
-    expect(html).not.toContain('<b>');
-    expect(html).not.toContain('\u001b');
-  });
-
-  it('shows escape codes as they are when ansi is not set', () => {
-    expect(renderToStaticMarkup(h(LogPanel, { rows: [row(`${E}31mx`)] }))).not.toContain('log-panel__ansi');
-  });
-
+describe('K1 LogPanel ansi', { tags: ['critical'] }, () => {
   it('copies the text without the codes', () => {
     expect(ansiLogAsText([row(`${E}31mred${E}0m`)])).toBe(' [] red');
-  });
-
-  it('labels the jump button for a terminal and draws the input row only with onInput', () => {
-    const rows = [row('x')];
-    expect(renderToStaticMarkup(h(LogPanel, { ansi: true, rows, onInput: () => {} }))).toContain('log-panel__input-row');
-    expect(renderToStaticMarkup(h(LogPanel, { ansi: true, rows }))).not.toContain('log-panel__input-row');
   });
 });

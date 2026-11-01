@@ -14,7 +14,7 @@ const enter = (text, at = text.length) => {
   return edit && { text: applyEdit(text, edit), caret: edit.selectStart };
 };
 
-describe('MarkdownEditor Enter in a list', () => {
+describe('K1 MarkdownEditor Enter in a list', { tags: ['critical'] }, () => {
   it('continues a bullet, a star and a task item', () => {
     expect(enter('- one')).toEqual({ text: '- one\n- ', caret: 8 });
     expect(enter('* one')?.text).toBe('* one\n* ');
@@ -48,7 +48,7 @@ describe('MarkdownEditor Enter in a list', () => {
   });
 });
 
-describe('MarkdownEditor Tab in a list', () => {
+describe('K1 MarkdownEditor Tab in a list', { tags: ['critical'] }, () => {
   it('indents the list line by two spaces and moves the caret with it', () => {
     const edit = shiftListLines('- one\n- two', 9, 9, false);
     expect(applyEdit('- one\n- two', edit)).toBe('- one\n  - two');
@@ -79,7 +79,7 @@ describe('MarkdownEditor Tab in a list', () => {
   });
 });
 
-describe('MarkdownEditor Backspace after a marker', () => {
+describe('K1 MarkdownEditor Backspace after a marker', { tags: ['critical'] }, () => {
   const back = (text, at = text.length) => {
     const edit = clearEmptyItem(text, at, at);
     return edit && applyEdit(text, edit);
@@ -100,7 +100,7 @@ describe('MarkdownEditor Backspace after a marker', () => {
   });
 });
 
-describe('MarkdownEditor task marker', () => {
+describe('K1 MarkdownEditor task marker', { tags: ['critical'] }, () => {
   const type = (text) => {
     const edit = normalizeTask(text, text.length, text.length);
     return edit && { text: applyEdit(text, edit), caret: edit.selectStart };
@@ -119,7 +119,7 @@ describe('MarkdownEditor task marker', () => {
   });
 });
 
-describe('MarkdownEditor list keys', () => {
+describe('K1 MarkdownEditor list keys', { tags: ['critical'] }, () => {
   it('picks the edit for each key', () => {
     expect(listKeyEdit(press('Enter'), '- a', 3, 3)?.insert).toBe('\n- ');
     expect(listKeyEdit(press('Tab'), '- a', 3, 3)?.insert).toBe('  - a');

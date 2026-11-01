@@ -8,7 +8,7 @@ import { mountHook } from './hook-harness.mjs';
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
 vi.mock('../src/primitives/TesseraProvider/behavior/useTesseraStrings', () => ({ useTesseraStrings: () => TESSERA_STRINGS }));
 
-describe('ListDetail heading count when the filter narrows the list', () => {
+describe('K1 ListDetail heading count when the filter narrows the list', { tags: ['critical'] }, () => {
   it('reads shown of total once the filter narrows the list', () => {
     const view = mountHook(() => useListDetailCount('Servers', 4));
     expect(view.current.heading).toBe('Servers · 4');
@@ -25,7 +25,7 @@ describe('ListDetail heading count when the filter narrows the list', () => {
   });
 });
 
-describe('ItemList onCount', () => {
+describe('K1 ItemList onCount', { tags: ['critical'] }, () => {
   it('reports the shown and total counts, again only when they change', () => {
     const onCount = vi.fn();
     let shown = 4;

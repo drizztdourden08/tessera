@@ -26,7 +26,7 @@ const unknown = () => {
   throw new Error('"Nope" matches no page.');
 };
 
-describe('the review write route', () => {
+describe('S2 the review write route', { tags: ['standard'] }, () => {
   it('takes writes only from the dev server origin', () => {
     const urls = ['http://localhost:4400/', 'http://192.168.0.4:4400/'];
     expect(sameOrigin('http://localhost:4400', urls)).toBe(true);
@@ -66,7 +66,7 @@ describe('the review write route', () => {
   });
 });
 
-describe('the shared status logic', () => {
+describe('S2 the shared status logic', { tags: ['standard'] }, () => {
   it('keeps an approved page green with a changed mark once its files change, and approving again takes the new hash', () => {
     setReview(ROOT, 'ok', only);
     const first = entry().hash;

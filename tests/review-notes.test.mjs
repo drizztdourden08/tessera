@@ -33,7 +33,7 @@ const run = (...args) => {
   return lines;
 };
 
-describe('the review notes store', () => {
+describe('S2 the review notes store', { tags: ['standard'] }, () => {
   it('reads no notes when the file is missing or broken', () => {
     expect(readNotes(ROOT)).toEqual({});
     writeFileSync(FILE, '{ broken');
@@ -66,7 +66,7 @@ describe('the review notes store', () => {
   });
 });
 
-describe('pnpm review notes', () => {
+describe('S2 pnpm review notes', { tags: ['standard'] }, () => {
   it('lists every note with its title, time and text', () => {
     expect(run()).toEqual(['No notes.']);
     setNote(ROOT, LOGO, 'First line.\nSecond line.');

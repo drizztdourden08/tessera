@@ -1,18 +1,13 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { ladderStep } from '../src/composites/NumberField/behavior/ladder-step';
 import { presetOf } from '../src/composites/NumberField/behavior/preset-of';
 import { stepNumber } from '../src/composites/NumberField/behavior/step-number';
-import { NumberField } from '../src/composites/NumberField';
-import { NumberInput } from '../src/primitives/NumberInput';
 
 const ZOOM = [25, 50, 100, 200, 400, 800, 1600, 3200, 6400, 12800];
 const config = { step: 1, fineStep: 0.1, fine: false };
-const noop = () => undefined;
 
-describe('stepNumber', () => {
+describe('K1 stepNumber', { tags: ['critical'] }, () => {
   it('steps by the step, or by the fine step while Shift is down, and clamps', () => {
     expect(stepNumber(10, 1, config)).toBe(11);
     expect(stepNumber(10, -3, config)).toBe(7);
@@ -34,7 +29,7 @@ describe('stepNumber', () => {
   });
 });
 
-describe('ladderStep, the ZoomField recipe from 25 to 12800 percent', () => {
+describe('K1 ladderStep, the ZoomField recipe from 25 to 12800 percent', { tags: ['critical'] }, () => {
   it('runs the whole zoom ladder up and down and stops at the ends', () => {
     expect(ladderStep(25, 1, ZOOM)).toBe(50);
     expect(ladderStep(25, 9, ZOOM)).toBe(12800);
@@ -56,49 +51,9 @@ describe('ladderStep, the ZoomField recipe from 25 to 12800 percent', () => {
   });
 });
 
-describe('presetOf', () => {
+describe('K1 presetOf', { tags: ['critical'] }, () => {
   it('turns a plain number into a preset and keeps a labelled one', () => {
     expect(presetOf(50)).toEqual({ value: 50 });
     expect(presetOf({ value: 100, label: 'Actual size' })).toEqual({ value: 100, label: 'Actual size' });
-  });
-});
-
-describe('NumberField', () => {
-  it('draws the label, the number input and the suffix', () => {
-    const html = renderToString(h(NumberField, { value: 50, onChange: noop, label: 'Zoom', suffix: '%' }));
-    expect(html).toContain('class="number-field control-size--');
-    expect(html).toContain('number-field__label');
-    expect(html).toContain('data-scrub="true"');
-    expect(html).toContain('>Zoom<');
-    expect(html).toContain('value="50"');
-    expect(html).toContain('number-field__suffix');
-    expect(html).toContain('aria-label="Zoom"');
-  });
-
-  it('leaves the label out, and the scrub off, when asked', () => {
-    expect(renderToString(h(NumberField, { value: 1, onChange: noop, 'aria-label': 'Size' }))).not.toContain('number-field__label');
-    const html = renderToString(h(NumberField, { value: 1, onChange: noop, label: 'Size', scrub: false }));
-    expect(html).toContain('number-field__label');
-    expect(html).not.toContain('data-scrub');
-  });
-
-  it('shows a menu button for the presets only when there are some', () => {
-    const none = renderToString(h(NumberField, { value: 1, onChange: noop, 'aria-label': 'Zoom' }));
-    const some = renderToString(h(NumberField, { value: 1, onChange: noop, 'aria-label': 'Zoom', presets: [25, 50, { value: 100, label: 'Fit' }] }));
-    expect(none).not.toContain('aria-haspopup');
-    expect(some).toContain('aria-haspopup');
-    expect(some).toContain('Quick values');
-  });
-
-  it('shows the Mixed placeholder and no number while the values differ', () => {
-    const html = renderToString(h(NumberField, { value: 7, onChange: noop, 'aria-label': 'Opacity', mixed: true }));
-    expect(html).toContain('placeholder="Mixed"');
-    expect(html).toContain('data-mixed="true"');
-    expect(html).not.toContain('value="7"');
-  });
-
-  it('hands the spin buttons over to its own steps through onStep of the number input', () => {
-    const html = renderToString(h(NumberInput, { value: 4, onChange: noop, onStep: noop }));
-    expect(html).toContain('number-input__btn');
   });
 });

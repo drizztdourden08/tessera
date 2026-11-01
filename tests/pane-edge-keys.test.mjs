@@ -11,7 +11,7 @@ const fold = (extra = {}) => ({ sides: ['low'], folded: null, onFold: vi.fn(), o
 const keys = (extra = {}) => ({ min: 240, max: 480, step: 16, largeStep: 64, orientation: 'horizontal', edge: 'start', canReset: false, ...extra });
 const press = (key, extra = {}) => ({ key, shiftKey: false, currentTarget: {}, ...extra });
 
-describe('keyActionOf with a fold', () => {
+describe('K1 keyActionOf with a fold', { tags: ['critical'] }, () => {
   it('folds the low side on the arrow that pushes past min, and only from min', () => {
     direction();
     const rulesOf = keys({ fold: fold() });
@@ -53,7 +53,7 @@ describe('keyActionOf with a fold', () => {
   });
 });
 
-describe('keyActionOf without a fold', () => {
+describe('K1 keyActionOf without a fold', { tags: ['critical'] }, () => {
   it('moves clamped, resets with Enter when it can, and goes to the limits with Home and End', () => {
     direction();
     expect(keyActionOf(press('ArrowLeft'), 240, keys())).toEqual({ kind: 'move', to: 240 });
@@ -66,7 +66,7 @@ describe('keyActionOf without a fold', () => {
   });
 });
 
-describe('resizeKeyDown with a fold', () => {
+describe('K1 resizeKeyDown with a fold', { tags: ['critical'] }, () => {
   const handle = (extra = {}) => {
     const onResize = vi.fn();
     const options = resizeOptionsOf({ label: 'r', value: 240, min: 240, max: 480, onResize, ...extra });

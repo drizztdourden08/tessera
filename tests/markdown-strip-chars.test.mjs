@@ -11,7 +11,7 @@ const points = (...codes) => String.fromCodePoint(...codes);
 
 const around = (code) => `a${points(code)}b`;
 
-describe('stripUnsafeChars', () => {
+describe('K4 stripUnsafeChars', { tags: ['critical'] }, () => {
   it('keeps tab, line feed and carriage return', () => {
     expect(stripUnsafeChars('a\tb\nc\r\nd')).toBe('a\tb\nc\r\nd');
   });
@@ -62,7 +62,7 @@ describe('stripUnsafeChars', () => {
   });
 });
 
-describe('Markdown source cleaning', () => {
+describe('K4 Markdown source cleaning', { tags: ['critical'] }, () => {
   it('strips the characters before parsing', () => {
     const source = `Hel${points(0)}lo ${points(0xe000)}world ${points(0xf0000)}ok ${points(0x1f600)}`;
     const html = renderToString(h(Markdown, { source }));

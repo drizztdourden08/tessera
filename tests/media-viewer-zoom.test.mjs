@@ -7,7 +7,7 @@ vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(a
 
 const stage = () => ({ current: { scrollLeft: 0, scrollTop: 0, clientWidth: 800, clientHeight: 400, scrollWidth: 800, scrollHeight: 400 } });
 
-describe('zoom in a viewer', () => {
+describe('K1 zoom in a viewer', { tags: ['critical'] }, () => {
   it('starts on Fit at the fit scale, and steps up to 1600% and down to Fit', () => {
     const zoom = mountHook(() => useZoom(stage(), 0.5, 'a'));
     expect(zoom.current).toMatchObject({ zoom: 'fit', scale: 0.5, canOut: false, canIn: true });
