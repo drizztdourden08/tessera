@@ -48,6 +48,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Alt with Up or Down moves the row among its siblings, Alt with Right drops it into the sibling above, and Alt with Left lifts it out of its parent; each move is announced in a polite live region.
 - Pass renderThumbnail in reorder to show the first three rows in the drag ghost; a drag out uses the same thumbnails and a count.
 - Pass guides to draw a line for each level, with the branch of the picked row lit; pass rowSize compact for 24 px rows.
+- Pass rowSize roomy for 48 px rows that carry a thumbnail or two lines in renderLead or renderLabel; the row height is measured from the drawn row, so drag, keys and the drawn window follow, and the lead, label and trail stay centred.
 - Give the tree a height, since it scrolls inside its box and draws only the rows in view; scrollToKey on the ref brings a row into view, but does nothing for a key the filter hides, so call scrollToTop on the ref after a filter change to go back to the first row.
 
 ## Accessibility
@@ -101,7 +102,7 @@ const Files = ({ entries }: { entries: Entry[] }) => {
 - `onDragOut` (optional): `(keys: readonly string[], event: DragEvent<HTMLElement>) => void`.
 - `trail` (optional): `TreeTrailShow`, one of `'always'`, `'hover'`.
 - `guides` (optional): `boolean`.
-- `rowSize` (optional): `TreeRowSize`, one of `'compact'`, `'normal'`. Default `'normal'`.
+- `rowSize` (optional): `TreeRowSize`, one of `'compact'`, `'normal'`, `'roomy'`. Default `'normal'`.
 - `overscan` (optional): `number`.
 - `emptyLabel` (optional): `string`.
 - `ref` (optional): `Ref<TreeHandle>`.
@@ -112,4 +113,4 @@ const Files = ({ entries }: { entries: Entry[] }) => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-dim`, `--c-primary-soft`, `--c-selected`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--opacity-disabled`, `--radius-pill`, `--radius-sm`, `--row-inset`, `--size-1`, `--size-16`, `--size-20`, `--size-24`, `--size-28`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--transition-fast`, `--tree-count`, `--tree-index`, `--tree-row-indent`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-dim`, `--c-primary-soft`, `--c-selected`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--opacity-disabled`, `--radius-pill`, `--radius-sm`, `--row-inset`, `--size-1`, `--size-16`, `--size-20`, `--size-24`, `--size-28`, `--size-48`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--transition-fast`, `--tree-count`, `--tree-index`, `--tree-row-indent`.
