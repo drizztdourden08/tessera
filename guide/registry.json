@@ -18591,6 +18591,7 @@
         "Give a section onDropData(dataTransfer) and a header takes a native drop, such as files or items dragged from another widget, with or without reorder; it shows the same into mark and announces the drop, and onDrop and onDropData can both be set.",
         "Give a section accepts(dataTransfer) to say which drags the header takes; it runs while the drag is over the header, where only types, kinds and the item count can be read, and the data itself is read in onDropData; leave it out to take every drag.",
         "For tile sizes in whole steps use stepVirtualSize on tileSize, such as from a slider.",
+        "Give rowHeight=\"measured\" when tiles hold different amounts of content, such as cards: each row is as tall as its tallest tile, tileHeight becomes the least and the guess for rows not drawn yet, the grid measures the drawn rows and keeps the scroll steady when a row above grows; leave it out for the fixed height, which costs nothing.",
         "Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.",
         "Raise overscan for tiles that load slowly while the user scrolls fast; the default is 2 rows on each side.",
         "Use onActiveChange to follow the tile that holds focus, such as to show its detail beside the grid."
@@ -18614,7 +18615,7 @@
         "rule": "VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly."
       },
       "example": "import { Button, VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n\nconst Buttons = ({ frames, open }: { frames: Frame[]; open: (frame: Frame) => void }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderTile={(frame, _index, cell) => (\n      <Button {...cell} onClick={() => open(frame)}>{frame.name}</Button>\n    )}\n  />\n);\n\ninterface Folder {\n  key: string;\n  label: string;\n  items: Frame[];\n}\n\nconst Tileset = ({ tiles }: { tiles: Frame[] }) => (\n  <VirtualGrid\n    label=\"Tileset\"\n    items={tiles}\n    getKey={(tile) => tile.id}\n    renderItem={(tile) => tile.name}\n    tileSize=\"size-64\"\n    columns={6}\n  />\n);\n\nconst Library = ({ folders }: { folders: Folder[] }) => (\n  <VirtualGrid\n    label=\"Library\"\n    sections={folders}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileWidth=\"size-128\"\n    tileHeight=\"size-64\"\n    defaultCollapsed={['archive']}\n  />\n);\n",
-      "propsHash": "e9ddebebc1280c1d",
+      "propsHash": "04d0ec97e7619c62",
       "props": {
         "own": [
           {
@@ -18657,6 +18658,15 @@
             "name": "columns",
             "optional": true,
             "text": "number"
+          },
+          {
+            "name": "rowHeight",
+            "optional": true,
+            "text": "VirtualGridRowHeight",
+            "literals": [
+              "'fixed'",
+              "'measured'"
+            ]
           },
           {
             "name": "overscan",
@@ -18772,7 +18782,9 @@
         "--vg-headers",
         "--vg-heads",
         "--vg-row",
-        "--vg-rows"
+        "--vg-rows",
+        "--vg-top",
+        "--vg-total"
       ],
       "gallery": {
         "title": "Composites · Lists/VirtualGrid",

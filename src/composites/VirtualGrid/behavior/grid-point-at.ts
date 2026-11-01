@@ -9,8 +9,8 @@ const gridPointAt = (input: GridPointInput): GridTarget => {
   const y = point.y - origin.y;
   const sectionOf = (row: LayoutRow) => (sectioned ? sectionKeys[row.section] : undefined);
   let last: LayoutRow | undefined;
-  for (const row of layout.rows) {
-    const { top, height } = rowPlace(row, heights);
+  for (const [at, row] of layout.rows.entries()) {
+    const { top, height } = rowPlace(row, heights, at);
     if (row.kind === 'tiles') last = row;
     if (y >= top + height) continue;
     const section = sectionKeys[row.section];

@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Fragment } from 'react';
 import { gridCellBind } from '../behavior/grid-cell-bind';
+import { rowPlace } from '../behavior/row-place';
 import { GridCell } from './GridCell';
 import { GridHeader } from './GridHeader';
 import { GridRow } from './GridRow';
@@ -12,11 +13,12 @@ const GridRows = <T,>(props: GridRowsProps<T>) => {
   return model.rows.map((at) => {
     const row = layout.rows[at];
     if (!row) return null;
+    const top = model.measured ? rowPlace(row, model.heights, at).top : undefined;
     if (row.kind === 'header') {
       const section = sections?.[row.section];
       if (!section) return null;
       return (
-        <GridRow key={`section-${section.key}`} at={at} row={row}>
+        <GridRow key={`section-${section.key}`} at={at} row={row} top={top}>
           <GridHeader
             stop={row.stop}
             label={section.label}
@@ -38,7 +40,7 @@ const GridRows = <T,>(props: GridRowsProps<T>) => {
     const firstItem = flat[row.first];
     if (firstItem === undefined) return null;
     return (
-      <GridRow key={`row-${getKey(firstItem, row.first)}`} at={at} row={row}>
+      <GridRow key={`row-${getKey(firstItem, row.first)}`} at={at} row={row} top={top}>
         {flat.slice(row.first, row.first + row.size).map((item, offset) => {
           const at = row.first + offset;
           const key = getKey(item, at);

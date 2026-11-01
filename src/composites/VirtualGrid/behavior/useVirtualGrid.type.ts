@@ -2,10 +2,10 @@
 import type { KeyboardEvent } from 'react';
 import type { MarqueeItem } from '../../marquee';
 import type { ScrollAlign, VirtualFocusModel } from '../../virtual';
-import type { VirtualGridCellBind, VirtualGridReorder, VirtualGridSection, VirtualGridSelection } from '../VirtualGrid.type';
+import type { VirtualGridCellBind, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection, VirtualGridSelection } from '../VirtualGrid.type';
 import type { GridHeaderDrop } from './useGridDropData.type';
 import type { GridGhost } from './useGridReorder.type';
-import type { GridLayout } from './grid-layout.type';
+import type { GridHeights, GridLayout } from './grid-layout.type';
 
 interface UseVirtualGridInput<T> {
   items?: readonly T[];
@@ -14,6 +14,7 @@ interface UseVirtualGridInput<T> {
   overscan?: number;
   sizeKey: string;
   columns?: number;
+  rowHeight?: VirtualGridRowHeight;
   collapsed?: readonly string[];
   defaultCollapsed?: readonly string[];
   onToggleSection?: (key: string, collapsed: boolean) => void;
@@ -27,6 +28,8 @@ interface UseVirtualGridInput<T> {
 interface VirtualGridModel<T> extends VirtualFocusModel {
   flat: readonly T[];
   layout: GridLayout;
+  heights: GridHeights;
+  measured: boolean;
   rows: readonly number[];
   columns: number;
   fixed: boolean;
