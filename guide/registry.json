@@ -2946,6 +2946,7 @@
         "--scrollbar-slim-active",
         "--scrollbar-slim-gutter",
         "--scrollbar-slim-rest",
+        "--size-1",
         "--size-16",
         "--size-2",
         "--size-24",

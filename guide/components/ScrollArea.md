@@ -70,7 +70,7 @@ It also takes the 279 attributes it inherits through `Omit<ComponentPropsWithRef
 
 ## Tokens
 
-It draws on `--c-bg`, `--c-border`, `--c-border-strong`, `--c-primary`, `--c-text-muted`, `--radius-sm`, `--scroll-thumb-x-fraction`, `--scroll-thumb-x-progress`, `--scroll-thumb-y-fraction`, `--scroll-thumb-y-progress`, `--scrollbar-size`, `--scrollbar-slim`, `--scrollbar-slim-active`, `--scrollbar-slim-gutter`, `--scrollbar-slim-rest`, `--size-16`, `--size-2`, `--size-24`, `--size-4`, `--transition-fast`.
+It draws on `--c-bg`, `--c-border`, `--c-border-strong`, `--c-primary`, `--c-text-muted`, `--radius-sm`, `--scroll-thumb-x-fraction`, `--scroll-thumb-x-progress`, `--scroll-thumb-y-fraction`, `--scroll-thumb-y-progress`, `--scrollbar-size`, `--scrollbar-slim`, `--scrollbar-slim-active`, `--scrollbar-slim-gutter`, `--scrollbar-slim-rest`, `--size-1`, `--size-16`, `--size-2`, `--size-24`, `--size-4`, `--transition-fast`.
 
 ## Also exported from this folder
 
