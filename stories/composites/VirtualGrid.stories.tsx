@@ -174,12 +174,11 @@ const Overview = overviewStory({
   description: 'A very long grid of equal tiles, in sections if wanted, where only the rows in view are drawn, with the keys to move through it.',
   points: [
     '`items`, `getKey` and `renderItem` draw the tiles; `sections` group them under headers.',
-    '`tileSize`, or `tileWidth` and `tileHeight`, size the tiles; with `measured` rows they are the least.',
+    '`tileSize` or `tileWidth` and `tileHeight` size tiles; `columns` sets a row; `rowHeight="measured"` fits it.',
     '`selection` picks with click, Ctrl, Shift (a rectangle), Ctrl+A and Space; `holes` skip tiles.',
     '`getLabel` adds type ahead; `reorder` moves the picked tiles by drag or Alt with an arrow.',
     'A section `onDrop` takes tiles dropped on its header, `onDropData` a native drop; `bind` serves a marquee.',
     '`renderTile` hands the cell props to the app tile, so a button tile is the cell and the one tab stop.',
-    '`columns` fixes the tiles in a row; `rowHeight="measured"` makes each row as tall as its tallest tile.',
   ],
   instead: '[VirtualList] for rows in a column, or [ItemCard] for a few cards.',
   playground: Playground,
