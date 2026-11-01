@@ -14,7 +14,7 @@ const ToolbarList = (props: ToolbarProps) => {
   const items = visibleItems(props.items, props.hiddenItems);
   const { stop, onFocus } = useToolbarStop(stopIds(items, false, false));
   const context = useMemo(
-    () => ({ orientation: 'vertical' as const, menuSide, layout: 'list' as const, size, labels: true, stop, measure: false, keyBadges: false, inlineOptions, contextMenu: onContextMenu }),
+    () => ({ orientation: 'vertical' as const, menuSide, layout: 'list' as const, size, labels: true, stop, measure: false, inlineOptions, contextMenu: onContextMenu }),
     [menuSide, size, stop, inlineOptions, onContextMenu],
   );
 

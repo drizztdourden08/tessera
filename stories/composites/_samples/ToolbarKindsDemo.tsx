@@ -7,15 +7,14 @@ import { useToolKinds } from './useToolKinds';
 interface ToolbarKindsDemoProps {
   orientation?: 'horizontal' | 'vertical';
   layout?: ToolbarShape;
-  keyBadges?: boolean;
   inlineOptions?: boolean;
 }
 
-const ToolbarKindsDemo = ({ orientation = 'vertical', layout = 'bar', keyBadges = false, inlineOptions = false }: ToolbarKindsDemoProps) => {
+const ToolbarKindsDemo = ({ orientation = 'vertical', layout = 'bar', inlineOptions = false }: ToolbarKindsDemoProps) => {
   const items = useToolKinds();
   return (
     <Box className="toolbar-story__box" data-orientation={orientation} data-extent="640" data-layout={layout}>
-      <Toolbar label="Tool kinds" orientation={orientation} layout={layout} items={items} keyBadges={keyBadges} inlineOptions={inlineOptions} />
+      <Toolbar label="Tool kinds" orientation={orientation} layout={layout} items={items} inlineOptions={inlineOptions} />
     </Box>
   );
 };
