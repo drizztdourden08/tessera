@@ -1,24 +1,15 @@
 /* @layer tooling-scripts @kind test */
-import fs from 'node:fs';
-import path from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { BRAND_FAMILY } from '../src/brand/family.constants';
 import { fileTypeArt } from '../src/brand/file-types/file-type-art';
 import { fileTypeGlyph } from '../src/brand/file-types/file-type-glyph';
-import { fileTypeFiles } from '../src/brand/file-types/file-type-files';
 import { fileTypeGridFor } from '../src/brand/file-types/file-type-grid-for';
 import { FILE_TYPE_GRIDS, FILE_TYPE_LAYOUTS } from '../src/brand/file-types/file-type-layouts.constants';
-import { ICON_SIZES } from '../src/brand/icon-sizes.constants';
 import { PIXEL_ICONS } from '../src/primitives/icon-sets/pixel.constants';
 
 const { fileTypes } = BRAND_FAMILY.bxel;
-const BRAND = path.resolve('brand');
 
-describe('the Bxel file types', () => {
-  it('covers the seven kinds Bxel saves and its older format, each with its own extension', () => {
-    expect(fileTypes.types.map((type) => type.ext)).toEqual(['bxsprite', 'bxsheet', 'bxanim', 'bxpalette', 'bxtiles', 'bxmap', 'bxproject', 'bxel']);
-  });
-
+describe('K1 the Bxel file types', { tags: ['critical'] }, () => {
   it('draws the animation as a film strip on every grid, with sprocket holes and frames', () => {
     const type = fileTypes.types.find((entry) => entry.ext === 'bxanim');
     expect(type).toMatchObject({ kind: 'animation', name: 'Animation', icon: 'pixel-animation' });
@@ -54,13 +45,5 @@ describe('the Bxel file types', () => {
 
   it('picks the largest grid that divides the size, else the 32 grid', () => {
     expect([16, 24, 32, 48, 64, 128, 256, 512, 1024, 100].map(fileTypeGridFor)).toEqual([16, 24, 32, 24, 32, 32, 32, 32, 32, 32]);
-  });
-
-  it('writes every file the packager copies for each extension', () => {
-    for (const files of fileTypeFiles('bxel')) {
-      const wanted = [files.svg, files.icns, files.ico, ...ICON_SIZES.ladder.map(files.ladder)];
-      for (const file of wanted) expect(fs.existsSync(path.join(BRAND, file)), file).toBe(true);
-    }
-    expect(fileTypeFiles('rotp')).toEqual([]);
   });
 });

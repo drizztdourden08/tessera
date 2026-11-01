@@ -2,7 +2,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createToastStore } from '../src/composites/Toast/behavior/create-toast-store';
 
-describe('toast onClose', () => {
+describe('K1 toast onClose', { tags: ['critical'] }, () => {
   it('reports dismissed when the app dismisses a toast, or the reason it passes, once', () => {
     const store = createToastStore();
     const onClose = vi.fn();

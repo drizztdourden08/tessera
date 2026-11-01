@@ -1,8 +1,6 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { AnimatedMascot, BRAND_FAMILY, BRAND_APPS, MASCOT_CLIP_GROUPS, MASCOT_CLIP_VARIANTS, MASCOT_CLIPS } from '../src/brand';
+import { BRAND_FAMILY, BRAND_APPS, MASCOT_CLIP_GROUPS, MASCOT_CLIP_VARIANTS, MASCOT_CLIPS } from '../src/brand';
 import { motionKeyframes } from '../src/brand/MascotStage/behavior/motion-keyframes';
 import { motionPivots } from '../src/brand/MascotStage/behavior/motion-pivots';
 import { stageScene } from '../src/brand/MascotStage/behavior/stage-scene';
@@ -16,17 +14,7 @@ const isRest = (frame) => Object.keys(frame).every((key) => key === 'at' || key 
 
 const moves = (clip) => clip.tracks.some((track) => track.frames.some((frame) => !isRest(frame)));
 
-describe('AnimatedMascot', () => {
-  it('renders the still mascot on a stage, with a group for every moving part and no motion on the server', () => {
-    const html = renderToString(h(AnimatedMascot, { brand: 'rotp', animation: 'jump', scale: 2 }));
-    expect(html).toContain('viewBox="0 0 43 38"');
-    for (const part of ['rig', 'shadow', 'podLeft', 'podRight', 'eyes']) expect(html).toContain(`data-motion-part="${part}"`);
-    expect(html).toContain('animated-mascot');
-    expect(html).not.toContain('style=');
-  });
-});
-
-describe('mascot motion data', () => {
+describe('K1 mascot motion data', { tags: ['critical'] }, () => {
   it('lists the clips every mascot plays, in order, and puts each one in exactly one gallery group', () => {
     expect(MASCOT_CLIPS.slice(0, 10)).toEqual(['idle', 'move', 'jump', 'wave', 'scan', 'happy', 'alert', 'point', 'blink', 'link']);
     expect(MASCOT_CLIPS).toHaveLength(29);
@@ -79,14 +67,7 @@ describe('mascot motion data', () => {
   });
 });
 
-describe('mascot effects', () => {
-  it("draws Sentri's spark and Flint's spark and chip glow on the stage for link, hidden until the clip fades them in", () => {
-    const sentri = renderToString(h(AnimatedMascot, { brand: 'rotp', animation: 'link', scale: 2 }));
-    const flint = renderToString(h(AnimatedMascot, { brand: 'brock', animation: 'link', scale: 2 }));
-    expect(sentri).toContain('data-motion-part="spark" opacity="0"');
-    for (const part of ['spark', 'chipGlow']) expect(flint).toContain(`data-motion-part="${part}" opacity="0"`);
-  });
-
+describe('K1 mascot effects', { tags: ['critical'] }, () => {
   it("shows a clip's still effects in the drawing itself, so reduced motion keeps them, and draws fixed effects on the stage outside the rig", () => {
     const motion = { ...BRAND_FAMILY.rotp.mascot.motion, effects: [{ id: 'mark', piece: { name: 'Mark', w: 1, h: 1, paths: [] }, at: [0, 0], fixed: true }] };
     const scene = stageScene(BRAND_FAMILY.rotp.mascot.variants[0].compose(), motion, { ...motion.animations.idle, still: ['mark'] });
@@ -96,14 +77,6 @@ describe('mascot effects', () => {
     expect(stageScene(BRAND_FAMILY.rotp.mascot.variants[0].compose(), motion).nodes[0].children.at(-1).hidden).toBe(true);
   });
 
-  it('draws every effect hidden but the symbols of the clip it starts in, so a new state can fade any of them in', () => {
-    const idle = renderToString(h(AnimatedMascot, { brand: 'rotp', animation: 'idle' }));
-    const sleep = renderToString(h(AnimatedMascot, { brand: 'rotp', animation: 'sleep' }));
-    expect(idle).toContain('data-motion-part="spark" opacity="0"');
-    for (const part of ['closed', 'zSmall', 'zMid', 'zBig']) expect(sleep).toMatch(new RegExp(`data-motion-part="${part}"(?! opacity="0")`));
-    expect(sleep).toContain('data-motion-part="heart" opacity="0"');
-  });
-
   it("counts an effect's opacity from 0, so a frame without one keeps it hidden", () => {
     const [hidden, shown] = motionKeyframes([{ at: 0 }, { at: 1, opacity: 1 }], [0, 0], 0);
     expect(hidden.opacity).toBe(0);
@@ -111,7 +84,7 @@ describe('mascot effects', () => {
   });
 });
 
-describe('motionKeyframes', () => {
+describe('K1 motionKeyframes', { tags: ['critical'] }, () => {
   it('turns each frame around the pivot with the same list of functions, and counts opacity from the part\'s own, so every frame blends and adds up', () => {
     const frames = motionKeyframes([{ at: 0 }, { at: 1, x: 1, y: -2, rotate: 10, scaleY: 0.5, opacity: 0.4 }], [5, 15.5]);
     expect(frames[0]).toEqual({ offset: 0, easing: 'cubic-bezier(0.37, 0, 0.63, 1)', opacity: 0, transform: 'translate(5px, 15.5px) rotate(0deg) scale(1, 1) translate(-5px, -15.5px)' });

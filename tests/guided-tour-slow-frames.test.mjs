@@ -35,7 +35,7 @@ const walkTime = (from, to, frameS) => {
   return spent;
 };
 
-describe('the tour settles at 10 frames a second', () => {
+describe('K1 the tour settles at 10 frames a second', { tags: ['critical'] }, () => {
   it('stops measuring a target that never holds still within the settle time, even when the page keeps kicking it', () => {
     const { view, frames, step, now } = slowView();
     let flip = 0;
@@ -76,7 +76,7 @@ describe('the tour settles at 10 frames a second', () => {
   });
 });
 
-describe('the mascot walk', () => {
+describe('K1 the mascot walk', { tags: ['critical'] }, () => {
   it('ends in the same wall time at 10 frames a second as at 60', () => {
     const fast = walkTime(0, 1200, 1 / 60);
     const slow = walkTime(0, 1200, SLOW_FRAME_MS / 1000);
@@ -90,7 +90,7 @@ describe('the mascot walk', () => {
   });
 });
 
-describe('the mascot stand', () => {
+describe('K1 the mascot stand', { tags: ['critical'] }, () => {
   const held = { x: 400, y: 200, face: 'right' };
 
   it('keeps its stand when a new measure moves it less than the slack', () => {

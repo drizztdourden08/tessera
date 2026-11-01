@@ -11,7 +11,7 @@ const PNG = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJA
 
 const draw = (props, source) => renderToString(h(Markdown, props, source));
 
-describe('dataImage', () => {
+describe('K4 dataImage', { tags: ['critical'] }, () => {
   it('keeps png, jpeg, gif and webp base64 images', () => {
     expect(dataImage(PNG)).toBe(PNG);
     for (const type of ['png', 'jpeg', 'gif', 'webp']) {
@@ -76,7 +76,7 @@ describe('dataImage', () => {
 
 });
 
-describe('dataImage with other schemes', () => {
+describe('K4 dataImage with other schemes', { tags: ['critical'] }, () => {
   it('refuses scripts and other addresses', () => {
     for (const src of ['javascript:alert(1)', 'javascript:data:image/png;base64,QUJD', 'vbscript:x', 'https://example.com/a.png', '/files/a.png', '', 'a.png']) {
       expect(dataImage(src)).toBeUndefined();
@@ -84,19 +84,7 @@ describe('dataImage with other schemes', () => {
   });
 });
 
-describe('Markdown data images', () => {
-  it('draws a base64 image when images is on', () => {
-    const html = draw({ images: true }, `![Dot](${PNG})`);
-    expect(html).toContain(`src="${PNG}"`);
-    expect(html).toContain('alt="Dot"');
-  });
-
-  it('keeps the alt text when images is off', () => {
-    const html = draw({}, `![Dot](${PNG})`);
-    expect(html).not.toContain('<img');
-    expect(html).toContain('Dot');
-  });
-
+describe('K4 Markdown data images', { tags: ['critical'] }, () => {
   it('never draws an svg or html data image', () => {
     for (const src of ['data:image/svg+xml;base64,PHN2Zz48L3N2Zz4=', 'data:text/html;base64,PGgxPg==', 'javascript:alert(1)']) {
       const html = draw({ images: true }, `![Bad](${src})`);

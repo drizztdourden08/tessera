@@ -20,7 +20,7 @@ const place = (layout, side, lane, id) => layout.sides[side][lane].find((entry) 
 
 const pixels = (entry, span) => [Math.round(entry.start * span * 1e6) / 1e6, Math.round(entry.size * span * 1e6) / 1e6];
 
-describe('takeToolbarCorner, the take and the give back', () => {
+describe('K1 takeToolbarCorner, the take and the give back', { tags: ['critical'] }, () => {
   it('does nothing when the handle stays inside the lane', () => {
     expect(takeToolbarCorner(DEFAULT, METRICS, START, 0)).toBe(DEFAULT);
     expect(takeToolbarCorner(DEFAULT, METRICS, START, 120)).toBe(DEFAULT);
@@ -85,7 +85,7 @@ describe('takeToolbarCorner, the take and the give back', () => {
   });
 });
 
-describe('takeToolbarCorner, outer-lane promotion', () => {
+describe('K1 takeToolbarCorner, outer-lane promotion', { tags: ['critical'] }, () => {
   const small = (corners) => ({
     ...TOOLBAR_DOCK_RAIL_FULL_HEIGHT,
     sides: { ...TOOLBAR_DOCK_RAIL_FULL_HEIGHT.sides, left: [[bar('tools', 0.2, 0.5)]] },
@@ -112,7 +112,7 @@ describe('takeToolbarCorner, outer-lane promotion', () => {
   });
 });
 
-describe('takeToolbarCorner, refusal', () => {
+describe('K1 takeToolbarCorner, refusal', { tags: ['critical'] }, () => {
   const crowded = (outer, inner) => v2(
     { top: [[bar('t', 0, 0.5)]], left: [[outer], [inner]] },
     { corners: { 'top-left': ['v', 'v', 'h'], 'top-right': ['h'], 'bottom-left': ['v', 'v'], 'bottom-right': [] } },
@@ -141,7 +141,7 @@ describe('takeToolbarCorner, refusal', () => {
   });
 });
 
-describe('toolbarCornerStep, the keyboard', () => {
+describe('K1 toolbarCornerStep, the keyboard', { tags: ['critical'] }, () => {
   const sessionOf = (step, grip) => ({ id: grip.id, end: grip.end, origin: step.origin, metrics: step.metrics, result: step.layout, count: step.count });
 
   it('takes the next lane with each outward press and gives it back with inward ones', () => {
@@ -175,7 +175,7 @@ describe('toolbarCornerStep, the keyboard', () => {
   });
 });
 
-describe('the owner layouts from the default layout', () => {
+describe('K1 the owner layouts from the default layout', { tags: ['critical'] }, () => {
   const afterRail = { ...METRICS, spans: { ...METRICS.spans, left: [640, 0] } };
   const corners = (layout) => layout.corners;
 

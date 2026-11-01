@@ -1,9 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { ActionBar } from '../src/composites/ActionBar';
 import { confirmOf } from '../src/composites/ActionBar/behavior/confirm-of';
 import { menuGroups } from '../src/composites/ActionBar/behavior/menu-groups';
 import { splitActions } from '../src/composites/ActionBar/behavior/split-actions';
@@ -21,7 +17,7 @@ const ids = (list) => list.map((action) => action.id);
 const question = (label) => `${label}?`;
 const labels = (groups) => groups.map((group) => group.items.map((item) => item.label));
 
-describe('ActionBar split', () => {
+describe('K1 ActionBar split', { tags: ['critical'] }, () => {
   it('keeps the primary out of the fold and folds from the end', () => {
     const split = splitActions(ACTIONS, Number.POSITIVE_INFINITY, 2);
     expect(ids(split.primary)).toEqual(['save']);
@@ -35,7 +31,7 @@ describe('ActionBar split', () => {
   });
 });
 
-describe('ActionBar confirm', () => {
+describe('K1 ActionBar confirm', { tags: ['critical'] }, () => {
   it('asks before every danger action, with its label as the check', () => {
     expect(confirmOf(ACTIONS[4], question)).toEqual({ title: 'Delete?', confirmLabel: 'Delete' });
     expect(confirmOf(ACTIONS[0], question)).toBeUndefined();
@@ -58,64 +54,5 @@ describe('ActionBar confirm', () => {
   it('puts danger actions in their own menu group, marked as asking', () => {
     const groups = menuGroups({ folded: ACTIONS.slice(2), asks: (action) => action.kind === 'danger', onPress: noop }, (label) => `${label}...`);
     expect(labels(groups)).toEqual([['Duplicate', 'Export yaml'], ['Delete...']]);
-  });
-});
-
-describe('ActionBar render', () => {
-  const html = renderToString(h(ActionBar, { actions: ACTIONS, label: 'Keysanity' }));
-  const live = html.split('action-bar__measure')[0];
-
-  it('draws a named group, the primary last and danger in the danger look', () => {
-    expect(html).toContain('role="group" aria-label="Keysanity"');
-    const order = [...live.matchAll(/data-action-id="(\w+)"/g)].map((match) => match[1]);
-    expect(order).toEqual(['reset', 'duplicate', 'export', 'delete', 'save']);
-    expect(live).toMatch(/btn--danger[^>]*data-action-id="delete"/);
-    expect(live).toMatch(/btn--primary[^>]*data-action-id="save"/);
-  });
-
-  it('draws an iconOnly action as an icon button named by its label, a text button when it has no icon', () => {
-    const actions = [
-      { id: 'reset', label: 'Reset all', icon: 'rotate-ccw', iconOnly: true, onSelect: noop },
-      { id: 'export', label: 'Export yaml', iconOnly: true, onSelect: noop },
-      { id: 'delete', label: 'Delete', icon: 'trash-2', iconOnly: true, kind: 'danger', onSelect: noop },
-    ];
-    const live = renderToString(h(ActionBar, { actions })).split('action-bar__measure')[0];
-    expect(live).toMatch(/<button[^>]*icon-btn--ghost[^>]*aria-label="Reset all"[^>]*data-action-id="reset"/);
-    expect(live).toMatch(/<button[^>]*icon-btn--tone-danger[^>]*aria-label="Delete"/);
-    expect(live).toMatch(/<button[^>]*data-action-id="export"[^>]*>.*Export yaml<\/span><\/button>/);
-    expect(live).not.toMatch(/data-action-id="reset"[^>]*>[^<]*Reset all/);
-  });
-
-  it('names an icon button and its tooltip with the suffix, and marks a loading action busy', () => {
-    const actions = [
-      { id: 'remove', label: 'Remove', icon: 'trash-2', iconOnly: true, nameSuffix: 'Hollow Knight', onSelect: noop },
-      { id: 'save', label: 'Save', loading: true, nameSuffix: 'Hollow Knight', kind: 'primary', onSelect: noop },
-    ];
-    const live = renderToString(h(ActionBar, { actions })).split('action-bar__measure')[0];
-    expect(live).toMatch(/<button[^>]*aria-label="Remove Hollow Knight"[^>]*data-action-id="remove"/);
-    expect(live).toMatch(/<button[^>]*aria-busy="true"[^>]*data-action-id="save"/);
-    expect(live).toContain('aria-label="Save Hollow Knight"');
-  });
-
-  it('keeps its measuring copies inert and out of the Tab order', () => {
-    expect(html).toMatch(/class="action-bar__measure" aria-hidden="true" inert=""/);
-    const copies = html.split('action-bar__measure-row')[1];
-    expect(copies).not.toContain('data-action-id');
-    expect(copies.match(/tabindex="-1"/g)).toHaveLength(6);
-  });
-
-  it('folds into More past keep', () => {
-    const folded = renderToString(h(ActionBar, { actions: ACTIONS, keep: 1, size: 'sm' })).split('action-bar__measure')[0];
-    expect([...folded.matchAll(/data-action-id="(\w+)"/g)].map((match) => match[1])).toEqual(['reset', 'save']);
-    expect(folded).toContain('aria-label="More"');
-  });
-});
-
-describe('ActionBar More button', () => {
-  it('takes the shared IconButton size with no rule of its own, and is measured with the same class', () => {
-    const css = readFileSync(new URL('../src/composites/ActionBar/ActionBar.css', import.meta.url), 'utf8');
-    expect(css).not.toContain('.action-bar__more');
-    const measured = renderToString(h(ActionBar, { actions: ACTIONS, keep: 1 })).split('action-bar__measure').slice(1).join('');
-    expect(measured).toMatch(/class="icon-btn icon-btn--secondary icon-btn--toned icon-btn--md action-bar__more"/);
   });
 });

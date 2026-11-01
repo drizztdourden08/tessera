@@ -20,7 +20,7 @@ const screenshot = (topLeft) => layoutOf(
   { 'top-left': topLeft, 'bottom-left': ['v', 'h'] },
 );
 
-describe('toolbarGridPlacement for the default layout', () => {
+describe('K1 toolbarGridPlacement for the default layout', { tags: ['critical'] }, () => {
   const placement = toolbarGridPlacement(createToolbarLayout(DEFS.map((entry) => ({ ...entry, hiddenByDefault: false }))));
 
   it('puts the top lanes on rows 1 and 2 across every column', () => {
@@ -48,7 +48,7 @@ describe('toolbarGridPlacement for the default layout', () => {
   });
 });
 
-describe('toolbarGridPlacement for the owner layouts', () => {
+describe('K1 toolbarGridPlacement for the owner layouts', { tags: ['critical'] }, () => {
   it('screenshot 1: the top toolbar claims the corner, the rail sits under it', () => {
     const placement = toolbarGridPlacement(screenshot(['h', 'v', 'h']));
     expect(rows(placement, 'top')).toEqual([['1 / 2', '1 / 6'], ['2 / 3', '2 / 6']]);
@@ -81,7 +81,7 @@ describe('toolbarGridPlacement for the owner layouts', () => {
   });
 });
 
-describe('toolbarGridPlacement tracks', () => {
+describe('K1 toolbarGridPlacement tracks', { tags: ['critical'] }, () => {
   it('alternates gaps and bars, a gap only above zero', () => {
     const placement = toolbarGridPlacement(screenshot(['h', 'v', 'h']));
     expect(placement.top[0].tracks).toBe('minmax(0, 0.6fr) minmax(0, 0.4fr)');

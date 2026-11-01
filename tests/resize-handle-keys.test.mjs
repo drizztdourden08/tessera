@@ -33,7 +33,7 @@ const handleWith = (extra = {}) => {
   return { options, onResize, onResizeEnd, key };
 };
 
-describe('ResizeHandle keys, as a window splitter', () => {
+describe('K1 ResizeHandle keys, as a window splitter', { tags: ['critical'] }, () => {
   it('moves by the step with the arrows, by the large step with Shift, and to the limits with Home and End', () => {
     direction('ltr');
     const { key, onResize, onResizeEnd } = handleWith();
@@ -102,7 +102,7 @@ const mountDrag = (extra = {}) => {
   return { view, onResize, onResizeEnd, onDragChange };
 };
 
-describe('ResizeHandle drag', () => {
+describe('K1 ResizeHandle drag', { tags: ['critical'] }, () => {
   it('follows the pointer from where the drag started, inside the range, and commits once on release', () => {
     direction('ltr');
     const { view, onResize, onResizeEnd, onDragChange } = mountDrag();
@@ -148,7 +148,7 @@ describe('ResizeHandle drag', () => {
   });
 });
 
-describe('usePaneSize', () => {
+describe('K1 usePaneSize', { tags: ['critical'] }, () => {
   it('keeps a whole number of pixels inside its limits, stores it when a change ends, and resets to the start', () => {
     const stored = new Map();
     vi.stubGlobal('localStorage', { getItem: (name) => stored.get(name) ?? null, setItem: (name, value) => stored.set(name, value) });
@@ -178,7 +178,7 @@ const grid = (dataset, clientWidth, columnGap = '16px') => {
   return { dataset, clientWidth };
 };
 
-describe('Grid.Cell span 2', () => {
+describe('K1 Grid.Cell span 2', { tags: ['critical'] }, () => {
   it('spans two columns only once two fit, at any column width', () => {
     expect(twoColumnsFit(grid({ minCol: '288' }, 591))).toBe(false);
     expect(twoColumnsFit(grid({ minCol: '288' }, 592))).toBe(true);

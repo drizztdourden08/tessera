@@ -14,7 +14,7 @@ const noop = () => undefined;
 
 afterEach(() => vi.restoreAllMocks());
 
-describe('label rules: where the labels go', () => {
+describe('K1 label rules: where the labels go', { tags: ['critical'] }, () => {
   it('places every N from min, without floating point noise', () => {
     expect(texts('every 0.5 | {v}x', scale(0, 2, 0.25))).toEqual(['0x', '0.5x', '1x', '1.5x', '2x']);
     expect(values('every 0.1', scale(0, 0.3, 0.01))).toEqual([0, 0.1, 0.2, 0.3]);
@@ -37,7 +37,7 @@ describe('label rules: where the labels go', () => {
   });
 });
 
-describe('label rules: how each label reads', () => {
+describe('K1 label rules: how each label reads', { tags: ['critical'] }, () => {
   it('formats numbers with a pattern', () => {
     expect(texts('ends | {v:0.0}', scale(0, 2))).toEqual(['0.0', '2.0']);
     expect(texts('0.125, 2 | {v:0.##}', scale(0, 2))).toEqual(['0.13', '2']);
@@ -66,7 +66,7 @@ describe('label rules: how each label reads', () => {
   });
 });
 
-describe('label rules: mistakes', () => {
+describe('K1 label rules: mistakes', { tags: ['critical'] }, () => {
   it.each([
     ['every', 'neither a placement nor a value'],
     ['every 0', 'every takes a number above 0'],
@@ -96,7 +96,7 @@ describe('label rules: mistakes', () => {
   });
 });
 
-describe('labels from pairs and functions', () => {
+describe('K1 labels from pairs and functions', { tags: ['critical'] }, () => {
   it('sorts pairs, keeps nodes, and drops pairs outside the range', () => {
     const points = resolveScaleLabels([[100, 'Full'], [0, 'Off'], [150, 'Too far']], scale(0, 100));
     expect(points.map((point) => point.label)).toEqual(['Off', 'Full']);
@@ -113,7 +113,7 @@ describe('labels from pairs and functions', () => {
   });
 });
 
-describe('thinLabels', () => {
+describe('K1 thinLabels', { tags: ['critical'] }, () => {
   const boxes = (count, width, pitch) => Array.from({ length: count }, (_, index) => ({ start: index * pitch, end: index * pitch + width }));
 
   it('keeps every label that fits', () => {
@@ -130,7 +130,7 @@ describe('thinLabels', () => {
   });
 });
 
-describe('parseValueRule', () => {
+describe('K1 parseValueRule', { tags: ['critical'] }, () => {
   it('reads a rule into placements and a template, or names the problem', () => {
     const { rule, error } = parseValueRule('every 25 + 0=Off | {v}%');
     expect(error).toBeNull();

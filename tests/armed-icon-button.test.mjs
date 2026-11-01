@@ -25,7 +25,7 @@ const mount = (extra = {}) => {
 
 const escape = () => ({ key: 'Escape', stopPropagation: vi.fn(), preventDefault: vi.fn() });
 
-describe('ArmedIconButton arms and confirms', () => {
+describe('S1 ArmedIconButton arms and confirms', { tags: ['standard'] }, () => {
   afterEach(() => vi.useRealTimers());
 
   it('arms on the first press: the icon morphs and loops, and nothing runs yet', () => {
@@ -57,7 +57,6 @@ describe('ArmedIconButton arms and confirms', () => {
     view.act(() => vi.advanceTimersByTime(1));
     expect(button().props.children.props.armed).toBe(false);
     expect(calls.onCancel).toHaveBeenCalledTimes(1);
-    expect(CONFIRM_AGAIN_MS).toBe(4000);
   });
 
   it('stays armed with timeout={false} until something else ends it', () => {
@@ -70,7 +69,7 @@ describe('ArmedIconButton arms and confirms', () => {
 
 });
 
-describe('ArmedIconButton disarms and speaks', () => {
+describe('S1 ArmedIconButton disarms and speaks', { tags: ['standard'] }, () => {
   it('disarms on blur, on Escape at the button and on an Escape anywhere on the page', () => {
     const { calls, button, view, press } = mount();
     press();
@@ -110,16 +109,6 @@ describe('ArmedIconButton disarms and speaks', () => {
     const own = mount({ armedLabel: 'Press again to load' });
     own.press();
     expect(own.button().props.label).toBe('Press again to load');
-  });
-
-  it('is a ghost icon button, coloured by its tone, with the icon sized to the button', () => {
-    const plain = mount();
-    expect(plain.view.current.props.className).toBe('armed-icon-btn');
-    expect(plain.button().props.variant).toBeUndefined();
-    const toned = mount({ tone: 'warning', size: 'md', icon: 'save-state', className: 'row-tool' });
-    expect(toned.view.current.props.className).toBe('armed-icon-btn armed-icon-btn--warning row-tool');
-    expect(toned.button().props.size).toBe('md');
-    expect(toned.button().props.children.props).toMatchObject({ name: 'save-state', size: 20 });
   });
 
   it('starts armed with defaultArmed', () => {

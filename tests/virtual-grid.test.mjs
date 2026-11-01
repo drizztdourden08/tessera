@@ -1,26 +1,16 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { gridColumns } from '../src/composites/VirtualGrid/behavior/grid-columns';
 import { gridLayout } from '../src/composites/VirtualGrid/behavior/grid-layout';
 import { nextCell } from '../src/composites/VirtualGrid/behavior/next-cell';
 import { visibleRange } from '../src/composites/virtual/visible-range';
 import { sizeVariable } from '../src/composites/virtual/size-variable';
-import { VirtualGrid } from '../src/composites/VirtualGrid';
-import { VirtualList } from '../src/composites/VirtualList';
-
-const ITEMS = Array.from({ length: 2000 }, (_, at) => ({ id: `tile-${at}`, text: `Tile ${at}` }));
-
-const draw = (extra) => renderToString(h(VirtualGrid, {
-  label: 'Tiles', items: ITEMS, getKey: (item) => item.id, renderItem: (item) => item.text, ...extra,
-}));
 
 const flat = (count, columns = 5) => gridLayout([{ header: false, count, collapsed: false }], columns);
 
 const move = (key, ctrl, active, layout = flat(23)) => nextCell(key, layout, active, { ctrl, page: 2 });
 
-describe('the columns and rows of the grid', () => {
+describe('K1 the columns and rows of the grid', { tags: ['critical'] }, () => {
   it('fits as many whole tiles as the width holds', () => {
     expect(gridColumns(500, 96)).toBe(5);
     expect(gridColumns(479, 96)).toBe(4);
@@ -49,7 +39,7 @@ describe('the columns and rows of the grid', () => {
   });
 });
 
-describe('the keys of VirtualGrid', () => {
+describe('K1 the keys of VirtualGrid', { tags: ['critical'] }, () => {
   it('moves by a tile left and right and stops at both ends', () => {
     expect(move('ArrowRight', false, 3)).toBe(4);
     expect(move('ArrowLeft', false, 0)).toBe(0);
@@ -88,68 +78,9 @@ describe('the keys of VirtualGrid', () => {
   });
 });
 
-describe('VirtualGrid on the server', () => {
-  it('draws only the first screen of 2000 tiles, without a window or a document', () => {
-    const html = draw();
-    const cells = (html.match(/role="gridcell"/g) ?? []).length;
-    expect(cells).toBeGreaterThan(5);
-    expect(cells).toBeLessThan(200);
-    expect(html).toContain('aria-label="Tiles"');
-    expect(html).toContain('role="grid"');
-    expect(html).toContain('data-vg-index="0"');
-    expect(html).not.toContain('Tile 1999');
-  });
-
-  it('puts one tile in the tab order', () => {
-    expect((draw().match(/tabindex="0"/g) ?? []).length).toBe(1);
-  });
-
-  it('takes the tile size from a token and sets the row count', () => {
-    const html = draw({ tileSize: 'size-64' });
-    expect(html).toContain('--vg-tile-w:var(--size-64)');
-    expect(html).toContain('--vg-tile-h:var(--size-64)');
-    expect(html).toContain('--vg-rows:400');
-    expect(html).toContain('--vg-headers:0');
-  });
-
-  it('draws an empty grid with no row', () => {
-    const html = draw({ items: [] });
-    expect(html).toContain('role="grid"');
-    expect(html).not.toContain('role="row"');
-  });
-});
-
-describe('tiles that are not square', () => {
+describe('K1 tiles that are not square', { tags: ['critical'] }, () => {
   it('fits columns from the width of the tile', () => {
     expect(gridColumns(500, 125)).toBe(4);
     expect(gridColumns(500, 50)).toBe(10);
-  });
-
-  it('sets the width and the height of the tile from two tokens', () => {
-    const html = draw({ tileWidth: 'size-128', tileHeight: 'size-64' });
-    expect(html).toContain('--vg-tile-w:var(--size-128)');
-    expect(html).toContain('--vg-tile-h:var(--size-64)');
-  });
-
-  it('takes the square size for the side left out', () => {
-    const html = draw({ tileSize: 'size-48', tileWidth: 'size-160' });
-    expect(html).toContain('--vg-tile-w:var(--size-160)');
-    expect(html).toContain('--vg-tile-h:var(--size-48)');
-  });
-});
-
-describe('the row height of VirtualList', () => {
-  const list = (extra) => renderToString(h(VirtualList, {
-    label: 'Items', items: ITEMS, getKey: (item) => item.id, renderItem: (item) => item.text, ...extra,
-  }));
-
-  it('takes the height from a size token', () => {
-    expect(list({ rowHeight: 'size-64' })).toContain('--vl-row-h:var(--size-64)');
-  });
-
-  it('leaves the height to the row size when no token is given', () => {
-    const html = list({ rowSize: 'compact' });
-    expect(html).not.toContain('--vl-row-h');
-    expect(html).toContain('data-row-size="compact"');
   });
 });

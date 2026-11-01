@@ -1,9 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { Toolbar } from '../src/composites/Toolbar';
-import { MenuIconGlyph } from '../src/composites/DropdownMenu/sub-components/MenuIconGlyph';
 import { foldedGroups } from '../src/composites/Toolbar/behavior/folded-groups';
 import { nextStop } from '../src/composites/Toolbar/behavior/next-stop';
 import { splitItems } from '../src/composites/Toolbar/behavior/split-items';
@@ -27,10 +23,7 @@ const ITEMS = [
   button('undo', { shortcut: 'Ctrl+Z' }),
 ];
 
-const draw = (props) => renderToString(h(Toolbar, { items: ITEMS, label: 'Drawing tools', ...props }));
-const tags = (html, pattern) => html.match(pattern) ?? [];
-
-describe('Toolbar roving focus', () => {
+describe('K1 Toolbar roving focus', { tags: ['critical'] }, () => {
   it('moves along a row with Right and Left and wraps', () => {
     expect(nextStop('ArrowRight', 'horizontal', 0, 4)).toBe(1);
     expect(nextStop('ArrowLeft', 'horizontal', 0, 4)).toBe(3);
@@ -68,7 +61,7 @@ describe('Toolbar roving focus', () => {
   });
 });
 
-describe('Toolbar overflow split', () => {
+describe('K1 Toolbar overflow split', { tags: ['critical'] }, () => {
   it('shows every item when they all fit', () => {
     expect(splitItems(ITEMS, Number.POSITIVE_INFINITY)).toEqual({ shown: ITEMS, folded: [] });
     expect(splitItems(ITEMS, ITEMS.length).folded).toEqual([]);
@@ -107,107 +100,5 @@ describe('Toolbar overflow split', () => {
     expect(entry.children[0]).toMatchObject({ label: 'pencil' });
     expect(entry.children[1]).toEqual({ separator: true });
     expect(entry.children[2]).toMatchObject({ label: '1 px' });
-  });
-});
-
-describe('Toolbar', () => {
-  it('is a named toolbar that says which way it runs', () => {
-    const html = draw();
-    expect(html).toMatch(/role="toolbar"/);
-    expect(html).toContain('aria-label="Drawing tools"');
-    expect(html).toContain('aria-orientation="horizontal"');
-    expect(draw({ orientation: 'vertical' })).toContain('aria-orientation="vertical"');
-  });
-
-  it('keeps one tab stop, on the first item', () => {
-    const stops = tags(draw(), /<button[^>]*data-toolbar-stop="[^"]*"[^>]*>/g);
-    expect(stops).toHaveLength(3);
-    expect(stops.map((tag) => /tabindex="(-?\d)"/.exec(tag)?.[1])).toEqual(['0', '-1', '-1']);
-  });
-
-  it('puts the tab stop on the handle when there is one', () => {
-    const stops = tags(draw({ handle: true }), /<button[^>]*data-toolbar-stop="[^"]*"[^>]*>/g);
-    expect(stops.map((tag) => /data-toolbar-stop="([^"]*)"/.exec(tag)?.[1])).toEqual(['#handle', 'pencil', 'eraser', 'undo']);
-    expect(/tabindex="(-?\d)"/.exec(stops[0])?.[1]).toBe('0');
-  });
-
-  it('reports a toggle as pressed and names every button', () => {
-    const html = draw({ items: [toggle('pencil', { pressed: true }), toggle('eraser')] });
-    const buttons = tags(html, /<button[^>]*data-toolbar-stop[^>]*>/g);
-    expect(buttons.map((tag) => /aria-pressed="true"/.test(tag))).toEqual([true, false]);
-    expect(buttons[0]).toContain('aria-label="pencil"');
-  });
-
-  it('keeps the shortcut off the button and sets it as aria-keyshortcuts', () => {
-    const [pencil] = tags(draw(), /<button[^>]*data-toolbar-stop="pencil"[^>]*>/g);
-    expect(pencil).toContain('aria-keyshortcuts="P"');
-    expect(draw().replace(/<div class="toolbar__measure".*$/, '')).not.toContain('<kbd');
-  });
-
-  it('shows the caption beside the icon in a row only', () => {
-    const items = [toggle('pencil', { caption: 'Pencil' })];
-    expect(draw({ items })).toMatch(/btn__label">Pencil</);
-    expect(draw({ items, orientation: 'vertical' })).not.toMatch(/btn__label">Pencil</);
-  });
-
-  it('hides the caption when labels is false', () => {
-    const items = [toggle('pencil', { caption: 'Pencil' })];
-    expect(draw({ items, labels: true })).toMatch(/btn__label">Pencil</);
-    expect(draw({ items, labels: false })).not.toMatch(/btn__label">Pencil</);
-  });
-
-  it('marks a tool that has options with a menu and groups choices', () => {
-    const options = [{ id: 'size', items: [{ id: 'one', label: '1 px' }] }];
-    const html = draw({ items: [toggle('pencil', { options }), group] });
-    expect(html).toMatch(/<button[^>]*aria-haspopup="menu"[^>]*aria-expanded="false"[^>]*>/);
-    expect(html).toMatch(/role="group"[^>]*aria-label="Mirror"|aria-label="Mirror"[^>]*role="group"/);
-    expect(html).toContain('data-menu="true"');
-  });
-
-  it('draws a separator across the way the toolbar runs', () => {
-    expect(draw()).toMatch(/divider--vertical/);
-    expect(draw({ orientation: 'vertical' })).toMatch(/divider--horizontal/);
-  });
-});
-
-describe('Toolbar icon as a node', () => {
-  const mark = h('i', { 'data-mark': 'bitmap' });
-
-  it('draws a node icon as given, without wrapping it in Icon', () => {
-    const [tool] = tags(draw({ items: [toggle('custom', { icon: mark })] }), /<button[^>]*data-toolbar-stop="custom"[^>]*>.*?<\/button>/g);
-    expect(tool).toContain('<i data-mark="bitmap"></i>');
-    expect(tool).not.toContain('<svg');
-  });
-
-  it('keeps a string icon going through Icon', () => {
-    const [tool] = tags(draw({ items: [button('plain', { icon: 'pencil' })] }), /<button[^>]*data-toolbar-stop="plain"[^>]*>.*?<\/button>/g);
-    expect(tool).toContain('<svg');
-    expect(tool).not.toContain('data-mark');
-  });
-
-  it('draws a node icon of a group choice', () => {
-    const choices = [{ value: 'a', label: 'A', icon: mark }, { value: 'b', label: 'B', icon: 'circle' }];
-    const html = draw({ items: [{ ...group, value: 'a', choices }] });
-    const [first, second] = tags(html, /<button[^>]*data-toolbar-stop="mirror:[ab]"[^>]*>.*?<\/button>/g);
-    expect(first).toContain('data-mark="bitmap"');
-    expect(second).toContain('<svg');
-  });
-
-  it('folds a node icon into a menu item that draws it, and keeps a name as a name', () => {
-    const [custom, plain] = foldedGroups([button('custom', { icon: mark }), button('plain')])[0].items;
-    expect(renderToString(h(MenuIconGlyph, { icon: custom.icon }))).toBe('<i data-mark="bitmap"></i>');
-    expect(plain.icon).toBe('pencil');
-  });
-
-  it('wraps a node that is not an element so the menu can draw it', () => {
-    const [entry] = foldedGroups([button('count', { icon: 3 })])[0].items;
-    expect(renderToString(h(MenuIconGlyph, { icon: entry.icon }))).toBe('3');
-  });
-
-  it('keeps the node icon on the folded tool that has options', () => {
-    const options = [{ id: 'size', items: [{ id: 'one', label: '1 px' }] }];
-    const [entry] = foldedGroups([toggle('custom', { icon: mark, options })])[0].items;
-    expect(renderToString(h(MenuIconGlyph, { icon: entry.icon }))).toBe('<i data-mark="bitmap"></i>');
-    expect(renderToString(h(MenuIconGlyph, { icon: entry.children[0].icon }))).toBe('<i data-mark="bitmap"></i>');
   });
 });

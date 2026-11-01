@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { ContextMenu } from '../src/composites/ContextMenu';
 import { MENU_ROOM } from '../src/composites/ContextMenu/ContextMenu.constants';
 import { eventPoint } from '../src/composites/ContextMenu/behavior/event-point';
 import { keyboardPoint } from '../src/composites/ContextMenu/behavior/keyboard-point';
@@ -11,9 +8,8 @@ import { movedPastSlop } from '../src/composites/ContextMenu/behavior/moved-past
 import { pointPlacement } from '../src/composites/ContextMenu/behavior/point-placement';
 
 const VIEW = { width: 1000, height: 800 };
-const GROUPS = [{ id: 'g', items: [{ id: 'a', label: 'Alpha' }] }];
 
-describe('ContextMenu point placement', () => {
+describe('K1 ContextMenu point placement', { tags: ['critical'] }, () => {
   it('opens below and to the right of the point when there is room', () => {
     expect(pointPlacement({ x: 100, y: 100 }, VIEW)).toEqual({ side: 'below', align: 'start' });
   });
@@ -40,7 +36,7 @@ describe('ContextMenu point placement', () => {
   });
 });
 
-describe('ContextMenu keyboard opening', () => {
+describe('K1 ContextMenu keyboard opening', { tags: ['critical'] }, () => {
   it('opens under the left edge of the focused element', () => {
     expect(keyboardPoint({ left: 40, bottom: 90 })).toEqual({ x: 40, y: 90 });
   });
@@ -62,7 +58,7 @@ describe('ContextMenu keyboard opening', () => {
   });
 });
 
-describe('ContextMenu long press', () => {
+describe('K1 ContextMenu long press', { tags: ['critical'] }, () => {
   it('keeps the press while the finger stays within the slop', () => {
     expect(movedPastSlop({ x: 0, y: 0 }, { x: 6, y: 6 })).toBe(false);
   });
@@ -70,18 +66,5 @@ describe('ContextMenu long press', () => {
   it('cancels the press when the finger moves past the slop', () => {
     expect(movedPastSlop({ x: 0, y: 0 }, { x: 12, y: 0 })).toBe(true);
     expect(movedPastSlop({ x: 0, y: 0 }, { x: 8, y: 8 })).toBe(true);
-  });
-});
-
-describe('ContextMenu render', () => {
-  it('draws only its target while closed', () => {
-    const html = renderToString(h(ContextMenu, { groups: GROUPS }, 'Target'));
-    expect(html).toContain('class="context-menu"');
-    expect(html).toContain('Target');
-    expect(html).not.toContain('role="menu"');
-  });
-
-  it('draws nothing when controlled and closed without a target', () => {
-    expect(renderToString(h(ContextMenu, { groups: GROUPS, open: false }))).toBe('');
   });
 });

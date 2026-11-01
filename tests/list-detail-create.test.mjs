@@ -17,7 +17,7 @@ const mount = (props = {}, list = { create: form }) => {
 
 const pressNew = (view) => view.act((current) => current.items.onCreateOpenChange(true));
 
-describe('ListDetail guards the create form, each answer', () => {
+describe('K1 ListDetail guards the create form, each answer', { tags: ['critical'] }, () => {
   it('asks before New opens the form while the editor holds unsaved edits', () => {
     const { view } = mount();
     pressNew(view);
@@ -49,7 +49,7 @@ describe('ListDetail guards the create form, each answer', () => {
     const { view, run } = mount({ onSave: () => Promise.reject(new Error('disk full')) });
     pressNew(view);
     view.act((current) => current.guard.save());
-    await new Promise((done) => setTimeout(done, 0));
+    for (let tick = 0; tick < 10; tick += 1) await Promise.resolve();
     view.rerender(run);
     expect(view.current.guard.pending).toBeNull();
     expect(view.current.items.createOpen).toBe(false);
@@ -65,7 +65,7 @@ describe('ListDetail guards the create form, each answer', () => {
   });
 });
 
-describe('ListDetail asks only while edits are unsaved, and only for its own New', () => {
+describe('K1 ListDetail asks only while edits are unsaved, and only for its own New', { tags: ['critical'] }, () => {
   it('opens the form at once with nothing unsaved, and closes it without asking', () => {
     const { view } = mount({ dirty: false });
     pressNew(view);
@@ -104,7 +104,7 @@ const activeList = () => ({
   groups: [{ name: 'Super Metroid', action: { label: 'New preset', onSelect: vi.fn() } }, { name: 'Timespinner' }],
 });
 
-describe('ListDetail passes onActivate to its list', () => {
+describe('K1 ListDetail passes onActivate to its list', { tags: ['critical'] }, () => {
   it('asks before another row is activated while the editor holds unsaved edits, then picks and activates it', () => {
     const list = activeList();
     const { view, calls } = mount({}, list);
@@ -138,7 +138,7 @@ describe('ListDetail passes onActivate to its list', () => {
   });
 });
 
-describe('ListDetail guards the action of a group', () => {
+describe('K1 ListDetail guards the action of a group', { tags: ['critical'] }, () => {
   it('asks before the action runs, and runs it after Discard', () => {
     const list = activeList();
     const { view, calls } = mount({}, list);

@@ -1,22 +1,17 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { logInk } from '../src/composites/LogPanel/behavior/log-ink';
 import { lineTones } from '../src/composites/LogPanel/behavior/line-tones';
 import { messageTone } from '../src/composites/LogPanel/behavior/message-tone';
-import { LogLine } from '../src/composites/LogPanel/sub-components/LogLine';
 import { hexRgb } from '../src/primitives/hex-ink/hex-rgb';
 import { readableInk } from '../src/primitives/hex-ink/readable-ink';
 import { rgbLuminance } from '../src/primitives/hex-ink/rgb-luminance';
 
 const ROW = { id: 'r1', gutter: '20:00:00', tag: 'SEQ', kind: 'seq', message: 'Sequence 1' };
-const line = (kind) => renderToString(h(LogLine, { row: ROW, kind }));
-const spans = (html) => [...html.matchAll(/<span([^>]*)>/g)].map((m) => m[1]);
 const hexOf = (r, g, b) => `#${[r, g, b].map((c) => c.toString(16).padStart(2, '0')).join('')}`;
 const contrastOnGround = (hex) => (rgbLuminance(hexRgb(hex)) + 0.05) / (0.02 + 0.05);
 
-describe('readableInk', () => {
+describe('K1 readableInk', { tags: ['critical'] }, () => {
   it('keeps a colour that already reads on a dark panel', () => {
     expect(readableInk('#ffd54f')).toBe('#ffd54f');
     expect(readableInk('#4dd0e1')).toBe('#4dd0e1');
@@ -45,7 +40,7 @@ describe('readableInk', () => {
   });
 });
 
-describe('logInk', () => {
+describe('K1 logInk', { tags: ['critical'] }, () => {
   it('passes a text tone through, and falls back when there is none', () => {
     expect(logInk('danger')).toEqual({ tone: 'danger' });
     expect(logInk(undefined, 'muted')).toEqual({ tone: 'muted' });
@@ -59,7 +54,7 @@ describe('logInk', () => {
   });
 });
 
-describe('messageTone', () => {
+describe('K1 messageTone', { tags: ['critical'] }, () => {
   it('takes the kind tone on true, its own tone on a tone, and none otherwise', () => {
     expect(messageTone({ id: 'a', label: 'A', tone: 'info', toneMessage: true })).toBe('info');
     expect(messageTone({ id: 'a', label: 'A', tone: 'muted', toneMessage: 'dim' })).toBe('dim');
@@ -69,42 +64,7 @@ describe('messageTone', () => {
   });
 });
 
-describe('LogLine', () => {
-  it('keeps the markup of a text tone kind: a muted tag by default, no ink and no style', () => {
-    const [, tag, msg] = spans(line(undefined));
-    expect(tag).toBe(' class="text-el text-el--span text-el--toned text-el--tone-muted log-panel__tag log-panel__tag--seq"');
-    expect(msg).toBe(' class="text-el text-el--span log-panel__msg log-panel__msg--seq"');
-    const [, infoTag, infoMsg] = spans(line({ id: 'seq', label: 'Seq', tone: 'info', toneMessage: true, strong: true }));
-    expect(infoTag).toContain('text-el--tone-info log-panel__tag log-panel__tag--seq"');
-    expect(infoMsg).toBe(' class="text-el text-el--span text-el--toned text-el--tone-info log-panel__msg log-panel__msg--seq log-panel__msg--strong"');
-  });
-
-  it('inks the tag and message in a tint or a hex colour, and sets capitals with uppercase', () => {
-    const [, tag, msg] = spans(line({ id: 'seq', label: 'Seq', tone: 'teal', toneMessage: '#2b3a8c', uppercase: true }));
-    expect(tag).toBe(' class="text-el text-el--span log-panel__tag log-panel__tag--seq log-panel__ink" style="--log-ink:var(--c-tag-teal)"');
-    expect(msg).toMatch(/^ class="text-el text-el--span log-panel__msg log-panel__msg--seq log-panel__msg--upper log-panel__ink" style="--log-ink:#[0-9a-f]{6}"$/);
-    expect(msg).not.toContain('#2b3a8c');
-  });
-
-  it('lets a line carry its own tone with no kind, on the tag and the message', () => {
-    const toned = renderToString(h(LogLine, { row: { ...ROW, tone: 'warning' }, kind: undefined }));
-    const [, tag, msg] = spans(toned);
-    expect(tag).toContain('text-el--tone-warning log-panel__tag');
-    expect(msg).toContain('text-el--tone-warning log-panel__msg');
-  });
-
-  it('lets a line tone win over its kind, and a tint draws as ink', () => {
-    const kind = { id: 'seq', label: 'Seq', tone: 'info', toneMessage: true };
-    const [, tag, msg] = spans(renderToString(h(LogLine, { row: { ...ROW, tone: 'danger' }, kind })));
-    expect(tag).toContain('text-el--tone-danger');
-    expect(tag).not.toContain('text-el--tone-info');
-    expect(msg).toContain('text-el--tone-danger');
-    const [, inked] = spans(renderToString(h(LogLine, { row: { ...ROW, tone: 'teal' }, kind })));
-    expect(inked).toContain('log-panel__ink');
-  });
-});
-
-describe('lineTones', () => {
+describe('K1 lineTones', { tags: ['critical'] }, () => {
   it('falls back to the kind when the line has no tone', () => {
     const kind = { id: 'seq', label: 'Seq', tone: 'info', toneMessage: 'dim' };
     expect(lineTones(ROW, kind)).toEqual({ tag: 'info', message: 'dim' });

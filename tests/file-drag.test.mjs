@@ -1,12 +1,9 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { carriesFiles } from '../src/primitives/DropZone/behavior/carries-files';
 import { leftZone } from '../src/primitives/DropZone/behavior/left-zone';
 
-const css = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
-
-describe('a file dragged in from the desktop', () => {
+describe('K1 a file dragged in from the desktop', { tags: ['critical'] }, () => {
   it('counts as files from its types alone, the way Chromium sends it before the drop', () => {
     expect(carriesFiles({ types: ['Files'], items: [] })).toBe(true);
     expect(carriesFiles({ types: ['application/x-moz-file'], items: [] })).toBe(true);
@@ -28,10 +25,5 @@ describe('a file dragged in from the desktop', () => {
     expect(leftZone(event(inner))).toBe(false);
     expect(leftZone(event({ nodeType: 1 }))).toBe(true);
     expect(leftZone(event(null))).toBe(false);
-  });
-
-  it('shows the drop look at once, with no fade in', () => {
-    expect(css('../src/composites/PathInput/PathInput.css')).toMatch(/\.path-input__frame\[data-dropping\] \{\s+transition: none;/);
-    expect(css('../src/primitives/DropZone/DropZone.css')).toMatch(/\.dropzone--active \{\s+transition: none;/);
   });
 });

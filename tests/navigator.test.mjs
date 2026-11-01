@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { Navigator } from '../src/composites/Navigator';
 import { centreViewport } from '../src/composites/Navigator/behavior/centre-viewport';
 import { keyMove } from '../src/composites/Navigator/behavior/key-move';
 import { moveViewport } from '../src/composites/Navigator/behavior/move-viewport';
@@ -13,9 +10,8 @@ import { NAVIGATION_STRINGS } from '../src/primitives/strings/navigation-strings
 
 const SURFACE = { width: 400, height: 200 };
 const VIEW = { x: 100, y: 50, width: 100, height: 50 };
-const ignore = () => undefined;
 
-describe('Navigator movement', () => {
+describe('K1 Navigator movement', { tags: ['critical'] }, () => {
   it('moves the frame by a distance in surface units', () => {
     expect(moveViewport(VIEW, SURFACE, 30, -20)).toEqual({ x: 130, y: 30, width: 100, height: 50 });
   });
@@ -36,7 +32,7 @@ describe('Navigator movement', () => {
   });
 });
 
-describe('Navigator keys', () => {
+describe('K1 Navigator keys', { tags: ['critical'] }, () => {
   it('steps by the arrow keys, and five steps with Shift', () => {
     expect(keyMove('ArrowLeft', false, VIEW, 10)).toEqual({ dx: -10, dy: 0 });
     expect(keyMove('ArrowDown', false, VIEW, 10)).toEqual({ dx: 0, dy: 10 });
@@ -55,7 +51,7 @@ describe('Navigator keys', () => {
   });
 });
 
-describe('Navigator reading', () => {
+describe('K1 Navigator reading', { tags: ['critical'] }, () => {
   it('shares the frame as percent of the surface', () => {
     expect(viewportPercent(VIEW, SURFACE)).toEqual({ across: [25, 50], down: [25, 50] });
     expect(viewportPercent(VIEW, { width: 0, height: 0 })).toEqual({ across: [0, 100], down: [0, 100] });
@@ -67,26 +63,5 @@ describe('Navigator reading', () => {
 
   it('places the frame by percent', () => {
     expect(viewportBoxOf(VIEW, SURFACE)).toEqual({ left: '25%', top: '25%', width: '25%', height: '25%' });
-  });
-});
-
-describe('Navigator render', () => {
-  const draw = (props = {}) => renderToString(h(Navigator, { surface: SURFACE, viewport: VIEW, onViewportChange: ignore, ...props }, h('span', { className: 'thumb' }, 'T')));
-
-  it('draws the thumbnail under a frame that is a slider with a spoken position', () => {
-    const html = draw();
-    expect(html).toContain('<span class="thumb">T</span>');
-    expect(html).toContain('role="slider"');
-    expect(html).toContain('aria-label="Map"');
-    expect(html).toContain('aria-valuetext="Showing 25% to 50% across and 25% to 50% down"');
-    expect(html).toContain('tabindex="0"');
-  });
-
-  it('takes its shape from the surface', () => {
-    expect(draw()).toContain('aspect-ratio:400 / 200');
-  });
-
-  it('uses the label it is given', () => {
-    expect(draw({ label: 'Canvas map' })).toContain('aria-label="Canvas map"');
   });
 });

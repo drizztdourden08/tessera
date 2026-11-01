@@ -1,5 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { useTourEntry } from '../src/composites/GuidedTour/behavior/useTourEntry';
 import { useTourKeys } from '../src/composites/GuidedTour/behavior/useTourKeys';
 import { mountHook } from './hook-harness.mjs';
@@ -16,9 +16,10 @@ const doc = {
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
 vi.mock('../src/primitives/TesseraProvider/behavior/useTesseraOverride', () => ({ useTesseraOverride: () => doc }));
 
-const settle = () => new Promise((resolve) => { setTimeout(resolve, 5); });
+const wait = () => new Promise((resolve) => { setTimeout(resolve, 5); });
+const settle = () => vi.advanceTimersByTimeAsync(10);
 
-describe('the keys of an open tour', () => {
+describe('K1 the keys of an open tour', { tags: ['critical'] }, () => {
   const press = (key, target = null) => ({ key, target, defaultPrevented: false, preventDefault: vi.fn(), stopPropagation: vi.fn() });
 
   it('listen in the capture phase and stop only the keys the tour acts on, and close on Escape through the Escape stack', () => {
@@ -55,7 +56,10 @@ describe('the keys of an open tour', () => {
   });
 });
 
-describe('the step events', () => {
+describe('S2 the step events', { tags: ['standard'] }, () => {
+  beforeEach(() => { vi.useFakeTimers(); });
+  afterEach(() => { vi.useRealTimers(); });
+
   const steps = (onEnter) => [
     { id: 'one', title: 'One', body: 'First', onEnter },
     { id: 'two', title: 'Two', body: 'Second' },
@@ -64,7 +68,7 @@ describe('the step events', () => {
   it('runs onStepShown after onEnter, and onStepLeave on the next step and on close', async () => {
     const order = [];
     const options = {
-      steps: steps(async () => { await settle(); order.push('enter'); }),
+      steps: steps(async () => { await wait(); order.push('enter'); }),
       onStepShown: (step, index, target) => order.push(`shown ${step.id} ${index} ${target}`),
       onStepLeave: (step, index) => order.push(`leave ${step.id} ${index}`),
     };
@@ -89,7 +93,7 @@ describe('the step events', () => {
   it('aborts onEnter when the step changes first, and never shows that step', async () => {
     const signals = [];
     const shown = vi.fn();
-    const options = { steps: steps(({ signal }) => { signals.push(signal); return settle(); }), onStepShown: shown };
+    const options = { steps: steps(({ signal }) => { signals.push(signal); return wait(); }), onStepShown: shown };
     const latest = { current: { options } };
     let at = { open: true, index: 0 };
     const hook = mountHook(() => useTourEntry(at, options.steps[at.index].id, latest));

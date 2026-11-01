@@ -6,6 +6,7 @@ export default defineStandards({
   extensions: ['./standards.extension.mjs'],
   options: {
     releaseNotes: { product: 'Tessera' },
+    lint: { stylelint: ['src/**/*.css', 'fonts/**/*.css', 'stories/**/*.css'] },
     eslint: {
       rawControls: [
         { selector: "JSXOpeningElement[name.name='input']", message: 'No raw <input> outside primitives. Use TextInput / NumberInput / Checkbox / RangeInput.' },

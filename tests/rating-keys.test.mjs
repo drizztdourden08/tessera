@@ -19,7 +19,7 @@ const keyOn = (key, direction = 'ltr', extra = {}, focused = null) => {
 
 vi.stubGlobal('getComputedStyle', (node) => ({ direction: node.direction }));
 
-describe('the keys of the picker', () => {
+describe('K1 the keys of the picker', { tags: ['critical'] }, () => {
   it('pick the next star and move focus to it', () => {
     const onChange = vi.fn();
     const pick = mountHook(() => useRatingPick(3, 5, onChange));

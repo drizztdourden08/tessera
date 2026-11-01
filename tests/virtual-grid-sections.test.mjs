@@ -18,7 +18,7 @@ const GROUPS = [
 
 const HEIGHTS = { tile: 96, head: 32 };
 
-describe('the row math of sections', () => {
+describe('K1 the row math of sections', { tags: ['critical'] }, () => {
   const layout = gridLayout(GROUPS, 3);
 
   it('puts a header row before the tile rows of each section', () => {
@@ -61,7 +61,7 @@ describe('the row math of sections', () => {
   });
 });
 
-describe('the keys across the headers', () => {
+describe('K1 the keys across the headers', { tags: ['critical'] }, () => {
   const layout = gridLayout(GROUPS, 3);
   const step = (key, active, ctrl = false) => nextCell(key, layout, active, { ctrl, page: 2 });
 
@@ -98,7 +98,7 @@ describe('the keys across the headers', () => {
   });
 });
 
-describe('the scroll offset of an index', () => {
+describe('K1 the scroll offset of an index', { tags: ['critical'] }, () => {
   const layout = gridLayout(GROUPS, 3);
   const at = (index, align, scrollTop = 0) => scrollOffset({ layout, heights: HEIGHTS, index, viewport: 200, scrollTop, align });
 

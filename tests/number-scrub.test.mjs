@@ -7,7 +7,7 @@ vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(a
 
 const noop = () => undefined;
 
-describe('useScrub', () => {
+describe('K1 useScrub', { tags: ['critical'] }, () => {
   const pointer = (clientX, extra = {}) => ({ button: 0, pointerId: 1, clientX, shiftKey: false, currentTarget: { setPointerCapture: vi.fn(), hasPointerCapture: () => false, releasePointerCapture: vi.fn() }, ...extra });
 
   it('steps once for every six pixels of drag and a fine step with Shift', () => {

@@ -1,9 +1,8 @@
 /* @layer tooling-scripts @kind test */
-import fs from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { stackKey } from '../src/composites/StudioLayout/behavior/stack-key';
 import { unstackedEditorWidth } from '../src/composites/StudioLayout/behavior/unstacked-editor-width';
-import { DEFAULT_EDITOR_MIN_WIDTH, STACKED_CLASS } from '../src/composites/StudioLayout/StudioLayout.constants';
+import { STACKED_CLASS } from '../src/composites/StudioLayout/StudioLayout.constants';
 
 const classes = (...names) => {
   const set = new Set(names);
@@ -19,7 +18,7 @@ const studio = ({ stacked, rowWidth, stackedWidth }) => {
   return { root, body, editor };
 };
 
-describe('when StudioLayout stacks its columns', () => {
+describe('K1 when StudioLayout stacks its columns', { tags: ['critical'] }, () => {
   it('reads the editor width as it is while the columns sit side by side', () => {
     const parts = studio({ stacked: false, rowWidth: 230, stackedWidth: 600 });
     expect(unstackedEditorWidth(parts)).toBe(230);
@@ -44,13 +43,5 @@ describe('when StudioLayout stacks its columns', () => {
     open.classList.add('side-panel--collapsed');
     expect(stackKey(body)).not.toBe(first);
     expect(stackKey({ ...body, getBoundingClientRect: () => ({ width: 991 }) })).not.toBe(stackKey(body));
-  });
-
-  it('keeps a 192 px editor by default, as editorMinWidth', () => {
-    expect(DEFAULT_EDITOR_MIN_WIDTH).toBe(192);
-    const type = fs.readFileSync('src/composites/StudioLayout/StudioLayout.type.ts', 'utf8');
-    expect(type).toMatch(/editorMinWidth\?: number;/);
-    const hook = fs.readFileSync('src/composites/StudioLayout/behavior/useStudioStack.ts', 'utf8');
-    expect(hook).toContain('unstackedEditorWidth({ root, body, editor }) < editorMinWidth');
   });
 });

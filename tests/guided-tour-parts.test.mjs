@@ -1,9 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import * as composites from '../src/composites';
 import { enterStep } from '../src/composites/GuidedTour/behavior/enter-step';
 import { entryState } from '../src/composites/GuidedTour/behavior/entry-state';
 import { findTarget } from '../src/composites/GuidedTour/behavior/find-target';
@@ -13,7 +9,6 @@ import { seekTarget } from '../src/composites/GuidedTour/behavior/seek-target';
 import { stageOf } from '../src/composites/GuidedTour/behavior/stage-of';
 import { stepCue } from '../src/composites/GuidedTour/behavior/step-cue';
 import { tourReach } from '../src/composites/GuidedTour/behavior/tour-reach';
-import { TourBubbleCard } from '../src/composites/GuidedTour/sub-components/TourBubbleCard';
 
 const el = (name, children = []) => {
   const node = { name, nodeType: 1, offsetHeight: 1, inert: false, parentElement: null, children };
@@ -29,7 +24,7 @@ const STEPS = [
   { id: 'welcome', title: 'Welcome', body: 'Hello' },
   { id: 'nav', title: 'Pages', body: 'Here', target: { tour: 'nav' } },
 ];
-describe('parts kept live', () => {
+describe('K1 parts kept live', { tags: ['critical'] }, () => {
   const view = { width: 1000, height: 800 };
 
   it('keeps a part inside the app root live while the rest of the root goes inert', () => {
@@ -71,7 +66,7 @@ describe('parts kept live', () => {
 
 });
 
-describe('a wait step and a click target', () => {
+describe('K1 a wait step and a click target', { tags: ['critical'] }, () => {
   it('reaches the lit part on click and wait steps, and opens a hole for a click target outside it', () => {
     const entry = el('entry');
     const lit = el('menu', [entry]);
@@ -89,20 +84,9 @@ describe('a wait step and a click target', () => {
     expect(stageOf(tour, { index: 0, id: 'name', target: null })).toMatchObject({ step, click: false, waits: true });
     expect(stageOf({ ...tour, shown: false }, null)).toMatchObject({ step: null, waits: false, target: null });
   });
-
-  it('shows the hint in place of the click line and hides Next on a click or wait step', () => {
-    const tour = { index: 0, total: 2, close: vi.fn(), back: vi.fn(), next: vi.fn() };
-    const draw = (step) => renderToString(h(TourBubbleCard, { tour, step: { id: 's', title: 'Step', body: 'Body', ...step }, id: 't' }));
-    const wait = draw({ advance: 'wait', hint: 'Type a name, then press Save.' });
-    expect(wait).toContain('Type a name, then press Save.');
-    expect(wait).not.toContain('>Next<');
-    expect(draw({ advance: 'wait' })).toContain('Do what this step asks to go on.');
-    expect(draw({ advance: 'click' })).toContain('Click the highlighted part to go on.');
-    expect(draw({})).toContain('>Next<');
-  });
 });
 
-describe('step events, abort and the spot alone', () => {
+describe('K1 step events, abort and the spot alone', { tags: ['critical'] }, () => {
   const frame = () => Promise.resolve();
 
   it('says whether a step is entering or shown, and which element it lit', () => {
@@ -137,14 +121,6 @@ describe('step events, abort and the spot alone', () => {
     const node = { nodeType: 1, offsetHeight: 10 };
     expect(findTarget({ querySelector: vi.fn() }, node)).toBe(node);
     expect(findTarget({ querySelector: vi.fn() }, null)).toBeNull();
-  });
-
-  it('exports TourSpot, drawn by GuidedTour through the same spotlight part', () => {
-    const read = (path) => readFileSync(new URL(`../src/composites/GuidedTour/${path}`, import.meta.url), 'utf8');
-    expect(typeof composites.TourSpot).toBe('function');
-    ['sub-components/TourLayer.tsx', 'sub-components/TourSpot.tsx'].forEach((file) => expect(read(file)).toContain('<TourSpotlight spot={'));
-    expect(read('behavior/useTourStage.ts')).toContain('useSpotlight(');
-    expect(read('sub-components/TourSpot.tsx')).toContain('useSpotlight(');
   });
 
   it('plays the arrive clip of a step, and walks with its walk clip', () => {

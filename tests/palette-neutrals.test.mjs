@@ -42,7 +42,7 @@ const PAIRS = Object.entries(RESOLVED).flatMap(([palette, tokens]) =>
     return { palette, ink, ground, ratio, shown: ratio.toFixed(2) };
   })));
 
-describe('the optional neutral seeds of a palette', () => {
+describe('S2 the optional neutral seeds of a palette', { tags: ['standard'] }, () => {
   it.each(Object.entries(NEUTRAL_SEEDS))('%s, when a palette sets it, is the value of %s', (seed, role) => {
     const setters = Object.entries(SEEDS).filter(([, seeds]) => seeds.has(seed));
     for (const [palette, seeds] of setters) expect(parseColour(RESOLVED[palette].get(role))).toEqual(parseColour(seeds.get(seed)));

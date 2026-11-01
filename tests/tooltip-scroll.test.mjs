@@ -21,7 +21,7 @@ const mount = () => {
   return { doc, view, move };
 };
 
-describe('a tooltip under a pointer that did not move', () => {
+describe('K1 a tooltip under a pointer that did not move', { tags: ['critical'] }, () => {
   it('stays closed when content scrolls under the pointer', () => {
     const { view, move } = mount();
     move(40, 50);
@@ -47,7 +47,7 @@ describe('a tooltip under a pointer that did not move', () => {
   });
 });
 
-describe('a tooltip open while the page scrolls', () => {
+describe('K1 a tooltip open while the page scrolls', { tags: ['critical'] }, () => {
   it('closes a hover tooltip on a scroll anywhere, and listens only while it is open', () => {
     const { doc, view, move } = mount();
     expect(doc.listeners.has('scroll')).toBe(false);

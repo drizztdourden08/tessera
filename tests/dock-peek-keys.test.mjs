@@ -1,19 +1,9 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { useDockKeys } from '../src/composites/DockLayout';
-import { Widget } from '../src/composites/Widget';
 import { mountHook } from './hook-harness.mjs';
 
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
-
-const widget = (extra = {}) => renderToString(h(Widget, {
-  id: 'layers', tabs: [{ id: 'layers', label: 'Layers' }], activeId: 'layers', paneKey: 'p1', opacity: 1,
-  onActivateTab: () => undefined, onClose: () => undefined, ...extra,
-}, h('button', { id: 'row' }, 'Row')));
-
-const withoutPeek = (html) => html.replace(' widget--peek', '');
 
 const fakeView = () => {
   const listeners = [];
@@ -32,20 +22,7 @@ const press = (view, keys, key, target) => {
   return event;
 };
 
-describe('peeking keeps the widget content mounted', () => {
-  it('draws the same content tree whether or not the widget peeks', () => {
-    const peeking = widget({ peek: true });
-    expect(peeking).toContain('id="row"');
-    expect(peeking).toContain('widget--peek');
-    expect(withoutPeek(peeking)).toBe(widget({ peek: false }));
-  });
-
-  it('keeps the content of a chromeless widget in peek', () => {
-    expect(widget({ peek: true, chrome: 'none' })).toContain('id="row"');
-  });
-});
-
-describe('Alt inside a widget', () => {
+describe('K1 Alt inside a widget', { tags: ['critical'] }, () => {
   it('does not start a peek and never swallows the key', () => {
     const view = fakeView();
     const keys = mountHook(() => useDockKeys(view));

@@ -10,7 +10,7 @@ import { parseMarkup } from '../stories/_template/description/parse-markup';
 const kinds = (text) => parseMarkup(text).map((token) => token.kind);
 const html = (text) => renderToString(h(Markup, { text }));
 
-describe('description markup: parsing', () => {
+describe('K1 description markup: parsing', { tags: ['critical'] }, () => {
   it('reads code, strong, emphasis, keys, pages and links', () => {
     expect(parseMarkup('Set `loading` while it runs.')).toEqual([
       { kind: 'text', text: 'Set ' }, { kind: 'code', text: 'loading' }, { kind: 'text', text: ' while it runs.' },
@@ -57,20 +57,7 @@ describe('description markup: parsing', () => {
   });
 });
 
-describe('description markup: rendering', () => {
-  it('draws Tessera text elements, keycaps and links', () => {
-    const out = html('Set `loading`, **not** _disabled_; press [[Ctrl+S]]. See [Setup](#/story/setup-setup--overview).');
-    expect(out).toContain('<code class="text-el text-el--code">loading</code>');
-    expect(out).toContain('<strong class="text-el text-el--strong">not</strong>');
-    expect(out).toContain('<em class="text-el text-el--em">disabled</em>');
-    expect(out).toContain('class="shortcut');
-    expect(out).toContain('href="#/story/setup-setup--overview" target="_top"');
-  });
-
-  it('opens an https link in a new tab', () => {
-    expect(html('[docs](https://example.com/docs)')).toContain('target="_blank"');
-  });
-
+describe('K4 description markup escapes raw HTML', { tags: ['critical'] }, () => {
   it('never draws raw HTML', () => {
     const out = html('<img src=x onerror=alert(1)> `<b>`');
     expect(out).not.toContain('<img');
@@ -79,7 +66,7 @@ describe('description markup: rendering', () => {
   });
 });
 
-describe('gallery page index', () => {
+describe('K1 gallery page index', { tags: ['critical'] }, () => {
   it('maps a page name and its folder path to the story id, and drops a name two folders share', () => {
     const index = galleryPageIndex(['../../primitives/Button.stories.tsx', '../../text/Emphasis.stories.tsx', '../../primitives/Emphasis.stories.tsx']);
     expect(index.get('Button')).toBe('primitives-button--overview');

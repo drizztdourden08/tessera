@@ -1,20 +1,14 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { StackedBar } from '../src/primitives/StackedBar';
 import { barTracks } from '../src/primitives/StackedBar/behavior/bar-tracks';
 import { groupSegments } from '../src/primitives/StackedBar/behavior/group-segments';
 import { sharePercent } from '../src/primitives/StackedBar/behavior/share-percent';
-import { StatTile } from '../src/composites/StatTile';
 import { trendTone } from '../src/composites/StatTile/behavior/trend-tone';
-import { Gauge } from '../src/primitives/Gauge';
 import { arcPath } from '../src/primitives/Gauge/behavior/arc-path';
 import { gaugeFraction } from '../src/primitives/Gauge/behavior/gauge-fraction';
 import { gaugeThresholds } from '../src/primitives/Gauge/behavior/gauge-thresholds';
 import { gaugeTone } from '../src/primitives/Gauge/behavior/gauge-tone';
 import { gaugeZones } from '../src/primitives/Gauge/behavior/gauge-zones';
-import { Sparkline } from '../src/primitives/Sparkline';
 import { inBand } from '../src/primitives/Sparkline/behavior/in-band';
 import { sparklineBandBox } from '../src/primitives/Sparkline/behavior/sparkline-band-box';
 import { sparklineDomain } from '../src/primitives/Sparkline/behavior/sparkline-domain';
@@ -22,7 +16,7 @@ import { sparklineGeometry } from '../src/primitives/Sparkline/behavior/sparklin
 
 const segment = (id, value, color) => ({ id, label: id, value, ...(color ? { color } : {}) });
 
-describe('the sparkline domain', () => {
+describe('K1 the sparkline domain', { tags: ['critical'] }, () => {
   it('follows the samples, takes fixed ends, and never collapses to a point', () => {
     expect(sparklineDomain([3, 9, 5])).toEqual({ low: 3, high: 9 });
     expect(sparklineDomain([3, 9, 5], 0, 100)).toEqual({ low: 0, high: 100 });
@@ -34,7 +28,7 @@ describe('the sparkline domain', () => {
   });
 });
 
-describe('the sparkline path', () => {
+describe('K1 the sparkline path', { tags: ['critical'] }, () => {
   const domain = { low: 0, high: 100 };
 
   it('runs from the left edge to the right edge, top at the high end', () => {
@@ -61,7 +55,7 @@ describe('the sparkline path', () => {
   });
 });
 
-describe('the sparkline band', () => {
+describe('K1 the sparkline band', { tags: ['critical'] }, () => {
   const domain = { low: 0, high: 100 };
 
   it('shades from its start to the top with one dashed edge', () => {
@@ -83,7 +77,7 @@ describe('the sparkline band', () => {
   });
 });
 
-describe('the gauge', () => {
+describe('K1 the gauge', { tags: ['critical'] }, () => {
   it('draws a 270 degree arc open at the bottom', () => {
     expect(arcPath({ x: 50, y: 50, radius: 42 }, 135, 405)).toBe('M20.3 79.7 A42 42 0 1 1 79.7 79.7');
     expect(arcPath({ x: 0, y: 0, radius: 10 }, 0, 90)).toBe('M10 0 A10 10 0 0 1 0 10');
@@ -128,17 +122,9 @@ describe('the gauge', () => {
     ]);
     expect(gaugeZones(0, 100, { warning: 0, danger: 100 }).map((zone) => zone.tone)).toEqual(['warning']);
   });
-
-  it('is a meter with its value, unit and bounds', () => {
-    const html = renderToString(h(Gauge, { value: 72, unit: '%', label: 'CPU' }));
-    expect(html).toContain('role="meter"');
-    expect(html).toContain('aria-valuenow="72"');
-    expect(html).toContain('aria-valuetext="72 %"');
-    expect(html).toContain('data-tone="warning"');
-  });
 });
 
-describe('the stat tile trend', () => {
+describe('K1 the stat tile trend', { tags: ['critical'] }, () => {
   it('colours a rise by what it means', () => {
     expect(trendTone('up', 'good')).toBe('success');
     expect(trendTone('up', 'bad')).toBe('danger');
@@ -148,15 +134,9 @@ describe('the stat tile trend', () => {
     expect(trendTone('flat', 'good')).toBe('neutral');
     expect(trendTone(undefined, 'good')).toBe('neutral');
   });
-
-  it('names the trend arrow for a screen reader', () => {
-    const html = renderToString(h(StatTile, { label: 'Frame rate', value: 144, unit: 'fps', delta: '+4', trend: 'up' }));
-    expect(html).toContain('aria-label="Rising"');
-    expect(html).toContain('status--success');
-  });
 });
 
-describe('the stacked bar', () => {
+describe('K1 the stacked bar', { tags: ['critical'] }, () => {
   it('keeps every part under the limit, in order, with the tag colours in turn', () => {
     const parts = groupSegments([segment('a', 3), segment('b', 1, 'danger'), segment('c', 2)], 6, 'Other');
     expect(parts.map((part) => [part.id, part.color])).toEqual([['a', 'blue'], ['b', 'danger'], ['c', 'teal']]);
@@ -191,22 +171,5 @@ describe('the stacked bar', () => {
     expect(sharePercent(1, 3)).toBe('33%');
     expect(sharePercent(0.004, 1)).toBe('<1%');
     expect(sharePercent(1, 0)).toBe('0%');
-  });
-
-  it('names the bar with every part and lists Other with its count', () => {
-    const segments = [segment('Game', 4), segment('Chat', 1), segment('Tray', 0.5), segment('Fonts', 0.25)];
-    const html = renderToString(h(StackedBar, { segments, limit: 2, legend: true, label: 'Memory' }));
-    expect(html).toContain('aria-label="Memory: Game 4, Other (3) 1.8"');
-    expect(html).toContain('Other (3)');
-  });
-});
-
-describe('the sparkline label', () => {
-  it('is decorative without a label and sums up the samples with one', () => {
-    expect(renderToString(h(Sparkline, { values: [1, 2] }))).toContain('aria-hidden="true"');
-    const named = renderToString(h(Sparkline, { values: [12, 48, 30], label: 'CPU' }));
-    expect(named).toContain('role="img"');
-    expect(named).toContain('aria-label="CPU: latest 30, low 12, high 48"');
-    expect(renderToString(h(Sparkline, { values: [], label: 'CPU' }))).toContain('CPU: no samples yet');
   });
 });

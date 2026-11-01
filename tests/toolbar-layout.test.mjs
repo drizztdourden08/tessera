@@ -5,7 +5,7 @@ import {
 } from '../src/composites/ToolbarDock';
 import { DEFS, bar, def, fullDefs, v2 } from './fixtures/toolbar-dock/toolbar-layout-kit.mjs';
 
-describe('constants', () => {
+describe('K1 constants', { tags: ['critical'] }, () => {
   it('names the model version and the lane limits', () => {
     expect(TOOLBAR_LAYOUT_V).toBe(2);
     expect(MAX_LANES).toBe(2);
@@ -14,7 +14,7 @@ describe('constants', () => {
   });
 });
 
-describe('createToolbarLayout', () => {
+describe('K1 createToolbarLayout', { tags: ['critical'] }, () => {
   it('places shown toolbars on their default side as full-width lanes and hides the rest', () => {
     const layout = createToolbarLayout(DEFS);
     expect(layout.v).toBe(2);
@@ -45,7 +45,7 @@ describe('createToolbarLayout', () => {
   });
 });
 
-describe('placeToolbar', () => {
+describe('K1 placeToolbar', { tags: ['critical'] }, () => {
   it('places a toolbar and returns the new layout, or null when no side has room', () => {
     const layout = createToolbarLayout(DEFS);
     const placed = placeToolbar(layout, 'd', DEFS[3]);
@@ -56,7 +56,7 @@ describe('placeToolbar', () => {
   });
 });
 
-describe('toolbarIdsOf', () => {
+describe('K1 toolbarIdsOf', { tags: ['critical'] }, () => {
   it('lists the ids of a side lane by lane, each lane by start', () => {
     const layout = migrateToolbarLayout(v2({ top: [[bar('b', 0.5, 0.5), bar('a', 0, 0.5)], [bar('c')]] }), [def('a', 'top'), def('b', 'top'), def('c', 'top')]);
     expect(toolbarIdsOf(layout, 'top')).toEqual(['a', 'b', 'c']);
@@ -64,7 +64,7 @@ describe('toolbarIdsOf', () => {
   });
 });
 
-describe('moveToolbar', () => {
+describe('K1 moveToolbar', { tags: ['critical'] }, () => {
   it('moves to another side with room as a full-width lane and records last', () => {
     const next = moveToolbar(createToolbarLayout(DEFS), 'a', 'right', 0);
     expect(toolbarIdsOf(next, 'top')).toEqual(['b']);
@@ -101,7 +101,7 @@ describe('moveToolbar', () => {
   });
 });
 
-describe('toolbarOrientation', () => {
+describe('K1 toolbarOrientation', { tags: ['critical'] }, () => {
   it('is horizontal on top and bottom, vertical on left and right', () => {
     expect(toolbarOrientation('top')).toBe('horizontal');
     expect(toolbarOrientation('bottom')).toBe('horizontal');

@@ -13,7 +13,7 @@ const close = (actual, expected) => {
   actual.forEach((size, i) => expect(size).toBeCloseTo(expected[i], 10));
 };
 
-describe('resizeSplit without a minimum reached', () => {
+describe('K1 resizeSplit without a minimum reached', { tags: ['critical'] }, () => {
   it('moves only the two neighbours, as before', () => {
     const tree = rowOf([0.3, 0.4, 0.3]);
     close(push(tree, 0, 0.1).sizes, [0.4, 0.3, 0.3]);
@@ -26,7 +26,7 @@ describe('resizeSplit without a minimum reached', () => {
   });
 });
 
-describe('resizeSplit pushing', () => {
+describe('K1 resizeSplit pushing', { tags: ['critical'] }, () => {
   it('shrinks the second sibling once the first reaches its minimum', () => {
     const tree = rowOf([0.3, 0.3, 0.4]);
     const next = push(tree, 0, 0.3 - MIN_SIZE + 0.1);
@@ -64,7 +64,7 @@ describe('resizeSplit pushing', () => {
   });
 });
 
-describe('resizeSplit within one gesture', () => {
+describe('K1 resizeSplit within one gesture', { tags: ['critical'] }, () => {
   const tree = rowOf([0.2, 0.3, 0.3, 0.2]);
   const origin = (delta) => ({ sizes: tree.sizes, delta });
 
@@ -87,7 +87,7 @@ describe('resizeSplit within one gesture', () => {
   });
 });
 
-describe('dividerRange', () => {
+describe('K1 dividerRange', { tags: ['critical'] }, () => {
   const along = 1000;
   const rangeOf = (node, index) => dividerRange({ node, index, rect: {}, along });
 

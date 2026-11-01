@@ -19,7 +19,7 @@ const fakeDocument = () => {
 
 const layer = (held = []) => ({ close: vi.fn(), holds: (node) => held.includes(node) });
 
-describe('the popup stack', () => {
+describe('K1 the popup stack', { tags: ['critical'] }, () => {
   it('leaves Escape to the shared Escape stack and binds no key of its own', () => {
     const doc = fakeDocument();
     const panel = layer();
@@ -31,7 +31,7 @@ describe('the popup stack', () => {
   });
 });
 
-describe('a press inside a nested popup', () => {
+describe('K1 a press inside a nested popup', { tags: ['critical'] }, () => {
   it('counts as inside for every popup under it, not for the ones above', () => {
     const doc = fakeDocument();
     const option = {};
@@ -61,7 +61,7 @@ const pageDocument = () => {
   return doc;
 };
 
-describe('open popups and the window', () => {
+describe('K1 open popups and the window', { tags: ['critical'] }, () => {
   it('flags the page while any popup is open, so drag regions let clicks through', () => {
     const doc = pageDocument();
     const leaveMenu = enterLayer(doc, layer());

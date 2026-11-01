@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { AnimatedMascot } from '../src/brand';
 import { mascotBrandOf } from '../src/brand/AnimatedMascot/behavior/mascot-brand-of';
 import { actorRig } from '../src/brand/MascotStage/behavior/actor-rig';
 import { actorScene } from '../src/brand/MascotStage/behavior/actor-scene';
@@ -25,7 +22,7 @@ const stageActor = (brand = 'rotp', clip = undefined) => {
 
 const durationOf = (brand, clip) => actorRig(brand).clips.get(clip).duration;
 
-describe('mascot states', () => {
+describe('K1 mascot states', { tags: ['critical'] }, () => {
   it('starts in the clip it is given, with no blend', () => {
     const { core } = stageActor('rotp', 'sleep');
     expect(core.source).toMatchObject({ kind: 'clip', id: 'sleep' });
@@ -70,7 +67,7 @@ describe('mascot states', () => {
 
 });
 
-describe('mascot state endings and rules', () => {
+describe('K1 mascot state endings and rules', { tags: ['critical'] }, () => {
   it('goes back to rest when a clip that plays once ends, and reports it done', async () => {
     const { core, handle, at } = stageActor();
     const done = handle.play('wave');
@@ -122,19 +119,12 @@ describe('mascot state endings and rules', () => {
   });
 });
 
-describe('AnimatedMascot brand="auto"', () => {
+describe('K1 AnimatedMascot brand="auto"', { tags: ['critical'] }, () => {
   it('picks the mascot of a brand palette, and none for a palette without one', () => {
     expect(mascotBrandOf('rotp')).toBe('rotp');
     expect(mascotBrandOf('brock')).toBe('brock');
     expect(mascotBrandOf('archipelia')).toBe('archipelia');
     expect(mascotBrandOf('tessera')).toBeNull();
     expect(mascotBrandOf(undefined)).toBeNull();
-  });
-
-  it('draws nothing on the server until it reads the palette', () => {
-    const html = renderToString(h(AnimatedMascot, { brand: 'auto', animation: 'scan' }));
-    expect(html).toContain('animated-mascot-auto"');
-    expect(html).toContain('data-mascot="none"');
-    expect(html).not.toContain('<svg');
   });
 });

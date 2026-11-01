@@ -21,7 +21,7 @@ const dialogOf = (children) => element('dialog', {
   contains: (node) => children.includes(node),
 });
 
-describe('Tab inside a dialog', () => {
+describe('K1 Tab inside a dialog', { tags: ['critical'] }, () => {
   const stops = ['close', 'cancel', 'delete'];
   const step = (active, backwards = false, inside = true) => tabTarget({ stops, active, backwards, container: 'dialog', inside });
 
@@ -56,7 +56,7 @@ describe('Tab inside a dialog', () => {
   });
 });
 
-describe('focus on open', () => {
+describe('K1 focus on open', { tags: ['critical'] }, () => {
   const close = element('close', { header: true });
   const cancel = element('cancel');
   const confirm = element('confirm');
@@ -95,7 +95,7 @@ describe('focus on open', () => {
   });
 });
 
-describe('focus on close', () => {
+describe('K1 focus on close', { tags: ['critical'] }, () => {
   const docWith = (active) => ({ body: { name: 'body' }, activeElement: active });
 
   it('returns focus to the opener when focus was inside the dialog or lost', () => {
@@ -116,7 +116,7 @@ describe('focus on close', () => {
   });
 });
 
-describe('dialogs over dialogs', () => {
+describe('K1 dialogs over dialogs', { tags: ['critical'] }, () => {
   it('treats only the dialog opened last as the top one', () => {
     const doc = {};
     const wizard = element('wizard');

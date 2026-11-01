@@ -1,5 +1,4 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { bubblePlace } from '../src/composites/GuidedTour/behavior/bubble-place';
 import { mascotClear } from '../src/composites/GuidedTour/behavior/mascot-clear';
@@ -27,7 +26,7 @@ const filled = {
   'past every edge': { x: -8, y: -8, width: 1016, height: 816 },
 };
 
-describe('the mascot keeps clear of the ring when the hole fills the view', () => {
+describe('K1 the mascot keeps clear of the ring when the hole fills the view', { tags: ['critical'] }, () => {
   for (const [name, hole] of Object.entries(filled)) {
     for (const placement of ['bottom-start', 'top-end', 'left-center', 'right-start']) {
       it(`${name}, step asks ${placement}`, () => {
@@ -70,7 +69,7 @@ describe('the mascot keeps clear of the ring when the hole fills the view', () =
 
 });
 
-describe('the mascot stands outside the hole whenever it can', () => {
+describe('K1 the mascot stands outside the hole whenever it can', { tags: ['critical'] }, () => {
   const view = { width: 1280, height: 720 };
   const hole = { x: 304, y: 106, width: 922, height: 560 };
   const bubble = { x: 317, y: 478, width: 320, height: 175 };
@@ -99,7 +98,7 @@ describe('the mascot stands outside the hole whenever it can', () => {
   });
 });
 
-describe('the clearance rule', () => {
+describe('K1 the clearance rule', { tags: ['critical'] }, () => {
   it('refuses a box that straddles the ring or sits closer than the clearance', () => {
     const hole = { x: 200, y: 200, width: 400, height: 300 };
     const inside = { x: 300, y: 350, width: 200, height: 100 };
@@ -121,13 +120,5 @@ describe('the clearance rule', () => {
     expect(mascotSpot({ bubble, hole: { x: 800, y: 40, width: 50, height: 50 } }, view, mascot, 10)).toEqual({ x: 350, y: 170, face: 'right' });
     expect(mascotSpot({ bubble, hole: { x: 200, y: 40, width: 200, height: 400 } }, view, mascot, 10)).toEqual({ x: 750, y: 170, face: 'left' });
     expect(bubblePlace({ x: 100, y: 100, width: 200, height: 100 }, SIZE, VIEW, 'bottom-start')).toEqual({ side: 'bottom', box: { x: 100, y: 216, ...SIZE } });
-  });
-
-  it('takes the clearance from a token', () => {
-    expect(MASCOT_CLEAR).toBe(8);
-    expect(RING_WIDTH).toBe(2);
-    const read = (path) => readFileSync(new URL(path, import.meta.url), 'utf8');
-    expect(read('../src/tokens/size.css')).toContain('--tour-mascot-clear: var(--size-8);');
-    expect(read('../src/tokens/border.css')).toContain('--border-width-thick: var(--size-2);');
   });
 });

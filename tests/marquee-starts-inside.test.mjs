@@ -5,7 +5,7 @@ import { startsInside } from '../src/composites/marquee/starts-inside';
 const node = (name, popup = false) => ({ nodeType: 1, name, closest: () => (popup ? {} : null) });
 const box = (...inside) => ({ contains: (target) => inside.includes(target) });
 
-describe('a marquee starts only from inside its box', () => {
+describe('K1 a marquee starts only from inside its box', { tags: ['critical'] }, () => {
   it('starts from an element the box contains', () => {
     const cell = node('cell');
     expect(startsInside(box(cell), cell)).toBe(true);

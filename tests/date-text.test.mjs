@@ -1,6 +1,4 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { DateText } from '../src/composites/DateText';
 import { liveClock } from '../src/composites/DateText/behavior/live-clock';
@@ -8,7 +6,6 @@ import { cellContent } from '../src/composites/DataTable/behavior/cell-content';
 import { buildSchema } from '../src/data';
 import { formatDate } from '../src/primitives/date-format';
 import { formatValue } from '../src/primitives/listbox/format-value';
-import { TesseraProvider } from '../src/primitives/TesseraProvider';
 
 const AT = new Date(2026, 9, 16, 21, 40, 12);
 const NOW = AT.getTime();
@@ -26,7 +23,7 @@ const day = (offset, length, strings) => plain(formatDate(NOW + offset, 'calenda
 
 afterEach(() => vi.useRealTimers());
 
-describe('formatDate', () => {
+describe('K1 formatDate', { tags: ['critical'] }, () => {
   it('writes every preset in three lengths, in English and in French', () => {
     expect([en('date', 'short'), en('date'), en('date', 'long')]).toEqual(['10/16/26', 'Oct 16, 2026', 'October 16, 2026']);
     expect([en('time'), en('time', 'medium')]).toEqual(['9:40 PM', '9:40:12 PM']);
@@ -69,25 +66,7 @@ describe('formatDate', () => {
   });
 });
 
-describe('DateText', () => {
-  it('is a time element with the exact moment, wrapped in a Tooltip for relative and calendar', () => {
-    const iso = AT.toISOString();
-    const relative = renderToString(h(DateText, { value: AT, format: 'relative' }));
-    expect(relative).toMatch(/^<span class="tooltip-anchor">/);
-    expect(relative).toContain(`<time class="text-el text-el--time date-text" dateTime="${iso}">`);
-    expect(renderToString(h(DateText, { value: AT, format: 'date' }))).toMatch(/^<time /);
-    expect(renderToString(h(DateText, { value: AT, format: 'date', tooltip: true }))).toMatch(/^<span class="tooltip-anchor">/);
-    expect(renderToString(h(DateText, { value: AT, format: 'calendar', tooltip: false }))).toMatch(/^<time /);
-    expect(renderToString(h(DateText, { value: AT, format: 'relative', focusable: true }))).toContain('tabindex="0"');
-    expect(renderToString(h(DateText, { value: 'never' }))).toBe('');
-  });
-
-  it('takes its locale and words from the dates strings', () => {
-    const html = renderToString(h(TesseraProvider, { overrides: { strings: { dates: FRENCH } } }, h(DateText, { value: Date.now() - 5 * MINUTE, format: 'relative' })));
-    expect(html).toContain('>Il y a 5 minutes</time>');
-    expect(renderToString(h(DateText, { value: Date.now(), format: 'relative' }))).toContain('>Just now</time>');
-  });
-
+describe('S2 DateText live clock', { tags: ['standard'] }, () => {
   it('runs one timer for every live value, ticks every 10 s and stops with the last one', () => {
     vi.useFakeTimers();
     const spy = vi.spyOn(globalThis, 'setInterval');

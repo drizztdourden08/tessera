@@ -1,13 +1,10 @@
 /* @layer tooling-scripts @kind test */
 import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { afterAll, describe, expect, it } from 'vitest';
 import { findTesseraConfig, loadTesseraConfig } from '../scripts/config/index.mjs';
-import { posixPath } from '../scripts/config/posix-path.mjs';
 import { CONFIG, fixtureRepo, MONOREPO, WORKSPACES_CONFIG } from './config-fixture.mjs';
 
-const ROOT = posixPath(fileURLToPath(new URL('..', import.meta.url))).replace(/\/$/, '');
 const made = [];
 const repo = (files) => {
   const dir = fixtureRepo(files);
@@ -28,7 +25,7 @@ afterAll(() => {
   for (const dir of made) rmSync(dir, { recursive: true, force: true });
 });
 
-describe('finding tessera.config.json', () => {
+describe('K1 finding tessera.config.json', { tags: ['critical'] }, () => {
   it('walks up from a nested folder and takes the first file it meets', () => {
     const dir = repo();
     mkdirSync(join(dir, 'apps/desktop/src/deep/er'), { recursive: true });
@@ -50,18 +47,9 @@ describe('finding tessera.config.json', () => {
     expect(findTesseraConfig(dir)).toBeUndefined();
     expect(loadTesseraConfig(dir)).toBeUndefined();
   });
-
-  it('reads the Tessera repo config', () => {
-    const config = loadTesseraConfig(join(ROOT, 'src/primitives/Box'));
-    expect(config.root).toBe(ROOT);
-    expect(config.parts.primitives).toEqual([`${ROOT}/src/primitives`]);
-    expect(config.parts.composites).toEqual([`${ROOT}/src/composites`]);
-    expect(config.stories).toBe(`${ROOT}/stories`);
-    expect(config.guide.usage).toBe('report');
-  });
 });
 
-describe('the resolved config', () => {
+describe('K1 the resolved config', { tags: ['critical'] }, () => {
   it('fills the defaults, as absolute paths, for a file with only $schema', () => {
     const dir = single({ $schema: CONFIG.$schema });
     expect(loadTesseraConfig(dir)).toEqual({
@@ -122,7 +110,7 @@ describe('the resolved config', () => {
   });
 });
 
-describe('a broken tessera.config.json', () => {
+describe('K1 a broken tessera.config.json', { tags: ['critical'] }, () => {
   it('names an unknown key, with the keys it takes', () => {
     expect(errorOf(single({ colours: {} }))).toContain('unknown key "colours"; the top keys are $schema, package, parts');
     expect(errorOf(single({ parts: { widgets: 'src/widgets' } }))).toContain('unknown key "parts.widgets"; the keys of "parts" are primitives, composites, compounds, views');

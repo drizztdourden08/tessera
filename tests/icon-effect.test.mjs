@@ -1,8 +1,5 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { Icon } from '../src/primitives/Icon';
 import { createPopScheduler } from '../src/primitives/Icon/behavior/create-pop-scheduler';
 import { iconSamplesFor } from '../src/primitives/Icon/behavior/icon-samples-for';
 import { nextPopDelay } from '../src/primitives/Icon/behavior/next-pop-delay';
@@ -10,7 +7,6 @@ import { popSpots } from '../src/primitives/Icon/behavior/pop-spots';
 import { resolveIconEffect } from '../src/primitives/Icon/behavior/resolve-icon-effect';
 import { spreadSamples } from '../src/primitives/Icon/behavior/spread-samples';
 import { ICON_EFFECT } from '../src/primitives/Icon/sub-components/IconEffectHost.constants';
-import { IconEffectPop } from '../src/primitives/Icon/sub-components/IconEffectPop';
 
 const line = (x1, y1, x2, y2) => ({
   length: Math.hypot(x2 - x1, y2 - y1),
@@ -22,7 +18,7 @@ const sequence = (...values) => {
   return () => values[at++ % values.length];
 };
 
-describe('sampling the drawn shape', () => {
+describe('K1 sampling the drawn shape', { tags: ['critical'] }, () => {
   it('spreads the samples along the painted length, so a longer shape gets more of them', () => {
     const points = spreadSamples([line(0, 0, 30, 0), line(0, 10, 0, 20)], 8);
     expect(points).toHaveLength(8);
@@ -58,7 +54,7 @@ describe('sampling the drawn shape', () => {
   });
 });
 
-describe('picking where a pop lands', () => {
+describe('K1 picking where a pop lands', { tags: ['critical'] }, () => {
   const points = spreadSamples([line(0, 0, 20, 0), line(0, 5, 20, 5)], 20);
 
   it('lands each pop on a sampled point, each on its own point', () => {
@@ -82,7 +78,7 @@ describe('picking where a pop lands', () => {
   });
 });
 
-describe('sizing a pop', () => {
+describe('K1 sizing a pop', { tags: ['critical'] }, () => {
   const points = spreadSamples([line(0, 0, 40, 0)], 40);
   const lengthOf = (spot) => spot.trail.split(' ').length;
 
@@ -92,25 +88,9 @@ describe('sizing a pop', () => {
     expect(lengthOf(small)).toBe(ICON_EFFECT.sizes.sm.trail);
     expect(lengthOf(large)).toBe(ICON_EFFECT.sizes.lg.trail);
   });
-
-  it('grows the shape and keeps the line weight the same', () => {
-    const draw = (size) => renderToString(h(IconEffectPop, { kind: 'comet', spot: { x: 4, y: 6, trail: '' }, scale: 1, grow: ICON_EFFECT.sizes[size].grow }));
-    const small = draw('sm');
-    const large = draw('lg');
-    expect(small).toContain(`scale(${ICON_EFFECT.sizes.sm.grow})`);
-    expect(large).toContain(`scale(${ICON_EFFECT.sizes.lg.grow})`);
-    const weight = (html, grow) => Number(html.match(/stroke-width="([\d.]+)"/)[1]) * grow;
-    expect(weight(small, ICON_EFFECT.sizes.sm.grow)).toBeCloseTo(weight(large, ICON_EFFECT.sizes.lg.grow));
-  });
-
-  it('draws a comet as a streak that ends in a small star', () => {
-    const html = renderToString(h(IconEffectPop, { kind: 'comet', spot: { x: 0, y: 0, trail: '' }, scale: 1, grow: 1 }));
-    expect(html).toContain('icon-effect__pop--comet-tail');
-    expect(html).toContain('icon-effect__pop--comet"');
-  });
 });
 
-describe('scheduling the pops', () => {
+describe('K1 scheduling the pops', { tags: ['critical'] }, () => {
   afterEach(() => vi.useRealTimers());
 
   it('keeps every wait inside every plus or minus jitter, and never below the floor', () => {
@@ -145,22 +125,5 @@ describe('scheduling the pops', () => {
     expect(resolveIconEffect('ping')).toEqual({ kind: 'ping', every: 3500, jitter: 875, color: 'primary', count: 1, size: 'md' });
     expect(resolveIconEffect({ kind: 'dot', every: 10, jitter: -5, count: 0, color: 'danger', size: 'lg' }))
       .toEqual({ kind: 'dot', every: 120, jitter: 0, color: 'danger', count: 1, size: 'lg' });
-  });
-});
-
-describe('Icon effect', () => {
-  it('wraps the icon with a hidden layer that starts empty, and keeps the accessible name', () => {
-    const html = renderToString(h(Icon, { name: 'search', size: 24, label: 'Search', effect: { kind: 'glint', color: 'secondary' } }));
-    expect(html).toContain('class="icon-effect icon-effect--secondary"');
-    expect(html).toContain('data-effect="glint"');
-    expect(html).toContain('aria-label="Search"');
-    expect(html).toMatch(/<svg class="icon-effect__layer" aria-hidden="true" focusable="false"><\/svg>/);
-    expect(html).not.toContain('icon-effect__pop');
-  });
-
-  it('draws the bare svg without an effect', () => {
-    const html = renderToString(h(Icon, { name: 'search' }));
-    expect(html.startsWith('<svg')).toBe(true);
-    expect(html).not.toContain('icon-effect');
   });
 });

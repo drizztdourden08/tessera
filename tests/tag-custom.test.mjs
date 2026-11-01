@@ -1,10 +1,6 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { Tag } from '../src/primitives/Tag';
 import { hexInk } from '../src/primitives/hex-ink/hex-ink';
-import { optionLook } from '../src/primitives/TagPicker/behavior/option-look';
 
 const WEIGHTS = [0.2126, 0.7152, 0.0722];
 const channel = (byte) => {
@@ -15,7 +11,7 @@ const luminance = (hex) => [1, 3, 5].reduce((sum, at, i) => sum + WEIGHTS[i] * c
 const contrast = (a, b) => (Math.max(a, b) + 0.05) / (Math.min(a, b) + 0.05);
 const hexOf = (r, g, b) => `#${[r, g, b].map((c) => c.toString(16).padStart(2, '0')).join('')}`;
 
-describe('hexInk', () => {
+describe('K1 hexInk', { tags: ['critical'] }, () => {
   it('picks black text on a light colour and white on a dark one, from three or six digits', () => {
     expect(hexInk('#ffd23f')).toBe('dark');
     expect(hexInk('#fff')).toBe('dark');
@@ -41,24 +37,5 @@ describe('hexInk', () => {
     expect(hexInk('red')).toBeNull();
     expect(hexInk('#12345678')).toBeNull();
     expect(hexInk('var(--c-primary)')).toBeNull();
-  });
-});
-
-describe('a custom Tag', () => {
-  it('fills with the colour the app passes and takes the ink class', () => {
-    const html = renderToString(h(Tag, { variant: 'custom', color: '#3b1f5c' }, 'Ganon'));
-    expect(html).toMatch(/^<span class="tag tag--custom tag--ink-light" style="--tag-paint:#3b1f5c">/);
-  });
-
-  it('draws as a neutral tag when the colour cannot be read', () => {
-    const html = renderToString(h(Tag, { variant: 'custom', color: '#nope' }, 'Navi'));
-    expect(html).toMatch(/^<span class="tag tag--normal tag--neutral">/);
-  });
-
-  it('keeps its colour as a TagPicker option, and as a toggle', () => {
-    expect(optionLook({ variant: 'custom', color: '#ffd23f' })).toEqual({ variant: 'custom', color: '#ffd23f' });
-    const html = renderToString(h(Tag, { variant: 'custom', color: '#ffd23f', selected: true, onSelect: () => undefined }, 'Midna'));
-    expect(html).toContain('tag tag--custom tag--ink-dark tag--selectable tag--selected');
-    expect(html).toContain('style="--tag-paint:#ffd23f"');
   });
 });

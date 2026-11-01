@@ -9,7 +9,7 @@ vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(a
 
 const turn = (deltaY, extra = {}) => ({ deltaX: 0, deltaY, shiftKey: false, preventDefault: vi.fn(), ...extra });
 
-describe('wheelStepOf', () => {
+describe('K1 wheelStepOf', { tags: ['critical'] }, () => {
   it('turns a wheel up into a step up and a wheel down into a step down', () => {
     expect(wheelStepOf({ deltaX: 0, deltaY: -120, shiftKey: false })).toEqual({ direction: 1, fine: false });
     expect(wheelStepOf({ deltaX: 0, deltaY: 120, shiftKey: false })).toEqual({ direction: -1, fine: false });
@@ -25,7 +25,7 @@ describe('wheelStepOf', () => {
   });
 });
 
-describe('useWheelStep', () => {
+describe('K1 useWheelStep', { tags: ['critical'] }, () => {
   it('listens without a passive listener, keeps the page still and reports each step', () => {
     const anchor = listenerNode();
     const onStep = vi.fn();

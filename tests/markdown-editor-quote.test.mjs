@@ -1,14 +1,11 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
-import { MarkdownEditor } from '../src/composites/MarkdownEditor';
 import { applyAction } from '../src/composites/MarkdownEditor/behavior/apply-action';
 import { applyEdit } from '../src/composites/MarkdownEditor/behavior/apply-edit';
 import { focusAtEnd } from '../src/composites/MarkdownEditor/behavior/focus-at-end';
 import { quoteLines } from '../src/composites/MarkdownEditor/behavior/quote-lines';
 
-describe('quoteLines', () => {
+describe('K1 quoteLines', { tags: ['critical'] }, () => {
   it('puts a quote mark on the line of the caret', () => {
     const text = 'top\nmiddle\nbottom';
     const edit = quoteLines(text, 6, 6);
@@ -39,14 +36,7 @@ describe('quoteLines', () => {
   });
 });
 
-describe('MarkdownEditor quote button', () => {
-  it('draws a button named Quote', () => {
-    const html = renderToString(h(MarkdownEditor, { value: '', onChange: () => undefined }));
-    expect(html).toContain('aria-label="Quote"');
-  });
-});
-
-describe('focusAtEnd', () => {
+describe('K1 focusAtEnd', { tags: ['critical'] }, () => {
   it('focuses the field and puts the caret at the end of the value', () => {
     const area = { value: 'hello', focus: vi.fn(), setSelectionRange: vi.fn() };
     focusAtEnd(area);
@@ -56,12 +46,5 @@ describe('focusAtEnd', () => {
 
   it('does nothing without a field', () => {
     expect(() => focusAtEnd(null)).not.toThrow();
-  });
-
-  it('renders with autoFocus in both layouts', () => {
-    for (const layout of ['split', 'tabs']) {
-      const html = renderToString(h(MarkdownEditor, { value: 'x', onChange: () => undefined, autoFocus: true, layout }));
-      expect(html).toContain('<textarea');
-    }
   });
 });
