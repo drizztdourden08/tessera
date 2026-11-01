@@ -3,7 +3,14 @@ import path from 'node:path';
 import { runnerImport } from 'vite';
 import { readStoryPages, storyFiles } from './read-story-pages.mjs';
 
-const RUNNER = { configFile: false, logLevel: 'silent' };
+const EMPTY_STYLE = '\0empty-style';
+const emptyStyles = () => ({
+  name: 'empty-styles',
+  enforce: 'pre',
+  resolveId: (id) => (id.endsWith('.css') ? EMPTY_STYLE : null),
+  load: (id) => (id === EMPTY_STYLE ? '' : null),
+});
+const RUNNER = { configFile: false, logLevel: 'silent', plugins: [emptyStyles()] };
 const MIN_PAGES = 150;
 
 const root = process.cwd();
