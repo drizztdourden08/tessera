@@ -6,7 +6,6 @@ import { shortcutRows } from '../src/primitives/Shortcut';
 
 const ignore = () => undefined;
 const SIZE_KEYS = [{ label: 'Smaller', keys: '[' }, { label: 'Larger', keys: ']' }];
-const toggle = (id, extra = {}) => ({ kind: 'toggle', id, label: id, icon: 'eraser', pressed: false, onChange: ignore, ...extra });
 const button = (id, extra = {}) => ({ kind: 'button', id, label: id, icon: 'pencil', onSelect: ignore, ...extra });
 
 const tool = { toggle: vi.fn(), hover: { onMouseEnter: ignore, onMouseLeave: ignore }, onKeyDown: ignore, open: false };

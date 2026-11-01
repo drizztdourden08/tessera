@@ -15,7 +15,8 @@
     ".storylite/review-set.ts",
     ".storylite/review-notes-read.ts",
     ".storylite/review-notes-write.ts",
-    ".storylite/review-note-set.ts"
+    ".storylite/review-note-set.ts",
+    "stories/_template/description/description.constants.ts"
   ],
   "project": [
     "src/**/*.{ts,tsx}",
