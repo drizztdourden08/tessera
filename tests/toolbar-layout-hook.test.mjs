@@ -12,7 +12,7 @@ const mount = (value = LAYOUT) => {
   return { onChange, view };
 };
 
-describe('useToolbarLayout', () => {
+describe('K1 useToolbarLayout', { tags: ['critical'] }, () => {
   it('returns the controlled value as layout', () => {
     expect(mount().view.current.layout).toBe(LAYOUT);
   });

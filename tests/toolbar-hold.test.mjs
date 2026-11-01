@@ -17,7 +17,7 @@ const pressFor = (view, ms, end) => {
   if (end !== undefined) view.act((hold) => hold.handlers[end]());
 };
 
-describe('useHoldOpen', () => {
+describe('K1 useHoldOpen', { tags: ['critical'] }, () => {
   it('opens after the delay and swallows the click that ends the press', () => {
     vi.useFakeTimers();
     const onHold = vi.fn();
@@ -53,7 +53,7 @@ describe('useHoldOpen', () => {
   });
 });
 
-describe('useReleasePick', () => {
+describe('K1 useReleasePick', { tags: ['critical'] }, () => {
   const doc = (hit) => listenerNode({ elementFromPoint: () => hit });
 
   it('clicks the menu item under the pointer when the press is released, once', () => {

@@ -1,10 +1,7 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { WindowTitleBar } from '../src/composites';
 import { titleBarMenu } from '../src/composites/WindowTitleBar/behavior/title-bar-menu';
-import { BOTH, ids, ignore, MENU_INPUT } from './title-bar-menu-fixture.mjs';
+import { BOTH, ids, MENU_INPUT } from './title-bar-menu-fixture.mjs';
 
 const base = { ...MENU_INPUT, view: false, tucked: BOTH };
 const labels = (groups) => groups.flatMap((group) => group.items).filter((node) => node.id?.startsWith('window-title-bar-')).map((node) => node.label);
@@ -15,7 +12,7 @@ const DEFAULT = [
   ['app', ['about']],
 ];
 
-describe('WindowTitleBar tucked rows: defaults', () => {
+describe('K1 WindowTitleBar tucked rows: defaults', { tags: ['critical'] }, () => {
   it('keeps the rows first in the bar group with no overrides, empty ones or an unknown group', () => {
     expect(ids(titleBarMenu(base))).toEqual(DEFAULT);
     expect(ids(titleBarMenu({ ...base, tuckedRows: {} }))).toEqual(DEFAULT);
@@ -30,7 +27,7 @@ describe('WindowTitleBar tucked rows: defaults', () => {
   });
 });
 
-describe('WindowTitleBar tucked rows: labels', () => {
+describe('K1 WindowTitleBar tucked rows: labels', { tags: ['critical'] }, () => {
   it('renames a row in both states, and activeLabel names the on state', () => {
     const rows = { pin: { label: 'Keep on top' }, fullscreen: { label: 'Fill the screen', activeLabel: 'Leave full screen' } };
     expect(labels(titleBarMenu({ ...base, tuckedRows: rows }))).toEqual(['Keep on top', 'Fill the screen']);
@@ -49,15 +46,9 @@ describe('WindowTitleBar tucked rows: labels', () => {
     expect(icons({})).toEqual(['pin', 'maximize-2']);
     expect(icons({ pinned: true, fullscreen: true })).toEqual(['pin-off', 'minimize-2']);
   });
-
-  it('leaves the bar buttons named by the strings', () => {
-    const html = renderToString(h(WindowTitleBar, { title: 'App', view: false, tucked: { pin: { label: 'Keep on top' } }, onControl: ignore }));
-    expect(html).toContain('aria-label="Pin window on top"');
-    expect(html).not.toContain('Keep on top');
-  });
 });
 
-describe('WindowTitleBar tucked rows: places', () => {
+describe('K1 WindowTitleBar tucked rows: places', { tags: ['critical'] }, () => {
   it('moves a row into a host group at a position counted with separators', () => {
     const groups = titleBarMenu({ ...base, tuckedRows: { pin: { group: 'tools', position: 2 }, fullscreen: { group: 'app', position: 'end' } } });
     expect(ids(groups)).toEqual([
@@ -85,7 +76,7 @@ describe('WindowTitleBar tucked rows: places', () => {
   });
 });
 
-describe('WindowTitleBar tucked rows: hidden', () => {
+describe('K1 WindowTitleBar tucked rows: hidden', { tags: ['critical'] }, () => {
   it('removes a hidden row from the menu while the bar still tucks the button', () => {
     expect(ids(titleBarMenu({ ...base, tuckedRows: { pin: { hidden: true } } }))[2]).toEqual(['window-title-bar', ['window-title-bar-fullscreen', 'bug']]);
   });

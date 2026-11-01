@@ -7,7 +7,7 @@ import { mountHook } from './hook-harness.mjs';
 
 vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(await import('./hook-harness.mjs')).hooks }));
 
-describe('useTreeExpansion', () => {
+describe('K1 useTreeExpansion', { tags: ['critical'] }, () => {
   it('starts with the default keys and keeps its own after a change', () => {
     const onExpandedChange = vi.fn();
     const view = mountHook(() => useTreeExpansion({ defaultExpandedKeys: ['a'], onExpandedChange }));
@@ -38,7 +38,7 @@ describe('useTreeExpansion', () => {
   });
 });
 
-describe('useLazyLoad', () => {
+describe('K1 useLazyLoad', { tags: ['critical'] }, () => {
   const row = (key, extra = {}) => ({ key, item: { key }, expanded: true, loaded: false, loading: false, ...extra });
 
   it('asks once for each open folder whose children are missing', () => {
@@ -59,7 +59,7 @@ describe('useLazyLoad', () => {
   });
 });
 
-describe('useSpringOpen', () => {
+describe('K1 useSpringOpen', { tags: ['critical'] }, () => {
   afterEach(() => vi.useRealTimers());
 
   it('opens the folder the pointer rests on after the delay', () => {

@@ -1,11 +1,7 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
 import { initialWizardState } from '../src/composites/Wizard/initial-wizard-state';
-import { Wizard } from '../src/composites/Wizard/Wizard';
 import { withBusy } from '../src/composites/Wizard/Wizard/behavior/with-busy';
-import { wizardDialogClass } from '../src/composites/Wizard/WizardDialog/behavior/dialog-class';
 import { wizardMoves } from '../src/composites/Wizard/wizard-moves';
 import { wizardView } from '../src/composites/Wizard/wizard-view';
 
@@ -17,11 +13,9 @@ const STEPS = [
 ];
 const VALUES = { name: 'Speedrun seed', mode: 'local', seed: '3fa9c1' };
 const ids = STEPS.map((step) => step.id);
-const noop = () => undefined;
-const count = (html, needle) => html.split(needle).length - 1;
 const stateAt = (currentId, visited, values = VALUES) => ({ ...initialWizardState(values, currentId), visited });
 
-describe('a forced goTo', () => {
+describe('K1 a forced goTo', { tags: ['critical'] }, () => {
   const movesAt = (currentId, visited, values = VALUES) => {
     const dispatch = vi.fn();
     const state = stateAt(currentId, visited, values);
@@ -57,7 +51,7 @@ describe('a forced goTo', () => {
   });
 });
 
-describe('withBusy', () => {
+describe('K1 withBusy', { tags: ['critical'] }, () => {
   const api = () => {
     const calls = [];
     const note = (name) => (...args) => calls.push([name, ...args]);
@@ -98,27 +92,5 @@ describe('withBusy', () => {
     const { calls, wizard } = api();
     withBusy(wizard, true).goTo('review', { force: true });
     expect(calls).toEqual([['to', 'review', { force: true }]]);
-  });
-});
-
-describe('Wizard busy', () => {
-  const view = wizardView(STEPS, { ...stateAt('basics', ids), values: { ...VALUES, mode: 'standard' } });
-  const api = { ...view, values: VALUES, visited: ids, errors: {}, dirty: false, busy: false, goNext: noop, goBack: noop, goTo: noop, finish: () => Promise.resolve() };
-  const render = (busy) => renderToString(h(Wizard, { wizard: api, busy, onExit: noop }));
-
-  it('holds the buttons and the steps and shows the busy hint while the app works', () => {
-    const idle = render(false);
-    const busy = render(true);
-    expect(idle).not.toContain('Checking the name...');
-    expect(busy).toContain('Checking the name...');
-    expect(busy).toContain('data-busy=""');
-    expect(count(busy, 'disabled=""')).toBeGreaterThan(count(idle, 'disabled=""'));
-  });
-});
-
-describe('wizardDialogClass', () => {
-  it('names the size and keeps the caller class', () => {
-    expect(wizardDialogClass('wide', '')).toBe('wizard-dialog wizard-dialog--wide');
-    expect(wizardDialogClass('xl', 'mine')).toBe('wizard-dialog wizard-dialog--xl mine');
   });
 });

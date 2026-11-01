@@ -7,7 +7,7 @@ import { pagesOf } from '../src/composites/WorkspaceScreen/behavior/pages-of';
 const page = (id) => ({ id, title: id.toUpperCase(), icon: null });
 const content = { home: page('home'), top: [page('inbox')], groups: [{ id: 'g', label: 'G', pages: [page('audio')] }] };
 
-describe('WorkspaceScreen top pages', () => {
+describe('K1 WorkspaceScreen top pages', { tags: ['critical'] }, () => {
   it('passes the top pages to the nav config beside home', () => {
     const config = navConfigOf(content);
     expect(config.home?.id).toBe('home');

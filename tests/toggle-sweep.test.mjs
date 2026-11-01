@@ -8,7 +8,7 @@ vi.mock('react', async (importOriginal) => ({ ...(await importOriginal()), ...(a
 
 const IDS = ['a', 'b', 'c', 'd', 'e'];
 
-describe('a sweep session', () => {
+describe('K1 a sweep session', { tags: ['critical'] }, () => {
   it('sets the first key at once and reports every key once', () => {
     const onSet = vi.fn();
     const session = sweepSession({ first: 'a', value: true, onSet });
@@ -48,7 +48,7 @@ const fakeView = (keyAt) => {
 
 const press = (view) => ({ button: 0, currentTarget: { ownerDocument: { defaultView: view } } });
 
-describe('useToggleSweep', () => {
+describe('K1 useToggleSweep', { tags: ['critical'] }, () => {
   it('sets the opposite of the pressed toggle on every toggle the pointer crosses, once the drag ends it reports them', () => {
     const { view, fire } = fakeView((x) => IDS[x]);
     const onSet = vi.fn();
@@ -71,7 +71,7 @@ describe('useToggleSweep', () => {
   });
 });
 
-describe('useToggleSweep commit and listeners', () => {
+describe('K1 useToggleSweep commit and listeners', { tags: ['critical'] }, () => {
   it('changes nothing until the end when only onEnd is given, and lists the keys reached meanwhile', () => {
     const { view, fire } = fakeView((x) => IDS[x]);
     const onEnd = vi.fn();

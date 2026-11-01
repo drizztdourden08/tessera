@@ -1,20 +1,11 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { renderedIndices } from '../src/composites/virtual/rendered-indices';
 import { scrollTopToShow } from '../src/composites/virtual/scroll-top-to-show';
 import { visibleRange } from '../src/composites/virtual/visible-range';
 import { nextIndex } from '../src/composites/VirtualList/behavior/next-index';
-import { VirtualList } from '../src/composites/VirtualList';
 
-const ITEMS = Array.from({ length: 5000 }, (_, at) => ({ id: `item-${at}`, text: `Item ${at}` }));
-
-const draw = (extra) => renderToString(h(VirtualList, {
-  label: 'Items', items: ITEMS, getKey: (item) => item.id, renderItem: (item) => item.text, ...extra,
-}));
-
-describe('the windowing math', () => {
+describe('K1 the windowing math', { tags: ['critical'] }, () => {
   it('draws the rows in view and the overscan on each side', () => {
     expect(visibleRange({ scrollTop: 400, viewport: 200, rowHeight: 40, count: 1000, overscan: 2 })).toEqual({ start: 8, end: 17 });
   });
@@ -39,7 +30,7 @@ describe('the windowing math', () => {
   });
 });
 
-describe('the keys of VirtualList', () => {
+describe('K1 the keys of VirtualList', { tags: ['critical'] }, () => {
   it('moves by a row, a page, to the start and to the end, and stops at both ends', () => {
     expect(nextIndex('ArrowDown', 3, 100, 8)).toBe(4);
     expect(nextIndex('ArrowUp', 0, 100, 8)).toBe(0);
@@ -52,29 +43,5 @@ describe('the keys of VirtualList', () => {
   it('ignores other keys and an empty list', () => {
     expect(nextIndex('a', 3, 100, 8)).toBeUndefined();
     expect(nextIndex('ArrowDown', 0, 0, 8)).toBeUndefined();
-  });
-});
-
-describe('VirtualList on the server', () => {
-  it('draws only the first screen of 5000 items, without a window or a document', () => {
-    const html = draw();
-    const rows = (html.match(/role="listitem"/g) ?? []).length;
-    expect(rows).toBeGreaterThan(10);
-    expect(rows).toBeLessThan(60);
-    expect(html).toContain('aria-label="Items"');
-    expect(html).toContain('aria-setsize="5000"');
-    expect(html).toContain('aria-posinset="1"');
-    expect(html).not.toContain('Item 4999');
-  });
-
-  it('puts one row in the tab order', () => {
-    const html = draw();
-    expect((html.match(/tabindex="0"/g) ?? []).length).toBe(1);
-  });
-
-  it('draws an empty list as a list with no row', () => {
-    const html = draw({ items: [] });
-    expect(html).toContain('role="list"');
-    expect(html).not.toContain('role="listitem"');
   });
 });

@@ -23,7 +23,7 @@ const ctrlZ = (doc, target = null, keys = CTRL) => doc.press('z', false, target,
 
 afterEach(() => vi.useRealTimers());
 
-describe('one undo stack per document', () => {
+describe('K1 one undo stack per document', { tags: ['critical'] }, () => {
   it('undoes the latest step first on Ctrl+Z or Cmd+Z, one step a press, and stops listening when empty', () => {
     const doc = escapeDocument();
     const done = [];
@@ -83,7 +83,7 @@ describe('one undo stack per document', () => {
   });
 });
 
-describe('useUndo', () => {
+describe('K1 useUndo', { tags: ['critical'] }, () => {
   it('pushes, reads the latest label, undoes from a menu and drops what it pushed when it unmounts', () => {
     const done = [];
     const view = mountHook(() => useUndo());
@@ -99,7 +99,7 @@ describe('useUndo', () => {
   });
 });
 
-describe('a toast with undo', () => {
+describe('K1 a toast with undo', { tags: ['critical'] }, () => {
   it('draws Undo as its action and joins the stack while it shows; Ctrl+Z undoes it and closes it with action', () => {
     const undo = vi.fn();
     const close = vi.fn();
@@ -126,7 +126,7 @@ describe('a toast with undo', () => {
   });
 });
 
-describe('ItemList deletes in the undo stack', () => {
+describe('K1 ItemList deletes in the undo stack', { tags: ['critical'] }, () => {
   const SAVES = [{ id: 'a', name: 'Before the palace' }, { id: 'b', name: 'Hookshot in hand' }];
   const props = { title: 'Saves', items: SAVES, getId: (save) => save.id, getName: (save) => save.name };
 

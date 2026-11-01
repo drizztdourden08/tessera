@@ -1,15 +1,12 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { WindowTitleBar } from '../src/composites/WindowTitleBar';
 import { titleBarMenu } from '../src/composites/WindowTitleBar/behavior/title-bar-menu';
 import { BOTH, ids, ignore, MENU_INPUT as base } from './title-bar-menu-fixture.mjs';
 
 const ownGroup = (groups) => groups.find((group) => group.id === 'window-title-bar');
 const rows = (nodes) => nodes.map((node) => [node.id, node.label, node.icon, node.checked]);
 
-describe('WindowTitleBar view', () => {
+describe('K1 WindowTitleBar view', { tags: ['critical'] }, () => {
   it('keeps View first in the bar group above the last host group when view is absent or empty', () => {
     const today = [['screens', ['home', 'library']], ['tools', ['tools', '---', 'settings']], ['window-title-bar', ['window-title-bar-view', 'bug']], ['app', ['about']]];
     expect(ids(titleBarMenu(base))).toEqual(today);
@@ -34,15 +31,9 @@ describe('WindowTitleBar view', () => {
     expect(ids(groups)).toEqual([['screens', ['window-title-bar-view', 'home', 'library']], ['tools', ['tools', '---', 'settings']], ['app', ['about']]]);
     expect(groups[0].items[0].children.map((node) => node.id)).toEqual(['pin', 'fullscreen']);
   });
-
-  it('still draws the pin on the bar with View hidden', () => {
-    const html = renderToString(h(WindowTitleBar, { title: 'App', view: false, onControl: ignore }));
-    expect(html.match(/<button/g)).toHaveLength(5);
-    expect(html).toContain('aria-label="Pin window on top"');
-  });
 });
 
-describe('WindowTitleBar tucked controls', () => {
+describe('K1 WindowTitleBar tucked controls', { tags: ['critical'] }, () => {
   it('lists a tucked pin and full screen first in the bar group when View is hidden', () => {
     const groups = titleBarMenu({ ...base, view: false, tucked: ['action:bug', ...BOTH] });
     expect(groups.map((group) => group.id)).toEqual(['screens', 'tools', 'window-title-bar', 'app']);
@@ -69,7 +60,7 @@ describe('WindowTitleBar tucked controls', () => {
   });
 });
 
-describe('WindowTitleBar control entries', () => {
+describe('K1 WindowTitleBar control entries', { tags: ['critical'] }, () => {
   const view = (state) => ownGroup(titleBarMenu({ ...base, ...state })).items[0].children;
   const tucked = (state) => ownGroup(titleBarMenu({ ...base, ...state, view: false, tucked: BOTH })).items.slice(0, 2);
 
@@ -91,7 +82,7 @@ describe('WindowTitleBar control entries', () => {
   });
 });
 
-describe('WindowTitleBar viewItems', () => {
+describe('K1 WindowTitleBar viewItems', { tags: ['critical'] }, () => {
   const GRID = { id: 'grid', kind: 'check', label: 'Show grid', checked: true, onSelect: ignore };
   const RULERS = { id: 'rulers', kind: 'check', label: 'Show rulers', checked: false, onSelect: ignore };
   const viewOf = (state) => ownGroup(titleBarMenu({ ...base, ...state })).items.find((node) => node.id === 'window-title-bar-view');

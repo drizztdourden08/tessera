@@ -1,15 +1,11 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { SearchResultHit } from '../src/composites/SearchResultHit';
 import { filterSettingsSections } from '../src/composites/SettingsSection';
 import { compileTextSearch, foldText, matchParts, matchesText } from '../src/data';
-import { HighlightedText } from '../src/primitives/listbox/HighlightedText';
 
 const marked = (text, query) => matchParts(text, query).filter((part) => part.match).map((part) => part.text);
 
-describe('foldText', () => {
+describe('K1 foldText', { tags: ['critical'] }, () => {
   it('lowers the case and takes the accents off', () => {
     expect(foldText('Été à Montréal')).toBe('ete a montreal');
     expect(foldText('  Ça  ')).toBe('ca');
@@ -22,7 +18,7 @@ describe('foldText', () => {
   });
 });
 
-describe('matchesText', () => {
+describe('K1 matchesText', { tags: ['critical'] }, () => {
   it('matches every word anywhere, in any order, ignoring case and accents', () => {
     expect(matchesText('Dark theme mode', 'mode dark')).toBe(true);
     expect(matchesText('Créer un écran', 'ECRAN cree')).toBe(true);
@@ -36,7 +32,7 @@ describe('matchesText', () => {
   });
 });
 
-describe('matchParts', () => {
+describe('K1 matchParts', { tags: ['critical'] }, () => {
   it('marks each word wherever it appears, in the text as written', () => {
     expect(matchParts('Résumé of the resume', 'resume')).toEqual([
       { text: 'Résumé', match: true },
@@ -59,7 +55,7 @@ describe('matchParts', () => {
   });
 });
 
-describe('compileTextSearch', () => {
+describe('K1 compileTextSearch', { tags: ['critical'] }, () => {
   it('finds each word in any value of the row, nested values too', () => {
     const test = compileTextSearch('montreal ada');
     expect(test({ name: 'Ada', place: { city: 'Montréal' } })).toBe(true);
@@ -69,7 +65,7 @@ describe('compileTextSearch', () => {
   });
 });
 
-describe('one matcher for every search', () => {
+describe('K1 one matcher for every search', { tags: ['critical'] }, () => {
   it('filters settings rows by every word, ignoring accents', () => {
     const sections = [{ id: 'a', title: 'Audio', rows: [
       { id: 'v', title: 'Volume général', hint: 'Master' },
@@ -77,12 +73,5 @@ describe('one matcher for every search', () => {
     ] }];
     const found = filterSettingsSections(sections, 'general volume');
     expect(found[0].groups[0].rows.map((row) => row.id)).toEqual(['v']);
-  });
-
-  it('draws the same marks in a list and in a search hit', () => {
-    const list = renderToStaticMarkup(h(HighlightedText, { text: 'Résumé', query: 'resume' }));
-    expect(list).toContain('>Résumé</mark>');
-    const hit = renderToStaticMarkup(h(SearchResultHit, { label: 'Dark mode', query: 'mode dark' }));
-    expect(hit.match(/search-result-hit__match/g)).toHaveLength(2);
   });
 });

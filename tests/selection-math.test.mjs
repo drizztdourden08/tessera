@@ -12,7 +12,7 @@ const ORDER = ['a', 'b', 'c', 'd', 'e', 'f'];
 
 const key = (name, held = {}) => ({ key: name, ctrlKey: false, metaKey: false, altKey: false, shiftKey: false, ...held });
 
-describe('the selection math', () => {
+describe('K1 the selection math', { tags: ['critical'] }, () => {
   it('takes the keys between two keys in either direction', () => {
     expect(rangeBetween(ORDER, 'b', 'd')).toEqual(['b', 'c', 'd']);
     expect(rangeBetween(ORDER, 'd', 'b')).toEqual(['b', 'c', 'd']);
@@ -43,7 +43,7 @@ describe('the selection math', () => {
   });
 });
 
-describe('the keys of a selection', () => {
+describe('K1 the keys of a selection', { tags: ['critical'] }, () => {
   it('maps Ctrl+A, Space, Shift+Space, Escape and a letter', () => {
     expect(selectionAction(key('a', { ctrlKey: true }))).toBe('all');
     expect(selectionAction(key('A', { metaKey: true }))).toBe('all');

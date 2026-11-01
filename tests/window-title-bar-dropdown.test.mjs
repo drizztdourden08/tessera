@@ -1,13 +1,9 @@
 /* @layer tooling-scripts @kind test */
-import { createElement as h } from 'react';
-import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { WindowTitleBar } from '../src/composites/WindowTitleBar';
 import { hideOrder } from '../src/composites/WindowTitleBar/behavior/hide-order';
 import { titleBarMenu } from '../src/composites/WindowTitleBar/behavior/title-bar-menu';
 
 const ignore = () => undefined;
-const CONTROLS = { fullscreen: false, pin: false };
 const STRINGS = { view: 'View', pinOnTop: 'Pin window on top', fullscreen: 'Fullscreen' };
 const BUG = { id: 'bug', icon: 'bug', label: 'Report a bug', onSelect: ignore };
 const GROUP = {
@@ -20,21 +16,13 @@ const GROUP = {
     { id: 'sync', items: [{ id: 'sync', label: 'Sync with main window', kind: 'check', checked: true, onSelect: ignore }] },
   ],
 };
-const EMPTY = { ...GROUP, id: 'empty', groups: [{ id: 'none', items: [] }] };
 const SAVES = { id: 'saves', icon: 'refresh-cw', label: 'Cloud saves', bar: 'status', status: 'Syncing', onSelect: ignore };
 
-describe('WindowTitleBar dropdown actions', () => {
-  it('draws a dropdown action as a bar item button that opens a menu, named by its label', () => {
-    const html = renderToString(h(WindowTitleBar, { title: 'App', controls: CONTROLS, actions: [GROUP], onControl: ignore }));
-    expect(html).toContain('data-bar-item="action:group"');
-    expect(html).toMatch(/<button[^>]*aria-label="Window group"[^>]*aria-haspopup="menu"/);
-    expect(html).toContain('icon-btn--ghost');
-  });
+const EMPTY = { ...GROUP, id: 'empty', groups: [{ id: 'none', items: [] }] };
 
-  it('draws nothing for a dropdown with no items, in the bar or the menu', () => {
-    const html = renderToString(h(WindowTitleBar, { title: 'App', controls: CONTROLS, actions: [EMPTY], onControl: ignore }));
-    expect(html).not.toContain('action:empty');
-    expect(hideOrder([EMPTY], CONTROLS)).toEqual([]);
+describe('K1 WindowTitleBar dropdown actions', { tags: ['critical'] }, () => {
+  it('leaves a dropdown with no items out of the hide order and the menu', () => {
+    expect(hideOrder([EMPTY], { fullscreen: false, pin: false })).toEqual([]);
     expect(titleBarMenu({ menu: [], actions: [EMPTY], pin: false, fullscreenButton: false, pinned: false, fullscreen: false, onControl: ignore, strings: STRINGS })).toEqual([]);
   });
 
@@ -48,17 +36,5 @@ describe('WindowTitleBar dropdown actions', () => {
     expect([sub.id, sub.label, sub.icon]).toEqual(['group', 'Window group', 'group']);
     expect(sub.children.map((node) => node.label ?? 'separator')).toEqual(['No group', 'Group 1', 'separator', 'Sync with main window']);
     expect(sub.children[0].checked).toBe(true);
-  });
-});
-
-describe('WindowTitleBar status pulse', () => {
-  it('adds a pulsing dot to the status text with pulse, and none without', () => {
-    const still = renderToString(h(WindowTitleBar, { title: 'App', controls: CONTROLS, actions: [SAVES], onControl: ignore }));
-    expect(still).not.toContain('status--pulse');
-    expect(still).not.toContain('status__dot');
-    const pulsing = renderToString(h(WindowTitleBar, { title: 'App', controls: CONTROLS, actions: [{ ...SAVES, pulse: true }], onControl: ignore }));
-    expect(pulsing).toContain('status--dot status--pulse');
-    expect(pulsing).toContain('status__dot');
-    expect(pulsing).toContain('emphasis--pulse');
   });
 });

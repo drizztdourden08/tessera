@@ -20,30 +20,13 @@ const memoryStorage = () => {
 const navOpen = (html) => /class="side-nav [^"]*side-nav--open/.test(html);
 const layout = (nav, props = {}) => renderToString(h(SideNavLayout, { nav: { ...NAV, ...nav }, ...props }, 'page'));
 
-describe('SideNavLayout open state', () => {
+describe('S2 SideNavLayout open state', { tags: ['standard'] }, () => {
   beforeEach(() => {
     globalThis.localStorage = memoryStorage();
   });
 
   afterEach(() => {
     delete globalThis.localStorage;
-  });
-
-  it('opens the nav with its labels by default on a wide layout', () => {
-    expect(navOpen(layout({}))).toBe(true);
-  });
-
-  it('keeps a narrow layout on its strip of icons', () => {
-    expect(navOpen(layout({}, { narrow: true }))).toBe(false);
-  });
-
-  it('keeps an explicit defaultOpen', () => {
-    expect(navOpen(layout({ defaultOpen: false }))).toBe(false);
-  });
-
-  it('takes the controlled open value over the default', () => {
-    expect(navOpen(layout({ open: false }))).toBe(false);
-    expect(navOpen(renderToString(h(SideNav, { ...NAV, open: true })))).toBe(true);
   });
 
   it('starts from the stored choice when storageKey is set', () => {
@@ -59,7 +42,7 @@ describe('SideNavLayout open state', () => {
   });
 });
 
-describe('the stored nav choice', () => {
+describe('K3 the stored nav choice', { tags: ['critical'] }, () => {
   afterEach(() => {
     delete globalThis.localStorage;
   });

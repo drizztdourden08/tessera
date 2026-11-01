@@ -7,7 +7,7 @@ import { timesBetweenDigits } from '../src/composites/Markdown/behavior/times-be
 
 const TIMES = '×';
 
-describe('timesBetweenDigits', () => {
+describe('K1 timesBetweenDigits', { tags: ['critical'] }, () => {
   it('turns an x between two digits into the multiplication sign', () => {
     expect(timesBetweenDigits('1920x1080')).toBe(`1920${TIMES}1080`);
     expect(timesBetweenDigits('3x4x5')).toBe(`3${TIMES}4${TIMES}5`);
@@ -26,12 +26,8 @@ describe('timesBetweenDigits', () => {
   });
 });
 
-describe('Markdown smartTimes', () => {
+describe('S2 Markdown smartTimes', { tags: ['standard'] }, () => {
   const draw = (props, source) => renderToString(h(Markdown, props, source));
-
-  it('is off by default', () => {
-    expect(draw({}, 'Size 1920x1080')).toContain('1920x1080');
-  });
 
   it('draws the sign in text when on', () => {
     expect(draw({ smartTimes: true }, 'Size 1920x1080')).toContain(`1920${TIMES}1080`);

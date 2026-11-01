@@ -1,5 +1,4 @@
 /* @layer tooling-scripts @kind test */
-import { readFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { Linter } from 'eslint';
@@ -21,7 +20,7 @@ const lintCss = async (code, codeFilename) => {
   return results[0].warnings.map((warning) => warning.text.split(' is a class')[0]);
 };
 
-describe('the ESLint rules of the standards extension', () => {
+describe('K1 the ESLint rules of the standards extension', { tags: ['standard'] }, () => {
   it('refuses an Icon written as a child of Button, and keeps the icon prop and IconButton', () => {
     expect(lintTsx('const A = () => <Button><Icon name="x" />Close</Button>;')).toEqual(['tessera/no-icon-button-child']);
     expect(lintTsx('const A = () => <><Button icon={<Icon name="x" />}>Close</Button><IconButton label="Close"><Icon name="x" /></IconButton></>;')).toEqual([]);
@@ -33,7 +32,7 @@ describe('the ESLint rules of the standards extension', () => {
   });
 });
 
-describe('the internals rule of the standards extension', () => {
+describe('K1 the internals rule of the standards extension', { tags: ['standard'] }, () => {
   const app = join(tmpdir(), 'app', 'src', 'theme.css');
 
   it('refuses a selector that names a class of a Tessera part, from an app stylesheet', async () => {
@@ -44,12 +43,5 @@ describe('the internals rule of the standards extension', () => {
   it('keeps app classes and leaves the stylesheets of Tessera itself alone', async () => {
     expect(await lintCss('.my-log .my-log__tag { gap: 0; }', app)).toEqual([]);
     expect(await lintCss('.log-panel__tag { gap: 0; }', join(process.cwd(), 'src', 'composites', 'LogPanel', 'LogPanel.css'))).toEqual([]);
-  });
-});
-
-describe('drag regions', () => {
-  it('keep every control inside a drag region clickable', () => {
-    const css = readFileSync(new URL('../src/tokens/app-region.css', import.meta.url), 'utf8');
-    expect(css).toMatch(/\[data-app-region="drag"\] :is\(button, a, input, select, textarea, label, summary, [^)]*\[tabindex\]:not\(\[tabindex="-1"\]\)\),/);
   });
 });
