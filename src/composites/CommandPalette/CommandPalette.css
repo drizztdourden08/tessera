@@ -75,6 +75,17 @@
   border-bottom: var(--border-width-thin) solid var(--c-hairline);
 }
 
+.command-palette__header {
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+  align-items: center;
+  padding-block: var(--space-sm) 0;
+  padding-inline: var(--space-lg);
+}
+
+.command-palette:not(.command-palette--open) .command-palette__header,
 .command-palette:not(.command-palette--open) .command-palette__input-row,
 .command-palette:not(.command-palette--open) .command-palette__body {
   visibility: hidden;

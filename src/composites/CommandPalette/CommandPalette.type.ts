@@ -39,6 +39,7 @@ interface CommandPaletteProps<T extends CommandPaletteItem = CommandPaletteItem>
   emptyText?: ReactNode;
   label?: string;
   mascot?: AnimatedMascotChoice;
+  header?: ReactNode;
   className?: string;
 }
 
