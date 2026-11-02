@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 112 of 222 have their usage written; a linked name opens its page.
+One line per component. 113 of 223 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -162,6 +162,7 @@ One line per component. 112 of 222 have their usage written; a linked name opens
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
+- [RampStrip](components/RampStrip.md): A row of colour swatches that shows one ramp, from dark to light or step to step, with a caption on each step and one picked. Import from `@drizztdourden08/tessera`.
 - [Rating](components/Rating.md): A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ResizeHandle](components/ResizeHandle.md): The one thin line between two panels that the user drags, or moves with the keys, to resize the panel beside it, and that folds the panel when pulled past the end of its range. Import from `@drizztdourden08/tessera`.

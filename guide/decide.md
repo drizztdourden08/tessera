@@ -55,6 +55,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Behind a swatch button: no component yet.
   - A range: no component yet.
   - A colour from a palette: [ChoiceGrid](components/ChoiceGrid.md). ChoiceGrid is the strip or grid of cells where one is picked; draw each cell as a ColorSwatch for a palette.
+  - A colour from a ramp of steps: [RampStrip](components/RampStrip.md). RampStrip is the ordered row of shades of one ramp, with a caption on each step.
   - A file: no component yet.
   - A path to a file or folder: [PathInput](components/PathInput.md). PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
