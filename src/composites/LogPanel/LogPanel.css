@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind style */
 .log-panel {
+  --log-panel-min: calc(var(--log-panel-min-rows, 0) * var(--text-sm) * var(--leading-normal) + var(--space-xs) * 2);
   flex: 1;
   background: var(--c-inset);
 }
@@ -26,11 +27,13 @@
   flex: 1;
   flex-direction: column;
   min-height: 0;
+  min-block-size: var(--log-panel-min);
 }
 
 .log-panel__list {
   flex: 1;
   min-height: 0;
+  min-block-size: var(--log-panel-min);
   overflow: auto;
   padding: var(--space-xs) 0;
   color: var(--c-text);
