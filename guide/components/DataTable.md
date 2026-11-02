@@ -44,7 +44,9 @@ DataTable gives every collection the same columns, menus and grouping, and draws
 - A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.
 - Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.
 - Pass rowState(row) to mark a row active, pending, error, warning, muted, fresh or edge; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar, fresh a soft info tint for rows that just arrived and edge only the left bar with no tint, and a selected row keeps the selection background.
+- Pass rowTone(row) to give the left edge of a row a tone, one of neutral, success, warning, danger, info, primary, secondary or tertiary, the tones of Status; it works with or without rowState, so warning draws an amber bar for rows that need a look.
 - Set headerCase to upper for capital column labels with wide letter spacing; the labels you pass keep their case in the data.
+- Set headerRules to false to drop the vertical rules between the header cells; the rule still shows under the pointer, so the column stays easy to resize.
 - Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.
 - A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.
 - Pass detailRowId with renderDetail(row) to open a panel under one row, such as an inline confirm or a small form; it spans every column, works in groups and with sort, and the app keeps the id and clears it from onDetailClose.
@@ -116,7 +118,9 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
 - `resolveIdRefHref` (optional): `IdRefHrefResolver`.
 - `renderCell` (optional): `(row: T, path: string) => ReactNode | undefined`.
 - `rowState` (optional): `(row: T) => RowState | undefined`.
+- `rowTone` (optional): `(row: T) => RowTone | undefined`, one of `'neutral'`, `'success'`, `'warning'`, `'danger'`, `'info'`, `'primary'`, `'secondary'`, `'tertiary'`.
 - `headerCase` (optional): `HeaderCase`, one of `'normal'`, `'upper'`.
+- `headerRules` (optional): `boolean`, true by default.
 - `rowHeight` (optional): `VirtualSize`.
 - `sort` (optional): `readonly SortEntry[]`.
 - `onSortChange` (optional): `(sort: readonly SortEntry[]) => void`.
