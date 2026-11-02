@@ -54,7 +54,7 @@ const AboutActions = ({ debugInfo }: { debugInfo: () => string }) => (
 - `label` (optional): `string`.
 - `copiedLabel` (optional): `string`.
 - `showLabel` (optional): `boolean`.
-- `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`.
+- `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`, `'quiet'`.
 - `size` (optional): `CopyButtonSize`, one of `'xs'`, `'sm'`, `'md'`.
 - `disabled` (optional): `boolean`.
 - `loading` (optional): `boolean`.

@@ -118,9 +118,9 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
 - `resolveIdRefHref` (optional): `IdRefHrefResolver`.
 - `renderCell` (optional): `(row: T, path: string) => ReactNode | undefined`.
 - `rowState` (optional): `(row: T) => RowState | undefined`.
-- `rowTone` (optional): `(row: T) => RowTone | undefined`, one of `'neutral'`, `'success'`, `'warning'`, `'danger'`, `'info'`, `'primary'`, `'secondary'`, `'tertiary'`.
+- `rowTone` (optional): `(row: T) => RowTone | undefined`.
 - `headerCase` (optional): `HeaderCase`, one of `'normal'`, `'upper'`.
-- `headerRules` (optional): `boolean`, true by default.
+- `headerRules` (optional): `boolean`.
 - `rowHeight` (optional): `VirtualSize`.
 - `sort` (optional): `readonly SortEntry[]`.
 - `onSortChange` (optional): `(sort: readonly SortEntry[]) => void`.
@@ -140,7 +140,7 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-danger`, `--c-danger-dim`, `--c-danger-soft`, `--c-hairline`, `--c-hover`, `--c-info-soft`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-primary-text`, `--c-secondary-soft`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--c-warning-soft`, `--control-h-xs`, `--dt-count`, `--dt-detail-at`, `--dt-detail-h`, `--dt-group-indent`, `--dt-index`, `--dt-tracks`, `--duration-normal`, `--ease-standard`, `--opacity-muted`, `--radius-lg`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-128`, `--size-16`, `--size-192`, `--size-2`, `--size-40`, `--size-80`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--table-select-w`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--transition-fast`, `--z-floating`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-danger`, `--c-danger-dim`, `--c-danger-soft`, `--c-hairline`, `--c-hover`, `--c-info`, `--c-info-soft`, `--c-primary`, `--c-primary-bright`, `--c-primary-dim`, `--c-primary-soft`, `--c-primary-text`, `--c-secondary`, `--c-secondary-soft`, `--c-selected`, `--c-success`, `--c-surface`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--c-warning`, `--c-warning-soft`, `--control-h-xs`, `--dt-count`, `--dt-detail-at`, `--dt-detail-h`, `--dt-group-indent`, `--dt-index`, `--dt-tracks`, `--duration-normal`, `--ease-standard`, `--opacity-muted`, `--radius-lg`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-128`, `--size-16`, `--size-192`, `--size-2`, `--size-40`, `--size-80`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xl`, `--space-xs`, `--table-select-w`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--transition-fast`, `--z-floating`, `--z-sticky`.
 
 ## Also exported from this folder
 

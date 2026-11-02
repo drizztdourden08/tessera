@@ -38,6 +38,8 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - With both onDragOut and reorder, a plain drag leaves the tree and Alt with the drag reorders (its modifier is alt); a touch drag still reorders, and a press on a button in the row starts neither.
 - Keep the open folders in the app with expandedKeys and onExpandedChange, or pass defaultExpandedKeys and let the tree keep them.
 - Pass selection with the picked keys and onChange to pick; mode single picks one row on each press, and mode multiple, the default, takes Ctrl, Shift, Space and Ctrl and A through useSelectionModel.
+- Pass onRowAuxClick(key, event) to hear a middle click on a row; the key is the row key and no other button calls it.
+- A native drag from another widget held over a closed folder opens it after springDelay, 600 ms by default, with or without reorder.
 - Pass openOnPick to fold a folder with the same press that picks it, and onActivate to hear Enter or a double click on a row.
 - Pass onLoadChildren and loadingKeys for lazy children: it is called once when a folder opens with no children yet, the folder shows a spinner while its key is in loadingKeys, and the app then gives its children.
 - Pass filter to keep the items it accepts and the folders above them; those folders show open while the filter runs, and the tree does not reorder.
@@ -95,6 +97,7 @@ const Files = ({ entries }: { entries: Entry[] }) => {
 - `onExpandedChange` (optional): `(keys: readonly string[]) => void`.
 - `selection` (optional): `TreeSelection`.
 - `onActivate` (optional): `(item: T) => void`.
+- `onRowAuxClick` (optional): `(key: string, event: MouseEvent<HTMLElement>) => void`.
 - `openOnPick` (optional): `boolean`. Default `false`.
 - `onLoadChildren` (optional): `(item: T) => void`.
 - `loadingKeys` (optional): `ReadonlySet<string>`.

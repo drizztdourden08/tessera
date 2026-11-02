@@ -79,7 +79,7 @@ const Tab = ({ name, onRename, onClose }: TabProps) => {
 - `onClose` (optional): `() => void`.
 - `groups`: `readonly MenuGroup[]`.
 - `label` (optional): `string`.
-- `variant` (optional): `MenuVariant`, one of `'danger'`, `'ghost'`, `'info'`, `'primary'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
+- `variant` (optional): `MenuVariant`, one of `'danger'`, `'ghost'`, `'info'`, `'primary'`, `'quiet'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
 - `intensity` (optional): `MenuIntensity`, one of `'strong'`, `'medium'`, `'subtle'`.
 - `itemSize` (optional): `MenuItemSize`, one of `'default'`, `'roomy'`.
 - `closeOnSelect` (optional): `boolean`.

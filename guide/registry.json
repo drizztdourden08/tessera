@@ -1830,6 +1830,8 @@
         "The control and the hint only appear when the text runs past lines, so short text shows nothing extra.",
         "Pass fill to give the text the full width of its parent and contain it, so a table cell holding long text keeps the width the table gives it.",
         "Pass truncate middle with a string to keep one line, the start and the end of it, and an ellipsis between, such as a file path; the full text, or hint, shows in a tip while it is cut.",
+        "Pass truncate path instead to keep the last segment of a path whole, after the last slash or backslash, and cut the middle of what comes before it, so a file name never loses its end.",
+        "Pass smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; it changes string children only.",
         "Pass hug with truncate middle to take only the width the text needs, so a button can sit right after it; it still shortens when the parent is narrower than the text."
       ],
       "a11y": [
@@ -1866,7 +1868,11 @@
           {
             "name": "truncate",
             "optional": true,
-            "text": "FoldTruncate"
+            "text": "FoldTruncate",
+            "literals": [
+              "'middle'",
+              "'path'"
+            ]
           },
           {
             "name": "fill",
@@ -1875,6 +1881,11 @@
           },
           {
             "name": "hug",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "smartTimes",
             "optional": true,
             "text": "boolean"
           },
@@ -3090,10 +3101,11 @@
           {
             "name": "size",
             "optional": true,
-            "text": "ControlSize",
+            "text": "SegmentSize",
             "literals": [
+              "'md'",
               "'sm'",
-              "'md'"
+              "'sm-plus'"
             ]
           },
           {
@@ -3148,8 +3160,10 @@
         "--c-text-dim",
         "--control-h-md",
         "--control-h-sm",
+        "--control-h-sm-plus",
         "--control-pad-md",
         "--control-pad-sm",
+        "--control-pad-sm-plus",
         "--density-gap",
         "--opacity-disabled",
         "--radius-md",
@@ -3161,6 +3175,7 @@
         "--space-sm",
         "--space-xs",
         "--text-base",
+        "--text-md",
         "--text-sm",
         "--text-xs",
         "--transition-fast",
@@ -4430,6 +4445,9 @@
         "Use the faint tone for the quietest text, such as a keyboard hint beside a field. It stays at or above 4.5:1 on the main ground, but it is dimmer than muted, so keep it to short secondary hints.",
         "Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.",
         "Set size md for the 13 px step between the small and base sizes, such as a dense row of values; with no size the variant sets it.",
+        "Set size lead for the 15 px step between the base and large sizes.",
+        "Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.",
+        "Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.",
         "Set mono for file names, seeds and addresses, and numeric for times and counts that line up."
       ],
       "a11y": [
@@ -4468,7 +4486,16 @@
           {
             "name": "size",
             "optional": true,
-            "text": "TextSize"
+            "text": "TextSize",
+            "literals": [
+              "'md'",
+              "'lead'"
+            ]
+          },
+          {
+            "name": "font",
+            "optional": true,
+            "text": "TextFont"
           },
           {
             "name": "tone",
@@ -4494,6 +4521,11 @@
           },
           {
             "name": "numeric",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "smartTimes",
             "optional": true,
             "text": "boolean"
           },
@@ -4548,7 +4580,9 @@
         "--c-text-muted",
         "--c-warning",
         "--font-mono",
+        "--font-title",
         "--text-base",
+        "--text-lead",
         "--text-lg",
         "--text-md",
         "--text-sm",
@@ -6888,6 +6922,7 @@
               "'ghost'",
               "'info'",
               "'primary'",
+              "'quiet'",
               "'secondary'",
               "'success'",
               "'tertiary'",
@@ -7158,6 +7193,7 @@
               "'ghost'",
               "'info'",
               "'primary'",
+              "'quiet'",
               "'secondary'",
               "'success'",
               "'tertiary'",
@@ -7390,7 +7426,8 @@
               "'warning'",
               "'info'",
               "'success'",
-              "'ghost'"
+              "'ghost'",
+              "'quiet'"
             ]
           },
           {
@@ -7626,7 +7663,9 @@
         "A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.",
         "Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.",
         "Pass rowState(row) to mark a row active, pending, error, warning, muted, fresh or edge; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar, fresh a soft info tint for rows that just arrived and edge only the left bar with no tint, and a selected row keeps the selection background.",
+        "Pass rowTone(row) to give the left edge of a row a tone, one of neutral, success, warning, danger, info, primary, secondary or tertiary, the tones of Status; it works with or without rowState, so warning draws an amber bar for rows that need a look.",
         "Set headerCase to upper for capital column labels with wide letter spacing; the labels you pass keep their case in the data.",
+        "Set headerRules to false to drop the vertical rules between the header cells; the rule still shows under the pointer, so the column stays easy to resize.",
         "Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.",
         "A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.",
         "Pass detailRowId with renderDetail(row) to open a panel under one row, such as an inline confirm or a small form; it spans every column, works in groups and with sort, and the app keeps the id and clears it from onDetailClose.",
@@ -7769,6 +7808,11 @@
             "text": "(row: T) => RowState | undefined"
           },
           {
+            "name": "rowTone",
+            "optional": true,
+            "text": "(row: T) => RowTone | undefined"
+          },
+          {
             "name": "headerCase",
             "optional": true,
             "text": "HeaderCase",
@@ -7776,6 +7820,11 @@
               "'normal'",
               "'upper'"
             ]
+          },
+          {
+            "name": "headerRules",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "rowHeight",
@@ -7874,15 +7923,19 @@
         "--c-danger-soft",
         "--c-hairline",
         "--c-hover",
+        "--c-info",
         "--c-info-soft",
         "--c-primary",
         "--c-primary-bright",
         "--c-primary-dim",
         "--c-primary-soft",
         "--c-primary-text",
+        "--c-secondary",
         "--c-secondary-soft",
         "--c-selected",
+        "--c-success",
         "--c-surface",
+        "--c-tertiary",
         "--c-text",
         "--c-text-dim",
         "--c-text-muted",
@@ -8761,6 +8814,7 @@
               "'ghost'",
               "'info'",
               "'primary'",
+              "'quiet'",
               "'secondary'",
               "'success'",
               "'tertiary'",
@@ -13516,6 +13570,11 @@
         "--space-2xs",
         "--space-xs"
       ],
+      "gallery": {
+        "title": "Composites · Inputs/RampStrip",
+        "route": "#/story/composites-rampstrip--overview",
+        "file": "stories/composites/RampStrip.stories.tsx"
+      },
       "parts": []
     },
     {
@@ -13985,7 +14044,8 @@
               "'warning'",
               "'info'",
               "'success'",
-              "'ghost'"
+              "'ghost'",
+              "'quiet'"
             ],
             "default": "'secondary'"
           },
@@ -16307,6 +16367,7 @@
         "Pass pressed for a toggle: the main button shows the on look and reports aria-pressed. Leave it out for a plain action.",
         "Pass iconOnly with an icon to draw the main button as the icon alone, for a compact bar; a tooltip shows the label and the label still names the button. Without an icon it stays a text button.",
         "Pass shortcut, keys such as F3, to show the key hint in the tooltip of the main button; it is a hint, the app binds the key. It also adds the tooltip to a text button.",
+        "Pass disabled to switch off the main button and the chevron together.",
         "variant and size follow Button; the chevron takes the same variant and a matching size.",
         "Pass menuLabel when Options does not say what the menu holds, such as New options.",
         "Keep the menu to a few related actions; more belong in a DropdownMenu."
@@ -16327,7 +16388,7 @@
         "rule": "SplitButton gives the usual action one press and keeps its variants one step behind a chevron."
       },
       "example": "import { Icon, SplitButton } from '@drizztdourden08/tessera';\n\ninterface NewMenuProps {\n  createFile: () => void;\n  createFolder: () => void;\n}\n\nconst NewMenu = ({ createFile, createFolder }: NewMenuProps) => (\n  <SplitButton\n    label=\"New file\"\n    icon={<Icon name=\"plus\" />}\n    onClick={createFile}\n    menuLabel=\"New options\"\n    items={[\n      { id: 'folder', label: 'New folder', onSelect: createFolder },\n    ]}\n  />\n);\n",
-      "propsHash": "72c3b4b15bdf0c44",
+      "propsHash": "35fbc2eef7bc9f96",
       "props": {
         "own": [
           {
@@ -16377,7 +16438,8 @@
               "'warning'",
               "'info'",
               "'success'",
-              "'ghost'"
+              "'ghost'",
+              "'quiet'"
             ],
             "default": "'secondary'"
           },
@@ -18022,6 +18084,8 @@
         "With both onDragOut and reorder, a plain drag leaves the tree and Alt with the drag reorders (its modifier is alt); a touch drag still reorders, and a press on a button in the row starts neither.",
         "Keep the open folders in the app with expandedKeys and onExpandedChange, or pass defaultExpandedKeys and let the tree keep them.",
         "Pass selection with the picked keys and onChange to pick; mode single picks one row on each press, and mode multiple, the default, takes Ctrl, Shift, Space and Ctrl and A through useSelectionModel.",
+        "Pass onRowAuxClick(key, event) to hear a middle click on a row; the key is the row key and no other button calls it.",
+        "A native drag from another widget held over a closed folder opens it after springDelay, 600 ms by default, with or without reorder.",
         "Pass openOnPick to fold a folder with the same press that picks it, and onActivate to hear Enter or a double click on a row.",
         "Pass onLoadChildren and loadingKeys for lazy children: it is called once when a folder opens with no children yet, the folder shows a spinner while its key is in loadingKeys, and the app then gives its children.",
         "Pass filter to keep the items it accepts and the folders above them; those folders show open while the filter runs, and the tree does not reorder.",
@@ -18044,7 +18108,7 @@
       ],
       "buildingBlock": true,
       "example": "import { useState } from 'react';\nimport { Tree } from '@drizztdourden08/tessera';\n\ntype Entry = { id: string; name: string; children?: Entry[] };\n\nconst Files = ({ entries }: { entries: Entry[] }) => {\n  const [picked, setPicked] = useState<ReadonlySet<string>>(new Set());\n  return (\n    <Tree\n      label=\"Files\"\n      items={entries}\n      getKey={(entry) => entry.id}\n      getChildren={(entry) => entry.children}\n      getLabel={(entry) => entry.name}\n      selection={{ selected: picked, onChange: setPicked }}\n    />\n  );\n};\n",
-      "propsHash": "d7af713907be659f",
+      "propsHash": "737c85a274aa0528",
       "props": {
         "own": [
           {
@@ -18101,6 +18165,11 @@
             "name": "onActivate",
             "optional": true,
             "text": "(item: T) => void"
+          },
+          {
+            "name": "onRowAuxClick",
+            "optional": true,
+            "text": "(key: string, event: MouseEvent<HTMLElement>) => void"
           },
           {
             "name": "openOnPick",

@@ -36,6 +36,8 @@ FoldText is the one clamp for long text. FormRow and SettingsRow draw their desc
 - The control and the hint only appear when the text runs past lines, so short text shows nothing extra.
 - Pass fill to give the text the full width of its parent and contain it, so a table cell holding long text keeps the width the table gives it.
 - Pass truncate middle with a string to keep one line, the start and the end of it, and an ellipsis between, such as a file path; the full text, or hint, shows in a tip while it is cut.
+- Pass truncate path instead to keep the last segment of a path whole, after the last slash or backslash, and cut the middle of what comes before it, so a file name never loses its end.
+- Pass smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; it changes string children only.
 - Pass hug with truncate middle to take only the width the text needs, so a button can sit right after it; it still shortens when the parent is narrower than the text.
 
 ## Accessibility
@@ -58,9 +60,10 @@ const Notes = ({ text }: { text: string }) => (
 
 - `lines` (optional): `number`.
 - `overflow` (optional): `FoldOverflow`, one of `'more'`, `'hint'`, `'clip'`.
-- `truncate` (optional): `FoldTruncate`.
+- `truncate` (optional): `FoldTruncate`, one of `'middle'`, `'path'`.
 - `fill` (optional): `boolean`.
 - `hug` (optional): `boolean`.
+- `smartTimes` (optional): `boolean`.
 - `hint` (optional): `ReactNode`.
 - `className` (optional): `string`.
 - `children`: `ReactNode`.

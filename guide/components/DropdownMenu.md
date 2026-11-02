@@ -90,7 +90,7 @@ const LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {
 - `align` (optional): `MenuAlign | DropAlign`, one of `'auto'`, `'end'`, `'start'`.
 - `groups`: `readonly MenuGroup[]`.
 - `label` (optional): `string`.
-- `variant` (optional): `MenuVariant`, one of `'danger'`, `'ghost'`, `'info'`, `'primary'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
+- `variant` (optional): `MenuVariant`, one of `'danger'`, `'ghost'`, `'info'`, `'primary'`, `'quiet'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
 - `intensity` (optional): `MenuIntensity`, one of `'strong'`, `'medium'`, `'subtle'`.
 - `itemSize` (optional): `MenuItemSize`, one of `'default'`, `'roomy'`.
 - `closeOnSelect` (optional): `boolean`.

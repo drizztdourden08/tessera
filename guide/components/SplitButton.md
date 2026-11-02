@@ -38,6 +38,7 @@ SplitButton gives the usual action one press and keeps its variants one step beh
 - Pass pressed for a toggle: the main button shows the on look and reports aria-pressed. Leave it out for a plain action.
 - Pass iconOnly with an icon to draw the main button as the icon alone, for a compact bar; a tooltip shows the label and the label still names the button. Without an icon it stays a text button.
 - Pass shortcut, keys such as F3, to show the key hint in the tooltip of the main button; it is a hint, the app binds the key. It also adds the tooltip to a text button.
+- Pass disabled to switch off the main button and the chevron together.
 - Variant and size follow Button; the chevron takes the same variant and a matching size.
 - Pass menuLabel when Options does not say what the menu holds, such as New options.
 - Keep the menu to a few related actions; more belong in a DropdownMenu.
@@ -82,7 +83,7 @@ const NewMenu = ({ createFile, createFolder }: NewMenuProps) => (
 - `icon` (optional): `ReactNode`.
 - `iconOnly` (optional): `boolean`.
 - `shortcut` (optional): `ShortcutSpec`.
-- `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`. Default `'secondary'`.
+- `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`, `'quiet'`. Default `'secondary'`.
 - `size` (optional): `ButtonSize`, one of `'xs'`, `'sm'`, `'md'`, `'lg'`. Default `'md'`.
 - `pressed` (optional): `boolean`.
 - `disabled` (optional): `boolean`.

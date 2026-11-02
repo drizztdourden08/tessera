@@ -8,7 +8,7 @@ Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdour
 import { RampStrip } from '@drizztdourden08/tessera';
 ```
 
-The source is `src/composites/RampStrip/RampStrip.tsx`. It has no gallery page yet.
+The source is `src/composites/RampStrip/RampStrip.tsx`. Its gallery page is Composites · Inputs/RampStrip (`#/story/composites-rampstrip--overview`).
 
 ## Where the questions lead here
 

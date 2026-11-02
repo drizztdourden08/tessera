@@ -79,7 +79,7 @@ const ViewOptions = (props: { density: string; zoom: number; sounds: boolean; on
 - `filterPlaceholder` (optional): `string`.
 - `hints` (optional): `boolean`. Default `true`.
 - `align` (optional): `DropAlign`, one of `'start'`, `'end'`, `'auto'`. Default `'auto'`.
-- `variant` (optional): `MenuVariant`, one of `'danger'`, `'ghost'`, `'info'`, `'primary'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
+- `variant` (optional): `MenuVariant`, one of `'danger'`, `'ghost'`, `'info'`, `'primary'`, `'quiet'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
 - `intensity` (optional): `MenuIntensity`, one of `'strong'`, `'medium'`, `'subtle'`.
 - `size` (optional): `MenuSize`, one of `'xs'`, `'sm'`, `'md'`.
 - `disabled` (optional): `boolean`.

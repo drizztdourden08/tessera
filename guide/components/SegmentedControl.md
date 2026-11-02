@@ -75,7 +75,7 @@ const ScalePicker = () => {
 - `tooltipPlacement` (optional): `TooltipPlacement`, one of `'top'`, `'bottom'`, `'right'`, `'left'`. Default `'top'`.
 - `label` (optional): `string`.
 - `description` (optional): `string`.
-- `size` (optional): `ControlSize`, one of `'sm'`, `'md'`.
+- `size` (optional): `SegmentSize`, one of `'md'`, `'sm'`, `'sm-plus'`.
 - `selectedTone` (optional): `SelectedTone`, one of `'accent'`, `'neutral'`. Default `'accent'`.
 - `disabled` (optional): `boolean`. Default `false`.
 - `className` (optional): `string`.
@@ -84,4 +84,4 @@ const ScalePicker = () => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-focus`, `--c-primary`, `--c-primary-bright`, `--c-primary-soft`, `--c-surface`, `--c-text`, `--c-text-dim`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--density-gap`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--size-24`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--z-base`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-focus`, `--c-primary`, `--c-primary-bright`, `--c-primary-soft`, `--c-surface`, `--c-text`, `--c-text-dim`, `--control-h-md`, `--control-h-sm`, `--control-h-sm-plus`, `--control-pad-md`, `--control-pad-sm`, `--control-pad-sm-plus`, `--density-gap`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--size-24`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-md`, `--text-sm`, `--text-xs`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--z-base`.
