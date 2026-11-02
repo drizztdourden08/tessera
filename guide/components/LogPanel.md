@@ -46,6 +46,7 @@ LogPanel shows a running log with search, filters, the newest lines first in vie
 - While a returned promise is pending a second Enter is ignored, so one line is never sent twice.
 - Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.
 - Pass height="fill" inside a box that sets the height, or a number for a fixed height in pixels.
+- MinRows keeps at least that many lines visible, default 3 with height fill.
 
 ## Accessibility
 
@@ -91,6 +92,7 @@ const ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lin
 - `emptyLabel` (optional): `string`. Default `panels.logEmpty`.
 - `toolbarExtra` (optional): `ReactNode`.
 - `height` (optional): `LogPanelHeight`.
+- `minRows` (optional): `number`.
 - `selectedIds` (optional): `ReadonlySet<string>`.
 - `onSelectionChange` (optional): `(ids: ReadonlySet<string>) => void`.
 - `ansi` (optional): `boolean`.
@@ -104,4 +106,4 @@ const ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lin
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-hairline`, `--c-hover`, `--c-inset`, `--c-selected`, `--c-surface`, `--c-term-bg-black`, `--c-term-bg-blue`, `--c-term-bg-cyan`, `--c-term-bg-green`, `--c-term-bg-magenta`, `--c-term-bg-red`, `--c-term-bg-white`, `--c-term-bg-yellow`, `--c-term-black`, `--c-term-blue`, `--c-term-bright-black`, `--c-term-bright-blue`, `--c-term-bright-cyan`, `--c-term-bright-green`, `--c-term-bright-magenta`, `--c-term-bright-red`, `--c-term-bright-white`, `--c-term-bright-yellow`, `--c-term-cyan`, `--c-term-green`, `--c-term-magenta`, `--c-term-red`, `--c-term-white`, `--c-term-yellow`, `--c-text`, `--c-text-muted`, `--font-mono`, `--leading-normal`, `--log-gutter-w`, `--log-ink`, `--log-tag-w`, `--opacity-muted`, `--shadow-2`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--weight-bold`, `--weight-semi`, `--z-base`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-hairline`, `--c-hover`, `--c-inset`, `--c-selected`, `--c-surface`, `--c-term-bg-black`, `--c-term-bg-blue`, `--c-term-bg-cyan`, `--c-term-bg-green`, `--c-term-bg-magenta`, `--c-term-bg-red`, `--c-term-bg-white`, `--c-term-bg-yellow`, `--c-term-black`, `--c-term-blue`, `--c-term-bright-black`, `--c-term-bright-blue`, `--c-term-bright-cyan`, `--c-term-bright-green`, `--c-term-bright-magenta`, `--c-term-bright-red`, `--c-term-bright-white`, `--c-term-bright-yellow`, `--c-term-cyan`, `--c-term-green`, `--c-term-magenta`, `--c-term-red`, `--c-term-white`, `--c-term-yellow`, `--c-text`, `--c-text-muted`, `--font-mono`, `--leading-normal`, `--log-gutter-w`, `--log-ink`, `--log-panel-min-rows`, `--log-tag-w`, `--opacity-muted`, `--shadow-2`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`, `--weight-bold`, `--weight-semi`, `--z-base`.

@@ -26,11 +26,13 @@
   flex: 1;
   flex-direction: column;
   min-height: 0;
+  min-block-size: calc(var(--log-panel-min-rows, 0) * var(--text-sm) * var(--leading-normal) + var(--space-xs) * 2);
 }
 
 .log-panel__list {
   flex: 1;
   min-height: 0;
+  min-block-size: calc(var(--log-panel-min-rows, 0) * var(--text-sm) * var(--leading-normal) + var(--space-xs) * 2);
   overflow: auto;
   padding: var(--space-xs) 0;
   color: var(--c-text);

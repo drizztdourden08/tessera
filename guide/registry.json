@@ -11961,7 +11961,8 @@
         "Return false, or a promise that resolves false or rejects, to keep the text in the field and out of the history; true or nothing clears it.",
         "While a returned promise is pending a second Enter is ignored, so one line is never sent twice.",
         "Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.",
-        "Pass height=\"fill\" inside a box that sets the height, or a number for a fixed height in pixels."
+        "Pass height=\"fill\" inside a box that sets the height, or a number for a fixed height in pixels.",
+        "minRows keeps at least that many lines visible, default 3 with height fill."
       ],
       "a11y": [
         "Without a selection the log is one focusable region that the arrow keys scroll.",
@@ -11977,7 +11978,7 @@
         "rule": "LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick."
       },
       "example": "import { Button, LogPanel } from '@drizztdourden08/tessera';\nimport type { LogRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\nconst ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lines: readonly LogRow[]) => void }) => {\n  const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());\n  const picked = rows.filter((row) => selected.has(row.id));\n  return (\n    <LogPanel\n      rows={rows}\n      kinds={[{ id: 'error', label: 'Errors', tone: 'danger', toneMessage: true }]}\n      selectedIds={selected}\n      onSelectionChange={setSelected}\n      toolbarExtra={<Button size=\"sm\" disabled={picked.length === 0} onClick={() => onReport(picked)}>Report these lines</Button>}\n      height=\"fill\"\n    />\n  );\n};\n",
-      "propsHash": "40ec5e2accbaae1b",
+      "propsHash": "d1f7708920ae15bf",
       "props": {
         "own": [
           {
@@ -12041,6 +12042,11 @@
             "name": "height",
             "optional": true,
             "text": "LogPanelHeight"
+          },
+          {
+            "name": "minRows",
+            "optional": true,
+            "text": "number"
           },
           {
             "name": "selectedIds",
@@ -12143,6 +12149,7 @@
         "--leading-normal",
         "--log-gutter-w",
         "--log-ink",
+        "--log-panel-min-rows",
         "--log-tag-w",
         "--opacity-muted",
         "--shadow-2",
