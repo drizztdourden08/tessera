@@ -9,4 +9,6 @@ const EDGE_SPEED = 18;
 
 const POPUP_SELECTOR = '[role="menu"], [role="dialog"], [role="listbox"], [role="tooltip"]';
 
-export { EDGE_SIZE, EDGE_SPEED, KEY_ATTRIBUTE, POPUP_SELECTOR, THRESHOLD };
+const INTERACTIVE_SELECTOR = 'button, input, select, textarea, a[href], [role="columnheader"]';
+
+export { EDGE_SIZE, EDGE_SPEED, INTERACTIVE_SELECTOR, KEY_ATTRIBUTE, POPUP_SELECTOR, THRESHOLD };
