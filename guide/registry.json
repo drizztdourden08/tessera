@@ -13516,8 +13516,8 @@
         "A section has an id, an optional label and its items. An item has an id, an icon, a label, an optional shortcut and an optional disabled.",
         "icon takes the props of Icon, such as { name: \"pencil\" }. shortcut takes the keys of Shortcut and is drawn small in the corner of the cell.",
         "at is a point in the window, such as the pointer position. The palette opens just below and after it, and flips above or to the left when there is no room.",
-        "Set holding while the press that opened the palette is still down. The first release then picks the cell under the pointer; a release elsewhere keeps the palette open for clicks and keys.",
-        "Leave holding out when a key or a tap opened it. The palette then waits for a click or Enter.",
+        "Set holding while the press or key that opened the palette is still down. The first release then picks the cell under the pointer; a release elsewhere keeps the palette open for clicks and keys. When a held key opened it, turn holding off on the key release: the palette then picks the cell under the pointer as a pointer release does.",
+        "Leave holding out when a tap, or a key you do not track, opened it. The palette then waits for a click or Enter.",
         "A pick calls onPick and then onClose. Escape and a press outside call onClose, and focus goes back to where it was.",
         "columns is the cells in a row of each section, 4 by default."
       ],

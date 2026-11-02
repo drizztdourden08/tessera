@@ -8,4 +8,4 @@ type DataTableArgs = {
   emptyMessage: string;
 };
 
-export type { DataTableArgs, GroupChoice };
+export type { DataTableArgs };

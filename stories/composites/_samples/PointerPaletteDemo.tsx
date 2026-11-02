@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Box, Text } from '../../../src/primitives';
 import { PointerPalette } from '../../../src/composites';
 import type { PalettePoint, PaletteSection } from '../../../src/composites';
+import './DemoTarget.css';
 import './PointerPaletteDemo.css';
 
 type PointerPaletteDemoArgs = { holding: boolean };
@@ -34,7 +35,7 @@ const PointerPaletteDemo = ({ holding = true }: Partial<PointerPaletteDemoArgs>)
   const [picked, setPicked] = useState('pencil');
   return (
     <Box className="pointer-palette-demo">
-      <Box className="pointer-palette-demo__target" onPointerDown={(event) => setAt({ x: event.clientX, y: event.clientY })}>
+      <Box className="demo-target pointer-palette-demo__target" onPointerDown={(event) => setAt({ x: event.clientX, y: event.clientY })}>
         <Text as="span">Press here and let go over a tool, or tap to keep it open</Text>
       </Box>
       <Text className="story-label">Active: {picked}</Text>

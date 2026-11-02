@@ -3,13 +3,8 @@ import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { RampStrip } from '../../src/composites';
 import type { RampSize } from '../../src/composites';
-import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { axis } from '../_template/axis';
-import { Demonstrator } from '../_template/Demonstrator';
-import { overviewStory } from '../_template/overview-story';
-import { STATE } from '../_template/states/states.constants';
-import type { StateProps } from '../_template/states/states.type';
-import { ValueReadout } from '../_template/ValueReadout';
+import { axis, Demonstrator, overviewStory, STATE, ValueReadout } from '../_template/value-story-kit';
+import type { PlaygroundArgTypes, PlaygroundStory, StateProps } from '../_template/value-story-kit';
 import { BLUES, NAMED, UNUSED_STEPS } from './_samples/ramp-steps';
 
 type RampStripArgs = {

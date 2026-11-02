@@ -4,6 +4,7 @@ import { Box, Button, Text } from '../../../src/primitives';
 import { ContextMenu } from '../../../src/composites';
 import type { ContextMenuPoint, MenuGroup } from '../../../src/composites';
 import { EDIT_MENU } from './data-menu-features';
+import './DemoTarget.css';
 import './ContextMenuDemo.css';
 
 type ContextMenuDemoArgs = { closeOnSelect: boolean; filter: boolean; disabled: boolean; longPress: boolean };
@@ -19,7 +20,7 @@ const ContextMenuDemo = (props: Partial<ContextMenuDemoArgs> & { corner?: boolea
   return (
     <Box className={corner ? 'context-demo context-demo--corner' : 'context-demo'}>
       <ContextMenu {...rest} groups={withPick(EDIT_MENU, setPicked)} label="Edit">
-        <Box className="context-demo__target" tabIndex={0}>
+        <Box className="demo-target context-demo__target" tabIndex={0}>
           <Text as="span">Right-click, long press, or focus here and press Shift+F10</Text>
         </Box>
       </ContextMenu>
