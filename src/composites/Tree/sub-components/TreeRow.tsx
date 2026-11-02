@@ -27,10 +27,12 @@ const TreeRow = <T,>(props: TreeRowProps<T>) => {
       {...{ [INDEX_ATTRIBUTE]: at, [KEY_ATTRIBUTE]: row.key }}
       {...bind.pointer}
       {...bind.dragOut}
+      {...bind.nativeOver}
       onFocus={bind.onFocus}
       onKeyDown={bind.onKeyDown}
       onClick={bind.onClick}
       onDoubleClick={bind.onDoubleClick}
+      onAuxClick={bind.onAuxClick}
     >
       <TreeRowContent row={row} state={bind.state} onToggle={openOnPick ? undefined : bind.onToggle} {...content} />
     </Box>

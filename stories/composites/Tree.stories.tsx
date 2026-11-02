@@ -105,10 +105,10 @@ const Overview = overviewStory({
   points: [
     '`getChildren` gives the children of an item; thousands of rows draw only what is in view.',
     'The keys of a tree: arrows, [[Right]] and [[Left]] to fold, [[Home]], [[End]] and a typed letter.',
-    '`selection` picks many rows, or one with `mode="single"`; `onLoadChildren` loads a folder when it opens.',
+    '`selection` picks rows; `onRowAuxClick(key, event)` hears a middle click; `onLoadChildren` loads a folder.',
     '`reorder` drags rows to a gap or into a folder; [[Alt]] with an arrow moves by key and is announced.',
     'Slots: `renderLead`, `renderLabel`, `renderBadges` (always on) and `renderTrail` (`trail="hover"` hides it).',
-    '`onDragOut` makes the whole row a native drag source; with `reorder`, [[Alt]] with the drag reorders instead.',
+    '`onDragOut` makes a row a native drag source; a native drag held over a closed folder opens it.',
   ],
   instead: '[GroupTree] for counted groups with one picked row, or [VirtualList] for a flat list.',
   playground: Playground,
