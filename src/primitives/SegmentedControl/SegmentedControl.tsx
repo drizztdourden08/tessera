@@ -13,11 +13,12 @@ import { segmentKeys } from './behavior/segment-keys';
 import { segmentedClass } from './behavior/segmented-class';
 import { useSegmentIndicator } from './behavior/useSegmentIndicator';
 import { SegmentButton } from './sub-components/SegmentButton';
-import type { SegmentedControlProps } from './SegmentedControl.type';
+import type { SegmentedControlProps, SegmentSize } from './SegmentedControl.type';
 
 const SegmentedControl = <T extends string = string>(props: SegmentedControlProps<T>) => {
   const { value, options, onChange, onDeselect, onHint, tooltipPlacement = 'top', label, description, size, selectedTone = 'accent', disabled = false, className } = props;
-  const controlSize = useControlSize(size);
+  const resolved = useControlSize(size === 'sm-plus' ? 'sm' : size);
+  const controlSize: SegmentSize = size === 'sm-plus' ? size : resolved;
   const { trackRef, indicatorStyle } = useSegmentIndicator(value, options);
   const { handlersFor } = useHintReport<T>({ hintOf: (key) => options.find((opt) => opt.value === key)?.hint, onHint });
   const choose = (next: T) => {
