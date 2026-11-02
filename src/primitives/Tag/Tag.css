@@ -280,6 +280,7 @@
 
 .tag--fill-tint.tag--custom {
   --tag-ink: var(--tag-paint);
+
   background: color-mix(in srgb, var(--tag-paint) 14%, transparent);
 }
 
@@ -288,6 +289,7 @@
   --tag-fill: var(--c-border-strong);
   --tag-edge: var(--c-border-strong);
   --tag-dot: var(--c-text);
+
   background: var(--tag-fill);
 }
 
