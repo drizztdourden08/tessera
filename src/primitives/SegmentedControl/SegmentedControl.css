@@ -37,6 +37,15 @@
   padding: 0 var(--space-xs);
 }
 
+.segmented.control-size--sm.segmented--sm-plus {
+  --control-height: var(--control-h-sm-plus);
+  --control-font-dense: var(--text-md);
+}
+
+.segmented.control-size--sm.segmented--sm-plus .segmented__btn {
+  padding: 0 var(--control-pad-sm-plus);
+}
+
 .segmented--neutral .segmented__indicator {
   background: var(--c-border-strong);
   border-color: var(--c-border-strong);

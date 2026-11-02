@@ -15,17 +15,19 @@ type CheckboxArgs = {
   label: string;
   disabled: boolean;
   indeterminate: boolean;
+  boxed: boolean;
   size: ControlSize;
 };
 
 const GAMES = ['A Link to the Past', "Link's Awakening", 'Ocarina of Time'] as const;
 
-const ARGS: Partial<CheckboxArgs> = { label: 'Show hints on the map', disabled: false, indeterminate: false, size: 'md' };
+const ARGS: Partial<CheckboxArgs> = { label: 'Show hints on the map', disabled: false, indeterminate: false, boxed: false, size: 'md' };
 
 const ARG_TYPES: PlaygroundArgTypes<CheckboxArgs> = {
     label: { group: 'Content', control: 'text' },
     disabled: { group: 'State', control: 'boolean' },
     indeterminate: { group: 'State', control: 'boolean' },
+    boxed: { group: 'Appearance', control: 'boolean', description: 'Draws the box and its label inside a small bordered box, for a toggle in a toolbar.' },
     size: SIZE_ARG,
   };
 
@@ -35,7 +37,7 @@ const meta = {
 } satisfies StoryLiteMeta<CheckboxArgs>;
 
 const StatefulCheckbox = (props: { initial: boolean; ariaLabel?: string } & Partial<CheckboxArgs>) => {
-  const { initial, label, ariaLabel, disabled, indeterminate, size } = props;
+  const { initial, label, ariaLabel, disabled, indeterminate, boxed, size } = props;
   const [checked, setChecked] = useState(initial);
   return (
     <Box className="story-row">
@@ -46,6 +48,7 @@ const StatefulCheckbox = (props: { initial: boolean; ariaLabel?: string } & Part
         ariaLabel={ariaLabel}
         disabled={disabled}
         indeterminate={indeterminate}
+        boxed={boxed}
         size={size}
       />
       <Text className="story-label">{checked ? 'checked' : 'unchecked'}</Text>
@@ -106,6 +109,17 @@ const LabelSizes = {
   ),
 } satisfies StoryLiteStoryDefinition<CheckboxArgs>;
 
+const Boxed = {
+  name: 'Boxed',
+  render: () => (
+    <Box className="story-row">
+      <StatefulCheckbox initial boxed label="Errors" />
+      <StatefulCheckbox initial={false} boxed label="Warnings" />
+      <StatefulCheckbox initial boxed size="sm" label="Info" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<CheckboxArgs>;
+
 const WithTooltip = {
   name: 'Tooltip',
   render: () => (
@@ -157,14 +171,14 @@ const Overview = overviewStory({
   points: [
     'It is controlled: `checked` comes in and `onChange` hands back the new value.',
     '`indeterminate` draws the mixed state, for a box that stands for a partly checked set.',
-    '`ariaLabel` names a box whose label is drawn somewhere else.',
+    '`ariaLabel` names a box whose label is elsewhere; `boxed` frames box and label, for a toolbar filter.',
     '`size` `md` sits beside standard controls, `sm` suits dense lists; `labelSize` sets the label apart.',
     '`help` puts a ? after the label that shows its note on hover, focus or click, without checking the box.',
     '`tooltip` takes a string or a description and shortcut; `title` goes to the input as a native hint.',
   ],
   instead: '[Toggle] for a setting that takes effect at once, or a [Tag] with `selected` and `onSelect` for a chip.',
   playground: Playground,
-  variants: [Labels, Sizes, LabelSizes, WithTooltip],
+  variants: [Labels, Boxed, Sizes, LabelSizes, WithTooltip],
   states: {
     render: renderState,
     list: [
@@ -181,4 +195,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { LabelSizes, Labels, Overview, Playground, SelectAll, Sizes, WithTooltip };
+export { Boxed, LabelSizes, Labels, Overview, Playground, SelectAll, Sizes, WithTooltip };

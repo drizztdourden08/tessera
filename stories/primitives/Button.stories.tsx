@@ -30,7 +30,7 @@ type ButtonArgs = {
   active: boolean;
 };
 
-const VARIANTS: readonly ButtonVariant[] = ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'info', 'success', 'ghost'];
+const VARIANTS: readonly ButtonVariant[] = ['primary', 'secondary', 'tertiary', 'danger', 'warning', 'info', 'success', 'ghost', 'quiet'];
 
 const ARGS: Partial<ButtonArgs> = { label: 'Save changes', variant: 'primary', size: 'md', look: 'flat', fill: 'tonal', width: 'auto', caption: '', disabled: false, loading: false, active: false };
 
@@ -169,7 +169,7 @@ const Overview = overviewStory({
   description: 'The control for an action the user starts, such as saving, opening or confirming.',
   points: [
     '`primary` marks the main action of a view; `secondary` and `tertiary` sit beside it, `ghost` in toolbars.',
-    '`danger`, `warning`, `info` and `success` carry an urgency.',
+    '`danger`, `warning`, `info` and `success` carry an urgency; `quiet` is grey, for Copy or Unhand.',
     '`lg` is 56 px tall, `md` 39 px, `sm` 28 px and `xs` 20 px; a compact [DensityScope] makes `sm` the default.',
     '`active` marks a toggle button as on, announced as pressed; `hint` reports to a [HintScope], as on [IconButton].',
     '`look="pixel"` draws a dithered frame; `fill="solid"` or `"gradient"` makes a bright call to action.',

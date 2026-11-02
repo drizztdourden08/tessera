@@ -2,7 +2,7 @@
 import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import type { HintTargetProps } from '../hint/hint.type';
 
-type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'info' | 'success' | 'ghost';
+type ButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'info' | 'success' | 'ghost' | 'quiet';
 
 type ButtonSize = 'xs' | 'sm' | 'md' | 'lg';
 

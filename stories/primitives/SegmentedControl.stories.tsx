@@ -2,9 +2,9 @@
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
+import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { Box, Glyph, Icon, SegmentedControl, Text } from '../../src/primitives';
-import type { ControlSize, SegmentOption, TooltipPlacement } from '../../src/primitives';
+import type { SegmentOption, SegmentSize, TooltipPlacement } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -18,7 +18,7 @@ type SegmentedControlArgs = {
   description: string;
   disabled: boolean;
   deselectable: boolean;
-  size: ControlSize;
+  size: SegmentSize;
 };
 
 type Scale = '1x' | '2x' | '3x' | 'fit';
@@ -60,12 +60,14 @@ const TIPPED_TEXT: SegmentOption<Scale>[] = SCALES.map((opt) =>
 
 const ARGS: Partial<SegmentedControlArgs> = { label: 'Window scale', description: 'How large the game picture is drawn.', disabled: false, deselectable: false, size: 'md' };
 
+const SEGMENT_SIZES: readonly SegmentSize[] = ['md', 'sm-plus', 'sm'];
+
 const ARG_TYPES: PlaygroundArgTypes<SegmentedControlArgs> = {
     label: { group: 'Content', control: 'text' },
     description: { group: 'Content', control: 'text' },
     disabled: { group: 'State', control: 'boolean' },
     deselectable: { group: 'Behaviour', control: 'boolean', description: 'Wires onDeselect, so a re-click clears the value.' },
-    size: SIZE_ARG,
+    size: { ...SIZE_ARG, options: [...SEGMENT_SIZES], description: 'md is the standard control height, sm-plus a 13 px step with roomier padding, sm the compact one.' },
   };
 
 const meta = {
@@ -124,7 +126,7 @@ const Sizes = {
   name: 'Sizes',
   render: () => (
     <Demonstrator
-      rows={axis(CONTROL_SIZES)}
+      rows={axis(SEGMENT_SIZES)}
       columns={axis(['Text', 'Icons'])}
       cell={(size, kind) => (kind === 'Text'
         ? <StatefulSegments<Scale> initial="2x" options={SCALES} size={size} />
@@ -194,7 +196,7 @@ const Overview = overviewStory({
     '`onDeselect` clears the value on a second click; `selectedTone="neutral"` fills the pick grey, not accent.',
     'Each option can carry a `hint` that a [HintLine] shows, or a `tooltip` with a description and a shortcut.',
     'The arrow keys pick; an option `disabled` with a string shows why in a tooltip, and the arrows skip it.',
-    'A compact [DensityScope] draws it at `sm` with a tighter gap; `className` lands on its root.',
+    '`size` is `md`, `sm-plus` (13 px text, 28 px segments) or `sm`; a compact [DensityScope] draws `sm`.',
   ],
   instead: '[ToggleGroup] to switch several options on, or [Tabs] to switch views.',
   playground: Playground,

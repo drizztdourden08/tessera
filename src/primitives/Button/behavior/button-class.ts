@@ -3,7 +3,7 @@ import type { ButtonFill, ButtonLook, ButtonVariant } from '../Button.type';
 import type { ButtonClassInput } from './button-class.type';
 
 const surfaceClasses = (variant: ButtonVariant, look: ButtonLook | undefined, fill: ButtonFill | undefined): string[] => {
-  if (variant === 'ghost') return [];
+  if (variant === 'ghost' || variant === 'quiet') return [];
   if (fill === 'gradient' && look !== 'pixel' && variant === 'primary') return ['btn--gradient'];
   const solid = fill === 'solid' || fill === 'gradient' ? ['btn--solid'] : [];
   if (look === 'pixel') return ['btn--pixel', ...solid];
