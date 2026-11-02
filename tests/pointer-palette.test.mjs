@@ -58,15 +58,15 @@ describe('I-62 paletteAnchor', { tags: ['critical'] }, () => {
   });
 });
 
-const fakeEvent = (type, x) => Object.assign(new Event(type), { clientX: x, clientY: 0 });
+const fakeEvent = (type, x) => Object.assign(new globalThis.Event(type), { clientX: x, clientY: 0 });
 
 const palette = () => {
   const picks = [];
   const ends = [];
   const cells = [0, 1].map((index) => ({ closest: () => cells[index], click: () => picks.push(index) }));
   const empty = { closest: () => null, click: () => picks.push('empty') };
-  const doc = Object.assign(new EventTarget(), {
-    elementFromPoint: (x) => (x < 100 ? cells[0] : x < 200 ? cells[1] : empty),
+  const doc = Object.assign(new globalThis.EventTarget(), {
+    elementFromPoint: (x) => [cells[0], cells[1], empty][Math.min(Math.floor(x / 100), 2)],
   });
   const outside = [];
   doc.addEventListener('pointerup', () => outside.push(true));
@@ -110,7 +110,7 @@ describe('I-67 palette picks on a held key release', { tags: ['critical'] }, () 
   it('picks nothing when the point is outside the palette', () => {
     const { picks, session, at } = palette();
     const outsideSurface = holdSession(
-      Object.assign(new EventTarget(), { elementFromPoint: () => ({ closest: () => ({ click: () => picks.push('out') }) }) }),
+      Object.assign(new globalThis.EventTarget(), { elementFromPoint: () => ({ closest: () => ({ click: () => picks.push('out') }) }) }),
       { x: 0, y: 0 },
       { current: { contains: () => false } },
       () => undefined,
