@@ -66,7 +66,7 @@ const Files = ({ entries }: { entries: Entry[] }) => {
   );
 };
 `,
-  propsHash: 'd7af713907be659f',
+  propsHash: '737c85a274aa0528',
 } satisfies ComponentUsage;
 
 export { usage };
