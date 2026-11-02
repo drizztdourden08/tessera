@@ -9,6 +9,7 @@ type LoadErrorArgs = {
   raw: LoadErrorRaw;
   retry: boolean;
   retrying: boolean;
+  reveal: boolean;
 };
 
 interface LoadErrorSampleProps {

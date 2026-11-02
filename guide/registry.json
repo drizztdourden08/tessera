@@ -11744,6 +11744,7 @@
         "Write message as one plain sentence that says what failed, such as Could not load your servers; never the raw error.",
         "Pass the raw failure as error, an Error, a string or an object: it waits behind Details, closed, so the user can copy it into a report.",
         "Pass onRetry when the load can run again, and set retrying while it runs so the button spins and takes no second click.",
+        "Pass actions for a second button beside Retry, such as Reveal; the app builds it and handles its click.",
         "Use variant center to fill a list pane or a screen, box inside a section, and inline in a row.",
         "ItemList, ErrorBoundary and SettingsRow draw it from their own props; reach for it directly in other places."
       ],
@@ -11759,7 +11760,7 @@
         "rule": "LoadError draws every failed load the same way: a sentence, Retry and the raw error behind Details."
       },
       "example": "import { LoadError } from '@drizztdourden08/tessera';\n\ninterface SessionsFailedProps {\n  error: unknown;\n  reloading: boolean;\n  reload: () => void;\n}\n\nconst SessionsFailed = ({ error, reloading, reload }: SessionsFailedProps) => (\n  <LoadError message=\"Could not load your sessions.\" error={error} onRetry={reload} retrying={reloading} />\n);\n",
-      "propsHash": "f12b78f2cc1a1df8",
+      "propsHash": "6d6b38ce1abca3d4",
       "props": {
         "own": [
           {
@@ -11787,6 +11788,11 @@
             "name": "retryAt",
             "optional": true,
             "text": "number | null"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
           },
           {
             "name": "variant",
