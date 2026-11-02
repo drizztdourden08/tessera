@@ -10,9 +10,10 @@ const PATHS = [
 
 type FoldTextCellsProps = {
   middle: boolean;
+  path?: boolean;
 };
 
-const FoldTextCells = ({ middle }: FoldTextCellsProps) => (
+const FoldTextCells = ({ middle, path: keepEnd = false }: FoldTextCellsProps) => (
   <Box className="fold-story__frame">
     <Table>
       <TableSection head>
@@ -24,7 +25,7 @@ const FoldTextCells = ({ middle }: FoldTextCellsProps) => (
       <TableSection>
         {PATHS.map((path) => (
           <TableRow key={path}>
-            <TableCell>{middle ? <FoldText truncate="middle">{path}</FoldText> : <FoldText fill lines={1} overflow="hint">{path}</FoldText>}</TableCell>
+            <TableCell>{middle ? <FoldText truncate={keepEnd ? 'path' : 'middle'}>{path}</FoldText> : <FoldText fill lines={1} overflow="hint">{path}</FoldText>}</TableCell>
             <TableCell align="right">12 KB</TableCell>
           </TableRow>
         ))}

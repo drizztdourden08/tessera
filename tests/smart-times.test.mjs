@@ -3,7 +3,8 @@ import { createElement as h } from 'react';
 import { renderToString } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { Markdown } from '../src/composites/Markdown';
-import { timesBetweenDigits } from '../src/composites/Markdown/behavior/times-between-digits';
+import { smartChildren } from '../src/primitives/times-between-digits/smart-children';
+import { timesBetweenDigits } from '../src/primitives/times-between-digits/times-between-digits';
 
 const TIMES = '×';
 
@@ -37,5 +38,18 @@ describe('S2 Markdown smartTimes', { tags: ['standard'] }, () => {
   it('keeps code and links as written', () => {
     const html = draw({ smartTimes: true }, '`1920x1080`\n\n```\n16x9\n```\n\n[4x4](https://example.com/1x1)');
     expect(html).not.toContain(TIMES);
+  });
+});
+
+describe('K1 smartChildren', { tags: ['critical'] }, () => {
+  it('changes string children only when smart is on', () => {
+    expect(smartChildren('1920x1080', true)).toBe(`1920${TIMES}1080`);
+    expect(smartChildren('1920x1080', false)).toBe('1920x1080');
+    expect(smartChildren('1920x1080', undefined)).toBe('1920x1080');
+  });
+
+  it('changes the strings of a list and leaves elements alone', () => {
+    const code = h('code', null, '2x2');
+    expect(smartChildren(['a 2x3 ', code], true)).toEqual([`a 2${TIMES}3 `, code]);
   });
 });

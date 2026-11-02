@@ -40,12 +40,21 @@
   font-size: var(--text-md);
 }
 
+.text--lead {
+  font-size: var(--text-lead);
+}
+
 .text--toned {
   color: var(--tone-ink);
 }
 
 .text-el--tone-faint {
   --tone-ink: var(--c-text-faint);
+}
+
+.text--font-title {
+  font-family: var(--font-title);
+  font-weight: var(--weight-semi);
 }
 
 .text--mono {

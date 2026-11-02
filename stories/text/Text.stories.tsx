@@ -16,6 +16,9 @@ type TextArgs = {
   variant: TextVariantChoice;
   as: TextElement;
   weight: number;
+  titleFont: boolean;
+  lead: boolean;
+  smartTimes: boolean;
   italic: boolean;
   tone: TextToneChoice | 'none';
   mono: boolean;
@@ -46,13 +49,16 @@ const MEMBERS: readonly Member[] = [
   ...EXTRA_MEMBERS,
 ];
 
-const ARGS: Partial<TextArgs> = { text: 'Items found in your world are sent to their owner.', variant: 'body', as: 'p', weight: 400, italic: false, tone: 'none', mono: false, numeric: false };
+const ARGS: Partial<TextArgs> = { text: 'Items found in your world are sent to their owner.', variant: 'body', as: 'p', weight: 400, titleFont: false, lead: false, smartTimes: false, italic: false, tone: 'none', mono: false, numeric: false };
 
 const ARG_TYPES: PlaygroundArgTypes<TextArgs> = {
   text: { group: 'Content', control: 'text' },
   variant: { group: 'Appearance', control: 'select', options: ['none', ...VARIANTS] },
   weight: { group: 'Appearance', control: 'range', min: 100, max: 900, step: 1, description: 'Any whole number from 100 to 900.' },
   italic: { group: 'Appearance', control: 'boolean' },
+  titleFont: { group: 'Appearance', control: 'boolean', description: 'font="title": the title face at weight 600, at the size of the variant.' },
+  lead: { group: 'Appearance', control: 'boolean', description: 'size="lead": the 15 px step between base and large.' },
+  smartTimes: { group: 'Behaviour', control: 'boolean', description: 'Draws a times sign for an x between two digits, as in 1920x1080.' },
   tone: { group: 'Appearance', control: 'select', options: ['none', ...TONES], description: 'The colour, as on Span: quiet, accent or status, or faint for decoration.' },
   mono: { group: 'Appearance', control: 'boolean', description: 'The code face, for file names, seeds and addresses.' },
   numeric: { group: 'Appearance', control: 'boolean', description: 'Tabular figures, so times and counts line up.' },
@@ -74,6 +80,9 @@ const Playground = {
       variant={args.variant === 'none' ? undefined : args.variant}
       weight={args.weight === 400 ? undefined : args.weight}
       italic={args.italic || undefined}
+      font={args.titleFont ? 'title' : undefined}
+      size={args.lead ? 'lead' : undefined}
+      smartTimes={args.smartTimes || undefined}
       tone={args.tone === 'none' ? undefined : args.tone}
       mono={args.mono || undefined}
       numeric={args.numeric || undefined}
@@ -150,6 +159,18 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<TextArgs>;
 
+const TitleFace = {
+  name: 'The title face at body size, and the 15 px step',
+  render: () => (
+    <Stack gap="xs">
+      <Text font="title">Body size in the title face: Multiworld session</Text>
+      <Text>Body size in the interface face: Multiworld session</Text>
+      <Text font="title" size="lead">Lead size, 15 px, in the title face: Multiworld session</Text>
+      <Text font="title" smartTimes>Frames of 1920x1080 and 3840x2160</Text>
+    </Stack>
+  ),
+} satisfies StoryLiteStoryDefinition<TextArgs>;
+
 const Figures = {
   name: 'Code type and tabular figures',
   render: () => (
@@ -181,15 +202,15 @@ const Overview = overviewStory({
   points: [
     'Every element hangs off it by full and short name, such as `Text.P`, `Text.Strong` or `Text.Sc`.',
     '`variant` picks a role: `title`, `subtitle`, `body`, `label`, `caption`, or `overline` over a group.',
-    'With no `variant` it takes the size and colour of its parent; `size="md"` sets 13 px.',
+    'With no `variant` it takes its parent's size and colour; `size` sets `md` 13 px or `lead` 15 px.',
     '`as` swaps the default `<span>` for another element, such as `p` or `label`.',
-    '`weight` and `italic` set the face; `mono` the code face, `numeric` tabular figures.',
-    '`tone` colours it as on [Span]: `muted` for captions, `danger` for errors, `faint` for decoration only.',
+    '`weight` and `italic` set the face; `font="title"` the title face; `mono` the code face.',
+    '`tone` colours it as on [Span]; `numeric` sets tabular figures; `smartTimes` adds a times sign.',
   ],
   instead: '[Title] for headings.',
   playground: Playground,
-  variants: [Passage, Members, AllVariants, Sizes, Tones, Figures, Composed],
+  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Composed],
 });
 
 export default meta;
-export { AllVariants, Composed, Figures, Members, Overview, Passage, Playground, Sizes, Tones };
+export { AllVariants, Composed, Figures, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };
