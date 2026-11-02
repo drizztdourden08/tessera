@@ -52,7 +52,7 @@ describe('K1 cutPath', { tags: ['critical'] }, () => {
   });
 
   it('splits on a backslash as well', () => {
-    expect(cutPath('C:\Users\mira\notes.txt', 4)).toBe('C:...a\notes.txt');
+    expect(cutPath('C:\\Users\\mira\\notes.txt', 4)).toBe('C:...a\\notes.txt');
   });
 
   it('cuts the whole text when there is no separator', () => {
