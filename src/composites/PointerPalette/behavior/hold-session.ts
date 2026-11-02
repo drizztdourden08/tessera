@@ -1,8 +1,10 @@
 /* @layer renderer-components @kind logic */
+import type { RefObject } from 'react';
+import { OPTION_SELECTOR } from '../PointerPalette.constants';
 import type { PalettePoint } from '../PointerPalette.type';
 import type { HoldSession } from './hold-session.type';
 
-const holdSession = (doc: Document, from: PalettePoint, onEnd: () => void): HoldSession => {
+const holdSession = (doc: Document, from: PalettePoint, surface: RefObject<HTMLElement | null>, onEnd: () => void): HoldSession => {
   let last = from;
   let ended = false;
   const move = (event: PointerEvent): void => {
@@ -19,7 +21,11 @@ const holdSession = (doc: Document, from: PalettePoint, onEnd: () => void): Hold
   return {
     release: () => {
       if (ended) return;
-      doc.dispatchEvent(new PointerEvent('pointerup', { bubbles: true, clientX: last.x, clientY: last.y }));
+      const under = doc.elementFromPoint(last.x, last.y);
+      const root = surface.current;
+      const cell = root && under && root.contains(under) ? under.closest<HTMLElement>(OPTION_SELECTOR) : null;
+      end();
+      cell?.click();
     },
     stop: () => {
       doc.removeEventListener('pointermove', move);
