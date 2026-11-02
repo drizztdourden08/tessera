@@ -1,4 +1,5 @@
 /* @layer tooling-scripts @kind logic */
+import { existsSync } from 'node:fs';
 import { relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadTesseraConfig } from '../config/load-tessera-config.mjs';
@@ -31,8 +32,8 @@ const eslintOptions = (ctx) => withConfig(ctx, (config, base) => ({
 }));
 
 const usageEntries = (config, base) => [
-  ...[...config.parts.primitives, ...config.parts.composites].map((dir) => `${fromBase(base, dir)}/**/*.usage.ts`),
-  ...(config.guide.parts ? [fromBase(base, config.guide.parts)] : []),
+  ...[...config.parts.primitives, ...config.parts.composites].filter((dir) => existsSync(dir)).map((dir) => `${fromBase(base, dir)}/**/*.usage.ts`),
+  ...(config.guide.parts && existsSync(config.guide.parts) ? [fromBase(base, config.guide.parts)] : []),
 ];
 
 const knipEntries = (ctx) => {
