@@ -15,9 +15,11 @@ const NAMED = [
   { color: mixed('--p-warning', 35, '--p-pure-white'), caption: 'Glow', label: 'Glow' },
 ];
 
+const blueAt = (index: number): string => BLUES[index]?.color ?? blue(50);
+
 const UNUSED_STEPS = [
-  { color: BLUES[0].color }, { color: BLUES[2].color, unused: true }, { color: BLUES[4].color },
-  { color: BLUES[6].color, disabled: true }, { color: BLUES[7].color },
+  { color: blueAt(0) }, { color: blueAt(2), unused: true }, { color: blueAt(4) },
+  { color: blueAt(6), disabled: true }, { color: blueAt(7) },
 ];
 
 export { BLUES, NAMED, UNUSED_STEPS };
