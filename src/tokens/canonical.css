@@ -21,6 +21,7 @@
     --c-hover:         color-mix(in srgb, var(--p-pure-white) 5%, transparent);
     --c-text:          var(--p-text, var(--p-tertiary-100));
     --c-text-dim:      var(--p-text-dim, var(--p-tertiary-500));
+    --c-text-dim-soft: color-mix(in srgb, var(--c-text-dim) 14%, transparent);
     --c-text-muted:    var(--p-text-muted, var(--p-tertiary-550));
     --c-text-faint:    var(--p-text-faint, var(--p-tertiary-600));
     --c-text-disabled: var(--p-tertiary-800);

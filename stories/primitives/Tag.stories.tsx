@@ -125,7 +125,7 @@ const Outlined = {
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
 const Fills = {
-  name: 'fill: a solid grey chip and a tinted edge',
+  name: 'fill and edge: a solid grey chip, a tint, a dashed edge',
   render: () => <TagFillRow />,
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 

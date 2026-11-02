@@ -12,7 +12,7 @@ import '../../theme/small-target.css';
 
 const Tag = (props: TagProps) => {
   const {
-    variant, color, pill, outlined, fill, smartTimes, size, selectedTone, dot, icon, reason, selected, onSelect, role, onRemove, name, disabled = false, title, className, children,
+    variant, color, pill, outlined, fill, edge, smartTimes, size, selectedTone, dot, icon, reason, selected, onSelect, role, onRemove, name, disabled = false, title, className, children,
     href, navigate, onClick, target, rel, ...data
   } = props;
   const frame = {

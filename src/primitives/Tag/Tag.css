@@ -278,6 +278,13 @@
   --tag-edge: var(--tag-dot);
 }
 
+.tag--neutral.tag--fill-tint {
+  --tag-ink: var(--c-text);
+  --tag-fill: var(--c-text-dim-soft);
+  --tag-edge: var(--c-text-muted);
+  --tag-dot: var(--c-text-dim);
+}
+
 .tag--fill-tint.tag--custom {
   --tag-ink: var(--tag-paint);
 
@@ -291,6 +298,11 @@
   --tag-dot: var(--c-text);
 
   background: var(--tag-fill);
+}
+
+.tag.tag--edge-dashed {
+  border-style: dashed;
+  border-color: var(--tag-edge);
 }
 
 .tag.tag--lg {
