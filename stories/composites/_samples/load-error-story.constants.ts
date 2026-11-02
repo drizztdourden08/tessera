@@ -5,13 +5,14 @@ import type { LoadErrorArgs } from './load-error-story.type';
 
 const VARIANTS: readonly LoadErrorVariant[] = ['center', 'box', 'inline'];
 
-const LOAD_ERROR_ARGS: Partial<LoadErrorArgs> = { variant: 'center', message: 'Could not load your sessions.', raw: 'short', retry: true, retrying: false };
+const LOAD_ERROR_ARGS: Partial<LoadErrorArgs> = { variant: 'center', message: 'Could not load your sessions.', raw: 'short', retry: true, retrying: false, reveal: false };
 
 const LOAD_ERROR_ARG_TYPES: PlaygroundArgTypes<LoadErrorArgs> = {
   variant: { group: 'Appearance', control: 'select', options: [...VARIANTS], description: 'Center fills a pane or screen, box sits in a section, inline sits in a row.' },
   message: { group: 'Content', control: 'text', description: 'The one plain sentence the user reads.' },
   raw: { group: 'Content', control: 'select', options: ['short', 'long', 'none'], description: 'The raw error behind Details; none hides Details.' },
   retry: { group: 'Behaviour', control: 'boolean', description: 'Passes onRetry, which shows the Retry button.' },
+  reveal: { group: 'Behaviour', control: 'boolean', description: 'Passes actions, a second button beside Retry.' },
   retrying: { group: 'State', control: 'boolean', description: 'A try is running: Retry spins and takes no second click.' },
 };
 

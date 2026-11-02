@@ -32,6 +32,7 @@ LoadError draws every failed load the same way: a sentence, Retry and the raw er
 - Write message as one plain sentence that says what failed, such as Could not load your servers; never the raw error.
 - Pass the raw failure as error, an Error, a string or an object: it waits behind Details, closed, so the user can copy it into a report.
 - Pass onRetry when the load can run again, and set retrying while it runs so the button spins and takes no second click.
+- Pass actions for a second button beside Retry, such as Reveal; the app builds it and handles its click.
 - Use variant center to fill a list pane or a screen, box inside a section, and inline in a row.
 - ItemList, ErrorBoundary and SettingsRow draw it from their own props; reach for it directly in other places.
 
@@ -63,6 +64,7 @@ const SessionsFailed = ({ error, reloading, reload }: SessionsFailedProps) => (
 - `onRetry` (optional): `() => void`.
 - `retrying` (optional): `boolean`. Default `false`.
 - `retryAt` (optional): `number | null`.
+- `actions` (optional): `ReactNode`.
 - `variant` (optional): `LoadErrorVariant`, one of `'center'`, `'box'`, `'inline'`. Default `'center'`.
 - `className` (optional): `string`.
 

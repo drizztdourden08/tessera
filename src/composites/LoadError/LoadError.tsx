@@ -10,22 +10,23 @@ import { LoadErrorDetails } from './sub-components/LoadErrorDetails';
 import './LoadError.css';
 
 const LoadError = (props: LoadErrorProps) => {
-  const { message, error, onRetry, retrying = false, retryAt, variant = 'center', className } = props;
+  const { message, error, onRetry, retrying = false, retryAt, actions, variant = 'center', className } = props;
   const raw = rawError(error);
   const inline = variant === 'inline';
   const classes = ['load-error', `load-error--${variant}`, className].filter(Boolean).join(' ');
   const retry = onRetry ? (
     <RetryButton onRetry={onRetry} retrying={retrying} retryAt={retryAt} variant={inline ? 'ghost' : 'secondary'} size="sm" className="load-error__retry" />
   ) : null;
+  const buttons = actions == null ? retry : <Box className="load-error__actions">{retry}{actions}</Box>;
   const details = raw === null ? null : <LoadErrorDetails raw={raw} small={inline} center={variant === 'center'} />;
-  if (variant === 'box') return <LoadErrorBox message={message} retry={retry} details={details} className={classes} />;
+  if (variant === 'box') return <LoadErrorBox message={message} retry={buttons} details={details} className={classes} />;
   return (
     <Box className={classes}>
       <Box role="alert" className="load-error__lead">
         <Icon name="circle-alert" className="load-error__icon" aria-hidden />
         <Span className="load-error__message">{message}</Span>
       </Box>
-      {retry}
+      {buttons}
       {details}
     </Box>
   );

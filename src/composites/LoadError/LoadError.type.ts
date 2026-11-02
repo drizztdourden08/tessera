@@ -9,6 +9,7 @@ interface LoadErrorProps {
   onRetry?: () => void;
   retrying?: boolean;
   retryAt?: number | null;
+  actions?: ReactNode;
   variant?: LoadErrorVariant;
   className?: string;
 }

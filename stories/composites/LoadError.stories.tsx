@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { LoadError } from '../../src/composites';
-import { Box } from '../../src/primitives';
+import { Box, Button } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -32,6 +32,7 @@ const Live = (args: Partial<LoadErrorArgs>) => {
         variant={args.variant}
         message={args.message ?? SESSIONS.sentence}
         error={RAW[args.raw ?? 'short']}
+        actions={args.reveal ? <Button size="sm" variant="secondary">Reveal</Button> : undefined}
         {...(args.retry === false ? {} : retry)}
       />
     </Box>
@@ -80,8 +81,8 @@ const Overview = overviewStory({
   points: [
     '`message` is one plain sentence; the raw `error` waits behind Details, closed at first.',
     '`onRetry` adds a [RetryButton]; `retrying` makes it spin and take no second click.',
-    '`variant` is `center` for a pane or screen, `box` inside a section, `inline` in a row.',
-    'The box is a danger [Callout], with the Details under its line.',
+    '`actions` takes nodes for a second button beside Retry, such as Reveal.',
+    '`variant` is `center` for a pane, `box` (a danger [Callout]) in a section, `inline` in a row.',
     '[ItemList], [TaskProgress], [ErrorBoundary] and a [SettingsRow] problem draw their failures with it.',
     'The sentence is an alert, so a screen reader reads it once when the load fails.',
   ],
@@ -90,7 +91,7 @@ const Overview = overviewStory({
   variants: [InPane, InScreen, InRow, LongMessage, Retrying],
   states: {
     render: (props: StateProps) => <Live {...LOAD_ERROR_ARGS} variant="box" {...(props as Partial<LoadErrorArgs>)} />,
-    list: [STATE.idle, { ...STATE.focus, target: 'button' }, { name: 'Retrying', props: { retrying: true } }, { name: 'No Retry', props: { retry: false } }],
+    list: [STATE.idle, { ...STATE.focus, target: 'button' }, { name: 'Retrying', props: { retrying: true } }, { name: 'No Retry', props: { retry: false } }, { name: 'With Reveal', props: { reveal: true } }],
   },
   code: LOAD_ERROR_CODE,
 });
