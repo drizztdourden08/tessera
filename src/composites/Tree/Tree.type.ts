@@ -3,7 +3,7 @@ import type { DragEvent, MouseEvent, ReactNode, Ref } from 'react';
 import type { ReorderModifier } from '../reorder';
 import type { ScrollAlign } from '../virtual';
 
-type TreeRowSize = 'compact' | 'normal' | 'roomy';
+type TreeRowSize = 'compact' | 'normal' | 'tall' | 'roomy';
 
 type TreeTrailShow = 'always' | 'hover';
 

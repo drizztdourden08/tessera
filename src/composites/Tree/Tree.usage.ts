@@ -37,7 +37,7 @@ const usage = {
     'Alt with Up or Down moves the row among its siblings, Alt with Right drops it into the sibling above, and Alt with Left lifts it out of its parent; each move is announced in a polite live region.',
     'Pass renderThumbnail in reorder to show the first three rows in the drag ghost; a drag out uses the same thumbnails and a count.',
     'Pass guides to draw a line for each level, with the branch of the picked row lit; pass rowSize compact for 24 px rows.',
-    'Pass rowSize roomy for 48 px rows that carry a thumbnail or two lines in renderLead or renderLabel; the row height is measured from the drawn row, so drag, keys and the drawn window follow, and the lead, label and trail stay centred.',
+    'Pass rowSize tall for 40 px rows or roomy for 48 px rows that carry a thumbnail or two lines in renderLead or renderLabel; the row height is measured from the drawn row, so drag, keys and the drawn window follow, and the lead, label and trail stay centred.',
     'Give the tree a height, since it scrolls inside its box and draws only the rows in view; scrollToKey on the ref brings a row into view, but does nothing for a key the filter hides, so call scrollToTop on the ref after a filter change to go back to the first row.',
   ],
   a11y: [
@@ -66,7 +66,7 @@ const Files = ({ entries }: { entries: Entry[] }) => {
   );
 };
 `,
-  propsHash: '737c85a274aa0528',
+  propsHash: '74a36aaca67c2340',
 } satisfies ComponentUsage;
 
 export { usage };
