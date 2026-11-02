@@ -14,9 +14,10 @@ import { TableRows } from './sub-components/TableRows';
 import type { DataTableProps } from './DataTable.type';
 import '../../theme/visually-hidden.css';
 import './DataTable.css';
+import './DataTableTone.css';
 
 const DataTable = <T,>(props: DataTableProps<T>) => {
-  const { rows, countLabel, emptyMessage, resolveTargetFields, bind, overlay, rowHeight, headerCase, footer = true } = props;
+  const { rows, countLabel, emptyMessage, resolveTargetFields, bind, overlay, rowHeight, headerCase, headerRules, footer = true } = props;
   const {
     table, index, selection, drag, sizing, fieldNodes, ghostRows, labels, context, virtual, checkboxes, rootRef, reorder,
   } = useTableModel(props);
@@ -25,7 +26,7 @@ const DataTable = <T,>(props: DataTableProps<T>) => {
   const gridStyle = useGridStyle(table.columns, sizing, rowHeight);
 
   return (
-    <Box className={classesOf(checkboxes, reorder !== null, headerCase)}>
+    <Box className={classesOf(checkboxes, reorder !== null, headerCase, headerRules)}>
       <Box
         ref={rootRef}
         className="data-table__scroll"

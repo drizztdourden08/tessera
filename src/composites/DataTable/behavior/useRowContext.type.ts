@@ -24,6 +24,7 @@ interface UseRowContextInput<T> {
   groupActions?: RowFeatureProps<T>['groupActions'];
   renderCell?: RowRenderContext<T>['renderCell'];
   rowState?: RowRenderContext<T>['rowState'];
+  rowTone?: RowRenderContext<T>['rowTone'];
   detailRowId?: string | null;
   renderDetail?: RowRenderContext<T>['renderDetail'];
   onDetailClose?: () => void;
