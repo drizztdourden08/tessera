@@ -32,6 +32,7 @@ CopyButton writes to the clipboard through the one copy path every Tessera part 
 - Pass a function as text when the text is costly to build or changes often, so it is built at the click.
 - Keep it icon only in tight rows and toolbars; show the word where the button stands alone.
 - Use size xs only in a dense row such as a tile tool strip: it draws a 12 px icon with a 24 px hit area.
+- Set variant quiet for a copy button that should stay in the background: a dim label on a faint surface with a border, which turns to the main text colour on hover.
 
 ## Accessibility
 

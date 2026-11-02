@@ -36,6 +36,7 @@ SegmentedControl is the joined row that picks one of a few values.
 - SelectedTone neutral draws the chosen option on a grey fill; accent, the default, keeps the primary highlight.
 - An option takes a tooltip with an optional description and shortcut, placed by tooltipPlacement; its name is the label or hint.
 - A disabled option takes a string that says why.
+- Set size sm-plus for a row a little taller and wider than sm, with a 14 px icon, where sm is too tight and md too large.
 
 ## Accessibility
 
