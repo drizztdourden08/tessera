@@ -7,8 +7,7 @@ const ACTIONS = {
     'one action': {
       question: 'What does the action look like?',
       answers: {
-        'a visible word': null,
-        'an icon only': null,
+        'a visible word': null, 'an icon only': null,
         'irreversible, on a row': null,
         'irreversible, for a whole view': null,
         'goes to a URL': null, 'copies a text': null,
