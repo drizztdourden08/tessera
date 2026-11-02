@@ -28,3 +28,5 @@ export { NumberField } from '../NumberField';
 export type { NumberFieldProps, NumberPreset, NumberPresetInput } from '../NumberField';
 export { AngleField } from '../AngleField';
 export type { AngleFieldProps } from '../AngleField';
+export { RampStrip } from '../RampStrip';
+export type { RampSize, RampStep, RampStripProps } from '../RampStrip';
