@@ -30,3 +30,5 @@ export { AngleField } from '../AngleField';
 export type { AngleFieldProps } from '../AngleField';
 export { RampStrip } from '../RampStrip';
 export type { RampSize, RampStep, RampStripProps } from '../RampStrip';
+export { PointerPalette } from '../PointerPalette';
+export type { PaletteItem, PalettePoint, PaletteSection, PointerPaletteProps } from '../PointerPalette';

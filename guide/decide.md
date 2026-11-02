@@ -92,6 +92,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A guided tour of the screen, one part at a time: [GuidedTour](components/GuidedTour.md). GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target.
   - A picture or a video opened large, with zoom: [MediaViewer](components/MediaViewer.md). MediaViewer opens a picture or a video large in a dialog, with zoom, dragging and arrows through a set.
   - A menu at the pointer, opened by right-click or long press: [ContextMenu](components/ContextMenu.md). ContextMenu opens a DropdownMenu at the pointer, or under the focused element from the keyboard.
+  - A grid of icons at the pointer, picked by hold and release: [PointerPalette](components/PointerPalette.md). PointerPalette is the sectioned icon grid that opens at a point and picks by hold and release, click or key.
 - A full screen view. **What is the screen for?**
   - Working across pages, picked from a side list: [WorkspaceScreen](components/WorkspaceScreen.md). A side list of pages beside the current page.
   - An informational window with no tools, such as About or credits: [InfoScreen](components/InfoScreen.md). A small dialog sized to its content, one column to read.
