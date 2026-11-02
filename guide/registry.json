@@ -365,6 +365,11 @@
             "components": [
               "ContextMenu"
             ]
+          },
+          "a grid of icons at the pointer, picked by hold and release": {
+            "components": [
+              "PointerPalette"
+            ]
           }
         }
       },
@@ -13479,6 +13484,142 @@
         "title": "Composites · Inputs/PathInput",
         "route": "#/story/composites-pathinput--overview",
         "file": "stories/composites/PathInput.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "PointerPalette",
+      "tier": "composites",
+      "source": "src/composites/PointerPalette/PointerPalette.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A sectioned grid of icon cells that opens at a point, so a tool or mode is picked with the hand that stays on the canvas.",
+      "useWhen": [
+        "An editor offers a quick palette of tools at the pointer, opened by a key or a press, with a hold and release to pick.",
+        "The choices are few icons in named sections, and each can show its key."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The choices are commands in a list that opens at the pointer.",
+          "use": "ContextMenu"
+        },
+        {
+          "case": "The grid sits in the page, not at a point.",
+          "use": "ChoiceGrid"
+        }
+      ],
+      "rules": [
+        "Pass open, at, sections, value, onPick, onClose and aria-label. The app keeps open and the point; the palette keeps nothing.",
+        "A section has an id, an optional label and its items. An item has an id, an icon, a label, an optional shortcut and an optional disabled.",
+        "icon takes the props of Icon, such as { name: \"pencil\" }. shortcut takes the keys of Shortcut and is drawn small in the corner of the cell.",
+        "at is a point in the window, such as the pointer position. The palette opens just below and after it, and flips above or to the left when there is no room.",
+        "Set holding while the press that opened the palette is still down. The first release then picks the cell under the pointer; a release elsewhere keeps the palette open for clicks and keys.",
+        "Leave holding out when a key or a tap opened it. The palette then waits for a click or Enter.",
+        "A pick calls onPick and then onClose. Escape and a press outside call onClose, and focus goes back to where it was.",
+        "columns is the cells in a row of each section, 4 by default."
+      ],
+      "a11y": [
+        "The grid is one Tab stop and a listbox named by aria-label; its sections are groups named by their labels.",
+        "Focus enters on the active cell. Arrows move across sections, Home and End jump, and Enter or Space picks.",
+        "The release gesture is for pointers only; the keys do the same job."
+      ],
+      "tree": {
+        "path": [
+          "something over the page",
+          "a grid of icons at the pointer, picked by hold and release"
+        ],
+        "rule": "PointerPalette is the sectioned icon grid that opens at a point and picks by hold and release, click or key."
+      },
+      "example": "import { useState } from 'react';\nimport { Box, PointerPalette } from '@drizztdourden08/tessera';\nimport type { PalettePoint } from '@drizztdourden08/tessera';\n\nconst sections = [\n  {\n    id: 'draw',\n    label: 'Draw',\n    items: [\n      { id: 'pencil', icon: { name: 'pencil' }, label: 'Pencil', shortcut: 'b' },\n      { id: 'eraser', icon: { name: 'eraser' }, label: 'Eraser', shortcut: 'e' },\n    ],\n  },\n] as const;\n\nconst Canvas = () => {\n  const [at, setAt] = useState<PalettePoint | null>(null);\n  const [tool, setTool] = useState('pencil');\n  return (\n    <>\n      <Box onPointerDown={(event) => setAt({ x: event.clientX, y: event.clientY })} />\n      <PointerPalette\n        aria-label=\"Tools\"\n        open={at !== null}\n        at={at ?? { x: 0, y: 0 }}\n        sections={sections}\n        value={tool}\n        holding\n        onPick={setTool}\n        onClose={() => setAt(null)}\n      />\n    </>\n  );\n};\n",
+      "propsHash": "3401822131de79f0",
+      "props": {
+        "own": [
+          {
+            "name": "open",
+            "optional": false,
+            "text": "boolean"
+          },
+          {
+            "name": "at",
+            "optional": false,
+            "text": "PalettePoint"
+          },
+          {
+            "name": "sections",
+            "optional": false,
+            "text": "readonly PaletteSection[]"
+          },
+          {
+            "name": "value",
+            "optional": true,
+            "text": "string | null"
+          },
+          {
+            "name": "columns",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "holding",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onPick",
+            "optional": false,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onClose",
+            "optional": false,
+            "text": "() => void"
+          },
+          {
+            "name": "aria-label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-focus",
+        "--c-hover",
+        "--c-primary",
+        "--c-surface",
+        "--c-text",
+        "--c-text-muted",
+        "--opacity-disabled",
+        "--radius-md",
+        "--radius-sm",
+        "--shadow-dropdown",
+        "--size-64",
+        "--space-2xs",
+        "--space-sm",
+        "--space-xs",
+        "--text-xs",
+        "--z-popover"
+      ],
+      "gallery": {
+        "title": "Composites · Menus/PointerPalette",
+        "route": "#/story/composites-pointerpalette--overview",
+        "file": "stories/composites/PointerPalette.stories.tsx"
       },
       "parts": []
     },

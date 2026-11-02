@@ -65,7 +65,7 @@ const Canvas = () => {
   );
 };
 `,
-  propsHash: 'pending',
+  propsHash: '3401822131de79f0',
 } satisfies ComponentUsage;
 
 export { usage };
