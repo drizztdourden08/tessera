@@ -39,7 +39,7 @@ const Notes = ({ text }: { text: string }) => (
   <FoldText lines={3}>{text}</FoldText>
 );
 `,
-  propsHash: '7b9c2381a44c1b86',
+  propsHash: '433d63733aa29412',
 } satisfies ComponentUsage;
 
 export { usage };

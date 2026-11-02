@@ -76,7 +76,7 @@ const PeerTable = ({ peers, schema }: PeerTableProps) => (
   />
 );
 `,
-  propsHash: '54f7d4798175e142',
+  propsHash: '8458a4bb83433c77',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -50,7 +50,7 @@ const KeyFileSetting = ({ bridge, keyPath, setKeyPath }: { bridge: Bridge; keyPa
   </Field>
 );
 `,
-  propsHash: 'ae0457e26a17f5a2',
+  propsHash: '4d31d85ba57a37a0',
 } satisfies ComponentUsage;
 
 export { usage };

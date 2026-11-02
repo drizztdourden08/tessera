@@ -16,6 +16,7 @@ const usage = {
     'Pass attempt and attempts only when the app stops after a fixed number of tries.',
     'Set retrying while a try runs, so the button shows a spinner and takes no second click.',
     'Put it at the end of the row that says what failed, with the reason in the text before it.',
+    'Set variant quiet when the retry is secondary to the message beside it: a dim label on a faint surface with a border, which turns to the main text colour on hover.',
   ],
   a11y: [
     'The button is named Retry, or Retry now while a countdown runs.',
@@ -31,7 +32,7 @@ const Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () =
   <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />
 );
 `,
-  propsHash: '286511e61f6f5640',
+  propsHash: '3b18dfcd835caf70',
 } satisfies ComponentUsage;
 
 export { usage };

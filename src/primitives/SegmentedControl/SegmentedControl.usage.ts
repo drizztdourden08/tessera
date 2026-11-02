@@ -20,6 +20,7 @@ const usage = {
     'selectedTone neutral draws the chosen option on a grey fill; accent, the default, keeps the primary highlight.',
     'An option takes a tooltip with an optional description and shortcut, placed by tooltipPlacement; its name is the label or hint.',
     'A disabled option takes a string that says why.',
+    'Set size sm-plus for a row a little taller and wider than sm, with a 14 px icon, where sm is too tight and md too large.',
   ],
   a11y: [
     'The track is a radio group named by label, with a radio per option and one Tab stop on the chosen one.',
@@ -48,7 +49,7 @@ const ScalePicker = () => {
   );
 };
 `,
-  propsHash: '641b0842a681225c',
+  propsHash: '86e058e9347f72bf',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -39,7 +39,7 @@ const SyncLine = () => (
   </Text.P>
 );
 `,
-  propsHash: '6b648c5b5217056d',
+  propsHash: '204cc04ca2c34069',
 } satisfies ComponentUsage;
 
 export { usage };

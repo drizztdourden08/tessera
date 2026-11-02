@@ -20,6 +20,7 @@ const usage = {
     'Turn filter on when the panel holds more than about eight rows; it narrows rows by label, and rows of a sub-panel show inline under its name.',
     'Name the panel with label when the trigger is an icon, such as "Players options".',
     'size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.',
+    'variant sets the look of the trigger, any Button variant; quiet draws a dim label on a faint surface with a border, for a trigger that should not compete with the controls beside it.',
     'panelData sets data attributes on the panel and on every sub-panel, so code outside can tell this menu from other ControlMenus; it changes nothing on screen.',
   ],
   a11y: [
@@ -52,7 +53,7 @@ const ViewOptions = (props: { density: string; zoom: number; sounds: boolean; on
   </ControlMenu>
 );
 `,
-  propsHash: '92d011012bd92f8c',
+  propsHash: '0a0882313cadd610',
 } satisfies ComponentUsage;
 
 export { usage };
