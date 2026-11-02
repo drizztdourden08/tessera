@@ -96,7 +96,7 @@ const PathEnd = {
   render: () => <FoldTextCells middle path />,
 } satisfies StoryLiteStoryDefinition<FoldTextArgs>;
 
-const SmartTimes = {
+const TimesSign = {
   name: 'smartTimes: an x between digits becomes a times sign',
   render: () => (
     <Box className="story-column">
@@ -124,8 +124,8 @@ const Overview = overviewStory({
   ],
   instead: '[Disclosure] when a whole section hides behind a summary line.',
   playground: Playground,
-  variants: [Lines, Clip, Hint, OwnHint, Fill, Middle, PathEnd, SmartTimes, Hug],
+  variants: [Lines, Clip, Hint, OwnHint, Fill, Middle, PathEnd, TimesSign, Hug],
 });
 
 export default meta;
-export { Clip, Fill, Hint, Hug, Lines, Middle, Overview, OwnHint, PathEnd, Playground, SmartTimes };
+export { Clip, Fill, Hint, Hug, Lines, Middle, Overview, OwnHint, PathEnd, Playground, TimesSign };

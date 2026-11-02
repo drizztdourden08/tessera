@@ -10,6 +10,7 @@ import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { ValueReadout } from '../_template/ValueReadout';
+import { BLUES, NAMED, UNUSED_STEPS } from './_samples/ramp-steps';
 
 type RampStripArgs = {
   size: RampSize;
@@ -22,18 +23,6 @@ const ARG_TYPES: PlaygroundArgTypes<RampStripArgs> = {
   size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'preview'], description: 'sm and md are control sized swatches; preview stretches the steps over the full width as tall blocks.' },
   numbered: { group: 'Appearance', control: 'boolean', description: 'Captions each step with its place in the ramp.' },
 };
-
-const BLUES = [
-  { color: '#0b1d33' }, { color: '#16365c' }, { color: '#235184' }, { color: '#3573b3' },
-  { color: '#5b97d1' }, { color: '#8bb9e4' }, { color: '#bcd8f1' }, { color: '#e6f1fb' },
-];
-
-const NAMED = [
-  { color: '#3b1f2b', caption: 'Shade', label: 'Shade' },
-  { color: '#a23e48', caption: 'Base', label: 'Base' },
-  { color: '#e08e79', caption: 'Light', label: 'Light' },
-  { color: '#f6d6b8', caption: 'Glow', label: 'Glow' },
-];
 
 const meta = {
   title: 'Composites · Inputs/RampStrip',
@@ -75,7 +64,7 @@ const Unused = {
     <StatefulRamp
       size="preview"
       numbered
-      steps={[{ color: '#0b1d33' }, { color: '#235184', unused: true }, { color: '#5b97d1' }, { color: '#bcd8f1', disabled: true }, { color: '#e6f1fb' }]}
+      steps={UNUSED_STEPS}
     />
   ),
 } satisfies StoryLiteStoryDefinition<RampStripArgs>;

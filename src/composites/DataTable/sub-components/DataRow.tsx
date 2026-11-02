@@ -10,6 +10,7 @@ import { DataCell } from './DataCell';
 import { RowGrip } from './RowGrip';
 import { SelectCell } from './SelectCell';
 import type { MouseEvent } from 'react';
+import './DataRow.css';
 import type { DataRowProps } from './DataRow.type';
 
 const DataRow = <T,>(props: DataRowProps<T>) => {

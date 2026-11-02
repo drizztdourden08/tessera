@@ -202,7 +202,7 @@ const Overview = overviewStory({
   points: [
     'Every element hangs off it by full and short name, such as `Text.P`, `Text.Strong` or `Text.Sc`.',
     '`variant` picks a role: `title`, `subtitle`, `body`, `label`, `caption`, or `overline` over a group.',
-    'With no `variant` it takes its parent's size and colour; `size` sets `md` 13 px or `lead` 15 px.',
+    'With no `variant` it takes the size and colour of its parent; `size` sets `md` 13 px or `lead` 15 px.',
     '`as` swaps the default `<span>` for another element, such as `p` or `label`.',
     '`weight` and `italic` set the face; `font="title"` the title face; `mono` the code face.',
     '`tone` colours it as on [Span]; `numeric` sets tabular figures; `smartTimes` adds a times sign.',

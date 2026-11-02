@@ -14,7 +14,6 @@ import { TableRows } from './sub-components/TableRows';
 import type { DataTableProps } from './DataTable.type';
 import '../../theme/visually-hidden.css';
 import './DataTable.css';
-import './DataTableTone.css';
 
 const DataTable = <T,>(props: DataTableProps<T>) => {
   const { rows, countLabel, emptyMessage, resolveTargetFields, bind, overlay, rowHeight, headerCase, headerRules, footer = true } = props;
