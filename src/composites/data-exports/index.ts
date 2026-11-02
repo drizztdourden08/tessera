@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind barrel */
 export { DataTable, groupUid } from '../DataTable';
 export type {
-  ColumnActions, ColumnDragBinding, DataTableBind, DataTableHandle, DataTableProps, RowMoveTarget, RowState, IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver,
+  ColumnActions, ColumnDragBinding, DataTableBind, DataTableHandle, DataTableProps, RowMoveTarget, RowState, RowTone, IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver,
   IdRefTargetField, IdRefTargetFieldResolver, PickerNode,
 } from '../DataTable';
 export { VirtualList } from '../VirtualList';

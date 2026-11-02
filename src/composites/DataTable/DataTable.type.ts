@@ -3,6 +3,7 @@ import type { DragEvent, KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { SchemaIndex } from '../../data/schema/build-schema';
 import type { FieldDescriptor } from '../../data/schema/field-descriptor';
 import type { ColumnMove, SortEntry, TableColumn } from '../../data/table/types';
+import type { StatusTone } from '../../primitives/Status/Status.type';
 import type { SelectAllState } from '../selection';
 import type { VirtualSize } from '../virtual';
 import type { ViewKey } from '../../data/view-state/snapshot';
@@ -16,6 +17,8 @@ import type { RowFeatureProps, RowReorderBinding } from './behavior/row-features
 type DefaultExpanded = readonly string[] | ((groupKey: string, path: string) => boolean);
 
 type RowState = 'active' | 'pending' | 'error' | 'warning' | 'muted' | 'fresh' | 'edge';
+
+type RowTone = StatusTone;
 
 type HeaderCase = 'normal' | 'upper';
 
@@ -43,7 +46,9 @@ interface DataTableProps<T> extends RowFeatureProps<T> {
   resolveIdRefHref?: IdRefHrefResolver;
   renderCell?: (row: T, path: string) => ReactNode | undefined;
   rowState?: (row: T) => RowState | undefined;
+  rowTone?: (row: T) => RowTone | undefined;
   headerCase?: HeaderCase;
+  headerRules?: boolean;
   rowHeight?: VirtualSize;
   sort?: readonly SortEntry[];
   onSortChange?: (sort: readonly SortEntry[]) => void;
@@ -130,6 +135,7 @@ interface RowRenderContext<T> {
   groupActions?: RowFeatureProps<T>['groupActions'];
   renderCell?: DataTableProps<T>['renderCell'];
   rowState?: DataTableProps<T>['rowState'];
+  rowTone?: DataTableProps<T>['rowTone'];
   detailRowId?: string | null;
   renderDetail?: DataTableProps<T>['renderDetail'];
   onDetailClose?: () => void;
@@ -148,6 +154,6 @@ interface TrackFallbacks {
 
 export type {
   ColumnActions, ColumnDragBinding, ColumnDragStart,
-  DataTableProps, DefaultExpanded, HeaderCase, RowRenderContext, RowSelectionBinding, RowState, TableActions,
+  DataTableProps, DefaultExpanded, HeaderCase, RowRenderContext, RowSelectionBinding, RowState, RowTone, TableActions,
   TrackFallbacks, TrackOverride,
 };

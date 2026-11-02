@@ -4,6 +4,7 @@ import { Button } from '../../primitives/Button';
 import { Icon } from '../../primitives/Icon';
 import { Text } from '../../primitives/Text';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { pathFrameAttributes } from './behavior/path-frame-attributes';
 import { usePathInput } from './behavior/usePathInput';
 import type { PathInputProps } from './PathInput.type';
 import { PathInputBox } from './sub-components/PathInputBox';
@@ -11,19 +12,12 @@ import { PathInputTools } from './sub-components/PathInputTools';
 import './PathInput.css';
 
 const PathInput = (props: PathInputProps) => {
-  const { value, onReveal, copyable = true, className } = props;
+  const { value, onReveal, copyable = true, nativeDrop = true, className } = props;
   const { paths } = useTesseraStrings();
   const view = usePathInput(props);
   return (
     <Box className={['path-input', className].filter(Boolean).join(' ')}>
-      <Box
-        className="path-input__frame"
-        data-dropping={view.drop.dropping || undefined}
-        data-invalid={view.invalid || undefined}
-        data-disabled={view.disabled || undefined}
-        title={value ?? undefined}
-        {...view.drop.handlers}
-      >
+      <Box className="path-input__frame" {...pathFrameAttributes(view, value, nativeDrop)}>
         <Icon name={view.kind === 'folder' ? 'folder' : 'file'} className="path-input__icon" />
         <PathInputBox view={view} value={value} label={props['aria-label']} />
         <PathInputTools

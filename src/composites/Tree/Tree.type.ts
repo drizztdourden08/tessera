@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { DragEvent, ReactNode, Ref } from 'react';
+import type { DragEvent, MouseEvent, ReactNode, Ref } from 'react';
 import type { ReorderModifier } from '../reorder';
 import type { ScrollAlign } from '../virtual';
 
@@ -66,6 +66,7 @@ interface TreeProps<T> extends TreeSlots<T> {
   onExpandedChange?: (keys: readonly string[]) => void;
   selection?: TreeSelection;
   onActivate?: (item: T) => void;
+  onRowAuxClick?: (key: string, event: MouseEvent<HTMLElement>) => void;
   openOnPick?: boolean;
   onLoadChildren?: (item: T) => void;
   loadingKeys?: ReadonlySet<string>;

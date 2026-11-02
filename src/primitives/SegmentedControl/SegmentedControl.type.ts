@@ -7,6 +7,8 @@ import type { Hint, HintHandlers, HintReport } from '../hint/hint.type';
 import type { IconName } from '../Icon/Icon.type';
 import type { OptionTooltip, TooltipPlacement } from '../Tooltip';
 
+type SegmentSize = ControlSize | 'sm-plus';
+
 interface SegmentOptionBase<T extends string> {
   value: T;
   title?: string;
@@ -39,7 +41,7 @@ interface SegmentedControlProps<T extends string = string> extends ControlName {
   tooltipPlacement?: TooltipPlacement;
   label?: string;
   description?: string;
-  size?: ControlSize;
+  size?: SegmentSize;
   selectedTone?: SelectedTone;
   disabled?: boolean;
   className?: string;
@@ -51,7 +53,7 @@ interface SegmentButtonProps<T extends string> {
   disabled: boolean;
   reason?: string;
   stop: boolean;
-  size: ControlSize;
+  size: SegmentSize;
   handlers: HintHandlers;
   placement: TooltipPlacement;
   onSelect: () => void;
@@ -78,6 +80,7 @@ export type {
   SegmentIcon,
   SegmentIconOption,
   SegmentOption,
+  SegmentSize,
   SegmentTextOption,
   SegmentedControlProps,
 };

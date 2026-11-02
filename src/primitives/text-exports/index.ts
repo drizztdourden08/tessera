@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind barrel */
-export { Text, type TextProps, type TextVariant } from '../Text';
+export { Text, type TextFont, type TextProps, type TextVariant } from '../Text';
 export { featureSettings, typesettingStyle, TYPE_FEATURE_GROUPS, TYPE_FEATURES } from '../Text';
 export type { OpticalSize, Typesetting, TypeFeature, TypeFeatureGroup, TypeFeatureInfo } from '../Text';
 export * from '../text-elements';

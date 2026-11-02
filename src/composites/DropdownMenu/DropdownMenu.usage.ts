@@ -27,6 +27,7 @@ const usage = {
     'Give an item data to put data attributes on it, such as { "data-menu-entry": "rename" }, and ariaDescription for a hint a screen reader adds after the label; description is already read as part of the item.',
     'The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.',
     'size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.',
+    'variant sets the look of the trigger, any Button variant; quiet draws a dim label on a faint surface with a border, for a trigger that should not compete with the content beside it.',
     'itemSize roomy sets the items at 13 px with taller rows, for a menu that reads as a list of choices; default keeps the compact rows. Sub-menus follow their parent.',
     'Give an item kind select, with options, selected and onPick, to put a labelled Select inside the menu beside the action rows; picking a value never closes the menu, and the arrow keys walk through the select row like any other row.',
     'align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge.',
@@ -67,7 +68,7 @@ const LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {
   return <DropdownMenu trigger={{ label: 'Layout', icon: 'layout-grid' }} groups={groups} />;
 };
 `,
-  propsHash: '7fbd046daea15745',
+  propsHash: '15a0ac5c7365fe76',
 } satisfies ComponentUsage;
 
 export { usage };

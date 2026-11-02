@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind component */
+import { smartChildren } from '../times-between-digits/smart-children';
 import { tagClass } from './behavior/tag-class';
 import { tagPaint } from './behavior/tag-paint';
 import { TagAnchor } from './sub-components/TagAnchor';
@@ -11,7 +12,7 @@ import '../../theme/small-target.css';
 
 const Tag = (props: TagProps) => {
   const {
-    variant, color, pill, outlined, size, selectedTone, dot, icon, reason, selected, onSelect, role, onRemove, name, disabled = false, title, className, children,
+    variant, color, pill, outlined, fill, smartTimes, size, selectedTone, dot, icon, reason, selected, onSelect, role, onRemove, name, disabled = false, title, className, children,
     href, navigate, onClick, target, rel, ...data
   } = props;
   const frame = {
@@ -20,7 +21,7 @@ const Tag = (props: TagProps) => {
     title,
     disabled,
     data,
-    body: <TagBody variant={variant} dot={dot} icon={icon} reason={reason}>{children}</TagBody>,
+    body: <TagBody variant={variant} dot={dot} icon={icon} reason={reason}>{smartChildren(children, smartTimes)}</TagBody>,
   };
 
   if (onSelect !== undefined) return <TagToggle {...frame} role={role} selected={selected} onSelect={onSelect} />;

@@ -1,0 +1,32 @@
+/* @layer renderer-components @kind style */
+.data-table__row[data-tone='neutral']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-text-muted);
+}
+
+.data-table__row[data-tone='success']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-success);
+}
+
+.data-table__row[data-tone='warning']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-warning);
+}
+
+.data-table__row[data-tone='danger']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-danger);
+}
+
+.data-table__row[data-tone='info']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-info);
+}
+
+.data-table__row[data-tone='primary']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-primary);
+}
+
+.data-table__row[data-tone='secondary']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-secondary);
+}
+
+.data-table__row[data-tone='tertiary']:not([data-drop]) {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-tertiary);
+}

@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 type FoldOverflow = 'more' | 'hint' | 'clip';
 
-type FoldTruncate = 'middle';
+type FoldTruncate = 'middle' | 'path';
 
 interface FoldTextProps {
   lines?: number;
@@ -11,6 +11,7 @@ interface FoldTextProps {
   truncate?: FoldTruncate;
   fill?: boolean;
   hug?: boolean;
+  smartTimes?: boolean;
   hint?: ReactNode;
   className?: string;
   children: ReactNode;
@@ -20,6 +21,7 @@ type FoldLinesProps = Pick<FoldTextProps, 'lines' | 'overflow' | 'hint' | 'child
 
 interface FoldMiddleProps {
   text: string;
+  path?: boolean;
   hug?: boolean;
   hint?: ReactNode;
 }

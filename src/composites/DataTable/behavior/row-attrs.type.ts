@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { DragEvent } from 'react';
 import type { ReorderDrop } from '../../reorder';
-import type { RowState } from '../DataTable.type';
+import type { RowState, RowTone } from '../DataTable.type';
 
 interface RowAttrs {
   'data-marquee-key': string;
@@ -10,6 +10,7 @@ interface RowAttrs {
   'data-drop'?: ReorderDrop;
   'data-dragging'?: 'yes';
   'data-state'?: RowState;
+  'data-tone'?: RowTone;
   draggable?: true;
   onDragStart?: (event: DragEvent<HTMLElement>) => void;
 }

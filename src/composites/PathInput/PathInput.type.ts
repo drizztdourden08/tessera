@@ -22,6 +22,7 @@ interface PathInputProps {
   disabled?: boolean;
   invalid?: boolean;
   copyable?: boolean;
+  nativeDrop?: boolean;
   id?: string;
   'aria-label'?: string;
   'aria-describedby'?: string;

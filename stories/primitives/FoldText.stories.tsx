@@ -91,6 +91,21 @@ const Middle = {
   render: () => <FoldTextCells middle />,
 } satisfies StoryLiteStoryDefinition<FoldTextArgs>;
 
+const PathEnd = {
+  name: 'truncate="path": the last segment stays whole',
+  render: () => <FoldTextCells middle path />,
+} satisfies StoryLiteStoryDefinition<FoldTextArgs>;
+
+const TimesSign = {
+  name: 'smartTimes: an x between digits becomes a times sign',
+  render: () => (
+    <Box className="story-column">
+      <FoldText smartTimes lines={2}>Exports 1920x1080 and 3840x2160 frames, plus a 16x9 preview.</FoldText>
+      <FoldText smartTimes truncate="middle">C:/exports/frames/1920x1080/final/clip_3840x2160_preview.mp4</FoldText>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<FoldTextArgs>;
+
 const Hug = {
   name: 'hug: the text takes its own width and a button sits right after it',
   render: () => <FoldTextHug />,
@@ -102,15 +117,15 @@ const Overview = overviewStory({
   points: [
     '`lines` sets how many lines show; with none, the text is never clamped.',
     '`overflow="more"` adds a More control that opens the text, and Less folds it again.',
-    '`overflow="hint"` keeps the height and shows a tip beside the text; `hint` can give it other text.',
-    '`overflow="clip"` cuts the text at `lines` with no control.',
-    '`fill` contains the width, so a table cell holding the text does not widen.',
-    '`truncate="middle"` keeps one line of a string and cuts the middle; `hug` takes only the width it needs.',
+    '`overflow="hint"` shows a tip beside the text; `clip` cuts it at `lines` with no control.',
+    '`fill` contains the width, so a table cell does not widen; `hug` takes only the width it needs.',
+    '`truncate` keeps one line of a string: `middle` cuts the middle, `path` keeps the last segment whole.',
+    '`smartTimes` draws a times sign for an x between two digits.',
   ],
   instead: '[Disclosure] when a whole section hides behind a summary line.',
   playground: Playground,
-  variants: [Lines, Clip, Hint, OwnHint, Fill, Middle, Hug],
+  variants: [Lines, Clip, Hint, OwnHint, Fill, Middle, PathEnd, TimesSign, Hug],
 });
 
 export default meta;
-export { Clip, Fill, Hint, Hug, Lines, Middle, Overview, OwnHint, Playground };
+export { Clip, Fill, Hint, Hug, Lines, Middle, Overview, OwnHint, PathEnd, Playground, TimesSign };

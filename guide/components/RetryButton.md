@@ -32,6 +32,7 @@ RetryButton says how long until the next automatic try and lets the user skip th
 - Pass attempt and attempts only when the app stops after a fixed number of tries.
 - Set retrying while a try runs, so the button shows a spinner and takes no second click.
 - Put it at the end of the row that says what failed, with the reason in the text before it.
+- Set variant quiet when the retry is secondary to the message beside it: a dim label on a faint surface with a border, which turns to the main text colour on hover.
 
 ## Accessibility
 
@@ -61,7 +62,7 @@ const Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () =
 - `width` (optional): `ButtonWidth`, one of `'auto'`, `'wide'`.
 - `size` (optional): `ButtonSize`, one of `'xs'`, `'sm'`, `'md'`, `'lg'`. Default `'sm'`.
 - `fill` (optional): `ButtonFill`, one of `'tonal'`, `'solid'`, `'gradient'`.
-- `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`. Default `'secondary'`.
+- `variant` (optional): `ButtonVariant`, one of `'primary'`, `'secondary'`, `'tertiary'`, `'danger'`, `'warning'`, `'info'`, `'success'`, `'ghost'`, `'quiet'`. Default `'secondary'`.
 - `look` (optional): `ButtonLook`, one of `'flat'`, `'pixel'`.
 - `fullWidth` (optional): `boolean`.
 - `active` (optional): `boolean`.

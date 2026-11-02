@@ -23,6 +23,14 @@
   line-height: var(--leading-normal);
 }
 
+.load-error__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-xs);
+}
+
 .load-error--center {
   flex: 1;
   flex-direction: column;

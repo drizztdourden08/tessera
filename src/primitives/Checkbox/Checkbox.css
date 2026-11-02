@@ -45,3 +45,20 @@
 .checkbox:hover:not(.checkbox--disabled) .checkbox__label {
   color: var(--c-text);
 }
+
+.checkbox--boxed {
+  padding: var(--space-xs) var(--space-sm);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  background: var(--c-surface);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.checkbox--boxed:hover:not(.checkbox--disabled) {
+  border-color: var(--c-border-strong);
+}
+
+.checkbox--boxed:has(.checkbox__input:checked) {
+  border-color: var(--c-primary);
+  background: var(--c-selected);
+}

@@ -7,6 +7,9 @@ import type {
 } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { FaultTags } from './_samples/FaultChips';
+import { TagDottedRow } from './_samples/TagDottedRow';
+import { TagFillRow } from './_samples/TagFillRow';
+import { TagOutlinedRow } from './_samples/TagOutlinedRow';
 import { TagOnItems } from './_samples/TagOnItems';
 import { TagNeutralRow } from './_samples/TagNeutralRow';
 import { TagSelectableRow } from './_samples/TagSelectableRow';
@@ -118,13 +121,20 @@ const PillIcons = {
 
 const Outlined = {
   name: 'Outlined: an edge and no fill',
+  render: () => <TagOutlinedRow />,
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
+const Fills = {
+  name: 'fill: a solid grey chip and a tinted edge',
+  render: () => <TagFillRow />,
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
+const TimesSign = {
+  name: 'smartTimes: an x between digits becomes a times sign',
   render: () => (
     <Flex gap="md" align="center" wrap>
-      <Tag outlined pill icon="book">Docs</Tag>
-      <Tag outlined pill icon="flask" color="primary">Experiment</Tag>
-      <Tag outlined pill icon="robot" variant="urgency" color="info">Automated</Tag>
-      <Tag outlined pill icon="flask" variant="category" color="teal">Lab</Tag>
-      <Tag outlined variant="custom" color="#2e8b57">Custom</Tag>
+      <Tag smartTimes>1920x1080</Tag>
+      <Tag smartTimes color="primary">3840x2160</Tag>
     </Flex>
   ),
 } satisfies StoryLiteStoryDefinition<TagArgs>;
@@ -143,16 +153,7 @@ const AsLinks = {
 
 const Dotted = {
   name: 'A tone-coloured dot before the label',
-  render: () => (
-    <Flex gap="md" align="center" wrap>
-      <Tag dot>Idle</Tag>
-      <Tag dot color="primary">Featured</Tag>
-      <Tag dot pill variant="urgency" color="success">Online</Tag>
-      <Tag dot pill variant="urgency" color="danger">Offline</Tag>
-      <Tag dot variant="urgency" color="warning" onRemove={noop}>Syncing</Tag>
-      <Tag dot variant="custom" color="#2e8b57">Link</Tag>
-    </Flex>
-  ),
+  render: () => <TagDottedRow />,
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
 const Fault = {
@@ -184,15 +185,15 @@ const Overview = overviewStory({
   description: 'A small chip for a value that sorts an item into a group, such as a game, a category or a mode.',
   points: [
     'Every tag shares one shape, so the tags of a field, a picker and a list read as one family.',
-    '`variant` picks the palette and `color` picks from it: `normal`, `urgency` or `category`.',
+    '`variant` picks the palette and `color` the hue; `fill` adds a `solid` grey or a `tint` look.',
     '`onRemove` adds a remove button, as in [TagInput]: a 16 px glyph that takes clicks on 24 by 24 px.',
     '`selected` with `onSelect` makes a toggle chip, as in [TagPicker]; `selectedTone="neutral"` fills it grey.',
     '`variant="custom"` fills it with a hex colour from app data, with black or white text, whichever reads best.',
-    '`pill` rounds it, `dot` and `icon` lead, `outlined` clears the fill, `size="lg"` is 24 px, `reason` adds a cause.',
+    '`pill`, `dot`, `icon`, `outlined`, `size="lg"` and `reason` shape it; `smartTimes` draws a times sign.',
   ],
   instead: '[Status] for a word that names a state.',
   playground: Playground,
-  variants: [Variants, Custom, PillIcons, Outlined, Dotted, AsLinks, Removable, Selectable, NeutralSelected, Fault, OnItems],
+  variants: [Variants, Custom, PillIcons, Outlined, Fills, TimesSign, Dotted, AsLinks, Removable, Selectable, NeutralSelected, Fault, OnItems],
   states: {
     render: renderState,
     list: [
@@ -214,4 +215,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AsLinks, Custom, Dotted, Fault, NeutralSelected, OnItems, Outlined, Overview, PillIcons, Playground, Removable, Selectable, Variants };
+export { AsLinks, Custom, Dotted, Fault, Fills, NeutralSelected, OnItems, Outlined, Overview, PillIcons, Playground, Removable, Selectable, TimesSign, Variants };

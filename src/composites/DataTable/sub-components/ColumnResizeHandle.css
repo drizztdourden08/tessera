@@ -7,6 +7,10 @@
   width: var(--space-sm);
 }
 
+.data-table--plain-headers .data-table__resize.resize-handle:not(:hover, :focus-visible, .resize-handle--dragging)::after {
+  background: transparent;
+}
+
 .data-table__header-cell--dragging .data-table__resize.resize-handle::after,
 .data-table__header-cell--vacated .data-table__resize.resize-handle::after {
   background: transparent;

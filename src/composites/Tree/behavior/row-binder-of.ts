@@ -12,13 +12,17 @@ const click = <T,>(input: TreeRowBindInput<T>, event: MouseEvent<HTMLElement>, r
   if (openOnPick && row.branch && !event.shiftKey && !event.ctrlKey && !event.metaKey) expansion.toggle(row.key);
 };
 
+const auxClick = <T,>(input: TreeRowBindInput<T>, event: MouseEvent<HTMLElement>, row: TreeFlatRow<T>): void => {
+  if (event.button === 1) input.onRowAuxClick?.(row.key, event);
+};
+
 const doubleClickOf = <T,>(input: TreeRowBindInput<T>, row: TreeFlatRow<T>): (() => void) | undefined => {
   if (!row.branch) return () => input.onActivate?.(row.item);
   return input.openOnPick ? undefined : () => input.expansion.toggle(row.key);
 };
 
 const rowBinderOf = <T,>(input: TreeRowBindInput<T>): ((at: number) => TreeRowBind | undefined) => {
-  const { rows, nav, drag, expansion, selected, dragOutOf } = input;
+  const { rows, nav, drag, expansion, selected, dragOutOf, nativeOverOf } = input;
   const keyDown = rowKeyDownOf(input);
   return (at) => {
     const row = rows[at];
@@ -33,10 +37,12 @@ const rowBinderOf = <T,>(input: TreeRowBindInput<T>): ((at: number) => TreeRowBi
       state: { depth: row.depth, expanded: row.expanded, selected: picked, branch: row.branch, loading: row.loading, dropInto: mark === 'into' },
       pointer: drag.pointerOf(at),
       dragOut: dragOutOf(at),
+      nativeOver: nativeOverOf(at),
       onFocus: () => nav.activate(row.key),
       onKeyDown: (event) => keyDown(event, at),
       onClick: (event) => click(input, event, row),
       onDoubleClick: doubleClickOf(input, row),
+      onAuxClick: (event) => auxClick(input, event, row),
       onToggle: () => expansion.toggle(row.key),
     };
   };

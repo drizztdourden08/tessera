@@ -17,6 +17,9 @@ const usage = {
     'Use the faint tone for the quietest text, such as a keyboard hint beside a field. It stays at or above 4.5:1 on the main ground, but it is dimmer than muted, so keep it to short secondary hints.',
     'Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.',
     'Set size md for the 13 px step between the small and base sizes, such as a dense row of values; with no size the variant sets it.',
+    'Set size lead for the 15 px step between the base and large sizes.',
+    'Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.',
+    'Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.',
     'Set mono for file names, seeds and addresses, and numeric for times and counts that line up.',
   ],
   a11y: [
@@ -36,7 +39,7 @@ const SyncLine = () => (
   </Text.P>
 );
 `,
-  propsHash: '6b648c5b5217056d',
+  propsHash: '204cc04ca2c34069',
 } satisfies ComponentUsage;
 
 export { usage };

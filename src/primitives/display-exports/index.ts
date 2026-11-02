@@ -9,7 +9,7 @@ export { defineStatuses, Status } from '../Status';
 export type { StatusDef, StatusKey, StatusMap, StatusProps, StatusTone, StatusVariant } from '../Status';
 export { Tag } from '../Tag';
 export type {
-  TagCategoryColor, TagColor, TagCustomColor, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
+  TagCategoryColor, TagColor, TagCustomColor, TagFill, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
 } from '../Tag';
 export { ScaleLabels } from '../ScaleLabels';
 export type { ScaleLabelEntry, ScaleLabelSource, ScaleLabelsProps, ScaleOrientation } from '../ScaleLabels';

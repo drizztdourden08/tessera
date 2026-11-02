@@ -213,6 +213,11 @@
               "ChoiceGrid"
             ]
           },
+          "a colour from a ramp of steps": {
+            "components": [
+              "RampStrip"
+            ]
+          },
           "a file": {
             "components": []
           },
@@ -1825,6 +1830,8 @@
         "The control and the hint only appear when the text runs past lines, so short text shows nothing extra.",
         "Pass fill to give the text the full width of its parent and contain it, so a table cell holding long text keeps the width the table gives it.",
         "Pass truncate middle with a string to keep one line, the start and the end of it, and an ellipsis between, such as a file path; the full text, or hint, shows in a tip while it is cut.",
+        "Pass truncate path instead to keep the last segment of a path whole, after the last slash or backslash, and cut the middle of what comes before it, so a file name never loses its end.",
+        "Pass smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; it changes string children only.",
         "Pass hug with truncate middle to take only the width the text needs, so a button can sit right after it; it still shortens when the parent is narrower than the text."
       ],
       "a11y": [
@@ -1840,7 +1847,7 @@
         "rule": "FoldText is the one clamp for long text. FormRow and SettingsRow draw their descriptions with it."
       },
       "example": "import { FoldText } from '@drizztdourden08/tessera';\n\nconst Notes = ({ text }: { text: string }) => (\n  <FoldText lines={3}>{text}</FoldText>\n);\n",
-      "propsHash": "7b9c2381a44c1b86",
+      "propsHash": "433d63733aa29412",
       "props": {
         "own": [
           {
@@ -1861,7 +1868,11 @@
           {
             "name": "truncate",
             "optional": true,
-            "text": "FoldTruncate"
+            "text": "FoldTruncate",
+            "literals": [
+              "'middle'",
+              "'path'"
+            ]
           },
           {
             "name": "fill",
@@ -1870,6 +1881,11 @@
           },
           {
             "name": "hug",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "smartTimes",
             "optional": true,
             "text": "boolean"
           },
@@ -3017,7 +3033,8 @@
         "Pass onDeselect to let a second press on the active option clear the value.",
         "selectedTone neutral draws the chosen option on a grey fill; accent, the default, keeps the primary highlight.",
         "An option takes a tooltip with an optional description and shortcut, placed by tooltipPlacement; its name is the label or hint.",
-        "A disabled option takes a string that says why."
+        "A disabled option takes a string that says why.",
+        "Set size sm-plus for a row a little taller and wider than sm, with a 14 px icon, where sm is too tight and md too large."
       ],
       "a11y": [
         "The track is a radio group named by label, with a radio per option and one Tab stop on the chosen one.",
@@ -3032,7 +3049,7 @@
         "rule": "SegmentedControl is the joined row that picks one of a few values."
       },
       "example": "import { useState } from 'react';\nimport { SegmentedControl } from '@drizztdourden08/tessera';\n\nconst ScalePicker = () => {\n  const [scale, setScale] = useState('2x');\n  return (\n    <SegmentedControl\n      label=\"Window scale\"\n      value={scale}\n      onChange={setScale}\n      options={[\n        { value: '1x', label: '1x' },\n        { value: '2x', label: '2x' },\n        { value: 'fit', label: 'Fit window' },\n      ]}\n    />\n  );\n};\n",
-      "propsHash": "641b0842a681225c",
+      "propsHash": "86e058e9347f72bf",
       "props": {
         "own": [
           {
@@ -3085,10 +3102,11 @@
           {
             "name": "size",
             "optional": true,
-            "text": "ControlSize",
+            "text": "SegmentSize",
             "literals": [
+              "'md'",
               "'sm'",
-              "'md'"
+              "'sm-plus'"
             ]
           },
           {
@@ -3143,8 +3161,10 @@
         "--c-text-dim",
         "--control-h-md",
         "--control-h-sm",
+        "--control-h-sm-plus",
         "--control-pad-md",
         "--control-pad-sm",
+        "--control-pad-sm-plus",
         "--density-gap",
         "--opacity-disabled",
         "--radius-md",
@@ -3156,6 +3176,7 @@
         "--space-sm",
         "--space-xs",
         "--text-base",
+        "--text-md",
         "--text-sm",
         "--text-xs",
         "--transition-fast",
@@ -4425,6 +4446,9 @@
         "Use the faint tone for the quietest text, such as a keyboard hint beside a field. It stays at or above 4.5:1 on the main ground, but it is dimmer than muted, so keep it to short secondary hints.",
         "Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.",
         "Set size md for the 13 px step between the small and base sizes, such as a dense row of values; with no size the variant sets it.",
+        "Set size lead for the 15 px step between the base and large sizes.",
+        "Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.",
+        "Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.",
         "Set mono for file names, seeds and addresses, and numeric for times and counts that line up."
       ],
       "a11y": [
@@ -4439,7 +4463,7 @@
         "rule": "Text sets interface copy in a role from the scale, and its members draw each text element."
       },
       "example": "import { Text } from '@drizztdourden08/tessera';\n\nconst SyncLine = () => (\n  <Text.P>\n    <Text variant=\"caption\" tone=\"muted\">Last synced 12 seconds ago</Text>\n    <Text variant=\"caption\" tone=\"faint\"> · Hold Shift to snap</Text>\n  </Text.P>\n);\n",
-      "propsHash": "6b648c5b5217056d",
+      "propsHash": "204cc04ca2c34069",
       "props": {
         "own": [
           {
@@ -4463,7 +4487,16 @@
           {
             "name": "size",
             "optional": true,
-            "text": "TextSize"
+            "text": "TextSize",
+            "literals": [
+              "'md'",
+              "'lead'"
+            ]
+          },
+          {
+            "name": "font",
+            "optional": true,
+            "text": "TextFont"
           },
           {
             "name": "tone",
@@ -4489,6 +4522,11 @@
           },
           {
             "name": "numeric",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "smartTimes",
             "optional": true,
             "text": "boolean"
           },
@@ -4543,7 +4581,9 @@
         "--c-text-muted",
         "--c-warning",
         "--font-mono",
+        "--font-title",
         "--text-base",
+        "--text-lead",
         "--text-lg",
         "--text-md",
         "--text-sm",
@@ -6808,6 +6848,7 @@
         "Never make the context menu the only way to an action; repeat each action in a button or a menu button.",
         "Shift+F10 and the menu key open the menu under the focused element, so the target must hold or contain something focusable.",
         "Items, groups, kinds, itemSize and sub-menus are those of DropdownMenu; the menu flips to stay in the window.",
+        "variant takes any Button variant, quiet included, and intensity sets how strong the menu colour is, both as on DropdownMenu.",
         "To drive it yourself, pass open, point and onClose; add onOpen to learn where a gesture asked for the menu.",
         "Set disabled to leave the browser menu in place, and longPress off when a long press already means something on the target."
       ],
@@ -6824,7 +6865,7 @@
         "rule": "ContextMenu opens a DropdownMenu at the pointer, or under the focused element from the keyboard."
       },
       "example": "import { ContextMenu } from '@drizztdourden08/tessera';\nimport type { MenuGroup } from '@drizztdourden08/tessera';\n\ninterface TabProps {\n  name: string;\n  onRename: () => void;\n  onClose: () => void;\n}\n\nconst Tab = ({ name, onRename, onClose }: TabProps) => {\n  const groups: MenuGroup[] = [{\n    id: 'tab',\n    items: [\n      { id: 'rename', icon: 'pencil', label: 'Rename', onSelect: onRename },\n      { separator: true },\n      { id: 'close', icon: 'x', label: 'Close tab', tone: 'danger', onSelect: onClose },\n    ],\n  }];\n  return <ContextMenu groups={groups} label={name}>{name}</ContextMenu>;\n};\n",
-      "propsHash": "153b35ddd0639740",
+      "propsHash": "4e8eef86d753ba9c",
       "props": {
         "own": [
           {
@@ -6883,6 +6924,7 @@
               "'ghost'",
               "'info'",
               "'primary'",
+              "'quiet'",
               "'secondary'",
               "'success'",
               "'tertiary'",
@@ -7077,6 +7119,7 @@
         "Turn filter on when the panel holds more than about eight rows; it narrows rows by label, and rows of a sub-panel show inline under its name.",
         "Name the panel with label when the trigger is an icon, such as \"Players options\".",
         "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.",
+        "variant sets the look of the trigger, any Button variant; quiet draws a dim label on a faint surface with a border, for a trigger that should not compete with the controls beside it.",
         "panelData sets data attributes on the panel and on every sub-panel, so code outside can tell this menu from other ControlMenus; it changes nothing on screen."
       ],
       "a11y": [
@@ -7093,7 +7136,7 @@
         "rule": "ControlMenu keeps several small settings one click away without a page or a dialog."
       },
       "example": "import { ControlMenu, ControlMenuRow, ControlMenuSub, SegmentedControl, Slider, Toggle } from '@drizztdourden08/tessera';\n\nconst DENSITY = [{ value: 'cozy', label: 'Cozy' }, { value: 'compact', label: 'Compact' }];\n\nconst ViewOptions = (props: { density: string; zoom: number; sounds: boolean; onChange: (patch: object) => void }) => (\n  <ControlMenu trigger={{ label: 'View options', icon: 'sliders-horizontal' }} filter>\n    <ControlMenuRow label=\"Density\" hint={{ label: 'Density', description: 'How much room each row takes' }}>\n      <SegmentedControl size=\"sm\" aria-label=\"Density\" value={props.density} options={DENSITY} onChange={(density) => props.onChange({ density })} />\n    </ControlMenuRow>\n    <ControlMenuRow label=\"Zoom\">\n      <Slider size=\"sm\" value={props.zoom} min={50} max={200} onChange={(zoom) => props.onChange({ zoom })} />\n    </ControlMenuRow>\n    <ControlMenuSub label=\"Sounds\" icon=\"volume-2\">\n      <ControlMenuRow label=\"Play sounds\">\n        <Toggle size=\"sm\" checked={props.sounds} onChange={(sounds) => props.onChange({ sounds })} aria-label=\"Play sounds\" />\n      </ControlMenuRow>\n    </ControlMenuSub>\n  </ControlMenu>\n);\n",
-      "propsHash": "92d011012bd92f8c",
+      "propsHash": "0a0882313cadd610",
       "props": {
         "own": [
           {
@@ -7153,6 +7196,7 @@
               "'ghost'",
               "'info'",
               "'primary'",
+              "'quiet'",
               "'secondary'",
               "'success'",
               "'tertiary'",
@@ -7335,7 +7379,8 @@
         "Name the button after what it copies, such as Copy address or Copy debug info.",
         "Pass a function as text when the text is costly to build or changes often, so it is built at the click.",
         "Keep it icon only in tight rows and toolbars; show the word where the button stands alone.",
-        "Use size xs only in a dense row such as a tile tool strip: it draws a 12 px icon with a 24 px hit area."
+        "Use size xs only in a dense row such as a tile tool strip: it draws a 12 px icon with a 24 px hit area.",
+        "Set variant quiet for a copy button that should stay in the background: a dim label on a faint surface with a border, which turns to the main text colour on hover."
       ],
       "a11y": [
         "An icon only button is named by its label and shows the same name as a tooltip.",
@@ -7350,7 +7395,7 @@
         "rule": "CopyButton writes to the clipboard through the one copy path every Tessera part uses, with the same check and announcement."
       },
       "example": "import { CopyButton } from '@drizztdourden08/tessera';\n\nconst AboutActions = ({ debugInfo }: { debugInfo: () => string }) => (\n  <CopyButton text={debugInfo} label=\"Copy debug info\" showLabel variant=\"secondary\" />\n);\n",
-      "propsHash": "b39e8ed376a355a2",
+      "propsHash": "ac85294c3cd8b6e7",
       "props": {
         "own": [
           {
@@ -7385,7 +7430,8 @@
               "'warning'",
               "'info'",
               "'success'",
-              "'ghost'"
+              "'ghost'",
+              "'quiet'"
             ]
           },
           {
@@ -7621,7 +7667,9 @@
         "A button, link, input, tooltip trigger or any element marked data-cell-control inside a cell does not select the row or run its handlers; a plain cell still does.",
         "Pass rowHeight, the name of a size token such as size-64, for rows taller than the default; it also sets the height of drawn rows when the table is long.",
         "Pass rowState(row) to mark a row active, pending, error, warning, muted, fresh or edge; the row shows it as an edge, a tint or a lower contrast, warning being a needs-a-look bar, fresh a soft info tint for rows that just arrived and edge only the left bar with no tint, and a selected row keeps the selection background.",
+        "Pass rowTone(row) to give the left edge of a row a tone, one of neutral, success, warning, danger, info, primary, secondary or tertiary, the tones of Status; it works with or without rowState, so warning draws an amber bar for rows that need a look.",
         "Set headerCase to upper for capital column labels with wide letter spacing; the labels you pass keep their case in the data.",
+        "Set headerRules to false to drop the vertical rules between the header cells; the rule still shows under the pointer, so the column stays easy to resize.",
         "Pass sort with onSortChange to own the sort, and expanded, a set of group ids, with onExpandedChange to own the open groups; without them the table keeps both.",
         "A group id comes from groupUid(parentId, path, key), with an empty parent id for a top group; defaultExpanded does not apply while expanded is given.",
         "Pass detailRowId with renderDetail(row) to open a panel under one row, such as an inline confirm or a small form; it spans every column, works in groups and with sort, and the app keeps the id and clears it from onDetailClose.",
@@ -7644,7 +7692,7 @@
         "rule": "DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long."
       },
       "example": "import { DataTable } from '@drizztdourden08/tessera';\nimport type { FieldDescriptor } from '@drizztdourden08/tessera';\n\ninterface Peer {\n  id: string;\n  name: string;\n  state: string;\n}\n\nconst openGroups = ['Connected'];\n\ninterface PeerTableProps {\n  peers: Peer[];\n  schema: FieldDescriptor[];\n}\n\nconst PeerTable = ({ peers, schema }: PeerTableProps) => (\n  <DataTable\n    rows={peers}\n    schema={schema}\n    getRowId={(peer) => peer.id}\n    fallbackGroupBy={['state']}\n    defaultExpanded={openGroups}\n    countLabel={['peer', 'peers']}\n  />\n);\n",
-      "propsHash": "54f7d4798175e142",
+      "propsHash": "8458a4bb83433c77",
       "props": {
         "own": [
           {
@@ -7764,6 +7812,11 @@
             "text": "(row: T) => RowState | undefined"
           },
           {
+            "name": "rowTone",
+            "optional": true,
+            "text": "(row: T) => RowTone | undefined"
+          },
+          {
             "name": "headerCase",
             "optional": true,
             "text": "HeaderCase",
@@ -7771,6 +7824,11 @@
               "'normal'",
               "'upper'"
             ]
+          },
+          {
+            "name": "headerRules",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "rowHeight",
@@ -7869,15 +7927,19 @@
         "--c-danger-soft",
         "--c-hairline",
         "--c-hover",
+        "--c-info",
         "--c-info-soft",
         "--c-primary",
         "--c-primary-bright",
         "--c-primary-dim",
         "--c-primary-soft",
         "--c-primary-text",
+        "--c-secondary",
         "--c-secondary-soft",
         "--c-selected",
+        "--c-success",
         "--c-surface",
+        "--c-tertiary",
         "--c-text",
         "--c-text-dim",
         "--c-text-muted",
@@ -8698,6 +8760,7 @@
         "Give an item data to put data attributes on it, such as { \"data-menu-entry\": \"rename\" }, and ariaDescription for a hint a screen reader adds after the label; description is already read as part of the item.",
         "The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.",
         "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.",
+        "variant sets the look of the trigger, any Button variant; quiet draws a dim label on a faint surface with a border, for a trigger that should not compete with the content beside it.",
         "itemSize roomy sets the items at 13 px with taller rows, for a menu that reads as a list of choices; default keeps the compact rows. Sub-menus follow their parent.",
         "Give an item kind select, with options, selected and onPick, to put a labelled Select inside the menu beside the action rows; picking a value never closes the menu, and the arrow keys walk through the select row like any other row.",
         "align sets the edge of the trigger the menu lines up with: auto by default, so a trigger in the right half of the window gets its menu under its end, opening to the left at its full width; pass start or end only when the layout needs that one edge.",
@@ -8719,7 +8782,7 @@
         "rule": "DropdownMenu keeps rare and secondary actions one click away, and asks before the ones that undo work."
       },
       "example": "import { DropdownMenu } from '@drizztdourden08/tessera';\nimport type { MenuGroup } from '@drizztdourden08/tessera';\n\ninterface LayoutMenuProps {\n  locked: boolean;\n  onLock: () => void;\n  onSave: () => void;\n  onReset: () => void;\n}\n\nconst LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {\n  const groups: MenuGroup[] = [{\n    id: 'layout',\n    label: 'Layout',\n    items: [\n      { id: 'lock', icon: 'lock', label: 'Lock widgets', checked: locked, onSelect: onLock },\n      { id: 'save', icon: 'save', label: 'Save layout', onSelect: onSave },\n      { separator: true },\n      { id: 'reset', icon: 'rotate-ccw', label: 'Reset layout', kind: 'confirm', onSelect: onReset },\n    ],\n  }];\n  return <DropdownMenu trigger={{ label: 'Layout', icon: 'layout-grid' }} groups={groups} />;\n};\n",
-      "propsHash": "7fbd046daea15745",
+      "propsHash": "15a0ac5c7365fe76",
       "props": {
         "own": [
           {
@@ -8756,6 +8819,7 @@
               "'ghost'",
               "'info'",
               "'primary'",
+              "'quiet'",
               "'secondary'",
               "'success'",
               "'tertiary'",
@@ -11744,6 +11808,7 @@
         "Write message as one plain sentence that says what failed, such as Could not load your servers; never the raw error.",
         "Pass the raw failure as error, an Error, a string or an object: it waits behind Details, closed, so the user can copy it into a report.",
         "Pass onRetry when the load can run again, and set retrying while it runs so the button spins and takes no second click.",
+        "Pass actions for a second button beside Retry, such as Reveal; the app builds it and handles its click.",
         "Use variant center to fill a list pane or a screen, box inside a section, and inline in a row.",
         "ItemList, ErrorBoundary and SettingsRow draw it from their own props; reach for it directly in other places."
       ],
@@ -11759,7 +11824,7 @@
         "rule": "LoadError draws every failed load the same way: a sentence, Retry and the raw error behind Details."
       },
       "example": "import { LoadError } from '@drizztdourden08/tessera';\n\ninterface SessionsFailedProps {\n  error: unknown;\n  reloading: boolean;\n  reload: () => void;\n}\n\nconst SessionsFailed = ({ error, reloading, reload }: SessionsFailedProps) => (\n  <LoadError message=\"Could not load your sessions.\" error={error} onRetry={reload} retrying={reloading} />\n);\n",
-      "propsHash": "f12b78f2cc1a1df8",
+      "propsHash": "6d6b38ce1abca3d4",
       "props": {
         "own": [
           {
@@ -11787,6 +11852,11 @@
             "name": "retryAt",
             "optional": true,
             "text": "number | null"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
           },
           {
             "name": "variant",
@@ -13260,6 +13330,7 @@
         "Pass onBrowse to open the dialog of the app, such as the native dialog through Electron, and return the picked path or null.",
         "Pass resolvePath in Electron, such as webUtils.getPathForFile, so a drop gives the full path and not only the name.",
         "Set kind and accept to what the setting takes, so a wrong drop is turned away with a reason.",
+        "Set nativeDrop to false when the app handles the drop itself and vets the path first; the box then takes no drop of its own.",
         "Pass onReveal only when the app can show the file in its folder.",
         "Pass onBlur to check or save a typed path when the user leaves the box, as on a TextInput."
       ],
@@ -13277,7 +13348,7 @@
         "rule": "PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app."
       },
       "example": "import { Field, PathInput } from '@drizztdourden08/tessera';\n\ninterface Bridge {\n  pickFile: () => Promise<string | null>;\n  showInFolder: (path: string) => void;\n  pathOf: (file: File) => string;\n}\n\nconst KeyFileSetting = ({ bridge, keyPath, setKeyPath }: { bridge: Bridge; keyPath: string | null; setKeyPath: (path: string | null) => void }) => (\n  <Field label=\"Key file\" hint=\"Only the path is stored.\">\n    <PathInput\n      value={keyPath}\n      onChange={setKeyPath}\n      onBrowse={bridge.pickFile}\n      onReveal={bridge.showInFolder}\n      resolvePath={bridge.pathOf}\n      placeholder=\"No key file yet\"\n    />\n  </Field>\n);\n",
-      "propsHash": "ae0457e26a17f5a2",
+      "propsHash": "4d31d85ba57a37a0",
       "props": {
         "own": [
           {
@@ -13352,6 +13423,12 @@
             "default": "true"
           },
           {
+            "name": "nativeDrop",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
             "name": "id",
             "optional": true,
             "text": "string"
@@ -13402,6 +13479,113 @@
         "title": "Composites · Inputs/PathInput",
         "route": "#/story/composites-pathinput--overview",
         "file": "stories/composites/PathInput.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "RampStrip",
+      "tier": "composites",
+      "source": "src/composites/RampStrip/RampStrip.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A row of colour swatches that shows one ramp, from dark to light or step to step, with a caption on each step and one picked.",
+      "useWhen": [
+        "A palette editor shows a ramp of shades and the user picks one step to edit or assign.",
+        "A ramp needs a large preview row above or beside the colour it builds, with the step number on every swatch."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user picks one colour from a loose set that is not an ordered ramp.",
+          "use": "ChoiceGrid"
+        },
+        {
+          "case": "A single colour is shown or picked, with no row of steps.",
+          "use": "ColorSwatch"
+        }
+      ],
+      "rules": [
+        "Pass steps, value and onChange; the app keeps the picked index. value is null when no step is picked.",
+        "Each step has a color, and optionally a caption, a label, unused and disabled. The caption shows on the swatch; label names the step to readers and as its tooltip, and falls back to the colour.",
+        "numbered true captions every step without its own caption with its place in the ramp, starting at 1.",
+        "size sm and md keep each swatch at the control height. preview stretches the steps over the full width as tall blocks, for a ramp you want to read at a glance.",
+        "The left and right arrow keys, Home and End move to the next open step and pick it. Tab enters on the picked step."
+      ],
+      "a11y": [
+        "The strip is a radio group named by aria-label; each step is a radio named by its label or colour.",
+        "Selection is shown by an outline, not by colour alone."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "a colour from a ramp of steps"
+        ],
+        "rule": "RampStrip is the ordered row of shades of one ramp, with a caption on each step."
+      },
+      "example": "import { useState } from 'react';\nimport { RampStrip } from '@drizztdourden08/tessera';\n\nconst steps = [{ color: '#1b2a41' }, { color: '#324a5f' }, { color: '#4f7cac' }, { color: '#9ec1de' }];\n\nconst Ramp = () => {\n  const [step, setStep] = useState<number | null>(1);\n  return <RampStrip aria-label=\"Blue ramp\" steps={steps} value={step} onChange={setStep} numbered size=\"preview\" />;\n};\n",
+      "propsHash": "dd636f249d0ae649",
+      "props": {
+        "own": [
+          {
+            "name": "steps",
+            "optional": false,
+            "text": "readonly RampStep[]"
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "text": "number | null"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(index: number) => void"
+          },
+          {
+            "name": "aria-label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "RampSize",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'preview'"
+            ],
+            "default": "'md'"
+          },
+          {
+            "name": "numbered",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--size-80",
+        "--space-2xs",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/RampStrip",
+        "route": "#/story/composites-rampstrip--overview",
+        "file": "stories/composites/RampStrip.stories.tsx"
       },
       "parts": []
     },
@@ -13770,7 +13954,8 @@
         "Keep the timer in the app: pass retryAt, the time of the next automatic try, and start that try from the app, never from the button.",
         "Pass attempt and attempts only when the app stops after a fixed number of tries.",
         "Set retrying while a try runs, so the button shows a spinner and takes no second click.",
-        "Put it at the end of the row that says what failed, with the reason in the text before it."
+        "Put it at the end of the row that says what failed, with the reason in the text before it.",
+        "Set variant quiet when the retry is secondary to the message beside it: a dim label on a faint surface with a border, which turns to the main text colour on hover."
       ],
       "a11y": [
         "The button is named Retry, or Retry now while a countdown runs.",
@@ -13785,7 +13970,7 @@
         "rule": "RetryButton says how long until the next automatic try and lets the user skip the wait, with one look for every retry."
       },
       "example": "import { RetryButton } from '@drizztdourden08/tessera';\n\nconst Reconnect = ({ nextTry, onRetry }: { nextTry: number | null; onRetry: () => void }) => (\n  <RetryButton onRetry={onRetry} retryAt={nextTry} attempt={2} attempts={5} />\n);\n",
-      "propsHash": "286511e61f6f5640",
+      "propsHash": "3b18dfcd835caf70",
       "props": {
         "own": [
           {
@@ -13872,7 +14057,8 @@
               "'warning'",
               "'info'",
               "'success'",
-              "'ghost'"
+              "'ghost'",
+              "'quiet'"
             ],
             "default": "'secondary'"
           },
@@ -16194,6 +16380,7 @@
         "Pass pressed for a toggle: the main button shows the on look and reports aria-pressed. Leave it out for a plain action.",
         "Pass iconOnly with an icon to draw the main button as the icon alone, for a compact bar; a tooltip shows the label and the label still names the button. Without an icon it stays a text button.",
         "Pass shortcut, keys such as F3, to show the key hint in the tooltip of the main button; it is a hint, the app binds the key. It also adds the tooltip to a text button.",
+        "Pass disabled to switch off the main button and the chevron together.",
         "variant and size follow Button; the chevron takes the same variant and a matching size.",
         "Pass menuLabel when Options does not say what the menu holds, such as New options.",
         "Keep the menu to a few related actions; more belong in a DropdownMenu."
@@ -16214,7 +16401,7 @@
         "rule": "SplitButton gives the usual action one press and keeps its variants one step behind a chevron."
       },
       "example": "import { Icon, SplitButton } from '@drizztdourden08/tessera';\n\ninterface NewMenuProps {\n  createFile: () => void;\n  createFolder: () => void;\n}\n\nconst NewMenu = ({ createFile, createFolder }: NewMenuProps) => (\n  <SplitButton\n    label=\"New file\"\n    icon={<Icon name=\"plus\" />}\n    onClick={createFile}\n    menuLabel=\"New options\"\n    items={[\n      { id: 'folder', label: 'New folder', onSelect: createFolder },\n    ]}\n  />\n);\n",
-      "propsHash": "72c3b4b15bdf0c44",
+      "propsHash": "35fbc2eef7bc9f96",
       "props": {
         "own": [
           {
@@ -16264,7 +16451,8 @@
               "'warning'",
               "'info'",
               "'success'",
-              "'ghost'"
+              "'ghost'",
+              "'quiet'"
             ],
             "default": "'secondary'"
           },
@@ -17909,6 +18097,8 @@
         "With both onDragOut and reorder, a plain drag leaves the tree and Alt with the drag reorders (its modifier is alt); a touch drag still reorders, and a press on a button in the row starts neither.",
         "Keep the open folders in the app with expandedKeys and onExpandedChange, or pass defaultExpandedKeys and let the tree keep them.",
         "Pass selection with the picked keys and onChange to pick; mode single picks one row on each press, and mode multiple, the default, takes Ctrl, Shift, Space and Ctrl and A through useSelectionModel.",
+        "Pass onRowAuxClick(key, event) to hear a middle click on a row; it gets the row key, and no other button calls it.",
+        "A native drag from another widget held over a closed folder opens it after springDelay, 600 ms by default, with or without reorder.",
         "Pass openOnPick to fold a folder with the same press that picks it, and onActivate to hear Enter or a double click on a row.",
         "Pass onLoadChildren and loadingKeys for lazy children: it is called once when a folder opens with no children yet, the folder shows a spinner while its key is in loadingKeys, and the app then gives its children.",
         "Pass filter to keep the items it accepts and the folders above them; those folders show open while the filter runs, and the tree does not reorder.",
@@ -17931,7 +18121,7 @@
       ],
       "buildingBlock": true,
       "example": "import { useState } from 'react';\nimport { Tree } from '@drizztdourden08/tessera';\n\ntype Entry = { id: string; name: string; children?: Entry[] };\n\nconst Files = ({ entries }: { entries: Entry[] }) => {\n  const [picked, setPicked] = useState<ReadonlySet<string>>(new Set());\n  return (\n    <Tree\n      label=\"Files\"\n      items={entries}\n      getKey={(entry) => entry.id}\n      getChildren={(entry) => entry.children}\n      getLabel={(entry) => entry.name}\n      selection={{ selected: picked, onChange: setPicked }}\n    />\n  );\n};\n",
-      "propsHash": "d7af713907be659f",
+      "propsHash": "737c85a274aa0528",
       "props": {
         "own": [
           {
@@ -17988,6 +18178,11 @@
             "name": "onActivate",
             "optional": true,
             "text": "(item: T) => void"
+          },
+          {
+            "name": "onRowAuxClick",
+            "optional": true,
+            "text": "(key: string, event: MouseEvent<HTMLElement>) => void"
           },
           {
             "name": "openOnPick",

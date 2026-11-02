@@ -110,6 +110,26 @@
   color: var(--c-text);
 }
 
+.btn--quiet,
+.icon-btn--quiet {
+  background: color-mix(in srgb, var(--c-lift) 4%, var(--c-surface));
+  border-color: var(--c-border);
+  color: var(--c-text-dim);
+}
+
+.btn--quiet:hover:not(:disabled, [aria-disabled='true']),
+.icon-btn--quiet:hover:not(:disabled, [aria-disabled='true']) {
+  background: color-mix(in srgb, var(--c-lift) 8%, var(--c-surface));
+  border-color: var(--c-border-strong);
+  color: var(--c-text);
+}
+
+.btn--quiet:active:not(:disabled, [aria-disabled='true']),
+.icon-btn--quiet:active:not(:disabled, [aria-disabled='true']) {
+  background: color-mix(in srgb, var(--c-lift) 12%, var(--c-surface));
+  color: var(--c-text);
+}
+
 .btn:focus-visible,
 .icon-btn:focus-visible {
   outline: var(--border-width-thick) solid var(--c-focus);

@@ -3,6 +3,7 @@ import { useEffect, useId, useRef } from 'react';
 import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { helpLabelId } from '../field-control/help-label-id';
 import { useControlSize } from '../field-control/useControlSize';
+import { checkboxClass } from './behavior/checkbox-class';
 import { CheckboxTip } from './sub-components/CheckboxTip';
 import { CheckboxText } from './sub-components/CheckboxText';
 import '../../theme/control-size.css';
@@ -11,7 +12,7 @@ import './Checkbox.css';
 import type { CheckboxProps } from './Checkbox.type';
 
 const Checkbox = (props: CheckboxProps) => {
-  const { checked, onChange, label, help, ariaLabel, tooltip, title, disabled, indeterminate = false, mixed = false, size, labelSize, className = '' } = props;
+  const { checked, onChange, label, help, ariaLabel, tooltip, title, disabled, indeterminate = false, mixed = false, boxed = false, size, labelSize, className = '' } = props;
   const controlSize = useControlSize(size);
   const { invalid, describedBy } = useFieldControl();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -20,7 +21,7 @@ const Checkbox = (props: CheckboxProps) => {
     if (inputRef.current) inputRef.current.indeterminate = indeterminate || mixed;
   }, [indeterminate, mixed]);
   const box = (
-    <label className={`checkbox control-size--${controlSize}${labelSize ? ` label-size--${labelSize}` : ''}${disabled ? ' checkbox--disabled' : ''}${className ? ` ${className}` : ''}`}>
+    <label className={checkboxClass({ controlSize, labelSize, boxed, disabled, className })}>
       <input
         ref={inputRef}
         type="checkbox"

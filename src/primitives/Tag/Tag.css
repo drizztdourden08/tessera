@@ -263,6 +263,27 @@
   --tag-ink: var(--tag-paint);
 }
 
+.tag--neutral.tag--fill-solid {
+  --tag-ink: var(--c-text);
+  --tag-fill: var(--c-border-strong);
+  --tag-edge: var(--tag-fill);
+  --tag-dot: var(--c-text);
+}
+
+.tag--fill-tint:is(.tag--urgency, .tag--category) {
+  border-color: var(--tag-edge);
+}
+
+.tag--fill-tint.tag--category {
+  --tag-edge: var(--tag-dot);
+}
+
+.tag--fill-tint.tag--custom {
+  --tag-ink: var(--tag-paint);
+
+  background: color-mix(in srgb, var(--tag-paint) 14%, transparent);
+}
+
 .tag--selected-neutral.tag--selected {
   --tag-ink: var(--c-text);
   --tag-fill: var(--c-border-strong);

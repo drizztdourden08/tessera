@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind util */
 import { LINK_ID_SKIP } from '../Markdown.constants';
 import type { MarkdownTextNode, MarkdownTextTree } from '../Markdown.type';
-import { timesBetweenDigits } from './times-between-digits';
+import { timesBetweenDigits } from '../../../primitives/times-between-digits/times-between-digits';
 
 const walk = (children: MarkdownTextNode[]): void => {
   for (const node of children) {

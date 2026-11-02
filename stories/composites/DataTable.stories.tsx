@@ -1,17 +1,14 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { DataTable } from '../../src/composites';
-import { MEMORY_VIEW_STORAGE } from '../../src/data';
-import { Text } from '../../src/primitives';
-import { PLAYERS, PLAYER_SCHEMA } from './_samples/data-players';
-import type { PlayerRow } from './_samples/data-players';
-import { resolveSlotDefault } from './_samples/data-hints';
+import { DataTablePlayers } from './_samples/DataTablePlayers';
+import type { DataTableArgs } from './_samples/DataTablePlayers.type';
 import { DataTableCellControls } from './_samples/DataTableCellControls';
 import { DataTableControlled } from './_samples/DataTableControlled';
 import { DataTableDetailConfirm } from './_samples/DataTableDetailConfirm';
 import { DataTableFreshRows } from './_samples/DataTableFreshRows';
+import { DataTablePlainHeaders } from './_samples/DataTablePlainHeaders';
+import { DataTableRowTones } from './_samples/DataTableRowTones';
 import { DataTableDetailForm } from './_samples/DataTableDetailForm';
 import { DataTableGroupActions } from './_samples/DataTableGroupActions';
 import { DataTableNoFooter } from './_samples/DataTableNoFooter';
@@ -23,59 +20,12 @@ import { DataTableThumbnail } from './_samples/DataTableThumbnail';
 import { DataTableUnits } from './_samples/DataTableUnits';
 import { DataTableHints } from './_samples/DataTableHints';
 import { renderState } from './_samples/data-table-state';
-import { slotHref } from './_samples/slot-href';
 import { LongGroupsDemo } from './_samples/LongGroupsDemo';
-import { LinkSandbox } from '../primitives/_samples/LinkSandbox';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import './DataTable.stories.css';
-
-type GroupChoice = 'none' | 'game' | 'status';
-
-type DataTableArgs = {
-  selectable: boolean;
-  groupBy: GroupChoice;
-  persistLayout: boolean;
-  emptyMessage: string;
-};
-
-const PLAYER_COUNT: readonly [string, string] = ['player', 'players'];
-
-const playerId = (player: PlayerRow): string => player.id;
-
-const PlayersDemo = ({ selectable, groupBy, persistLayout, emptyMessage }: DataTableArgs) => {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [selectedIds, setSelectedIds] = useState<ReadonlySet<string>>(new Set());
-  const fallbackGroupBy = groupBy === 'none' ? undefined : [groupBy];
-  const picked = selectable ? `${selectedIds.size} selected` : `Selected: ${selectedId ?? 'none'}`;
-
-  return (
-    <LinkSandbox className="data-table-story">
-      <Text className="story-label">{picked}</Text>
-      <DataTable
-        key={`${groupBy}-${String(persistLayout)}`}
-        rows={PLAYERS}
-        schema={PLAYER_SCHEMA}
-        getRowId={playerId}
-        viewKey={persistLayout ? `stories:players-${groupBy}` : undefined}
-        viewStorage={MEMORY_VIEW_STORAGE}
-        fallbackGroupBy={fallbackGroupBy}
-        selectedId={selectedId}
-        onSelect={setSelectedId}
-        selectedIds={selectable ? selectedIds : undefined}
-        onSelectionChange={setSelectedIds}
-        selectable={selectable}
-        countLabel={PLAYER_COUNT}
-        emptyMessage={emptyMessage}
-        resolveIdRefDefault={resolveSlotDefault}
-        resolveIdRefHref={slotHref}
-      />
-    </LinkSandbox>
-  );
-};
-
 
 const ARGS: Partial<DataTableArgs> = { selectable: false, groupBy: 'none', persistLayout: true, emptyMessage: 'No players have joined this session yet.' };
 
@@ -95,7 +45,7 @@ const Players = {
   name: 'Session roster',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: (args) => <PlayersDemo {...args} />,
+  render: (args) => <DataTablePlayers {...args} />,
 } satisfies PlaygroundStory<DataTableArgs>;
 
 const References = {
@@ -153,6 +103,16 @@ const RowStates = {
   render: () => <DataTableRowStates />,
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
 
+const RowTones = {
+  name: 'Row tones: rowTone colours the left edge, warning for rows that need a look',
+  render: () => <DataTableRowTones />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
+const PlainHeaders = {
+  name: 'Plain headers: headerRules false drops the vertical rules between header cells',
+  render: () => <DataTablePlainHeaders />,
+} satisfies StoryLiteStoryDefinition<DataTableArgs>;
+
 const FreshRows = {
   name: 'Fresh rows and capital headers',
   render: () => <DataTableFreshRows />,
@@ -180,8 +140,8 @@ const AllVariants = {
       rows={axis(['Grouped by game', 'Selectable'])}
       align="stretch"
       cell={(kind) => (kind === 'Selectable'
-        ? <PlayersDemo selectable groupBy="none" persistLayout={false} emptyMessage="" />
-        : <PlayersDemo selectable={false} groupBy="game" persistLayout={false} emptyMessage="" />)}
+        ? <DataTablePlayers selectable groupBy="none" persistLayout={false} emptyMessage="" />
+        : <DataTablePlayers selectable={false} groupBy="game" persistLayout={false} emptyMessage="" />)}
     />
   ),
 } satisfies StoryLiteStoryDefinition<DataTableArgs>;
@@ -209,7 +169,7 @@ const Overview = overviewStory({
     '`selectable` adds a checkbox column for picking many rows with [[Ctrl]], [[Shift]] and [[Esc]].',
     '`defaultExpanded` picks open groups, `virtualizeFrom` limits drawn rows, `footer={false}` hides the footer.',
     '`groupActions` adds header buttons; `onRowMove`, `rowDragData`, `rowRef` move rows; `getRects` feeds a marquee.',
-    '`renderCell`, `rowState` (fresh, edge), `rowHeight`, `headerCase` shape it; `renderDetail` adds a panel.',
+    '`renderCell`, `rowState`, `rowTone`, `headerRules`, `headerCase`, `rowHeight` shape it; `renderDetail` panels.',
   ],
   instead: '[ListItemRow] for a short list of rich rows with no columns to sort.',
   playground: Players,
@@ -229,5 +189,6 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, FreshRows, GroupActions, LongGroups, NoFooter, Overview, Players, References, RowDrag, RowMarquee, RowRef, RowStates, Thumbnail, Units,
+  AllVariants, CellControls, Controlled, DetailConfirm, DetailForm, FreshRows, GroupActions, LongGroups, NoFooter, Overview, PlainHeaders, Players,
+  References, RowDrag, RowMarquee, RowRef, RowStates, RowTones, Thumbnail, Units,
 };

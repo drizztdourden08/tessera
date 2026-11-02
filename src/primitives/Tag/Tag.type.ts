@@ -48,11 +48,15 @@ type TagAction =
 
 type TagSize = 'md' | 'lg';
 
+type TagFill = 'solid' | 'tint';
+
 type TagData = Partial<Record<`data-${string}`, string | number>>;
 
 interface TagBase {
   pill?: boolean;
   outlined?: boolean;
+  fill?: TagFill;
+  smartTimes?: boolean;
   size?: TagSize;
   dot?: boolean;
   icon?: IconName;
@@ -66,5 +70,5 @@ interface TagBase {
 type TagProps = TagLook & TagAction & TagBase & TagData;
 
 export type {
-  TagCategoryColor, TagColor, TagCustomColor, TagData, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
+  TagCategoryColor, TagColor, TagCustomColor, TagData, TagFill, TagLook, TagNormalColor, TagProps, TagUrgencyColor, TagVariant,
 };

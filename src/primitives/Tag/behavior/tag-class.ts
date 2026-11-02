@@ -3,10 +3,12 @@ import type { TagProps } from '../Tag.type';
 import { tagLookClasses } from './tag-look-classes';
 
 const tagClass = (props: TagProps): string => {
-  const { selected, selectedTone, onRemove, pill, outlined, size, reason, href, className } = props;
+  const { selected, selectedTone, onRemove, pill, outlined, fill, size, reason, href, className } = props;
   const flags: Readonly<Record<string, boolean>> = {
     'tag--pill': pill === true,
     'tag--outlined': outlined === true,
+    'tag--fill-solid': fill === 'solid',
+    'tag--fill-tint': fill === 'tint',
     'tag--lg': size === 'lg',
     'tag--reasoned': reason !== undefined,
     'tag--link': href !== undefined,

@@ -10,6 +10,7 @@
   --text-sm:    var(--size-12);
   --text-md:    var(--size-13);
   --text-base:  var(--size-14);
+  --text-lead:  var(--size-15);
   --text-lg:    var(--size-16);
   --text-xl:    var(--size-20);
   --text-2xl:   var(--size-24);

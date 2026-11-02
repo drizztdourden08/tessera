@@ -15,6 +15,7 @@ const usage = {
     'Pass onBrowse to open the dialog of the app, such as the native dialog through Electron, and return the picked path or null.',
     'Pass resolvePath in Electron, such as webUtils.getPathForFile, so a drop gives the full path and not only the name.',
     'Set kind and accept to what the setting takes, so a wrong drop is turned away with a reason.',
+    'Set nativeDrop to false when the app handles the drop itself and vets the path first; the box then takes no drop of its own.',
     'Pass onReveal only when the app can show the file in its folder.',
     'Pass onBlur to check or save a typed path when the user leaves the box, as on a TextInput.',
   ],
@@ -49,7 +50,7 @@ const KeyFileSetting = ({ bridge, keyPath, setKeyPath }: { bridge: Bridge; keyPa
   </Field>
 );
 `,
-  propsHash: 'ae0457e26a17f5a2',
+  propsHash: '4d31d85ba57a37a0',
 } satisfies ComponentUsage;
 
 export { usage };

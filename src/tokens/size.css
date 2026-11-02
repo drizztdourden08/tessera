@@ -37,7 +37,9 @@
   --control-h-md: calc(39 * var(--size-1));
   --control-h-lg: var(--size-56);
   --control-h-pixel: calc(var(--size-24) + 2 * var(--space-xs));
+  --control-h-sm-plus: calc(var(--control-h-sm) + var(--size-6));
   --control-pad-sm: var(--space-sm);
+  --control-pad-sm-plus: var(--space-md);
   --control-pad-md: var(--space-md);
   --control-pad-lg: var(--space-lg);
   --control-w-wide: var(--size-336);

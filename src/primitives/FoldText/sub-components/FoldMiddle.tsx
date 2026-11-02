@@ -7,9 +7,9 @@ import type { FoldMiddleProps } from '../FoldText.type';
 import '../../../theme/visually-hidden.css';
 
 const FoldMiddle = (props: FoldMiddleProps) => {
-  const { text, hint, hug = false } = props;
+  const { text, hint, hug = false, path = false } = props;
   const textRef = useRef<HTMLElement>(null);
-  const shown = useMiddleCut(textRef, text);
+  const shown = useMiddleCut(textRef, text, path);
   return (
     <>
       <Box as="span" className="visually-hidden">{text}</Box>

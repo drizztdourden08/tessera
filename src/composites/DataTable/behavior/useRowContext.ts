@@ -7,7 +7,7 @@ const useRowContext = <T>(input: UseRowContextInput<T>): RowRenderContext<T> => 
   const {
     columns, schema, drag, getRowId, selectedId, onSelect, selection, groups,
     resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref, reorder, rowDragData, rowRef, groupActions,
-    renderCell, rowState, detailRowId, renderDetail, onDetailClose, onDetailHeight,
+    renderCell, rowState, rowTone, detailRowId, renderDetail, onDetailClose, onDetailHeight,
   } = input;
   const { draggingPath, onDragOver, onDrop } = drag;
 
@@ -32,6 +32,7 @@ const useRowContext = <T>(input: UseRowContextInput<T>): RowRenderContext<T> => 
     groupActions,
     renderCell,
     rowState,
+    rowTone,
     detailRowId,
     renderDetail,
     onDetailClose,
@@ -39,7 +40,7 @@ const useRowContext = <T>(input: UseRowContextInput<T>): RowRenderContext<T> => 
   }), [
     columns, schema, draggingPath, onDragOver, onDrop,
     getRowId, selectedId, onSelect, selection, groups, resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref,
-    reorder, rowDragData, rowRef, groupActions, renderCell, rowState,
+    reorder, rowDragData, rowRef, groupActions, renderCell, rowState, rowTone,
     detailRowId, renderDetail, onDetailClose, onDetailHeight,
   ]);
 };

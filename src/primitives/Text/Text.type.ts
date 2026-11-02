@@ -5,16 +5,20 @@ import type { Typesetting } from './behavior/text-style.type';
 
 type TextVariant = 'body' | 'label' | 'title' | 'subtitle' | 'caption' | 'overline';
 
-type TextSize = 'md';
+type TextSize = 'md' | 'lead';
+
+type TextFont = 'title';
 
 interface TextProps extends HTMLAttributes<HTMLElement>, Typesetting {
   as?: ElementType;
   variant?: TextVariant;
   size?: TextSize;
+  font?: TextFont;
   tone?: TextTone | 'faint';
   mono?: boolean;
   numeric?: boolean;
+  smartTimes?: boolean;
   children?: ReactNode;
 }
 
-export type { TextProps, TextSize, TextVariant };
+export type { TextFont, TextProps, TextSize, TextVariant };

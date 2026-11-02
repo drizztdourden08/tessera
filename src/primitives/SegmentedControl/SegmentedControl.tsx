@@ -7,17 +7,18 @@ import { disabledReason } from '../field-control/disabled-reason';
 import { isDisabled } from '../field-control/is-disabled';
 import { useControlSize } from '../field-control/useControlSize';
 import { useHintReport } from '../hint/useHintReport';
-import { Small, Span } from '../text-elements';
 import { resolveClick } from './behavior/resolve-click';
 import { segmentKeys } from './behavior/segment-keys';
 import { segmentedClass } from './behavior/segmented-class';
 import { useSegmentIndicator } from './behavior/useSegmentIndicator';
+import { SegmentHeader } from './sub-components/SegmentHeader';
 import { SegmentButton } from './sub-components/SegmentButton';
-import type { SegmentedControlProps } from './SegmentedControl.type';
+import type { SegmentedControlProps, SegmentSize } from './SegmentedControl.type';
 
 const SegmentedControl = <T extends string = string>(props: SegmentedControlProps<T>) => {
   const { value, options, onChange, onDeselect, onHint, tooltipPlacement = 'top', label, description, size, selectedTone = 'accent', disabled = false, className } = props;
-  const controlSize = useControlSize(size);
+  const resolved = useControlSize(size === 'sm-plus' ? 'sm' : size);
+  const controlSize: SegmentSize = size === 'sm-plus' ? size : resolved;
   const { trackRef, indicatorStyle } = useSegmentIndicator(value, options);
   const { handlersFor } = useHintReport<T>({ hintOf: (key) => options.find((opt) => opt.value === key)?.hint, onHint });
   const choose = (next: T) => {
@@ -30,12 +31,7 @@ const SegmentedControl = <T extends string = string>(props: SegmentedControlProp
 
   return (
     <div className={segmentedClass(controlSize, selectedTone, disabled, className)}>
-      {[label, description].some(Boolean) && (
-        <div className="segmented__header">
-          {label && <Span className="segmented__label">{label}</Span>}
-          {description && <Small tone="dim" className="segmented__description">{description}</Small>}
-        </div>
-      )}
+      <SegmentHeader label={label} description={description} />
       <div className="segmented__track" role="radiogroup" aria-label={label ?? props['aria-label']} aria-labelledby={label ? undefined : props['aria-labelledby']} ref={trackRef}>
         <span className="segmented__indicator" style={indicatorStyle} />
         {options.map((opt, index) => (

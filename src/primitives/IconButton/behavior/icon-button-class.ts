@@ -6,7 +6,7 @@ const iconButtonClass = (input: IconButtonClassInput): string => {
   return [
     'icon-btn',
     `icon-btn--${variant}`,
-    variant !== 'ghost' && 'icon-btn--toned',
+    variant !== 'ghost' && variant !== 'quiet' && 'icon-btn--toned',
     tone && `icon-btn--tone-${tone}`,
     `icon-btn--${size}`,
     active && 'icon-btn--active',

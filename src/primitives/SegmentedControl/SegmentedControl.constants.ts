@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind data */
-import type { ControlSize } from '../field-control/field-control.type';
+import type { SegmentSize } from './SegmentedControl.type';
 
-const SEGMENT_ICON_SIZES: Readonly<Record<ControlSize, number>> = { sm: 12, md: 16 };
+const SEGMENT_ICON_SIZES: Readonly<Record<SegmentSize, number>> = { sm: 12, 'sm-plus': 14, md: 16 };
 
 const ACTIVE_SEGMENT = '[aria-checked="true"]';
 

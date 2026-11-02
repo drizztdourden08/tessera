@@ -4,7 +4,7 @@ import type { StoryLiteMeta } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import type { AnimatedMascotChoice } from '../../src/brand';
 import { CommandPalette } from '../../src/composites';
-import { Box, Button, Text } from '../../src/primitives';
+import { Box, Button, Tag, Text } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -17,14 +17,24 @@ type PaletteArgs = {
   defaultQuery: string;
   placeholder: string;
   mascot: 'none' | AnimatedMascotChoice;
+  scopes: boolean;
 };
 
 const NO_FLAGS: Readonly<Record<string, boolean>> = { sound: true };
 
 const ignore = () => undefined;
 
+const scopeChips = (
+  <>
+    <Tag color="primary">All</Tag>
+    <Tag>Screens</Tag>
+    <Tag>Settings</Tag>
+    <Tag>Actions</Tag>
+  </>
+);
+
 const PaletteDemo = (props: PaletteArgs) => {
-  const { defaultOpen, defaultQuery, placeholder, mascot } = props;
+  const { defaultOpen, defaultQuery, placeholder, mascot, scopes } = props;
   const [open, setOpen] = useState(defaultOpen);
   const [query, setQuery] = useState(defaultQuery);
   const [flags, setFlags] = useState(NO_FLAGS);
@@ -53,17 +63,19 @@ const PaletteDemo = (props: PaletteArgs) => {
         onSelect={handleSelect}
         placeholder={placeholder === '' ? undefined : placeholder}
         mascot={mascot === 'none' ? undefined : mascot}
+        header={scopes ? scopeChips : undefined}
       />
     </Box>
   );
 };
 
-const ARGS: Partial<PaletteArgs> = { defaultOpen: true, defaultQuery: '', placeholder: 'Search screens, settings and actions', mascot: 'none' };
+const ARGS: Partial<PaletteArgs> = { defaultOpen: true, defaultQuery: '', placeholder: 'Search screens, settings and actions', mascot: 'none', scopes: false };
 
 const ARG_TYPES: PlaygroundArgTypes<PaletteArgs> = {
   defaultQuery: { group: 'Content', control: 'text' },
   placeholder: { group: 'Content', control: 'text', description: 'Leave it empty to hear the mascot ask' },
   mascot: { group: 'Appearance', control: 'select', options: ['none', 'auto', 'rotp', 'brock', 'archipelia'], description: 'A brand draws its mascot: rotp is Sentri, brock Flint and archipelia Pelago. auto picks the mascot of the app palette, and none when it has no mascot' },
+  scopes: { group: 'Content', control: 'boolean', description: 'Draws a row of Tag chips in the header slot, above the field' },
   defaultOpen: { group: 'State', control: 'boolean' },
 };
 
@@ -98,6 +110,13 @@ const WithMascot = {
   args: ARGS,
   argTypes: ARG_TYPES,
   render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="" placeholder="" mascot="rotp" />,
+} satisfies PlaygroundStory<PaletteArgs>;
+
+const WithHeader = {
+  name: 'With scope chips in the header',
+  args: ARGS,
+  argTypes: ARG_TYPES,
+  render: (args) => <PaletteDemo {...args} defaultOpen defaultQuery="" scopes />,
 } satisfies PlaygroundStory<PaletteArgs>;
 
 const Closed = {
@@ -152,12 +171,12 @@ const Overview = overviewStory({
     'The arrow keys move the active row, [[Enter]] picks it and [[Ctrl+Enter]] flips a toggle row.',
     '[[Esc]] or a click on the scrim closes it, and focus goes back where it was.',
     'An item takes an `action` at the end of its row, such as an xs [ConfirmIconButton] to clear the logs.',
-    '`mascot` adds a small brand mascot to the field; `auto` picks the one of the app palette, or none.',
+    '`mascot` puts a brand mascot in the field; `header` draws any node above it, such as [Tag] chips.',
     'Rows sit under group headers, each with its icon, its description and its breadcrumb.',
   ],
   instead: '[DropdownMenu] for a short list of actions on one button.',
   playground: Playground,
-  variants: [Idle, Results, WithMascot, Closed],
+  variants: [Idle, Results, WithMascot, WithHeader, Closed],
   states: {
     render: renderState,
     list: [
@@ -171,4 +190,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Closed, Idle, Overview, Playground, Results, WithMascot };
+export { Closed, Idle, Overview, Playground, Results, WithHeader, WithMascot };

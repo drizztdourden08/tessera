@@ -3,11 +3,10 @@ import type { ReactNode } from 'react';
 import { Icon } from '../../Icon';
 import { isIconName } from '../../Icon/behavior/is-icon-name';
 import { OptionTip } from '../../field-control/OptionTip';
-import type { ControlSize } from '../../field-control/field-control.type';
 import { SEGMENT_ICON_SIZES } from '../SegmentedControl.constants';
-import type { SegmentButtonProps, SegmentIcon } from '../SegmentedControl.type';
+import type { SegmentButtonProps, SegmentIcon, SegmentSize } from '../SegmentedControl.type';
 
-const iconNode = (icon: SegmentIcon, size: ControlSize): ReactNode =>
+const iconNode = (icon: SegmentIcon, size: SegmentSize): ReactNode =>
   (typeof icon === 'string' && isIconName(icon) ? <Icon name={icon} size={SEGMENT_ICON_SIZES[size]} /> : icon);
 
 const SegmentButton = <T extends string>(props: SegmentButtonProps<T>) => {

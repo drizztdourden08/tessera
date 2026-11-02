@@ -22,7 +22,7 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
     rows, schema, getRowId, viewKey, viewStorage, fallbackColumns, fallbackGroupBy,
     defaultExpanded, virtualizeFrom = VIRTUALIZE_FROM, onSelect, selectedId, selectedIds, onSelectionChange, selectable = false,
     resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref, onRowMove, rowDragData, rowRef, groupActions,
-    renderCell, rowState, rowHeight, sort, onSortChange, detailRowId, renderDetail, onDetailClose,
+    renderCell, rowState, rowTone, rowHeight, sort, onSortChange, detailRowId, renderDetail, onDetailClose,
   } = props;
 
   const { table, sessionView, setSessionView } = useTableView({
@@ -72,7 +72,7 @@ const useTableModel = <T>(props: DataTableProps<T>) => {
 
   const context = useRowContext({
     columns: table.columns, schema: index, drag, getRowId, selectedId, onSelect, selection, groups,
-    resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref, reorder, rowDragData, rowRef, groupActions, renderCell, rowState,
+    resolveIdRefDisplay, resolveIdRefDefault, resolveIdRefHref, reorder, rowDragData, rowRef, groupActions, renderCell, rowState, rowTone,
     detailRowId, renderDetail, onDetailClose, onDetailHeight: active?.onDetailHeight,
   });
 

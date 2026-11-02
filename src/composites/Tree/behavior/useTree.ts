@@ -1,9 +1,10 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useImperativeHandle, useMemo } from 'react';
-import { NO_SET } from '../Tree.constants';
+import { NO_SET, SPRING_DELAY } from '../Tree.constants';
 import type { TreeProps } from '../Tree.type';
 import { activeBranchOf } from './active-branch-of';
 import { rowBinderOf } from './row-binder-of';
+import { useNativeSpring } from './useNativeSpring';
 import { useTreeDrag } from './useTreeDrag';
 import { useTreeDragOut } from './useTreeDragOut';
 import { useTreeNav } from './useTreeNav';
@@ -11,7 +12,7 @@ import { useTreeRows } from './useTreeRows';
 import type { TreeModel } from './useTree.type';
 
 const useTree = <T,>(props: TreeProps<T>): TreeModel<T> => {
-  const { items, getChildren, getLabel, selection, reorder, onDragOut, rowSize = 'normal', overscan, openOnPick = false, onActivate, guides = false, ref } = props;
+  const { items, getChildren, getLabel, selection, reorder, onDragOut, rowSize = 'normal', overscan, openOnPick = false, onActivate, onRowAuxClick, guides = false, ref } = props;
   const { rows, keys, indexOfKey, expansion, filtering } = useTreeRows(props);
   const nav = useTreeNav({ rows, keys, indexOfKey, getLabel, selection, rowSize, overscan });
   const selected = selection?.selected;
@@ -27,7 +28,8 @@ const useTree = <T,>(props: TreeProps<T>): TreeModel<T> => {
     rowHeight: nav.metrics.rowHeight, getLabel, childCount, setExpanded: expansion.setExpanded, jump: nav.jump,
   });
   const { dragOutOf } = useTreeDragOut({ rows, selected: selected ?? NO_SET, onDragOut, renderThumbnail: reorder?.renderThumbnail, reorderOn: drag.enabled });
-  const bindOf = rowBinderOf({ rows, nav, drag, expansion, selected, openOnPick, onActivate, dragOutOf });
+  const nativeOverOf = useNativeSpring({ rows, indexOfKey, delay: reorder?.springDelay ?? SPRING_DELAY, setExpanded: expansion.setExpanded });
+  const bindOf = rowBinderOf({ rows, nav, drag, expansion, selected, openOnPick, onActivate, onRowAuxClick, nativeOverOf, dragOutOf });
   const activeBranch = useMemo(() => (guides ? activeBranchOf(rows, indexOfKey, selected) : null), [guides, rows, indexOfKey, selected]);
   useImperativeHandle(ref, () => ({ scrollToKey: nav.scrollToKey, scrollToTop: nav.scrollToTop }), [nav.scrollToKey, nav.scrollToTop]);
 

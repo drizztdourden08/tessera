@@ -23,7 +23,7 @@ export { formatValueRule, parseValueRule, thinLabels } from '../value-rule';
 export type { LabelBox, ValueMark, ValueRule, ValueRuleMarks, ValueRuleParse, ValueScale } from '../value-rule';
 export { RadioGroup, type RadioOption } from '../RadioGroup';
 export { SegmentedControl } from '../SegmentedControl';
-export type { SegmentIcon, SegmentIconOption, SegmentOption, SegmentTextOption, SegmentedControlProps } from '../SegmentedControl';
+export type { SegmentIcon, SegmentIconOption, SegmentOption, SegmentSize, SegmentTextOption, SegmentedControlProps } from '../SegmentedControl';
 export { ToggleGroup } from '../ToggleGroup';
 export type { ToggleOption, ToggleGroupProps } from '../ToggleGroup';
 export { TagPicker } from '../TagPicker';
