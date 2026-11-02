@@ -13,7 +13,7 @@ import type { CommandPaletteItem, CommandPaletteProps } from './CommandPalette.t
 import './CommandPalette.css';
 
 const CommandPalette = <T extends CommandPaletteItem>(props: CommandPaletteProps<T>) => {
-  const { open, onClose, query, onQueryChange, groups, onSelect, placeholder: placeholderProp, emptyText, label: labelProp, mascot } = props;
+  const { open, onClose, query, onQueryChange, groups, onSelect, placeholder: placeholderProp, emptyText, label: labelProp, mascot, header } = props;
   const { common, navigation } = useTesseraStrings();
   const placeholder = placeholderProp ?? (mascot ? navigation.commandMascotPrompt : navigation.commandPlaceholder);
   const label = labelProp ?? common.search;
@@ -32,6 +32,7 @@ const CommandPalette = <T extends CommandPaletteItem>(props: CommandPaletteProps
         onKeyDown={handlePanelKeyDown}
       >
         <Box as="span" className="command-palette__edge" aria-hidden />
+        {header && <Box className="command-palette__header">{header}</Box>}
         <CommandPaletteInput
           inputRef={inputRef}
           value={query}
