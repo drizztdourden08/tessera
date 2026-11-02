@@ -15,7 +15,7 @@ import { PaletteCell } from './PaletteCell';
 const PaletteSurface = (props: PaletteSurfaceProps) => {
   const { at, sections, value, columns = DEFAULT_COLUMNS, holding = false, label, className, origin, onPick, onClose } = props;
   const surface = useRef<HTMLDivElement>(null);
-  const held = useHold(holding);
+  const held = useHold(holding, at);
   const choices = useMemo(() => paletteChoices(sections), [sections]);
   const items = useMemo(() => paletteItems(sections), [sections]);
   const placement = paletteAnchor(at, { width: window.innerWidth, height: window.innerHeight });

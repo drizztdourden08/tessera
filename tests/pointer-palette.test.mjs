@@ -1,8 +1,10 @@
 /* @layer tooling-scripts @kind test */
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { choiceGroups } from '../src/composites/ChoiceGrid/behavior/choice-groups';
+import { choiceReleasePick } from '../src/composites/ChoiceGrid/behavior/choice-release-pick';
 import { nextChoiceIndex } from '../src/composites/ChoiceGrid/behavior/next-choice-index';
 import { paletteAnchor } from '../src/composites/PointerPalette/behavior/palette-anchor';
+import { holdSession } from '../src/composites/PointerPalette/behavior/hold-session';
 import { paletteChoices } from '../src/composites/PointerPalette/behavior/palette-choices';
 import { paletteItems } from '../src/composites/PointerPalette/behavior/palette-items';
 
@@ -54,5 +56,92 @@ describe('I-62 paletteAnchor', { tags: ['critical'] }, () => {
 
   it('flips to the left and above near the far edges', () => {
     expect(paletteAnchor({ x: 950, y: 780 }, view)).toEqual({ right: 56, bottom: 26 });
+  });
+});
+
+class FakeCell {
+  constructor(index) {
+    this.index = index;
+  }
+
+  closest() {
+    return this.index === undefined ? null : this;
+  }
+
+  getAttribute() {
+    return String(this.index);
+  }
+}
+
+class FakePointerEvent extends Event {
+  constructor(type, init) {
+    super(type, init);
+    this.clientX = init.clientX ?? 0;
+    this.clientY = init.clientY ?? 0;
+  }
+}
+
+const cells = [new FakeCell(0), new FakeCell(1)];
+const empty = new FakeCell();
+
+const palette = () => {
+  const win = new EventTarget();
+  const doc = new EventTarget();
+  const send = doc.dispatchEvent.bind(doc);
+  doc.dispatchEvent = (event) => {
+    win.dispatchEvent(event);
+    return send(event);
+  };
+  vi.stubGlobal('Element', FakeCell);
+  vi.stubGlobal('PointerEvent', FakePointerEvent);
+  vi.stubGlobal('document', { elementFromPoint: (x) => (x < 100 ? cells[0] : x < 200 ? cells[1] : empty) });
+  const picks = [];
+  const ends = [];
+  const root = { contains: () => true };
+  win.addEventListener('pointerup', choiceReleasePick({ current: root }, (index) => picks.push(index)), true);
+  const session = holdSession(doc, { x: 500, y: 0 }, () => ends.push(true));
+  const at = (type, x) => doc.dispatchEvent(new FakePointerEvent(type, { clientX: x }));
+  return { picks, ends, session, at };
+};
+
+describe('I-67 palette picks on a held key release', { tags: ['critical'] }, () => {
+  afterEach(() => vi.unstubAllGlobals());
+
+  it('picks the cell under the last pointer position once', () => {
+    const { picks, ends, session, at } = palette();
+    at('pointermove', 150);
+    session.release();
+    session.release();
+    expect(picks).toEqual([1]);
+    expect(ends).toHaveLength(1);
+  });
+
+  it('picks nothing over empty space and keeps the hold ended', () => {
+    const { picks, ends, session, at } = palette();
+    at('pointermove', 300);
+    session.release();
+    expect(picks).toEqual([]);
+    expect(ends).toHaveLength(1);
+  });
+
+  it('picks nothing when the pointer never moved off the opening point', () => {
+    const { picks, session } = palette();
+    session.release();
+    expect(picks).toEqual([]);
+  });
+
+  it('does not pick again after a pointerup already picked', () => {
+    const { picks, session, at } = palette();
+    at('pointerup', 50);
+    session.release();
+    expect(picks).toEqual([0]);
+  });
+
+  it('stops tracking the pointer after stop', () => {
+    const { picks, session, at } = palette();
+    session.stop();
+    at('pointermove', 50);
+    session.release();
+    expect(picks).toEqual([]);
   });
 });
