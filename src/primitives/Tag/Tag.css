@@ -280,7 +280,7 @@
 
 .tag--neutral.tag--fill-tint {
   --tag-ink: var(--c-text);
-  --tag-fill: color-mix(in srgb, var(--c-text-dim) 14%, transparent);
+  --tag-fill: var(--c-text-dim-soft);
   --tag-edge: var(--c-text-muted);
   --tag-dot: var(--c-text-dim);
 }
