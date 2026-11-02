@@ -3,7 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { choiceGroups } from '../src/composites/ChoiceGrid/behavior/choice-groups';
 import { nextChoiceIndex } from '../src/composites/ChoiceGrid/behavior/next-choice-index';
 import { paletteAnchor } from '../src/composites/PointerPalette/behavior/palette-anchor';
-import { paletteChoices, paletteItems } from '../src/composites/PointerPalette/behavior/palette-choices';
+import { paletteChoices } from '../src/composites/PointerPalette/behavior/palette-choices';
+import { paletteItems } from '../src/composites/PointerPalette/behavior/palette-items';
 
 const icon = { name: 'pencil' };
 

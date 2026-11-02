@@ -87,6 +87,7 @@ const OVERLAYS = {
     'a panel from the edge of the window': null, 'a search over every command': null, 'a cover over a part that is off': null,
     'a dim backdrop': null, 'a long job the user can hide or cancel': null, 'a guided tour of the screen, one part at a time': null,
     'a picture or a video opened large, with zoom': null, 'a menu at the pointer, opened by right-click or long press': null,
+    'a grid of icons at the pointer, picked by hold and release': null,
   },
 } as const;
 
