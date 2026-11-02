@@ -18,13 +18,14 @@ type PathInputArgs = {
   placeholder: string;
   browse: boolean;
   reveal: boolean;
+  nativeDrop: boolean;
   readOnly: boolean;
   disabled: boolean;
   invalid: boolean;
 };
 
 const ARGS: Partial<PathInputArgs> = {
-  kind: 'file', value: KEY_PATH, accept: '', placeholder: 'No key file yet', browse: true, reveal: true, readOnly: false, disabled: false, invalid: false,
+  kind: 'file', value: KEY_PATH, accept: '', placeholder: 'No key file yet', browse: true, reveal: true, nativeDrop: true, readOnly: false, disabled: false, invalid: false,
 };
 
 const ARG_TYPES: PlaygroundArgTypes<PathInputArgs> = {
@@ -34,6 +35,7 @@ const ARG_TYPES: PlaygroundArgTypes<PathInputArgs> = {
   placeholder: { group: 'Content', control: 'text' },
   browse: { group: 'Behaviour', control: 'boolean', description: 'onBrowse: the app opens its own file dialog; here a path comes back after 300 ms.' },
   reveal: { group: 'Behaviour', control: 'boolean', description: 'onReveal: the app shows the file in its folder.' },
+  nativeDrop: { group: 'Behaviour', control: 'boolean', description: 'Off, the box takes no drop of its own and the app handles it.' },
   readOnly: { group: 'State', control: 'boolean' },
   disabled: { group: 'State', control: 'boolean' },
   invalid: { group: 'State', control: 'boolean' },
@@ -108,7 +110,7 @@ const Overview = overviewStory({
   description: 'A file or folder path the user can type, drop from the desktop or pick with Browse, all in one box.',
   points: [
     'Typing edits the path, and `onBlur` runs when the user leaves it; a drop sets it; `onBrowse` opens a dialog.',
-    'A dragged file turns the box into a drop target at once; disabled or read only, it swallows the drop.',
+    'A dragged file marks the box as a drop target; `nativeDrop={false}` leaves the drop to the app.',
     '`kind` and `accept` say what a drop must be; anything else is turned away with a line that says why.',
     '`resolvePath` reads the full path of a dropped file, such as `webUtils.getPathForFile` in Electron.',
     'A long path is cut in the middle, so the file name stays in view; the whole path is its title.',

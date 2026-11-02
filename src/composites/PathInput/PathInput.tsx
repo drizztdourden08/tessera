@@ -11,7 +11,7 @@ import { PathInputTools } from './sub-components/PathInputTools';
 import './PathInput.css';
 
 const PathInput = (props: PathInputProps) => {
-  const { value, onReveal, copyable = true, className } = props;
+  const { value, onReveal, copyable = true, nativeDrop = true, className } = props;
   const { paths } = useTesseraStrings();
   const view = usePathInput(props);
   return (
@@ -22,7 +22,7 @@ const PathInput = (props: PathInputProps) => {
         data-invalid={view.invalid || undefined}
         data-disabled={view.disabled || undefined}
         title={value ?? undefined}
-        {...view.drop.handlers}
+        {...(nativeDrop ? view.drop.handlers : undefined)}
       >
         <Icon name={view.kind === 'folder' ? 'folder' : 'file'} className="path-input__icon" />
         <PathInputBox view={view} value={value} label={props['aria-label']} />
