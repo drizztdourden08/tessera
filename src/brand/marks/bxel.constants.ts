@@ -47,7 +47,7 @@ const BXEL_MARK: BrandMarkData = {
 };
 
 const BXEL_ICON_MARK: BrandMarkData = {
-  viewBox: '20 56 436 336',
+  viewBox: '-41.674 -41.674 595.349 595.349',
   paths: [
     { ink: INK.crimson, d: 'M256 128h160v32h-160zM224 160h64v32h-64zM352 160h64v32h-64zM224 192h64v32h-64zM352 192h64v32h-64zM224 224h192v32h-192zM224 256h64v32h-64zM384 256h64v32h-64zM224 288h64v32h-64zM384 288h64v32h-64zM224 320h64v32h-64zM384 320h64v32h-64zM224 352h192v32h-192z' },
     { ink: INK.coral, d: 'M224 128h32v32h-32z' },
@@ -59,6 +59,7 @@ const BXEL_ICON_MARK: BrandMarkData = {
     { ink: INK.violet, d: 'M129.6 289.6h28.8v28.8h-28.8z' },
     { ink: INK.purple, opacity: 0.95, d: 'M69.44 325.44h21.12v21.12h-21.12z' },
     { ink: INK.purple, opacity: 0.6, d: 'M28.48 354.88h13.44v13.44h-13.44z' },
+    { ink: INK.mist, opacity: 0.9, d: 'M416 64h24v24h-24z' },
   ],
 };
 
