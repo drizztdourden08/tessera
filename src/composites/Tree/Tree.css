@@ -20,6 +20,10 @@
   --tree-row-h: var(--size-24);
 }
 
+.tree[data-row-size='tall'] {
+  --tree-row-h: var(--size-40);
+}
+
 .tree[data-row-size='roomy'] {
   --tree-row-h: var(--size-48);
 }
