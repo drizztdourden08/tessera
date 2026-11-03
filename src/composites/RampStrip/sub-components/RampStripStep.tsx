@@ -7,7 +7,7 @@ import { RAMP_INDEX_ATTRIBUTE, STEP_MENU_GROUP_ID } from '../RampStrip.constants
 import type { RampStripStepProps } from '../RampStrip.type';
 
 const RampStripStep = (props: RampStripStepProps) => {
-  const { step, index, picked, multi, size, numbered, strip, menu, onPress, onDragStart } = props;
+  const { step, index, picked, multi, size, numbered, strip, menu, data, onPress, onDoubleClick, onDragStart } = props;
   const preview = size === 'preview';
   const swatch = (
     <ColorSwatch
@@ -28,9 +28,11 @@ const RampStripStep = (props: RampStripStepProps) => {
       title={stepLabel(step)}
       tabIndex={index === strip.tabStop ? 0 : -1}
       draggable={onDragStart === undefined ? undefined : true}
+      {...data}
       {...{ [RAMP_INDEX_ATTRIBUTE]: index }}
       onFocus={() => strip.onFocusStep(index)}
       onClick={onPress}
+      onDoubleClick={onDoubleClick}
       onDragStart={onDragStart}
     />
   );
