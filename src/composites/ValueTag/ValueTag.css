@@ -1,0 +1,20 @@
+/* @layer renderer-components @kind style */
+.value-tag {
+  display: inline-flex;
+  min-inline-size: 0;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.value-tag__label {
+  min-inline-size: 0;
+  color: var(--c-text);
+  font-size: var(--text-sm);
+  overflow-wrap: break-word;
+}
+
+.value-tag[data-compact] .value-tag__label {
+  font-size: var(--text-xs);
+  line-height: var(--leading-tight);
+  overflow-wrap: anywhere;
+}

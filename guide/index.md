@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 126 of 236 have their usage written; a linked name opens its page.
+One line per component. 130 of 240 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -165,6 +165,9 @@ One line per component. 126 of 236 have their usage written; a linked name opens
 - [MillerColumns](components/MillerColumns.md): Side by side columns for a nested set, such as folders: picking a folder in one column shows its children in the next, and the pick is shared with the app. A building block. Import from `@drizztdourden08/tessera`.
 - [Navigator](components/Navigator.md): A small map of a large surface, such as a canvas or a long timeline, with a frame that marks the visible part and that the user drags to move the view. Import from `@drizztdourden08/tessera`.
 - [NumberField](components/NumberField.md): A number field you can drag by its label, step with the wheel and the arrow keys, step finely with Shift, walk along a ladder of fixed stops and fill from a menu of quick values. Import from `@drizztdourden08/tessera`.
+- [OptionGroup](components/OptionGroup.md): A titled group of option rows, with the title in small capitals over the rows. A building block. Import from `@drizztdourden08/tessera`.
+- [OptionRow](components/OptionRow.md): One option of a randomizer or game preset: its name, tag and description on the left, its control in the middle, and an optional cell at the end. A building block. Import from `@drizztdourden08/tessera`.
+- [OptionsPanel](components/OptionsPanel.md): The panel of a game preset editor: a small title with a toolbar, a row of tabs, the groups of the open tab, and an optional panel beside them. Import from `@drizztdourden08/tessera`.
 - [OutcomeStrip](components/OutcomeStrip.md): A row of small cells, one per step of a test plan, each toned by its outcome, with the current step outlined and its label on hover. Import from `@drizztdourden08/tessera`.
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -218,6 +221,7 @@ One line per component. 126 of 236 have their usage written; a linked name opens
 - [Tree](components/Tree.md): A long tree of items that fold open, drawn only where it is in view, with the keys of a tree, many picked at once, and a drag that reorders or drops into a folder. A building block. Import from `@drizztdourden08/tessera`.
 - [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task, laid out as the rotp update dialog: the window header shows the status with a spinner or a tone icon and the close button, then one column with a centred message, settings, details, a framed notes box and progress, then a report button over a rule and the actions. Import from `@drizztdourden08/tessera`.
 - [ValidationSummary](components/ValidationSummary.md): What blocks a save, listed above the form in a toned box, each problem a link that moves focus to its field. Import from `@drizztdourden08/tessera`.
+- [ValueTag](components/ValueTag.md): A read only value of an option: a tag for text and numbers, a True or False pill for a switch, with an optional label before it. A building block. Import from `@drizztdourden08/tessera`.
 - [Video](components/Video.md): A video player with its own control bar: seek with a time preview, volume, speed, picture in picture, theater mode and full screen. Import from `@drizztdourden08/tessera`.
 - [VirtualGrid](components/VirtualGrid.md): A very long grid of equal tiles, such as sprite thumbnails, in sections if wanted, where only the rows in view are drawn, with the arrow keys to move between tiles. Import from `@drizztdourden08/tessera`.
 - [VirtualList](components/VirtualList.md): A very long list of rows, usually of one height, where only the rows in view are drawn, with the arrow keys to move between them. Import from `@drizztdourden08/tessera`.
