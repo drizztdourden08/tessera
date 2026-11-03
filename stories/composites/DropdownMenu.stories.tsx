@@ -94,6 +94,16 @@ const Triggers = {
   ),
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
+const SmallTrigger = {
+  name: 'Icon trigger at 16 px (2xs) for a row or a card head',
+  render: () => (
+    <Demonstrator
+      columns={axis(['Hamburger', 'Icon only'])}
+      cell={(_row, kind) => <DropdownMenu trigger={TRIGGERS[kind] ?? { label: 'Menu' }} size="2xs" variant="ghost" groups={buildTitleMenu(ignore)} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
 const RoomyRows = {
   name: 'Roomy rows: 13 px text and taller items',
   render: () => <MenuRoomyDemo />,
@@ -201,6 +211,7 @@ const Overview = overviewStory({
   points: [
     '`groups` lists the items: a `label`, an `icon` (a name, iconify data, path data or an element), `onSelect`.',
     '`trigger` draws a [Button], or an [IconButton] with `iconOnly`; its icon keeps its shape while open.',
+    '`size="2xs"` makes an icon-only trigger 16 px with a 24 px hit area; a trigger with a label draws it at `xs`.',
     '`checked` or `kind="radio"` shows a faint dot that turns into a check or radio; `children` opens a sub-menu.',
     '`tone="danger"` draws Delete red, `kind="confirm"` asks, `kind="slider"` sets a level, `kind="select"` picks.',
     'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
@@ -208,7 +219,7 @@ const Overview = overviewStory({
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, RoomyRows, Inside, IconSources, ColourIcons, Commands, MarkMorph, Confirm, Sliders, Selects, Danger, Disabled, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, SmallTrigger, RoomyRows, Inside, IconSources, ColourIcons, Commands, MarkMorph, Confirm, Sliders, Selects, Danger, Disabled, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -223,4 +234,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { ColourIcons, Commands, Confirm, Danger, Disabled, Selects, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SubMenus, Triggers, Variants };
+export { ColourIcons, Commands, Confirm, Danger, Disabled, Selects, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SmallTrigger, SubMenus, Triggers, Variants };

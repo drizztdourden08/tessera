@@ -15,7 +15,7 @@ const usage = {
     'Pass icon with a Tessera icon name and label with the type name; the label is the tooltip and the text a screen reader reads.',
     'Set color to one of the category colours; the tile takes a tint of it and the icon takes the full colour.',
     'Set size xs for 16 px in a dense row and sm for 20 px beside a title.',
-    'Set variant outline for the bare icon in the category colour, with no tile, border or padding; its box is the icon size.',
+    'Set variant outline for the bare icon in the category colour, with no tile, border or padding; the icon fills the box the tile would take, 16 px at xs and 20 px at sm.',
   ],
   a11y: [
     'It is an image with the label as its name, and the label shows in a tooltip on hover and focus.',

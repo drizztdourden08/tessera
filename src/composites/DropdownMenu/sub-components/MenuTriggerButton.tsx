@@ -9,12 +9,13 @@ const MenuTriggerButton = (props: MenuTriggerButtonProps) => {
   const { label, icon = trigger.iconOnly ? 'hamburger' : undefined, iconSide = 'start', iconOnly = false } = trigger;
   const glyph = icon === undefined ? null : <MenuTriggerGlyph icon={icon} />;
   const anchor = { ref: buttonRef };
+  const buttonSize = size === '2xs' ? 'xs' : size;
 
   if (iconOnly) {
     return <IconButton {...anchor} {...rest} variant={variant} size={size} label={label}>{glyph}</IconButton>;
   }
   return (
-    <Button ref={buttonRef} {...rest} variant={variant} size={size} icon={iconSide === 'start' ? glyph : undefined} iconEnd={iconSide === 'end' ? glyph : undefined}>
+    <Button ref={buttonRef} {...rest} variant={variant} size={buttonSize} icon={iconSide === 'start' ? glyph : undefined} iconEnd={iconSide === 'end' ? glyph : undefined}>
       {label}
     </Button>
   );

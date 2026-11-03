@@ -18,7 +18,7 @@ const Playground = {
   args: KANBAN_ARGS,
   argTypes: KANBAN_ARG_TYPES,
   render: (args) => (
-    <KanbanDemo key={`${args.folded}-${String(args.emptyReview)}`} width={args.width} columnWidth={args.columnWidth} folded={args.folded} emptyReview={args.emptyReview} slots={args.slots} addForm={args.addForm} edges={args.edges} columnHeight={args.columnHeight} grip={args.grip} foldable={args.foldable} stack={args.stack} />
+    <KanbanDemo key={`${args.folded}-${String(args.emptyReview)}`} width={args.width} columnWidth={args.columnWidth} folded={args.folded} emptyReview={args.emptyReview} slots={args.slots} addForm={args.addForm} edges={args.edges} columnHeight={args.columnHeight} grip={args.grip} foldable={args.foldable} stack={args.stack} heads={args.heads} />
   ),
 } satisfies PlaygroundStory<KanbanArgs>;
 
@@ -67,6 +67,11 @@ const CardEdges = {
   render: () => <KanbanDemo edges />,
 } satisfies StoryLiteStoryDefinition<KanbanArgs>;
 
+const NodeHeads = {
+  name: 'header: a node in the head, such as a parent record with its icon, code and link',
+  render: () => <KanbanDemo heads slots />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
 const FitHeight = {
   name: 'columnHeight fit: each column is as tall as its cards',
   render: () => <KanbanDemo columnHeight="fit" />,
@@ -102,12 +107,13 @@ const Overview = overviewStory({
     'Drag the grip, or press [[Up]] and [[Down]] to move within a column and [[Left]] and [[Right]] to change column.',
     'Each move is announced, and focus stays on the card, even in its new column.',
     'A header has the count, `badge`, `action` and a fold button; `top` adds a form above the cards.',
+    '`header` is a node drawn in the head in place of the title text; `title` stays the name of the column.',
     '`renderCard` draws the inside of a card; `cardEdgeTone` gives a card a coloured edge, such as `danger`.',
     'Opt-in looks: `columnWidth="fill"`, `columnHeight="fit"`, `grip={false}`, `foldable={false}` and `stack`.',
   ],
   instead: '[RowGrid] for one list edited in place, or [DataTable] for many records to sort and filter.',
   playground: Playground,
-  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, AddForm, CardEdges, Folded, Narrow, Empty],
+  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, NodeHeads, AddForm, CardEdges, Folded, Narrow, Empty],
   states: {
     render: (props: StateProps) => <KanbanDemo folded={(props.folded as FoldedColumn | undefined) ?? 'none'} />,
     list: FOLDS.map((folded) => ({ name: folded === 'none' ? 'all open' : 'one folded', props: { folded } })),
@@ -116,4 +122,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, HeaderSlots, Live, Narrow, NoFold, NoGrip, Overview, Playground, Stacked };
+export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, HeaderSlots, Live, Narrow, NoFold, NoGrip, NodeHeads, Overview, Playground, Stacked };

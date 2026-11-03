@@ -26,6 +26,7 @@ type KanbanArgs = {
   grip: boolean;
   foldable: boolean;
   stack: boolean;
+  heads: boolean;
 };
 
 interface KanbanDemoProps {
@@ -40,6 +41,7 @@ interface KanbanDemoProps {
   grip?: boolean;
   foldable?: boolean;
   stack?: boolean;
+  heads?: boolean;
 }
 
 export type { FoldedColumn, KanbanArgs, KanbanDemoProps, Task, TaskColumn, TaskTag };

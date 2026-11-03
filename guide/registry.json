@@ -5400,7 +5400,7 @@
         "Pass icon with a Tessera icon name and label with the type name; the label is the tooltip and the text a screen reader reads.",
         "Set color to one of the category colours; the tile takes a tint of it and the icon takes the full colour.",
         "Set size xs for 16 px in a dense row and sm for 20 px beside a title.",
-        "Set variant outline for the bare icon in the category colour, with no tile, border or padding; its box is the icon size."
+        "Set variant outline for the bare icon in the category colour, with no tile, border or padding; the icon fills the box the tile would take, 16 px at xs and 20 px at sm."
       ],
       "a11y": [
         "It is an image with the label as its name, and the label shows in a tooltip on hover and focus.",
@@ -9665,6 +9665,7 @@
         "Give an item data to put data attributes on it, such as { \"data-menu-entry\": \"rename\" }, and ariaDescription for a hint a screen reader adds after the label; description is already read as part of the item.",
         "The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.",
         "size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.",
+        "size 2xs sets an icon-only trigger at 16 px with a 24 px hit area, for a row or a card head; a trigger with a label has no 2xs and draws at xs. The menu rows keep their smallest size.",
         "variant sets the look of the trigger, any Button variant; quiet draws a dim label on a faint surface with a border, for a trigger that should not compete with the content beside it.",
         "itemSize roomy sets the items at 13 px with taller rows, for a menu that reads as a list of choices; default keeps the compact rows. Sub-menus follow their parent.",
         "Give an item kind select, with options, selected and onPick, to put a labelled Select inside the menu beside the action rows; picking a value never closes the menu, and the arrow keys walk through the select row like any other row.",
@@ -9687,7 +9688,7 @@
         "rule": "DropdownMenu keeps rare and secondary actions one click away, and asks before the ones that undo work."
       },
       "example": "import { DropdownMenu } from '@drizztdourden08/tessera';\nimport type { MenuGroup } from '@drizztdourden08/tessera';\n\ninterface LayoutMenuProps {\n  locked: boolean;\n  onLock: () => void;\n  onSave: () => void;\n  onReset: () => void;\n}\n\nconst LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {\n  const groups: MenuGroup[] = [{\n    id: 'layout',\n    label: 'Layout',\n    items: [\n      { id: 'lock', icon: 'lock', label: 'Lock widgets', checked: locked, onSelect: onLock },\n      { id: 'save', icon: 'save', label: 'Save layout', onSelect: onSave },\n      { separator: true },\n      { id: 'reset', icon: 'rotate-ccw', label: 'Reset layout', kind: 'confirm', onSelect: onReset },\n    ],\n  }];\n  return <DropdownMenu trigger={{ label: 'Layout', icon: 'layout-grid' }} groups={groups} />;\n};\n",
-      "propsHash": "15a0ac5c7365fe76",
+      "propsHash": "21f7b768873b47d9",
       "props": {
         "own": [
           {
@@ -9809,11 +9810,12 @@
           {
             "name": "size",
             "optional": true,
-            "text": "MenuSize",
+            "text": "MenuTriggerSize",
             "literals": [
-              "'xs'",
+              "'2xs'",
+              "'md'",
               "'sm'",
-              "'md'"
+              "'xs'"
             ]
           },
           {
@@ -11898,6 +11900,9 @@
         "Set columnWidth to fill so the columns share the board width instead of a fixed width; each keeps a minimum, and the board scrolls sideways when the minimums do not fit.",
         "Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.",
         "Both are drawn from the column data, so a column that has neither looks as before; a folded column hides its action and keeps its badge on the rail.",
+        "Give a column header when its head is more than text, such as the parent record of a group-by-parent board with its icon, code and link; it takes the place of the title text in the head, beside the count, badge, action and fold button.",
+        "Keep title on such a column: it stays the name of the column, the list and the fold button, and the text of every announcement. The header is drawn only on an open column; a folded rail still shows title.",
+        "A link or button in header works as it does anywhere: only the card grip starts a drag, so a press on the header never moves a column or a card.",
         "Put a form or a control above the cards, such as an inline add form, with top on the column; it is not a card, so it takes no drag slot, and a folded column hides it.",
         "Pass columnHeight=\"fit\" to size each column to its cards instead of the board height; a column taller than the board still scrolls its cards.",
         "Pass grip={false} to hide the drag grip: the cards no longer drag by pointer, and the arrow keys still move a card from a hidden grip button that shows a focus ring on the card.",

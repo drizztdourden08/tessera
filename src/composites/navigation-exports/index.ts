@@ -14,7 +14,7 @@ export type { SearchResultHitProps } from '../SearchResultHit';
 export { DropdownMenu, useHoverOpen } from '../DropdownMenu';
 export type {
   DropdownMenuProps, HoverOpenParams, MenuAlign, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemSize, MenuItemTone, MenuNode, MenuSeparator, MenuSide,
-  MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant,
+  MenuSize, MenuTrigger, MenuTriggerIcon, MenuTriggerSize, MenuVariant,
 } from '../DropdownMenu';
 export { ContextMenu, type ContextMenuPoint, type ContextMenuProps } from '../ContextMenu';
 export { Breadcrumbs, type BreadcrumbSegment, type BreadcrumbSibling, type BreadcrumbsProps } from '../Breadcrumbs';
