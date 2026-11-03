@@ -9,15 +9,15 @@ import { SliderTrack } from './SliderTrack';
 
 const SliderSingle = (part: SliderPartProps<SliderSingleProps>) => {
   const { props, scale, disabled, accessibleName, mixedText, labelledBy, describedBy } = part;
-  const { value: given, defaultValue, onChange, keyStep, labels, showValue = true, input = false, orientation, id, name } = props;
+  const { value: given, defaultValue, onChange, keyStep, ladder, labels, showValue = true, input = false, orientation, id, name } = props;
   const [value, setValue] = useSliderValue(given, defaultValue ?? scale.min, onChange);
 
   return (
     <>
       <SliderTrack scale={scale} labels={labels} span={[scale.min, value]} readout={showValue && !input ? (mixedText ?? valueText(value, scale)) : null} range={false} orientation={orientation} trackBackground={props.trackBackground}>
-        <SliderThumb value={value} scale={scale} disabled={disabled} label={accessibleName} mixedText={mixedText} labelledBy={labelledBy} describedBy={describedBy} id={id} name={name} keyStep={keyStep} orientation={orientation} onValue={setValue} />
+        <SliderThumb value={value} scale={scale} disabled={disabled} label={accessibleName} mixedText={mixedText} labelledBy={labelledBy} describedBy={describedBy} id={id} name={name} keyStep={keyStep} ladder={ladder} orientation={orientation} onValue={setValue} />
       </SliderTrack>
-      {input && <SliderNumber value={value} scale={scale} disabled={disabled} label={accessibleName} labelledBy={labelledBy} onValue={setValue} />}
+      {input && <SliderNumber value={value} scale={scale} disabled={disabled} label={accessibleName} labelledBy={labelledBy} mixed={mixedText !== undefined} onValue={setValue} />}
     </>
   );
 };

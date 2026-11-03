@@ -1,19 +1,23 @@
 /* @layer renderer-components @kind component */
 import type { KeyboardEvent } from 'react';
-import { clampValue } from '../behavior/clamp-value';
-import { keyDelta } from '../behavior/key-delta';
+import { keyTarget } from '../behavior/key-target';
+import { thumbScale } from '../behavior/thumb-scale';
+import { thumbValue } from '../behavior/thumb-value';
+import { valueOfThumb } from '../behavior/value-of-thumb';
 import { valueText } from '../../value-rule/value-text';
 import type { SliderThumbProps } from './SliderThumb.type';
 
 const SliderThumb = (props: SliderThumbProps) => {
-  const { value, scale, disabled, label, labelledBy, describedBy, id, name, keyStep, mixedText, onTop = false, hot = false, orientation, onValue, onFocus, ref } = props;
+  const { value, scale, disabled, label, labelledBy, describedBy, id, name, keyStep, ladder, mixedText, onTop = false, hot = false, orientation, onValue, onFocus, ref } = props;
 
   const handleKey = (event: KeyboardEvent<HTMLInputElement>) => {
-    const delta = keyStep ? keyDelta(event.key, keyStep) : 0;
-    if (delta === 0) return;
+    const target = keyTarget({ key: event.key, value, scale, keyStep, ladder });
+    if (target === null) return;
     event.preventDefault();
-    onValue(clampValue(value + delta, scale));
+    onValue(target);
   };
+
+  const space = thumbScale(scale);
 
   return (
     <input
@@ -22,17 +26,17 @@ const SliderThumb = (props: SliderThumbProps) => {
       className={['slider__input', onTop && 'slider__input--top', hot && 'slider__input--hot'].filter(Boolean).join(' ')}
       id={id}
       name={name}
-      min={scale.min}
-      max={scale.max}
-      step={scale.step}
-      value={value}
+      min={space.min}
+      max={space.max}
+      step={space.step}
+      value={thumbValue(value, scale)}
       disabled={disabled}
       aria-label={label}
       aria-labelledby={labelledBy}
       aria-describedby={describedBy}
       aria-valuetext={mixedText ?? valueText(value, scale)}
       aria-orientation={orientation}
-      onChange={(event) => onValue(Number(event.target.value))}
+      onChange={(event) => onValue(valueOfThumb(Number(event.target.value), scale))}
       onFocus={onFocus}
       onKeyDown={handleKey}
     />

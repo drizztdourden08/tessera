@@ -81,6 +81,10 @@
   border-color: var(--c-primary-bright);
 }
 
+.toggle__input[data-mixed] + .toggle__track {
+  border-color: var(--c-primary);
+}
+
 .toggle__input:focus-visible + .toggle__track {
   outline: var(--border-width-thick) solid var(--c-focus);
   outline-offset: var(--size-2);
@@ -102,6 +106,15 @@
   background: var(--c-bg);
 }
 
+.toggle__input[data-mixed] + .toggle__track .toggle__thumb {
+  transform: translateX(var(--size-10));
+  background: var(--c-text-dim);
+}
+
+.toggle--mixed .toggle__label {
+  font-style: italic;
+}
+
 .toggle.control-size--sm {
   gap: var(--space-sm);
 }
@@ -118,4 +131,8 @@
 
 .toggle.control-size--sm .toggle__input:checked + .toggle__track .toggle__thumb {
   transform: translateX(var(--size-12));
+}
+
+.toggle.control-size--sm .toggle__input[data-mixed] + .toggle__track .toggle__thumb {
+  transform: translateX(var(--size-6));
 }

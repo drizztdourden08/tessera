@@ -15,7 +15,7 @@ const useGridRects = <T,>(input: GridRectsInput<T>): (() => readonly MarqueeItem
       const item = flat[index];
       return item === undefined ? '' : getKey(item, index);
     };
-    const rects = gridRects({ layout, heights, tileWidth: tileWidth.current || heights.tile, origin: bodyOrigin(root, body), keyOf });
+    const rects = gridRects({ layout, heights, tileWidth: tileWidth.current || heights.tile, origin: bodyOrigin(root, body), keyOf }).filter((rect) => rect.key !== '');
     return skip && skip.size > 0 ? rects.filter((rect) => !skip.has(rect.key)) : rects;
   }, [rootRef, bodyRef, tileWidth, layout, heights, flat, getKey, skip]);
 };

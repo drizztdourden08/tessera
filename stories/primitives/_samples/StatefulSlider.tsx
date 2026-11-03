@@ -4,6 +4,12 @@ import { Slider } from '../../../src/primitives';
 import type { ControlSize, ScaleLabelSource } from '../../../src/primitives';
 import { ValueReadout } from '../../_template/ValueReadout';
 
+type SingleOnlyProps = {
+  scale?: 'linear' | 'log';
+  input?: boolean;
+  mixed?: boolean;
+};
+
 type StatefulSliderProps = {
   initial: number | readonly [number, number];
   label?: string;
@@ -12,6 +18,7 @@ type StatefulSliderProps = {
   max?: number;
   step?: number;
   keyStep?: number;
+  ladder?: readonly number[];
   stops?: readonly string[];
   labels?: ScaleLabelSource;
   format?: (value: number) => string;
@@ -21,12 +28,23 @@ type StatefulSliderProps = {
   ariaLabel?: string;
 };
 
-const SingleSlider = (props: StatefulSliderProps & { initial: number }) => {
-  const { initial, format, ariaLabel, ...rest } = props;
+const SingleSlider = (props: StatefulSliderProps & SingleOnlyProps & { initial: number }) => {
+  const { initial, format, ariaLabel, mixed = false, ...rest } = props;
   const [value, setValue] = useState(initial);
+  const [differs, setDiffers] = useState(mixed);
   return (
-    <ValueReadout value={rest.stops?.[value] ?? value}>
-      <Slider {...rest} value={value} onChange={setValue} formatValue={format} aria-label={ariaLabel} />
+    <ValueReadout value={differs ? 'mixed' : (rest.stops?.[value] ?? value)}>
+      <Slider
+        {...rest}
+        mixed={differs}
+        value={value}
+        onChange={(next) => {
+          setDiffers(false);
+          setValue(next);
+        }}
+        formatValue={format}
+        aria-label={ariaLabel}
+      />
     </ValueReadout>
   );
 };
@@ -42,7 +60,7 @@ const PairSlider = (props: StatefulSliderProps & { initial: readonly [number, nu
   );
 };
 
-const StatefulSlider = (props: StatefulSliderProps) => {
+const StatefulSlider = (props: StatefulSliderProps & SingleOnlyProps) => {
   const { initial } = props;
   return typeof initial === 'number' ? <SingleSlider {...props} initial={initial} /> : <PairSlider {...props} initial={initial} />;
 };

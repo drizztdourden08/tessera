@@ -5,11 +5,14 @@ import type { ScaleLabelSource, ScaleOrientation } from '../ScaleLabels/ScaleLab
 
 type SliderPair = readonly [number, number];
 
+type SliderScale = 'linear' | 'log';
+
 interface SliderCommonProps {
   min?: number;
   max?: number;
   step?: number;
   keyStep?: number;
+  ladder?: readonly number[];
   stops?: readonly string[];
   labels?: ScaleLabelSource;
   label?: string;
@@ -30,6 +33,7 @@ interface SliderCommonProps {
 
 interface SliderSingleProps extends SliderCommonProps {
   range?: false;
+  scale?: SliderScale;
   input?: boolean;
   orientation?: ScaleOrientation;
   value?: number;
@@ -39,6 +43,7 @@ interface SliderSingleProps extends SliderCommonProps {
 
 interface SliderRangeProps extends SliderCommonProps {
   range: true;
+  scale?: never;
   input?: never;
   value?: SliderPair;
   defaultValue?: SliderPair;

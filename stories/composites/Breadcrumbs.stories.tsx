@@ -48,6 +48,11 @@ const PathBox = {
   render: () => <BreadcrumbsDemo editable withTags />,
 } satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
 
+const MenuSegments = {
+  name: 'opensMenu: the segment itself is the menu, and the chips are a named group',
+  render: () => <BreadcrumbsDemo menuSegments withTags />,
+} satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
+
 const CODE = `import { Breadcrumbs } from '@drizztdourden08/tessera';
 
 <Breadcrumbs
@@ -66,16 +71,16 @@ const Overview = overviewStory({
   description: 'The trail of places that leads to the current one, with neighbour menus, a fold and a path box.',
   points: [
     '`segments` run from the root to the current place; the last one is current.',
-    'A segment takes an `icon` and `siblings`, which a chevron opens as a menu of its neighbours.',
+    'A segment takes an `icon` and `siblings`, a menu of its neighbours; `opensMenu` makes the segment the menu.',
     '`maxVisible` keeps the first and the last segments and folds the middle ones behind an ellipsis.',
     '`onDropOn` makes every segment a drop target; `canDrop` turns a drag away.',
-    '`onPathSubmit` turns a click on the empty end of the bar into a [PathInput]; `trailing` takes small [Tag] chips.',
+    '`onPathSubmit` makes the end a [PathInput]; `trailing` takes [Tag] chips, named by `trailingLabel`.',
   ],
   instead: '[Tabs] to move between views of one area.',
   playground: Playground,
-  variants: [Siblings, Folded, Dropping, PathBox],
+  variants: [Siblings, MenuSegments, Folded, Dropping, PathBox],
   code: CODE,
 });
 
 export default meta;
-export { Dropping, Folded, Overview, PathBox, Playground, Siblings };
+export { Dropping, Folded, MenuSegments, Overview, PathBox, Playground, Siblings };

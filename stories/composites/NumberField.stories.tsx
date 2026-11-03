@@ -41,6 +41,13 @@ const Zoom = {
   render: () => <StatefulNumberField initial={100} label="Zoom" suffix="%" ladder={ZOOM_LADDER} presets={ZOOM_PRESETS} fineStep={1} min={25} max={12800} />,
 } satisfies StoryLiteStoryDefinition<NumberFieldArgs>;
 
+const Buttons = {
+  name: 'Buttons: step buttons beside the field, one ladder stop for each press',
+  render: () => (
+    <StatefulNumberField initial={100} label="Zoom" suffix="%" ladder={ZOOM_LADDER} min={25} max={12800} buttons="sides" stepLabels={['Zoom out', 'Zoom in']} />
+  ),
+} satisfies StoryLiteStoryDefinition<NumberFieldArgs>;
+
 const Presets = {
   name: 'Presets: quick values in a menu beside the field',
   render: () => <StatefulNumberField initial={50} label="Opacity" suffix="%" min={0} max={100} step={5} presets={OPACITY_PRESETS} />,
@@ -72,11 +79,12 @@ const Overview = overviewStory({
     'The wheel steps the value while the field has focus; Up and Down do the same and Shift makes the step fine.',
     '`ladder` steps through fixed stops such as 25, 50, 100 and 200; the zoom recipe runs 25 to 12800 percent.',
     '`presets` adds a menu of quick values; `suffix` shows a unit beside the number, such as % or px.',
+    '`buttons` adds minus and plus (`sides`) or a stacked pair; each press moves one stop, and `stepLabels` names them.',
     '`mixed` shows Mixed for values that differ; the next value you set clears it.',
   ],
   instead: '[NumberInput] when a plain number box with stepper buttons is enough.',
   playground: Playground,
-  variants: [Scrub, Zoom, Presets, Mixed, Sizes],
+  variants: [Scrub, Zoom, Buttons, Presets, Mixed, Sizes],
   states: {
     render: renderState,
     list: [STATE.idle, { name: 'Mixed', props: { mixed: true } }, STATE.disabled],
@@ -85,4 +93,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Mixed, Overview, Playground, Presets, Scrub, Sizes, Zoom };
+export { Buttons, Mixed, Overview, Playground, Presets, Scrub, Sizes, Zoom };

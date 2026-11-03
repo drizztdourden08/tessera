@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind types */
-import type { PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
+import type { KeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
 import type { MarqueeItem } from '../marquee';
-import type { ScrollAlign, VirtualAxis, VirtualSize } from '../virtual';
+import type { ReorderModifier } from '../reorder';
+import type { ScrollAlign, VirtualAxis, VirtualCellHandlers, VirtualSize } from '../virtual';
 
 type VirtualListRowSize = 'compact' | 'normal' | 'roomy';
 
@@ -19,15 +20,60 @@ interface VirtualListBind {
   onPointerDown?: (event: ReactPointerEvent<HTMLElement>) => void;
 }
 
-interface VirtualListProps<T> {
+type VirtualListItemSize = VirtualSize | ((index: number) => number);
+
+interface VirtualListMove {
+  keys: readonly string[];
+  to: number;
+  modifier: ReorderModifier;
+}
+
+interface VirtualListReorder<T> {
+  onMove: (move: VirtualListMove) => void;
+  renderThumbnail?: (item: T, index: number) => ReactNode;
+  canDrop?: (move: VirtualListMove) => boolean;
+  dropLabel?: (position: number, modifier: ReorderModifier) => string;
+}
+
+interface VirtualListCellBind extends VirtualCellHandlers {
+  role: 'option' | 'listitem';
+  className: string;
+  tabIndex: 0 | -1;
+  'aria-posinset': number;
+  'aria-setsize': number;
+  'aria-selected'?: boolean;
+  'aria-current'?: true;
+  'data-vl-index': number;
+  'data-marquee-key'?: string;
+  'data-drop'?: 'before' | 'after';
+  'data-drop-label'?: string;
+  'data-refused'?: true;
+  'data-dragging'?: true;
+}
+
+interface VirtualListDrawItem<T> {
+  renderItem: (item: T, index: number) => ReactNode;
+  renderOption?: undefined;
+}
+
+interface VirtualListDrawOption<T> {
+  renderOption: (item: T, index: number, cell: VirtualListCellBind) => ReactNode;
+  renderItem?: undefined;
+}
+
+interface VirtualListBase<T> {
   items: readonly T[];
   getKey: (item: T, index: number) => string;
-  renderItem: (item: T, index: number) => ReactNode;
   label: string;
   orientation?: VirtualAxis;
   rowSize?: VirtualListRowSize;
   rowHeight?: VirtualSize;
-  itemSize?: VirtualSize;
+  itemSize?: VirtualListItemSize;
+  itemSizeKey?: string;
+  endGutter?: number;
+  current?: string;
+  ownsKey?: (event: KeyboardEvent<HTMLElement>) => boolean;
+  reorder?: VirtualListReorder<T>;
   overscan?: number;
   selection?: VirtualListSelection;
   getLabel?: (item: T, index: number) => string;
@@ -39,4 +85,8 @@ interface VirtualListProps<T> {
   className?: string;
 }
 
-export type { VirtualListBind, VirtualListHandle, VirtualListProps, VirtualListRowSize, VirtualListSelection };
+type VirtualListProps<T> = VirtualListBase<T> & (VirtualListDrawItem<T> | VirtualListDrawOption<T>);
+
+export type {
+  VirtualListBind, VirtualListCellBind, VirtualListHandle, VirtualListItemSize, VirtualListMove, VirtualListProps, VirtualListReorder, VirtualListRowSize, VirtualListSelection,
+};

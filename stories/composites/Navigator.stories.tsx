@@ -36,6 +36,11 @@ const Zooms = {
   ),
 } satisfies StoryLiteStoryDefinition<NavigatorArgs>;
 
+const Marked = {
+  name: 'Marks on the map: press the sprite mark, or turn the wheel over the map',
+  render: () => <NavigatorDemo marked />,
+} satisfies StoryLiteStoryDefinition<NavigatorArgs>;
+
 const CODE = `import { Image, Navigator } from '@drizztdourden08/tessera';
 import type { NavigatorViewport } from '@drizztdourden08/tessera';
 
@@ -43,7 +48,18 @@ const [view, setView] = useState<NavigatorViewport>({ x: 0, y: 0, width: 200, he
 
 <Navigator surface={{ width: 800, height: 500 }} viewport={view} onViewportChange={setView}>
   <Image src={preview} alt="" fit="fill" />
-</Navigator>`;
+</Navigator>
+
+<Navigator
+  surface={{ width: 800, height: 500 }}
+  viewport={view}
+  onViewportChange={setView}
+  overlays={[{ id: 'sprite', rect: { x: 80, y: 60, width: 160, height: 100 }, kind: 'selection', label: 'Sprite', interactive: true }]}
+  onOverlayPress={selectSprite}
+  onWheelZoom={(direction, at) => zoomAt(direction, at)}
+  caption="Zoom 400%"
+  describe="One sprite is selected."
+/>`;
 
 const Overview = overviewStory({
   component: 'Navigator',
@@ -53,13 +69,14 @@ const Overview = overviewStory({
     'Drag the frame, or press the map to centre it there; `onViewportChange` runs while it moves.',
     'The thumbnail goes in as `children`, such as an [Image]; the map takes the shape of the surface.',
     'The frame is a slider: arrows move it by `step`, [[Shift]] by five, and Page Up and Page Down by its height.',
-    'Its value text says where it sits, such as Showing 25% to 50% across and 25% to 50% down.',
+    '`overlays` mark parts of the map; `onOverlayPress`, `onWheelZoom` and `onKey` hand input to the app.',
+    '`empty`, `caption` and `describe` fill the map with no surface, a line under it, and a hidden description.',
   ],
   instead: '[Slider] for one value on one line.',
   playground: Playground,
-  variants: [Zooms],
+  variants: [Zooms, Marked],
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, Zooms };
+export { Marked, Overview, Playground, Zooms };

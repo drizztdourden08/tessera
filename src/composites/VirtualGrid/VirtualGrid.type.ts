@@ -1,11 +1,15 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, MouseEvent, PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
+import type { KeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
 import type { ActionItem } from '../ActionBar';
 import type { MarqueeItem } from '../marquee';
 import type { ReorderModifier } from '../reorder';
-import type { ScrollAlign, VirtualSize } from '../virtual';
+import type { ScrollAlign, VirtualCellHandlers, VirtualSize } from '../virtual';
 
 type VirtualGridRowHeight = 'fixed' | 'measured';
+
+type VirtualGridDensity = 'cell' | 'swatch';
+
+type VirtualGridTrailing = ReactNode | ((cell: VirtualGridCellBind) => ReactNode);
 
 interface VirtualGridSection<T> {
   key: string;
@@ -49,25 +53,17 @@ interface VirtualGridBind {
   onPointerDown?: (event: ReactPointerEvent<HTMLElement>) => void;
 }
 
-interface VirtualGridCellBind {
+interface VirtualGridCellBind extends VirtualCellHandlers {
   role: 'gridcell';
   className: string;
   tabIndex: 0 | -1;
   'aria-colindex': number;
   'data-vg-index': number;
   'data-vg-kind': 'tile';
-  'data-marquee-key': string;
-  onFocus: () => void;
-  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
+  'data-marquee-key'?: string;
   'aria-selected'?: boolean;
   'data-drop'?: 'before' | 'after';
   'data-dragging'?: true;
-  onClick?: (event: MouseEvent<HTMLElement>) => void;
-  onMouseDown?: (event: MouseEvent<HTMLElement>) => void;
-  onPointerDown?: (event: ReactPointerEvent<HTMLElement>) => void;
-  onPointerMove?: (event: ReactPointerEvent<HTMLElement>) => void;
-  onPointerUp?: (event: ReactPointerEvent<HTMLElement>) => void;
-  onPointerCancel?: () => void;
 }
 
 interface VirtualGridDrawItem<T> {
@@ -88,6 +84,10 @@ interface VirtualGridBase<T> {
   tileHeight?: VirtualSize;
   columns?: number;
   rowHeight?: VirtualGridRowHeight;
+  density?: VirtualGridDensity;
+  trailing?: VirtualGridTrailing;
+  onWheelSize?: (direction: 1 | -1) => void;
+  ownsKey?: (event: KeyboardEvent<HTMLElement>) => boolean;
   overscan?: number;
   selection?: VirtualGridSelection;
   getLabel?: (item: T, index: number) => string;
@@ -117,6 +117,6 @@ interface VirtualGridSectioned<T> extends VirtualGridBase<T> {
 type VirtualGridProps<T> = (VirtualGridFlat<T> | VirtualGridSectioned<T>) & (VirtualGridDrawItem<T> | VirtualGridDrawTile<T>);
 
 export type {
-  VirtualGridBind, VirtualGridCellBind, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
-  VirtualGridSelection,
+  VirtualGridBind, VirtualGridCellBind, VirtualGridDensity, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
+  VirtualGridSelection, VirtualGridTrailing,
 };

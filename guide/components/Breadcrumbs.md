@@ -33,10 +33,11 @@ Breadcrumbs shows the levels of a path as a trail with neighbour menus, a fold a
 - Segments run from the root to the current place, each with an id and a label, and optionally an icon from the set and siblings.
 - The last segment is the current place and carries aria-current. onNavigate gets the id of the segment that was pressed.
 - Siblings are the menu nodes of a DropdownMenu. A chevron after the segment opens them; leave it out when a segment has no neighbours.
+- OpensMenu on a segment with siblings makes the whole segment the menu button, for a place that has no page to go to; pressing it opens the siblings and never calls onNavigate.
 - Pass maxVisible to fold a long trail: the first segment and the last ones stay, and the middle ones sit behind an ellipsis menu. The smallest value is 3.
 - Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.
 - Pass onPathSubmit to let the user click the empty space at the end and type the path in a PathInput. path is the text shown there and defaults to the labels joined by a slash.
-- Trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place.
+- Trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place. trailingLabel names that group for screen readers, such as Place state; without it the group has no name.
 
 ## Accessibility
 
@@ -72,6 +73,7 @@ const FolderBar = ({ trail, open, openPath }: FolderBarProps) => (
 - `path` (optional): `string`.
 - `onPathSubmit` (optional): `(path: string) => void`.
 - `trailing` (optional): `ReactNode`.
+- `trailingLabel` (optional): `string`.
 - `label` (optional): `string`.
 - `className` (optional): `string`.
 

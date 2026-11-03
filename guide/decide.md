@@ -53,7 +53,9 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A colour. **Where does the picker sit?**
     - In the page: [ColorPicker](components/ColorPicker.md). ColorPicker is the colour panel placed in the page; import it from the color-picker subpath.
     - Behind a swatch button: no component yet.
-  - A range: no component yet.
+  - A range:
+    - [ScrubRuler](components/ScrubRuler.md). ScrubRuler sets one current cell on a row of cells, with markers and a band, where SpanBar sets a range of cells.
+    - [SpanBar](components/SpanBar.md). SpanBar edits a range of cells on a row, where Slider edits a number between two limits.
   - A colour from a palette: [ChoiceGrid](components/ChoiceGrid.md). ChoiceGrid is the strip or grid of cells where one is picked; draw each cell as a ColorSwatch for a palette.
   - A colour from a ramp of steps: [RampStrip](components/RampStrip.md). RampStrip is the ordered row of shades of one ramp, with a caption on each step.
   - A file: [FileInput](components/FileInput.md). FileInput is the hidden picker behind a button, for a file the user chooses from a dialog.
@@ -91,6 +93,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A panel from the edge of the window: no component yet.
   - A search over every command: no component yet.
   - A cover over a part that is off: no component yet.
+  - A bar or small dialog kept beside a rectangle: [AnchoredBar](components/AnchoredBar.md). AnchoredBar adds a clamp, a dock, follow and focus handling to Anchored, for a bar that belongs to a rectangle.
   - A dim backdrop: no component yet.
   - A long job the user can hide or cancel: [JobDialog](components/JobDialog.md). JobDialog puts TaskProgress in a dialog whose buttons follow the state of the job.
   - A guided tour of the screen, one part at a time: [GuidedTour](components/GuidedTour.md). GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target.
@@ -175,6 +178,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A question that blocks one region until it is answered: [FloatingPrompt](components/FloatingPrompt.md). FloatingPrompt asks the user to answer before going on in one region, with actions from data and the look of a Toast.
   - What blocks a save, with a jump to each field: [ValidationSummary](components/ValidationSummary.md). ValidationSummary lists what blocks a save in one place and takes the user to each field, the same way in every editor.
   - Whether the edits are saved, with Save and Discard: [SaveBar](components/SaveBar.md). SaveBar says whether an editor is saved and holds Save and Discard at its foot, the same way in every app.
+  - A value that shows when it changes and fades: [TransientReadout](components/TransientReadout.md). TransientReadout is tied to one value and one surface, where Toast is a message raised from anywhere in the app.
 - Text. **What kind of text?**
   - A heading: no component yet.
   - A section heading with an action: no component yet.
@@ -242,9 +246,11 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 
 No question leads to these parts. Other components are built on them; reach for one only when no component above fits.
 
+- [PixelThumbnail](components/PixelThumbnail.md). A small square that draws a pixel picture crisp, from RGBA bytes or palette pixels, with a checker behind clear pixels.
 - [DragGhost](components/DragGhost.md). The picture that follows the pointer while items are dragged: a stack of up to three thumbnails and the count of items.
 - [MillerColumns](components/MillerColumns.md). Side by side columns for a nested set, such as folders: picking a folder in one column shows its children in the next, and the pick is shared with the app.
 - [PanelContainer](components/PanelContainer.md). A plain stacked section with a heading, optional action and a body.
+- [PixelPlayer](components/PixelPlayer.md). Plays a pixel animation inline, with a whole-number zoom, a control bar, frame ranges and keys; one frame shows as a still.
 - [ScreenLayer](components/ScreenLayer.md). Building block: the overlay and the card of every screen, with one gap around the card that follows the room.
 - [ScreenPage](components/ScreenPage.md). Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls.
 - [ScreenWindow](components/ScreenWindow.md). Building block: the plain screen window, a ScreenLayer with a title bar, a page header or only corner buttons at its top, a close button and an empty container.

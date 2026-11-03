@@ -45,3 +45,24 @@
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-sm);
 }
+
+.virtual-grid-story__swatch {
+  border-radius: var(--radius-sm);
+  background: var(--c-primary);
+}
+
+.virtual-grid-story__swatch[data-tone='success'] {
+  background: var(--c-success);
+}
+
+.virtual-grid-story__swatch[data-tone='warning'] {
+  background: var(--c-warning);
+}
+
+.virtual-grid-story__swatch[data-tone='info'] {
+  background: var(--c-info);
+}
+
+.virtual-grid-story__swatch[data-tone='danger'] {
+  background: var(--c-danger);
+}

@@ -7,6 +7,7 @@ import { gridLayout } from '../src/composites/VirtualGrid/behavior/grid-layout';
 import { gridMarkOf } from '../src/composites/VirtualGrid/behavior/grid-mark-of';
 import { gridPointAt } from '../src/composites/VirtualGrid/behavior/grid-point-at';
 import { gridRects } from '../src/composites/VirtualGrid/behavior/grid-rects';
+import { itemLayout } from '../src/composites/VirtualList/behavior/item-layout';
 import { listRects } from '../src/composites/VirtualList/behavior/list-rects';
 import { nextAcrossIndex } from '../src/composites/VirtualList/behavior/next-across-index';
 import { nextIndex } from '../src/composites/VirtualList/behavior/next-index';
@@ -29,9 +30,9 @@ describe('K1 VirtualList on the horizontal axis', { tags: ['critical'] }, () => 
   });
 
   it('gives the rects of items on the main axis for a marquee', () => {
-    const rects = listRects({ count: 3, size: 50, cross: 30, axis: 'horizontal', origin: { x: 10, y: 5 }, keyOf: (at) => `k${at}` });
+    const rects = listRects({ layout: itemLayout(3, undefined, 50), cross: 30, axis: 'horizontal', origin: { x: 10, y: 5 }, keyOf: (at) => `k${at}` });
     expect(rects[2]).toEqual({ key: 'k2', rect: { x: 110, y: 5, width: 50, height: 30 } });
-    const column = listRects({ count: 2, size: 20, cross: 80, axis: 'vertical', origin: { x: 0, y: 0 }, keyOf: (at) => `k${at}` });
+    const column = listRects({ layout: itemLayout(2, undefined, 20), cross: 80, axis: 'vertical', origin: { x: 0, y: 0 }, keyOf: (at) => `k${at}` });
     expect(column[1]?.rect).toEqual({ x: 0, y: 20, width: 80, height: 20 });
   });
 });

@@ -1,0 +1,49 @@
+/* @layer renderer-components @kind style */
+.pixel-thumbnail {
+  --pixel-thumbnail-box: var(--size-24);
+
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--pixel-thumbnail-box);
+  height: var(--pixel-thumbnail-box);
+  overflow: hidden;
+}
+
+.pixel-thumbnail[data-box='16'] {
+  --pixel-thumbnail-box: var(--size-16);
+}
+
+.pixel-thumbnail[data-box='32'] {
+  --pixel-thumbnail-box: var(--size-32);
+}
+
+.pixel-thumbnail[data-box='40'] {
+  --pixel-thumbnail-box: var(--size-40);
+}
+
+.pixel-thumbnail[data-box='48'] {
+  --pixel-thumbnail-box: var(--size-48);
+}
+
+.pixel-thumbnail[data-box='64'] {
+  --pixel-thumbnail-box: var(--size-64);
+}
+
+.pixel-thumbnail--checker {
+  background: repeating-conic-gradient(var(--c-checker-b) 0% 25%, var(--c-checker-a) 0% 50%) 0 0 / var(--checker-size) var(--checker-size);
+}
+
+.pixel-thumbnail__canvas {
+  display: block;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+
+@media (forced-colors: active) {
+  .pixel-thumbnail {
+    border: var(--size-1) solid CanvasText;
+  }
+}

@@ -21,6 +21,7 @@ interface UseGridInteractionInput<T> {
   getLabel?: (item: T, index: number) => string;
   holes?: (item: T, index: number) => boolean;
   reorder?: VirtualGridReorder<T>;
+  ownsKey?: (event: KeyboardEvent<HTMLElement>) => boolean;
 }
 
 interface GridInteraction {

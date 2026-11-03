@@ -6,31 +6,34 @@ import { gridFixedColumns } from './grid-fixed-columns';
 import { gridHeights } from './grid-heights';
 import { gridLayout } from './grid-layout';
 import { gridSections } from './grid-sections';
+import { hasTrailing } from './has-trailing';
 import { readGridMetrics } from './read-grid-metrics';
 import { readMeasuredMetrics } from './read-measured-metrics';
 import { rowOfStop } from './row-of-stop';
 import { rowRange } from './row-range';
-import { scrollOffset } from './scroll-offset';
 import { useGridAnchor } from './useGridAnchor';
 import { useGridCollapsed } from './useGridCollapsed';
+import { useGridEnds } from './useGridEnds';
 import { useGridColumns } from './useGridColumns';
 import { useGridFocus } from './useGridFocus';
 import { useGridDropData } from './useGridDropData';
 import { useGridInteraction } from './useGridInteraction';
 import { useGridMeasure } from './useGridMeasure';
 import { useGridOffsets } from './useGridOffsets';
-import type { ScrollAlign, VirtualMetrics } from '../../virtual';
+import { useGridScroll } from './useGridScroll';
+import type { VirtualMetrics } from '../../virtual';
 import type { UseVirtualGridInput, VirtualGridModel } from './useVirtualGrid.type';
 
 const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> => {
-  const { items, sections, getKey, overscan = DEFAULT_OVERSCAN, sizeKey, onActiveChange } = input;
+  const { items, sections, getKey, overscan = DEFAULT_OVERSCAN, sizeKey, onActiveChange, trailing, onWheelSize } = input;
+  const closing = hasTrailing(trailing);
   const rootRef = useRef<HTMLElement>(null);
   const [measured, setColumns] = useState(DEFAULT_COLUMNS);
   const fixed = gridFixedColumns(input.columns);
   const columns = fixed ?? measured;
   const tileWidth = useRef(0);
   const { set: collapsed, setCollapsed } = useGridCollapsed(input);
-  const { flat, shapes, keys } = useMemo(() => gridSections(items, sections, collapsed), [items, sections, collapsed]);
+  const { flat, shapes, keys } = useMemo(() => gridSections(items, sections, collapsed, closing), [items, sections, collapsed, closing]);
   const layout = useMemo(() => gridLayout(shapes, columns), [shapes, columns]);
   const { rows: placed } = layout;
 
@@ -39,7 +42,7 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
     if (!entry) return undefined;
     if (entry.kind === 'header') return `section-${keys[entry.section]}`;
     const item = flat[entry.first];
-    return item === undefined ? undefined : `row-${getKey(item, entry.first)}`;
+    return item === undefined ? 'row-trailing' : `row-${getKey(item, entry.first)}`;
   }, [placed, keys, flat, getKey]);
   const measuring = input.rowHeight === 'measured';
   const { offsets, record } = useGridOffsets({ enabled: measuring, layout, keyAt });
@@ -62,7 +65,8 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
 
   const touch = useGridInteraction({ ...input, flat, layout, heights, columns, sectionKeys: keys, rootRef, bodyRef, tileWidth });
   const dropData = useGridDropData({ sections, announce: touch.moving.announce });
-  const { active, activate, jump, navigate } = useGridFocus({ layout, heights, rootRef, bodyRef, metrics, onScroll, onMove: touch.onMove, onActiveChange });
+  const follow = useGridEnds({ rootRef, items: flat.length, onActiveChange, onWheelSize });
+  const { active, activate, jump, navigate } = useGridFocus({ layout, heights, rootRef, bodyRef, metrics, onScroll, onMove: touch.onMove, onActiveChange: follow });
   useEffect(() => {
     touch.jumpRef.current = jump;
   });
@@ -71,12 +75,7 @@ const useVirtualGrid = <T,>(input: UseVirtualGridInput<T>): VirtualGridModel<T> 
   const shown = indices.includes(rowOfStop(layout, clamped));
   const tabbable = shown ? clamped : (placed[indices[0] ?? 0]?.stop ?? 0);
 
-  const scrollToIndex = useCallback((index: number, align: ScrollAlign = 'nearest') => {
-    const root = rootRef.current;
-    if (!root) return;
-    root.scrollTop = scrollOffset({ layout, heights, index, viewport: root.clientHeight, scrollTop: root.scrollTop, align });
-    onScroll();
-  }, [layout, heights, onScroll]);
+  const scrollToIndex = useGridScroll({ rootRef, layout, heights, onScroll });
 
   return {
     rootRef, bodyRef, flat, layout, heights, measured: measuring, rows: indices, columns, fixed: fixed !== undefined, sectionKeys: keys, collapsed, setCollapsed, tabbable, onScroll,

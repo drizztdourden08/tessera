@@ -11,13 +11,14 @@ type BreadcrumbsDemoProps = Partial<Pick<BreadcrumbsProps, 'maxVisible' | 'label
   withDrop?: boolean;
   editable?: boolean;
   withTags?: boolean;
+  menuSegments?: boolean;
 };
 
 const BreadcrumbsDemo = (props: BreadcrumbsDemoProps) => {
-  const { withSiblings = true, withDrop = false, editable = false, withTags = false, ...rest } = props;
+  const { withSiblings = true, withDrop = false, editable = false, withTags = false, menuSegments = false, ...rest } = props;
   const [depth, setDepth] = useState(TRAIL.length);
   const [note, setNote] = useState('Press a segment, or drag a file onto one.');
-  const trail: readonly BreadcrumbSegment[] = TRAIL.slice(0, depth).map((segment) => (withSiblings ? segment : { ...segment, siblings: undefined }));
+  const trail: readonly BreadcrumbSegment[] = TRAIL.slice(0, depth).map((segment) => (withSiblings ? { ...segment, opensMenu: menuSegments } : { ...segment, siblings: undefined }));
 
   return (
     <Box className="story-column breadcrumbs-demo">
@@ -28,6 +29,7 @@ const BreadcrumbsDemo = (props: BreadcrumbsDemoProps) => {
         onDropOn={withDrop ? (id: string, event: DragEvent<HTMLElement>) => setNote(`Dropped ${event.dataTransfer.types.join(', ')} on ${id}`) : undefined}
         onPathSubmit={editable ? (path) => setNote(`Go to ${path}`) : undefined}
         trailing={withTags ? <Tag>Folder</Tag> : undefined}
+        trailingLabel={withTags ? 'Place state' : undefined}
       />
       <Text className="story-label">{note}</Text>
     </Box>

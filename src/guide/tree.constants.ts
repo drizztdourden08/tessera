@@ -74,7 +74,7 @@ const OVERLAYS = {
   question: 'What sits over the page?',
   answers: {
     'a hint on hover or focus': null, 'a question the user must answer': null, 'a dialog with its own layout': null,
-    'a panel from the edge of the window': null, 'a search over every command': null, 'a cover over a part that is off': null,
+    'a panel from the edge of the window': null, 'a search over every command': null, 'a cover over a part that is off': null, 'a bar or small dialog kept beside a rectangle': null,
     'a dim backdrop': null, 'a long job the user can hide or cancel': null, 'a guided tour of the screen, one part at a time': null,
     'a picture or a video opened large, with zoom': null, 'a menu at the pointer, opened by right-click or long press': null,
     'a grid of icons at the pointer, picked by hold and release': null,
@@ -120,7 +120,7 @@ const FEEDBACK = {
     'a note that stays on the page': null, 'a note in a bubble with a tail': null, 'nothing is here yet': null, 'a hint for what is under the pointer': null,
     'a part of the page failed': null, 'something failed to load, with Retry': null, 'a long job with steps, a log or a failure': null, 'the app is starting, or starting again': null,
     'the results of a list of checks': null, 'a question that blocks one region until it is answered': null,
-    'what blocks a save, with a jump to each field': null, 'whether the edits are saved, with Save and Discard': null,
+    'what blocks a save, with a jump to each field': null, 'whether the edits are saved, with Save and Discard': null, 'a value that shows when it changes and fades': null,
   },
 } as const;
 

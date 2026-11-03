@@ -4,6 +4,7 @@ import '../../theme/control-size.css';
 import { Box } from '../../primitives/Box';
 import { useControlSize } from '../../primitives/field-control/useControlSize';
 import { NumberInput } from '../../primitives/NumberInput';
+import { stepLimits } from './behavior/step-limits';
 import { useNumberField } from './behavior/useNumberField';
 import type { NumberFieldProps } from './NumberField.type';
 import { NumberFieldLabel } from './sub-components/NumberFieldLabel';
@@ -40,6 +41,7 @@ const NumberField = (props: NumberFieldProps) => {
         step={step}
         disabled={disabled}
         mixed={mixed}
+        stepDisabled={stepLimits({ value, min, max, ladder })}
         onStep={(direction) => field.stepBy(direction, false)}
         onChange={field.onType}
         onBlur={field.onBlur}

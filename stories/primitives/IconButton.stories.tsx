@@ -1,14 +1,15 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Flex, Icon, IconButton, Text } from '../../src/primitives';
+import { Flex, Icon, IconButton } from '../../src/primitives';
 import type { IconName } from '../../src/primitives';
 import type { IconButtonSize, IconButtonTone, IconButtonVariant } from '../../src/primitives/IconButton/IconButton.type';
 import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
 import type { StateEntry, StateProps } from '../_template/states/states.type';
 import { BUTTON_STATES } from './_samples/button-states';
+import { IconButtonMixedPin } from './_samples/IconButtonMixedPin';
+import { IconButtonToolbar } from './_samples/IconButtonToolbar';
 import { markedStates } from './_samples/marked-states';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -138,6 +139,19 @@ const Loading = {
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
+const PRESS_STATES = ['off', 'mixed'] as const;
+
+const Mixed = {
+  name: 'Mixed: some picked items are on, and a press turns it on',
+  render: () => (
+    <Demonstrator
+      rows={axis(STATE_VARIANTS)}
+      columns={axis(PRESS_STATES)}
+      cell={(variant, state) => <IconButtonMixedPin key={`${variant}-${state}`} variant={variant} mixed={state === 'mixed'} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+
 const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
   <Flex gap="sm" align="center">
     {STATE_VARIANTS.map((variant) => (
@@ -151,31 +165,9 @@ const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
   </Flex>
 );
 
-const ToolbarDemo = () => {
-  const [pinned, setPinned] = useState(true);
-  const [muted, setMuted] = useState(false);
-
-  return (
-    <Box className="story-column">
-      <Flex gap="xs" align="center">
-        <Text variant="title">Item tracker</Text>
-        <IconButton label={LABELS.pin} active={pinned} onClick={() => setPinned((value) => !value)}>
-          {glyph('pin', 'sm')}
-        </IconButton>
-        <IconButton label={LABELS.mute} active={muted} onClick={() => setMuted((value) => !value)}>
-          {glyph('mute', 'sm')}
-        </IconButton>
-        <IconButton label={LABELS.overflow}>{glyph('overflow', 'sm')}</IconButton>
-        <IconButton label={LABELS.close}>{glyph('close', 'sm')}</IconButton>
-      </Flex>
-      <Text variant="caption">{`Pinned: ${pinned ? 'yes' : 'no'}. Audio: ${muted ? 'muted' : 'on'}.`}</Text>
-    </Box>
-  );
-};
-
 const Toolbar = {
   name: 'Toggle toolbar',
-  render: () => <ToolbarDemo />,
+  render: () => <IconButtonToolbar />,
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
 const Overview = overviewStory({
@@ -185,15 +177,15 @@ const Overview = overviewStory({
     '**`label` is required:** it becomes the name screen readers announce.',
     'It takes the variants and sizes of [Button]: `md` 39, `sm` 28 and `xs` 20 px. Header back and close buttons are `md`.',
     '`xs` is for dense rows, compact panels and widget title bars. An unsized icon draws at 16 px in `md`, 12 px below.',
-    '`active` marks a toggle as on; `loading` swaps the icon for a [Spinner] and stops clicks.',
+    '`active` marks a toggle as on, `mixed` hatches it when picked items differ; `loading` swaps in a [Spinner].',
     '`tone` tints a ghost button with a soft glow: `danger`, `info`, or `accent` in the brand colour.',
     '`hint` reports a one-line description to the [HintScope] around it, for a [HintLine] to show.',
   ],
   instead: '[Button] when a word fits.',
   playground: Playground,
-  variants: [AllVariants, Tones, Loading],
+  variants: [AllVariants, Tones, Mixed, Loading],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, Loading, Overview, Playground, Tones, Toolbar };
+export { AllVariants, Loading, Mixed, Overview, Playground, Tones, Toolbar };

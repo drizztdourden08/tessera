@@ -40,6 +40,12 @@
   color: var(--c-primary-bright);
 }
 
+.icon-btn.icon-btn--mixed {
+  border-color: var(--c-primary);
+  color: var(--c-text-muted);
+  font-style: italic;
+}
+
 .icon-btn--tone-danger {
   --icon-btn-tone: var(--c-danger);
   --icon-btn-tone-soft: var(--c-danger-soft);

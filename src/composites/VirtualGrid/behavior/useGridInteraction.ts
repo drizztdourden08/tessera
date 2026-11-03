@@ -11,7 +11,7 @@ import type { KeyboardEvent } from 'react';
 import type { GridInteraction, UseGridInteractionInput } from './useGridInteraction.type';
 
 const useGridInteraction = <T,>(input: UseGridInteractionInput<T>): GridInteraction => {
-  const { flat, layout, getKey, selection, getLabel, holes, reorder, sections } = input;
+  const { flat, layout, getKey, selection, getLabel, holes, reorder, sections, ownsKey } = input;
   const jumpRef = useRef<(stop: number, row: number) => void>(() => undefined);
   const keys = useMemo(() => flat.map((item, at) => getKey(item, at)), [flat, getKey]);
   const focusItem = useCallback((index: number) => {
@@ -33,8 +33,8 @@ const useGridInteraction = <T,>(input: UseGridInteractionInput<T>): GridInteract
   }, [layout, keys, selecting, select]);
   const extrasOf = (item: number, key: string) => gridCellExtras({ key, item, select, moving, selecting, hole: holeKeys.has(key) });
   const cellKeys: GridInteraction['cellKeys'] = (event, stop, item, navigate) => {
-    if (moving.keyMove(event, item)) return;
-    if (selecting) select.onKeyDown(event, keys[item] ?? '');
+    if (ownsKey?.(event) || moving.keyMove(event, item)) return;
+    if (selecting && keys[item] !== undefined) select.onKeyDown(event, keys[item]);
     navigate(event, stop);
   };
 

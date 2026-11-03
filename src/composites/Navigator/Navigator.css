@@ -12,7 +12,7 @@
   user-select: none;
 }
 
-.navigator > :not(.navigator__viewport) {
+.navigator > :not(.navigator__viewport, .visually-hidden) {
   position: absolute;
   inset: 0;
   inline-size: 100%;
@@ -31,4 +31,58 @@
 .navigator--dragging,
 .navigator--dragging .navigator__viewport {
   cursor: grabbing;
+}
+
+.navigator__overlay {
+  position: absolute;
+  box-sizing: border-box;
+  min-inline-size: var(--border-width-thin);
+  min-block-size: var(--border-width-thin);
+}
+
+.navigator__overlay[data-interactive] {
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.navigator__overlay--selection {
+  border: var(--border-width-thin) dashed var(--c-primary);
+}
+
+.navigator__overlay--view {
+  border: var(--border-width-thin) dotted var(--c-info);
+}
+
+.navigator__overlay--region {
+  background: var(--c-hover);
+}
+
+.navigator--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  cursor: default;
+}
+
+.navigator-frame {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  inline-size: fit-content;
+}
+
+@media (forced-colors: active) {
+  .navigator__overlay--selection {
+    border-color: Highlight;
+  }
+
+  .navigator__overlay--view {
+    border-color: CanvasText;
+  }
+
+  .navigator__overlay--region {
+    background: none;
+    border: var(--border-width-thin) solid CanvasText;
+  }
 }

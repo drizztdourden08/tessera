@@ -5,18 +5,20 @@ export type {
   IdRefTargetField, IdRefTargetFieldResolver, PickerNode,
 } from '../DataTable';
 export { VirtualList } from '../VirtualList';
-export type { VirtualListBind, VirtualListHandle, VirtualListProps, VirtualListRowSize, VirtualListSelection } from '../VirtualList';
+export type {
+  VirtualListBind, VirtualListCellBind, VirtualListHandle, VirtualListItemSize, VirtualListMove, VirtualListProps, VirtualListReorder, VirtualListRowSize, VirtualListSelection,
+} from '../VirtualList';
 export { VirtualGrid } from '../VirtualGrid';
 export type {
-  VirtualGridBind, VirtualGridCellBind, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
-  VirtualGridSelection,
+  VirtualGridBind, VirtualGridCellBind, VirtualGridDensity, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
+  VirtualGridSelection, VirtualGridTrailing,
 } from '../VirtualGrid';
 export { DragGhost, useNativeDragGhost } from '../DragGhost';
 export type { DragGhostPoint, DragGhostProps, NativeDragGhost, NativeDragGhostInput } from '../DragGhost';
 export { MarqueeBox } from '../MarqueeBox';
 export type { MarqueeBoxProps } from '../MarqueeBox';
 export { Navigator } from '../Navigator';
-export type { NavigatorProps, NavigatorSurface, NavigatorViewport } from '../Navigator';
+export type { NavigatorOverlay, NavigatorOverlayKind, NavigatorProps, NavigatorSurface, NavigatorViewport, NavigatorWheelPoint } from '../Navigator';
 export { readHorizontalMetrics, renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, stepVirtualSize, useVirtualWindow, visibleRange } from '../virtual';
 export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualAxis, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from '../virtual';
 export {
