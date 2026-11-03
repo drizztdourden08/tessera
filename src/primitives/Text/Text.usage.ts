@@ -20,6 +20,7 @@ const usage = {
     'Set size lead for the 15 px step between the base and large sizes.',
     'Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.',
     'Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.',
+    'Set clamp to a number of lines to cut longer text with an ellipsis; the full text shows in a tooltip only when it is cut.',
     'Set mono for file names, seeds and addresses, and numeric for times and counts that line up.',
   ],
   a11y: [
@@ -39,7 +40,7 @@ const SyncLine = () => (
   </Text.P>
 );
 `,
-  propsHash: '204cc04ca2c34069',
+  propsHash: '71d2b3c04fdc32f1',
 } satisfies ComponentUsage;
 
 export { usage };

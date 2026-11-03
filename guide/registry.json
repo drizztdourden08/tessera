@@ -282,7 +282,10 @@
             "components": []
           },
           "a value that sorts an item into a group": {
-            "components": []
+            "components": [
+              "Avatar",
+              "TypeMark"
+            ]
           },
           "a label and its value": {
             "components": []
@@ -967,6 +970,156 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "Avatar",
+      "tier": "primitives",
+      "source": "src/primitives/Avatar/Avatar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A small round mark for a person, drawn as one or two initials or an icon on a tinted ground, or as a dashed circle when nobody is assigned.",
+      "useWhen": [
+        "An item card or a list row shows who owns it, in 16 px beside other text.",
+        "A detail pane names the assignee at 24 px.",
+        "The signed-in person must stand out among the rest, so their items carry a ring."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The mark names a kind of thing, not a person.",
+          "use": "TypeMark"
+        },
+        {
+          "case": "The value is a word that sorts an item into a group.",
+          "use": "Tag"
+        }
+      ],
+      "rules": [
+        "Pass label with the name of the person; it is the tooltip and the text a screen reader reads.",
+        "Pass initials, one or two letters, or icon, never both; with neither it draws the unassigned circle.",
+        "Set color to one of the category colours so a person keeps one colour on every screen.",
+        "Set size xs for 16 px on a card and sm for 24 px in a pane.",
+        "Set variant owner for the signed-in person; it draws a ring around the circle."
+      ],
+      "a11y": [
+        "It is an image with the label as its name, and the label shows in a tooltip on hover and focus.",
+        "Colour carries no meaning the label does not give."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "a value that sorts an item into a group"
+        ],
+        "rule": "Avatar answers who an item belongs to with a small round mark."
+      },
+      "example": "import { Avatar } from '@drizztdourden08/tessera';\n\nconst Assignees = () => (\n  <>\n    <Avatar label=\"Wren Archer\" initials=\"WA\" color=\"teal\" />\n    <Avatar label=\"You\" icon=\"user\" color=\"violet\" variant=\"owner\" size=\"sm\" />\n    <Avatar label=\"Unassigned\" />\n  </>\n);\n",
+      "propsHash": "c79e5b8b62a0c33f",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "color",
+            "optional": true,
+            "text": "TagCategoryColor",
+            "literals": [
+              "'rose'",
+              "'orange'",
+              "'amber'",
+              "'lime'",
+              "'green'",
+              "'teal'",
+              "'cyan'",
+              "'blue'",
+              "'violet'",
+              "'pink'"
+            ]
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "AvatarSize",
+            "literals": [
+              "'xs'",
+              "'sm'"
+            ]
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "AvatarVariant",
+            "literals": [
+              "'default'",
+              "'owner'"
+            ]
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "initials",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "icon",
+            "optional": true,
+            "text": "IconName"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-primary",
+        "--c-tag-amber",
+        "--c-tag-amber-soft",
+        "--c-tag-blue",
+        "--c-tag-blue-soft",
+        "--c-tag-cyan",
+        "--c-tag-cyan-soft",
+        "--c-tag-green",
+        "--c-tag-green-soft",
+        "--c-tag-lime",
+        "--c-tag-lime-soft",
+        "--c-tag-orange",
+        "--c-tag-orange-soft",
+        "--c-tag-pink",
+        "--c-tag-pink-soft",
+        "--c-tag-rose",
+        "--c-tag-rose-soft",
+        "--c-tag-teal",
+        "--c-tag-teal-soft",
+        "--c-tag-violet",
+        "--c-tag-violet-soft",
+        "--c-text-dim",
+        "--c-text-dim-soft",
+        "--c-text-muted",
+        "--radius-round",
+        "--size-1",
+        "--size-10",
+        "--size-16",
+        "--size-24",
+        "--size-8",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Primitives · Display/Avatar",
+        "route": "#/story/primitives-avatar--overview",
+        "file": "stories/primitives/Avatar.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "BackdropLayer",
@@ -4454,6 +4607,7 @@
         "Set size lead for the 15 px step between the base and large sizes.",
         "Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.",
         "Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.",
+        "Set clamp to a number of lines to cut longer text with an ellipsis; the full text shows in a tooltip only when it is cut.",
         "Set mono for file names, seeds and addresses, and numeric for times and counts that line up."
       ],
       "a11y": [
@@ -4468,7 +4622,7 @@
         "rule": "Text sets interface copy in a role from the scale, and its members draw each text element."
       },
       "example": "import { Text } from '@drizztdourden08/tessera';\n\nconst SyncLine = () => (\n  <Text.P>\n    <Text variant=\"caption\" tone=\"muted\">Last synced 12 seconds ago</Text>\n    <Text variant=\"caption\" tone=\"faint\"> · Hold Shift to snap</Text>\n  </Text.P>\n);\n",
-      "propsHash": "204cc04ca2c34069",
+      "propsHash": "71d2b3c04fdc32f1",
       "props": {
         "own": [
           {
@@ -4534,6 +4688,11 @@
             "name": "smartTimes",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "clamp",
+            "optional": true,
+            "text": "number"
           },
           {
             "name": "children",
@@ -4868,6 +5027,133 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "TypeMark",
+      "tier": "primitives",
+      "source": "src/primitives/TypeMark/TypeMark.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A small tinted tile that holds an icon in a colour, to mark the type of an item, such as a bug or a story.",
+      "useWhen": [
+        "An item card, a pane title, a tree row or a legend row shows what type the item is.",
+        "Each type keeps one icon and one colour on every screen."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The mark stands for a person.",
+          "use": "Avatar"
+        },
+        {
+          "case": "The value is a word the user can read and filter on.",
+          "use": "Tag"
+        }
+      ],
+      "rules": [
+        "Pass icon with a Tessera icon name and label with the type name; the label is the tooltip and the text a screen reader reads.",
+        "Set color to one of the category colours; the tile takes a tint of it and the icon takes the full colour.",
+        "Set size xs for 16 px in a dense row and sm for 20 px beside a title."
+      ],
+      "a11y": [
+        "It is an image with the label as its name, and the label shows in a tooltip on hover and focus.",
+        "Colour carries no meaning the label does not give."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "a value that sorts an item into a group"
+        ],
+        "rule": "TypeMark answers what kind of thing an item is with a small icon tile."
+      },
+      "example": "import { TypeMark } from '@drizztdourden08/tessera';\n\nconst BugMark = () => <TypeMark icon=\"bug\" label=\"Bug\" color=\"rose\" />;\n",
+      "propsHash": "7bfbc7ed40d2bb21",
+      "props": {
+        "own": [
+          {
+            "name": "icon",
+            "optional": false,
+            "text": "IconName"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "color",
+            "optional": true,
+            "text": "TagCategoryColor",
+            "literals": [
+              "'rose'",
+              "'orange'",
+              "'amber'",
+              "'lime'",
+              "'green'",
+              "'teal'",
+              "'cyan'",
+              "'blue'",
+              "'violet'",
+              "'pink'"
+            ]
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "TypeMarkSize",
+            "literals": [
+              "'xs'",
+              "'sm'"
+            ],
+            "default": "'xs'"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-tag-amber",
+        "--c-tag-amber-soft",
+        "--c-tag-blue",
+        "--c-tag-blue-soft",
+        "--c-tag-cyan",
+        "--c-tag-cyan-soft",
+        "--c-tag-green",
+        "--c-tag-green-soft",
+        "--c-tag-lime",
+        "--c-tag-lime-soft",
+        "--c-tag-orange",
+        "--c-tag-orange-soft",
+        "--c-tag-pink",
+        "--c-tag-pink-soft",
+        "--c-tag-rose",
+        "--c-tag-rose-soft",
+        "--c-tag-teal",
+        "--c-tag-teal-soft",
+        "--c-tag-violet",
+        "--c-tag-violet-soft",
+        "--c-text-dim",
+        "--c-text-dim-soft",
+        "--radius-sm",
+        "--size-16",
+        "--size-20"
+      ],
+      "gallery": {
+        "title": "Primitives · Display/TypeMark",
+        "route": "#/story/primitives-typemark--overview",
+        "file": "stories/primitives/TypeMark.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "VolumeIcon",

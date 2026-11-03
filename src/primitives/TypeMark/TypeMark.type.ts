@@ -1,0 +1,15 @@
+/* @layer renderer-components @kind types */
+import type { IconName } from '../Icon/Icon.type';
+import type { TagCategoryColor } from '../Tag/Tag.type';
+
+type TypeMarkSize = 'xs' | 'sm';
+
+interface TypeMarkProps {
+  icon: IconName;
+  label: string;
+  color?: TagCategoryColor;
+  size?: TypeMarkSize;
+  className?: string;
+}
+
+export type { TypeMarkProps, TypeMarkSize };

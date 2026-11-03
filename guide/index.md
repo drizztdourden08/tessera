@@ -1,11 +1,12 @@
 # Tessera components
 
-One line per component. 114 of 224 have their usage written; a linked name opens its page.
+One line per component. 116 of 226 have their usage written; a linked name opens its page.
 
 ## Primitives
 
 - `Anchored`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ArmedIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Avatar](components/Avatar.md): A small round mark for a person, drawn as one or two initials or an icon on a tinted ground, or as a dashed circle when nobody is assigned. Import from `@drizztdourden08/tessera`.
 - [BackdropLayer](components/BackdropLayer.md): A layer that fills its positioned parent with an image, a colour or a scene of your own, from one backdrop value. Import from `@drizztdourden08/tessera`.
 - `Badge`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Box](components/Box.md): The plain element every block is built from, with an optional sunken or raised surface for a well or a panel. Import from `@drizztdourden08/tessera`.
@@ -86,6 +87,7 @@ One line per component. 114 of 224 have their usage written; a linked name opens
 - [ToolFrame](components/ToolFrame.md): A sunken frame for the thing being worked on, with its toolbar on the top edge, such as an editor, a canvas or a log. Import from `@drizztdourden08/tessera`.
 - [ToolGroups](components/ToolGroups.md): Tools in groups, each under a small label, with a line between groups, for the top bar of a studio or the toolbar of an editor. Import from `@drizztdourden08/tessera`.
 - `Tooltip`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [TypeMark](components/TypeMark.md): A small tinted tile that holds an icon in a colour, to mark the type of an item, such as a bug or a story. Import from `@drizztdourden08/tessera`.
 - `VolumeIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 
 ## Composites

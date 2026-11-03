@@ -9,6 +9,7 @@ interface TextClassParams {
   tone?: TextTone | 'faint';
   mono?: boolean;
   numeric?: boolean;
+  clamp?: boolean;
   className?: string;
 }
 

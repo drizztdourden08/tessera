@@ -71,7 +71,9 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 - A status, a count or a label. **What does it show?**
   - The state something is in: [Status](components/Status.md). Status draws one word in the tone of its state; with a table from defineStatuses, a state reads the same on every screen.
   - A count, or a dot for news: no component yet.
-  - A value that sorts an item into a group: no component yet.
+  - A value that sorts an item into a group:
+    - [Avatar](components/Avatar.md). Avatar answers who an item belongs to with a small round mark.
+    - [TypeMark](components/TypeMark.md). TypeMark answers what kind of thing an item is with a small icon tile.
   - A label and its value: no component yet.
   - Terms and what they mean: no component yet.
   - A colour sample: no component yet.
