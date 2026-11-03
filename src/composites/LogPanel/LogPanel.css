@@ -51,14 +51,14 @@
 .log-panel__scroll {
   position: relative;
   display: flex;
-  flex: 1;
+  flex: 1 1 0;
   flex-direction: column;
   min-height: 0;
   min-block-size: calc(var(--log-panel-min-rows, 0) * var(--log-panel-row-size, var(--text-sm)) * var(--leading-normal) + var(--log-panel-pad, var(--space-xs)) * 2);
 }
 
 .log-panel__list {
-  flex: 1;
+  flex: 1 1 0;
   min-height: 0;
   min-block-size: calc(var(--log-panel-min-rows, 0) * var(--log-panel-row-size, var(--text-sm)) * var(--leading-normal) + var(--log-panel-pad, var(--space-xs)) * 2);
   overflow: auto;
