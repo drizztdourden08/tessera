@@ -4,11 +4,7 @@ The windowing of a long list of equal rows: which rows to draw for the scroll po
 
 A hook module: functions for a screen that owns its own markup, not a component.
 
-Import from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
-
-```tsx
-import { readHorizontalMetrics, renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, stepVirtualSize, useVirtualWindow, visibleRange } from '@drizztdourden08/tessera';
-```
+Tessera does not export this module.
 
 The source is `src/composites/virtual/index.ts`.
 
@@ -67,6 +63,7 @@ const Rows = ({ names }: { names: string[] }) => {
 
 ## What it exports
 
+- `clickHandlers`, a function: `(select: SelectionModel, key: string, swallowClick: () => boolean) => Pick<VirtualCellHandlers, "onClick" | "onMouseDown">`.
 - `readHorizontalMetrics`, a function: `(root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics`.
 - `renderedIndices`, a function: `(range: RowRange, pinned: number) => readonly number[]`.
 - `scrollTopForSpan`, a function: `(input: SpanInput, align: ScrollAlign) => number`.
@@ -74,6 +71,7 @@ const Rows = ({ names }: { names: string[] }) => {
 - `sizeVariable`, a function: `(token: VirtualSize) => string`.
 - `stepVirtualSize`, a function: `(size: VirtualSize, by: number) => VirtualSize`.
 - `useVirtualWindow`, a hook: `(input: VirtualWindowInput) => VirtualWindow`.
+- `useWantedFocus`, a hook: `(wanted: RefObject<string | null>, indexOfKey: ReadonlyMap<string, number>, focusItem: (index: number) => void) => void`.
 - `visibleRange`, a function: `(input: VisibleRangeInput) => RowRange`.
 
 ## Types
@@ -101,6 +99,17 @@ interface SpanInput {
 }
 
 type VirtualAxis = 'vertical' | 'horizontal';
+
+interface VirtualCellHandlers {
+  onFocus: () => void;
+  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
+  onClick?: (event: MouseEvent<HTMLElement>) => void;
+  onMouseDown?: (event: MouseEvent<HTMLElement>) => void;
+  onPointerDown?: (event: ReactPointerEvent<HTMLElement>) => void;
+  onPointerMove?: (event: ReactPointerEvent<HTMLElement>) => void;
+  onPointerUp?: (event: ReactPointerEvent<HTMLElement>) => void;
+  onPointerCancel?: () => void;
+}
 
 interface VirtualFocusModel {
   rootRef: RefObject<HTMLElement | null>;

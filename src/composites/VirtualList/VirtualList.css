@@ -110,6 +110,7 @@
 
 .virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop][data-refused] {
   --vl-mark: var(--c-danger);
+
   cursor: not-allowed;
 }
 
@@ -127,8 +128,7 @@
 }
 
 .virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop='after'][data-drop-label]::after {
-  inset-block-start: auto;
-  inset-block-end: 0;
+  inset-block: auto 0;
 }
 
 .virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop][data-refused][data-drop-label]::after {

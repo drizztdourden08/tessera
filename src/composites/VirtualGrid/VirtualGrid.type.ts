@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, MouseEvent, PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
+import type { KeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
 import type { ActionItem } from '../ActionBar';
 import type { MarqueeItem } from '../marquee';
 import type { ReorderModifier } from '../reorder';
-import type { ScrollAlign, VirtualSize } from '../virtual';
+import type { ScrollAlign, VirtualCellHandlers, VirtualSize } from '../virtual';
 
 type VirtualGridRowHeight = 'fixed' | 'measured';
 
@@ -53,7 +53,7 @@ interface VirtualGridBind {
   onPointerDown?: (event: ReactPointerEvent<HTMLElement>) => void;
 }
 
-interface VirtualGridCellBind {
+interface VirtualGridCellBind extends VirtualCellHandlers {
   role: 'gridcell';
   className: string;
   tabIndex: 0 | -1;
@@ -61,17 +61,9 @@ interface VirtualGridCellBind {
   'data-vg-index': number;
   'data-vg-kind': 'tile';
   'data-marquee-key'?: string;
-  onFocus: () => void;
-  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
   'aria-selected'?: boolean;
   'data-drop'?: 'before' | 'after';
   'data-dragging'?: true;
-  onClick?: (event: MouseEvent<HTMLElement>) => void;
-  onMouseDown?: (event: MouseEvent<HTMLElement>) => void;
-  onPointerDown?: (event: ReactPointerEvent<HTMLElement>) => void;
-  onPointerMove?: (event: ReactPointerEvent<HTMLElement>) => void;
-  onPointerUp?: (event: ReactPointerEvent<HTMLElement>) => void;
-  onPointerCancel?: () => void;
 }
 
 interface VirtualGridDrawItem<T> {

@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind logic */
+import { clickHandlers } from '../../virtual';
 import type { VirtualGridCellBind } from '../VirtualGrid.type';
 import type { GridCellExtrasInput } from './grid-cell-extras.type';
 
@@ -10,12 +11,7 @@ const gridCellExtras = (input: GridCellExtrasInput): Partial<VirtualGridCellBind
   return {
     ...dragged,
     'aria-selected': select.isSelected(key),
-    onClick: (event) => {
-      if (!moving.swallowClick()) select.click(key, event);
-    },
-    onMouseDown: (event) => {
-      if (event.shiftKey) event.preventDefault();
-    },
+    ...clickHandlers(select, key, moving.swallowClick),
   };
 };
 

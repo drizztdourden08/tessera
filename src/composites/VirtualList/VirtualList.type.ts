@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, MouseEvent, PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
+import type { KeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
 import type { MarqueeItem } from '../marquee';
 import type { ReorderModifier } from '../reorder';
-import type { ScrollAlign, VirtualAxis, VirtualSize } from '../virtual';
+import type { ScrollAlign, VirtualAxis, VirtualCellHandlers, VirtualSize } from '../virtual';
 
 type VirtualListRowSize = 'compact' | 'normal' | 'roomy';
 
@@ -35,7 +35,7 @@ interface VirtualListReorder<T> {
   dropLabel?: (position: number, modifier: ReorderModifier) => string;
 }
 
-interface VirtualListCellBind {
+interface VirtualListCellBind extends VirtualCellHandlers {
   role: 'option' | 'listitem';
   className: string;
   tabIndex: 0 | -1;
@@ -49,14 +49,6 @@ interface VirtualListCellBind {
   'data-drop-label'?: string;
   'data-refused'?: true;
   'data-dragging'?: true;
-  onFocus: () => void;
-  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
-  onClick?: (event: MouseEvent<HTMLElement>) => void;
-  onMouseDown?: (event: MouseEvent<HTMLElement>) => void;
-  onPointerDown?: (event: ReactPointerEvent<HTMLElement>) => void;
-  onPointerMove?: (event: ReactPointerEvent<HTMLElement>) => void;
-  onPointerUp?: (event: ReactPointerEvent<HTMLElement>) => void;
-  onPointerCancel?: () => void;
 }
 
 interface VirtualListDrawItem<T> {
