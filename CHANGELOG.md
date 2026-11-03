@@ -1,5 +1,44 @@
 # @drizztdourden08/tessera
 
+## 0.95.0
+
+### Minor Changes
+
+- 06a4132: The Bxel icon mark now follows the Bxel app icon: the pixel B with its coral corner pixel, the trail of fading squares to its left, and the mist sparkle at top right, framed on the tile the way the app icon frames them. The tile stays one flat night colour, since a mark cannot draw a gradient (I-66).
+- 8b7b275: LogPanel takes `minRows`: the list never gets shorter than that many lines, default 3 with `height="fill"`, so a small widget no longer collapses it (I-68).
+- fdbe6bf: `useMarqueeSelect` no longer starts a drag on a button, a field, a link or a column header unless `canStart` says so. The type `TagEdge` is exported from the package root.
+- 39b5761: PointerPalette now picks the cell under the pointer when holding turns from true to false before any pointer release, so a palette opened by a held key can pick on the key release (I-67).
+- e53367e: New composite PointerPalette: a sectioned grid of icon cells opened at a point. A tap opens it for clicks and keys; with `holding` set, letting go over a cell picks it. Arrows move across sections, Enter picks, Escape closes and focus returns. Each cell can show its key (I-62).
+- 426915d: New `RampStrip` composite: a row of colour swatches for one ramp, with a caption on each step, one step picked, and a large `preview` size that stretches the steps over the full width. Left, Right, Home and End move between steps and pick them. Steps can be `unused` or `disabled`.
+- 092208b: `SplitButton` takes `iconOnly` and `shortcut`. With an `icon`, `iconOnly` draws the main button as the icon alone, and a tooltip shows the label and the shortcut. The label still names the button for assistive tools. `shortcut` takes keys such as `F3`, and it adds the same tooltip to a text button. It works with `pressed` and with a `panel` chevron. Without the two props nothing changes.
+- 88ce66a: Tag takes `onClick` without `href` and renders a button; new `gavel` and `signpost` icons (I-69).
+- 3d362d2: Tag with `fill="tint"` now draws a soft grey tint with a grey edge on the neutral colour. Tag gains `edge`: `solid` (default) or `dashed`, a dashed border of the same width that works with every fill (I-61).
+- 4942466: Toolbar no longer takes `keyBadges`. Shortcuts show only in tooltips, never on the button.
+- 092208b: `Tree` takes `renderBadges`, a row slot between the label and the trail that is always shown. `trail="hover"` now hides only `renderTrail`, so status badges stay visible at rest while actions wait for hover, focus or a picked row. The row does not shift when the actions show. Without `renderBadges` nothing changes.
+- 0095ae8: Tree gains `rowSize="roomy"`, rows of 48 px for a 40 px thumbnail or two lines in a row. The row height is measured from the drawn row, so the drawn window, drag drop and focus follow it (P-283).
+- 5b5f73d: Tree takes rowSize tall for 40 px rows, between normal and roomy.
+- afa4180: The Tree ref handle gains `scrollToTop()`, which scrolls the tree back to its first row. `scrollToKey` does nothing for a key the filter hides, so call `scrollToTop` after a filter change to bring the host back to the top (P-250).
+- 899786d: `VirtualGrid` takes `rowHeight`, `'fixed'` (the default, unchanged) or `'measured'`. With `'measured'` each row of tiles is as tall as its tallest tile, so cards with different amounts of content no longer overflow into the next row or section. `tileHeight` and `tileSize` become the least height and the guess for rows not drawn yet. The grid measures the drawn rows with one resize observer and keeps the scroll steady when a row above the view changes height. The keys, paging, scroll to index, marquee rects and reorder drop all follow the measured rows. The type `VirtualGridRowHeight` is exported.
+
+### Patch Changes
+
+- fc0d126: Button gains `variant="quiet"`, a grey button with grey text, a subtle border and a fill one step above the surface. It suits minor actions such as Copy and Unhand, where tertiary is too bright and secondary too green.
+- fc0d126: Checkbox gains `boxed`. It draws the box and its label inside a small bordered box that turns green when checked, for filter toggles in a toolbar.
+- bf21633: CommandPalette gains a `header` prop. It takes any node and draws it above the input, so an app can show scope chips such as a row of Tag. Nothing changes when it is left out (I-58).
+- 28dd0f5: DataTable gains `rowTone(row)`, which gives the left edge of a row one of the Status tones, such as warning for a row that needs a look, with or without `rowState`. It also gains `headerRules`, which when false drops the vertical rules between the header cells; the rule still shows under the pointer so a column stays easy to resize (I-52).
+- 4740516: FoldText gains `truncate="path"`, which keeps the last path segment whole and cuts the middle of what comes before it (I-50).
+- 4469449: The standards extension adds a knip entry only for a primitives, composites or guide parts folder that exists, so an app without those folders gets no entry-empty hints.
+- 25aebb9: `LoadError` takes `actions`, nodes drawn beside the Retry button, such as a Reveal button. The app builds the button and handles its click. Retry works as before, and without `actions` nothing changes.
+- 3eba167: `PathInput` has a new `nativeDrop` prop, true by default. Set it to false when the app handles file drops itself. The box then attaches no drop handling, so the drop reaches the app first and no error flashes for a path the app has not vetted yet. The default is unchanged.
+- 25aebb9: Two new pixel icons for a split view: `pixel-view-split-link` shows the two halves joined by a chain, so they pan and zoom together, and `pixel-view-split-actual` shows a 1 in each half, for the view at 100 percent. They sit with the other split view icons and appear in the pixel icon gallery.
+- 4619a7a: The slim `ScrollArea` thumb has rounded ends, a pill. Both ends are round at rest, when the thumb widens under the pointer and while it is dragged, on vertical and horizontal bars. Its length, place, colours and the `thumb` auto option are unchanged.
+- fc0d126: SegmentedControl gains `size="sm-plus"`, a step between `sm` and `md`: 13 px text, segments 28 px high and wider padding. The new lengths are the `--control-h-sm-plus` and `--control-pad-sm-plus` tokens. `SegmentSize` is exported.
+- 4740516: Text, Tag and FoldText gain `smartTimes`, which draws a multiplication sign for an x between two digits. Markdown shares the same logic (I-50).
+- 4740516: Tag gains `fill="solid"`, a grey chip for the neutral colour, and `fill="tint"`, a tone edge with a tint of the tone as the fill (I-50).
+- 4740516: Text gains `font="title"`, which draws any size in the title face at weight 600, and `size="lead"`, a 15 px step between the base and large sizes with a `--text-lead` token (I-50).
+- 0cbb8e8: A native drag from another widget held over a closed Tree folder now opens it after the spring delay, 600 ms by default, with or without `reorder` (I-54).
+- 0cbb8e8: Tree gains `onRowAuxClick(key, event)`, called with the row key when a row gets a middle click (I-54).
+
 ## 0.94.0
 
 ### Minor Changes
