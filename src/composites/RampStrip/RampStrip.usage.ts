@@ -16,6 +16,11 @@ const usage = {
     'Each step has a color, and optionally a caption, a label, unused and disabled. The caption shows on the swatch; label names the step to readers and as its tooltip, and falls back to the colour.',
     'numbered true captions every step without its own caption with its place in the ramp, starting at 1.',
     'size sm and md keep each swatch at the control height. preview stretches the steps over the full width as tall blocks, for a ramp you want to read at a glance.',
+    'To pick several steps, pass selected, a set of indexes, and onSelectionChange; a click picks one, Shift extends the range from the picked step, and Ctrl or Command adds or removes one. value still names the main step and onChange still runs on a plain click.',
+    'With selected the strip is a group of toggle buttons and not a radio group, and an arrow key moves to one step and selects only it.',
+    'A step takes marks, small corner indicators such as a dot or a letter, either a list or an object keyed top-start, top-end, bottom-start or bottom-end; they take their colour from the swatch.',
+    'Pass onSwatchDragStart(index, event) to make every step draggable; set the payload on event.dataTransfer there.',
+    'Pass swatchMenu(index) to give each step a context menu of menu items, opened by a right click, a long press or the menu key; return an empty list for a step with none.',
     'The left and right arrow keys, Home and End move to the next open step and pick it. Tab enters on the picked step.',
   ],
   a11y: [
@@ -36,7 +41,7 @@ const Ramp = () => {
   return <RampStrip aria-label="Blue ramp" steps={steps} value={step} onChange={setStep} numbered size="preview" />;
 };
 `,
-  propsHash: 'dd636f249d0ae649',
+  propsHash: 'a616741553d025f6',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -5,6 +5,8 @@ interface ToggleSweepInput {
   onSet?: (key: string, value: boolean) => void;
   onEnd?: (keys: readonly string[], value: boolean) => void;
   order?: readonly string[];
+  startWhen?: (event: PointerEvent<HTMLElement>) => boolean;
+  expandStart?: (key: string) => readonly string[];
 }
 
 interface ToggleSweepBind {
@@ -30,6 +32,7 @@ interface SweepSessionInput {
   first: string;
   value: boolean;
   order?: readonly string[];
+  together?: readonly string[];
   onSet?: (key: string, value: boolean) => void;
 }
 

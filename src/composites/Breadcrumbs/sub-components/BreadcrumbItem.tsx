@@ -8,11 +8,11 @@ import { BreadcrumbSegmentButton } from './BreadcrumbSegmentButton';
 import { BreadcrumbSiblings } from './BreadcrumbSiblings';
 
 const BreadcrumbItem = ({ segment, current, first, drop, onNavigate }: BreadcrumbItemProps) => {
-  const { label } = segment;
+  const { label, title } = segment;
   const { menu, asMenu } = siblingMenu(segment);
 
   return (
-    <Box as="li" className="breadcrumbs__item" data-current={current || undefined}>
+    <Box as="li" className="breadcrumbs__item" data-current={current || undefined} title={asMenu ? title : undefined}>
       {!first && <Icon name="chevron-right" size={SEPARATOR_SIZE} className="breadcrumbs__separator" aria-hidden />}
       {asMenu ? (
         <BreadcrumbSiblings label={label} siblings={menu} named />

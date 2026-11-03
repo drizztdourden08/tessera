@@ -17,6 +17,8 @@ const usage = {
     'segments run from the root to the current place, each with an id and a label, and optionally an icon from the set and siblings.',
     'The last segment is the current place and carries aria-current. onNavigate gets the id of the segment that was pressed.',
     'siblings are the menu nodes of a DropdownMenu. A chevron after the segment opens them; leave it out when a segment has no neighbours.',
+    'title on a segment is the tooltip text, apart from the label; leave it out for no tooltip.',
+    'A sibling takes group, a heading for the menu: siblings with the same group that follow each other sit under one heading, and siblings without a group sit under none.',
     'opensMenu on a segment with siblings makes the whole segment the menu button, for a place that has no page to go to; pressing it opens the siblings and never calls onNavigate.',
     'Pass maxVisible to fold a long trail: the first segment and the last ones stay, and the middle ones sit behind an ellipsis menu. The smallest value is 3.',
     'Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.',

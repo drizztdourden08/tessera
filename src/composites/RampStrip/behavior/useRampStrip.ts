@@ -7,7 +7,7 @@ import { nextRampStep } from './next-ramp-step';
 import { rampTabStop } from './ramp-tab-stop';
 
 const useRampStrip = (input: RampStripInput): RampStripControl => {
-  const { steps, value, onChange } = input;
+  const { steps, value, onChange, onSelectionChange } = input;
   const rootRef = useRef<HTMLElement>(null);
   const [focused, setFocused] = useState<number | null>(null);
   const tabStop = rampTabStop(steps, value, focused);
@@ -20,6 +20,7 @@ const useRampStrip = (input: RampStripInput): RampStripControl => {
     setFocused(next);
     rootRef.current?.querySelector<HTMLElement>(`[${RAMP_INDEX_ATTRIBUTE}="${next}"]`)?.focus();
     if (next !== value) onChange(next);
+    onSelectionChange?.(new Set([next]));
   };
 
   return { rootRef, onKeyDown, tabStop, onFocusStep: setFocused };
