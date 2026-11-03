@@ -11,7 +11,7 @@ export type {
 export { VirtualGrid } from '../VirtualGrid';
 export type {
   VirtualGridBind, VirtualGridCellBind, VirtualGridDensity, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
-  VirtualGridSelection, VirtualGridTrailing,
+  VirtualGridSelection, VirtualGridTileProps, VirtualGridTrailing,
 } from '../VirtualGrid';
 export { DragGhost, useNativeDragGhost } from '../DragGhost';
 export type { DragGhostPoint, DragGhostProps, NativeDragGhost, NativeDragGhostInput } from '../DragGhost';

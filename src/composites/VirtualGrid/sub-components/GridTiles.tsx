@@ -1,12 +1,13 @@
 /* @layer renderer-components @kind component */
 import { Fragment } from 'react';
 import { gridCellBind } from '../behavior/grid-cell-bind';
+import { withTileProps } from '../behavior/with-tile-props';
 import { GridCell } from './GridCell';
 import { GridTrailing } from './GridTrailing';
 import type { GridTilesProps } from './GridTiles.type';
 
 const GridTiles = <T,>(props: GridTilesProps<T>) => {
-  const { model, row, getKey, renderItem, renderTile, trailing, density } = props;
+  const { model, row, getKey, renderItem, renderTile, tileProps, trailing, density } = props;
   const bare = renderTile !== undefined || density === 'swatch';
   const trailingBare = typeof trailing === 'function';
   return Array.from({ length: row.size }, (_, offset) => {
@@ -19,7 +20,8 @@ const GridTiles = <T,>(props: GridTilesProps<T>) => {
       extras: key === undefined ? undefined : model.extrasOf(at, key), onActivate: model.activate, onKeyDown: (event) => model.cellKeys(event, stop, at),
     });
     if (item === undefined) return <GridTrailing key="trailing" trailing={trailing} bind={bind} />;
-    return renderTile ? <Fragment key={key}>{renderTile(item, at, bind)}</Fragment> : <GridCell key={key} bind={bind}>{renderItem?.(item, at)}</GridCell>;
+    const tileBind = tileProps ? withTileProps(bind, tileProps(item, at)) : bind;
+    return renderTile ? <Fragment key={key}>{renderTile(item, at, tileBind)}</Fragment> : <GridCell key={key} bind={tileBind}>{renderItem?.(item, at)}</GridCell>;
   });
 };
 
