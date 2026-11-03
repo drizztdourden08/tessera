@@ -10,6 +10,7 @@ import { INTERFACE_ICONS } from '../../src/primitives/icon-sets/interface.consta
 import { PIXEL_GRIDS } from '../../src/primitives/icon-sets/pixel.constants';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+import { CardHeadRow } from '../primitives/_samples/CardHeadRow';
 import { IconEffectSpecimen } from './IconEffectSpecimen';
 import { IconEffectsGallery } from './IconEffectsGallery';
 import { IconGallery } from './IconGallery';
@@ -133,6 +134,11 @@ const Effects = {
   render: () => <IconEffectsGallery />,
 } satisfies StoryLiteStoryDefinition<IconArgs>;
 
+const Hues = {
+  name: 'Category colours',
+  render: () => <CardHeadRow />,
+} satisfies StoryLiteStoryDefinition<IconArgs>;
+
 const AnyIcon = {
   name: 'Any @iconify icon',
   render: () => (
@@ -153,6 +159,7 @@ import swordsIcon from '@iconify-icons/lucide/swords';
 <Icon name="pixel-pencil" size={24} />
 <Icon name="trash-2" label="Delete preset" />
 <Icon name="search" effect="twinkle" />
+<Icon name="bug" hue="rose" label="Bug" />
 <Icon name="settings" effect={{ kind: 'ping', every: 2000, color: 'secondary' }} />
 <Icon name="star" effect={{ kind: 'comet', size: 'lg' }} />
 <Icon icon={swordsIcon} />
@@ -166,16 +173,17 @@ const Overview = overviewStory({
     '`name` picks from the named set, with short names such as `tree` and `water`; `icon` takes any @iconify icon.',
     '`path` draws an icon of your own: `d` takes path data, `circles` circles, `viewBox` the grid, 16 by default.',
     'It draws in `currentColor`; `size`, `rotate` in quarter turns and `flip` set how it sits.',
+    '`hue` colours the glyph with a category colour of [Tag], such as `rose` or `teal`; with no `hue` it takes the text colour.',
     '`pixel-` names sit on a 24 pixel grid and render at 24, 48 or 72 px; other sizes snap to the nearest.',
     '**Label it when it stands alone:** without a `label`, assistive tech skips it.',
     '`effect` lands a small pop every few seconds, such as a twinkle; reduced motion turns it off.',
   ],
   instead: '[EmojiIcon] for a colour emoji.',
   playground: Playground,
-  variants: [NamedSet, PixelSet, Transforms, Effects, AnyIcon, OwnPaths],
+  variants: [NamedSet, PixelSet, Transforms, Effects, Hues, AnyIcon, OwnPaths],
   sections: [{ title: 'Pixel icon style guide', node: <PixelIconGuide /> }],
   code: CODE,
 });
 
 export default meta;
-export { AnyIcon, Effects, NamedSet, Overview, OwnPaths, PixelSet, Playground, Transforms };
+export { AnyIcon, Effects, Hues, NamedSet, Overview, OwnPaths, PixelSet, Playground, Transforms };

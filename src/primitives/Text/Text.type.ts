@@ -9,11 +9,14 @@ type TextSize = 'md' | 'lead';
 
 type TextFont = 'title';
 
+type TextLeading = '16';
+
 interface TextProps extends HTMLAttributes<HTMLElement>, Typesetting {
   as?: ElementType;
   variant?: TextVariant;
   size?: TextSize;
   font?: TextFont;
+  leading?: TextLeading;
   tone?: TextTone | 'faint';
   mono?: boolean;
   numeric?: boolean;
@@ -22,4 +25,4 @@ interface TextProps extends HTMLAttributes<HTMLElement>, Typesetting {
   children?: ReactNode;
 }
 
-export type { TextFont, TextProps, TextSize, TextVariant };
+export type { TextFont, TextLeading, TextProps, TextSize, TextVariant };

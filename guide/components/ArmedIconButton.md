@@ -65,7 +65,7 @@ const SaveSlotTools = ({ slot, onLoad, onSave, onDelete }: { slot: string; onLoa
 - `onArm` (optional): `() => void`.
 - `tone` (optional): `ArmedIconButtonTone`, one of `'danger'`, `'info'`, `'primary'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
 - `timeout` (optional): `number | false`.
-- `size` (optional): `IconButtonSize`, one of `'xs'`, `'sm'`, `'md'`. Default `'sm'`.
+- `size` (optional): `IconButtonSize`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`. Default `'sm'`.
 - `disabled` (optional): `boolean`. Default `false`.
 - `defaultArmed` (optional): `boolean`.
 - `tabIndex` (optional): `number`.

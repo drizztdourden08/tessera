@@ -6,7 +6,7 @@ type IconButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warn
 
 type IconButtonTone = 'danger' | 'info' | 'accent';
 
-type IconButtonSize = 'xs' | 'sm' | 'md';
+type IconButtonSize = '2xs' | 'xs' | 'sm' | 'md';
 
 interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, HintTargetProps {
   variant?: IconButtonVariant;

@@ -4899,6 +4899,7 @@
         "Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.",
         "Set size md for the 13 px step between the small and base sizes, such as a dense row of values; with no size the variant sets it.",
         "Set size lead for the 15 px step between the base and large sizes.",
+        "Set leading 16 to fix the line height at 16 px, so a caption in a card head row stays one 16 px line beside a 2xs IconButton and an Icon with a hue.",
         "Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.",
         "Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.",
         "Set clamp to a line count to cut longer text with an ellipsis; the full text shows in a tooltip only when it is cut.",
@@ -4916,7 +4917,7 @@
         "rule": "Text sets interface copy in a role from the scale, and its members draw each text element."
       },
       "example": "import { Text } from '@drizztdourden08/tessera';\n\nconst SyncLine = () => (\n  <Text.P>\n    <Text variant=\"caption\" tone=\"muted\">Last synced 12 seconds ago</Text>\n    <Text variant=\"caption\" tone=\"faint\"> · Hold Shift to snap</Text>\n  </Text.P>\n);\n",
-      "propsHash": "71d2b3c04fdc32f1",
+      "propsHash": "0b004b2a700f0b3d",
       "props": {
         "own": [
           {
@@ -4950,6 +4951,11 @@
             "name": "font",
             "optional": true,
             "text": "TextFont"
+          },
+          {
+            "name": "leading",
+            "optional": true,
+            "text": "TextLeading"
           },
           {
             "name": "tone",
@@ -5040,6 +5046,7 @@
         "--c-warning",
         "--font-mono",
         "--font-title",
+        "--leading-16",
         "--text-base",
         "--text-lead",
         "--text-lg",
@@ -6288,7 +6295,7 @@
         "rule": "ArmedIconButton shares the one ask of ConfirmIconButton: the same timeout, Escape, blur and focus return."
       },
       "example": "import { ArmedIconButton } from '@drizztdourden08/tessera';\n\nconst SaveSlotTools = ({ slot, onLoad, onSave, onDelete }: { slot: string; onLoad: () => void; onSave: () => void; onDelete: () => void }) => (\n  <>\n    <ArmedIconButton icon=\"load-state\" tone=\"info\" label={`Load ${slot}`} onConfirm={onLoad} />\n    <ArmedIconButton icon=\"save-state\" tone=\"warning\" label={`Overwrite ${slot}`} onConfirm={onSave} />\n    <ArmedIconButton icon=\"trash-2\" tone=\"danger\" label={`Delete ${slot}`} onConfirm={onDelete} />\n  </>\n);\n",
-      "propsHash": "dbad7a84d57edcd8",
+      "propsHash": "fcbf4f70ca8d46ac",
       "props": {
         "own": [
           {
@@ -6350,6 +6357,7 @@
             "optional": true,
             "text": "IconButtonSize",
             "literals": [
+              "'2xs'",
               "'xs'",
               "'sm'",
               "'md'"
@@ -20068,7 +20076,7 @@
         "rule": "Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them."
       },
       "example": "import { Toolbar } from '@drizztdourden08/tessera';\nimport type { ToolbarItem } from '@drizztdourden08/tessera';\n\ninterface ToolRailProps {\n  tool: string;\n  pick: (tool: string) => void;\n  undo: () => void;\n}\n\nconst ToolRail = ({ tool, pick, undo }: ToolRailProps) => {\n  const items: ToolbarItem[] = [\n    { kind: 'toggle', id: 'pencil', label: 'Pencil', icon: 'pencil', description: 'Draw one pixel at a time.', shortcut: 'P', pressed: tool === 'pencil', onChange: () => pick('pencil') },\n    { kind: 'toggle', id: 'eraser', label: 'Eraser', icon: 'eraser', description: 'Clear pixels.', shortcut: 'E', pressed: tool === 'eraser', onChange: () => pick('eraser') },\n    { kind: 'separator', id: 'tools-end' },\n    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', shortcut: 'Ctrl+Z', onSelect: undo },\n  ];\n  return <Toolbar label=\"Drawing tools\" orientation=\"vertical\" items={items} />;\n};\n",
-      "propsHash": "cb46279a1d8a07fd",
+      "propsHash": "fc73f995248992da",
       "props": {
         "own": [
           {
@@ -20104,6 +20112,7 @@
             "optional": true,
             "text": "IconButtonSize",
             "literals": [
+              "'2xs'",
               "'xs'",
               "'sm'",
               "'md'"

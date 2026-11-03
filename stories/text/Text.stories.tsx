@@ -6,6 +6,7 @@ import type { TextProps, TextVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+import { CardHeadRow } from '../primitives/_samples/CardHeadRow';
 import { Clamped, Figures, Sizes, TitleFace } from './text-type-examples';
 
 type TextVariantChoice = TextVariant | 'none';
@@ -162,6 +163,11 @@ const Composed = {
   ),
 } satisfies StoryLiteStoryDefinition<TextArgs>;
 
+const HeadRow = {
+  name: 'One 16 px line',
+  render: () => <CardHeadRow />,
+} satisfies StoryLiteStoryDefinition<TextArgs>;
+
 const Overview = overviewStory({
   component: 'Text',
   description: 'The namespace for every text element, and on its own a plain text element for interface copy.',
@@ -169,14 +175,15 @@ const Overview = overviewStory({
     'Every element hangs off it by full and short name, such as `Text.P`, `Text.Strong` or `Text.Sc`.',
     '`variant` picks a role: `title`, `subtitle`, `body`, `label`, `caption`, or `overline` over a group.',
     'With no `variant` it takes the size and colour of its parent; `size` sets `md` 13 px or `lead` 15 px.',
+    '`leading="16"` sets the line height to 16 px, so a caption sits on one 16 px line beside a small icon button.',
     '`as` swaps the default `<span>`; `clamp` cuts the text at that many lines, with all of it in a tooltip.',
     '`weight` and `italic` set the face; `font="title"` the title face; `mono` the code face.',
     '`tone` colours it as on [Span]; `numeric` sets tabular figures; `smartTimes` adds a times sign.',
   ],
   instead: '[Title] for headings.',
   playground: Playground,
-  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Clamped, Composed],
+  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Clamped, Composed, HeadRow],
 });
 
 export default meta;
-export { AllVariants, Clamped, Composed, Figures, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };
+export { AllVariants, Clamped, Composed, Figures, HeadRow, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };

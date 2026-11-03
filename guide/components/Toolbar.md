@@ -92,7 +92,7 @@ const ToolRail = ({ tool, pick, undo }: ToolRailProps) => {
 - `label`: `string`.
 - `orientation` (optional): `ToolbarOrientation`, one of `'horizontal'`, `'vertical'`.
 - `layout` (optional): `ToolbarShape`, one of `'bar'`, `'list'`.
-- `size` (optional): `IconButtonSize`, one of `'xs'`, `'sm'`, `'md'`.
+- `size` (optional): `IconButtonSize`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`.
 - `labels` (optional): `boolean`.
 - `handle` (optional): `boolean`.
 - `handleProps` (optional): `ToolbarHandleProps`.
