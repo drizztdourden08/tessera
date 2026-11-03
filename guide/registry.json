@@ -18576,6 +18576,7 @@
         "--c-primary",
         "--c-primary-soft",
         "--c-text",
+        "--hue-fill",
         "--opacity-muted",
         "--radius-sm",
         "--shadow-1",

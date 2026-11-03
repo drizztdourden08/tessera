@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind constants */
 import type { PixelThumbnailBox } from './PixelThumbnail.type';
 
-const DEFAULT_BOX: PixelThumbnailBox = 24;
+const DEFAULT_BOX: Exclude<PixelThumbnailBox, 'fluid'> = 24;
 
 const MIN_FRAME_MS = 16;
 

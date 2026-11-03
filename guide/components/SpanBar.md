@@ -84,7 +84,7 @@ const ClipRow = ({ cells, span, setSpan }: { cells: CellGeometry; span: CellSpan
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-primary`, `--c-primary-soft`, `--c-text`, `--opacity-muted`, `--radius-sm`, `--shadow-1`, `--size-24`, `--size-28`, `--space-xs`, `--span-lane-width`, `--span-left`, `--span-tint`, `--span-width`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-primary`, `--c-primary-soft`, `--c-text`, `--hue-fill`, `--opacity-muted`, `--radius-sm`, `--shadow-1`, `--size-24`, `--size-28`, `--space-xs`, `--span-lane-width`, `--span-left`, `--span-tint`, `--span-width`, `--z-sticky`.
 
 ## Also exported from this folder
 
