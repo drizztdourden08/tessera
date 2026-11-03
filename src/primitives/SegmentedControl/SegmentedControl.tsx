@@ -34,7 +34,7 @@ const SegmentedControl = <T extends string = string>(props: SegmentedControlProp
   const keys = segmentKeys({ trackRef, options, enabled, value, pick: onChange });
 
   return (
-    <div className={segmentedClass(controlSize, selectedTone, disabled, mixed === true, className)}>
+    <div className={segmentedClass({ size: controlSize, tone: selectedTone, disabled, mixed: mixed === true, className })}>
       <SegmentHeader label={label} description={description} />
       <div className="segmented__track" role="radiogroup" aria-label={label ?? props['aria-label']} aria-labelledby={label ? undefined : props['aria-labelledby']} aria-description={mixed === true ? fields.mixed : undefined} ref={trackRef}>
         <span className="segmented__indicator" style={indicatorStyle} />

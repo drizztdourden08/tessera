@@ -4,6 +4,8 @@ import { Icon } from '../../Icon';
 import { isIconName } from '../../Icon/behavior/is-icon-name';
 import { OptionTip } from '../../field-control/OptionTip';
 import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
+import { segmentButtonClass } from '../behavior/segment-button-class';
+import { segmentNames } from '../behavior/segment-names';
 import { SEGMENT_ICON_SIZES } from '../SegmentedControl.constants';
 import type { SegmentButtonProps, SegmentIcon, SegmentSize } from '../SegmentedControl.type';
 
@@ -13,8 +15,7 @@ const iconNode = (icon: SegmentIcon, size: SegmentSize): ReactNode =>
 const SegmentButton = <T extends string>(props: SegmentButtonProps<T>) => {
   const { option, active, mixed, disabled, reason, stop, size, handlers, placement, onSelect, onKeyDown } = props;
   const { fields } = useTesseraStrings();
-  const name = option.icon === undefined ? option.title : option.title ?? option.hint.label;
-  const shown = option.icon === undefined ? option.label : name;
+  const { name, shown } = segmentNames(option);
   return (
     <OptionTip reason={reason} name={shown} tooltip={option.tooltip} placement={placement}>
       <button
@@ -25,7 +26,7 @@ const SegmentButton = <T extends string>(props: SegmentButtonProps<T>) => {
         aria-description={reason ?? (mixed ? fields.mixed : undefined)}
         title={option.tooltip === undefined ? option.title : undefined}
         tabIndex={stop ? 0 : -1}
-        className={`segmented__btn focus-ring-inset${active ? ' segmented__btn--active' : ''}${mixed ? ' segmented__btn--mixed' : ''}`}
+        className={segmentButtonClass(active, mixed)}
         onClick={onSelect}
         onKeyDown={onKeyDown}
         disabled={disabled}

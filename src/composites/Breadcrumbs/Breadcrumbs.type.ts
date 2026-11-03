@@ -52,6 +52,12 @@ interface BreadcrumbItemProps {
   onNavigate: (id: string) => void;
 }
 
+type BreadcrumbSegmentButtonProps = Omit<BreadcrumbItemProps, 'first'>;
+
+type SiblingMenu =
+  | { menu: readonly MenuNode[]; asMenu: true }
+  | { menu: readonly MenuNode[] | undefined; asMenu: false };
+
 interface BreadcrumbSiblingsProps {
   label: string;
   siblings: readonly MenuNode[];
@@ -70,6 +76,6 @@ interface BreadcrumbEditProps {
 }
 
 export type {
-  BreadcrumbEditProps, BreadcrumbItemProps, BreadcrumbOverflowProps, BreadcrumbSegment, BreadcrumbSiblingsProps, BreadcrumbsProps, FoldedSegments, OverSetter, SegmentDrop,
-  SegmentDropHandlers,
+  BreadcrumbEditProps, BreadcrumbItemProps, BreadcrumbOverflowProps, BreadcrumbSegment, BreadcrumbSegmentButtonProps, BreadcrumbSiblingsProps, BreadcrumbsProps, FoldedSegments, OverSetter, SegmentDrop,
+  SegmentDropHandlers, SiblingMenu,
 };

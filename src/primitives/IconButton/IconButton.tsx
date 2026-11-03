@@ -7,6 +7,7 @@ import { useHintTarget } from '../hint/useHintTarget';
 import { Spinner } from '../Spinner';
 import { type IconButtonProps } from './IconButton.type';
 import { iconButtonClass } from './behavior/icon-button-class';
+import { iconButtonState } from './behavior/icon-button-state';
 
 const IconButton = (props: IconButtonProps) => {
   const { variant = 'ghost', tone, size = 'sm', active = false, mixed = false, loading = false, disabled, label, hint, onHint, children, className, ...rest } = props;
@@ -17,9 +18,7 @@ const IconButton = (props: IconButtonProps) => {
       type="button"
       className={iconButtonClass({ variant, tone, size, active, mixed, loading, className })}
       aria-label={label}
-      aria-pressed={mixed ? 'mixed' : active || undefined}
-      aria-busy={loading || undefined}
-      disabled={loading || disabled}
+      {...iconButtonState({ mixed, active, loading, disabled })}
       {...rest}
       {...hintHandlers}
     >

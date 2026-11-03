@@ -1,41 +1,23 @@
 /* @layer renderer-components @kind component */
-import { useCallback, useMemo, useState } from 'react';
 import { Box } from '../../primitives/Box';
-import { initialSpeed } from './behavior/initial-speed';
-import { playbackRange } from './behavior/playback-range';
-import { runKeyAction } from './behavior/run-key-action';
-import { useFramePlayer } from './behavior/useFramePlayer';
-import { useTagChoice } from './behavior/useTagChoice';
+import { usePixelPlayback } from './behavior/usePixelPlayback';
 import { PixelPlayerBar } from './sub-components/PixelPlayerBar';
 import { PixelPlayerStage } from './sub-components/PixelPlayerStage';
-import { DEFAULT_LOOP, DEFAULT_SPEEDS } from './PixelPlayer.constants';
-import type { PixelPlayerCell, PixelPlayerProps, PixelPlayerTag, PlayerKeyAction } from './PixelPlayer.type';
+import { NO_CELLS } from './PixelPlayer.constants';
+import type { PixelPlayerProps } from './PixelPlayer.type';
 import './PixelPlayer.css';
 
-const NO_TAGS: readonly PixelPlayerTag[] = [];
-
-const NO_CELLS: readonly PixelPlayerCell[] = [];
-
 const PixelPlayer = (props: PixelPlayerProps) => {
-  const {
-    frames, label, mode = 'large', zoom = 'fit', backdrop = 'checker', loop = DEFAULT_LOOP, speeds = DEFAULT_SPEEDS, tags = NO_TAGS,
-    tagId, onTagChange, cells = NO_CELLS, onCellHover, controls = true, autoPlay = false, placeholder, className,
-  } = props;
-  const [tagValue, chooseTag] = useTagChoice({ tagId, onTagChange });
-  const tag = tags.find((candidate) => candidate.id === tagValue);
-  const range = useMemo(() => playbackRange(frames.length, tag?.from, tag?.to), [frames.length, tag?.from, tag?.to]);
-  const steady = useMemo(() => ({ direction: loop.direction, repeat: loop.repeat }), [loop.direction, loop.repeat]);
-  const [speed, setSpeed] = useState(() => initialSpeed(speeds));
-  const player = useFramePlayer({ frames, range, loop: steady, speed, autoPlay });
-  const animated = frames.length > 1;
-  const onKeyAction = useCallback((action: PlayerKeyAction) => runKeyAction(player, action), [player]);
+  const { frames, label, mode = 'large', zoom = 'fit', backdrop = 'checker', cells = NO_CELLS, onCellHover, controls = true, placeholder, className } = props;
+  const playback = usePixelPlayback(props);
+  const { player, range, speeds, speed, setSpeed, tags, tagValue, chooseTag, onKeyAction, image, animated } = playback;
   const classes = ['pixel-player', `pixel-player--${mode}`, className].filter(Boolean).join(' ');
 
   return (
     <Box className={classes}>
       <PixelPlayerStage
         frames={frames}
-        image={frames[player.index]?.image ?? null}
+        image={image}
         label={label}
         zoom={zoom}
         backdrop={backdrop}

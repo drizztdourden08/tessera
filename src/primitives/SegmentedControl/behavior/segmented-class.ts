@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind util */
-import type { SelectedTone } from '../../field-control/selected-tone.type';
-import type { SegmentSize } from '../SegmentedControl.type';
+import type { SegmentedClassInput } from './segmented-class.type';
 
-const segmentedClass = (size: SegmentSize, tone: SelectedTone, disabled: boolean, mixed: boolean, className: string | undefined): string =>
-  [
+const segmentedClass = (input: SegmentedClassInput): string => {
+  const { size, tone, disabled, mixed, className } = input;
+  return [
     'segmented',
     `control-size--${size === 'sm-plus' ? 'sm' : size}`,
     size === 'sm-plus' && 'segmented--sm-plus',
@@ -12,5 +12,6 @@ const segmentedClass = (size: SegmentSize, tone: SelectedTone, disabled: boolean
     mixed && 'segmented--mixed',
     className,
   ].filter(Boolean).join(' ');
+};
 
 export { segmentedClass };

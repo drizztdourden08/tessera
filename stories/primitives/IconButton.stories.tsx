@@ -1,14 +1,15 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Flex, Icon, IconButton, Text } from '../../src/primitives';
+import { Flex, Icon, IconButton } from '../../src/primitives';
 import type { IconName } from '../../src/primitives';
 import type { IconButtonSize, IconButtonTone, IconButtonVariant } from '../../src/primitives/IconButton/IconButton.type';
 import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
 import type { StateEntry, StateProps } from '../_template/states/states.type';
 import { BUTTON_STATES } from './_samples/button-states';
+import { IconButtonMixedPin } from './_samples/IconButtonMixedPin';
+import { IconButtonToolbar } from './_samples/IconButtonToolbar';
 import { markedStates } from './_samples/marked-states';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -138,27 +139,6 @@ const Loading = {
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
-const MixedButton = (props: { variant: IconButtonVariant; mixed: boolean }) => {
-  const { variant, mixed } = props;
-  const [on, setOn] = useState(false);
-  const [differs, setDiffers] = useState(mixed);
-  return (
-    <IconButton
-      label={`${LABELS.pin}, ${variant}`}
-      variant={variant}
-      size="md"
-      active={on}
-      mixed={differs}
-      onClick={() => {
-        setDiffers(false);
-        setOn(differs || !on);
-      }}
-    >
-      {glyph('pin', 'md')}
-    </IconButton>
-  );
-};
-
 const PRESS_STATES = ['off', 'mixed'] as const;
 
 const Mixed = {
@@ -167,7 +147,7 @@ const Mixed = {
     <Demonstrator
       rows={axis(STATE_VARIANTS)}
       columns={axis(PRESS_STATES)}
-      cell={(variant, state) => <MixedButton key={`${variant}-${state}`} variant={variant} mixed={state === 'mixed'} />}
+      cell={(variant, state) => <IconButtonMixedPin key={`${variant}-${state}`} variant={variant} mixed={state === 'mixed'} />}
     />
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
@@ -185,31 +165,9 @@ const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
   </Flex>
 );
 
-const ToolbarDemo = () => {
-  const [pinned, setPinned] = useState(true);
-  const [muted, setMuted] = useState(false);
-
-  return (
-    <Box className="story-column">
-      <Flex gap="xs" align="center">
-        <Text variant="title">Item tracker</Text>
-        <IconButton label={LABELS.pin} active={pinned} onClick={() => setPinned((value) => !value)}>
-          {glyph('pin', 'sm')}
-        </IconButton>
-        <IconButton label={LABELS.mute} active={muted} onClick={() => setMuted((value) => !value)}>
-          {glyph('mute', 'sm')}
-        </IconButton>
-        <IconButton label={LABELS.overflow}>{glyph('overflow', 'sm')}</IconButton>
-        <IconButton label={LABELS.close}>{glyph('close', 'sm')}</IconButton>
-      </Flex>
-      <Text variant="caption">{`Pinned: ${pinned ? 'yes' : 'no'}. Audio: ${muted ? 'muted' : 'on'}.`}</Text>
-    </Box>
-  );
-};
-
 const Toolbar = {
   name: 'Toggle toolbar',
-  render: () => <ToolbarDemo />,
+  render: () => <IconButtonToolbar />,
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
 const Overview = overviewStory({
