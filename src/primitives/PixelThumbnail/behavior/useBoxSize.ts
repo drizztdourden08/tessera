@@ -14,7 +14,7 @@ const useBoxSize = (box: PixelThumbnailBox, frameRef: RefObject<HTMLElement | nu
     setMeasured(Math.floor(frame.clientWidth));
     return observeResize([frame], (entries) => setMeasured(Math.floor(entries[0]?.contentRect.width ?? 0)));
   }, [fluid, frameRef]);
-  if (!fluid) return box;
+  if (box !== 'fluid') return box;
   return measured > 0 ? measured : DEFAULT_BOX;
 };
 

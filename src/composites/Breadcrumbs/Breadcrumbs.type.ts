@@ -51,12 +51,6 @@ interface SpringOpen {
   close: () => void;
 }
 
-interface SegmentDropHandlers {
-  onDragOver: (event: DragEvent<HTMLElement>) => void;
-  onDragLeave: () => void;
-  onDrop: (event: DragEvent<HTMLElement>) => void;
-}
-
 interface SiblingGroup extends MenuGroup {
   items: MenuNode[];
 }
@@ -112,5 +106,5 @@ interface BreadcrumbEditProps {
 
 export type {
   BreadcrumbEditProps, BreadcrumbItemProps, BreadcrumbOverflowProps, BreadcrumbSegment, BreadcrumbSegmentButtonProps, BreadcrumbSibling, BreadcrumbSiblingsProps, BreadcrumbSpringMenuProps, BreadcrumbsProps, FoldedSegments, OverSetter,
-  SegmentDrop, SegmentDropHandlers, SegmentDropProps, SegmentDropRules, SiblingGroup, SiblingMenu, SpringOpen,
+  SegmentDrop, SegmentDropProps, SegmentDropRules, SiblingGroup, SiblingMenu, SpringOpen,
 };

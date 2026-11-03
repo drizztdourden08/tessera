@@ -36,8 +36,6 @@ const THUMBNAIL_WIDE_BOXES: Readonly<Record<string, PixelThumbnailBox>> = {
   '96': 96, '128': 128, '192': 192, '256': 256,
 };
 
-const THUMBNAIL_WIDE_BOX_KEYS: readonly string[] = Object.keys(THUMBNAIL_WIDE_BOXES);
-
 const THUMBNAIL_ALL_BOXES: Readonly<Record<string, PixelThumbnailBox>> = { ...THUMBNAIL_BOXES, ...THUMBNAIL_WIDE_BOXES, fluid: 'fluid' };
 
 const THUMBNAIL_ALL_BOX_KEYS: readonly string[] = Object.keys(THUMBNAIL_ALL_BOXES);
@@ -51,6 +49,4 @@ export {
   THUMBNAIL_ALL_BOXES,
   THUMBNAIL_BOX_KEYS,
   THUMBNAIL_BOXES,
-  THUMBNAIL_WIDE_BOX_KEYS,
-  THUMBNAIL_WIDE_BOXES,
 };

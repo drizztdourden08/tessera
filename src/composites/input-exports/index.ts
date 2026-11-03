@@ -38,7 +38,7 @@ export { PathInput,type PathBrowse, type PathInputProps, type PathKind } from '.
 export { NumberField } from '../NumberField';
 export type { NumberFieldProps, NumberPreset, NumberPresetInput } from '../NumberField';
 export { ZoomField } from '../ZoomField';
-export type { ZoomFieldProps } from '../ZoomField';
+export type { ZoomFieldProps, ZoomSliderPlacement } from '../ZoomField';
 export { AngleField } from '../AngleField';
 export type { AngleFieldProps } from '../AngleField';
 export { RampStrip } from '../RampStrip';

@@ -10,7 +10,7 @@ const ScrubBandView = ({ cells, total, band, draft, second, title, onClear }: Sc
   const box = spanBox(cells, { start: band.from, end: band.to }, total);
   const placed = { '--scrub-left': `${box.left}px`, '--scrub-width': `${box.width}px` } as CSSProperties;
   return (
-    <Box className="scrub-ruler__band" style={placed} data-draft={draft || undefined} data-second={second || undefined}>
+    <Box className="scrub-ruler__band" style={placed} data-draft={draft || undefined} data-second={second ? true : undefined}>
       {onClear && !draft && (
         <IconButton size="xs" variant="quiet" label={title} title={title} className="scrub-ruler__clear" onClick={onClear}>
           <Icon name="x" />

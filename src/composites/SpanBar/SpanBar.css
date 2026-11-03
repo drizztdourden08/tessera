@@ -17,7 +17,7 @@
 
 .span-bar[data-tint] {
   --hue-ink: var(--span-tint);
-  --hue-fill: color-mix(in srgb, var(--span-tint) 24%, transparent);
+  background: color-mix(in srgb, var(--span-tint) 24%, transparent);
 }
 
 .span-bar__body {

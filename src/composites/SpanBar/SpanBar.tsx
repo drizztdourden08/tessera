@@ -3,8 +3,9 @@ import { useRef } from 'react';
 import type { MouseEvent, PointerEvent } from 'react';
 import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
-import { tagHueClass } from '../../primitives/tag-hue/tag-hue-class';
 import { cellCount, spanBox } from '../cell-geometry';
+import { spanBarClass } from './behavior/span-bar-class';
+import { spanBarState } from './behavior/span-bar-state';
 import { spanPlacement } from './behavior/span-placement';
 import { useSpanDrag } from './behavior/useSpanDrag';
 import { useSpanKeys } from './behavior/useSpanKeys';
@@ -26,13 +27,11 @@ const SpanBar = (props: SpanBarProps) => {
 
   return (
     <Box
-      className={['span-bar', tagHueClass(colour), className].filter(Boolean).join(' ')}
+      className={spanBarClass(colour, className)}
       style={spanPlacement(box, tint)}
       data-tint={tint === undefined ? undefined : ''}
       {...data}
-      data-selected={selected || undefined}
-      data-dragging={drag.draft !== null || undefined}
-      data-read-only={readOnly || undefined}
+      {...spanBarState({ selected, dragging: drag.draft !== null, readOnly })}
     >
       <Pressable
         ref={bodyRef}

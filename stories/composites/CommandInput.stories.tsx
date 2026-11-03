@@ -122,7 +122,7 @@ const Overview = overviewStory({
     '[[Tab]] completes a suggestion; [[Up]] and [[Down]] pick one while the list is open, else walk the history.',
     '[[Esc]] closes the list, then clears the line; on an empty line it passes on, so a dialog can close.',
     '`history` comes from the app or is kept under `storageKey`; `actions` and the key hints sit under the line.',
-    '`commandSpecs` adds a picker: a chosen command swaps the line for its fields, or for one [DynamicInput] when it has a `pattern`, and sends the text.',
+    '`commandSpecs` adds a picker: a chosen command swaps in its fields, or a [DynamicInput] for a `pattern`.',
   ],
   instead: 'A [TextInput] for text that is not a command, or a [SearchInput] to filter a list.',
   playground: Playground,

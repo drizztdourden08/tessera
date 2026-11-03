@@ -49,7 +49,7 @@ const Overview = overviewStory({
     '`changed` shows the button only while the value differs from its default.',
     'It renders nothing without `onReset`, so a read only row needs no condition around it.',
     'It is an xs ghost [IconButton] with the rotate icon, the same in every row.',
-    '[FormRow] and [OptionRow] use it in their heads, before the Changed status.',
+    '[FormRow] and [OptionsPanel] use it in their heads, before the Changed status.',
   ],
   instead: '[ActionBar] when a whole panel resets at once.',
   playground: Playground,
