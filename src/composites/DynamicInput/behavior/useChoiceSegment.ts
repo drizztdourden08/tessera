@@ -23,7 +23,7 @@ const useChoiceSegment = (params: SegmentParams): ChoiceSegmentState => {
   const typed = useTypeaheadText();
   const fresh = useFreshClick<HTMLButtonElement>();
   const value = field.value[slot.name];
-  const options = choiceOptions(slot, field.setup.lists);
+  const options = choiceOptions(slot, field.setup.lists, field.value);
   const setup = listboxSetup<PatternChoice, 'value'>({
     items: options, valueField: 'value', value: typeof value === 'string' ? value : null,
     getKey: 'value', getLabel: choiceLabel, columns: choiceColumns(options),

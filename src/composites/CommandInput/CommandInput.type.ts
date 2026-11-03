@@ -3,6 +3,7 @@ import type { KeyboardEventHandler, ReactNode } from 'react';
 import type { ComboboxKeyHandler } from '../../primitives/Combobox/Combobox.type';
 import type { ControlSize } from '../../primitives/field-control/field-control.type';
 import type { MenuItemIcon } from '../DropdownMenu';
+import type { PatternSetup } from '../DynamicInput';
 
 type CommandSubmit = (command: string) => boolean | void;
 
@@ -15,27 +16,44 @@ type CommandOption = string | CommandEntry;
 
 type CommandParamKind = 'text' | 'number' | 'choice' | 'boolean';
 
-interface CommandParam {
-  name: string;
-  label: string;
-  kind: CommandParamKind;
-  options?: readonly string[];
-  optional?: boolean;
-}
-
 type CommandValue = string | number | boolean;
 
 type CommandValues = Readonly<Record<string, CommandValue>>;
 
-interface CommandSpec {
+type CommandParamOptions = readonly string[] | ((values: CommandValues) => readonly string[]);
+
+interface CommandParam {
+  name: string;
+  label: string;
+  kind: CommandParamKind;
+  options?: CommandParamOptions;
+  placeholder?: string;
+  dependsOn?: string;
+  optional?: boolean;
+}
+
+interface CommandSpecBase {
   id: string;
   label: string;
   icon: MenuItemIcon;
   group?: string;
   description?: string;
+}
+
+interface CommandFieldsSpec extends CommandSpecBase {
   params: readonly CommandParam[];
   format: (values: CommandValues) => string;
+  pattern?: undefined;
 }
+
+interface CommandPatternSpec extends CommandSpecBase {
+  pattern: string;
+  setup?: PatternSetup;
+  format?: (values: CommandValues) => string;
+  params?: undefined;
+}
+
+type CommandSpec = CommandFieldsSpec | CommandPatternSpec;
 
 interface CommandInputProps {
   onSubmit: CommandSubmit;
@@ -110,6 +128,7 @@ interface CommandSpecControl {
   clear: () => void;
   reset: () => void;
   setValue: (name: string, value: CommandValue | undefined) => void;
+  setValues: (values: CommandValues) => void;
 }
 
 interface CommandSpecState {
@@ -121,6 +140,7 @@ type CommandSpecKeyAction = 'send' | 'clear' | null;
 
 interface CommandSpecParamProps {
   param: CommandParam;
+  values: CommandValues;
   value: CommandValue | undefined;
   size: ControlSize;
   disabled: boolean;
@@ -128,7 +148,7 @@ interface CommandSpecParamProps {
 }
 
 interface CommandSpecFieldsProps {
-  spec: CommandSpec;
+  spec: CommandFieldsSpec;
   values: CommandValues;
   size: ControlSize;
   disabled: boolean;
@@ -166,7 +186,7 @@ interface CommandInputLineProps extends CommandInputRowProps {
 }
 
 export type {
-  CommandControl, CommandEntry, CommandInputLineProps, CommandInputProps, CommandInputRowProps, CommandLineState, CommandKeyAction, CommandKeyEvent, CommandOption, CommandParam, CommandParamKind,
-  CommandSpec, CommandSpecControl, CommandSpecFieldsProps, CommandSpecKeyAction, CommandSpecParamProps, CommandSpecPickerProps, CommandSpecRowProps, CommandSpecState,
+  CommandControl, CommandEntry, CommandFieldsSpec, CommandInputLineProps, CommandInputProps, CommandInputRowProps, CommandLineState, CommandKeyAction, CommandKeyEvent, CommandOption, CommandParam, CommandParamKind, CommandParamOptions,
+  CommandPatternSpec, CommandSpec, CommandSpecControl, CommandSpecFieldsProps, CommandSpecKeyAction, CommandSpecParamProps, CommandSpecPickerProps, CommandSpecRowProps, CommandSpecState,
   CommandState, CommandSubmit, CommandValue, CommandValues, HistoryStep, HistoryWalk, SuggestKeyAction,
 };

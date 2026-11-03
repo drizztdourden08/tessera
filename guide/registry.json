@@ -7284,6 +7284,10 @@
         "Pass history when the app already keeps the sent commands; otherwise let the input keep its own and pass storageKey to keep it across launches.",
         "Pass commands, as names or with a description, so typing lists the closest ones under the input; Tab or Right completes the active row or the top one.",
         "Pass commandSpecs to add a picker of every command: a chosen one swaps the line for its fields and sends what its format returns.",
+        "Give a spec a pattern, such as /hint {player:choice @players} {item:choice @items}, and a setup with its lists, and the line becomes one DynamicInput that sends its composed text, or what format returns when the spec gives one.",
+        "Make a list of the setup a function of the slot values, such as items: (value) => itemsOf(value.player), to list choices that follow another slot; a choice the new list no longer offers is cleared.",
+        "Give a field a placeholder to show a hint in the empty text, number or choice field.",
+        "Set dependsOn to the name of another field so it stays disabled until that one is filled and clears when that one changes; make options a function of the values to list choices that follow it.",
         "Return false from onSubmit when the command was not sent, so the text stays in the line.",
         "Put the replies above the input, such as in a LogPanel, and keep quick commands in actions.",
         "Disable it while there is nothing to send to, and say why in the text near it."
@@ -9873,6 +9877,7 @@
         "Do not map an alias to a character that is itself an alias, because the text is cleaned again on every key.",
         "chars and aliases follow the case of the slot, so write them in either case.",
         "Pass validate on a slot or on the pattern, from the value to a message or nothing. A message turns the field invalid and shows under it.",
+        "Make a list a function of the value, such as lists={{ item: (value) => itemsOf(value.player) }}, so its choices follow another slot; a choice the new list no longer offers is cleared.",
         "An empty slot reaches validate as null. Return nothing for it unless the slot is required.",
         "The invalid prop wins over validate, and a Field with an error shows its own message."
       ],
@@ -10055,7 +10060,8 @@
       },
       "parts": [
         "escapePatternText",
-        "parsePattern"
+        "parsePattern",
+        "patternText"
       ]
     },
     {
