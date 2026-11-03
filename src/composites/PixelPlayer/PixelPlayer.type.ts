@@ -95,6 +95,22 @@ interface FramePlayer {
   jump: (to: 'first' | 'last') => void;
 }
 
+type PixelPlaybackParams = Pick<PixelPlayerProps, 'frames' | 'loop' | 'speeds' | 'tags' | 'tagId' | 'onTagChange' | 'autoPlay'>;
+
+interface PixelPlayback {
+  player: FramePlayer;
+  range: PlayRange;
+  speeds: readonly number[];
+  speed: number;
+  setSpeed: (speed: number) => void;
+  tags: readonly PixelPlayerTag[];
+  tagValue: string | null;
+  chooseTag: (id: string | null) => void;
+  onKeyAction: (action: PlayerKeyAction) => void;
+  image: RgbaImage | null;
+  animated: boolean;
+}
+
 interface TagChoiceParams {
   tagId: string | null | undefined;
   onTagChange: ((id: string | null) => void) | undefined;
@@ -171,6 +187,8 @@ export type {
   FramePlayerParams,
   HoveredCell,
   HoveredCellParams,
+  PixelPlayback,
+  PixelPlaybackParams,
   PixelPlayerBackdrop,
   PixelPlayerBarProps,
   PixelPlayerBarSpeedProps,

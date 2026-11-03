@@ -5,6 +5,8 @@ import { mergeRefs } from '../dom/merge-refs';
 import { useInView } from '../dom/useInView';
 import { drawRgba } from '../pixel-image/draw-rgba';
 import { fitSize } from './behavior/fit-size';
+import { thumbnailClass } from './behavior/thumbnail-class';
+import { thumbnailNaming } from './behavior/thumbnail-naming';
 import { useFrameClock } from './behavior/useFrameClock';
 import { useThrottledValue } from './behavior/useThrottledValue';
 import { useThumbnailSource } from './behavior/useThumbnailSource';
@@ -26,8 +28,8 @@ const PixelThumbnail = (props: PixelThumbnailProps) => {
   const canvasRefs = useMemo(() => mergeRefs(canvasRef, ref), [ref]);
   const size = useMemo(() => (drawn ? fitSize({ source: drawn, box, fit }) : { width: box, height: box }), [drawn, box, fit]);
   useEffect(() => drawRgba(canvasRef.current, drawn, size), [drawn, size]);
-  const classes = ['pixel-thumbnail', backdrop === 'checker' && 'pixel-thumbnail--checker', className].filter(Boolean).join(' ');
-  const naming = label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true };
+  const classes = thumbnailClass(backdrop, className);
+  const naming = thumbnailNaming(label);
 
   return (
     <span ref={frameRef} className={classes} data-box={box}>

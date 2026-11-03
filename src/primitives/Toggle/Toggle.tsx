@@ -8,6 +8,8 @@ import { useFieldControl } from '../Field/behavior/useFieldControl';
 import { helpLabelId } from '../field-control/help-label-id';
 import { useControlSize } from '../field-control/useControlSize';
 import { useHintTarget } from '../hint/useHintTarget';
+import { toggleAria } from './behavior/toggle-aria';
+import { toggleClass } from './behavior/toggle-class';
 import { ToggleText } from './sub-components/ToggleText';
 import type { ToggleProps } from './Toggle.type';
 
@@ -19,7 +21,8 @@ const Toggle = (props: ToggleProps) => {
   const toggleId = control.id ?? `toggle-${generatedId}`;
   const labelId = helpLabelId(help, label, `${toggleId}-label`);
   const hintHandlers = useHintTarget<HTMLLabelElement>({ hint, onHint });
-  const classes = ['toggle', `control-size--${controlSize}`, labelSize && `label-size--${labelSize}`, mixed && 'toggle--mixed', disabled && 'toggle--disabled'].filter(Boolean).join(' ');
+  const classes = toggleClass({ controlSize, labelSize, mixed, disabled });
+  const aria = toggleAria({ checked, mixed, label, labelId, labelledBy, ariaLabel, hintLabel: hint?.label });
 
   return (
     <label className={classes} htmlFor={toggleId} {...hintHandlers}>
@@ -32,11 +35,8 @@ const Toggle = (props: ToggleProps) => {
         onChange={(e) => onChange(mixed || e.target.checked)}
         disabled={disabled}
         role="switch"
-        aria-checked={mixed ? 'mixed' : checked}
-        data-mixed={mixed || undefined}
-        aria-label={label || labelledBy ? undefined : ariaLabel ?? hint?.label}
-        aria-labelledby={label ? labelId : labelledBy}
         aria-describedby={control.describedBy}
+        {...aria}
       />
       <span className="toggle__track">
         <span className="toggle__thumb" />

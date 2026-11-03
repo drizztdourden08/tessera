@@ -4,7 +4,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { SIZE_ARG } from '../_template/control-sizes.constants';
 import { Box, Glyph, Icon, SegmentedControl, Text } from '../../src/primitives';
-import type { SegmentOption, SegmentSize, TooltipPlacement } from '../../src/primitives';
+import type { SegmentOption, SegmentSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -12,6 +12,7 @@ import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { DOCK_OPTIONS } from './_samples/dock-options.constants';
 import { SegmentHintDemo } from './_samples/SegmentHintDemo';
+import { StatefulSegments } from './_samples/StatefulSegments';
 
 type SegmentedControlArgs = {
   label: string;
@@ -74,35 +75,6 @@ const meta = {
   title: 'Primitives · Inputs/SegmentedControl',
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<SegmentedControlArgs>;
-
-type StatefulSegmentsProps<T extends string> = { initial: T; options: SegmentOption<T>[]; tooltipPlacement?: TooltipPlacement; selectedTone?: 'accent' | 'neutral'; mixed?: boolean | readonly T[] } & Partial<SegmentedControlArgs>;
-
-const StatefulSegments = <T extends string>(props: StatefulSegmentsProps<T>) => {
-  const { initial, options, label, description, disabled, deselectable, size, tooltipPlacement, selectedTone, mixed: startMixed } = props;
-  const [value, setValue] = useState<T | ''>(initial);
-  const [mixed, setMixed] = useState(startMixed);
-  return (
-    <Box className="story-column">
-      <SegmentedControl<T | ''>
-        value={value}
-        options={options}
-        mixed={mixed}
-        onChange={(next) => {
-          setMixed(undefined);
-          setValue(next);
-        }}
-        onDeselect={deselectable ? () => setValue('') : undefined}
-        label={label}
-        description={description}
-        disabled={disabled}
-        size={size}
-        selectedTone={selectedTone}
-        tooltipPlacement={tooltipPlacement}
-      />
-      <Text className="story-label">Value: {value === '' ? '(unset)' : value}</Text>
-    </Box>
-  );
-};
 
 const Playground = {
   name: 'Playground',

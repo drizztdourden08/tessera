@@ -1,18 +1,20 @@
 /* @layer stories @kind story */
-import { useState } from 'react';
 import type { ReactNode } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { CONTROL_SIZES, SIZE_ARG } from '../_template/control-sizes.constants';
-import { Box, Slider, type ControlSize } from '../../src/primitives';
+import { Box, type ControlSize } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
 import { BalancingSlider } from './_samples/BalancingSlider';
+import { ChannelTracksDemo } from './_samples/ChannelTracksDemo';
+import { HintCostSlider } from './_samples/HintCostSlider';
 import { LabelsDemo } from './_samples/slider-labels';
 import { DUNGEONS, PRICES, SPEEDS } from './_samples/slider-stops.constants';
+import { SliderWithInput } from './_samples/SliderWithInput';
 import { StatefulSlider } from './_samples/StatefulSlider';
 import { UprightSliders } from './_samples/UprightSliders';
 import './Slider.stories.css';
@@ -123,14 +125,9 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
-const WithInputDemo = () => {
-  const [value, setValue] = useState(10);
-  return <Slider value={value} min={0} max={100} step={1} onChange={setValue} label="Hint cost" description="Percent of a player's checks" input labels="every 25" />;
-};
-
 const WithInput = {
   name: 'With an exact number field',
-  render: () => <Box className="story-column"><WithInputDemo /></Box>,
+  render: () => <Box className="story-column"><SliderWithInput /></Box>,
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
 const LOG_LADDER: readonly number[] = [25, 50, 100, 200, 400, 800, 1600, 3200, 6400, 12800];
@@ -159,30 +156,6 @@ const MixedInput = {
   render: () => <Demonstrator rows={axis(Object.keys(MIXED_ROWS))} align="stretch" cell={(row) => MIXED_ROWS[row]} />,
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
-const CHANNEL_TRACKS: Readonly<Record<string, string>> = {
-  Red: 'linear-gradient(to right, #000000, #ff0000)',
-  Hue: 'linear-gradient(to right, #ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000)',
-};
-
-const ChannelTracksDemo = () => {
-  const [values, setValues] = useState<Readonly<Record<string, number>>>({ Red: 120, Hue: 200 });
-  return (
-    <Box className="story-column">
-      {Object.entries(CHANNEL_TRACKS).map(([name, gradient]) => (
-        <Slider
-          key={name}
-          label={name}
-          min={0}
-          max={name === 'Hue' ? 360 : 255}
-          value={values[name]}
-          onChange={(next) => setValues({ ...values, [name]: next })}
-          trackBackground={gradient}
-        />
-      ))}
-    </Box>
-  );
-};
-
 const ChannelTrack = {
   name: 'A gradient as the track',
   render: () => <ChannelTracksDemo />,
@@ -204,16 +177,9 @@ const Upright = {
   render: () => <UprightSliders />,
 } satisfies StoryLiteStoryDefinition<SliderArgs>;
 
-const HintCost = (props: { disabled: boolean }) => {
-  const { disabled } = props;
-  const [value, setValue] = useState(60);
-  return <Slider value={value} min={0} max={100} step={5} onChange={setValue} label="Hint cost" formatValue={percent} labels="every 25" disabled={disabled} />;
-};
+const renderState = (props: StateProps) => <HintCostSlider disabled={props.disabled === true} />;
 
-const renderState = (props: StateProps) => <HintCost disabled={props.disabled === true} />;
-
-const CODE = `import { useState } from 'react';
-import { Slider } from '@drizztdourden08/tessera';
+const CODE = `import { Slider } from '@drizztdourden08/tessera';
 
 const [volume, setVolume] = useState(80);
 const [costs, setCosts] = useState<[number, number]>([20, 60]);

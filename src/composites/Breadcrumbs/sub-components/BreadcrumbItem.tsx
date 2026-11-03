@@ -1,17 +1,15 @@
 /* @layer renderer-components @kind component */
-import '../../../theme/focus-ring.css';
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
-import { Pressable } from '../../../primitives/Pressable';
-import { Span } from '../../../primitives/text-elements';
-import { SEGMENT_ICON_SIZE, SEPARATOR_SIZE } from '../Breadcrumbs.constants';
+import { siblingMenu } from '../behavior/sibling-menu';
+import { SEPARATOR_SIZE } from '../Breadcrumbs.constants';
 import type { BreadcrumbItemProps } from '../Breadcrumbs.type';
+import { BreadcrumbSegmentButton } from './BreadcrumbSegmentButton';
 import { BreadcrumbSiblings } from './BreadcrumbSiblings';
 
 const BreadcrumbItem = ({ segment, current, first, drop, onNavigate }: BreadcrumbItemProps) => {
-  const { id, label, icon, siblings, opensMenu } = segment;
-  const menu = siblings !== undefined && siblings.length > 0 ? siblings : undefined;
-  const asMenu = menu !== undefined && opensMenu === true;
+  const { label } = segment;
+  const { menu, asMenu } = siblingMenu(segment);
 
   return (
     <Box as="li" className="breadcrumbs__item" data-current={current || undefined}>
@@ -19,16 +17,7 @@ const BreadcrumbItem = ({ segment, current, first, drop, onNavigate }: Breadcrum
       {asMenu ? (
         <BreadcrumbSiblings label={label} siblings={menu} named />
       ) : (
-        <Pressable
-          className="breadcrumbs__segment focus-ring-inset"
-          aria-current={current ? 'page' : undefined}
-          data-drop={drop.overId === id || undefined}
-          onClick={() => onNavigate(id)}
-          {...drop.bind(id)}
-        >
-          {icon !== undefined && <Icon name={icon} size={SEGMENT_ICON_SIZE} aria-hidden />}
-          <Span className="breadcrumbs__label">{label}</Span>
-        </Pressable>
+        <BreadcrumbSegmentButton segment={segment} current={current} drop={drop} onNavigate={onNavigate} />
       )}
       {menu !== undefined && !asMenu && <BreadcrumbSiblings label={label} siblings={menu} named={false} />}
     </Box>

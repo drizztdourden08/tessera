@@ -81,7 +81,7 @@ const Modes = {
   render: () => (
     <Demonstrator
       columns={axis(MODES)}
-      cell={(_row, mode) => <PixelPlayer label="A heart that changes colour" frames={FRAMES} mode={mode as PixelPlayerMode} autoPlay />}
+      cell={(_row, mode) => <PixelPlayer label="A heart that changes colour" frames={FRAMES} mode={mode} autoPlay />}
     />
   ),
 } satisfies StoryLiteStoryDefinition<PixelPlayerArgs>;
@@ -92,7 +92,7 @@ const Loops = {
     <Demonstrator
       columns={axis(PLAYER_DIRECTIONS)}
       cell={(_row, direction) => (
-        <PixelPlayer label={`A heart, ${direction}`} frames={FRAMES} mode="compact" loop={{ direction: direction as PixelPlayerDirection, repeat: 0 }} autoPlay />
+        <PixelPlayer label={`A heart, ${direction}`} frames={FRAMES} mode="compact" loop={{ direction, repeat: 0 }} autoPlay />
       )}
     />
   ),
