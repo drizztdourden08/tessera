@@ -9,11 +9,12 @@ import { COMMAND_PROMPT } from '../CommandInput.constants';
 import type { CommandEntry, CommandInputRowProps } from '../CommandInput.type';
 
 const CommandInputRow = (props: CommandInputRowProps) => {
-  const { command, size, sendLabel, field } = props;
+  const { command, size, sendLabel, field, picker } = props;
   const { common } = useTesseraStrings();
   const disabled = field.disabled === true;
   return (
     <Box className="command-input__row">
+      {picker}
       <Combobox<CommandEntry, 'command'>
         freeText
         className="command-input__field"

@@ -18,14 +18,27 @@ export { KeyValueEditor } from '../KeyValueEditor';
 export type { KeyValueEditorProps, KeyValueEntry, KeyValueKind, KeyValueRecord } from '../KeyValueEditor';
 export { FormRow } from '../FormRow';
 export type { FormRowProps } from '../FormRow';
+export { OptionGroup } from '../OptionGroup';
+export type { OptionGroupProps, OptionGroupTone } from '../OptionGroup';
+export { OptionRow } from '../OptionRow';
+export type { OptionRowProps } from '../OptionRow';
+export { OptionsPanel } from '../OptionsPanel';
+export type { OptionsPanelProps } from '../OptionsPanel';
+export { ValueTag } from '../ValueTag';
+export type { ValueTagProps } from '../ValueTag';
 export { SaveBar, type SaveBarProps, type SaveBarState } from '../SaveBar';
-export { CommandInput, type CommandEntry, type CommandInputProps, type CommandOption, type CommandSubmit } from '../CommandInput';
+export {
+  CommandInput, type CommandEntry, type CommandInputProps, type CommandOption, type CommandParam, type CommandParamKind, type CommandSpec, type CommandSubmit, type CommandValue,
+  type CommandValues,
+} from '../CommandInput';
 export { PasswordInput, type PasswordInputProps, type PasswordMode, type PasswordRule, type PasswordScore, type PasswordStrength, type PasswordStrengthLevel } from '../PasswordInput';
 export { namespacedTag, TagInput, type TagAdvice, type TagInputProps, type TagValidationResult, type TagValidator } from '../TagInput';
 export { MarkdownEditor, type MarkdownEditorActionId, type MarkdownEditorLayout, type MarkdownEditorProps } from '../MarkdownEditor';
 export { PathInput,type PathBrowse, type PathInputProps, type PathKind } from '../PathInput';
 export { NumberField } from '../NumberField';
 export type { NumberFieldProps, NumberPreset, NumberPresetInput } from '../NumberField';
+export { ZoomField } from '../ZoomField';
+export type { ZoomFieldProps } from '../ZoomField';
 export { AngleField } from '../AngleField';
 export type { AngleFieldProps } from '../AngleField';
 export { RampStrip } from '../RampStrip';

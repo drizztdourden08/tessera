@@ -1,0 +1,60 @@
+/* @layer renderer-components @kind style */
+.options-panel {
+  display: flex;
+  min-block-size: 0;
+  min-inline-size: 0;
+  flex: 1;
+  align-items: stretch;
+  gap: var(--space-2xs);
+}
+
+.options-panel__main {
+  display: flex;
+  min-block-size: 0;
+  min-inline-size: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.options-panel__head {
+  display: flex;
+  flex-direction: column;
+}
+
+.options-panel__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.options-panel__title {
+  color: var(--c-text-muted);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+.options-panel__toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.options-panel__body {
+  display: flex;
+  min-block-size: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding-inline-end: var(--space-sm);
+  overflow-y: auto;
+}
+
+.options-panel__aside {
+  display: flex;
+  min-block-size: 0;
+  flex: none;
+}

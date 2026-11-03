@@ -9,7 +9,7 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
-import { CONSOLE_COMMANDS, CONSOLE_HISTORY } from './_samples/console-samples.constants';
+import { CONSOLE_COMMANDS, CONSOLE_HISTORY, CONSOLE_SPECS } from './_samples/console-samples.constants';
 import { ConsoleDemo } from './_samples/ConsoleDemo';
 import './CommandInput.stories.css';
 
@@ -95,6 +95,11 @@ const Console = {
   render: () => <ConsoleDemo />,
 } satisfies StoryLiteStoryDefinition<CommandInputArgs>;
 
+const Specs = {
+  name: 'Command picker with fields',
+  render: () => <ConsoleDemo specs={CONSOLE_SPECS} />,
+} satisfies StoryLiteStoryDefinition<CommandInputArgs>;
+
 const Off = {
   name: 'Off until a room hosts',
   render: () => <ConsoleDemo disabled />,
@@ -103,7 +108,8 @@ const Off = {
 const CODE = `import { CommandInput } from '@drizztdourden08/tessera';
 
 <CommandInput placeholder="/players" storageKey="console.history" commands={['/players', '/hint', '/save']} onSubmit={send} />
-<CommandInput history={sent} onSubmit={send} actions={<Button size="sm" onClick={save}>Save</Button>} />`;
+<CommandInput history={sent} onSubmit={send} actions={<Button size="sm" onClick={save}>Save</Button>} />
+<CommandInput commandSpecs={[{ id: 'hint', label: 'Hint', icon: 'flag', params: [{ name: 'item', label: 'Item', kind: 'text' }], format: (values) => \`/hint \${values.item}\` }]} onSubmit={send} />`;
 
 const Overview = overviewStory({
   component: 'CommandInput',
@@ -111,14 +117,14 @@ const Overview = overviewStory({
   points: [
     '[[Enter]] calls `onSubmit` with the trimmed text and empties the line; return false to keep it.',
     'The line is a free text [Combobox]: `commands` lists the closest ones under it as you type.',
-    '[[Tab]] or [[Right]] completes the active row or the top one; [[Enter]] takes a row picked with the arrows.',
-    '[[Up]] and [[Down]] move through that list while it is open, else walk the history, back to what was typed.',
+    '[[Tab]] completes a suggestion; [[Up]] and [[Down]] pick one while the list is open, else walk the history.',
     '[[Esc]] closes the list, then clears the line; on an empty line it passes on, so a dialog can close.',
     '`history` comes from the app or is kept under `storageKey`; `actions` and the key hints sit under the line.',
+    '`commandSpecs` adds a picker: a chosen command swaps the line for its fields and sends `format(values)`.',
   ],
   instead: 'A [TextInput] for text that is not a command, or a [SearchInput] to filter a list.',
   playground: Playground,
-  variants: [Suggestions, Shapes, Console, Off],
+  variants: [Suggestions, Specs, Shapes, Console, Off],
   states: {
     render: (props: StateProps) => <CommandInput placeholder="/players" onSubmit={() => undefined} {...props} />,
     list: [STATE.idle, { ...STATE.hover, target: 'input' }, { ...STATE.focus, target: 'input' }, STATE.disabled],
@@ -127,4 +133,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Console, Off, Overview, Playground, Shapes, Suggestions };
+export { Console, Off, Overview, Playground, Shapes, Specs, Suggestions };

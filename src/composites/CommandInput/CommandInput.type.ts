@@ -2,6 +2,7 @@
 import type { KeyboardEventHandler, ReactNode } from 'react';
 import type { ComboboxKeyHandler } from '../../primitives/Combobox/Combobox.type';
 import type { ControlSize } from '../../primitives/field-control/field-control.type';
+import type { MenuItemIcon } from '../DropdownMenu';
 
 type CommandSubmit = (command: string) => boolean | void;
 
@@ -12,10 +13,35 @@ interface CommandEntry {
 
 type CommandOption = string | CommandEntry;
 
+type CommandParamKind = 'text' | 'number' | 'choice' | 'boolean';
+
+interface CommandParam {
+  name: string;
+  label: string;
+  kind: CommandParamKind;
+  options?: readonly string[];
+  optional?: boolean;
+}
+
+type CommandValue = string | number | boolean;
+
+type CommandValues = Readonly<Record<string, CommandValue>>;
+
+interface CommandSpec {
+  id: string;
+  label: string;
+  icon: MenuItemIcon;
+  group?: string;
+  description?: string;
+  params: readonly CommandParam[];
+  format: (values: CommandValues) => string;
+}
+
 interface CommandInputProps {
   onSubmit: CommandSubmit;
   history?: readonly string[];
   commands?: readonly CommandOption[];
+  commandSpecs?: readonly CommandSpec[];
   maxSuggestions?: number;
   storageKey?: string;
   historyLimit?: number;
@@ -74,14 +100,73 @@ interface CommandControl {
   onKeyDown: ComboboxKeyHandler<CommandEntry>;
 }
 
+interface CommandSpecControl {
+  spec: CommandSpec | null;
+  values: CommandValues;
+  text: string;
+  ready: boolean;
+  blank: boolean;
+  pick: (id: string) => void;
+  clear: () => void;
+  reset: () => void;
+  setValue: (name: string, value: CommandValue | undefined) => void;
+}
+
+interface CommandSpecState {
+  id: string | null;
+  values: CommandValues;
+}
+
+type CommandSpecKeyAction = 'send' | 'clear' | null;
+
+interface CommandSpecParamProps {
+  param: CommandParam;
+  value: CommandValue | undefined;
+  size: ControlSize;
+  disabled: boolean;
+  onValue: (name: string, value: CommandValue | undefined) => void;
+}
+
+interface CommandSpecFieldsProps {
+  spec: CommandSpec;
+  values: CommandValues;
+  size: ControlSize;
+  disabled: boolean;
+  onValue: (name: string, value: CommandValue | undefined) => void;
+}
+
+interface CommandSpecPickerProps {
+  specs: readonly CommandSpec[];
+  size: ControlSize;
+  disabled: boolean;
+  onPick: (id: string) => void;
+}
+
+interface CommandSpecRowProps {
+  command: CommandControl;
+  specs: CommandSpecControl;
+  picker: ReactNode;
+  size: ControlSize;
+  disabled: boolean;
+}
+
+type CommandLineState = CommandState & Pick<CommandInputProps, 'commandSpecs'>;
+
 interface CommandInputRowProps {
   command: CommandControl;
   size: ControlSize;
   sendLabel?: string;
+  picker?: ReactNode;
   field: Pick<CommandInputProps, 'label' | 'placeholder' | 'disabled' | 'invalid' | 'id' | 'onKeyDown'> & { describedBy?: string };
 }
 
+interface CommandInputLineProps extends CommandInputRowProps {
+  specs: CommandSpecControl;
+  commandSpecs?: readonly CommandSpec[];
+}
+
 export type {
-  CommandControl, CommandEntry, CommandInputProps, CommandInputRowProps, CommandKeyAction, CommandKeyEvent, CommandOption, CommandState, CommandSubmit,
-  HistoryStep, HistoryWalk, SuggestKeyAction,
+  CommandControl, CommandEntry, CommandInputLineProps, CommandInputProps, CommandInputRowProps, CommandLineState, CommandKeyAction, CommandKeyEvent, CommandOption, CommandParam, CommandParamKind,
+  CommandSpec, CommandSpecControl, CommandSpecFieldsProps, CommandSpecKeyAction, CommandSpecParamProps, CommandSpecPickerProps, CommandSpecRowProps, CommandSpecState,
+  CommandState, CommandSubmit, CommandValue, CommandValues, HistoryStep, HistoryWalk, SuggestKeyAction,
 };

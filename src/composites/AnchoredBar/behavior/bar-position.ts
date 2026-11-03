@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind logic */
 import { clampNumber } from '../../../primitives/value-rule/clamp-number';
 import type { AnchoredRect } from '../../../primitives/Anchored';
+import { barSide } from './bar-side';
 import type { BarPositionInput, BarSpot } from './bar-position.type';
 
 const overlaps = (a: AnchoredRect, b: AnchoredRect): boolean =>
@@ -24,12 +25,12 @@ const dockedSpot = (input: BarPositionInput): BarSpot => {
 };
 
 const barPosition = (input: BarPositionInput): BarSpot => {
-  const { anchor, bounds, size, gap, placement, dock } = input;
+  const { anchor, bounds, size, gap, dock } = input;
   const away = anchor === null || !overlaps(anchor, bounds);
   if (away && dock !== 'none') return dockedSpot(input);
   if (anchor === null) return { left: bounds.left, top: bounds.top, docked: false, parked: true };
   const left = anchor.left + (anchor.width - size.width) / 2;
-  const top = placement === 'bottom-center' ? anchor.top + anchor.height + gap : anchor.top - gap - size.height;
+  const top = barSide(input, anchor) === 'bottom-center' ? anchor.top + anchor.height + gap : anchor.top - gap - size.height;
   return { ...clampedSpot(input, left, top), docked: false, parked: false };
 };
 

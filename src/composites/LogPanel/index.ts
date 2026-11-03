@@ -1,3 +1,3 @@
 /* @layer renderer-components @kind barrel */
 export { LogPanel } from './LogPanel';
-export type { LogKindDef, LogKindTone, LogOrder, LogPanelProps, LogRow } from './LogPanel.type';
+export type { LogFilterPlacement, LogKindDef, LogKindTone, LogOrder, LogPanelProps, LogPanelSize, LogRow } from './LogPanel.type';

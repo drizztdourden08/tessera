@@ -11,7 +11,7 @@ const useNavigatorWheel = (input: NavigatorWheelInput): void => {
     const box = map.getBoundingClientRect();
     const across = box.width > 0 ? (event.clientX - box.left) / box.width : 0;
     const down = box.height > 0 ? (event.clientY - box.top) / box.height : 0;
-    onWheelZoom(event.deltaY < 0 ? 1 : -1, { x: across * surface.width, y: down * surface.height });
+    onWheelZoom(event.deltaY < 0 ? 1 : -1, { x: across * surface.width, y: down * surface.height }, event.deltaY);
   }));
 };
 
