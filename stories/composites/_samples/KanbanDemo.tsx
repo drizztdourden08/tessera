@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { InlineCreateForm, KanbanBoard, moveCard } from '../../../src/composites';
-import { Badge, Box, Button } from '../../../src/primitives';
+import { Badge, Box, Button, Flex, Link, TypeMark } from '../../../src/primitives';
 import { TASK_COLUMNS } from './kanban-board.constants';
 import type { KanbanDemoProps, Task, TaskColumn } from './kanban-board.type';
 import { TaskCard } from './TaskCard';
@@ -17,12 +17,31 @@ const withSlots = (column: TaskColumn): TaskColumn => {
   return column.id === 'doing' ? { ...column, action: <Button size="xs" variant="ghost">Add</Button> } : column;
 };
 
-const KanbanDemo = ({ width = 'full', columnWidth = 'fixed', folded = 'none', emptyReview = false, slots = false, addForm = false, edges, columnHeight, grip, foldable, stack }: KanbanDemoProps) => {
+const PARENT_HEADS: Readonly<Record<string, { icon: 'bookmark' | 'bug' | 'zap'; label: string; code: string }>> = {
+  todo: { icon: 'bookmark', label: 'Story', code: 'APP-12' },
+  doing: { icon: 'zap', label: 'Epic', code: 'APP-3' },
+  review: { icon: 'bug', label: 'Bug', code: 'APP-40' },
+};
+
+const withHead = (column: TaskColumn): TaskColumn => {
+  const head = PARENT_HEADS[column.id];
+  if (!head) return column;
+  const header = (
+    <Flex gap="xs" align="center">
+      <TypeMark icon={head.icon} label={head.label} color="violet" variant="outline" />
+      <Link href="#" variant="subtle">{head.code}</Link>
+    </Flex>
+  );
+  return { ...column, header };
+};
+
+const KanbanDemo = ({ width = 'full', columnWidth = 'fixed', folded = 'none', emptyReview = false, slots = false, addForm = false, edges, columnHeight, grip, foldable, stack, heads }: KanbanDemoProps) => {
   const [columns, setColumns] = useState(() => TASK_COLUMNS.map((column) => (emptyReview && column.id === 'review' ? { ...column, cards: [] } : column)));
   const addCard = (title: string): void =>
     setColumns((now) => now.map((column) => (column.id === 'todo' ? { ...column, cards: [{ id: `new-${title}-${column.cards.length}`, title, tags: [] }, ...column.cards] } : column)));
   const withForm = (column: TaskColumn): TaskColumn => (column.id === 'todo' ? { ...column, top: <InlineCreateForm label="New card" placeholder="Add a card" onCreate={addCard} compact /> } : column);
-  const withHeader = slots ? columns.map(withSlots) : columns;
+  const withHeads = heads ? columns.map(withHead) : columns;
+  const withHeader = slots ? withHeads.map(withSlots) : withHeads;
   const shown = addForm ? withHeader.map(withForm) : withHeader;
   return (
     <Box className={`kanban-story__frame kanban-story__frame--${width}`}>

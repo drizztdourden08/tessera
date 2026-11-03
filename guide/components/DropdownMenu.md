@@ -43,6 +43,7 @@ DropdownMenu keeps rare and secondary actions one click away, and asks before th
 - Give an item data to put data attributes on it, such as { "data-menu-entry": "rename" }, and ariaDescription for a hint a screen reader adds after the label; description is already read as part of the item.
 - The trigger keeps its icon while the menu is open; to show another, change trigger icon from onOpenChange.
 - Size sets the trigger: sm by default, md beside 39 px fields, xs in a dense bar such as a widget title bar.
+- Size 2xs sets an icon-only trigger at 16 px with a 24 px hit area, for a row or a card head; a trigger with a label has no 2xs and draws at xs. The menu rows keep their smallest size.
 - Variant sets the look of the trigger, any Button variant; quiet draws a dim label on a faint surface with a border, for a trigger that should not compete with the content beside it.
 - ItemSize roomy sets the items at 13 px with taller rows, for a menu that reads as a list of choices; default keeps the compact rows. Sub-menus follow their parent.
 - Give an item kind select, with options, selected and onPick, to put a labelled Select inside the menu beside the action rows; picking a value never closes the menu, and the arrow keys walk through the select row like any other row.
@@ -104,7 +105,7 @@ const LayoutMenu = ({ locked, onLock, onSave, onReset }: LayoutMenuProps) => {
 - `focusOnOpen` (optional): `boolean`.
 - `hover` (optional): `MenuHover`.
 - `onClose` (optional): `() => void`.
-- `size` (optional): `MenuSize`, one of `'xs'`, `'sm'`, `'md'`.
+- `size` (optional): `MenuTriggerSize`, one of `'2xs'`, `'md'`, `'sm'`, `'xs'`.
 - `disabled` (optional): `boolean`.
 - `openOnHover` (optional): `boolean`.
 - `onOpenChange` (optional): `(open: boolean) => void`.

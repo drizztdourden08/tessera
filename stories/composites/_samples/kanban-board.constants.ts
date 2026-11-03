@@ -35,7 +35,7 @@ const TASK_COLUMNS: readonly TaskColumn[] = [
   },
 ];
 
-const KANBAN_ARGS: KanbanArgs = { width: 'full', columnWidth: 'fixed', folded: 'none', emptyReview: false, slots: false, addForm: false, edges: false, columnHeight: 'stretch', grip: true, foldable: true, stack: false };
+const KANBAN_ARGS: KanbanArgs = { width: 'full', columnWidth: 'fixed', folded: 'none', emptyReview: false, slots: false, addForm: false, edges: false, columnHeight: 'stretch', grip: true, foldable: true, stack: false, heads: false };
 
 const KANBAN_ARG_TYPES: PlaygroundArgTypes<KanbanArgs> = {
   width: { group: 'Layout', control: 'select', options: ['full', 'narrow', 'phone'], description: 'A narrow box makes the board scroll sideways; phone is under 420 px, where stack applies.' },
@@ -48,6 +48,7 @@ const KANBAN_ARG_TYPES: PlaygroundArgTypes<KanbanArgs> = {
   emptyReview: { group: 'Content', control: 'boolean', description: 'Take the cards out of Review.' },
   slots: { group: 'Content', control: 'boolean', description: 'Add a badge and an Add button to the header of some columns.' },
   addForm: { group: 'Content', control: 'boolean', description: 'Put an inline add form above the cards of To do.' },
+  heads: { group: 'Content', control: 'boolean', description: 'Draw the head of the columns from a node, with header: an icon, a code and a link.' },
   edges: { group: 'Content', control: 'boolean', description: 'Draw a danger edge on the cards that need the user, with cardEdgeTone.' },
 };
 
@@ -69,7 +70,7 @@ const KANBAN_CODE = `import { KanbanBoard, moveCard } from '@drizztdourden08/tes
 
 const columns = [
   { id: 'todo', title: 'To do', cards, badge: <Badge variant="inline" value="quiet" />, action: <Button size="xs" variant="ghost">Add</Button> },
-  { id: 'doing', title: 'Doing', cards, top: <InlineCreateForm label="New card" onCreate={addCard} compact /> },
+  { id: 'doing', title: 'Doing', header: <ParentHead />, cards, top: <InlineCreateForm label="New card" onCreate={addCard} compact /> },
 ];`;
 
 export { KANBAN_ARG_TYPES, KANBAN_ARGS, KANBAN_CODE, TASK_COLUMNS };

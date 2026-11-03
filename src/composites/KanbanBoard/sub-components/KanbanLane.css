@@ -12,6 +12,17 @@
   flex: none;
 }
 
+.kanban__head--node .section-header__text,
+.kanban__head--node .section-header__title {
+  min-inline-size: 0;
+}
+
+.kanban__head--node .section-header__title {
+  flex: 1;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
 .kanban__top {
   flex: none;
   min-inline-size: 0;

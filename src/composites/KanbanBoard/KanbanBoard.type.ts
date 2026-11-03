@@ -14,6 +14,7 @@ interface KanbanCardData {
 interface KanbanColumn<Card extends KanbanCardData = KanbanCardData> {
   id: string;
   title: string;
+  header?: ReactNode;
   cards: readonly Card[];
   badge?: ReactNode;
   action?: ReactNode;
