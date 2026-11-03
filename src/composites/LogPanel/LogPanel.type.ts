@@ -42,6 +42,10 @@ interface LogPanelProps {
   onFiltersChange?: (next: readonly FilterClause[]) => void;
   toolbar?: boolean;
   filterPlacement?: LogFilterPlacement;
+  filtersCollapsed?: boolean;
+  defaultFiltersCollapsed?: boolean;
+  onFiltersCollapsedChange?: (collapsed: boolean) => void;
+  storageKey?: string;
   size?: LogPanelSize;
   copyText?: (shown: readonly LogRow[]) => string;
   countLabel?: string;

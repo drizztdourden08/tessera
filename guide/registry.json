@@ -12762,6 +12762,9 @@
         "Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.",
         "Pass height=\"fill\" inside a box that sets the height, or a number for a fixed height in pixels.",
         "Set filterPlacement to left or right to move the search, filters, count and Copy all into a narrow column beside the lines.",
+        "A side column folds to a slim rail with the same dashed line and chevron as SidePanel; the lines take the room, and the chevron opens it again.",
+        "Pass filtersCollapsed with onFiltersCollapsedChange when the app holds the fold, or defaultFiltersCollapsed to start folded; they apply to a left or right column only.",
+        "Drag the dashed line to change the width of the side column. Pass storageKey to keep the width, and the fold under storageKey:collapsed.",
         "Set size=\"sm\" for a compact panel with smaller controls, smaller lines and tighter spacing, such as in a dashboard widget.",
         "minRows keeps at least that many lines visible, default 3 with height fill."
       ],
@@ -12779,7 +12782,7 @@
         "rule": "LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick."
       },
       "example": "import { Button, LogPanel } from '@drizztdourden08/tessera';\nimport type { LogRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\nconst ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lines: readonly LogRow[]) => void }) => {\n  const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());\n  const picked = rows.filter((row) => selected.has(row.id));\n  return (\n    <LogPanel\n      rows={rows}\n      kinds={[{ id: 'error', label: 'Errors', tone: 'danger', toneMessage: true }]}\n      selectedIds={selected}\n      onSelectionChange={setSelected}\n      toolbarExtra={<Button size=\"sm\" disabled={picked.length === 0} onClick={() => onReport(picked)}>Report these lines</Button>}\n      height=\"fill\"\n    />\n  );\n};\n",
-      "propsHash": "c7eed973200c9e78",
+      "propsHash": "05e6597a11ef3f0d",
       "props": {
         "own": [
           {
@@ -12827,6 +12830,26 @@
               "'left'",
               "'right'"
             ]
+          },
+          {
+            "name": "filtersCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultFiltersCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onFiltersCollapsedChange",
+            "optional": true,
+            "text": "(collapsed: boolean) => void"
+          },
+          {
+            "name": "storageKey",
+            "optional": true,
+            "text": "string"
           },
           {
             "name": "size",
