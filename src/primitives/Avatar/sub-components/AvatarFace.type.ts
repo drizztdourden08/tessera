@@ -3,7 +3,6 @@ import type { AvatarFaceValue, AvatarSize } from '../Avatar.type';
 
 interface AvatarFaceProps {
   face: AvatarFaceValue;
-  label: string;
   size?: AvatarSize;
   onImageError: () => void;
 }

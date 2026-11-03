@@ -31,7 +31,7 @@ Avatar answers who an item belongs to with a small round mark.
 
 - Pass label with the name of the person; it is the tooltip and the text a screen reader reads.
 - Pass initials, one or two letters, icon, or src for a picture, never more than one; with none it draws the unassigned circle.
-- A picture fills the shape and is cropped to it, with label as its alt text; if it fails to load, the initials of the label show instead.
+- A picture fills the shape and is cropped to it, named once by label on the avatar, with the picture itself hidden from screen readers; if it fails to load, the initials of the label show instead.
 - Set shape square for a rounded square instead of a circle, for a team or a workspace.
 - Set color to one of the category colours so a person keeps one colour on every screen.
 - Set size xs for 16 px on a card and sm for 24 px in a pane.

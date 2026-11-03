@@ -2,7 +2,6 @@
 
 interface AvatarImageProps {
   src: string;
-  label: string;
   onError: () => void;
 }
 

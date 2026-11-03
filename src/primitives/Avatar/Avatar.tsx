@@ -13,7 +13,7 @@ const Avatar = (props: AvatarProps) => {
   return (
     <Tooltip content={label}>
       <span className={avatarClass(props, face)} role="img" aria-label={label}>
-        <AvatarFace face={face} label={label} size={size} onImageError={onImageError} />
+        <AvatarFace face={face} size={size} onImageError={onImageError} />
       </span>
     </Tooltip>
   );
