@@ -67,22 +67,22 @@ const Unused = {
 
 const Several = {
   name: 'selected and onSelectionChange: Shift picks a range, Ctrl or Command toggles a step',
-  render: () => <RampStripGapsDemo multi />,
+  render: () => <RampStripGapsDemo feature="multi" />,
 } satisfies StoryLiteStoryDefinition<RampStripArgs>;
 
 const Marked = {
   name: 'marks: small corner indicators on a step',
-  render: () => <RampStripGapsDemo marked />,
+  render: () => <RampStripGapsDemo feature="marked" />,
 } satisfies StoryLiteStoryDefinition<RampStripArgs>;
 
 const Dragged = {
   name: 'onSwatchDragStart: every step can be dragged out with a payload',
-  render: () => <RampStripGapsDemo drag />,
+  render: () => <RampStripGapsDemo feature="drag" />,
 } satisfies StoryLiteStoryDefinition<RampStripArgs>;
 
 const Menu = {
   name: 'swatchMenu: a context menu on each step, by right click or the menu key',
-  render: () => <RampStripGapsDemo menu />,
+  render: () => <RampStripGapsDemo feature="menu" />,
 } satisfies StoryLiteStoryDefinition<RampStripArgs>;
 
 const renderState = (props: StateProps) => (
