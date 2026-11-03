@@ -219,7 +219,9 @@
             ]
           },
           "a file": {
-            "components": []
+            "components": [
+              "FileInput"
+            ]
           },
           "a path to a file or folder": {
             "components": [
@@ -871,7 +873,9 @@
                 "components": []
               },
               "a small framed picture": {
-                "components": []
+                "components": [
+                  "MediaGrid"
+                ]
               },
               "a video": {
                 "components": [
@@ -1781,6 +1785,93 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "FileInput",
+      "tier": "primitives",
+      "source": "src/primitives/FileInput/FileInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A hidden file picker that a button of your own opens, and that hands back the chosen files.",
+      "useWhen": [
+        "A toolbar or menu button should open the system file dialog and take the files it returns.",
+        "The control that opens the dialog is drawn by the caller, not by a drop area."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user drops or pastes files into a visible area.",
+          "use": "DropZone"
+        },
+        {
+          "case": "The user types or browses to a path on disk.",
+          "use": "PathInput"
+        }
+      ],
+      "rules": [
+        "Keep a ref to the input and call click on it from the button that opens the dialog.",
+        "Pass accept as a list of types, such as image/*, to narrow the dialog.",
+        "Pass multiple to let the user choose several files at once.",
+        "onFiles gets the chosen files and is not called when the dialog is cancelled.",
+        "The input is cleared after each choice, so the same file can be picked twice in a row."
+      ],
+      "a11y": [
+        "The input is hidden and out of the tab order; the button that opens it carries the name and the focus."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "a file"
+        ],
+        "rule": "FileInput is the hidden picker behind a button, for a file the user chooses from a dialog."
+      },
+      "example": "import { useRef } from 'react';\nimport { Button, FileInput } from '@drizztdourden08/tessera';\n\nconst AttachButton = ({ onAttach }: { onAttach: (files: File[]) => void }) => {\n  const pick = useRef<HTMLInputElement>(null);\n  return (\n    <>\n      <Button onClick={() => pick.current?.click()}>Attach</Button>\n      <FileInput ref={pick} accept={['image/*']} multiple onFiles={onAttach} />\n    </>\n  );\n};\n",
+      "propsHash": "6041b48c7fadb177",
+      "props": {
+        "own": [
+          {
+            "name": "accept",
+            "optional": true,
+            "text": "string[]"
+          },
+          {
+            "name": "multiple",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "onFiles",
+            "optional": false,
+            "text": "(files: File[]) => void"
+          },
+          {
+            "name": "ref",
+            "optional": true,
+            "text": "Ref<HTMLInputElement>"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Primitives · Inputs/FileInput",
+        "route": "#/story/primitives-fileinput--overview",
+        "file": "stories/primitives/FileInput.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Flex",
@@ -12413,6 +12504,8 @@
         "Pass onSubmit to send the text on Mod+Enter; it gets the current value.",
         "Pass onEscape to leave the editor on Escape; it is not called while a menu or popover is open, or when another part has taken the key.",
         "Pass maxLength to stop the text at that length; a counter shows in the last 10 percent of the limit, such as 95 / 100.",
+        "Pass onImageFiles to take pictures: a paste or a drop of image files, or the image button in the toolbar, calls it with the files and inserts the Markdown it returns at the caret; a placeholder sits there while the promise runs, and is removed when it rejects, so show the reason through error.",
+        "Pass count to change what the counter counts, such as the text without picture markup; the counter then turns danger above maxLength, and the field no longer stops typing at maxLength.",
         "Edits go through the browser, so Undo and Redo keep working after a toolbar button."
       ],
       "a11y": [
@@ -12430,7 +12523,7 @@
         "rule": "MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app."
       },
       "example": "import { useState } from 'react';\nimport { MarkdownEditor } from '@drizztdourden08/tessera';\n\nconst NoteField = ({ openExternal }: { openExternal: (href: string) => void }) => {\n  const [note, setNote] = useState('');\n  return <MarkdownEditor label=\"Note\" value={note} onChange={setNote} onLink={openExternal} />;\n};\n",
-      "propsHash": "671dfd0f6c989c63",
+      "propsHash": "ffa99447b1f13b99",
       "props": {
         "own": [
           {
@@ -12527,6 +12620,16 @@
             "name": "maxLength",
             "optional": true,
             "text": "number"
+          },
+          {
+            "name": "count",
+            "optional": true,
+            "text": "(text: string) => number"
+          },
+          {
+            "name": "onImageFiles",
+            "optional": true,
+            "text": "(files: File[]) => Promise<string>"
           },
           {
             "name": "autoFocus",
@@ -12644,6 +12747,110 @@
         "title": "Composites · Data views/MarqueeBox",
         "route": "#/story/composites-marqueebox--overview",
         "file": "stories/composites/MarqueeBox.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "MediaGrid",
+      "tier": "composites",
+      "source": "src/composites/MediaGrid/MediaGrid.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A grid of picture thumbnails, each with a caption and a small tag for where it came from, that opens a picture when one is clicked.",
+      "useWhen": [
+        "The user browses the pictures of a record or of a whole project and opens one large.",
+        "Each picture needs a caption and a source, such as the item it was attached to."
+      ],
+      "avoidWhen": [
+        {
+          "case": "One picture opens large from a small preview inside a form or a file pane.",
+          "use": "MediaViewer"
+        },
+        {
+          "case": "One slide at a time is shown, with dots or arrows.",
+          "use": "Carousel"
+        },
+        {
+          "case": "The pictures are catalogue items with a price, a rating or actions.",
+          "use": "ItemCard"
+        }
+      ],
+      "rules": [
+        "Pass items as src, caption and source; source is optional and draws as a small tag under the caption.",
+        "onOpen gets the index of the clicked thumbnail; open MediaViewer at that index with the same pictures to give zoom and arrows.",
+        "Leave columns out to fit as many 160 pixel columns as the width allows; pass columns for a fixed count.",
+        "Pass empty to draw something, such as an EmptyState, when items is empty; without it nothing is drawn.",
+        "A thumbnail shows a placeholder while it loads and a broken picture mark when its src fails, and stays clickable.",
+        "Pass aria-label to name the list for a screen reader."
+      ],
+      "a11y": [
+        "The grid is a list and each thumbnail is a button named Open with its caption.",
+        "The thumbnails are in the tab order and show a focus ring."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a picture or a video",
+          "a small framed picture"
+        ],
+        "rule": "MediaGrid shows many pictures as thumbnails that each open large, in the same way in every app."
+      },
+      "example": "import { useState } from 'react';\nimport { MediaGrid, MediaViewer } from '@drizztdourden08/tessera';\n\nconst MediaTab = ({ shots }: { shots: { id: string; url: string; name: string; item: string }[] }) => {\n  const [opened, setOpened] = useState<number | null>(null);\n  return (\n    <>\n      <MediaGrid items={shots.map((shot) => ({ src: shot.url, caption: shot.name, source: shot.item }))} onOpen={setOpened} />\n      <MediaViewer\n        open={opened !== null}\n        items={shots.map((shot) => ({ id: shot.id, kind: 'image', src: shot.url, name: shot.name }))}\n        index={opened ?? 0}\n        onIndexChange={setOpened}\n        onClose={() => setOpened(null)}\n      />\n    </>\n  );\n};\n",
+      "propsHash": "d3d5ffeda6dce563",
+      "props": {
+        "own": [
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly MediaGridItem[]"
+          },
+          {
+            "name": "onOpen",
+            "optional": false,
+            "text": "(index: number) => void"
+          },
+          {
+            "name": "columns",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "empty",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-primary",
+        "--c-sunken",
+        "--radius-md",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Content/MediaGrid",
+        "route": "#/story/composites-mediagrid--overview",
+        "file": "stories/composites/MediaGrid.stories.tsx"
       },
       "parts": []
     },
