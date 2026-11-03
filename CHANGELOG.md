@@ -1,5 +1,14 @@
 # @drizztdourden08/tessera
 
+## 0.97.0
+
+### Minor Changes
+
+- dfb78de: The Argus mark is now a faceted stone shield with eye cutouts and an emerald corner, drawn at three detail levels: `BrandMarkData.detail` holds the medium and small cuts, and `BrandMark` picks the small cut at `sm`, the medium cut at `md`, `h26` and `h39`, and the full cut above. `BrandMark`, `Logo` and `Logo.Combined` gain `twin`, which draws `BrandInfo.twin`, the emerald twin of Argus with the same facets. New tokens `--brand-argus-emerald`, `--brand-argus-stone-*` and `--brand-argus-twin-*` (I-89).
+- bf622f8: Breadcrumbs serves pointer based drag and drop. `onSegmentRef(id, element)` hands out the element of each segment, `dropOverId` draws the drop look on a segment and runs the spring open hold for it, `springOpen` picks `menu` or `navigate` for what the hold does, and `onSpringOpen(id)` is called either way (I-90, Bxel P-377).
+- 4aa94fe: A DynamicInput pattern slot may be optional: write a `?` after the type, such as `{seconds:number? 1..3600}`. It may stay empty, its placeholder is fainter, and `patternText` drops it with the space before it. A CommandInput pattern spec is ready with an optional slot empty, and `format(values)` gets that slot as undefined (an empty string for text) (I-88).
+- 377ee9e: RampStrip takes `onStepContextMenu(index, event)`, called on a right click or the menu key on a step, with or without `swatchMenu`; when both are given the handler runs first and the menu opens unless it calls `event.preventDefault()`. With `selectionKeys` false the arrow, Home and End keys now move focus between the open steps without picking, and Enter or Space press the focused step (I-91, Bxel P-378).
+
 ## 0.96.0
 
 ### Minor Changes
