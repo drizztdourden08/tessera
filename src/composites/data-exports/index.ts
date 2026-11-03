@@ -52,6 +52,8 @@ export { SeatGrid } from '../SeatGrid';
 export type { SeatGridGap, SeatGridMinWidth, SeatGridProps } from '../SeatGrid';
 export { CopyButton } from '../CopyButton';
 export type { CopyButtonProps, CopyButtonSize, CopyText } from '../CopyButton';
+export { ResetButton } from '../ResetButton';
+export type { ResetButtonProps } from '../ResetButton';
 export { CopyValue, type CopyValueProps, type CopyValueSize, type CopyValueTruncate } from '../CopyValue';
 export { DateText, type DateTextProps } from '../DateText';
 export { Video } from '../Video';
