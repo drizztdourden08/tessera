@@ -110,6 +110,25 @@
   --tag-ink: var(--c-text);
 }
 
+.tag--clickable {
+  cursor: pointer;
+  transition: border-color var(--transition-fast);
+}
+
+.tag--clickable:hover:not(:disabled) {
+  --tag-edge: var(--c-border-strong);
+}
+
+.tag--clickable:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-focus);
+  outline-offset: var(--size-1);
+}
+
+.tag--clickable:disabled {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
 .tag--selectable {
   cursor: pointer;
   transition: color var(--transition-fast), background var(--transition-fast), border-color var(--transition-fast);

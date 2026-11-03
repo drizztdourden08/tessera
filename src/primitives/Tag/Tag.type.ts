@@ -33,6 +33,19 @@ type TagAction =
   | (TagNoLink & { onRemove?: () => void; name?: string; selected?: never; selectedTone?: never; onSelect?: never; role?: never })
   | (TagNoLink & { selected: boolean; selectedTone?: SelectedTone; onSelect: () => void; role?: 'radio'; onRemove?: never; name?: never })
   | {
+    onClick: () => void;
+    href?: never;
+    navigate?: never;
+    target?: never;
+    rel?: never;
+    selected?: never;
+    selectedTone?: never;
+    onSelect?: never;
+    role?: never;
+    onRemove?: never;
+    name?: never;
+  }
+  | {
     href: string;
     navigate?: (href: string) => void;
     onClick?: MouseEventHandler<HTMLAnchorElement>;
