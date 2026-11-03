@@ -13,7 +13,8 @@ const usage = {
   ],
   rules: [
     'Return the target box from anchorRect; return null while there is none and the bar stays hidden.',
-    'Pass boundary to clamp the bar inside a box, and subscribe to hear the scrolls and resizes of that box.',
+    'Pass boundary, a ref, an element or a CSS selector, to clamp the bar inside a box, and subscribe to hear the scrolls and resizes of that box.',
+    'Set placement to bottom-center or top-center to pick the side of the target; auto puts the bar below and flips it above when there is no room below.',
     'Set dock to keep the bar in view at an edge when the target is off screen, and dockedText to say why.',
     'Set inline when the bar sits in a scroll box instead of the top layer.',
     'Name the bar with label and pick role: dialog, alertdialog, toolbar or status.',
@@ -38,7 +39,7 @@ const SelectionBar = ({ rect, close }: { rect: () => DOMRect | null; close: () =
   </AnchoredBar>
 );
 `,
-  propsHash: '0d38013256e846b9',
+  propsHash: 'c259a5d03ff94263',
 } satisfies ComponentUsage;
 
 export { usage };

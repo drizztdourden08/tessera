@@ -29,7 +29,8 @@ AnchoredBar adds a clamp, a dock, follow and focus handling to Anchored, for a b
 ## Rules
 
 - Return the target box from anchorRect; return null while there is none and the bar stays hidden.
-- Pass boundary to clamp the bar inside a box, and subscribe to hear the scrolls and resizes of that box.
+- Pass boundary, a ref, an element or a CSS selector, to clamp the bar inside a box, and subscribe to hear the scrolls and resizes of that box.
+- Set placement to bottom-center or top-center to pick the side of the target; auto puts the bar below and flips it above when there is no room below.
 - Set dock to keep the bar in view at an edge when the target is off screen, and dockedText to say why.
 - Set inline when the bar sits in a scroll box instead of the top layer.
 - Name the bar with label and pick role: dialog, alertdialog, toolbar or status.
@@ -58,10 +59,10 @@ const SelectionBar = ({ rect, close }: { rect: () => DOMRect | null; close: () =
 ## Props
 
 - `anchorRect`: `() => AnchoredRect | null`.
-- `boundary` (optional): `RefObject<HTMLElement | null>`.
+- `boundary` (optional): `BarBoundary`.
 - `subscribe` (optional): `(notify: () => void) => () => void`.
 - `inline` (optional): `boolean`.
-- `placement` (optional): `BarPlacement`, one of `'bottom-center'`, `'top-center'`.
+- `placement` (optional): `BarPlacement`, one of `'bottom-center'`, `'top-center'`, `'auto'`.
 - `margin` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`.
 - `gap` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`.
 - `dock` (optional): `BarDock`, one of `'top-center'`, `'bottom-center'`, `'none'`.

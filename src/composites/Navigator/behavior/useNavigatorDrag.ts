@@ -7,8 +7,8 @@ import { centreViewport } from './centre-viewport';
 import { moveViewport } from './move-viewport';
 import type { NavigatorDrag } from './useNavigatorDrag.type';
 
-const useNavigatorDrag = (props: Pick<NavigatorProps, 'surface' | 'viewport' | 'onViewportChange'>, mapRef: RefObject<HTMLElement | null>): NavigatorDrag => {
-  const { surface, viewport, onViewportChange } = props;
+const useNavigatorDrag = (props: Pick<NavigatorProps, 'surface' | 'viewport' | 'onViewportChange' | 'unclamped'>, mapRef: RefObject<HTMLElement | null>): NavigatorDrag => {
+  const { surface, viewport, onViewportChange, unclamped } = props;
   const drag = useRectDrag<NavigatorViewport>();
   const shown = drag.live ?? viewport;
 
@@ -20,7 +20,7 @@ const useNavigatorDrag = (props: Pick<NavigatorProps, 'surface' | 'viewport' | '
   const follow = (event: ReactPointerEvent<HTMLElement>, start: NavigatorViewport): void => {
     const scale = unitsPerPixel();
     drag.begin(event, (delta: Point) => {
-      const next = moveViewport(start, surface, delta.x * scale, delta.y * scale);
+      const next = moveViewport(start, surface, { dx: delta.x * scale, dy: delta.y * scale }, unclamped);
       onViewportChange(next);
       return next;
     }, () => undefined);
@@ -33,7 +33,7 @@ const useNavigatorDrag = (props: Pick<NavigatorProps, 'surface' | 'viewport' | '
     onMapDown: (event) => {
       const box = event.currentTarget.getBoundingClientRect();
       const scale = unitsPerPixel();
-      const next = centreViewport(shown, surface, { x: (event.clientX - box.left) * scale, y: (event.clientY - box.top) * scale });
+      const next = centreViewport(shown, surface, { x: (event.clientX - box.left) * scale, y: (event.clientY - box.top) * scale }, unclamped);
       onViewportChange(next);
       follow(event, next);
     },
