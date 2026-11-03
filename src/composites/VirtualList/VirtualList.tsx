@@ -2,42 +2,54 @@
 import { useImperativeHandle, useMemo } from 'react';
 import { Box } from '../../primitives/Box';
 import { mergeRefs } from '../../primitives/dom/merge-refs';
+import { DragGhost } from '../DragGhost';
+import { listBodyProps } from './behavior/list-body-props';
+import { listBodyStyle } from './behavior/list-body-style';
+import { listSizing } from './behavior/list-sizing';
 import { listStyle } from './behavior/list-style';
 import { useVirtualList } from './behavior/useVirtualList';
 import { ListRows } from './sub-components/ListRows';
-import { COUNT_PROPERTY } from './VirtualList.constants';
-import type { CSSProperties } from 'react';
 import type { VirtualListProps } from './VirtualList.type';
 import '../../theme/virtual-box.css';
+import '../../theme/visually-hidden.css';
 import './VirtualList.css';
 
 const VirtualList = <T,>(props: VirtualListProps<T>) => {
-  const { items, getKey, renderItem, label, orientation = 'vertical', rowSize = 'normal', rowHeight, itemSize, overscan, selection, getLabel } = props;
+  const { items, getKey, renderItem, renderOption, label, orientation = 'vertical', rowSize = 'normal', rowHeight, overscan, selection, getLabel } = props;
+  const { itemSize, itemSizeKey, endGutter = 0, current, ownsKey, reorder } = props;
   const { onActiveChange, scrollRef, bind, overlay, ref, className } = props;
-  const sizeKey = (orientation === 'horizontal' ? itemSize : rowHeight) ?? rowSize;
-  const model = useVirtualList({ items, getKey, overscan, selection, getLabel, axis: orientation, onActiveChange, sizeKey });
+  const { sizeOf, itemToken, sizeKey } = listSizing({ orientation, rowSize, rowHeight, itemSize });
+  const model = useVirtualList({ items, getKey, overscan, selection, getLabel, axis: orientation, onActiveChange, sizeKey, sizeOf, sizeOfKey: itemSizeKey, reorder });
   const rootRef = useMemo(() => mergeRefs(model.rootRef, scrollRef), [model.rootRef, scrollRef]);
   useImperativeHandle(ref, () => ({ scrollToIndex: model.scrollToIndex, getRects: model.getRects }), [model.scrollToIndex, model.getRects]);
-  const sized = { [COUNT_PROPERTY]: items.length } as CSSProperties;
   const classes = ['virtual-box', 'virtual-list', className].filter(Boolean).join(' ');
-  const choosing = model.selecting;
+  const sized = listBodyStyle(items.length, endGutter, model.variable ? model.layout.total : undefined);
 
   return (
-    <Box ref={rootRef} className={classes} style={listStyle(orientation, rowHeight, itemSize)} data-row-size={rowSize} data-orientation={orientation} onScroll={model.onScroll} {...bind}>
+    <Box
+      ref={rootRef}
+      className={classes}
+      style={listStyle(orientation, rowHeight, itemToken)}
+      data-row-size={rowSize}
+      data-orientation={orientation}
+      data-variable={model.variable || undefined}
+      onScroll={model.onScroll}
+      {...bind}
+    >
       <Box
         ref={model.bodyRef}
-        role={choosing ? 'listbox' : 'list'}
+        {...listBodyProps(model.selecting, orientation)}
         aria-label={label}
-        aria-multiselectable={choosing ? true : undefined}
-        aria-orientation={choosing ? orientation : undefined}
         className="virtual-list__body"
         style={sized}
         onFocus={model.onFocus}
         onBlur={model.onBlur}
       >
-        <ListRows items={items} model={model} renderItem={renderItem} />
+        <ListRows items={items} model={model} renderItem={renderItem} renderOption={renderOption} current={current} ownsKey={ownsKey} />
       </Box>
       {overlay}
+      {model.moving.ghost && <DragGhost count={model.moving.ghost.count} thumbnails={model.moving.ghost.thumbnails} point={model.moving.ghost.point} />}
+      {model.moving.active && <Box className="visually-hidden" aria-live="polite">{model.moving.message}</Box>}
     </Box>
   );
 };

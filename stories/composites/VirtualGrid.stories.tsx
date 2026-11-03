@@ -14,6 +14,7 @@ import { VirtualGridMeasured } from './_samples/VirtualGridMeasured';
 import { VirtualGridNativeDrop } from './_samples/VirtualGridNativeDrop';
 import { VirtualGridPicker } from './_samples/VirtualGridPicker';
 import { VirtualGridReorder } from './_samples/VirtualGridReorder';
+import { VirtualGridSwatches } from './_samples/VirtualGridSwatches';
 import { FILLED_AND_EMPTY } from './_samples/virtual-states.constants';
 import './VirtualGrid.stories.css';
 
@@ -103,6 +104,11 @@ const Reordering = {
   render: () => <VirtualGridReorder />,
 } satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
 
+const Swatches = {
+  name: 'Swatch density: small chips, an add tile after the last, and Ctrl with the wheel to resize',
+  render: () => <VirtualGridSwatches />,
+} satisfies StoryLiteStoryDefinition<VirtualGridArgs>;
+
 const NativeDrop = {
   name: 'Native drop on a header with onDropData and accepts, without reorder',
   render: () => <VirtualGridNativeDrop />,
@@ -165,6 +171,18 @@ const CODE = `import { VirtualGrid } from '@drizztdourden08/tessera';
   reorder={{ onMove: (move) => moveFrames(move.keys, move.to) }}
 />
 
+<VirtualGrid
+  label="Palette"
+  items={colours}
+  getKey={(colour) => colour.id}
+  renderTile={(colour, index, cell) => <Chip {...cell} colour={colour} />}
+  density="swatch"
+  tileSize="size-20"
+  trailing={(cell) => <Button {...cell} onClick={addColour}>+</Button>}
+  onWheelSize={(direction) => resize(direction)}
+  ownsKey={(event) => event.key === 'Delete'}
+/>
+
 gridRef.current?.scrollToIndex(1200, 'center');
 
 const marquee = useMarqueeSelect({ containerRef, selected, onChange, getRects: () => gridRef.current?.getRects() ?? [] });`;
@@ -178,11 +196,11 @@ const Overview = overviewStory({
     '`selection` picks with click, Ctrl, Shift (a rectangle), Ctrl+A and Space; `holes` skip tiles.',
     '`getLabel` adds type ahead; `reorder` moves the picked tiles by drag or Alt with an arrow.',
     'A section `onDrop` takes tiles dropped on its header, `onDropData` a native drop; `bind` serves a marquee.',
-    '`renderTile` hands the cell props to the app tile, so a button tile is the cell and the one tab stop.',
+    '`renderTile` hands the cell props to the tile; `density="swatch"`, `trailing` and `onWheelSize` serve chips.',
   ],
   instead: '[VirtualList] for rows in a column, or [ItemCard] for a few cards.',
   playground: Playground,
-  variants: [Long, Small, Few, Wide, Tileset, Folders, Marquee, MeasuredRows, Jump, Buttons, Picking, Reordering, NativeDrop],
+  variants: [Long, Small, Few, Wide, Tileset, Folders, Marquee, MeasuredRows, Jump, Buttons, Picking, Reordering, Swatches, NativeDrop],
   states: {
     render: (props: StateProps) => <VirtualGridFrame count={40} {...props} />,
     list: FILLED_AND_EMPTY,
@@ -191,4 +209,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Buttons, Few, Folders, Jump, Long, Marquee, MeasuredRows, NativeDrop, Overview, Picking, Playground, Reordering, Small, Tileset, Wide };
+export { Buttons, Few, Folders, Jump, Long, Marquee, MeasuredRows, NativeDrop, Overview, Picking, Playground, Reordering, Small, Swatches, Tileset, Wide };

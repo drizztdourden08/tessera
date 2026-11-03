@@ -218,7 +218,7 @@ One line per component. 124 of 234 have their usage written; a linked name opens
 - [ValidationSummary](components/ValidationSummary.md): What blocks a save, listed above the form in a toned box, each problem a link that moves focus to its field. Import from `@drizztdourden08/tessera`.
 - [Video](components/Video.md): A video player with its own control bar: seek with a time preview, volume, speed, picture in picture, theater mode and full screen. Import from `@drizztdourden08/tessera`.
 - [VirtualGrid](components/VirtualGrid.md): A very long grid of equal tiles, such as sprite thumbnails, in sections if wanted, where only the rows in view are drawn, with the arrow keys to move between tiles. Import from `@drizztdourden08/tessera`.
-- [VirtualList](components/VirtualList.md): A very long list of rows of one height, where only the rows in view are drawn, with the arrow keys to move between them. Import from `@drizztdourden08/tessera`.
+- [VirtualList](components/VirtualList.md): A very long list of rows, usually of one height, where only the rows in view are drawn, with the arrow keys to move between them. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Widget](components/Widget.md): The frame of a tool panel, such as a player list or a log, that the user docks, floats or pops out; WidgetManager places a whole dock. Import from `@drizztdourden08/tessera`.
 - `WindowGuideOverlay`: usage not written yet. Import from `@drizztdourden08/tessera`.

@@ -6,6 +6,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { VirtualListActive } from './_samples/VirtualListActive';
 import { VirtualListFrame } from './_samples/VirtualListFrame';
 import { VirtualListPicker } from './_samples/VirtualListPicker';
+import { VirtualListReorder } from './_samples/VirtualListReorder';
 import { FILLED_AND_EMPTY } from './_samples/virtual-states.constants';
 import './VirtualList.stories.css';
 
@@ -65,6 +66,11 @@ const Picking = {
   render: () => <VirtualListPicker count={5000} />,
 } satisfies StoryLiteStoryDefinition<VirtualListArgs>;
 
+const Moving = {
+  name: 'Rows of different heights, an end gutter and a move: drag a row or press Alt with an arrow',
+  render: () => <VirtualListReorder />,
+} satisfies StoryLiteStoryDefinition<VirtualListArgs>;
+
 const CODE = `import { VirtualList } from '@drizztdourden08/tessera';
 
 <VirtualList
@@ -83,22 +89,35 @@ const CODE = `import { VirtualList } from '@drizztdourden08/tessera';
   getLabel={(entry) => entry.text}
   renderItem={(entry) => entry.text}
   selection={{ selected, onChange: setSelected }}
+/>
+
+<VirtualList
+  label="Events"
+  items={entries}
+  getKey={(entry) => entry.id}
+  itemSize={(at) => (entries[at].tall ? 64 : 40)}
+  itemSizeKey={order}
+  endGutter={48}
+  current={activeKey}
+  ownsKey={(event) => event.key === 'Delete'}
+  renderOption={(entry, at, cell) => <Row {...cell}>{entry.text}</Row>}
+  reorder={{ onMove, canDrop, dropLabel: (position) => `Move to ${position}` }}
 />`;
 
 const Overview = overviewStory({
   component: 'VirtualList',
-  description: 'A very long list of equal rows where only the rows in view are drawn, with the keys to move through it.',
+  description: 'A very long list of rows where only the rows in view are drawn, with the keys to move through it.',
   points: [
-    '`items`, `getKey` and `renderItem` draw the rows; `getKey` returns a stable id for each item.',
-    '`rowSize` or `rowHeight` sets one height for every row from a token; `rowHeight` wins.',
-    '`orientation="horizontal"` lays a strip out left to right; `itemSize` sets the width of each item.',
+    '`items`, `getKey` and `renderItem` draw the rows; `renderOption` draws a row from the cell props.',
+    '`rowSize` or `rowHeight` sets one height from a token; `itemSize` as a function sets each height.',
+    '`orientation="horizontal"` lays a strip out left to right; `itemSize` is the width of each item.',
     '`selection` picks with click, Ctrl, Shift, Ctrl+A and Space; `getLabel` adds type ahead.',
-    '`scrollRef`, `bind`, `overlay` and `getRects` on the `ref` let a marquee pick items.',
+    '`reorder` moves rows by drag or Alt with an arrow; `scrollRef`, `bind` and `overlay` let a marquee pick.',
     'Arrows, Home, End, Page Up and Page Down move focus; a focused row stays drawn.',
   ],
   instead: '[DataTable] for rows with columns to sort, or [ItemList] for a short list.',
   playground: Playground,
-  variants: [Long, Compact, Taller, Short, Strip, Picking],
+  variants: [Long, Compact, Taller, Short, Strip, Picking, Moving],
   states: {
     render: (props: StateProps) => <VirtualListFrame count={40} {...props} />,
     list: FILLED_AND_EMPTY,
@@ -107,4 +126,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, Long, Overview, Picking, Playground, Short, Strip, Taller };
+export { Compact, Long, Moving, Overview, Picking, Playground, Short, Strip, Taller };

@@ -2,7 +2,7 @@
 import type { FocusEvent, KeyboardEvent, RefObject } from 'react';
 
 type VirtualSize =
-  | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'
+  | 'size-16' | 'size-20' | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'
   | 'size-80' | 'size-96' | 'size-128' | 'size-160' | 'size-192' | 'size-224' | 'size-256';
 
 interface VisibleRangeInput {

@@ -13,6 +13,7 @@ interface UseListSelectionInput<T> {
 
 interface ListSelection {
   keys: readonly string[];
+  indexOfKey: ReadonlyMap<string, number>;
   select: SelectionModel;
   onMove: (event: KeyboardEvent<HTMLElement>, target: KeyTarget, from: number) => void;
   jumpRef: RefObject<(index: number, row: number) => void>;

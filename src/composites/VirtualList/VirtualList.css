@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind style */
 .virtual-list {
   --vl-row-h: var(--size-40);
+  --vl-mark: var(--c-primary);
 }
 
 .virtual-list[data-row-size='compact'] {
@@ -14,20 +15,31 @@
 .virtual-list__body {
   position: relative;
   inline-size: 100%;
-  block-size: calc(var(--vl-count) * var(--vl-row-h));
+  block-size: calc(var(--vl-count) * var(--vl-row-h) + var(--vl-gutter));
 }
 
-.virtual-list__item {
+.virtual-list__item,
+.virtual-list__slot {
   position: absolute;
   inset-block-start: calc(var(--vl-index) * var(--vl-row-h));
   inset-inline-start: 0;
-  display: flex;
-  align-items: center;
   box-sizing: border-box;
   inline-size: 100%;
   block-size: var(--vl-row-h);
+}
+
+.virtual-list__item {
+  display: flex;
+  align-items: center;
   padding-inline: var(--space-sm);
   overflow: hidden;
+}
+
+.virtual-list__cell {
+  position: relative;
+  box-sizing: border-box;
+  inline-size: 100%;
+  block-size: 100%;
 }
 
 .virtual-list__item:hover {
@@ -38,18 +50,95 @@
   background: var(--c-primary-soft);
 }
 
+.virtual-list__item[aria-current='true'] {
+  box-shadow: inset var(--size-2) 0 0 0 var(--c-primary);
+}
+
 .virtual-list[data-orientation='horizontal'] {
   --vl-item-w: var(--size-96);
 }
 
 .virtual-list[data-orientation='horizontal'] .virtual-list__body {
-  inline-size: calc(var(--vl-count) * var(--vl-item-w));
+  inline-size: calc(var(--vl-count) * var(--vl-item-w) + var(--vl-gutter));
   block-size: 100%;
 }
 
-.virtual-list[data-orientation='horizontal'] .virtual-list__item {
+.virtual-list[data-orientation='horizontal'] :is(.virtual-list__item, .virtual-list__slot) {
   inset-block: 0;
   inset-inline-start: calc(var(--vl-index) * var(--vl-item-w));
   inline-size: var(--vl-item-w);
   block-size: auto;
+}
+
+.virtual-list[data-variable]:not([data-orientation='horizontal']) .virtual-list__body {
+  block-size: calc(var(--vl-total) + var(--vl-gutter));
+}
+
+.virtual-list[data-variable]:not([data-orientation='horizontal']) :is(.virtual-list__item, .virtual-list__slot) {
+  inset-block-start: var(--vl-start);
+  block-size: var(--vl-size);
+}
+
+.virtual-list[data-variable][data-orientation='horizontal'] .virtual-list__body {
+  inline-size: calc(var(--vl-total) + var(--vl-gutter));
+}
+
+.virtual-list[data-variable][data-orientation='horizontal'] :is(.virtual-list__item, .virtual-list__slot) {
+  inset-inline-start: var(--vl-start);
+  inline-size: var(--vl-size);
+}
+
+.virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-dragging] {
+  opacity: var(--opacity-muted);
+}
+
+.virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop='before'] {
+  box-shadow: inset 0 var(--size-2) 0 0 var(--vl-mark);
+}
+
+.virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop='after'] {
+  box-shadow: inset 0 calc(var(--size-2) * -1) 0 0 var(--vl-mark);
+}
+
+.virtual-list[data-orientation='horizontal'] :is(.virtual-list__item, .virtual-list__cell)[data-drop='before'] {
+  box-shadow: inset var(--size-2) 0 0 0 var(--vl-mark);
+}
+
+.virtual-list[data-orientation='horizontal'] :is(.virtual-list__item, .virtual-list__cell)[data-drop='after'] {
+  box-shadow: inset calc(var(--size-2) * -1) 0 0 0 var(--vl-mark);
+}
+
+.virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop][data-refused] {
+  --vl-mark: var(--c-danger);
+  cursor: not-allowed;
+}
+
+.virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop][data-drop-label]::after {
+  content: attr(data-drop-label);
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: var(--space-xs);
+  padding-inline: var(--space-xs);
+  border-radius: var(--radius-sm);
+  background: var(--c-primary);
+  color: var(--c-on-primary);
+  font-size: var(--text-xs);
+  pointer-events: none;
+}
+
+.virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop='after'][data-drop-label]::after {
+  inset-block-start: auto;
+  inset-block-end: 0;
+}
+
+.virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop][data-refused][data-drop-label]::after {
+  background: var(--c-danger);
+  color: var(--c-on-danger);
+}
+
+@media (forced-colors: active) {
+  .virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop='before'],
+  .virtual-list :is(.virtual-list__item, .virtual-list__cell)[data-drop='after'] {
+    outline: var(--border-width-thick) solid Highlight;
+  }
 }

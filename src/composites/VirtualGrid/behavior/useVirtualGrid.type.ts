@@ -2,7 +2,7 @@
 import type { KeyboardEvent } from 'react';
 import type { MarqueeItem } from '../../marquee';
 import type { ScrollAlign, VirtualFocusModel } from '../../virtual';
-import type { VirtualGridCellBind, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection, VirtualGridSelection } from '../VirtualGrid.type';
+import type { VirtualGridCellBind, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection, VirtualGridSelection, VirtualGridTrailing } from '../VirtualGrid.type';
 import type { GridHeaderDrop } from './useGridDropData.type';
 import type { GridGhost } from './useGridReorder.type';
 import type { GridHeights, GridLayout } from './grid-layout.type';
@@ -23,6 +23,9 @@ interface UseVirtualGridInput<T> {
   getLabel?: (item: T, index: number) => string;
   holes?: (item: T, index: number) => boolean;
   reorder?: VirtualGridReorder<T>;
+  trailing?: VirtualGridTrailing;
+  onWheelSize?: (direction: 1 | -1) => void;
+  ownsKey?: (event: KeyboardEvent<HTMLElement>) => boolean;
 }
 
 interface VirtualGridModel<T> extends VirtualFocusModel {

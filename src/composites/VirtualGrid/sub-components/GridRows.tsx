@@ -1,14 +1,12 @@
 /* @layer renderer-components @kind component */
-import { Fragment } from 'react';
-import { gridCellBind } from '../behavior/grid-cell-bind';
-import { rowPlace } from '../behavior/row-place';
-import { GridCell } from './GridCell';
 import { GridHeader } from './GridHeader';
 import { GridRow } from './GridRow';
+import { GridTiles } from './GridTiles';
+import { rowPlace } from '../behavior/row-place';
 import type { GridRowsProps } from './GridRows.type';
 
 const GridRows = <T,>(props: GridRowsProps<T>) => {
-  const { model, sections, getKey, renderItem, renderTile } = props;
+  const { model, sections, getKey } = props;
   const { layout, flat, columns } = model;
   return model.rows.map((at) => {
     const row = layout.rows[at];
@@ -38,18 +36,9 @@ const GridRows = <T,>(props: GridRowsProps<T>) => {
       );
     }
     const firstItem = flat[row.first];
-    if (firstItem === undefined) return null;
     return (
-      <GridRow key={`row-${getKey(firstItem, row.first)}`} at={at} row={row} top={top}>
-        {flat.slice(row.first, row.first + row.size).map((item, offset) => {
-          const at = row.first + offset;
-          const key = getKey(item, at);
-          const bind = gridCellBind({
-            index: row.stop + offset, column: offset, itemKey: key, tabbable: row.stop + offset === model.tabbable, bare: renderTile !== undefined,
-            extras: model.extrasOf(at, key), onActivate: model.activate, onKeyDown: (event) => model.cellKeys(event, row.stop + offset, at),
-          });
-          return renderTile ? <Fragment key={key}>{renderTile(item, at, bind)}</Fragment> : <GridCell key={key} bind={bind}>{renderItem?.(item, at)}</GridCell>;
-        })}
+      <GridRow key={firstItem === undefined ? 'row-trailing' : `row-${getKey(firstItem, row.first)}`} at={at} row={row} top={top}>
+        <GridTiles {...props} row={row} />
       </GridRow>
     );
   });

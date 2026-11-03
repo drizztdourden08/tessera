@@ -30,7 +30,7 @@ const useListSelection = <T,>(input: UseListSelectionInput<T>): ListSelection =>
     const end = keys[target.index];
     if (selection && event.shiftKey && start !== undefined && end !== undefined) select.step(start, end, event.ctrlKey || event.metaKey);
   }, [keys, selection, select]);
-  return { keys, select, onMove, jumpRef };
+  return { keys, indexOfKey, select, onMove, jumpRef };
 };
 
 export { useListSelection };
