@@ -10,6 +10,7 @@ import { logPanelStyle } from './behavior/log-panel-style';
 import { useLogFilter } from './behavior/useLogFilter';
 import { LogInput } from './sub-components/LogInput';
 import { LogList } from './sub-components/LogList';
+import { LogFilterSlot } from './sub-components/LogFilterSlot';
 import { LogToolbar } from './sub-components/LogToolbar';
 import type { LogPanelProps } from './LogPanel.type';
 import '../../theme/focus-ring.css';
@@ -33,7 +34,9 @@ const LogPanel = (props: LogPanelProps) => {
       shrink={false}
       style={logPanelStyle(height, minRows)}
       toolbar={toolbar && (
-        <LogToolbar filter={filter} side={isSideFilter(filterPlacement)} size={size} total={rows.length} countLabel={countLabel ?? panels.logNoun(rows.length)} copyText={copyText} extra={toolbarExtra} />
+        <LogFilterSlot props={props}>
+          <LogToolbar filter={filter} side={isSideFilter(filterPlacement)} size={size} total={rows.length} countLabel={countLabel ?? panels.logNoun(rows.length)} copyText={copyText} extra={toolbarExtra} />
+        </LogFilterSlot>
       )}
     >
       {filter.shown.length === 0

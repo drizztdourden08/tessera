@@ -15,6 +15,8 @@ const PANEL_STRINGS = {
   logMessage: 'Message',
   logNoMatch: 'No lines match the search and filters.',
   filterLog: 'Filter the log',
+  logFilters: 'Filters',
+  logFilterSection: 'Search and filters',
   logLines: 'Log lines',
   sectionFailed: 'This section could not be shown',
   settingsEmpty: 'Nothing to set here right now.',

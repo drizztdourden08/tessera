@@ -222,3 +222,16 @@
   min-width: 0;
   font-family: var(--font-mono);
 }
+
+.tool-frame.log-panel--side > .tool-frame__toolbar {
+  display: flex;
+  inline-size: auto;
+  padding: 0;
+  border: none;
+  background: transparent;
+  overflow: visible;
+}
+
+.log-panel__filters-panel {
+  flex: none;
+}
