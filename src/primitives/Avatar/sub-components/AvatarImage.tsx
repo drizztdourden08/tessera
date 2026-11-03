@@ -1,11 +1,6 @@
 /* @layer renderer-components @kind component */
 import { ImageElement } from '../../media/ImageElement';
-
-interface AvatarImageProps {
-  src: string;
-  label: string;
-  onError: () => void;
-}
+import type { AvatarImageProps } from './AvatarImage.type';
 
 const AvatarImage = (props: AvatarImageProps) => {
   const { src, label, onError } = props;

@@ -1,15 +1,8 @@
 /* @layer renderer-components @kind component */
 import { Icon } from '../../Icon';
 import { AVATAR_ICON_SIZE, AVATAR_INITIALS_MAX } from '../Avatar.constants';
-import type { AvatarFaceValue, AvatarSize } from '../Avatar.type';
 import { AvatarImage } from './AvatarImage';
-
-interface AvatarFaceProps {
-  face: AvatarFaceValue;
-  label: string;
-  size?: AvatarSize;
-  onImageError: () => void;
-}
+import type { AvatarFaceProps } from './AvatarFace.type';
 
 const AvatarFace = (props: AvatarFaceProps) => {
   const { face, label, size = 'xs', onImageError } = props;

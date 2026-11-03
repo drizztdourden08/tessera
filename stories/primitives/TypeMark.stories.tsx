@@ -50,32 +50,25 @@ const Playground = {
   render: (args) => <TypeMark label={args.label} icon={args.icon} color={args.color} size={args.size} variant={args.variant} />,
 } satisfies PlaygroundStory<TypeMarkArgs>;
 
+const typeRows = (variant: TypeMarkVariant) => (
+  <Demonstrator
+    rows={axis(SIZES)}
+    cell={(size) => (
+      <Flex gap="sm" align="center" wrap>
+        {ITEM_TYPES.map((type) => <TypeMark key={type.label} icon={type.icon} label={type.label} color={type.color} size={size} variant={variant} />)}
+      </Flex>
+    )}
+  />
+);
+
 const EveryType = {
   name: 'The item types, at both sizes',
-  render: () => (
-    <Demonstrator
-      rows={axis(SIZES)}
-      cell={(size) => (
-        <Flex gap="sm" align="center" wrap>
-          {ITEM_TYPES.map((type) => <TypeMark key={type.label} icon={type.icon} label={type.label} color={type.color} size={size} />)}
-        </Flex>
-      )}
-    />
-  ),
+  render: () => typeRows('tile'),
 } satisfies StoryLiteStoryDefinition<TypeMarkArgs>;
 
 const Outline = {
   name: 'Outline: the bare icon in the colour',
-  render: () => (
-    <Demonstrator
-      rows={axis(SIZES)}
-      cell={(size) => (
-        <Flex gap="sm" align="center" wrap>
-          {ITEM_TYPES.map((type) => <TypeMark key={type.label} icon={type.icon} label={type.label} color={type.color} size={size} variant="outline" />)}
-        </Flex>
-      )}
-    />
-  ),
+  render: () => typeRows('outline'),
 } satisfies StoryLiteStoryDefinition<TypeMarkArgs>;
 
 const Overview = overviewStory({

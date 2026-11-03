@@ -1,12 +1,8 @@
 /* @layer renderer-components @kind hook */
 import { useState } from 'react';
-import type { AvatarFaceValue, AvatarProps } from '../Avatar.type';
+import type { AvatarProps } from '../Avatar.type';
 import { initialsOf } from './initials-of';
-
-interface AvatarFaceState {
-  face: AvatarFaceValue;
-  onImageError: () => void;
-}
+import type { AvatarFaceState } from './useAvatarFace.type';
 
 const useAvatarFace = (props: AvatarProps): AvatarFaceState => {
   const { label, src, initials, icon } = props;
