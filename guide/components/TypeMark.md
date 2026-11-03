@@ -30,6 +30,7 @@ TypeMark answers what kind of thing an item is with a small icon tile.
 
 - Pass icon with a Tessera icon name and label with the type name; the label is the tooltip and the text a screen reader reads.
 - Set color to one of the category colours; the tile takes a tint of it and the icon takes the full colour.
+- Set tone to info, success, warning or danger for a status colour; it wins over color, and the tile takes the dim status colour and the icon the status ink.
 - Set size xs for 16 px in a dense row and sm for 20 px beside a title.
 - Set variant outline for the bare icon in the category colour, with no tile, border or padding; the icon fills the box the tile would take, 16 px at xs and 20 px at sm.
 
@@ -47,6 +48,7 @@ const BugMarks = () => (
   <>
     <TypeMark icon="bug" label="Bug" color="rose" />
     <TypeMark icon="bug" label="Bug" color="rose" variant="outline" />
+    <TypeMark icon="circle-help" label="Question" tone="info" />
   </>
 );
 ```
@@ -56,10 +58,11 @@ const BugMarks = () => (
 - `icon`: `IconName`.
 - `label`: `string`.
 - `color` (optional): `TagCategoryColor`, one of `'rose'`, `'orange'`, `'amber'`, `'lime'`, `'green'`, `'teal'`, `'cyan'`, `'blue'`, `'violet'`, `'pink'`.
+- `tone` (optional): `TypeMarkTone`, one of `'danger'`, `'info'`, `'success'`, `'warning'`.
 - `size` (optional): `TypeMarkSize`, one of `'xs'`, `'sm'`. Default `'xs'`.
 - `variant` (optional): `TypeMarkVariant`, one of `'tile'`, `'outline'`. Default `'tile'`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--c-tag-amber`, `--c-tag-amber-soft`, `--c-tag-blue`, `--c-tag-blue-soft`, `--c-tag-cyan`, `--c-tag-cyan-soft`, `--c-tag-green`, `--c-tag-green-soft`, `--c-tag-lime`, `--c-tag-lime-soft`, `--c-tag-orange`, `--c-tag-orange-soft`, `--c-tag-pink`, `--c-tag-pink-soft`, `--c-tag-rose`, `--c-tag-rose-soft`, `--c-tag-teal`, `--c-tag-teal-soft`, `--c-tag-violet`, `--c-tag-violet-soft`, `--c-text-dim`, `--c-text-dim-soft`, `--radius-sm`, `--size-16`, `--size-20`.
+It draws on `--c-danger`, `--c-danger-dim`, `--c-info`, `--c-info-dim`, `--c-success`, `--c-success-dim`, `--c-tag-amber`, `--c-tag-amber-soft`, `--c-tag-blue`, `--c-tag-blue-soft`, `--c-tag-cyan`, `--c-tag-cyan-soft`, `--c-tag-green`, `--c-tag-green-soft`, `--c-tag-lime`, `--c-tag-lime-soft`, `--c-tag-orange`, `--c-tag-orange-soft`, `--c-tag-pink`, `--c-tag-pink-soft`, `--c-tag-rose`, `--c-tag-rose-soft`, `--c-tag-teal`, `--c-tag-teal-soft`, `--c-tag-violet`, `--c-tag-violet-soft`, `--c-text-dim`, `--c-text-dim-soft`, `--c-warning`, `--c-warning-dim`, `--radius-sm`, `--size-16`, `--size-20`.

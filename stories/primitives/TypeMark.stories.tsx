@@ -2,7 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Flex, TypeMark } from '../../src/primitives';
-import type { IconName, TagCategoryColor, TypeMarkSize, TypeMarkVariant } from '../../src/primitives';
+import type { IconName, TagCategoryColor, TypeMarkSize, TypeMarkTone, TypeMarkVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -16,6 +16,8 @@ type TypeMarkArgs = {
   variant: TypeMarkVariant;
 };
 
+type ToneMark = { icon: IconName; label: string; tone: TypeMarkTone };
+
 type ItemType = { icon: IconName; label: string; color: TagCategoryColor };
 
 const SIZES: readonly TypeMarkSize[] = ['xs', 'sm'];
@@ -28,6 +30,15 @@ const ITEM_TYPES: readonly ItemType[] = [
   { icon: 'wrench', label: 'Tech debt', color: 'amber' },
   { icon: 'scroll-text', label: 'Test plan', color: 'teal' },
   { icon: 'flask', label: 'Test case', color: 'cyan' },
+];
+
+const VARIANTS: readonly TypeMarkVariant[] = ['tile', 'outline'];
+
+const TONE_MARKS: readonly ToneMark[] = [
+  { icon: 'circle-help', label: 'Question', tone: 'info' },
+  { icon: 'circle-check', label: 'Decision', tone: 'success' },
+  { icon: 'triangle-alert', label: 'To do', tone: 'warning' },
+  { icon: 'circle-x', label: 'Blocked', tone: 'danger' },
 ];
 
 const ARG_TYPES: PlaygroundArgTypes<TypeMarkArgs> = {
@@ -71,6 +82,20 @@ const Outline = {
   render: () => typeRows('outline'),
 } satisfies StoryLiteStoryDefinition<TypeMarkArgs>;
 
+const Tones = {
+  name: 'Tone: the status colours, in both variants',
+  render: () => (
+    <Demonstrator
+      rows={axis(VARIANTS)}
+      cell={(variant) => (
+        <Flex gap="sm" align="center" wrap>
+          {TONE_MARKS.map((mark) => <TypeMark key={mark.label} icon={mark.icon} label={mark.label} tone={mark.tone} size="sm" variant={variant} />)}
+        </Flex>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<TypeMarkArgs>;
+
 const Overview = overviewStory({
   component: 'TypeMark',
   description: 'A small tinted tile with an icon in a colour, to mark the type of an item.',
@@ -79,11 +104,12 @@ const Overview = overviewStory({
     'The tile takes a tint of the colour and the icon takes the full colour.',
     '`size` is `xs` at 16 px for dense rows or `sm` at 20 px beside a title.',
     '`variant="outline"` shows only the icon in the colour, with no tile, at the full box: 16 or 20 px.',
+    '`tone` (info, success, warning, danger) wins over `color`: a dim status tile with the status ink.',
     '`label` is the type name; it is the tooltip on hover and the text a screen reader reads.',
   ],
   instead: '[Avatar] for a person, or [Tag] for a value that sorts an item into a group.',
   playground: Playground,
-  variants: [EveryType, Outline],
+  variants: [EveryType, Outline, Tones],
   states: {
     render: () => <TypeMark icon="bug" label="Bug" color="rose" size="sm" />,
     list: [STATE.idle, STATE.hover],
@@ -96,4 +122,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { EveryType, Outline, Overview, Playground };
+export { EveryType, Outline, Overview, Playground, Tones };
