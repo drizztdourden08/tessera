@@ -17,4 +17,4 @@ interface ImageInsert {
   textareaProps: ImageInsertHandlers;
 }
 
-export type { ImageInsert, ImageInsertHandlers, ImageInsertOptions };
+export type { ImageInsert, ImageInsertOptions };

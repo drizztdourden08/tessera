@@ -5,6 +5,7 @@ interface ToolFrameProps extends HTMLAttributes<HTMLElement> {
   as?: ElementType;
   toolbar?: ReactNode;
   padded?: boolean;
+  shrink?: boolean;
   children?: ReactNode;
 }
 

@@ -28,6 +28,7 @@ const LogPanel = (props: LogPanelProps) => {
   return (
     <ToolFrame
       className={logPanelClass(height, className)}
+      shrink={false}
       style={logPanelStyle(height, minRows)}
       toolbar={toolbar && (
         <LogToolbar filter={filter} total={rows.length} countLabel={countLabel ?? panels.logNoun(rows.length)} copyText={copyText} extra={toolbarExtra} />

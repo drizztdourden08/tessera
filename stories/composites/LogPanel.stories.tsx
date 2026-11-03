@@ -14,8 +14,11 @@ import { LOG_KINDS, LOG_ROWS, longSession } from './_samples/data-log';
 import { CHANNEL_KINDS, CHANNEL_ROWS } from './_samples/data-log-channels';
 import { SIM_KINDS, SIM_ROWS } from './_samples/data-log-kinds';
 import { LogArrivalDemo } from './_samples/LogArrivalDemo';
+import { LogHeightsDemo } from './_samples/LogHeightsDemo';
 import { LogInputStatesDemo } from './_samples/LogInputStatesDemo';
+import { LogNarrowDemo } from './_samples/LogNarrowDemo';
 import { LogSelectionDemo } from './_samples/LogSelectionDemo';
+import { LogShortParentDemo } from './_samples/LogShortParentDemo';
 import { LogShellDemo } from './_samples/LogShellDemo';
 import { LogTerminalDemo } from './_samples/LogTerminalDemo';
 import './LogPanel.stories.css';
@@ -51,6 +54,7 @@ const LogDemo = (props: LogDemoProps) => {
 
 const LONG_ROWS = longSession(1500);
 const NO_ROWS: LogRow[] = [];
+const ONE_ROW = LOG_ROWS.slice(0, 3);
 const PROBLEMS: readonly FilterClause[] = [createClause('kind', 'anyOf', ['Errors', 'Hints'])];
 
 const TONED_ROWS: readonly LogRow[] = [
@@ -146,23 +150,11 @@ const Bare = {
   render: () => <LogDemo {...(ARGS as LogPanelArgs)} toolbar={false} rows={LOG_ROWS} />,
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
-const Heights = {
-  name: 'A fixed height, and filling a box',
-  render: () => (
-    <Box className="story-row log-panel-story__heights">
-      <Box className="story-column">
-        <Text className="story-label">height={'{160}'}</Text>
-        <LogPanel rows={LOG_ROWS} kinds={LOG_KINDS} height={160} toolbar={false} />
-      </Box>
-      <Box className="story-column">
-        <Text className="story-label">height="fill" in a 224 px box</Text>
-        <Box className="log-panel-story__box">
-          <LogPanel rows={LOG_ROWS} kinds={LOG_KINDS} height="fill" toolbar={false} />
-        </Box>
-      </Box>
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+const Heights = { name: 'A fixed height, and filling a box', render: () => <LogHeightsDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const Narrow = { name: 'Narrow, the message wraps below the tag', render: () => <LogNarrowDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const ShortParent = { name: 'A short parent, minRows keeps rows visible', render: () => <LogShortParentDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
 const Kinds = {
   name: 'Fifteen kinds, as a simulator trace',
@@ -173,8 +165,6 @@ const Channels = {
   name: 'A colour per channel',
   render: () => <LogPanel rows={CHANNEL_ROWS} kinds={CHANNEL_KINDS} height={200} toolbar={false} className="channel-log" />,
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
-
-const ONE_ROW = LOG_ROWS.slice(0, 3);
 
 const renderState = (props: StateProps) => (
   <Box className="log-panel-story log-panel-story--state">
@@ -212,7 +202,7 @@ const Overview = overviewStory({
     '`ansi` colours escape codes with tokens; `onInput` adds a prompt row, and [[Up]] and [[Down]] walk its history.',
   ],
   playground: ServerLog,
-  variants: [Filtered, LongSession, Arriving, NewestFirst, LineTones, Selecting, BuildLog, Shell, InputStates, Bare, Heights, Kinds, Channels],
+  variants: [Filtered, LongSession, Arriving, NewestFirst, LineTones, Selecting, BuildLog, Shell, InputStates, Bare, Heights, Narrow, ShortParent, Kinds, Channels],
   states: {
     render: renderState,
     list: [
@@ -225,4 +215,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Arriving, Bare, BuildLog, Channels, Filtered, Heights, InputStates, Kinds, LineTones, LongSession, NewestFirst, Overview, Selecting, ServerLog, Shell };
+export { Arriving, Bare, BuildLog, Channels, Filtered, Heights, InputStates, Kinds, LineTones, LongSession, NewestFirst, Narrow, Overview, Selecting, ServerLog, Shell, ShortParent };

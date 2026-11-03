@@ -40,5 +40,6 @@
   --size-768:  768px;
   --size-896:  896px;
   --size-1024: 1024px;
+  --log-msg-min: 16ch;
 }
 }

@@ -109,8 +109,8 @@
 }
 
 .log-panel__content {
-  display: grid;
-  grid-template-columns: minmax(var(--log-tag-w, 6ch), max-content) 1fr;
+  display: flex;
+  flex-wrap: wrap;
   column-gap: var(--space-md);
   align-items: baseline;
   min-width: 0;
@@ -142,12 +142,15 @@
 }
 
 .log-panel__tag {
+  flex: none;
+  min-inline-size: var(--log-tag-w, 6ch);
   font-weight: var(--weight-semi);
   white-space: nowrap;
 }
 
 .log-panel__msg {
-  min-width: 0;
+  flex: 1 1 min(var(--log-msg-min), 100%);
+  min-inline-size: min(var(--log-msg-min), 100%);
   overflow-wrap: anywhere;
 }
 
