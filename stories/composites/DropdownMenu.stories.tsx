@@ -16,6 +16,7 @@ import { DANGER_MENU } from './_samples/data-menu-danger';
 import { DISABLED_MENU } from './_samples/data-menu-disabled';
 import { MenuConfirmDemo } from './_samples/MenuConfirmDemo';
 import { MenuRoomyDemo } from './_samples/MenuRoomyDemo';
+import { MenuSmallTriggerDemo } from './_samples/MenuSmallTriggerDemo';
 import { MenuSelectDemo } from './_samples/MenuSelectDemo';
 import { MenuSliderDemo } from './_samples/MenuSliderDemo';
 import { JoinDemos, MarksDemo, NestedDemo } from './_samples/menu-join-demos';
@@ -94,20 +95,9 @@ const Triggers = {
   ),
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
-const SmallTrigger = {
-  name: 'Icon trigger at 16 px (2xs) for a row or a card head',
-  render: () => (
-    <Demonstrator
-      columns={axis(['Hamburger', 'Icon only'])}
-      cell={(_row, kind) => <DropdownMenu trigger={TRIGGERS[kind] ?? { label: 'Menu' }} size="2xs" variant="ghost" groups={buildTitleMenu(ignore)} />}
-    />
-  ),
-} satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+const SmallTrigger = { name: 'Icon trigger at 16 px (2xs) for a row or a card head', render: () => <MenuSmallTriggerDemo /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
-const RoomyRows = {
-  name: 'Roomy rows: 13 px text and taller items',
-  render: () => <MenuRoomyDemo />,
-} satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+const RoomyRows = { name: 'Roomy rows: 13 px text and taller items', render: () => <MenuRoomyDemo /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const Inside = {
   name: 'Icons, categories, shortcuts and subtitles',

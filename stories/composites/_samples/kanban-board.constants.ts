@@ -1,6 +1,6 @@
 /* @layer stories @kind data */
 import type { PlaygroundArgTypes } from '../../_template/controls/playground.type';
-import type { KanbanArgs, TaskColumn } from './kanban-board.type';
+import type { KanbanArgs, ParentHead, TaskColumn } from './kanban-board.type';
 
 const TASK_COLUMNS: readonly TaskColumn[] = [
   {
@@ -73,4 +73,10 @@ const columns = [
   { id: 'doing', title: 'Doing', header: <ParentHead />, cards, top: <InlineCreateForm label="New card" onCreate={addCard} compact /> },
 ];`;
 
-export { KANBAN_ARG_TYPES, KANBAN_ARGS, KANBAN_CODE, TASK_COLUMNS };
+const PARENT_HEADS: Readonly<Record<string, ParentHead>> = {
+  todo: { icon: 'bookmark', label: 'Story', code: 'APP-12' },
+  doing: { icon: 'zap', label: 'Epic', code: 'APP-3' },
+  review: { icon: 'bug', label: 'Bug', code: 'APP-40' },
+};
+
+export { KANBAN_ARG_TYPES, KANBAN_ARGS, KANBAN_CODE, PARENT_HEADS, TASK_COLUMNS };

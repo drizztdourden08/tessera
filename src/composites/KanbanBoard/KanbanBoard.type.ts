@@ -69,6 +69,11 @@ interface KanbanColumnProps<Card extends KanbanCardData> {
   shared: KanbanShared<Card>;
 }
 
+interface KanbanLaneHeadProps<Card extends KanbanCardData> {
+  column: KanbanColumn<Card>;
+  toggle: ReactNode;
+}
+
 interface KanbanCardProps<Card extends KanbanCardData> {
   card: Card;
   slot: number;
@@ -90,6 +95,6 @@ interface CardPlace {
 }
 
 export type {
-  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardProps, KanbanColumn, KanbanColumnHeight, KanbanColumnProps, KanbanColumnWidth, KanbanMove, KanbanPlace, KanbanShared,
+  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardProps, KanbanColumn, KanbanColumnHeight, KanbanColumnProps, KanbanColumnWidth, KanbanLaneHeadProps, KanbanMove, KanbanPlace, KanbanShared,
   KanbanToggleProps,
 };
