@@ -20,6 +20,7 @@ const LIST_STRINGS = {
   saveAndLeave: 'Save and leave',
   pickItem: 'Pick an item from the list.',
   itemsMoved: (count: number, position: number, total: number) => (count === 1 ? `Moved to ${position} of ${total}` : `${count} items moved to ${position} of ${total}`),
+  moveRefused: 'That move is not allowed',
   itemsMovedInto: (count: number, section: string) => `${count} ${count === 1 ? 'item' : 'items'} moved into ${section}`,
 };
 

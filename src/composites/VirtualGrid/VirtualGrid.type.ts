@@ -7,6 +7,10 @@ import type { ScrollAlign, VirtualSize } from '../virtual';
 
 type VirtualGridRowHeight = 'fixed' | 'measured';
 
+type VirtualGridDensity = 'cell' | 'swatch';
+
+type VirtualGridTrailing = ReactNode | ((cell: VirtualGridCellBind) => ReactNode);
+
 interface VirtualGridSection<T> {
   key: string;
   label: ReactNode;
@@ -56,7 +60,7 @@ interface VirtualGridCellBind {
   'aria-colindex': number;
   'data-vg-index': number;
   'data-vg-kind': 'tile';
-  'data-marquee-key': string;
+  'data-marquee-key'?: string;
   onFocus: () => void;
   onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
   'aria-selected'?: boolean;
@@ -88,6 +92,10 @@ interface VirtualGridBase<T> {
   tileHeight?: VirtualSize;
   columns?: number;
   rowHeight?: VirtualGridRowHeight;
+  density?: VirtualGridDensity;
+  trailing?: VirtualGridTrailing;
+  onWheelSize?: (direction: 1 | -1) => void;
+  ownsKey?: (event: KeyboardEvent<HTMLElement>) => boolean;
   overscan?: number;
   selection?: VirtualGridSelection;
   getLabel?: (item: T, index: number) => string;
@@ -117,6 +125,6 @@ interface VirtualGridSectioned<T> extends VirtualGridBase<T> {
 type VirtualGridProps<T> = (VirtualGridFlat<T> | VirtualGridSectioned<T>) & (VirtualGridDrawItem<T> | VirtualGridDrawTile<T>);
 
 export type {
-  VirtualGridBind, VirtualGridCellBind, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
-  VirtualGridSelection,
+  VirtualGridBind, VirtualGridCellBind, VirtualGridDensity, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
+  VirtualGridSelection, VirtualGridTrailing,
 };

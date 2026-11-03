@@ -1,10 +1,9 @@
 /* @layer renderer-components @kind logic */
-import { DRAG_THRESHOLD } from '../VirtualGrid.constants';
+import { DRAG_THRESHOLD } from './reorder.constants';
 import type { PointerEvent } from 'react';
-import type { GridPointerHandlers } from './useGridDrag.type';
-import type { GridPointerInput } from './grid-pointer-handlers.type';
+import type { ThresholdHandlers, ThresholdInput } from './threshold-handlers.type';
 
-const gridPointerHandlers = (input: GridPointerInput): GridPointerHandlers => {
+const thresholdHandlers = <K,>(input: ThresholdInput<K>): ThresholdHandlers => {
   const { raw, start, setStart, setTarget, landing, swallow } = input;
   const reset = () => {
     setStart(null);
@@ -35,4 +34,4 @@ const gridPointerHandlers = (input: GridPointerInput): GridPointerHandlers => {
   };
 };
 
-export { gridPointerHandlers };
+export { thresholdHandlers };

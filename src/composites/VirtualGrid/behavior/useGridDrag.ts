@@ -3,9 +3,9 @@ import { useCallback, useRef, useState } from 'react';
 import { cssZoomOf } from '../../../primitives/dom/css-zoom-of';
 import { contentPoint } from '../../marquee/content-point';
 import { ITEM_SELECTOR } from '../../reorder/reorder-item.constants';
+import { thresholdHandlers } from '../../reorder/threshold-handlers';
 import { useReorderDrag } from '../../reorder/useReorderDrag';
 import { bodyOrigin } from '../../virtual/body-origin';
-import { gridPointerHandlers } from './grid-pointer-handlers';
 import { gridPointAt } from './grid-point-at';
 import type { GridTarget } from './grid-point-at.type';
 import type { GridDrag, UseGridDragInput } from './useGridDrag.type';
@@ -30,11 +30,12 @@ const useGridDrag = <T,>(input: UseGridDragInput<T>): GridDrag => {
     const root = rootRef.current;
     const body = bodyRef.current;
     if (!root || !body) return keys.length;
-    const found = gridPointAt({
+    const reached = gridPointAt({
       layout, heights, tileWidth: tileWidth.current || heights.tile, origin: bodyOrigin(root, body),
       point: contentPoint(root, cssZoomOf(root), { x: point.clientX, y: point.clientY }), sectionKeys, sectioned: sections !== undefined,
       canInto: (section) => sections?.[section]?.onDrop !== undefined,
     });
+    const found = reached.kind === 'gap' && reached.index > keys.length ? { ...reached, index: keys.length } : reached;
     if (!sameTarget(landing.current, found)) setTarget(found);
     landing.current = found;
     return found.kind === 'gap' ? found.index : -1;
@@ -47,7 +48,7 @@ const useGridDrag = <T,>(input: UseGridDragInput<T>): GridDrag => {
     },
   });
 
-  const handlersOf = (item: number) => gridPointerHandlers({ raw: drag.handlers(item), start, setStart, setTarget, landing, swallow });
+  const handlersOf = (item: number) => thresholdHandlers<GridTarget>({ raw: drag.handlers(item), start, setStart, setTarget, landing, swallow });
 
   const swallowClick = () => {
     const held = swallow.current;

@@ -56,6 +56,10 @@ VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at
 - Give a section onDrop(keys) and a header becomes a drop target with an into mark; the drop does not call onMove.
 - Give a section onDropData(dataTransfer) and a header takes a native drop, such as files or items dragged from another widget, with or without reorder; it shows the same into mark and announces the drop, and onDrop and onDropData can both be set.
 - Give a section accepts(dataTransfer) to say which drags the header takes; it runs while the drag is over the header, where only types, kinds and the item count can be read, and the data itself is read in onDropData; leave it out to take every drag.
+- Set density to swatch for small colour chips: the tile has no inner padding, the gap is the space-2xs token, and the tile itself is the focus ring target; tileSize may then be size-16 or size-20.
+- Give trailing, a node or a function of the cell props, to draw one last tile after the final item, such as an add tile; it joins the arrow order and the tab stop, and is not a selectable item.
+- Give onWheelSize(direction) to step the tile size when the user turns the wheel with Ctrl or Meta held; direction is 1 for larger and -1 for smaller, and the page does not zoom.
+- Give ownsKey(event) and return true for a key your own tile handles, so the grid leaves that key alone.
 - For tile sizes in whole steps use stepVirtualSize on tileSize, such as from a slider.
 - Give rowHeight="measured" when tiles hold different amounts of content, such as cards: each row is as tall as its tallest tile, tileHeight becomes the least and the guess for rows not drawn yet, the grid measures the drawn rows and keeps the scroll steady when a row above grows; leave it out for the fixed height, which costs nothing.
 - Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.
@@ -146,6 +150,10 @@ const Library = ({ folders }: { folders: Folder[] }) => (
 - `tileHeight` (optional): `VirtualSize`.
 - `columns` (optional): `number`.
 - `rowHeight` (optional): `VirtualGridRowHeight`, one of `'fixed'`, `'measured'`.
+- `density` (optional): `VirtualGridDensity`, one of `'cell'`, `'swatch'`.
+- `trailing` (optional): `VirtualGridTrailing`.
+- `onWheelSize` (optional): `(direction: 1 | -1) => void`.
+- `ownsKey` (optional): `(event: KeyboardEvent<HTMLElement>) => boolean`.
 - `overscan` (optional): `number`.
 - `selection` (optional): `VirtualGridSelection`.
 - `getLabel` (optional): `(item: T, index: number) => string`.
@@ -165,4 +173,4 @@ const Library = ({ folders }: { folders: Folder[] }) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-focus`, `--c-hairline`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-surface`, `--opacity-muted`, `--radius-md`, `--size-1`, `--size-16`, `--size-2`, `--size-32`, `--size-96`, `--space-lg`, `--space-sm`, `--space-xs`, `--text-sm`, `--vg-cols`, `--vg-depth`, `--vg-headers`, `--vg-heads`, `--vg-row`, `--vg-rows`, `--vg-top`, `--vg-total`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-bg`, `--c-border`, `--c-focus`, `--c-hairline`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-surface`, `--opacity-muted`, `--radius-md`, `--size-1`, `--size-16`, `--size-2`, `--size-32`, `--size-96`, `--space-2xs`, `--space-lg`, `--space-sm`, `--space-xs`, `--text-sm`, `--vg-cols`, `--vg-depth`, `--vg-headers`, `--vg-heads`, `--vg-row`, `--vg-rows`, `--vg-top`, `--vg-total`.

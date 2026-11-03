@@ -5,7 +5,7 @@ import type { VirtualGridCellBind } from '../VirtualGrid.type';
 interface GridCellBindInput {
   index: number;
   column: number;
-  itemKey: string;
+  itemKey?: string;
   tabbable: boolean;
   bare: boolean;
   extras?: Partial<VirtualGridCellBind>;

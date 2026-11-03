@@ -13460,10 +13460,20 @@
         "Press anywhere on the map to centre the frame there; the drag then goes on from that point.",
         "Pass the thumbnail as children, such as an Image or a canvas. It fills the map and takes no pointer events.",
         "step is the distance of one arrow key press in surface units; the default is a twentieth of the larger side. Shift multiplies it by five.",
+        "Pass overlays, a list of { id, rect, kind, label, interactive }, to mark parts of the surface on the map: rect is in surface units, kind is selection, view or region, and each mark is clipped to the surface and drawn at least one pixel wide.",
+        "Overlays are hidden from screen readers; give label as the hover title of an interactive mark, and describe the marks in the describe line.",
+        "Pass onOverlayPress(id) to make marks with interactive set press targets; a press on one does not move the frame.",
+        "Pass onWheelZoom(direction, at) to zoom from the wheel over the map; direction is 1 to zoom in and -1 to zoom out, at is the point under the pointer in surface units, and the page does not scroll.",
+        "Pass onKey(event) to handle a key first, such as Plus and Minus for zoom; return true when you handled it and the frame arrows leave it alone.",
+        "Pass empty, a node, to draw it in place of the map while the surface has no size.",
+        "Pass caption, a node, to draw a line of muted text under the map.",
+        "Pass describe, a short text, to add a line that a screen reader reads with the frame; it is hidden from sight.",
         "The width of the map comes from a class or its parent; its height follows the shape of the surface."
       ],
       "a11y": [
         "The frame is a slider with one Tab stop, named Map or by label.",
+        "The describe text is linked to the frame as its description.",
+        "In forced colours the marks draw with Highlight and CanvasText.",
         "Arrow keys move the frame, Shift makes the step larger, and Page Up and Page Down move it by its own height.",
         "The value text says how far across and down the frame sits, such as Showing 20% to 60% across and 0% to 50% down."
       ],
@@ -13475,7 +13485,7 @@
         "rule": "Navigator draws any large surface as a small map with a frame the user drags, the same way in every editor."
       },
       "example": "import { Image, Navigator } from '@drizztdourden08/tessera';\nimport type { NavigatorViewport } from '@drizztdourden08/tessera';\n\ninterface CanvasMapProps {\n  preview: string;\n  view: NavigatorViewport;\n  setView: (view: NavigatorViewport) => void;\n}\n\nconst CanvasMap = ({ preview, view, setView }: CanvasMapProps) => (\n  <Navigator surface={{ width: 512, height: 512 }} viewport={view} onViewportChange={setView}>\n    <Image src={preview} alt=\"\" fit=\"fill\" pixelated />\n  </Navigator>\n);\n",
-      "propsHash": "7721a8658b4c4fcb",
+      "propsHash": "db0b6782ded5a58c",
       "props": {
         "own": [
           {
@@ -13509,6 +13519,41 @@
             "text": "number"
           },
           {
+            "name": "overlays",
+            "optional": true,
+            "text": "readonly NavigatorOverlay[]"
+          },
+          {
+            "name": "onOverlayPress",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "onWheelZoom",
+            "optional": true,
+            "text": "(direction: 1 | -1, at: NavigatorWheelPoint) => void"
+          },
+          {
+            "name": "onKey",
+            "optional": true,
+            "text": "(event: KeyboardEvent<HTMLElement>) => boolean"
+          },
+          {
+            "name": "empty",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "caption",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "describe",
+            "optional": true,
+            "text": "string"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -13525,11 +13570,15 @@
         "--border-width-thin",
         "--c-border",
         "--c-focus",
+        "--c-hover",
+        "--c-info",
         "--c-primary",
         "--c-primary-soft",
         "--c-sunken",
         "--radius-sm",
-        "--size-160"
+        "--size-1",
+        "--size-160",
+        "--space-xs"
       ],
       "gallery": {
         "title": "Composites · Navigation/Navigator",
@@ -19663,6 +19712,10 @@
         "Give a section onDrop(keys) and a header becomes a drop target with an into mark; the drop does not call onMove.",
         "Give a section onDropData(dataTransfer) and a header takes a native drop, such as files or items dragged from another widget, with or without reorder; it shows the same into mark and announces the drop, and onDrop and onDropData can both be set.",
         "Give a section accepts(dataTransfer) to say which drags the header takes; it runs while the drag is over the header, where only types, kinds and the item count can be read, and the data itself is read in onDropData; leave it out to take every drag.",
+        "Set density to swatch for small colour chips: the tile has no inner padding, the gap is the space-2xs token, and the tile itself is the focus ring target; tileSize may then be size-16 or size-20.",
+        "Give trailing, a node or a function of the cell props, to draw one last tile after the final item, such as an add tile; it joins the arrow order and the tab stop, and is not a selectable item.",
+        "Give onWheelSize(direction) to step the tile size when the user turns the wheel with Ctrl or Meta held; direction is 1 for larger and -1 for smaller, and the page does not zoom.",
+        "Give ownsKey(event) and return true for a key your own tile handles, so the grid leaves that key alone.",
         "For tile sizes in whole steps use stepVirtualSize on tileSize, such as from a slider.",
         "Give rowHeight=\"measured\" when tiles hold different amounts of content, such as cards: each row is as tall as its tallest tile, tileHeight becomes the least and the guess for rows not drawn yet, the grid measures the drawn rows and keeps the scroll steady when a row above grows; leave it out for the fixed height, which costs nothing.",
         "Keep renderItem cheap and free of its own size; the tile cuts what does not fit, and the tile pads its content.",
@@ -19688,7 +19741,7 @@
         "rule": "VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly."
       },
       "example": "import { Button, VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n\nconst Buttons = ({ frames, open }: { frames: Frame[]; open: (frame: Frame) => void }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderTile={(frame, _index, cell) => (\n      <Button {...cell} onClick={() => open(frame)}>{frame.name}</Button>\n    )}\n  />\n);\n\ninterface Folder {\n  key: string;\n  label: string;\n  items: Frame[];\n}\n\nconst Tileset = ({ tiles }: { tiles: Frame[] }) => (\n  <VirtualGrid\n    label=\"Tileset\"\n    items={tiles}\n    getKey={(tile) => tile.id}\n    renderItem={(tile) => tile.name}\n    tileSize=\"size-64\"\n    columns={6}\n  />\n);\n\nconst Library = ({ folders }: { folders: Folder[] }) => (\n  <VirtualGrid\n    label=\"Library\"\n    sections={folders}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileWidth=\"size-128\"\n    tileHeight=\"size-64\"\n    defaultCollapsed={['archive']}\n  />\n);\n",
-      "propsHash": "04d0ec97e7619c62",
+      "propsHash": "e6293d7cc8ddeea1",
       "props": {
         "own": [
           {
@@ -19740,6 +19793,30 @@
               "'fixed'",
               "'measured'"
             ]
+          },
+          {
+            "name": "density",
+            "optional": true,
+            "text": "VirtualGridDensity",
+            "literals": [
+              "'cell'",
+              "'swatch'"
+            ]
+          },
+          {
+            "name": "trailing",
+            "optional": true,
+            "text": "VirtualGridTrailing"
+          },
+          {
+            "name": "onWheelSize",
+            "optional": true,
+            "text": "(direction: 1 | -1) => void"
+          },
+          {
+            "name": "ownsKey",
+            "optional": true,
+            "text": "(event: KeyboardEvent<HTMLElement>) => boolean"
           },
           {
             "name": "overscan",
@@ -19846,6 +19923,7 @@
         "--size-2",
         "--size-32",
         "--size-96",
+        "--space-2xs",
         "--space-lg",
         "--space-sm",
         "--space-xs",
@@ -19875,10 +19953,10 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "A very long list of rows of one height, where only the rows in view are drawn, with the arrow keys to move between them.",
+      "job": "A very long list of rows, usually of one height, where only the rows in view are drawn, with the arrow keys to move between them.",
       "useWhen": [
         "The list has thousands of items, such as a log of events or every file of a folder, and drawing them all would slow the page.",
-        "Every row is the same height and the app draws the content of each row.",
+        "The rows share one height, or each row has a height the app can compute, and the app draws the content of each row.",
         "The user moves through the rows with the keys and the list must scroll to follow."
       ],
       "avoidWhen": [
@@ -19906,6 +19984,15 @@
         "Give selection ({ selected, onChange }) to pick items; the list becomes a multi select listbox with roving focus, and a click, Ctrl, Shift, Ctrl and A, Space, Escape and Shift with an arrow work as in a file manager through useSelectionModel.",
         "Give getLabel(item, index) for type ahead: a typed letter moves focus to the next item whose label starts with it.",
         "Give scrollRef, bind and overlay and call getRects on the ref to let useMarqueeSelect pick items of a strip; with a selection every item carries data-marquee-key.",
+        "Pass itemSize as a function of the index that returns a height in pixels to give each row its own height; the offsets come from a running sum.",
+        "Pass itemSizeKey, a string that changes when the heights change, so the list adds the heights up again without needing a stable function.",
+        "Pass endGutter, in pixels, to leave empty room after the last item so it can scroll clear of a floating control.",
+        "Pass renderOption(item, index, cell) in place of renderItem to draw the whole row yourself; spread cell on your element, since it carries the role, position, selected and current marks, tab stop and key handlers.",
+        "Pass current, the key of one item, to mark it aria-current when it is not the item that holds focus.",
+        "Pass ownsKey(event) and return true for a key your own row handles, so the list leaves that key alone.",
+        "Pass reorder ({ onMove, renderThumbnail, canDrop, dropLabel }) to move rows by dragging or with Alt and an arrow; onMove gets the keys, the gap they land in and the modifier held.",
+        "Return false from canDrop to refuse a move; the mark turns red, data-refused is set and the refusal is announced.",
+        "Return a short text from dropLabel(position, modifier) to show it on the insertion mark, such as Move to 3 or Copy to 3.",
         "Raise overscan for rows that load slowly while the user scrolls fast; the default is 10 rows on each side.",
         "Use onActiveChange to follow the row that holds focus, such as to show its detail beside the list."
       ],
@@ -19913,6 +20000,7 @@
         "The list is a list of items, each with its position and the size of the list, so a reader hears 41 of 5000.",
         "One row is in the tab order; the arrow keys, Home, End, Page Up and Page Down move focus and scroll to it.",
         "A row that holds focus stays drawn when it scrolls out of view, so the keys keep working.",
+        "A move by drag or by Alt and an arrow is announced politely, with the new position of the first moved item.",
         "Keys act only when the row itself has focus, so a field inside a row keeps its own arrow keys.",
         "With a selection the list is a listbox of options that say if they are selected, and a horizontal list says so with aria-orientation."
       ],
@@ -19924,7 +20012,7 @@
         "rule": "VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly."
       },
       "example": "import { VirtualList } from '@drizztdourden08/tessera';\n\ninterface Entry {\n  id: string;\n  text: string;\n}\n\nconst EventLog = ({ entries }: { entries: Entry[] }) => (\n  <VirtualList\n    label=\"Events\"\n    items={entries}\n    getKey={(entry) => entry.id}\n    renderItem={(entry) => entry.text}\n  />\n);\n",
-      "propsHash": "d98943be93cbba02",
+      "propsHash": "c46d068b115473f7",
       "props": {
         "own": [
           {
@@ -19936,11 +20024,6 @@
             "name": "getKey",
             "optional": false,
             "text": "(item: T, index: number) => string"
-          },
-          {
-            "name": "renderItem",
-            "optional": false,
-            "text": "(item: T, index: number) => ReactNode"
           },
           {
             "name": "label",
@@ -19976,7 +20059,32 @@
           {
             "name": "itemSize",
             "optional": true,
-            "text": "VirtualSize"
+            "text": "VirtualListItemSize"
+          },
+          {
+            "name": "itemSizeKey",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "endGutter",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "current",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "ownsKey",
+            "optional": true,
+            "text": "(event: KeyboardEvent<HTMLElement>) => boolean"
+          },
+          {
+            "name": "reorder",
+            "optional": true,
+            "text": "VirtualListReorder<T>"
           },
           {
             "name": "overscan",
@@ -20022,6 +20130,16 @@
             "name": "className",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "renderItem",
+            "optional": true,
+            "text": "(item: T, index: number) => ReactNode | undefined"
+          },
+          {
+            "name": "renderOption",
+            "optional": true,
+            "text": "undefined | (item: T, index: number, cell: VirtualListCellBind) => ReactNode"
           }
         ],
         "inherited": {
@@ -20035,17 +20153,31 @@
         "--border-width-thin",
         "--c-bg",
         "--c-border",
+        "--c-danger",
         "--c-focus",
         "--c-hover",
+        "--c-on-danger",
+        "--c-on-primary",
+        "--c-primary",
         "--c-primary-soft",
+        "--opacity-muted",
         "--radius-md",
+        "--radius-sm",
+        "--size-1",
+        "--size-2",
         "--size-32",
         "--size-40",
         "--size-48",
         "--size-96",
         "--space-sm",
+        "--space-xs",
+        "--text-xs",
         "--vl-count",
-        "--vl-index"
+        "--vl-gutter",
+        "--vl-index",
+        "--vl-size",
+        "--vl-start",
+        "--vl-total"
       ],
       "gallery": {
         "title": "Composites · Lists/VirtualList",
@@ -21370,6 +21502,7 @@
         "Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.",
         "Use scrollTopToShow to find the scroll position that brings a row into view, or scrollTopForSpan for a row of any height with an align of start, center, end or nearest.",
         "For items laid in a row, pass readHorizontalMetrics as readMetrics and place the items by left; the numbers then run along the x axis, and useVirtualFocus takes axis horizontal so the scroll and the pages follow.",
+        "A VirtualSize may be size-16 or size-20 for swatch grids; stepVirtualSize stays on the steps from size-24 up.",
         "stepVirtualSize(size, by) moves a size token along the ordered steps from size-24 to size-256, such as for a slider that sets the size of tiles.",
         "For rows of more than one height, pass readMetrics to measure the heights and rangeOf to give the rows to draw for the scroll position; without them every row has one height."
       ],
@@ -21378,7 +21511,7 @@
         "Give each row its position and the size of the list with aria-posinset and aria-setsize, since the rest are not in the page."
       ],
       "example": "import { useCallback, useRef } from 'react';\nimport { Box, useVirtualWindow } from '@drizztdourden08/tessera';\n\nconst ROW_ATTRIBUTE = 'data-row';\n\nconst Rows = ({ names }: { names: string[] }) => {\n  const rootRef = useRef<HTMLElement>(null);\n  const keyAt = useCallback((index: number) => names[index], [names]);\n  const windowed = useVirtualWindow({ enabled: true, count: names.length, keyAt, rootRef, indexAttribute: ROW_ATTRIBUTE });\n  return (\n    <Box ref={rootRef} onScroll={windowed.onScroll}>\n      <Box ref={windowed.bodyRef} onFocus={windowed.onFocus} onBlur={windowed.onBlur}>\n        {windowed.indices.map((at) => (\n          <Box key={names[at]} {...{ [ROW_ATTRIBUTE]: at }}>{names[at]}</Box>\n        ))}\n      </Box>\n    </Box>\n  );\n};\n",
-      "propsHash": "0bc70eb5720163fe",
+      "propsHash": "f5522b519b099e62",
       "exports": [
         {
           "name": "readHorizontalMetrics",
@@ -21458,7 +21591,7 @@
         {
           "name": "VirtualSize",
           "kind": "type",
-          "text": "type VirtualSize =\n  | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'\n  | 'size-80' | 'size-96' | 'size-128' | 'size-160' | 'size-192' | 'size-224' | 'size-256';"
+          "text": "type VirtualSize =\n  | 'size-16' | 'size-20' | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'\n  | 'size-80' | 'size-96' | 'size-128' | 'size-160' | 'size-192' | 'size-224' | 'size-256';"
         },
         {
           "name": "VirtualWindow",
