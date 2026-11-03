@@ -58,3 +58,7 @@
   display: block;
   min-inline-size: 0;
 }
+
+.inline-edit__text--empty {
+  font-style: italic;
+}
