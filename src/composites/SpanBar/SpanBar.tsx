@@ -5,10 +5,10 @@ import { Box } from '../../primitives/Box';
 import { Pressable } from '../../primitives/Pressable';
 import { tagHueClass } from '../../primitives/tag-hue/tag-hue-class';
 import { cellCount, spanBox } from '../cell-geometry';
-import { ResizeEdges } from '../rect-drag/ResizeEdges';
 import { useSpanDrag } from './behavior/useSpanDrag';
 import { useSpanKeys } from './behavior/useSpanKeys';
-import { SPAN_DEFAULT_MIN_LENGTH, SPAN_EDGES } from './SpanBar.constants';
+import { SpanEdges } from './sub-components/SpanEdges';
+import { SPAN_DEFAULT_MIN_LENGTH } from './SpanBar.constants';
 import type { SpanBarProps } from './SpanBar.type';
 import './SpanBar.css';
 
@@ -49,9 +49,7 @@ const SpanBar = (props: SpanBarProps) => {
       >
         {children}
       </Pressable>
-      {!readOnly && (
-        <ResizeEdges edges={SPAN_EDGES} onPointerDown={(edge, event) => drag.press(edge === 'w' ? 'start' : 'end')(event)} />
-      )}
+      <SpanEdges readOnly={readOnly} press={drag.press} />
     </Box>
   );
 };

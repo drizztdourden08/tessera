@@ -18,4 +18,4 @@ const UNIFORM_CELLS = geometryOf(Array.from({ length: CELL_COUNT }, () => CELL_W
 
 const TIME_CELLS = geometryOf(Array.from({ length: CELL_COUNT }, (_, index) => CELL_WIDTH + (index % 4) * 16));
 
-export { CELL_COUNT, TIME_CELLS, UNIFORM_CELLS };
+export { TIME_CELLS, UNIFORM_CELLS };
