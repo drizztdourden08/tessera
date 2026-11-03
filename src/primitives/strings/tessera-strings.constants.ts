@@ -4,6 +4,7 @@ import { ANCHORED_BAR_STRINGS } from './anchored-bar-strings.constants';
 import { CAROUSEL_STRINGS } from './carousel-strings.constants';
 import { CHART_STRINGS } from './charts-strings.constants';
 import { COLOR_PICKER_STRINGS } from './color-picker-strings.constants';
+import { COMMAND_INPUT_STRINGS } from './command-input-strings.constants';
 import { COMMON_STRINGS } from './common-strings.constants';
 import { CONTROLLER_STRINGS } from './controller-strings.constants';
 import { DATE_STRINGS } from './dates-strings.constants';
@@ -87,6 +88,7 @@ const TESSERA_STRINGS = {
   anchoredBar: ANCHORED_BAR_STRINGS,
   spanBar: SPAN_BAR_STRINGS,
   scrubRuler: SCRUB_RULER_STRINGS,
+  commandInput: COMMAND_INPUT_STRINGS,
 };
 
 export { TESSERA_STRINGS };

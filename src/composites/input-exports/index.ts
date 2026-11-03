@@ -19,7 +19,10 @@ export type { KeyValueEditorProps, KeyValueEntry, KeyValueKind, KeyValueRecord }
 export { FormRow } from '../FormRow';
 export type { FormRowProps } from '../FormRow';
 export { SaveBar, type SaveBarProps, type SaveBarState } from '../SaveBar';
-export { CommandInput, type CommandEntry, type CommandInputProps, type CommandOption, type CommandSubmit } from '../CommandInput';
+export {
+  CommandInput, type CommandEntry, type CommandInputProps, type CommandOption, type CommandParam, type CommandParamKind, type CommandSpec, type CommandSubmit, type CommandValue,
+  type CommandValues,
+} from '../CommandInput';
 export { PasswordInput, type PasswordInputProps, type PasswordMode, type PasswordRule, type PasswordScore, type PasswordStrength, type PasswordStrengthLevel } from '../PasswordInput';
 export { namespacedTag, TagInput, type TagAdvice, type TagInputProps, type TagValidationResult, type TagValidator } from '../TagInput';
 export { MarkdownEditor, type MarkdownEditorActionId, type MarkdownEditorLayout, type MarkdownEditorProps } from '../MarkdownEditor';
