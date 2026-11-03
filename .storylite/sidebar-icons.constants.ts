@@ -52,6 +52,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Primitives · Display': {
     SectionHeader: 'heading-1', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
     EmptyState: 'inbox', Disclosure: 'list-collapse', List: 'list', Table: 'table', Image: 'image', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
+    Avatar: 'user',
+    TypeMark: 'shapes',
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', ToolGroups: 'group', Pressable: 'pointer', Link: 'link' },
   'Primitives · Inputs': {
@@ -60,6 +62,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Select: 'chevrons-up-down', Combobox: 'search', Slider: 'sliders-horizontal',
     TagPicker: 'tags', ColorSwatch: 'paint-bucket',
     DropZone: 'upload', Field: 'form-input', FieldControlBoundary: 'square-dashed', DensityScope: 'rows-3',
+    FileInput: 'file-up',
   },
   'Primitives · Feedback': {
     Spinner: 'loader', ProgressBar: 'battery-medium', ProgressRing: 'circle-dashed', Tooltip: 'message-square',
@@ -106,6 +109,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Rating: 'star',
     Carousel: 'gallery-horizontal',
     Markdown: 'scroll-text',
+    MediaGrid: 'images',
   },
   'Composites · Inputs': {
     DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus',

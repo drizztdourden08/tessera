@@ -1,0 +1,55 @@
+/* @layer renderer-components @kind style */
+.tag-hue {
+  --hue-ink: var(--c-text-dim);
+  --hue-fill: var(--c-text-dim-soft);
+}
+
+.tag-hue--rose {
+  --hue-ink: var(--c-tag-rose);
+  --hue-fill: var(--c-tag-rose-soft);
+}
+
+.tag-hue--orange {
+  --hue-ink: var(--c-tag-orange);
+  --hue-fill: var(--c-tag-orange-soft);
+}
+
+.tag-hue--amber {
+  --hue-ink: var(--c-tag-amber);
+  --hue-fill: var(--c-tag-amber-soft);
+}
+
+.tag-hue--lime {
+  --hue-ink: var(--c-tag-lime);
+  --hue-fill: var(--c-tag-lime-soft);
+}
+
+.tag-hue--green {
+  --hue-ink: var(--c-tag-green);
+  --hue-fill: var(--c-tag-green-soft);
+}
+
+.tag-hue--teal {
+  --hue-ink: var(--c-tag-teal);
+  --hue-fill: var(--c-tag-teal-soft);
+}
+
+.tag-hue--cyan {
+  --hue-ink: var(--c-tag-cyan);
+  --hue-fill: var(--c-tag-cyan-soft);
+}
+
+.tag-hue--blue {
+  --hue-ink: var(--c-tag-blue);
+  --hue-fill: var(--c-tag-blue-soft);
+}
+
+.tag-hue--violet {
+  --hue-ink: var(--c-tag-violet);
+  --hue-fill: var(--c-tag-violet-soft);
+}
+
+.tag-hue--pink {
+  --hue-ink: var(--c-tag-pink);
+  --hue-fill: var(--c-tag-pink-soft);
+}

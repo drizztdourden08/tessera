@@ -49,6 +49,8 @@ MarkdownEditor writes Markdown with a toolbar and a live preview, the same way i
 - Pass onSubmit to send the text on Mod+Enter; it gets the current value.
 - Pass onEscape to leave the editor on Escape; it is not called while a menu or popover is open, or when another part has taken the key.
 - Pass maxLength to stop the text at that length; a counter shows in the last 10 percent of the limit, such as 95 / 100.
+- Pass onImageFiles to take pictures: a paste or a drop of image files, or the image button in the toolbar, calls it with the files and inserts the Markdown it returns at the caret; a placeholder sits there while the promise runs, and is removed when it rejects, so show the reason through error.
+- Pass count to change what the counter counts, such as the text without picture markup; the counter then turns danger above maxLength, and the field no longer stops typing at maxLength.
 - Edits go through the browser, so Undo and Redo keep working after a toolbar button.
 
 ## Accessibility
@@ -90,6 +92,8 @@ const NoteField = ({ openExternal }: { openExternal: (href: string) => void }) =
 - `onSubmit` (optional): `(value: string) => void`.
 - `onEscape` (optional): `() => void`.
 - `maxLength` (optional): `number`.
+- `count` (optional): `(text: string) => number`.
+- `onImageFiles` (optional): `(files: File[]) => Promise<string>`.
 - `autoFocus` (optional): `boolean`. Default `false`.
 - `className` (optional): `string`.
 - `aria-label` (optional): `string`.

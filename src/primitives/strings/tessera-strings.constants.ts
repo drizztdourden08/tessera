@@ -17,6 +17,7 @@ import { ITEM_STRINGS } from './items-strings.constants';
 import { KANBAN_BOARD_STRINGS } from './kanban-board-strings.constants';
 import { LIST_STRINGS } from './lists-strings.constants';
 import { MARKDOWN_EDITOR_STRINGS } from './markdown-editor-strings.constants';
+import { MEDIA_GRID_STRINGS } from './media-grid-strings.constants';
 import { MEDIA_VIEWER_STRINGS } from './media-viewer-strings.constants';
 import { NAVIGATION_STRINGS } from './navigation-strings.constants';
 import { OPTION_STRINGS } from './options-strings.constants';
@@ -73,6 +74,7 @@ const TESSERA_STRINGS = {
   saveBar: SAVE_BAR_STRINGS,
   rating: RATING_STRINGS,
   carousel: CAROUSEL_STRINGS,
+  mediaGrid: MEDIA_GRID_STRINGS,
   mediaViewer: MEDIA_VIEWER_STRINGS,
   controller: CONTROLLER_STRINGS,
   markdownEditor: MARKDOWN_EDITOR_STRINGS,

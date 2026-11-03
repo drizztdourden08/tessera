@@ -219,7 +219,9 @@
             ]
           },
           "a file": {
-            "components": []
+            "components": [
+              "FileInput"
+            ]
           },
           "a path to a file or folder": {
             "components": [
@@ -282,7 +284,10 @@
             "components": []
           },
           "a value that sorts an item into a group": {
-            "components": []
+            "components": [
+              "Avatar",
+              "TypeMark"
+            ]
           },
           "a label and its value": {
             "components": []
@@ -314,6 +319,16 @@
           "a date or a time, such as 5 minutes ago": {
             "components": [
               "DateText"
+            ]
+          },
+          "a row of attention chips that folds what does not fit": {
+            "components": [
+              "SignalStrip"
+            ]
+          },
+          "one cell per step, toned by its outcome": {
+            "components": [
+              "OutcomeStrip"
             ]
           }
         }
@@ -871,7 +886,9 @@
                 "components": []
               },
               "a small framed picture": {
-                "components": []
+                "components": [
+                  "MediaGrid"
+                ]
               },
               "a video": {
                 "components": [
@@ -967,6 +984,156 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "Avatar",
+      "tier": "primitives",
+      "source": "src/primitives/Avatar/Avatar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A small round mark for a person, drawn as one or two initials or an icon on a tinted ground, or as a dashed circle when nobody is assigned.",
+      "useWhen": [
+        "An item card or a list row shows who owns it, in 16 px beside other text.",
+        "A detail pane names the assignee at 24 px.",
+        "The signed-in person must stand out among the rest, so their items carry a ring."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The mark names a kind of thing, not a person.",
+          "use": "TypeMark"
+        },
+        {
+          "case": "The value is a word that sorts an item into a group.",
+          "use": "Tag"
+        }
+      ],
+      "rules": [
+        "Pass label with the name of the person; it is the tooltip and the text a screen reader reads.",
+        "Pass initials, one or two letters, or icon, never both; with neither it draws the unassigned circle.",
+        "Set color to one of the category colours so a person keeps one colour on every screen.",
+        "Set size xs for 16 px on a card and sm for 24 px in a pane.",
+        "Set variant owner for the signed-in person; it draws a ring around the circle."
+      ],
+      "a11y": [
+        "It is an image with the label as its name, and the label shows in a tooltip on hover and focus.",
+        "Colour carries no meaning the label does not give."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "a value that sorts an item into a group"
+        ],
+        "rule": "Avatar answers who an item belongs to with a small round mark."
+      },
+      "example": "import { Avatar } from '@drizztdourden08/tessera';\n\nconst Assignees = () => (\n  <>\n    <Avatar label=\"Wren Archer\" initials=\"WA\" color=\"teal\" />\n    <Avatar label=\"You\" icon=\"user\" color=\"violet\" variant=\"owner\" size=\"sm\" />\n    <Avatar label=\"Unassigned\" />\n  </>\n);\n",
+      "propsHash": "c79e5b8b62a0c33f",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "color",
+            "optional": true,
+            "text": "TagCategoryColor",
+            "literals": [
+              "'rose'",
+              "'orange'",
+              "'amber'",
+              "'lime'",
+              "'green'",
+              "'teal'",
+              "'cyan'",
+              "'blue'",
+              "'violet'",
+              "'pink'"
+            ]
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "AvatarSize",
+            "literals": [
+              "'xs'",
+              "'sm'"
+            ]
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "AvatarVariant",
+            "literals": [
+              "'default'",
+              "'owner'"
+            ]
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "initials",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "icon",
+            "optional": true,
+            "text": "IconName"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-primary",
+        "--c-tag-amber",
+        "--c-tag-amber-soft",
+        "--c-tag-blue",
+        "--c-tag-blue-soft",
+        "--c-tag-cyan",
+        "--c-tag-cyan-soft",
+        "--c-tag-green",
+        "--c-tag-green-soft",
+        "--c-tag-lime",
+        "--c-tag-lime-soft",
+        "--c-tag-orange",
+        "--c-tag-orange-soft",
+        "--c-tag-pink",
+        "--c-tag-pink-soft",
+        "--c-tag-rose",
+        "--c-tag-rose-soft",
+        "--c-tag-teal",
+        "--c-tag-teal-soft",
+        "--c-tag-violet",
+        "--c-tag-violet-soft",
+        "--c-text-dim",
+        "--c-text-dim-soft",
+        "--c-text-muted",
+        "--radius-round",
+        "--size-1",
+        "--size-10",
+        "--size-16",
+        "--size-24",
+        "--size-8",
+        "--weight-semi"
+      ],
+      "gallery": {
+        "title": "Primitives · Display/Avatar",
+        "route": "#/story/primitives-avatar--overview",
+        "file": "stories/primitives/Avatar.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "BackdropLayer",
@@ -1781,6 +1948,93 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "FileInput",
+      "tier": "primitives",
+      "source": "src/primitives/FileInput/FileInput.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A hidden file picker that a button of your own opens, and that hands back the chosen files.",
+      "useWhen": [
+        "A toolbar or menu button should open the system file dialog and take the files it returns.",
+        "The control that opens the dialog is drawn by the caller, not by a drop area."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user drops or pastes files into a visible area.",
+          "use": "DropZone"
+        },
+        {
+          "case": "The user types or browses to a path on disk.",
+          "use": "PathInput"
+        }
+      ],
+      "rules": [
+        "Keep a ref to the input and call click on it from the button that opens the dialog.",
+        "Pass accept as a list of types, such as image/*, to narrow the dialog.",
+        "Pass multiple to let the user choose several files at once.",
+        "onFiles gets the chosen files and is not called when the dialog is cancelled.",
+        "The input is cleared after each choice, so the same file can be picked twice in a row."
+      ],
+      "a11y": [
+        "The input is hidden and out of the tab order; the button that opens it carries the name and the focus."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "a file"
+        ],
+        "rule": "FileInput is the hidden picker behind a button, for a file the user chooses from a dialog."
+      },
+      "example": "import { useRef } from 'react';\nimport { Button, FileInput } from '@drizztdourden08/tessera';\n\nconst AttachButton = ({ onAttach }: { onAttach: (files: File[]) => void }) => {\n  const pick = useRef<HTMLInputElement>(null);\n  return (\n    <>\n      <Button onClick={() => pick.current?.click()}>Attach</Button>\n      <FileInput ref={pick} accept={['image/*']} multiple onFiles={onAttach} />\n    </>\n  );\n};\n",
+      "propsHash": "6041b48c7fadb177",
+      "props": {
+        "own": [
+          {
+            "name": "accept",
+            "optional": true,
+            "text": "string[]"
+          },
+          {
+            "name": "multiple",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "onFiles",
+            "optional": false,
+            "text": "(files: File[]) => void"
+          },
+          {
+            "name": "ref",
+            "optional": true,
+            "text": "Ref<HTMLInputElement>"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Primitives · Inputs/FileInput",
+        "route": "#/story/primitives-fileinput--overview",
+        "file": "stories/primitives/FileInput.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Flex",
@@ -4454,6 +4708,7 @@
         "Set size lead for the 15 px step between the base and large sizes.",
         "Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.",
         "Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.",
+        "Set clamp to a line count to cut longer text with an ellipsis; the full text shows in a tooltip only when it is cut.",
         "Set mono for file names, seeds and addresses, and numeric for times and counts that line up."
       ],
       "a11y": [
@@ -4468,7 +4723,7 @@
         "rule": "Text sets interface copy in a role from the scale, and its members draw each text element."
       },
       "example": "import { Text } from '@drizztdourden08/tessera';\n\nconst SyncLine = () => (\n  <Text.P>\n    <Text variant=\"caption\" tone=\"muted\">Last synced 12 seconds ago</Text>\n    <Text variant=\"caption\" tone=\"faint\"> · Hold Shift to snap</Text>\n  </Text.P>\n);\n",
-      "propsHash": "204cc04ca2c34069",
+      "propsHash": "71d2b3c04fdc32f1",
       "props": {
         "own": [
           {
@@ -4534,6 +4789,11 @@
             "name": "smartTimes",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "clamp",
+            "optional": true,
+            "text": "number"
           },
           {
             "name": "children",
@@ -4868,6 +5128,133 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "TypeMark",
+      "tier": "primitives",
+      "source": "src/primitives/TypeMark/TypeMark.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A small tinted tile that holds an icon in a colour, to mark the type of an item, such as a bug or a story.",
+      "useWhen": [
+        "An item card, a pane title, a tree row or a legend row shows what type the item is.",
+        "Each type keeps one icon and one colour on every screen."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The mark stands for a person.",
+          "use": "Avatar"
+        },
+        {
+          "case": "The value is a word the user can read and filter on.",
+          "use": "Tag"
+        }
+      ],
+      "rules": [
+        "Pass icon with a Tessera icon name and label with the type name; the label is the tooltip and the text a screen reader reads.",
+        "Set color to one of the category colours; the tile takes a tint of it and the icon takes the full colour.",
+        "Set size xs for 16 px in a dense row and sm for 20 px beside a title."
+      ],
+      "a11y": [
+        "It is an image with the label as its name, and the label shows in a tooltip on hover and focus.",
+        "Colour carries no meaning the label does not give."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "a value that sorts an item into a group"
+        ],
+        "rule": "TypeMark answers what kind of thing an item is with a small icon tile."
+      },
+      "example": "import { TypeMark } from '@drizztdourden08/tessera';\n\nconst BugMark = () => <TypeMark icon=\"bug\" label=\"Bug\" color=\"rose\" />;\n",
+      "propsHash": "7bfbc7ed40d2bb21",
+      "props": {
+        "own": [
+          {
+            "name": "icon",
+            "optional": false,
+            "text": "IconName"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "color",
+            "optional": true,
+            "text": "TagCategoryColor",
+            "literals": [
+              "'rose'",
+              "'orange'",
+              "'amber'",
+              "'lime'",
+              "'green'",
+              "'teal'",
+              "'cyan'",
+              "'blue'",
+              "'violet'",
+              "'pink'"
+            ]
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "TypeMarkSize",
+            "literals": [
+              "'xs'",
+              "'sm'"
+            ],
+            "default": "'xs'"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-tag-amber",
+        "--c-tag-amber-soft",
+        "--c-tag-blue",
+        "--c-tag-blue-soft",
+        "--c-tag-cyan",
+        "--c-tag-cyan-soft",
+        "--c-tag-green",
+        "--c-tag-green-soft",
+        "--c-tag-lime",
+        "--c-tag-lime-soft",
+        "--c-tag-orange",
+        "--c-tag-orange-soft",
+        "--c-tag-pink",
+        "--c-tag-pink-soft",
+        "--c-tag-rose",
+        "--c-tag-rose-soft",
+        "--c-tag-teal",
+        "--c-tag-teal-soft",
+        "--c-tag-violet",
+        "--c-tag-violet-soft",
+        "--c-text-dim",
+        "--c-text-dim-soft",
+        "--radius-sm",
+        "--size-16",
+        "--size-20"
+      ],
+      "gallery": {
+        "title": "Primitives · Display/TypeMark",
+        "route": "#/story/primitives-typemark--overview",
+        "file": "stories/primitives/TypeMark.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "VolumeIcon",
@@ -12413,6 +12800,8 @@
         "Pass onSubmit to send the text on Mod+Enter; it gets the current value.",
         "Pass onEscape to leave the editor on Escape; it is not called while a menu or popover is open, or when another part has taken the key.",
         "Pass maxLength to stop the text at that length; a counter shows in the last 10 percent of the limit, such as 95 / 100.",
+        "Pass onImageFiles to take pictures: a paste or a drop of image files, or the image button in the toolbar, calls it with the files and inserts the Markdown it returns at the caret; a placeholder sits there while the promise runs, and is removed when it rejects, so show the reason through error.",
+        "Pass count to change what the counter counts, such as the text without picture markup; the counter then turns danger above maxLength, and the field no longer stops typing at maxLength.",
         "Edits go through the browser, so Undo and Redo keep working after a toolbar button."
       ],
       "a11y": [
@@ -12430,7 +12819,7 @@
         "rule": "MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app."
       },
       "example": "import { useState } from 'react';\nimport { MarkdownEditor } from '@drizztdourden08/tessera';\n\nconst NoteField = ({ openExternal }: { openExternal: (href: string) => void }) => {\n  const [note, setNote] = useState('');\n  return <MarkdownEditor label=\"Note\" value={note} onChange={setNote} onLink={openExternal} />;\n};\n",
-      "propsHash": "671dfd0f6c989c63",
+      "propsHash": "ffa99447b1f13b99",
       "props": {
         "own": [
           {
@@ -12527,6 +12916,16 @@
             "name": "maxLength",
             "optional": true,
             "text": "number"
+          },
+          {
+            "name": "count",
+            "optional": true,
+            "text": "(text: string) => number"
+          },
+          {
+            "name": "onImageFiles",
+            "optional": true,
+            "text": "(files: File[]) => Promise<string>"
           },
           {
             "name": "autoFocus",
@@ -12644,6 +13043,110 @@
         "title": "Composites · Data views/MarqueeBox",
         "route": "#/story/composites-marqueebox--overview",
         "file": "stories/composites/MarqueeBox.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "MediaGrid",
+      "tier": "composites",
+      "source": "src/composites/MediaGrid/MediaGrid.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A grid of picture thumbnails, each with a caption and a small tag for where it came from, that opens a picture when one is clicked.",
+      "useWhen": [
+        "The user browses the pictures of a record or of a whole project and opens one large.",
+        "Each picture needs a caption and a source, such as the item it was attached to."
+      ],
+      "avoidWhen": [
+        {
+          "case": "One picture opens large from a small preview inside a form or a file pane.",
+          "use": "MediaViewer"
+        },
+        {
+          "case": "One slide at a time is shown, with dots or arrows.",
+          "use": "Carousel"
+        },
+        {
+          "case": "The pictures are catalogue items with a price, a rating or actions.",
+          "use": "ItemCard"
+        }
+      ],
+      "rules": [
+        "Pass items as src, caption and source; source is optional and draws as a small tag under the caption.",
+        "onOpen gets the index of the clicked thumbnail; open MediaViewer at that index with the same pictures to give zoom and arrows.",
+        "Leave columns out to fit as many 160 pixel columns as the width allows; pass columns for a fixed count.",
+        "Pass empty to draw something, such as an EmptyState, when items is empty; without it nothing is drawn.",
+        "A thumbnail shows a placeholder while it loads and a broken picture mark when its src fails, and stays clickable.",
+        "Pass aria-label to name the list for a screen reader."
+      ],
+      "a11y": [
+        "The grid is a list and each thumbnail is a button named Open with its caption.",
+        "The thumbnails are in the tab order and show a focus ring."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a picture or a video",
+          "a small framed picture"
+        ],
+        "rule": "MediaGrid shows many pictures as thumbnails that each open large, in the same way in every app."
+      },
+      "example": "import { useState } from 'react';\nimport { MediaGrid, MediaViewer } from '@drizztdourden08/tessera';\n\nconst MediaTab = ({ shots }: { shots: { id: string; url: string; name: string; item: string }[] }) => {\n  const [opened, setOpened] = useState<number | null>(null);\n  return (\n    <>\n      <MediaGrid items={shots.map((shot) => ({ src: shot.url, caption: shot.name, source: shot.item }))} onOpen={setOpened} />\n      <MediaViewer\n        open={opened !== null}\n        items={shots.map((shot) => ({ id: shot.id, kind: 'image', src: shot.url, name: shot.name }))}\n        index={opened ?? 0}\n        onIndexChange={setOpened}\n        onClose={() => setOpened(null)}\n      />\n    </>\n  );\n};\n",
+      "propsHash": "d3d5ffeda6dce563",
+      "props": {
+        "own": [
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly MediaGridItem[]"
+          },
+          {
+            "name": "onOpen",
+            "optional": false,
+            "text": "(index: number) => void"
+          },
+          {
+            "name": "columns",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "empty",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-primary",
+        "--c-sunken",
+        "--radius-md",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Content/MediaGrid",
+        "route": "#/story/composites-mediagrid--overview",
+        "file": "stories/composites/MediaGrid.stories.tsx"
       },
       "parts": []
     },
@@ -13208,6 +13711,125 @@
         "title": "Composites · Inputs/NumberField",
         "route": "#/story/composites-numberfield--overview",
         "file": "stories/composites/NumberField.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "OutcomeStrip",
+      "tier": "composites",
+      "source": "src/composites/OutcomeStrip/OutcomeStrip.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A row of small cells, one per step of a test plan, each toned by its outcome, with the current step outlined and its label on hover.",
+      "useWhen": [
+        "A card or a runner shows how far a list of steps has got and how each one ended.",
+        "The user may jump to a step by pressing its cell."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The steps are numbered stages of one task with a current position.",
+          "use": "Stepper"
+        },
+        {
+          "case": "The row shows parts of one total as proportions.",
+          "use": "StackedBar"
+        }
+      ],
+      "rules": [
+        "Pass steps. A step has an id, an outcome and a label. The strip keeps no state.",
+        "outcome is pass, fail, partial, blocked, skip, pending or current. Pass is green, fail red, partial amber, blocked blue, skip faint and pending an empty cell. Current is an empty cell with an outline.",
+        "size xs is for a card and sm is for a runner. sm is the default.",
+        "The label of a step shows in a tooltip on hover and focus and is the name of the cell.",
+        "Pass onSelect and every cell becomes a button that calls it with the step id. Without it the cells are static.",
+        "The cells wrap to the next line when there are more than the row can hold."
+      ],
+      "a11y": [
+        "With onSelect the strip is a toolbar with one Tab stop, on the current cell or the last one focused. Left and Right arrows, Home and End move between cells; Enter and Space select.",
+        "Without onSelect the strip is a group of images named by their labels.",
+        "The current cell has aria-current step and an outline, so the outcome is not shown by colour alone."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "one cell per step, toned by its outcome"
+        ],
+        "rule": "OutcomeStrip is the row of toned cells that shows how each step of a plan ended."
+      },
+      "example": "import { OutcomeStrip } from '@drizztdourden08/tessera';\n\nconst opened: string[] = [];\nconst openStep = (id: string) => opened.push(id);\n\nconst steps = [\n  { id: 't1', outcome: 'pass', label: 'Sign in' },\n  { id: 't2', outcome: 'fail', label: 'Reset password' },\n  { id: 't3', outcome: 'current', label: 'Change email' },\n  { id: 't4', outcome: 'pending', label: 'Delete account' },\n] as const;\n\nconst Runner = () => <OutcomeStrip aria-label=\"Test plan\" steps={steps} size=\"sm\" onSelect={openStep} />;\n",
+      "propsHash": "06756cb5c719d88e",
+      "props": {
+        "own": [
+          {
+            "name": "steps",
+            "optional": false,
+            "text": "readonly OutcomeStep[]"
+          },
+          {
+            "name": "onSelect",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "OutcomeSize",
+            "literals": [
+              "'xs'",
+              "'sm'"
+            ],
+            "default": "'sm'"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-danger",
+        "--c-danger-bright",
+        "--c-focus",
+        "--c-info",
+        "--c-info-bright",
+        "--c-inset",
+        "--c-primary",
+        "--c-success",
+        "--c-success-bright",
+        "--c-text-dim",
+        "--c-text-dim-soft",
+        "--c-warning",
+        "--c-warning-bright",
+        "--radius-sm",
+        "--size-1",
+        "--size-12",
+        "--size-16",
+        "--size-2",
+        "--size-24",
+        "--size-8",
+        "--space-2xs"
+      ],
+      "gallery": {
+        "title": "Composites · Feedback/OutcomeStrip",
+        "route": "#/story/composites-outcomestrip--overview",
+        "file": "stories/composites/OutcomeStrip.stories.tsx"
       },
       "parts": []
     },
@@ -16099,6 +16721,93 @@
         "title": "Composites · Layout/SidePanel",
         "route": "#/story/composites-sidepanel--overview",
         "file": "stories/composites/SidePanel.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "SignalStrip",
+      "tier": "composites",
+      "source": "src/composites/SignalStrip/SignalStrip.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "One row of small toned chips, each an icon with a count, that never wraps: what does not fit folds into a +N chip whose tooltip lists the hidden ones.",
+      "useWhen": [
+        "A card or a header carries a few attention signals, such as open questions, failing tests or blockers, and must keep to one line.",
+        "Some signals open a place when pressed and others only inform."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A single label or state is shown, with no row of signals.",
+          "use": "Tag"
+        },
+        {
+          "case": "The user picks one of several chips.",
+          "use": "TagPicker"
+        }
+      ],
+      "rules": [
+        "Pass items. An item has an id, an icon, a label, a tone and optionally a count and an onClick. The strip keeps no state.",
+        "tone is danger, warning, info, success or neutral and sets the colour of the chip.",
+        "A chip shows its icon and its count. An item without a count shows its label as text. The label is also the title of the chip.",
+        "An item with onClick is a button chip. An item without it is a static chip.",
+        "The row never wraps. It measures the chips and the room, and what does not fit folds into a +N chip. The tooltip of +N lists the hidden labels.",
+        "max keeps at most that many chips before the +N chip, even when there is room for more.",
+        "An empty items list renders nothing."
+      ],
+      "a11y": [
+        "Pass aria-label to name the row as a group.",
+        "A button chip is a Tab stop and is named by its label. The +N chip is a Tab stop and its tooltip opens on focus.",
+        "Tone is never the only cue: each chip has an icon and a label."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "a row of attention chips that folds what does not fit"
+        ],
+        "rule": "SignalStrip is the one-line row of attention chips that folds the overflow into a +N chip with a tooltip."
+      },
+      "example": "import { SignalStrip } from '@drizztdourden08/tessera';\n\nconst openQuestions = () => undefined;\nconst openTests = () => undefined;\n\nconst items = [\n  { id: 'questions', icon: 'circle-help', count: 2, label: 'Open questions', tone: 'warning', onClick: openQuestions },\n  { id: 'tests', icon: 'flask', count: 1, label: 'Failing tests', tone: 'danger', onClick: openTests },\n  { id: 'quiet', icon: 'moon', label: 'Quiet', tone: 'neutral' },\n] as const;\n\nconst Signals = () => <SignalStrip aria-label=\"Attention\" items={items} />;\n",
+      "propsHash": "abf57c227fe044fe",
+      "props": {
+        "own": [
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly SignalItem[]"
+          },
+          {
+            "name": "max",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--size-4",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Feedback/SignalStrip",
+        "route": "#/story/composites-signalstrip--overview",
+        "file": "stories/composites/SignalStrip.stories.tsx"
       },
       "parts": []
     },

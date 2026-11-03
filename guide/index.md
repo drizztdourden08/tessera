@@ -1,11 +1,12 @@
 # Tessera components
 
-One line per component. 114 of 224 have their usage written; a linked name opens its page.
+One line per component. 120 of 230 have their usage written; a linked name opens its page.
 
 ## Primitives
 
 - `Anchored`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ArmedIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Avatar](components/Avatar.md): A small round mark for a person, drawn as one or two initials or an icon on a tinted ground, or as a dashed circle when nobody is assigned. Import from `@drizztdourden08/tessera`.
 - [BackdropLayer](components/BackdropLayer.md): A layer that fills its positioned parent with an image, a colour or a scene of your own, from one backdrop value. Import from `@drizztdourden08/tessera`.
 - `Badge`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Box](components/Box.md): The plain element every block is built from, with an optional sunken or raised surface for a well or a panel. Import from `@drizztdourden08/tessera`.
@@ -28,6 +29,7 @@ One line per component. 114 of 224 have their usage written; a linked name opens
 - `EmptyState`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Field`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FieldControlBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [FileInput](components/FileInput.md): A hidden file picker that a button of your own opens, and that hands back the chosen files. Import from `@drizztdourden08/tessera`.
 - `Flex`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Floating`: usage not written yet. Not exported; Tessera uses it inside.
 - [FoldText](components/FoldText.md): A block of text clamped to a few lines, with a More control or a hint that reveals the rest, such as the description under a form row. Import from `@drizztdourden08/tessera`.
@@ -86,6 +88,7 @@ One line per component. 114 of 224 have their usage written; a linked name opens
 - [ToolFrame](components/ToolFrame.md): A sunken frame for the thing being worked on, with its toolbar on the top edge, such as an editor, a canvas or a log. Import from `@drizztdourden08/tessera`.
 - [ToolGroups](components/ToolGroups.md): Tools in groups, each under a small label, with a line between groups, for the top bar of a studio or the toolbar of an editor. Import from `@drizztdourden08/tessera`.
 - `Tooltip`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [TypeMark](components/TypeMark.md): A small tinted tile that holds an icon in a colour, to mark the type of an item, such as a bug or a story. Import from `@drizztdourden08/tessera`.
 - `VolumeIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 
 ## Composites
@@ -155,10 +158,12 @@ One line per component. 114 of 224 have their usage written; a linked name opens
 - [Markdown](components/Markdown.md): Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, task lists, tables, bold, italic, strikethrough, links, inline code, code blocks, quotes and rules. Raw HTML is dropped. Import from `@drizztdourden08/tessera`.
 - [MarkdownEditor](components/MarkdownEditor.md): A multi-line field for writing Markdown, with a toolbar for bold, italic, lists, quotes, links and code, and a live preview drawn by Markdown. Import from `@drizztdourden08/tessera`.
 - [MarqueeBox](components/MarqueeBox.md): The rectangle that shows an area being dragged over items to pick them, drawn inside the box that scrolls. Import from `@drizztdourden08/tessera`.
+- [MediaGrid](components/MediaGrid.md): A grid of picture thumbnails, each with a caption and a small tag for where it came from, that opens a picture when one is clicked. Import from `@drizztdourden08/tessera`.
 - [MediaViewer](components/MediaViewer.md): Opens a picture or a video large over the page in a dialog, with zoom by steps, a Fit and actual size switch, dragging to look around, and arrows through a set. Import from `@drizztdourden08/tessera`.
 - [MillerColumns](components/MillerColumns.md): Side by side columns for a nested set, such as folders: picking a folder in one column shows its children in the next, and the pick is shared with the app. A building block. Import from `@drizztdourden08/tessera`.
 - [Navigator](components/Navigator.md): A small map of a large surface, such as a canvas or a long timeline, with a frame that marks the visible part and that the user drags to move the view. Import from `@drizztdourden08/tessera`.
 - [NumberField](components/NumberField.md): A number field you can drag by its label, step with the wheel and the arrow keys, step finely with Shift, walk along a ladder of fixed stops and fill from a menu of quick values. Import from `@drizztdourden08/tessera`.
+- [OutcomeStrip](components/OutcomeStrip.md): A row of small cells, one per step of a test plan, each toned by its outcome, with the current step outlined and its label on hover. Import from `@drizztdourden08/tessera`.
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
@@ -187,6 +192,7 @@ One line per component. 114 of 224 have their usage written; a linked name opens
 - [SideNav](components/SideNav.md): The side list of a window with several sections: a column of icons that a chevron on its edge opens to show the labels. Import from `@drizztdourden08/tessera`.
 - `SideNavLayout`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [SidePanel](components/SidePanel.md): The one side panel of Tessera: a sunken panel beside the main view, with a heading, that the user drags wider or narrower and that folds to a rail. Import from `@drizztdourden08/tessera`.
+- [SignalStrip](components/SignalStrip.md): One row of small toned chips, each an icon with a count, that never wraps: what does not fit folds into a +N chip whose tooltip lists the hidden ones. Import from `@drizztdourden08/tessera`.
 - [SiteFooter](components/SiteFooter.md): The foot of a page of a website: a small logo, one line of text and a few links such as rules, privacy and Discord. Import from `@drizztdourden08/tessera`.
 - [SiteHeader](components/SiteHeader.md): The band at the top of every page of a website: the logo and the site title as the link home, the main links and the signed-in person. Import from `@drizztdourden08/tessera`.
 - [Splash](components/Splash.md): The splash of the static page drawn from React, so the app can show it again, or take over from the static page with no jump. Import from `@drizztdourden08/tessera`.

@@ -6,6 +6,7 @@ import { overviewStory } from '../_template/overview-story';
 import { LONG_NOTE, RELEASE_NOTE } from './_samples/markdown-notes.constants';
 import { MarkdownEditorDemo } from './_samples/MarkdownEditorDemo';
 import { MarkdownListKeysDemo } from './_samples/MarkdownListKeysDemo';
+import { MarkdownMediaDemo } from './_samples/MarkdownMediaDemo';
 import './MarkdownEditor.stories.css';
 
 type MarkdownEditorArgs = {
@@ -81,6 +82,26 @@ const ToolbarEnd = {
   render: () => <MarkdownEditorDemo initial="" layout="tabs" rows={4} decide />,
 } satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
 
+const ImagePaste = {
+  name: 'Paste or drop a picture: a placeholder shows while it uploads',
+  render: () => <MarkdownMediaDemo initial="" />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
+const ImageButton = {
+  name: 'The image button in the toolbar opens a file picker',
+  render: () => <MarkdownMediaDemo initial="A note with a picture to add." />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
+const ImageRefused = {
+  name: 'A refused upload removes the placeholder and shows the error',
+  render: () => <MarkdownMediaDemo initial="" refuse />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
+const TextCounter = {
+  name: 'A counter that counts text only: pictures are left out, over the limit is danger',
+  render: () => <MarkdownMediaDemo initial="![shot.png](img:1) This text is longer than the sixty character limit, so the counter is red." limit={60} />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
 const CODE = `import { useState } from 'react';
 import { MarkdownEditor } from '@drizztdourden08/tessera';
 
@@ -91,7 +112,9 @@ const [note, setNote] = useState('');
 <MarkdownEditor value={note} onChange={setNote} compact />
 <MarkdownEditor value={note} onChange={setNote} preview={false} />
 <MarkdownEditor value={note} onChange={setNote} toolbarEnd={<Button size="sm">Decide</Button>} />
-<MarkdownEditor value={note} onChange={setNote} maxLength={500} onSubmit={send} onEscape={close} />`;
+<MarkdownEditor value={note} onChange={setNote} maxLength={500} onSubmit={send} onEscape={close} />
+<MarkdownEditor value={note} onChange={setNote} onImageFiles={upload} error={uploadError} />
+<MarkdownEditor value={note} onChange={setNote} maxLength={500} count={textLength} />`;
 
 const Overview = overviewStory({
   component: 'MarkdownEditor',
@@ -100,15 +123,15 @@ const Overview = overviewStory({
     'The text is controlled with `value` and `onChange`, like any other field, with `label`, `hint` and `error`.',
     'The toolbar wraps the selection or prefixes its lines, and pressing a button again removes the mark.',
     'Mod+B, Mod+I and Mod+K work in the field; Enter, Tab and Backspace carry a list on; Undo keeps working.',
-    '`onSubmit` takes Mod+Enter, `onEscape` takes Escape, and `maxLength` shows a counter near the limit.',
-    '`layout` is split or tabs, `onLink` takes preview link clicks, `toolbarEnd` adds a node at the toolbar end.',
+    '`onSubmit` takes Mod+Enter, `onEscape` Escape; `maxLength` shows a counter that `count` can change.',
+    '`onImageFiles` takes pasted, dropped or picked pictures; `layout`, `onLink` and `toolbarEnd` shape the rest.',
     '`compact` is a slim toolbar and a 3 row box that grows; `preview={false}` drops the preview for write only.',
   ],
   instead: '[Textarea] for plain text, or [Markdown] to only show a Markdown text.',
   playground: Playground,
-  variants: [Split, Tabs, Compact, WriteOnly, ToolbarEnd, LongDocument, Limited, Keys, ListKeys],
+  variants: [Split, Tabs, Compact, WriteOnly, ToolbarEnd, LongDocument, Limited, TextCounter, ImagePaste, ImageButton, ImageRefused, Keys, ListKeys],
   code: CODE,
 });
 
 export default meta;
-export { Compact, Keys, Limited, ListKeys, LongDocument, Overview, Playground, Split, Tabs, ToolbarEnd, WriteOnly };
+export { Compact, ImageButton, ImagePaste, ImageRefused, Keys, Limited, ListKeys, LongDocument, Overview, Playground, Split, Tabs, TextCounter, ToolbarEnd, WriteOnly };

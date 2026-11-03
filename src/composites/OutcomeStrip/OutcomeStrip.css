@@ -1,0 +1,75 @@
+/* @layer renderer-components @kind style */
+.outcome-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2xs);
+  min-inline-size: 0;
+}
+
+.outcome-strip--xs {
+  --outcome-w: var(--size-12);
+  --outcome-h: var(--size-8);
+}
+
+.outcome-strip--sm {
+  --outcome-w: var(--size-24);
+  --outcome-h: var(--size-16);
+}
+
+.outcome-strip__tip {
+  display: flex;
+  flex: none;
+}
+
+.outcome-strip__cell {
+  --outcome-fill: var(--c-inset);
+  --outcome-edge: var(--c-border);
+
+  display: block;
+  box-sizing: border-box;
+  inline-size: var(--outcome-w);
+  block-size: var(--outcome-h);
+  padding: 0;
+  border: var(--border-width-thin) solid var(--outcome-edge);
+  border-radius: var(--radius-sm);
+  background: var(--outcome-fill);
+}
+
+.outcome-strip__cell--pass {
+  --outcome-fill: var(--c-success);
+  --outcome-edge: var(--c-success-bright);
+}
+
+.outcome-strip__cell--fail {
+  --outcome-fill: var(--c-danger);
+  --outcome-edge: var(--c-danger-bright);
+}
+
+.outcome-strip__cell--partial {
+  --outcome-fill: var(--c-warning);
+  --outcome-edge: var(--c-warning-bright);
+}
+
+.outcome-strip__cell--blocked {
+  --outcome-fill: var(--c-info);
+  --outcome-edge: var(--c-info-bright);
+}
+
+.outcome-strip__cell--skip {
+  --outcome-fill: var(--c-text-dim-soft);
+  --outcome-edge: var(--c-text-dim);
+}
+
+.outcome-strip__cell--current {
+  outline: var(--border-width-thick) solid var(--c-primary);
+  outline-offset: var(--size-1);
+}
+
+button.outcome-strip__cell:hover {
+  --outcome-edge: var(--c-border-strong);
+}
+
+button.outcome-strip__cell:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-focus);
+  outline-offset: var(--size-2);
+}

@@ -6,6 +6,7 @@ import type { TextProps, TextVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+import { Clamped, Figures, Sizes, TitleFace } from './text-type-examples';
 
 type TextVariantChoice = TextVariant | 'none';
 type TextToneChoice = NonNullable<TextProps['tone']>;
@@ -148,41 +149,6 @@ const Tones = {
   ),
 } satisfies StoryLiteStoryDefinition<TextArgs>;
 
-const Sizes = {
-  name: 'The 13 px step',
-  render: () => (
-    <Stack gap="xs">
-      <Text variant="body">Body, 14 px: items found in your world are sent to their owner.</Text>
-      <Text variant="body" size="md">Body with size md, 13 px: items found in your world are sent to their owner.</Text>
-      <Text variant="caption">Caption, 12 px: items found in your world are sent to their owner.</Text>
-    </Stack>
-  ),
-} satisfies StoryLiteStoryDefinition<TextArgs>;
-
-const TitleFace = {
-  name: 'The title face at body size, and the 15 px step',
-  render: () => (
-    <Stack gap="xs">
-      <Text font="title">Body size in the title face: Multiworld session</Text>
-      <Text>Body size in the interface face: Multiworld session</Text>
-      <Text font="title" size="lead">Lead size, 15 px, in the title face: Multiworld session</Text>
-      <Text font="title" smartTimes>Frames of 1920x1080 and 3840x2160</Text>
-    </Stack>
-  ),
-} satisfies StoryLiteStoryDefinition<TextArgs>;
-
-const Figures = {
-  name: 'Code type and tabular figures',
-  render: () => (
-    <Stack gap="xs">
-      <Text variant="overline">Run times</Text>
-      <Text numeric>01:12:08 and 11:47:31</Text>
-      <Text>01:12:08 and 11:47:31, proportional</Text>
-      <Text mono tone="muted">seed 2193847561 · archipelago.gg:38281</Text>
-    </Stack>
-  ),
-} satisfies StoryLiteStoryDefinition<TextArgs>;
-
 const Composed = {
   name: 'Composed block',
   render: () => (
@@ -203,14 +169,14 @@ const Overview = overviewStory({
     'Every element hangs off it by full and short name, such as `Text.P`, `Text.Strong` or `Text.Sc`.',
     '`variant` picks a role: `title`, `subtitle`, `body`, `label`, `caption`, or `overline` over a group.',
     'With no `variant` it takes the size and colour of its parent; `size` sets `md` 13 px or `lead` 15 px.',
-    '`as` swaps the default `<span>` for another element, such as `p` or `label`.',
+    '`as` swaps the default `<span>`; `clamp` cuts the text at that many lines, with all of it in a tooltip.',
     '`weight` and `italic` set the face; `font="title"` the title face; `mono` the code face.',
     '`tone` colours it as on [Span]; `numeric` sets tabular figures; `smartTimes` adds a times sign.',
   ],
   instead: '[Title] for headings.',
   playground: Playground,
-  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Composed],
+  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Clamped, Composed],
 });
 
 export default meta;
-export { AllVariants, Composed, Figures, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };
+export { AllVariants, Clamped, Composed, Figures, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };

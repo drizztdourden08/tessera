@@ -9,6 +9,8 @@ const MARKDOWN_EDITOR_STRINGS = {
   link: 'Link',
   code: 'Inline code',
   codeBlock: 'Code block',
+  image: 'Insert image',
+  uploadingImage: (n: number) => `[Uploading image ${n}]`,
   write: 'Write',
   preview: 'Preview',
   nothingToPreview: 'Nothing to preview',

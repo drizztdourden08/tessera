@@ -1,0 +1,21 @@
+/* @layer renderer-components @kind style */
+.type-mark {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: var(--type-mark-size);
+  height: var(--type-mark-size);
+  border-radius: var(--radius-sm);
+  background: var(--hue-fill);
+  color: var(--hue-ink);
+}
+
+.type-mark--xs {
+  --type-mark-size: var(--size-16);
+}
+
+.type-mark--sm {
+  --type-mark-size: var(--size-20);
+}

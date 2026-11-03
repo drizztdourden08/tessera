@@ -64,3 +64,17 @@
 .text--numeric {
   font-variant-numeric: tabular-nums;
 }
+
+.text--clamp {
+  display: -webkit-box;
+  min-inline-size: 0;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+}
+
+.tooltip-anchor.text-clamp-anchor {
+  display: flex;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+}

@@ -40,6 +40,8 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Canvas', summary: 'A 2D drawing surface for charts and pixel art.' },
         { name: 'Svg', summary: 'Inline SVG pieces for computed drawings.' },
         { name: 'ScaleLabels', summary: 'Labels and ticks along a scale, from a value rule, pairs or a function.' },
+        { name: 'Avatar', summary: 'A small round mark for a person: initials or an icon, a ring for the owner, a dashed circle when unassigned.' },
+        { name: 'TypeMark', summary: 'A small tinted tile with an icon in a colour, to mark the type of an item.' },
       ],
     },
     {
@@ -83,6 +85,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Field', summary: 'A label, hint and error around any input.' },
         { name: 'FieldControlBoundary', summary: 'Keeps the id and error of a Field off the inner inputs of a control made of several.' },
         { name: 'DensityScope', summary: 'Sets compact or comfortable form parts once for a whole panel.' },
+        { name: 'FileInput', summary: 'A hidden file picker that a button of your own opens, and that hands back the chosen files.' },
       ],
     },
     {

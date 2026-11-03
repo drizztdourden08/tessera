@@ -30,6 +30,8 @@ interface MarkdownEditorProps {
   onSubmit?: (value: string) => void;
   onEscape?: () => void;
   maxLength?: number;
+  count?: (text: string) => number;
+  onImageFiles?: (files: File[]) => Promise<string>;
   autoFocus?: boolean;
   className?: string;
   'aria-label'?: string;
@@ -53,9 +55,12 @@ interface MarkdownEditorKeysInput {
   onShortcut: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
 }
 
+type MarkdownEditorCounterTone = 'muted' | 'warning' | 'danger';
+
 interface MarkdownEditorCounterProps {
-  count: number;
+  value: string;
   max: number;
+  count?: (text: string) => number;
 }
 
 interface TextEdit {
@@ -83,6 +88,12 @@ interface MarkdownEditorToolbarProps {
   onAction: (id: MarkdownEditorActionId) => void;
   toggle?: MarkdownEditorPreviewToggle;
   end?: ReactNode;
+  onImages?: (files: File[]) => void;
+}
+
+interface MarkdownEditorImageButtonProps {
+  disabled: boolean;
+  onFiles: (files: File[]) => void;
 }
 
 interface MarkdownEditorPreviewToggleProps {
@@ -128,6 +139,6 @@ interface MarkdownEditorPreviewProps {
 
 export type {
   MarkdownEditorActionButtonProps, MarkdownEditorActionId, MarkdownEditorActionSpec, MarkdownEditorLayout, MarkdownEditorListStyle,
-  MarkdownEditorCounterProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode, MarkdownEditorModeOptions,
+  MarkdownEditorCounterProps, MarkdownEditorCounterTone, MarkdownEditorImageButtonProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode, MarkdownEditorModeOptions,
   MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorPreviewToggleProps, MarkdownEditorProps, MarkdownEditorTabsProps, MarkdownEditorToolbarProps, TextEdit,
 };

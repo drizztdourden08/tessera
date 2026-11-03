@@ -7,21 +7,16 @@ const ACTIONS = {
     'one action': {
       question: 'What does the action look like?',
       answers: {
-        'a visible word': null, 'an icon only': null,
-        'irreversible, on a row': null,
-        'irreversible, for a whole view': null,
-        'goes to a URL': null, 'copies a text': null,
-        'tries a failed step again': null,
-        'a whole area the user presses': null, 'a main action with a menu of related ones': null,
+        'a visible word': null, 'an icon only': null, 'irreversible, on a row': null,
+        'irreversible, for a whole view': null, 'goes to a URL': null, 'copies a text': null,
+        'tries a failed step again': null, 'a whole area the user presses': null, 'a main action with a menu of related ones': null,
       },
     },
     'several related buttons': {
       question: 'How do the buttons relate?',
       answers: {
-        'only one can be on': null,
-        'each on or off by itself': null,
-        'peer actions on one thing, read as one tool': null,
-        'separate decisions, with space between': null,
+        'only one can be on': null, 'each on or off by itself': null,
+        'peer actions on one thing, read as one tool': null, 'separate decisions, with space between': null,
         'too many, or secondary': null,
         'actions on one item, folding into More when narrow': null, 'tools in groups, each under a small label': null, 'tools in a row or column, with hints and options': null,
       },
@@ -36,8 +31,7 @@ const VALUES = {
       question: 'What shape is it?',
       answers: {
         'one line of text': null, 'several lines of text': null, 'a number typed in': null,
-        'a number stepped up or down': null, 'text that follows a pattern': null, 'free words, as tags': null,
-        'structured data, as JSON': null, 'Markdown text, with a live preview': null,
+        'a number stepped up or down': null, 'text that follows a pattern': null, 'free words, as tags': null, 'structured data, as JSON': null, 'Markdown text, with a live preview': null,
         'a command, with its history': null, 'text shown as text, edited in place on click': null,
       },
     },
@@ -45,8 +39,7 @@ const VALUES = {
       question: 'How many options are there?',
       answers: { 'a few, all in view': null, 'many, in a list': null, 'many, found by typing': null },
     },
-    'several choices': null,
-    'several choices from a long list': null, 'a number with named steps': null, 'pairs of a name and a value': null,
+    'several choices': null, 'several choices from a long list': null, 'a number with named steps': null, 'pairs of a name and a value': null,
     'a short list of items with the same few fields': null,
     'on or off': {
       question: 'When does the change apply?',
@@ -56,15 +49,13 @@ const VALUES = {
       question: 'Where does the picker sit?',
       answers: { 'in the page': null, 'behind a swatch button': null },
     },
-    'a range': null, 'a colour from a palette': null, 'a colour from a ramp of steps': null,
-    'a file': null,
+    'a range': null, 'a colour from a palette': null, 'a colour from a ramp of steps': null, 'a file': null,
     'a path to a file or folder': null,
     'a whole record': {
       question: 'What happens to the record?',
       answers: { 'edit it in place': null, 'create one in the page': null, 'create one in a dialog': null },
     },
-    'several settings, behind one button': null,
-    'the label and help around an input': null, 'smaller form parts for a whole panel': null,
+    'several settings, behind one button': null, 'the label and help around an input': null, 'smaller form parts for a whole panel': null,
     'one option in a long form, with a reset': null, 'a long form split into tabs': null, 'one of nine anchor points': null,
   },
 } as const;
@@ -75,7 +66,7 @@ const STATUS = {
     'the state something is in': null, 'a count, or a dot for news': null, 'a value that sorts an item into a group': null,
     'a label and its value': null, 'terms and what they mean': null, 'a colour sample': null, 'a key or a shortcut': null,
     'a list of keys and what they do': null, 'a value to copy, such as an address or a key': null, 'a score in stars, or a rating to give': null,
-    'a date or a time, such as 5 minutes ago': null,
+    'a date or a time, such as 5 minutes ago': null, 'a row of attention chips that folds what does not fit': null, 'one cell per step, toned by its outcome': null,
   },
 } as const;
 
@@ -125,11 +116,9 @@ const LAYOUT = {
 const FEEDBACK = {
   question: 'What are you telling the user?',
   answers: {
-    'work is running, length unknown': null, 'progress toward an end, as a bar': null,
-    'progress toward an end, in a small round space': null, 'a short message that passes': null,
+    'work is running, length unknown': null, 'progress toward an end, as a bar': null, 'progress toward an end, in a small round space': null, 'a short message that passes': null,
     'a note that stays on the page': null, 'a note in a bubble with a tail': null, 'nothing is here yet': null, 'a hint for what is under the pointer': null,
-    'a part of the page failed': null, 'something failed to load, with Retry': null, 'a long job with steps, a log or a failure': null,
-    'the app is starting, or starting again': null,
+    'a part of the page failed': null, 'something failed to load, with Retry': null, 'a long job with steps, a log or a failure': null, 'the app is starting, or starting again': null,
     'the results of a list of checks': null, 'a question that blocks one region until it is answered': null,
     'what blocks a save, with a jump to each field': null, 'whether the edits are saved, with Save and Discard': null,
   },
@@ -138,10 +127,8 @@ const FEEDBACK = {
 const SCREENS = {
   question: 'What is the screen for?',
   answers: {
-    'working across pages, picked from a side list': null,
-    'an informational window with no tools, such as About or credits': null,
-    'one short task with a status, such as an update check': null,
-    'one big custom surface, such as calibration': null,
+    'working across pages, picked from a side list': null, 'an informational window with no tools, such as About or credits': null,
+    'one short task with a status, such as an update check': null, 'one big custom surface, such as calibration': null,
   },
 } as const;
 
@@ -157,8 +144,7 @@ const DATA = {
   question: 'What data are you showing?',
   answers: {
     'rows and columns to sort and filter': null, 'a small table of facts that is only read': null, 'a flat table of rows that drops columns as it narrows': null, 'filters over a collection': null,
-    'a list the user adds to, renames and deletes from': null,
-    'a list the user reorders, with on and off icons on each row': null,
+    'a list the user adds to, renames and deletes from': null, 'a list the user reorders, with on and off icons on each row': null,
     'one record, compact and read only': null, 'a row in a list, with its actions': null, 'a stream of log lines': null,
     'items of a catalogue, as cards': null, 'one item as a tile with a picture, a name and corner marks': null, 'the seats of a lobby, taken, open or to add': null, 'cards in columns the user drags between, such as tasks by state': null,
     'files, with their size, date, open and reveal': null,
@@ -167,8 +153,7 @@ const DATA = {
     'a chart': {
       question: 'What should the chart show?',
       answers: {
-        'a trend over recent samples': null, 'one value against its limit': null,
-        'a headline number with its trend': null, 'a whole split into parts': null,
+        'a trend over recent samples': null, 'one value against its limit': null, 'a headline number with its trend': null, 'a whole split into parts': null,
       },
     },
     'a picture or a video': {

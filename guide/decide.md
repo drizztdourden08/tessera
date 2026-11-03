@@ -56,7 +56,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A range: no component yet.
   - A colour from a palette: [ChoiceGrid](components/ChoiceGrid.md). ChoiceGrid is the strip or grid of cells where one is picked; draw each cell as a ColorSwatch for a palette.
   - A colour from a ramp of steps: [RampStrip](components/RampStrip.md). RampStrip is the ordered row of shades of one ramp, with a caption on each step.
-  - A file: no component yet.
+  - A file: [FileInput](components/FileInput.md). FileInput is the hidden picker behind a button, for a file the user chooses from a dialog.
   - A path to a file or folder: [PathInput](components/PathInput.md). PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
     - Edit it in place: no component yet.
@@ -71,7 +71,9 @@ Start at the first question and pick the answer that fits. Each answer leads to 
 - A status, a count or a label. **What does it show?**
   - The state something is in: [Status](components/Status.md). Status draws one word in the tone of its state; with a table from defineStatuses, a state reads the same on every screen.
   - A count, or a dot for news: no component yet.
-  - A value that sorts an item into a group: no component yet.
+  - A value that sorts an item into a group:
+    - [Avatar](components/Avatar.md). Avatar answers who an item belongs to with a small round mark.
+    - [TypeMark](components/TypeMark.md). TypeMark answers what kind of thing an item is with a small icon tile.
   - A label and its value: no component yet.
   - Terms and what they mean: no component yet.
   - A colour sample: no component yet.
@@ -80,6 +82,8 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A value to copy, such as an address or a key: [CopyValue](components/CopyValue.md). CopyValue keeps the value selectable and puts the copy button at its end, with the same check and announcement as every copy.
   - A score in stars, or a rating to give: [Rating](components/Rating.md). Rating shows an average in half stars with its count, and with onChange is the star picker.
   - A date or a time, such as 5 minutes ago: [DateText](components/DateText.md). DateText formats a moment with the browser's Intl, in the app's locale, and keeps relative, calendar and elapsed text up to date from shared timers, paused while the page is hidden.
+  - A row of attention chips that folds what does not fit: [SignalStrip](components/SignalStrip.md). SignalStrip is the one-line row of attention chips that folds the overflow into a +N chip with a tooltip.
+  - One cell per step, toned by its outcome: [OutcomeStrip](components/OutcomeStrip.md). OutcomeStrip is the row of toned cells that shows how each step of a plan ended.
 - Something over the page. **What sits over the page?**
   - A hint on hover or focus: no component yet.
   - A question the user must answer: [Dialog](components/Dialog.md). Dialog holds a message and a confirm and a cancel button, and takes its width from its content within the size.
@@ -212,7 +216,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - A whole split into parts: [StackedBar](components/StackedBar.md). StackedBar shows how one total splits into named parts, in a single bar.
   - A picture or a video. **Which one?**
     - A picture that holds its box: no component yet.
-    - A small framed picture: no component yet.
+    - A small framed picture: [MediaGrid](components/MediaGrid.md). MediaGrid shows many pictures as thumbnails that each open large, in the same way in every app.
     - A video: [Video](components/Video.md). Video draws its bar over the video in white on black in every theme, and keeps its speed menu and volume inside the frame so they work in full screen.
   - Controller or keyboard input. **What about the input?**
     - A keyboard with keys marked: no component yet.
