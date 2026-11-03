@@ -1,5 +1,13 @@
 # @drizztdourden08/tessera
 
+## 0.98.0
+
+### Minor Changes
+
+- 97ddf89: `TypeMark` gains `variant`, `'tile'` (default) or `'outline'`. The outline shows only the icon in the category colour, with no tile, border or padding, and its box is the icon size. `Avatar` gains a picture face, `src`, which fills the shape and is cropped to it with `label` as alt text; if the picture fails to load, the initials of the label show instead. `Avatar` also gains `shape`, `'circle'` (default) or `'square'`, and the new types `AvatarShape` and `TypeMarkVariant` are exported (I-94).
+- eb524e3: `SidePanel` gains `railSize`, `'default'` or `'slim'`. A slim folded rail is only the dashed line and its chevron, `--side-panel-rail-slim-w` wide, with no title, action or icons. `PaneRail` takes the same `size` in its `rail` prop. `LogPanel` side filters now fold to the slim strip, and the lines beside the filters keep an inline gutter of the new token `--pane-edge-overhang` (half of `--collapse-toggle-d`), so the chevron no longer covers the time of a row. In `Widget`, tab chips are now an inline flex row, so the icon sits level with the label and a small gap separates them (I-93).
+- dec8591: A card head row can now be one 16 px line without local CSS: `IconButton` gains size `2xs` (a 16 px square, token `--control-h-2xs`, with a 24 px hit area), `Text` gains `leading="16"` (token `--leading-16`), and `Icon` gains `hue`, which colours the glyph with a category colour of `Tag` (I-92).
+
 ## 0.97.0
 
 ### Minor Changes

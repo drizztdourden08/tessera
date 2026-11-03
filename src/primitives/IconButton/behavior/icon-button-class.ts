@@ -9,6 +9,7 @@ const iconButtonClass = (input: IconButtonClassInput): string => {
     variant !== 'ghost' && variant !== 'quiet' && 'icon-btn--toned',
     tone && `icon-btn--tone-${tone}`,
     `icon-btn--${size}`,
+    size === '2xs' && 'hit-area',
     active && 'icon-btn--active',
     mixed && 'icon-btn--mixed',
     loading && 'icon-btn--loading',

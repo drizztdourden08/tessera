@@ -67,6 +67,10 @@
   --side-panel-width: var(--side-nav-w);
 }
 
+.side-panel--rail-slim.side-panel--collapsed .side-panel__pane {
+  --side-panel-width: var(--side-panel-rail-slim-w);
+}
+
 .side-panel__pane > .side-panel__rail {
   display: grid;
   grid-template-rows: minmax(var(--size-40), auto) minmax(0, 1fr);

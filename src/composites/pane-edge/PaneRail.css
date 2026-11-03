@@ -107,3 +107,12 @@
   rotate: none;
   writing-mode: horizontal-tb;
 }
+
+.pane-rail--slim {
+  inline-size: 100%;
+  padding: 0;
+}
+
+.pane-rail--slim > * {
+  display: none;
+}

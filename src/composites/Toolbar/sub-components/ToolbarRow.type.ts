@@ -1,8 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ComponentProps, ReactNode } from 'react';
 import type { Button } from '../../../primitives/Button';
-import type { IconButtonSize } from '../../../primitives/IconButton/IconButton.type';
-import type { ToolbarItemBase } from '../Toolbar.type';
+import type { ToolbarItemBase, ToolbarSize } from '../Toolbar.type';
 
 interface ToolbarRowKeysProps {
   shortcut: ToolbarItemBase['shortcut'];
@@ -18,7 +17,7 @@ interface ToolbarRowProps {
   label: string;
   description: string | undefined;
   shortcut: ToolbarItemBase['shortcut'];
-  size: IconButtonSize;
+  size: ToolbarSize;
   attributes: ComponentProps<typeof Button>;
 }
 

@@ -57,6 +57,10 @@
   font-weight: var(--weight-semi);
 }
 
+.text--leading-16 {
+  line-height: var(--leading-16);
+}
+
 .text--mono {
   font-family: var(--font-mono);
 }

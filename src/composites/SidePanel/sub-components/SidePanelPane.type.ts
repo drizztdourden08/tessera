@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import type { HeadingLevel } from '../../../primitives/Title/Title.type';
 import type { PaneFold } from '../../pane-edge/pane-fold.type';
 import type { PanelContainerConfig } from '../../PanelContainer/PanelContainer.type';
-import type { SidePanelSide } from '../SidePanel.type';
+import type { SidePanelRailSize, SidePanelSide } from '../SidePanel.type';
 
 interface SidePanelPaneProps {
   id: string;
@@ -13,6 +13,7 @@ interface SidePanelPaneProps {
   showTitle: boolean;
   action: ReactNode;
   railItems: ReactNode[];
+  railSize: SidePanelRailSize;
   containers: PanelContainerConfig[];
   fold: PaneFold;
 }

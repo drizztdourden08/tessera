@@ -36,6 +36,16 @@ const Folded = {
   render: () => <OutlinePanelSample folded />,
 } satisfies StoryLiteStoryDefinition<SidePanelArgs>;
 
+const SlimRail = {
+  name: 'A slim rail: folded to the dashed line and its chevron',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">railSize slim. Folded, each panel is only the dashed line and the round button; the title, action and icons are not drawn.</Text>
+      <OutlinePanelSample folded railSize="slim" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<SidePanelArgs>;
+
 const DragToFold = {
   name: 'Drag to fold: pull a panel narrower than its minimum, then drag it out again',
   render: () => (
@@ -62,16 +72,16 @@ const Overview = overviewStory({
   points: [
     'The body sits on the sunken surface; the heading names the panel and holds `actions`.',
     'A thin line runs down its inner edge, with the round [CollapseToggle] beside it, level with the heading.',
-    'Every panel resizes by drag or arrow keys; pulled under its minimum it folds, and the rail drags open.',
-    'Folded, it is a 60 px rail: a reserved action slot, the title written sideways, then `railItems`, such as icons.',
-    'A glow around a rail icon spreads past the rail; `side="end"` mirrors the line, the toggle and the title.',
-    '`width`, `minWidth` and `maxWidth` set the width; `storageKey` keeps it and the fold.',
+    'Drag or arrow keys resize it from `width`, `minWidth` and `maxWidth`; `storageKey` keeps the width and fold.',
+    'Under its minimum it folds to a 60 px rail you drag open: an action slot, a sideways title, `railItems`.',
+    '`side="end"` mirrors the line, the toggle and the title; a glow around a rail icon spreads past the rail.',
+    '`railSize="slim"` folds it to the line and its button alone, about 12 px wide, with no title, action or icons.',
   ],
   instead: '[ListDetailLayout] for a list beside its detail; [StudioLayout] for a list, an editor and an inspector.',
   playground: Playground,
-  variants: [Open, Folded, DragToFold, Controls, ControlsFolded],
+  variants: [Open, Folded, SlimRail, DragToFold, Controls, ControlsFolded],
   code: SIDE_PANEL_CODE,
 });
 
 export default meta;
-export { Controls, ControlsFolded, DragToFold, Folded, Open, Overview, Playground };
+export { Controls, ControlsFolded, DragToFold, Folded, Open, Overview, Playground, SlimRail };

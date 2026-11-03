@@ -38,7 +38,7 @@ const SaveSlotTools = ({ slot, onLoad, onSave, onDelete }: { slot: string; onLoa
   </>
 );
 `,
-  propsHash: 'dbad7a84d57edcd8',
+  propsHash: 'fcbf4f70ca8d46ac',
 } satisfies ComponentUsage;
 
 export { usage };

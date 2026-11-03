@@ -34,6 +34,7 @@ Text sets interface copy in a role from the scale, and its members draw each tex
 - Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.
 - Set size md for the 13 px step between the small and base sizes, such as a dense row of values; with no size the variant sets it.
 - Set size lead for the 15 px step between the base and large sizes.
+- Set leading 16 to fix the line height at 16 px, so a caption in a card head row stays one 16 px line beside a 2xs IconButton and an Icon with a hue.
 - Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.
 - Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.
 - Set clamp to a line count to cut longer text with an ellipsis; the full text shows in a tooltip only when it is cut.
@@ -63,6 +64,7 @@ const SyncLine = () => (
 - `variant` (optional): `TextVariant`, one of `'body'`, `'label'`, `'title'`, `'subtitle'`, `'caption'`, `'overline'`.
 - `size` (optional): `TextSize`, one of `'md'`, `'lead'`.
 - `font` (optional): `TextFont`.
+- `leading` (optional): `TextLeading`.
 - `tone` (optional): `TextTone | 'faint'`, one of `'danger'`, `'dim'`, `'faint'`, `'info'`, `'muted'`, `'primary'`, `'secondary'`, `'success'`, `'tertiary'`, `'warning'`.
 - `mono` (optional): `boolean`.
 - `numeric` (optional): `boolean`.
@@ -78,7 +80,7 @@ It also takes the 277 attributes it inherits through `HTMLAttributes<HTMLElement
 
 ## Tokens
 
-It draws on `--c-danger`, `--c-info`, `--c-primary-text`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--c-warning`, `--font-mono`, `--font-title`, `--text-base`, `--text-lead`, `--text-lg`, `--text-md`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--weight-semi`.
+It draws on `--c-danger`, `--c-info`, `--c-primary-text`, `--c-secondary`, `--c-success`, `--c-tertiary`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--c-warning`, `--font-mono`, `--font-title`, `--leading-16`, `--text-base`, `--text-lead`, `--text-lg`, `--text-md`, `--text-sm`, `--text-xs`, `--tracking-caps`, `--weight-semi`.
 
 ## Also exported from this folder
 

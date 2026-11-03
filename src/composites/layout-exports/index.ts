@@ -3,7 +3,7 @@ export { HeaderAnchorNav, type HeaderAnchorNavItem, type HeaderAnchorNavProps } 
 export { ListDetailLayout, type ListDetailLayoutProps } from '../ListDetailLayout';
 export { PanelContainer, type PanelContainerConfig, type PanelContainerProps } from '../PanelContainer';
 export { CollapseToggle, type CollapseToggleProps, type CollapseToggleSide } from '../CollapseToggle';
-export { SidePanel, type SidePanelProps, type SidePanelSide } from '../SidePanel';
+export { SidePanel, type SidePanelProps, type SidePanelRailSize, type SidePanelSide } from '../SidePanel';
 export { StudioLayout, type StudioLayoutBar, type StudioLayoutPanel, type StudioLayoutProps } from '../StudioLayout';
 export { SplitPane, type CollapsedSide, type SplitOrientation, type SplitPaneProps } from '../SplitPane';
 export { ResizeHandle, usePaneSize, type PaneSize, type PaneSizeHandle, type PaneSizeOptions, type FoldSide, type HandleFold, type ResizeChange, type ResizeHandleEdge, type ResizeHandleProps } from '../ResizeHandle';
