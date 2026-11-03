@@ -35,6 +35,7 @@
 
 .document-tabs__menu {
   display: flex;
+  align-self: center;
   align-items: center;
   flex: none;
   padding-inline: var(--space-xs);
