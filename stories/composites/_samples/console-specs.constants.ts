@@ -45,7 +45,7 @@ const CONSOLE_SPECS: readonly CommandSpec[] = [
   },
   {
     id: 'countdown', label: 'Countdown', icon: 'hash', group: 'Room', description: 'Count down before the room starts',
-    pattern: '/countdown {seconds:number 1..60 "Seconds"}',
+    pattern: '/countdown {seconds:number? 1..60 "Seconds"}',
   },
   {
     id: 'save', label: 'Save', icon: 'save', group: 'Room', description: 'Write the room to its save file',

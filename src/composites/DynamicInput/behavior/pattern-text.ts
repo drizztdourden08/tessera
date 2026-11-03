@@ -8,7 +8,10 @@ const partText = (part: PatternPart, value: PatternValue): string => {
   return String(value[part.slot.name] ?? '');
 };
 
+const isSkipped = (part: PatternPart, value: PatternValue): boolean =>
+  part.kind === 'slot' && part.slot.optional === true && partText(part, value).trim() === '';
+
 const patternText = (parsed: ParsedPattern, value: PatternValue): string =>
-  parsed.parts.map((part) => partText(part, value)).join('');
+  parsed.parts.reduce((text, part) => (isSkipped(part, value) ? text.trimEnd() : text + partText(part, value)), '');
 
 export { patternText };

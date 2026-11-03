@@ -173,6 +173,11 @@
   color: var(--c-text-muted);
 }
 
+.dynamic-input .dynamic-input__segment--optional .dynamic-input__slot::placeholder,
+.dynamic-input__segment--optional .dynamic-input__placeholder {
+  color: var(--c-text-faint);
+}
+
 .dynamic-input__placeholder {
   color: var(--c-text-muted);
   font-weight: var(--weight-normal);

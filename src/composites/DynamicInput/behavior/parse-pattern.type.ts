@@ -32,6 +32,7 @@ interface PatternSlotSpec {
   aliases?: Readonly<Record<string, string>>;
   fill?: boolean;
   muted?: boolean;
+  optional?: boolean;
 }
 
 type PatternPart =

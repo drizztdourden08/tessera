@@ -21,14 +21,18 @@ const applyArgs = (base: PatternSlotSpec, args: readonly string[]): SlotRead => 
   return finishSlot(spec, problems);
 };
 
+const OPTIONAL_MARK = '?';
+
 const readSlot = (body: string): SlotRead => {
   const colon = body.indexOf(':');
   if (colon <= 0) return { slot: null, problems: [PATTERN_PROBLEMS.badSlot(body)] };
   const name = body.slice(0, colon).trim();
   if (!SLOT_NAME.test(name)) return { slot: null, problems: [PATTERN_PROBLEMS.badName(name)] };
-  const [type = '', ...args] = splitArgs(body.slice(colon + 1));
+  const [kind = '', ...args] = splitArgs(body.slice(colon + 1));
+  const optional = kind.endsWith(OPTIONAL_MARK);
+  const type = optional ? kind.slice(0, -OPTIONAL_MARK.length) : kind;
   if (!isSlotType(type)) return { slot: null, problems: [PATTERN_PROBLEMS.unknownType(name, type, SLOT_TYPES.join(', '))] };
-  return applyArgs({ name, type }, args);
+  return applyArgs(optional ? { name, type, optional } : { name, type }, args);
 };
 
 export { readSlot };

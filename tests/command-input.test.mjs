@@ -2,6 +2,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { addToHistory } from '../src/composites/CommandInput/behavior/add-to-history';
 import { commandKey } from '../src/composites/CommandInput/behavior/command-key';
+import { specReady } from '../src/composites/CommandInput/behavior/spec-ready';
 import { readStoredHistory } from '../src/composites/CommandInput/behavior/stored-history';
 import { walkHistory } from '../src/composites/CommandInput/behavior/walk-history';
 import { writeStored } from '../src/primitives/dom/write-stored';
@@ -90,5 +91,14 @@ describe('K1 CommandInput storageKey', { tags: ['critical'] }, () => {
     expect(readStoredHistory('bad')).toEqual([]);
     expect(readStoredHistory('broken')).toEqual([]);
     expect(readStoredHistory('missing')).toEqual([]);
+  });
+});
+
+describe('K1 CommandInput optional pattern slots', { tags: ['critical'] }, () => {
+  const spec = { id: 'countdown', label: 'Countdown', icon: 'hash', pattern: '/countdown {seconds:number? 1..60} {room:text}' };
+
+  it('is ready with an optional slot empty and not with a required one empty', () => {
+    expect(specReady(spec, { room: 'main' })).toBe(true);
+    expect(specReady(spec, { seconds: 5 })).toBe(false);
   });
 });
