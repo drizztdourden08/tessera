@@ -69,7 +69,7 @@ const ToolRail = ({ tool, pick, undo }: ToolRailProps) => {
   return <Toolbar label="Drawing tools" orientation="vertical" items={items} />;
 };
 `,
-  propsHash: 'fc73f995248992da',
+  propsHash: '26cc3b329a62a35c',
 } satisfies ComponentUsage;
 
 export { usage };

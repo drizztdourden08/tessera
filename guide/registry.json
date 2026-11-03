@@ -20090,7 +20090,7 @@
         "rule": "Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them."
       },
       "example": "import { Toolbar } from '@drizztdourden08/tessera';\nimport type { ToolbarItem } from '@drizztdourden08/tessera';\n\ninterface ToolRailProps {\n  tool: string;\n  pick: (tool: string) => void;\n  undo: () => void;\n}\n\nconst ToolRail = ({ tool, pick, undo }: ToolRailProps) => {\n  const items: ToolbarItem[] = [\n    { kind: 'toggle', id: 'pencil', label: 'Pencil', icon: 'pencil', description: 'Draw one pixel at a time.', shortcut: 'P', pressed: tool === 'pencil', onChange: () => pick('pencil') },\n    { kind: 'toggle', id: 'eraser', label: 'Eraser', icon: 'eraser', description: 'Clear pixels.', shortcut: 'E', pressed: tool === 'eraser', onChange: () => pick('eraser') },\n    { kind: 'separator', id: 'tools-end' },\n    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', shortcut: 'Ctrl+Z', onSelect: undo },\n  ];\n  return <Toolbar label=\"Drawing tools\" orientation=\"vertical\" items={items} />;\n};\n",
-      "propsHash": "fc73f995248992da",
+      "propsHash": "26cc3b329a62a35c",
       "props": {
         "own": [
           {
@@ -20124,12 +20124,11 @@
           {
             "name": "size",
             "optional": true,
-            "text": "IconButtonSize",
+            "text": "ToolbarSize",
             "literals": [
-              "'2xs'",
-              "'xs'",
+              "'md'",
               "'sm'",
-              "'md'"
+              "'xs'"
             ]
           },
           {

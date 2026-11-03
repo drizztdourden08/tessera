@@ -2,7 +2,7 @@
 import { useContext } from 'react';
 import { Icon as Iconify } from '@iconify/react/offline';
 import '../../../theme/tag-hue.css';
-import '../Icon.css';
+import './IconBase.css';
 import { useTesseraOverride } from '../../TesseraProvider/behavior/useTesseraOverride';
 import { iconDataFor } from '../behavior/icon-data-for';
 import { IconFitContext } from '../behavior/icon-fit-context';
