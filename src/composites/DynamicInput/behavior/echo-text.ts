@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind util */
 import { choiceOptions } from './choice-options';
 import { choiceText } from './choice-text';
+import { freeValue } from './free-value';
 import { SLOT_KINDS } from './slot-kinds.constants';
 import type { PatternField } from './pattern-field.type';
 
@@ -10,7 +11,7 @@ const echoText = (name: string, key: string | undefined, field: PatternField): s
   const value = field.value[name];
   if (slot.type !== 'choice') return SLOT_KINDS[slot.type].show(value, slot);
   const choice = choiceOptions(slot, field.setup.lists, field.value).find((option) => option.value === value);
-  if (choice === undefined) return '';
+  if (choice === undefined) return key === undefined ? freeValue(slot, value) : '';
   return key === undefined ? choiceText(choice) : choice[key] ?? '';
 };
 

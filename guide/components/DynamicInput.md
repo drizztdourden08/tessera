@@ -39,6 +39,8 @@ DynamicInput reads a pattern of slots, so a time, an address or a lobby code is 
 - Pass validate on a slot or on the pattern, from the value to a message or nothing. A message turns the field invalid and shows under it.
 - Make a list a function of the value, such as lists={{ item: (value) => itemsOf(value.player) }}, so its choices follow another slot; a choice the new list no longer offers is cleared.
 - An empty slot reaches validate as null. Return nothing for it unless the slot is required.
+- Add search to a choice slot with a long list, such as {player:choice @players search}: typing filters the options and Enter takes the first match. Add free instead to also keep typed text that no option matches, such as a name the list does not have.
+- A whole value pasted into any slot, such as ABCD-1234 or 192.168.0.1:8080, fills every slot when it fits the pattern. Separators and letter case are ignored, a choice matches by value or label, and a value a slot rejects leaves the paste in the one slot.
 - The invalid prop wins over validate, and a Field with an error shows its own message.
 
 ## Accessibility
@@ -91,7 +93,7 @@ const LobbyCode = () => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-soft`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-primary-text`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--leading-normal`, `--listbox-attach`, `--listbox-columns`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--shadow-dropdown`, `--size-1`, `--size-14`, `--size-16`, `--size-192`, `--size-2`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--weight-normal`, `--weight-semi`, `--z-popover`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-soft`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-primary-text`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--leading-normal`, `--listbox-attach`, `--listbox-columns`, `--listbox-gap-rows`, `--listbox-row-size`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--shadow-dropdown`, `--size-1`, `--size-14`, `--size-16`, `--size-192`, `--size-2`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--weight-normal`, `--weight-semi`, `--z-popover`, `--z-sticky`.
 
 ## Also exported from this folder
 

@@ -1,14 +1,14 @@
 /* @layer renderer-components @kind util */
 import type { KeyboardEvent } from 'react';
 import type { CaretPlace } from './pattern-field.type';
-import type { TypedKeyContext } from './typed-segment.type';
+import type { SegmentParams } from './typed-segment.type';
 
-const go = (context: TypedKeyContext, event: KeyboardEvent, index: number, place: CaretPlace): boolean => {
+const go = (context: SegmentParams, event: KeyboardEvent, index: number, place: CaretPlace): boolean => {
   if (context.field.moveTo(index, place)) event.preventDefault();
   return true;
 };
 
-const edgeKey = (context: TypedKeyContext, event: KeyboardEvent<HTMLInputElement>): boolean => {
+const edgeKey = (context: SegmentParams, event: KeyboardEvent<HTMLInputElement>): boolean => {
   const { selectionStart, selectionEnd, value } = event.currentTarget;
   const collapsed = selectionStart === selectionEnd;
   const { index } = context;

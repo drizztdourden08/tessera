@@ -6,6 +6,7 @@ import type { ListboxDrop } from './listbox-drop.type';
 import type { ListboxModel } from './listbox-state.type';
 import type { DataAttributes } from '../dom/data-attributes.type';
 import type { ControlSize } from '../field-control/field-control.type';
+import type { RowRange } from '../../data/row-window';
 
 interface ListboxView<T> {
   model: ListboxModel<T>;
@@ -17,7 +18,7 @@ interface ListboxView<T> {
   onPick: (entry: ListboxEntry<T>) => void;
 }
 
-type GridStyle = CSSProperties & Record<'--listbox-columns', string>;
+type GridStyle = CSSProperties & Record<'--listbox-columns', string> & Partial<Record<'--listbox-row-size', string>>;
 
 type DropStyle = CSSProperties & Partial<Record<'--listbox-attach' | '--listbox-space', string>>;
 
@@ -33,11 +34,18 @@ interface ListboxGroupProps<T> {
   view: ListboxView<T>;
   block: ListboxBlock<T>;
   position: number;
+  range?: RowRange;
+}
+
+interface OptionPlace {
+  position: number;
+  size: number;
 }
 
 interface ListboxOptionProps<T> {
   view: ListboxView<T>;
   entry: ListboxEntry<T>;
+  place?: OptionPlace;
 }
 
 interface ListboxOptionBodyProps<T> {

@@ -9,4 +9,6 @@ const LETTER_A = 'A'.charCodeAt(0);
 
 const NO_CHOICES: readonly PatternChoice[] = [];
 
-export { LETTER_A, NO_CHOICES, REGION_CODE, REGIONAL_LETTER_A };
+const MAIN_BUTTON = 0;
+
+export { LETTER_A, MAIN_BUTTON, NO_CHOICES, REGION_CODE, REGIONAL_LETTER_A };

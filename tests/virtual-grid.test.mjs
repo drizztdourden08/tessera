@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 import { gridColumns } from '../src/composites/VirtualGrid/behavior/grid-columns';
 import { gridLayout } from '../src/composites/VirtualGrid/behavior/grid-layout';
 import { nextCell } from '../src/composites/VirtualGrid/behavior/next-cell';
-import { visibleRange } from '../src/composites/virtual/visible-range';
+import { visibleRange } from '../src/data/row-window/visible-range';
 import { sizeVariable } from '../src/composites/virtual/size-variable';
 
 const flat = (count, columns = 5) => gridLayout([{ header: false, count, collapsed: false }], columns);

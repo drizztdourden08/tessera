@@ -69,6 +69,8 @@ type MenuIntensity = 'strong' | 'medium' | 'subtle';
 
 type MenuSize = 'xs' | 'sm' | 'md';
 
+type MenuTriggerSize = MenuSize | '2xs';
+
 type MenuItemSize = 'default' | 'roomy';
 
 type MenuIconSide = 'start' | 'end';
@@ -107,7 +109,7 @@ interface AnchoredMenuProps extends MenuBaseProps {
 
 interface TriggerMenuProps extends MenuBaseProps {
   trigger: MenuTrigger;
-  size?: MenuSize;
+  size?: MenuTriggerSize;
   align?: DropAlign;
   disabled?: boolean;
   openOnHover?: boolean;
@@ -118,5 +120,5 @@ type DropdownMenuProps = AnchoredMenuProps | TriggerMenuProps;
 
 export type {
   AnchoredMenuProps, DropdownMenuProps, MenuAlign, MenuBaseProps, MenuGroup, MenuHover, MenuIconSide, MenuIntensity, MenuItem, MenuItemIcon, MenuItemKind, MenuItemSize, MenuItemTone,
-  MenuNode, MenuSeparator, MenuSide, MenuSize, MenuTrigger, MenuTriggerIcon, MenuVariant, TriggerMenuProps,
+  MenuNode, MenuSeparator, MenuSide, MenuSize, MenuTrigger, MenuTriggerIcon, MenuTriggerSize, MenuVariant, TriggerMenuProps,
 };

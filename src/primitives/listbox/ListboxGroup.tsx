@@ -1,13 +1,13 @@
 /* @layer renderer-components @kind component */
 import { Divider } from '../Divider';
 import { Span } from '../text-elements';
-import { ListboxOption } from './ListboxOption';
+import { ListboxEntries } from './ListboxEntries';
 import type { ListboxGroupProps } from './listbox-view.type';
 
 const ListboxGroup = <T,>(props: ListboxGroupProps<T>) => {
-  const { view, block, position } = props;
-  const options = block.entries.map((entry) => <ListboxOption key={entry.key} view={view} entry={entry} />);
-  if (block.category === undefined) return <>{options}</>;
+  const { view, block, position, range } = props;
+  const options = <ListboxEntries view={view} block={block} range={range} />;
+  if (block.category === undefined) return options;
   const headerId = `${view.model.listId}-group-${position}`;
 
   return (

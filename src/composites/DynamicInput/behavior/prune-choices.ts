@@ -5,7 +5,7 @@ import type { PatternLists, PatternValue } from '../DynamicInput.type';
 const isStale = (slot: PatternSlotSpec, lists: PatternLists | undefined, value: PatternValue): boolean => {
   const source = slot.list === undefined ? undefined : lists?.[slot.list];
   const current = value[slot.name];
-  if (typeof source !== 'function' || typeof current !== 'string') return false;
+  if (slot.free === true || typeof source !== 'function' || typeof current !== 'string') return false;
   return !source(value).some((choice) => choice.value === current);
 };
 

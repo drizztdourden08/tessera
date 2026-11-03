@@ -1,5 +1,5 @@
 /* @layer stories @kind types */
-import type { PatternRuleMessage, PatternSlotConfigs, PatternValue } from '../../../src/composites';
+import type { PatternLists, PatternRuleMessage, PatternSlotConfigs, PatternValue } from '../../../src/composites';
 
 interface PatternRulesCase {
   key: string;
@@ -8,6 +8,7 @@ interface PatternRulesCase {
   pattern: string;
   initial: PatternValue;
   slots?: PatternSlotConfigs;
+  lists?: PatternLists;
   validate?: (value: PatternValue) => PatternRuleMessage;
 }
 

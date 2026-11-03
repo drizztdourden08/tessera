@@ -10,6 +10,7 @@ import { REGION_OPTIONS } from './_samples/picker-data';
 import { SELECT_CODE } from './_samples/picker-emoji';
 import { PICKER_ARG_TYPES, pickerSizes, pickerStates, pickerVariant } from './_samples/picker-story';
 import { FitSelect } from './_samples/width-demos';
+import { LongGroups, LongList } from './_samples/select-long';
 import { SelectPlayground } from './_samples/select-playground';
 import { TagsCount, TagsFit, TagsOverflow } from './_samples/select-tags';
 import {
@@ -75,6 +76,8 @@ const VARIANTS: readonly Story[] = [
   pickerVariant('Return one property', OneProperty),
   pickerVariant('Async and dynamic list', AsyncList),
   pickerVariant('Options and groups', OptionsAndGroups),
+  pickerVariant('Five thousand options, searchable', LongList),
+  pickerVariant('Five thousand options in groups, up to five', LongGroups),
 ];
 
 const StatefulNativeSelect = (props: { disabled?: boolean; size?: ControlSize }) => {

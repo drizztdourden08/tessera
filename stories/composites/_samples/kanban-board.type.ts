@@ -10,6 +10,12 @@ interface Task extends KanbanCardData {
 
 type TaskColumn = KanbanColumn<Task>;
 
+interface ParentHead {
+  icon: 'bookmark' | 'bug' | 'zap';
+  label: string;
+  code: string;
+}
+
 type BoardWidth = 'full' | 'narrow' | 'phone';
 
 type FoldedColumn = 'none' | 'todo' | 'doing' | 'review' | 'done';
@@ -26,6 +32,7 @@ type KanbanArgs = {
   grip: boolean;
   foldable: boolean;
   stack: boolean;
+  heads: boolean;
 };
 
 interface KanbanDemoProps {
@@ -40,6 +47,7 @@ interface KanbanDemoProps {
   grip?: boolean;
   foldable?: boolean;
   stack?: boolean;
+  heads?: boolean;
 }
 
-export type { FoldedColumn, KanbanArgs, KanbanDemoProps, Task, TaskColumn, TaskTag };
+export type { FoldedColumn, KanbanArgs, KanbanDemoProps, ParentHead, Task, TaskColumn, TaskTag };

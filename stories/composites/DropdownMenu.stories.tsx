@@ -16,6 +16,7 @@ import { DANGER_MENU } from './_samples/data-menu-danger';
 import { DISABLED_MENU } from './_samples/data-menu-disabled';
 import { MenuConfirmDemo } from './_samples/MenuConfirmDemo';
 import { MenuRoomyDemo } from './_samples/MenuRoomyDemo';
+import { MenuSmallTriggerDemo } from './_samples/MenuSmallTriggerDemo';
 import { MenuSelectDemo } from './_samples/MenuSelectDemo';
 import { MenuSliderDemo } from './_samples/MenuSliderDemo';
 import { JoinDemos, MarksDemo, NestedDemo } from './_samples/menu-join-demos';
@@ -94,10 +95,9 @@ const Triggers = {
   ),
 } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
-const RoomyRows = {
-  name: 'Roomy rows: 13 px text and taller items',
-  render: () => <MenuRoomyDemo />,
-} satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+const SmallTrigger = { name: 'Icon trigger at 16 px (2xs) for a row or a card head', render: () => <MenuSmallTriggerDemo /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
+
+const RoomyRows = { name: 'Roomy rows: 13 px text and taller items', render: () => <MenuRoomyDemo /> } satisfies StoryLiteStoryDefinition<MenuDemoArgs>;
 
 const Inside = {
   name: 'Icons, categories, shortcuts and subtitles',
@@ -200,7 +200,7 @@ const Overview = overviewStory({
   description: 'A menu of actions, checks and sub-menus, built from data, that hangs from its own button.',
   points: [
     '`groups` lists the items: a `label`, an `icon` (a name, iconify data, path data or an element), `onSelect`.',
-    '`trigger` draws a [Button], or an [IconButton] with `iconOnly`; its icon keeps its shape while open.',
+    '`trigger` draws a [Button], or an [IconButton] with `iconOnly`; `size="2xs"` makes that one 16 px.',
     '`checked` or `kind="radio"` shows a faint dot that turns into a check or radio; `children` opens a sub-menu.',
     '`tone="danger"` draws Delete red, `kind="confirm"` asks, `kind="slider"` sets a level, `kind="select"` picks.',
     'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
@@ -208,7 +208,7 @@ const Overview = overviewStory({
   ],
   instead: '[CommandPalette] to find any action in the app by name.',
   playground: Playground,
-  variants: [Variants, Triggers, RoomyRows, Inside, IconSources, ColourIcons, Commands, MarkMorph, Confirm, Sliders, Selects, Danger, Disabled, Marks, SubMenus, Nested, Joins],
+  variants: [Variants, Triggers, SmallTrigger, RoomyRows, Inside, IconSources, ColourIcons, Commands, MarkMorph, Confirm, Sliders, Selects, Danger, Disabled, Marks, SubMenus, Nested, Joins],
   states: {
     render: renderState,
     list: [
@@ -223,4 +223,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { ColourIcons, Commands, Confirm, Danger, Disabled, Selects, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SubMenus, Triggers, Variants };
+export { ColourIcons, Commands, Confirm, Danger, Disabled, Selects, Sliders, IconSources, Inside, Joins, MarkMorph, Marks, Nested, Overview, Playground, RoomyRows, SmallTrigger, SubMenus, Triggers, Variants };

@@ -3,7 +3,7 @@ import type { PatternSlotSpec } from './parse-pattern.type';
 
 type SlotArgKey =
   | 'label' | 'list' | 'choices' | 'range' | 'pad' | 'step' | 'max' | 'min' | 'len' | 'places' | 'clock'
-  | 'group' | 'wrap' | 'control' | 'muted' | 'flag' | 'fill' | 'chars' | 'case';
+  | 'group' | 'wrap' | 'control' | 'muted' | 'flag' | 'search' | 'free' | 'fill' | 'chars' | 'case';
 
 interface SlotArg {
   key: SlotArgKey;

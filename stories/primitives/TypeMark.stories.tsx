@@ -67,7 +67,7 @@ const EveryType = {
 } satisfies StoryLiteStoryDefinition<TypeMarkArgs>;
 
 const Outline = {
-  name: 'Outline: the bare icon in the colour',
+  name: 'Outline: the bare icon in the colour, 16 px at xs and 20 px at sm',
   render: () => typeRows('outline'),
 } satisfies StoryLiteStoryDefinition<TypeMarkArgs>;
 
@@ -78,7 +78,7 @@ const Overview = overviewStory({
     '`icon` is a Tessera icon name and `color` one of the ten category colours.',
     'The tile takes a tint of the colour and the icon takes the full colour.',
     '`size` is `xs` at 16 px for dense rows or `sm` at 20 px beside a title.',
-    '`variant="outline"` shows only the icon in the colour, with no tile, at the icon size.',
+    '`variant="outline"` shows only the icon in the colour, with no tile, at the full box: 16 or 20 px.',
     '`label` is the type name; it is the tooltip on hover and the text a screen reader reads.',
   ],
   instead: '[Avatar] for a person, or [Tag] for a value that sorts an item into a group.',

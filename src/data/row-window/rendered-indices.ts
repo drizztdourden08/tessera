@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import type { RowRange } from './virtual.type';
+import type { RowRange } from './row-window.type';
 
 const renderedIndices = (range: RowRange, pinned: number): readonly number[] => {
   const indices: number[] = [];

@@ -35,6 +35,8 @@ const ARG_ROWS: readonly PatternDocRow[] = [
   { key: 'Options', cells: ['A|B|C', 'choice', 'The options, written inline. Use a list for options with spaces, flags or details.'] },
   { key: 'List', cells: ['@name', 'choice', 'The options in lists.name.'] },
   { key: 'Flag', cells: ['flag', 'choice', 'Shows only the flag of the chosen option.'] },
+  { key: 'Search', cells: ['search', 'choice', 'Typing filters the options, for a long list. Enter takes the first match.'] },
+  { key: 'Free', cells: ['free', 'choice', 'Like search, and the typed text is kept as the value when no option is picked.'] },
   { key: 'Length', cells: ['maxN, minN, lenN', 'text', 'The most, the fewest, or exactly N characters.'] },
   { key: 'Characters', cells: ['digits, letters, alnum', 'text', 'The characters the slot takes.'] },
   { key: 'Case', cells: ['upper, lower', 'text', 'Changes the case while typing.'] },

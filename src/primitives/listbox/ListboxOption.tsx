@@ -7,7 +7,7 @@ import { ListboxOptionBody } from './ListboxOptionBody';
 import type { ListboxOptionProps } from './listbox-view.type';
 
 const ListboxOption = <T,>(props: ListboxOptionProps<T>) => {
-  const { view, entry } = props;
+  const { view, entry, place } = props;
   const { model } = view;
   const context = model.contextFor(entry);
   const state = { selected: context.selected, disabled: context.disabled, locked: model.states[entry.index]?.locked === true };
@@ -23,6 +23,8 @@ const ListboxOption = <T,>(props: ListboxOptionProps<T>) => {
         data-active={context.active || undefined}
         data-picked={(!view.multi && state.selected) || undefined}
         aria-selected={state.selected}
+        aria-posinset={place?.position}
+        aria-setsize={place?.size}
         aria-disabled={state.disabled || undefined}
         aria-description={reason}
         onMouseDown={preventTextSelection}

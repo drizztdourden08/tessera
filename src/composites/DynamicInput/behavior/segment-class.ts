@@ -7,6 +7,7 @@ const segmentClass = (slot: PatternSlotSpec, shaded: boolean): string => [
   slot.muted === true ? 'dynamic-input__segment--muted' : '',
   slot.optional === true ? 'dynamic-input__segment--optional' : '',
   slot.fill === true ? 'dynamic-input__segment--fill' : '',
+  slot.search === true ? 'dynamic-input__segment--search' : '',
   shaded ? 'dynamic-input__segment--shaded' : '',
 ].filter(Boolean).join(' ');
 

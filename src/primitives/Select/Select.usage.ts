@@ -23,10 +23,13 @@ const usage = {
     'Pass width="fit" to size the control to its content, or width="narrow" for a 220 px control; TextInput, SearchInput and Combobox take the same prop.',
     'Pass width="narrow-fill" for the 220 px control that fills its row when the nearest container is under 420 px wide; it needs an ancestor with a container type, such as a drawer or a window header.',
     'Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen.',
+    'A list of more than 200 options draws only the rows in view, so a list of thousands opens and scrolls at once. Select, Combobox and the choice slots of DynamicInput share this list.',
+    'In a list that long every row has the height of the first one; an item component of rows with other heights fits a list under 200 options.',
   ],
   a11y: [
     'The trigger is a combobox with a listbox; options are option rows, and a group heading names its block.',
     'The arrow keys, Home and End move through the options, Enter picks, Escape closes and returns focus to the trigger.',
+    'In a long list the active option is always drawn, even far out of view, and each option gives its place and the size of its block.',
   ],
   tree: {
     path: ['a value the user sets', 'one choice', 'many, in a list'],

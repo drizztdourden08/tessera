@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
-import { applyCaret } from './apply-caret';
+import { useFieldNode } from './useFieldNode';
 import type { ChangeEvent } from 'react';
 import type { CaretPlace } from './pattern-field.type';
 import type { TypedDraft, TypedParams } from './typed-segment.type';
@@ -11,7 +11,6 @@ const useTypedDraft = (params: TypedParams): TypedDraft => {
   const [draft, setDraft] = useState<string | null>(null);
   const draftRef = useRef<string | null>(null);
   const typedRef = useRef(false);
-  const nodeRef = useRef<HTMLInputElement | null>(null);
   const caretRef = useRef<CaretPlace | null>(null);
   const seenRef = useRef(value);
 
@@ -28,17 +27,7 @@ const useTypedDraft = (params: TypedParams): TypedDraft => {
     if (typed !== null && kind.read(typed, slot) !== value) writeDraft(kind.edit(value, slot));
   }, [value]);
 
-  useLayoutEffect(() => {
-    const node = nodeRef.current;
-    if (node === null || caretRef.current === null) return;
-    applyCaret(node, caretRef.current);
-    caretRef.current = null;
-  });
-
-  const attach = useCallback((node: HTMLInputElement | null) => {
-    nodeRef.current = node;
-    field.register(index)(node);
-  }, [field.register, index]);
+  const attach = useFieldNode(field, index, caretRef);
 
   const handleFocus = () => {
     const asked = field.caretRef.current;

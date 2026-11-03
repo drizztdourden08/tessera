@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-import type { RowRange, VisibleRangeInput } from './virtual.type';
+import type { RowRange, VisibleRangeInput } from './row-window.type';
 
 const visibleRange = (input: VisibleRangeInput): RowRange => {
   const { scrollTop, viewport, rowHeight, count, overscan } = input;
