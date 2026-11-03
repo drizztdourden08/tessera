@@ -26,6 +26,10 @@ interface TagToggleProps extends TagFrameProps {
   onSelect: () => void;
 }
 
+interface TagButtonProps extends TagFrameProps {
+  onClick: () => void;
+}
+
 interface TagAnchorProps extends TagFrameProps {
   href: string;
   navigate?: (href: string) => void;
@@ -39,4 +43,4 @@ interface TagChipProps extends TagFrameProps {
   onRemove?: () => void;
 }
 
-export type { TagAnchorProps, TagBodyProps, TagChipProps, TagToggleProps };
+export type { TagAnchorProps, TagBodyProps, TagButtonProps, TagChipProps, TagToggleProps };

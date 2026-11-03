@@ -151,6 +151,17 @@ const AsLinks = {
   ),
 } satisfies StoryLiteStoryDefinition<TagArgs>;
 
+const AsButtons = {
+  name: 'As a button: onClick without href',
+  render: () => (
+    <Flex gap="md" align="center" wrap>
+      <Tag onClick={noop} pill icon="signpost" color="primary">Open pane</Tag>
+      <Tag onClick={noop} variant="category" color="teal">Details</Tag>
+      <Tag onClick={noop} disabled>Disabled</Tag>
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<TagArgs>;
+
 const Dotted = {
   name: 'A tone-coloured dot before the label',
   render: () => <TagDottedRow />,
@@ -187,13 +198,13 @@ const Overview = overviewStory({
     'Every tag shares one shape, so the tags of a field, a picker and a list read as one family.',
     '`variant` picks the palette and `color` the hue; `fill` adds a `solid` grey or a `tint` look.',
     '`onRemove` adds a remove button, as in [TagInput]: a 16 px glyph that takes clicks on 24 by 24 px.',
-    '`selected` with `onSelect` makes a toggle chip, as in [TagPicker]; `selectedTone="neutral"` fills it grey.',
+    '`selected` with `onSelect` makes a toggle chip, as in [TagPicker]; `onClick` without `href` makes a button tag.',
     '`variant="custom"` fills it with a hex colour from app data, with black or white text, whichever reads best.',
     '`pill`, `dot`, `icon`, `outlined`, `size="lg"` and `reason` shape it; `smartTimes` draws a times sign.',
   ],
   instead: '[Status] for a word that names a state.',
   playground: Playground,
-  variants: [Variants, Custom, PillIcons, Outlined, Fills, TimesSign, Dotted, AsLinks, Removable, Selectable, NeutralSelected, Fault, OnItems],
+  variants: [Variants, Custom, PillIcons, Outlined, Fills, TimesSign, Dotted, AsLinks, AsButtons, Removable, Selectable, NeutralSelected, Fault, OnItems],
   states: {
     render: renderState,
     list: [
@@ -215,4 +226,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AsLinks, Custom, Dotted, Fault, Fills, NeutralSelected, OnItems, Outlined, Overview, PillIcons, Playground, Removable, Selectable, TimesSign, Variants };
+export { AsButtons, AsLinks, Custom, Dotted, Fault, Fills, NeutralSelected, OnItems, Outlined, Overview, PillIcons, Playground, Removable, Selectable, TimesSign, Variants };

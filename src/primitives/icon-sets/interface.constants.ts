@@ -57,6 +57,8 @@ import toggleLeftIcon from '@iconify-icons/lucide/toggle-left';
 import circleDotIcon from '@iconify-icons/lucide/circle-dot';
 import bracesIcon from '@iconify-icons/lucide/braces';
 import splitIcon from '@iconify-icons/lucide/split';
+import gavelIcon from '@iconify-icons/lucide/gavel';
+import signpostIcon from '@iconify-icons/lucide/signpost';
 import zoomInIcon from '@iconify-icons/lucide/zoom-in';
 import zoomOutIcon from '@iconify-icons/lucide/zoom-out';
 import eraserIcon from '@iconify-icons/lucide/eraser';
@@ -154,6 +156,8 @@ const INTERFACE_ICONS = {
   'flask': flaskConicalIcon,
   'robot': botIcon,
   'book': bookIcon,
+  'gavel': gavelIcon,
+  'signpost': signpostIcon,
 } as const;
 
 export { INTERFACE_ICONS };

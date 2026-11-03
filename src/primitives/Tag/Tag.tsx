@@ -4,6 +4,7 @@ import { tagClass } from './behavior/tag-class';
 import { tagPaint } from './behavior/tag-paint';
 import { TagAnchor } from './sub-components/TagAnchor';
 import { TagBody } from './sub-components/TagBody';
+import { TagButton } from './sub-components/TagButton';
 import { TagChip } from './sub-components/TagChip';
 import { TagToggle } from './sub-components/TagToggle';
 import type { TagProps } from './Tag.type';
@@ -25,6 +26,7 @@ const Tag = (props: TagProps) => {
   };
 
   if (onSelect !== undefined) return <TagToggle {...frame} role={role} selected={selected} onSelect={onSelect} />;
+  if (props.href === undefined && props.onClick !== undefined) return <TagButton {...frame} onClick={props.onClick} />;
   if (href !== undefined) return <TagAnchor {...frame} href={href} navigate={navigate} onClick={onClick} target={target} rel={rel} />;
   return <TagChip {...frame} label={name ?? String(children)} onRemove={onRemove} />;
 };
