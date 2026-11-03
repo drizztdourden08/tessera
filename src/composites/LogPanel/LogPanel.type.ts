@@ -29,6 +29,10 @@ type LogOrder = 'oldest-first' | 'newest-first';
 
 type LogPanelHeight = 'fill' | number;
 
+type LogFilterPlacement = 'top' | 'left' | 'right';
+
+type LogPanelSize = 'md' | 'sm';
+
 interface LogPanelProps {
   rows: readonly LogRow[];
   kinds?: readonly LogKindDef[];
@@ -37,6 +41,8 @@ interface LogPanelProps {
   filters?: readonly FilterClause[];
   onFiltersChange?: (next: readonly FilterClause[]) => void;
   toolbar?: boolean;
+  filterPlacement?: LogFilterPlacement;
+  size?: LogPanelSize;
   copyText?: (shown: readonly LogRow[]) => string;
   countLabel?: string;
   emptyLabel?: string;
@@ -55,4 +61,4 @@ interface LogPanelProps {
   className?: string;
 }
 
-export type { LogKindDef, LogKindTone, LogOrder, LogPanelHeight, LogPanelProps, LogRow };
+export type { LogFilterPlacement, LogKindDef, LogKindTone, LogOrder, LogPanelHeight, LogPanelProps, LogPanelSize, LogRow };

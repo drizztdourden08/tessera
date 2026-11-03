@@ -1,11 +1,14 @@
 /* @layer renderer-components @kind logic */
-import type { LogPanelHeight } from '../LogPanel.type';
+import type { LogPanelProps } from '../LogPanel.type';
+import { isSideFilter } from './is-side-filter';
 
-const logPanelClass = (height: LogPanelHeight | undefined, className: string | undefined): string => [
+const logPanelClass = (props: LogPanelProps): string => [
   'log-panel',
-  height === 'fill' && 'log-panel--fill',
-  typeof height === 'number' && 'log-panel--fixed',
-  className,
+  props.height === 'fill' && 'log-panel--fill',
+  typeof props.height === 'number' && 'log-panel--fixed',
+  props.size === 'sm' && 'log-panel--sm',
+  isSideFilter(props.filterPlacement) && 'log-panel--side',
+  props.className,
 ].filter(Boolean).join(' ');
 
 export { logPanelClass };

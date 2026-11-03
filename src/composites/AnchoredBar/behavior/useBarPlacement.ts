@@ -3,6 +3,7 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { observeAnchorMovement } from '../../../primitives/Portal/behavior/observe-anchor-movement';
 import { BAR_GAP_PROPERTY, BAR_MARGIN_PROPERTY } from '../AnchoredBar.constants';
+import { barBounds } from './bar-bounds';
 import { barOrigin } from './bar-origin';
 import { barPosition } from './bar-position';
 import type { BarSpot } from './bar-position.type';
@@ -24,11 +25,9 @@ const useBarPlacement = (setup: BarPlacementSetup): BarSpot | null => {
     const view = ownerWindowOf(node);
     const style = view.getComputedStyle(node);
     const box = node.getBoundingClientRect();
-    const edge = boundary?.current?.getBoundingClientRect();
-    const bounds = edge ? { left: edge.left, top: edge.top, width: edge.width, height: edge.height } : { left: 0, top: 0, width: view.innerWidth, height: view.innerHeight };
     const placed = barPosition({
       anchor: anchorRect(),
-      bounds,
+      bounds: barBounds(boundary, node, view),
       size: { width: box.width, height: box.height },
       margin: Number.parseFloat(style.getPropertyValue(BAR_MARGIN_PROPERTY)) || 0,
       gap: Number.parseFloat(style.getPropertyValue(BAR_GAP_PROPERTY)) || 0,

@@ -30,6 +30,8 @@ const usage = {
     'While a returned promise is pending a second Enter is ignored, so one line is never sent twice.',
     'Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.',
     'Pass height="fill" inside a box that sets the height, or a number for a fixed height in pixels.',
+    'Set filterPlacement to left or right to move the search, filters, count and Copy all into a narrow column beside the lines.',
+    'Set size="sm" for a compact panel with smaller controls, smaller lines and tighter spacing, such as in a dashboard widget.',
     'minRows keeps at least that many lines visible, default 3 with height fill.',
   ],
   a11y: [
@@ -61,7 +63,7 @@ const ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lin
   );
 };
 `,
-  propsHash: 'd1f7708920ae15bf',
+  propsHash: 'c7eed973200c9e78',
 } satisfies ComponentUsage;
 
 export { usage };

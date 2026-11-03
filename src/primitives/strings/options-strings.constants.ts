@@ -10,6 +10,8 @@ const OPTION_STRINGS = {
   unknownKey: (key: string) => `${key} is not on the list.`,
   noEntries: 'Nothing added yet.',
   changed: 'changed',
+  valueTrue: 'True',
+  valueFalse: 'False',
   advanced: 'advanced',
   groupChanged: (label: string, changed: number) => (changed ? `${label} · ${changed} changed` : label),
   showAdvanced: (count?: number) => (count === undefined ? 'Show advanced' : `Show advanced (${count})`),

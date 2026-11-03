@@ -16,6 +16,7 @@ const usage = {
   rules: [
     'Pass history when the app already keeps the sent commands; otherwise let the input keep its own and pass storageKey to keep it across launches.',
     'Pass commands, as names or with a description, so typing lists the closest ones under the input; Tab or Right completes the active row or the top one.',
+    'Pass commandSpecs to add a picker of every command: a chosen one swaps the line for its fields and sends what its format returns.',
     'Return false from onSubmit when the command was not sent, so the text stays in the line.',
     'Put the replies above the input, such as in a LogPanel, and keep quick commands in actions.',
     'Disable it while there is nothing to send to, and say why in the text near it.',
@@ -36,7 +37,7 @@ const ServerConsole = ({ send }: { send: (command: string) => void }) => (
   <CommandInput placeholder="/players" storageKey="console.history" commands={['/players', '/hint', '/save']} onSubmit={send} />
 );
 `,
-  propsHash: 'd5573deb33ae8153',
+  propsHash: 'f944d1fb7618167a',
 } satisfies ComponentUsage;
 
 export { usage };

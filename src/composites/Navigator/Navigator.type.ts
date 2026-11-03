@@ -28,9 +28,11 @@ interface NavigatorProps {
   children?: ReactNode;
   label?: string;
   step?: number;
+  bigStep?: number;
+  unclamped?: boolean;
   overlays?: readonly NavigatorOverlay[];
   onOverlayPress?: (id: string) => void;
-  onWheelZoom?: (direction: 1 | -1, at: NavigatorWheelPoint) => void;
+  onWheelZoom?: (direction: 1 | -1, at: NavigatorWheelPoint, deltaY: number) => void;
   onKey?: (event: KeyboardEvent<HTMLElement>) => boolean;
   empty?: ReactNode;
   caption?: ReactNode;
@@ -43,9 +45,14 @@ interface KeyMove {
   dy: number;
 }
 
+interface NavigatorSteps {
+  unit: number;
+  bigUnit: number;
+}
+
 interface PercentSpans {
   across: [number, number];
   down: [number, number];
 }
 
-export type { KeyMove, NavigatorOverlay, NavigatorOverlayKind, NavigatorProps, NavigatorSurface, NavigatorViewport, NavigatorWheelPoint, PercentSpans };
+export type { KeyMove, NavigatorOverlay, NavigatorOverlayKind, NavigatorProps, NavigatorSteps, NavigatorSurface, NavigatorViewport, NavigatorWheelPoint, PercentSpans };

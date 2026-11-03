@@ -4,6 +4,7 @@ import { ToolFrame } from '../../primitives/ToolFrame';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { defaultCopy } from './behavior/default-copy';
 import { hasInputRow } from './behavior/has-input-row';
+import { isSideFilter } from './behavior/is-side-filter';
 import { logPanelClass } from './behavior/log-panel-class';
 import { logPanelStyle } from './behavior/log-panel-style';
 import { useLogFilter } from './behavior/useLogFilter';
@@ -17,7 +18,7 @@ import './LogPanel.css';
 const LogPanel = (props: LogPanelProps) => {
   const { panels } = useTesseraStrings();
   const {
-    rows, kinds, className, toolbar = true, ansi, onInput, prompt, inputDisabled, inputPlaceholder,
+    rows, kinds, toolbar = true, filterPlacement, size, ansi, onInput, prompt, inputDisabled, inputPlaceholder,
     countLabel, emptyLabel = panels.logEmpty, toolbarExtra, height, minRows, selectedIds, onSelectionChange, follow, order,
   } = props;
   const copyText = defaultCopy(props);
@@ -27,11 +28,12 @@ const LogPanel = (props: LogPanelProps) => {
 
   return (
     <ToolFrame
-      className={logPanelClass(height, className)}
+      className={logPanelClass(props)}
+      toolbarPlacement={filterPlacement}
       shrink={false}
       style={logPanelStyle(height, minRows)}
       toolbar={toolbar && (
-        <LogToolbar filter={filter} total={rows.length} countLabel={countLabel ?? panels.logNoun(rows.length)} copyText={copyText} extra={toolbarExtra} />
+        <LogToolbar filter={filter} side={isSideFilter(filterPlacement)} size={size} total={rows.length} countLabel={countLabel ?? panels.logNoun(rows.length)} copyText={copyText} extra={toolbarExtra} />
       )}
     >
       {filter.shown.length === 0

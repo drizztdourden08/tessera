@@ -14,6 +14,7 @@ const usage = {
   ],
   rules: [
     'Pass the tools in toolbar, such as ToolGroups or a FilterBar; it sits on the surface colour over a line.',
+    'Pass toolbarPlacement="left" or "right" to put the tools in a narrow column beside the content instead of above it.',
     'Give a SearchInput, Select or Combobox in the toolbar grow={false}, so it keeps a set width and sits on one line with the other tools.',
     'The content scrolls under the toolbar; give the frame a height or a flex parent.',
     'Pass shrink={false} when the frame must never get smaller than its toolbar plus the least its content needs, such as a list with a minimum height in a short flex parent.',
@@ -42,7 +43,7 @@ const ScriptEditor = ({ script, onRun }: { script: ReactNode; onRun: () => void 
   </ToolFrame>
 );
 `,
-  propsHash: 'f9e7b1f0e83b059e',
+  propsHash: '6cc79fc6152cf939',
 } satisfies ComponentUsage;
 
 export { usage };

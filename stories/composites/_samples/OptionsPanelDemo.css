@@ -1,0 +1,12 @@
+/* @layer stories @kind style */
+.options-panel-demo {
+  display: flex;
+  inline-size: var(--size-1024);
+  max-inline-size: 100%;
+}
+
+.options-panel-demo__pool {
+  inline-size: var(--size-224);
+  padding: var(--space-md);
+  border: var(--border-width-thin) solid var(--c-border);
+}
