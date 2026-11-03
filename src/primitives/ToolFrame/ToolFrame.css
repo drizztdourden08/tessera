@@ -22,6 +22,15 @@
   overflow: auto;
 }
 
+.tool-frame--rigid {
+  min-block-size: auto;
+}
+
+.tool-frame__body--rigid {
+  overflow: visible;
+  min-block-size: auto;
+}
+
 .tool-frame__body--padded {
   padding: var(--space-md);
 }

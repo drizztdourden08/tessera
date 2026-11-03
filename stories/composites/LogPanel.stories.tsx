@@ -51,6 +51,7 @@ const LogDemo = (props: LogDemoProps) => {
 
 const LONG_ROWS = longSession(1500);
 const NO_ROWS: LogRow[] = [];
+const ONE_ROW = LOG_ROWS.slice(0, 3);
 const PROBLEMS: readonly FilterClause[] = [createClause('kind', 'anyOf', ['Errors', 'Hints'])];
 
 const TONED_ROWS: readonly LogRow[] = [
@@ -164,6 +165,30 @@ const Heights = {
   ),
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
+const Narrow = {
+  name: 'Narrow, the message wraps below the tag',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">In a 185 px parent the message moves under its tag instead of shrinking.</Text>
+      <Box className="log-panel-story__narrow">
+        <LogPanel rows={ONE_ROW} kinds={LOG_KINDS} height="fill" toolbar={false} className="server-log" />
+      </Box>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
+const ShortParent = {
+  name: 'A short parent, minRows keeps rows visible',
+  render: () => (
+    <Box className="story-column">
+      <Text className="story-label">height="fill" with minRows={'{3}'} in a parent shorter than three rows: the panel keeps its three rows.</Text>
+      <Box className="log-panel-story__short">
+        <LogPanel rows={LOG_ROWS} kinds={LOG_KINDS} height="fill" minRows={3} toolbar={false} className="server-log" />
+      </Box>
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+
 const Kinds = {
   name: 'Fifteen kinds, as a simulator trace',
   render: () => <LogPanel rows={SIM_ROWS} kinds={SIM_KINDS} height={440} className="sim-log" />,
@@ -173,8 +198,6 @@ const Channels = {
   name: 'A colour per channel',
   render: () => <LogPanel rows={CHANNEL_ROWS} kinds={CHANNEL_KINDS} height={200} toolbar={false} className="channel-log" />,
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
-
-const ONE_ROW = LOG_ROWS.slice(0, 3);
 
 const renderState = (props: StateProps) => (
   <Box className="log-panel-story log-panel-story--state">
@@ -212,7 +235,7 @@ const Overview = overviewStory({
     '`ansi` colours escape codes with tokens; `onInput` adds a prompt row, and [[Up]] and [[Down]] walk its history.',
   ],
   playground: ServerLog,
-  variants: [Filtered, LongSession, Arriving, NewestFirst, LineTones, Selecting, BuildLog, Shell, InputStates, Bare, Heights, Kinds, Channels],
+  variants: [Filtered, LongSession, Arriving, NewestFirst, LineTones, Selecting, BuildLog, Shell, InputStates, Bare, Heights, Narrow, ShortParent, Kinds, Channels],
   states: {
     render: renderState,
     list: [
@@ -225,4 +248,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Arriving, Bare, BuildLog, Channels, Filtered, Heights, InputStates, Kinds, LineTones, LongSession, NewestFirst, Overview, Selecting, ServerLog, Shell };
+export { Arriving, Bare, BuildLog, Channels, Filtered, Heights, InputStates, Kinds, LineTones, LongSession, NewestFirst, Narrow, Overview, Selecting, ServerLog, Shell, ShortParent };
