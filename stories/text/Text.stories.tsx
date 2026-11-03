@@ -6,6 +6,7 @@ import type { TextProps, TextVariant } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
+import { Clamped, Figures, Sizes, TitleFace } from './text-type-examples';
 
 type TextVariantChoice = TextVariant | 'none';
 type TextToneChoice = NonNullable<TextProps['tone']>;
@@ -145,58 +146,6 @@ const Tones = {
       rows={axis<TextToneChoice>([...TONES])}
       cell={(tone) => <Text tone={tone}>{tone === 'danger' ? 'The server stopped: port 38281 is taken.' : 'Last synced 12 seconds ago'}</Text>}
     />
-  ),
-} satisfies StoryLiteStoryDefinition<TextArgs>;
-
-const Sizes = {
-  name: 'The 13 px step',
-  render: () => (
-    <Stack gap="xs">
-      <Text variant="body">Body, 14 px: items found in your world are sent to their owner.</Text>
-      <Text variant="body" size="md">Body with size md, 13 px: items found in your world are sent to their owner.</Text>
-      <Text variant="caption">Caption, 12 px: items found in your world are sent to their owner.</Text>
-    </Stack>
-  ),
-} satisfies StoryLiteStoryDefinition<TextArgs>;
-
-const TitleFace = {
-  name: 'The title face at body size, and the 15 px step',
-  render: () => (
-    <Stack gap="xs">
-      <Text font="title">Body size in the title face: Multiworld session</Text>
-      <Text>Body size in the interface face: Multiworld session</Text>
-      <Text font="title" size="lead">Lead size, 15 px, in the title face: Multiworld session</Text>
-      <Text font="title" smartTimes>Frames of 1920x1080 and 3840x2160</Text>
-    </Stack>
-  ),
-} satisfies StoryLiteStoryDefinition<TextArgs>;
-
-const Figures = {
-  name: 'Code type and tabular figures',
-  render: () => (
-    <Stack gap="xs">
-      <Text variant="overline">Run times</Text>
-      <Text numeric>01:12:08 and 11:47:31</Text>
-      <Text>01:12:08 and 11:47:31, proportional</Text>
-      <Text mono tone="muted">seed 2193847561 · archipelago.gg:38281</Text>
-    </Stack>
-  ),
-} satisfies StoryLiteStoryDefinition<TextArgs>;
-
-const Clamped = {
-  name: 'clamp: cut at n lines, a tooltip only when cut',
-  render: () => (
-    <Stack gap="sm">
-      <Box className="story-narrow">
-        <Text as="p" clamp={3}>{SAMPLES.body} {SAMPLES.body} {SAMPLES.body}</Text>
-      </Box>
-      <Box className="story-narrow">
-        <Text as="p" clamp={1}>{SAMPLES.body}</Text>
-      </Box>
-      <Box className="story-narrow">
-        <Text as="p" clamp={3}>Short enough to fit, so no tooltip.</Text>
-      </Box>
-    </Stack>
   ),
 } satisfies StoryLiteStoryDefinition<TextArgs>;
 

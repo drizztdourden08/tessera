@@ -5,7 +5,8 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import { applyQuietly } from './apply-quietly';
 import { applyToTextarea } from './apply-to-textarea';
 import { imageFilesOf } from './image-files';
-import { placeholderEdit, settleEdit } from './image-edits';
+import { placeholderEdit } from './image-edits';
+import { settleEdit } from './settle-edit';
 import type { ImageInsert, ImageInsertOptions } from './useImageInsert.type';
 
 const settle = (area: HTMLTextAreaElement | null, placeholder: string, markdown: string): void => {

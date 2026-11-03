@@ -28,6 +28,6 @@ export { Canvas } from '../Canvas';
 export type { CanvasProps } from '../Canvas';
 export { Svg, SvgLine, SvgCircle, SvgRect, SvgPath, SvgText, SvgPolygon, SvgGroup, SvgClipPath } from '../Svg';
 export { Avatar } from '../Avatar';
-export type { AvatarProps } from '../Avatar';
+export type { AvatarProps, AvatarSize, AvatarVariant } from '../Avatar';
 export { TypeMark } from '../TypeMark';
-export type { TypeMarkProps } from '../TypeMark';
+export type { TypeMarkProps, TypeMarkSize } from '../TypeMark';

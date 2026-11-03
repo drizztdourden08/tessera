@@ -10,7 +10,7 @@ type FileInputArgs = {
 };
 
 const ARG_TYPES: PlaygroundArgTypes<FileInputArgs> = {
-  multiple: { group: 'Behavior', control: 'boolean' },
+  multiple: { group: 'Behaviour', control: 'boolean' },
 };
 
 const meta = {
