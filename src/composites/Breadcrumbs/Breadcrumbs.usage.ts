@@ -17,10 +17,11 @@ const usage = {
     'segments run from the root to the current place, each with an id and a label, and optionally an icon from the set and siblings.',
     'The last segment is the current place and carries aria-current. onNavigate gets the id of the segment that was pressed.',
     'siblings are the menu nodes of a DropdownMenu. A chevron after the segment opens them; leave it out when a segment has no neighbours.',
+    'opensMenu on a segment with siblings makes the whole segment the menu button, for a place that has no page to go to; pressing it opens the siblings and never calls onNavigate.',
     'Pass maxVisible to fold a long trail: the first segment and the last ones stay, and the middle ones sit behind an ellipsis menu. The smallest value is 3.',
     'Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.',
     'Pass onPathSubmit to let the user click the empty space at the end and type the path in a PathInput. path is the text shown there and defaults to the labels joined by a slash.',
-    'trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place.',
+    'trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place. trailingLabel names that group for screen readers, such as Place state; without it the group has no name.',
   ],
   a11y: [
     'The bar is a nav named Breadcrumbs, or by label, and the trail is an ordered list.',
@@ -45,7 +46,7 @@ const FolderBar = ({ trail, open, openPath }: FolderBarProps) => (
   <Breadcrumbs segments={trail} maxVisible={4} onNavigate={open} onPathSubmit={openPath} />
 );
 `,
-  propsHash: '89c306f62e4033c6',
+  propsHash: 'ec9e6b16006f7885',
 } satisfies ComponentUsage;
 
 export { usage };

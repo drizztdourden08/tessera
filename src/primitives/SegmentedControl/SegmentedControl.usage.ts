@@ -17,6 +17,7 @@ const usage = {
     'An icon option takes a hint, and its label reads from it; the icon is a name from the set or any node, such as a pixel icon or a Glyph.',
     'A node passed as icon is drawn as given, so size and colour it yourself; a name is sized by the control.',
     'Pass onDeselect to let a second press on the active option clear the value.',
+    'mixed true hatches the whole control and marks no option as chosen, for picks that differ; a list of values hatches only those options, which are on for some picks. A press on an option calls onChange, even for the current value, and the app then clears mixed.',
     'selectedTone neutral draws the chosen option on a grey fill; accent, the default, keeps the primary highlight.',
     'An option takes a tooltip with an optional description and shortcut, placed by tooltipPlacement; its name is the label or hint.',
     'A disabled option takes a string that says why.',
@@ -49,7 +50,7 @@ const ScalePicker = () => {
   );
 };
 `,
-  propsHash: '86e058e9347f72bf',
+  propsHash: '4236d142a4d8e8c6',
 } satisfies ComponentUsage;
 
 export { usage };

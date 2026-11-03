@@ -2,6 +2,7 @@
 import '../../theme/control-size.css';
 import '../../theme/focus-ring.css';
 import '../../theme/segment-group.css';
+import '../../theme/mixed-hatch.css';
 import './ToggleGroup.css';
 import { toggleValue } from '../field-control/toggle-value';
 import { useControlSize } from '../field-control/useControlSize';

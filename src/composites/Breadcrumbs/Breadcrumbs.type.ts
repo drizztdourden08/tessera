@@ -8,6 +8,7 @@ interface BreadcrumbSegment {
   label: string;
   icon?: IconName;
   siblings?: readonly MenuNode[];
+  opensMenu?: boolean;
 }
 
 interface BreadcrumbsProps {
@@ -19,6 +20,7 @@ interface BreadcrumbsProps {
   path?: string;
   onPathSubmit?: (path: string) => void;
   trailing?: ReactNode;
+  trailingLabel?: string;
   label?: string;
   className?: string;
 }
@@ -50,6 +52,12 @@ interface BreadcrumbItemProps {
   onNavigate: (id: string) => void;
 }
 
+interface BreadcrumbSiblingsProps {
+  label: string;
+  siblings: readonly MenuNode[];
+  named: boolean;
+}
+
 interface BreadcrumbOverflowProps {
   hidden: readonly BreadcrumbSegment[];
   onNavigate: (id: string) => void;
@@ -62,6 +70,6 @@ interface BreadcrumbEditProps {
 }
 
 export type {
-  BreadcrumbEditProps, BreadcrumbItemProps, BreadcrumbOverflowProps, BreadcrumbSegment, BreadcrumbsProps, FoldedSegments, OverSetter, SegmentDrop,
+  BreadcrumbEditProps, BreadcrumbItemProps, BreadcrumbOverflowProps, BreadcrumbSegment, BreadcrumbSiblingsProps, BreadcrumbsProps, FoldedSegments, OverSetter, SegmentDrop,
   SegmentDropHandlers,
 };

@@ -9,8 +9,8 @@ import { useLabelFit } from './behavior/useLabelFit';
 import type { ScaleLabelsProps } from './ScaleLabels.type';
 
 const ScaleLabels = (props: ScaleLabelsProps) => {
-  const { min, max, step = 1, stops, formatValue, labels, orientation = 'horizontal', thin = true, ticks = true, highlight, className } = props;
-  const scale = useMemo(() => ({ min, max: Math.max(min, max), step, stops, formatValue }), [min, max, step, stops, formatValue]);
+  const { min, max, step = 1, stops, formatValue, curve, labels, orientation = 'horizontal', thin = true, ticks = true, highlight, className } = props;
+  const scale = useMemo(() => ({ min, max: Math.max(min, max), step, stops, formatValue, curve }), [min, max, step, stops, formatValue, curve]);
   const points = useMemo(() => resolveScaleLabels(labels, scale), [labels, scale]);
   const ref = useRef<HTMLDivElement>(null);
   const shown = useLabelFit(ref, points.map((point) => point.value).join(' '), orientation, thin);

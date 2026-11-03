@@ -3290,6 +3290,7 @@
         "An icon option takes a hint, and its label reads from it; the icon is a name from the set or any node, such as a pixel icon or a Glyph.",
         "A node passed as icon is drawn as given, so size and colour it yourself; a name is sized by the control.",
         "Pass onDeselect to let a second press on the active option clear the value.",
+        "mixed true hatches the whole control and marks no option as chosen, for picks that differ; a list of values hatches only those options, which are on for some picks. A press on an option calls onChange, even for the current value, and the app then clears mixed.",
         "selectedTone neutral draws the chosen option on a grey fill; accent, the default, keeps the primary highlight.",
         "An option takes a tooltip with an optional description and shortcut, placed by tooltipPlacement; its name is the label or hint.",
         "A disabled option takes a string that says why.",
@@ -3308,7 +3309,7 @@
         "rule": "SegmentedControl is the joined row that picks one of a few values."
       },
       "example": "import { useState } from 'react';\nimport { SegmentedControl } from '@drizztdourden08/tessera';\n\nconst ScalePicker = () => {\n  const [scale, setScale] = useState('2x');\n  return (\n    <SegmentedControl\n      label=\"Window scale\"\n      value={scale}\n      onChange={setScale}\n      options={[\n        { value: '1x', label: '1x' },\n        { value: '2x', label: '2x' },\n        { value: 'fit', label: 'Fit window' },\n      ]}\n    />\n  );\n};\n",
-      "propsHash": "86e058e9347f72bf",
+      "propsHash": "4236d142a4d8e8c6",
       "props": {
         "own": [
           {
@@ -3330,6 +3331,11 @@
             "name": "onDeselect",
             "optional": true,
             "text": "() => void"
+          },
+          {
+            "name": "mixed",
+            "optional": true,
+            "text": "boolean | readonly T[]"
           },
           {
             "name": "onHint",
@@ -3418,6 +3424,7 @@
         "--c-surface",
         "--c-text",
         "--c-text-dim",
+        "--c-text-muted",
         "--control-h-md",
         "--control-h-sm",
         "--control-h-sm-plus",
@@ -3429,6 +3436,8 @@
         "--radius-md",
         "--radius-sm",
         "--size-24",
+        "--size-4",
+        "--size-8",
         "--space-2xs",
         "--space-lg",
         "--space-md",
@@ -5758,7 +5767,7 @@
         "rule": "AngleField is the angle you point with a dial and also type, snapped to round steps."
       },
       "example": "import { useState } from 'react';\nimport { AngleField } from '@drizztdourden08/tessera';\n\nconst Rotation = () => {\n  const [angle, setAngle] = useState(45);\n  return <AngleField label=\"Rotation\" snap={15} value={angle} onChange={setAngle} />;\n};\n",
-      "propsHash": "a9d2e9696afb7a04",
+      "propsHash": "6e37eec7c510ed4d",
       "props": {
         "own": [
           {
@@ -5812,7 +5821,7 @@
           ],
           "extends": [
             "Pick<NumberFieldProps, 'label' | 'size' | 'disabled' | 'mixed' | 'id' | 'aria-label' | 'className'>",
-            "Omit<NumberInputProps, 'value' | 'onChange' | 'onStep' | 'buttons' | 'sizeToContent' | 'start' | 'end'>",
+            "Omit<NumberInputProps, 'value' | 'onChange' | 'onStep' | 'stepDisabled' | 'sizeToContent' | 'start' | 'end'>",
             "Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'size'>"
           ]
         }
@@ -6029,10 +6038,11 @@
         "segments run from the root to the current place, each with an id and a label, and optionally an icon from the set and siblings.",
         "The last segment is the current place and carries aria-current. onNavigate gets the id of the segment that was pressed.",
         "siblings are the menu nodes of a DropdownMenu. A chevron after the segment opens them; leave it out when a segment has no neighbours.",
+        "opensMenu on a segment with siblings makes the whole segment the menu button, for a place that has no page to go to; pressing it opens the siblings and never calls onNavigate.",
         "Pass maxVisible to fold a long trail: the first segment and the last ones stay, and the middle ones sit behind an ellipsis menu. The smallest value is 3.",
         "Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.",
         "Pass onPathSubmit to let the user click the empty space at the end and type the path in a PathInput. path is the text shown there and defaults to the labels joined by a slash.",
-        "trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place."
+        "trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place. trailingLabel names that group for screen readers, such as Place state; without it the group has no name."
       ],
       "a11y": [
         "The bar is a nav named Breadcrumbs, or by label, and the trail is an ordered list.",
@@ -6048,7 +6058,7 @@
         "rule": "Breadcrumbs shows the levels of a path as a trail with neighbour menus, a fold and a path box in one place."
       },
       "example": "import { Breadcrumbs } from '@drizztdourden08/tessera';\nimport type { BreadcrumbSegment } from '@drizztdourden08/tessera';\n\ninterface FolderBarProps {\n  trail: readonly BreadcrumbSegment[];\n  open: (id: string) => void;\n  openPath: (path: string) => void;\n}\n\nconst FolderBar = ({ trail, open, openPath }: FolderBarProps) => (\n  <Breadcrumbs segments={trail} maxVisible={4} onNavigate={open} onPathSubmit={openPath} />\n);\n",
-      "propsHash": "89c306f62e4033c6",
+      "propsHash": "ec9e6b16006f7885",
       "props": {
         "own": [
           {
@@ -6090,6 +6100,11 @@
             "name": "trailing",
             "optional": true,
             "text": "ReactNode"
+          },
+          {
+            "name": "trailingLabel",
+            "optional": true,
+            "text": "string"
           },
           {
             "name": "label",
@@ -13582,9 +13597,11 @@
         "fineStep is the step while Shift is down. It defaults to a tenth of step.",
         "ladder is a list of stops. A step, a wheel turn or a scrub step moves to the next stop above or below the value, whatever it is now. Shift leaves the ladder for the fine step.",
         "presets add a menu of quick values beside the field, as numbers or as { value, label }. Picking one sets the value.",
+        "buttons is sides or stacked and shows step buttons; a press moves to the next ladder stop, or by step with no ladder, and a button is disabled at min or max.",
+        "stepLabels is a pair of names for the minus and plus buttons, such as Zoom out and Zoom in; they default to Decrease and Increase.",
         "suffix draws a unit after the number, such as % or px.",
         "mixed shows the word Mixed instead of a number, for values that differ across a selection. Any new value, typed, stepped or picked, calls onChange, and the app clears mixed.",
-        "A ZoomField is this part with ladder [25, 50, 100, 200, 400, 800, 1600, 3200, 6400, 12800], suffix % and a few presets; it is a recipe, not a part.",
+        "A ZoomField is this part with ladder [25, 50, 100, 200, 400, 800, 1600, 3200, 6400, 12800], suffix %, buttons sides and a few presets; it is a recipe, not a part.",
         "A value typed outside min and max is clamped as you type, and the field shows the clamped value when it loses focus."
       ],
       "a11y": [
@@ -13602,7 +13619,7 @@
         "rule": "NumberField is the number you drag, turn the wheel on, walk along a ladder or fill from quick values."
       },
       "example": "import { useState } from 'react';\nimport { NumberField } from '@drizztdourden08/tessera';\n\nconst ZOOM = [25, 50, 100, 200, 400, 800, 1600, 3200, 6400, 12800];\n\nconst Zoom = () => {\n  const [zoom, setZoom] = useState(100);\n  return <NumberField aria-label=\"Zoom\" suffix=\"%\" ladder={ZOOM} presets={[100, 400, 1600]} value={zoom} onChange={setZoom} />;\n};\n\nconst Opacity = () => {\n  const [opacity, setOpacity] = useState(80);\n  return <NumberField label=\"Opacity\" suffix=\"%\" min={0} max={100} step={5} value={opacity} onChange={setOpacity} />;\n};\n",
-      "propsHash": "0d0741633e74bab2",
+      "propsHash": "287846a0f29f0201",
       "props": {
         "own": [
           {
@@ -13683,6 +13700,20 @@
             "text": "boolean"
           },
           {
+            "name": "buttons",
+            "optional": true,
+            "text": "NumberInputButtons",
+            "literals": [
+              "'stacked'",
+              "'sides'"
+            ]
+          },
+          {
+            "name": "stepLabels",
+            "optional": true,
+            "text": "readonly [string, string]"
+          },
+          {
             "name": "invalid",
             "optional": true,
             "text": "boolean"
@@ -13697,7 +13728,7 @@
             "InputHTMLAttributes"
           ],
           "extends": [
-            "Omit<NumberInputProps, 'value' | 'onChange' | 'onStep' | 'buttons' | 'sizeToContent' | 'start' | 'end'>",
+            "Omit<NumberInputProps, 'value' | 'onChange' | 'onStep' | 'stepDisabled' | 'sizeToContent' | 'start' | 'end'>",
             "Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'size'>"
           ]
         }

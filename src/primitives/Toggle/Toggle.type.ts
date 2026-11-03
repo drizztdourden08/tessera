@@ -12,6 +12,7 @@ interface ToggleProps extends ControlName {
   description?: string;
   help?: ReactNode;
   disabled?: boolean;
+  mixed?: boolean;
   id?: string;
   link?: string;
   size?: ControlSize;

@@ -5,6 +5,7 @@ interface ValueScale {
   step: number;
   stops?: readonly string[];
   formatValue?: (value: number) => string;
+  curve?: 'log';
 }
 
 interface RulePoint {

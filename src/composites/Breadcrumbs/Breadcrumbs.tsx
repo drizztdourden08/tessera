@@ -13,7 +13,7 @@ import type { BreadcrumbsProps } from './Breadcrumbs.type';
 import './Breadcrumbs.css';
 
 const Breadcrumbs = (props: BreadcrumbsProps) => {
-  const { segments, onNavigate, maxVisible, onDropOn, canDrop, path, onPathSubmit, trailing, label, className } = props;
+  const { segments, onNavigate, maxVisible, onDropOn, canDrop, path, onPathSubmit, trailing, trailingLabel, label, className } = props;
   const { navigation } = useTesseraStrings();
   const [editing, setEditing] = useState(false);
   const drop = useSegmentDrop(onDropOn, canDrop);
@@ -42,7 +42,7 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
       {onPathSubmit !== undefined && (
         <Pressable className="breadcrumbs__fill focus-ring-inset" aria-label={navigation.editPath} title={navigation.editPath} onClick={() => setEditing(true)} />
       )}
-      {trailing !== undefined && <Box className="breadcrumbs__trailing">{trailing}</Box>}
+      {trailing !== undefined && <Box className="breadcrumbs__trailing" role={trailingLabel === undefined ? undefined : 'group'} aria-label={trailingLabel}>{trailing}</Box>}
     </Box>
   );
 };

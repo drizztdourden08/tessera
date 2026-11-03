@@ -62,7 +62,7 @@ const Rotation = () => {
 - `size` (optional): `ControlSize`, one of `'sm'`, `'md'`.
 - `mixed` (optional): `boolean`. Default `false`.
 
-It also takes the 4 attributes it inherits through `Pick<NumberFieldProps, 'label' | 'size' | 'disabled' | 'mixed' | 'id' | 'aria-label' | 'className'>`, `Omit<NumberInputProps, 'value' | 'onChange' | 'onStep' | 'buttons' | 'sizeToContent' | 'start' | 'end'>`, `Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'size'>`.
+It also takes the 4 attributes it inherits through `Pick<NumberFieldProps, 'label' | 'size' | 'disabled' | 'mixed' | 'id' | 'aria-label' | 'className'>`, `Omit<NumberInputProps, 'value' | 'onChange' | 'onStep' | 'stepDisabled' | 'sizeToContent' | 'start' | 'end'>`, `Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'onChange' | 'size'>`.
 
 ## Tokens
 

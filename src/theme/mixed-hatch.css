@@ -1,0 +1,15 @@
+/* @layer renderer-components @kind style */
+.toggle-group__btn--mixed,
+.segmented__btn--mixed,
+.segmented--mixed .segmented__track,
+.toggle__input[data-mixed] + .toggle__track,
+.icon-btn.icon-btn--mixed,
+.icon-btn.icon-btn--mixed:hover:not(:disabled) {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--c-primary-soft) 0,
+    var(--c-primary-soft) var(--size-4),
+    transparent var(--size-4),
+    transparent var(--size-8)
+  );
+}

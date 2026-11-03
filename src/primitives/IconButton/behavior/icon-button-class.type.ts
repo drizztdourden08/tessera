@@ -6,6 +6,7 @@ interface IconButtonClassInput {
   tone?: IconButtonTone;
   size: IconButtonSize;
   active: boolean;
+  mixed: boolean;
   loading: boolean;
   className?: string;
 }

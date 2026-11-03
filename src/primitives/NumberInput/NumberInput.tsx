@@ -17,7 +17,7 @@ import { NumberInputSteps } from './sub-components/NumberInputSteps';
 
 const NumberInput = (props: NumberInputProps) => {
   const {
-    onChange, className, value, min, max, step, disabled = false, buttons, sizeToContent = false, mixed, onStep,
+    onChange, className, value, min, max, step, disabled = false, buttons, sizeToContent = false, mixed, onStep, stepLabels, stepDisabled,
     invalid, size, start, end, id, 'aria-describedby': ownDescribedBy, ...rest
   } = props;
   const control = useFieldControl(id, ownDescribedBy);
@@ -27,7 +27,7 @@ const NumberInput = (props: NumberInputProps) => {
   const locked = disabled || rest.readOnly === true;
   const sides = buttons === 'sides';
   const stepBy = (dir: 1 | -1): void => (onStep ? onStep(dir) : onChange?.(stepValue(value, dir, { step, min, max })));
-  const steps = { size: controlSize, disabled, onStep: stepBy };
+  const steps = { size: controlSize, disabled, labels: stepLabels, limits: stepDisabled, onStep: stepBy };
   const columns = digitColumns(sizeToContent, max, step);
 
   return (

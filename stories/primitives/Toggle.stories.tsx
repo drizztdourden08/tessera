@@ -124,20 +124,49 @@ const Named = {
   ),
 } satisfies StoryLiteStoryDefinition<ToggleArgs>;
 
-const AutoSave = (props: { initial: boolean; disabled?: boolean }) => {
-  const { initial, disabled } = props;
-  const [checked, setChecked] = useState(initial);
-  return <Toggle checked={checked} onChange={setChecked} disabled={disabled} label="Auto-save" description="Write a save state every time you enter a new room." />;
+const MixedToggle = (props: { size: ControlSize }) => {
+  const { size } = props;
+  const [checked, setChecked] = useState(false);
+  const [differs, setDiffers] = useState(true);
+  return (
+    <Toggle
+      size={size}
+      checked={checked}
+      mixed={differs}
+      onChange={(next) => {
+        setDiffers(false);
+        setChecked(next);
+      }}
+      label={differs ? 'Clip, layers differ' : 'Clip'}
+    />
+  );
 };
 
-const renderState = (props: StateProps) => <AutoSave initial={props.checked === true} disabled={props.disabled === true} />;
+const Mixed = {
+  name: 'Mixed: the layers differ, and a press turns it on',
+  render: () => (
+    <Demonstrator rows={axis(CONTROL_SIZES)} cell={(size) => <MixedToggle key={size} size={size} />} />
+  ),
+} satisfies StoryLiteStoryDefinition<ToggleArgs>;
+
+const AutoSave = (props: { initial: boolean; disabled?: boolean; mixed?: boolean }) => {
+  const { initial, disabled, mixed = false } = props;
+  const [checked, setChecked] = useState(initial);
+  const [differs, setDiffers] = useState(mixed);
+  return <Toggle checked={checked} mixed={differs} onChange={(next) => {
+    setDiffers(false);
+    setChecked(next);
+  }} disabled={disabled} label="Auto-save" description="Write a save state every time you enter a new room." />;
+};
+
+const renderState = (props: StateProps) => <AutoSave initial={props.checked === true} disabled={props.disabled === true} mixed={props.mixed === true} />;
 
 const Overview = overviewStory({
   component: 'Toggle',
   description: 'An on and off switch for a setting that takes effect at once, such as auto-save or music.',
   points: [
     'It can carry a `label`, a line of `description` and a `link` to a page about the setting.',
-    'The whole row is one label, so a click anywhere on it flips the switch.',
+    'The whole row is one label, so a click flips it; `mixed` parks the thumb mid-way until a press sets on.',
     '`hint` reports a one-line description to a [HintLine] while it is pointed at or focused.',
     '`aria-label` or `aria-labelledby` names it when it has no `label`, such as the name of a [FormRow].',
     '`sm` is the compact switch for dense rows; `labelSize` `sm` or `md` sets the label text apart from `size`.',
@@ -145,7 +174,7 @@ const Overview = overviewStory({
   ],
   instead: '[Checkbox] for a choice saved with a form.',
   playground: Playground,
-  variants: [Labels, Named, Sizes, LabelSizes],
+  variants: [Labels, Named, Mixed, Sizes, LabelSizes],
   states: {
     render: renderState,
     list: [
@@ -153,6 +182,7 @@ const Overview = overviewStory({
       STATE.hover,
       { ...STATE.focus, target: '.toggle__input' },
       STATE.checked,
+      { name: 'Mixed', props: { mixed: true } },
       STATE.disabled,
     ],
   },
@@ -170,4 +200,4 @@ const [autoSave, setAutoSave] = useState(true);
 });
 
 export default meta;
-export { LabelSizes, Labels, Named, Overview, Playground, Sizes };
+export { LabelSizes, Labels, Mixed, Named, Overview, Playground, Sizes };

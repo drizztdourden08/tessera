@@ -19,6 +19,8 @@ interface StatefulNumberFieldProps extends Partial<NumberFieldArgs> {
   ladder?: readonly number[];
   presets?: readonly (number | { value: number; label: string })[];
   fineStep?: number;
+  buttons?: 'sides' | 'stacked';
+  stepLabels?: readonly [string, string];
 }
 
 export type { NumberFieldArgs, StatefulNumberFieldProps };

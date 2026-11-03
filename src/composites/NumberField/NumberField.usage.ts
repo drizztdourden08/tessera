@@ -20,9 +20,11 @@ const usage = {
     'fineStep is the step while Shift is down. It defaults to a tenth of step.',
     'ladder is a list of stops. A step, a wheel turn or a scrub step moves to the next stop above or below the value, whatever it is now. Shift leaves the ladder for the fine step.',
     'presets add a menu of quick values beside the field, as numbers or as { value, label }. Picking one sets the value.',
+    'buttons is sides or stacked and shows step buttons; a press moves to the next ladder stop, or by step with no ladder, and a button is disabled at min or max.',
+    'stepLabels is a pair of names for the minus and plus buttons, such as Zoom out and Zoom in; they default to Decrease and Increase.',
     'suffix draws a unit after the number, such as % or px.',
     'mixed shows the word Mixed instead of a number, for values that differ across a selection. Any new value, typed, stepped or picked, calls onChange, and the app clears mixed.',
-    'A ZoomField is this part with ladder [25, 50, 100, 200, 400, 800, 1600, 3200, 6400, 12800], suffix % and a few presets; it is a recipe, not a part.',
+    'A ZoomField is this part with ladder [25, 50, 100, 200, 400, 800, 1600, 3200, 6400, 12800], suffix %, buttons sides and a few presets; it is a recipe, not a part.',
     'A value typed outside min and max is clamped as you type, and the field shows the clamped value when it loses focus.',
   ],
   a11y: [
@@ -50,7 +52,7 @@ const Opacity = () => {
   return <NumberField label="Opacity" suffix="%" min={0} max={100} step={5} value={opacity} onChange={setOpacity} />;
 };
 `,
-  propsHash: '0d0741633e74bab2',
+  propsHash: '287846a0f29f0201',
 } satisfies ComponentUsage;
 
 export { usage };

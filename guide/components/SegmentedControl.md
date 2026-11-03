@@ -33,6 +33,7 @@ SegmentedControl is the joined row that picks one of a few values.
 - An icon option takes a hint, and its label reads from it; the icon is a name from the set or any node, such as a pixel icon or a Glyph.
 - A node passed as icon is drawn as given, so size and colour it yourself; a name is sized by the control.
 - Pass onDeselect to let a second press on the active option clear the value.
+- Mixed true hatches the whole control and marks no option as chosen, for picks that differ; a list of values hatches only those options, which are on for some picks. A press on an option calls onChange, even for the current value, and the app then clears mixed.
 - SelectedTone neutral draws the chosen option on a grey fill; accent, the default, keeps the primary highlight.
 - An option takes a tooltip with an optional description and shortcut, placed by tooltipPlacement; its name is the label or hint.
 - A disabled option takes a string that says why.
@@ -72,6 +73,7 @@ const ScalePicker = () => {
 - `options`: `SegmentOption<T>[]`.
 - `onChange`: `(value: T) => void`.
 - `onDeselect` (optional): `() => void`.
+- `mixed` (optional): `boolean | readonly T[]`.
 - `onHint` (optional): `HintReport`.
 - `tooltipPlacement` (optional): `TooltipPlacement`, one of `'top'`, `'bottom'`, `'right'`, `'left'`. Default `'top'`.
 - `label` (optional): `string`.
@@ -85,4 +87,4 @@ const ScalePicker = () => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-focus`, `--c-primary`, `--c-primary-bright`, `--c-primary-soft`, `--c-surface`, `--c-text`, `--c-text-dim`, `--control-h-md`, `--control-h-sm`, `--control-h-sm-plus`, `--control-pad-md`, `--control-pad-sm`, `--control-pad-sm-plus`, `--density-gap`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--size-24`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-md`, `--text-sm`, `--text-xs`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--z-base`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-focus`, `--c-primary`, `--c-primary-bright`, `--c-primary-soft`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-h-sm-plus`, `--control-pad-md`, `--control-pad-sm`, `--control-pad-sm-plus`, `--density-gap`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--size-24`, `--size-4`, `--size-8`, `--space-2xs`, `--space-lg`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-md`, `--text-sm`, `--text-xs`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--z-base`.

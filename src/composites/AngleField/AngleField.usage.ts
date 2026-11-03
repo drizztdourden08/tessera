@@ -35,7 +35,7 @@ const Rotation = () => {
   return <AngleField label="Rotation" snap={15} value={angle} onChange={setAngle} />;
 };
 `,
-  propsHash: 'a9d2e9696afb7a04',
+  propsHash: '6e37eec7c510ed4d',
 } satisfies ComponentUsage;
 
 export { usage };

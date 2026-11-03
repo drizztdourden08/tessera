@@ -11,6 +11,8 @@ interface NumberInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, '
   sizeToContent?: boolean;
   mixed?: boolean;
   onStep?: (direction: 1 | -1) => void;
+  stepLabels?: readonly [string, string];
+  stepDisabled?: readonly [boolean, boolean];
   invalid?: boolean;
   size?: ControlSize;
   start?: InputAdornment;
@@ -43,6 +45,8 @@ interface NumberInputStepsProps {
   at: 'stack' | 'start' | 'end';
   size: ControlSize;
   disabled: boolean;
+  labels?: readonly [string, string];
+  limits?: readonly [boolean, boolean];
   onStep: (dir: 1 | -1) => void;
 }
 

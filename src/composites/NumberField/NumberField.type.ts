@@ -9,7 +9,7 @@ interface NumberPreset {
 
 type NumberPresetInput = number | NumberPreset;
 
-interface NumberFieldProps extends Omit<NumberInputProps, 'value' | 'onChange' | 'onStep' | 'buttons' | 'sizeToContent' | 'start' | 'end'> {
+interface NumberFieldProps extends Omit<NumberInputProps, 'value' | 'onChange' | 'onStep' | 'stepDisabled' | 'sizeToContent' | 'start' | 'end'> {
   value: number;
   onChange: (value: number) => void;
   min?: number;
@@ -22,6 +22,13 @@ interface NumberFieldProps extends Omit<NumberInputProps, 'value' | 'onChange' |
   suffix?: string;
   scrub?: boolean;
   wheel?: boolean;
+}
+
+interface StepLimitsParams {
+  value: number;
+  min?: number;
+  max?: number;
+  ladder?: readonly number[];
 }
 
 interface StepConfig {
@@ -103,5 +110,5 @@ interface NumberFieldPresetsProps {
 }
 
 export type {
-  NumberFieldBehavior, NumberFieldBehaviorParams, NumberFieldLabelProps, NumberFieldPresetsProps, NumberFieldProps, NumberFieldTailProps, NumberPreset, NumberPresetInput, ScrubDrag, ScrubHandlers, ScrubParams, StepConfig,
+  NumberFieldBehavior, NumberFieldBehaviorParams, NumberFieldLabelProps, NumberFieldPresetsProps, NumberFieldProps, NumberFieldTailProps, NumberPreset, NumberPresetInput, ScrubDrag, ScrubHandlers, ScrubParams, StepConfig, StepLimitsParams,
 };
