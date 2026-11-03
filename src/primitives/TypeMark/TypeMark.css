@@ -27,3 +27,23 @@
 .type-mark--sm {
   --type-mark-size: var(--size-20);
 }
+
+.type-mark--tone-info {
+  --hue-fill: var(--c-info-dim);
+  --hue-ink: var(--c-info);
+}
+
+.type-mark--tone-success {
+  --hue-fill: var(--c-success-dim);
+  --hue-ink: var(--c-success);
+}
+
+.type-mark--tone-warning {
+  --hue-fill: var(--c-warning-dim);
+  --hue-ink: var(--c-warning);
+}
+
+.type-mark--tone-danger {
+  --hue-fill: var(--c-danger-dim);
+  --hue-ink: var(--c-danger);
+}

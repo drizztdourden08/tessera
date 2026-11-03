@@ -14,6 +14,7 @@ const usage = {
   rules: [
     'Pass icon with a Tessera icon name and label with the type name; the label is the tooltip and the text a screen reader reads.',
     'Set color to one of the category colours; the tile takes a tint of it and the icon takes the full colour.',
+    'Set tone to info, success, warning or danger for a status colour; it wins over color, and the tile takes the dim status colour and the icon the status ink.',
     'Set size xs for 16 px in a dense row and sm for 20 px beside a title.',
     'Set variant outline for the bare icon in the category colour, with no tile, border or padding; the icon fills the box the tile would take, 16 px at xs and 20 px at sm.',
   ],
@@ -31,10 +32,11 @@ const BugMarks = () => (
   <>
     <TypeMark icon="bug" label="Bug" color="rose" />
     <TypeMark icon="bug" label="Bug" color="rose" variant="outline" />
+    <TypeMark icon="circle-help" label="Question" tone="info" />
   </>
 );
 `,
-  propsHash: 'cfee2ed19acd0cf1',
+  propsHash: '108c1792abe1232f',
 } satisfies ComponentUsage;
 
 export { usage };
