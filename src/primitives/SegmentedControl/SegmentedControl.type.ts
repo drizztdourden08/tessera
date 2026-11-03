@@ -37,6 +37,7 @@ interface SegmentedControlProps<T extends string = string> extends ControlName {
   options: SegmentOption<T>[];
   onChange: (value: T) => void;
   onDeselect?: () => void;
+  mixed?: boolean | readonly T[];
   onHint?: HintReport;
   tooltipPlacement?: TooltipPlacement;
   label?: string;
@@ -50,6 +51,7 @@ interface SegmentedControlProps<T extends string = string> extends ControlName {
 interface SegmentButtonProps<T extends string> {
   option: SegmentOption<T>;
   active: boolean;
+  mixed: boolean;
   disabled: boolean;
   reason?: string;
   stop: boolean;

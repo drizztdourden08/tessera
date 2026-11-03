@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { ValueScale } from '../value-rule/value-rule.type';
 
 type ScaleLabelEntry = readonly [value: number, label: ReactNode];
 
@@ -18,6 +19,7 @@ interface ScaleLabelsProps {
   step?: number;
   stops?: readonly string[];
   formatValue?: (value: number) => string;
+  curve?: ValueScale['curve'];
   labels?: ScaleLabelSource;
   orientation?: ScaleOrientation;
   thin?: boolean;

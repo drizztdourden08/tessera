@@ -75,17 +75,22 @@ const meta = {
   parameters: { renderer: 'react' },
 } satisfies StoryLiteMeta<SegmentedControlArgs>;
 
-type StatefulSegmentsProps<T extends string> = { initial: T; options: SegmentOption<T>[]; tooltipPlacement?: TooltipPlacement; selectedTone?: 'accent' | 'neutral' } & Partial<SegmentedControlArgs>;
+type StatefulSegmentsProps<T extends string> = { initial: T; options: SegmentOption<T>[]; tooltipPlacement?: TooltipPlacement; selectedTone?: 'accent' | 'neutral'; mixed?: boolean | readonly T[] } & Partial<SegmentedControlArgs>;
 
 const StatefulSegments = <T extends string>(props: StatefulSegmentsProps<T>) => {
-  const { initial, options, label, description, disabled, deselectable, size, tooltipPlacement, selectedTone } = props;
+  const { initial, options, label, description, disabled, deselectable, size, tooltipPlacement, selectedTone, mixed: startMixed } = props;
   const [value, setValue] = useState<T | ''>(initial);
+  const [mixed, setMixed] = useState(startMixed);
   return (
     <Box className="story-column">
       <SegmentedControl<T | ''>
         value={value}
         options={options}
-        onChange={setValue}
+        mixed={mixed}
+        onChange={(next) => {
+          setMixed(undefined);
+          setValue(next);
+        }}
         onDeselect={deselectable ? () => setValue('') : undefined}
         label={label}
         description={description}
@@ -113,6 +118,16 @@ const Kinds = {
       <StatefulSegments<Scale> initial="1x" options={SCALES} label="Text labels" />
       <StatefulSegments<Scale> initial="2x" options={SCALES} label="Deselectable" description="Click the active segment to clear it." deselectable />
       <StatefulSegments<Align> initial="center" options={ALIGN_ICONS} label="Icon labels with titles" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
+
+const MixedOptions = {
+  name: 'Mixed: the layers differ, and a press picks one',
+  render: () => (
+    <Box className="story-column">
+      <StatefulSegments<Scale> initial="2x" options={SCALES} label="Nothing in common" mixed />
+      <StatefulSegments<Scale> initial="2x" options={SCALES} label="Some layers use 1x and Fit window" mixed={['1x', 'fit']} />
     </Box>
   ),
 } satisfies StoryLiteStoryDefinition<SegmentedControlArgs>;
@@ -191,7 +206,7 @@ const Overview = overviewStory({
   component: 'SegmentedControl',
   description: 'A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one.',
   points: [
-    'Use it for short settings where every choice fits on one line, such as a scale or an alignment.',
+    'A short setting on one line; `mixed` hatches the control, or the listed options, when picks differ.',
     'Options can be text, or an icon: a name from the set or any node, such as a Glyph, named by its hint.',
     '`onDeselect` clears the value on a second click; `selectedTone="neutral"` fills the pick grey, not accent.',
     'Each option can carry a `hint` that a [HintLine] shows, or a `tooltip` with a description and a shortcut.',
@@ -200,7 +215,7 @@ const Overview = overviewStory({
   ],
   instead: '[ToggleGroup] to switch several options on, or [Tabs] to switch views.',
   playground: Playground,
-  variants: [Kinds, IconNodes, Sizes, NeutralTone, OptionTooltips, HintOutput],
+  variants: [Kinds, MixedOptions, IconNodes, Sizes, NeutralTone, OptionTooltips, HintOutput],
   states: {
     render: renderState,
     list: [
@@ -215,4 +230,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { HintOutput, IconNodes, Kinds, NeutralTone, OptionTooltips, Overview, Playground, Sizes };
+export { HintOutput, IconNodes, Kinds, MixedOptions, NeutralTone, OptionTooltips, Overview, Playground, Sizes };

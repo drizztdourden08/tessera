@@ -23,7 +23,7 @@ const SliderTrack = (props: SliderTrackProps) => {
         <div className="slider__rail" style={fill} {...rail}>
           {children}
         </div>
-        <ScaleLabels className="slider__scale" min={min} max={max} step={step} stops={stops} formatValue={formatValue} labels={labels} orientation={orientation} highlight={span} />
+        <ScaleLabels className="slider__scale" min={min} max={max} step={step} stops={stops} formatValue={formatValue} curve={scale.curve} labels={labels} orientation={orientation} highlight={span} />
       </div>
       {readout !== null && <Span tone="primary" className="slider__value">{readout}</Span>}
     </div>

@@ -7,6 +7,7 @@ interface SliderNumberProps {
   disabled: boolean;
   label?: string;
   labelledBy?: string;
+  mixed: boolean;
   onValue: (value: number) => void;
 }
 

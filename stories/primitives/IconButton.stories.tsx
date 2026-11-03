@@ -138,6 +138,40 @@ const Loading = {
   ),
 } satisfies StoryLiteStoryDefinition<IconButtonArgs>;
 
+const MixedButton = (props: { variant: IconButtonVariant; mixed: boolean }) => {
+  const { variant, mixed } = props;
+  const [on, setOn] = useState(false);
+  const [differs, setDiffers] = useState(mixed);
+  return (
+    <IconButton
+      label={`${LABELS.pin}, ${variant}`}
+      variant={variant}
+      size="md"
+      active={on}
+      mixed={differs}
+      onClick={() => {
+        setDiffers(false);
+        setOn(differs || !on);
+      }}
+    >
+      {glyph('pin', 'md')}
+    </IconButton>
+  );
+};
+
+const PRESS_STATES = ['off', 'mixed'] as const;
+
+const Mixed = {
+  name: 'Mixed: some picked items are on, and a press turns it on',
+  render: () => (
+    <Demonstrator
+      rows={axis(STATE_VARIANTS)}
+      columns={axis(PRESS_STATES)}
+      cell={(variant, state) => <MixedButton key={`${variant}-${state}`} variant={variant} mixed={state === 'mixed'} />}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+
 const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
   <Flex gap="sm" align="center">
     {STATE_VARIANTS.map((variant) => (
@@ -185,15 +219,15 @@ const Overview = overviewStory({
     '**`label` is required:** it becomes the name screen readers announce.',
     'It takes the variants and sizes of [Button]: `md` 39, `sm` 28 and `xs` 20 px. Header back and close buttons are `md`.',
     '`xs` is for dense rows, compact panels and widget title bars. An unsized icon draws at 16 px in `md`, 12 px below.',
-    '`active` marks a toggle as on; `loading` swaps the icon for a [Spinner] and stops clicks.',
+    '`active` marks a toggle as on, `mixed` hatches it when picked items differ; `loading` swaps in a [Spinner].',
     '`tone` tints a ghost button with a soft glow: `danger`, `info`, or `accent` in the brand colour.',
     '`hint` reports a one-line description to the [HintScope] around it, for a [HintLine] to show.',
   ],
   instead: '[Button] when a word fits.',
   playground: Playground,
-  variants: [AllVariants, Tones, Loading],
+  variants: [AllVariants, Tones, Mixed, Loading],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, Loading, Overview, Playground, Tones, Toolbar };
+export { AllVariants, Loading, Mixed, Overview, Playground, Tones, Toolbar };

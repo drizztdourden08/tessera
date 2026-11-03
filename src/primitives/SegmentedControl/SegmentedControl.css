@@ -46,6 +46,15 @@
   padding: 0 var(--control-pad-sm-plus);
 }
 
+.segmented__btn--mixed {
+  color: var(--c-text-muted);
+  font-style: italic;
+}
+
+.segmented--mixed .segmented__btn {
+  font-style: italic;
+}
+
 .segmented--neutral .segmented__indicator {
   background: var(--c-border-strong);
   border-color: var(--c-border-strong);
