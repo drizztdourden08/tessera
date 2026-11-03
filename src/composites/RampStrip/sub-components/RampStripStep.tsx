@@ -1,14 +1,16 @@
 /* @layer renderer-components @kind component */
 import { ColorSwatch } from '../../../primitives/ColorSwatch';
 import { ContextMenu } from '../../ContextMenu';
+import { stepContextProps } from '../behavior/step-context-props';
 import { stepCaption } from '../behavior/step-caption';
 import { stepLabel } from '../behavior/step-label';
 import { RAMP_INDEX_ATTRIBUTE, STEP_MENU_GROUP_ID } from '../RampStrip.constants';
 import type { RampStripStepProps } from '../RampStrip.type';
 
 const RampStripStep = (props: RampStripStepProps) => {
-  const { step, index, picked, multi, size, numbered, strip, menu, data, onPress, onDoubleClick, onDragStart } = props;
+  const { step, index, picked, multi, size, numbered, strip, menu, data, onPress, onDoubleClick, onContextMenu, onDragStart } = props;
   const preview = size === 'preview';
+  const hasMenu = menu !== undefined && menu.length > 0;
   const swatch = (
     <ColorSwatch
       color={step.color}
@@ -29,6 +31,7 @@ const RampStripStep = (props: RampStripStepProps) => {
       tabIndex={index === strip.tabStop ? 0 : -1}
       draggable={onDragStart === undefined ? undefined : true}
       {...data}
+      {...stepContextProps(onContextMenu, hasMenu)}
       {...{ [RAMP_INDEX_ATTRIBUTE]: index }}
       onFocus={() => strip.onFocusStep(index)}
       onClick={onPress}
