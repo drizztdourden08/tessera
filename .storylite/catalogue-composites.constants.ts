@@ -165,6 +165,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'Rating', summary: 'Stars that show how well something is rated, and let a person rate it.' },
         { name: 'Carousel', summary: 'One slide at a time from a set, with dots, arrows and an optional slow turn.' },
         { name: 'MediaGrid', summary: 'Write the one job of MediaGrid in one sentence.' },
+        { name: 'PixelPlayer', summary: 'Plays a pixel animation inline: whole-number zoom, a control bar, frame ranges and keys.' },
       ],
     },
     ...SHELL_GROUPS,

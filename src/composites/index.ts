@@ -25,3 +25,7 @@ export { rectKeys, toggledKey, typeAheadIndex, useSelectionModel } from './selec
 export type { SelectAllState, SelectionCell, SelectionClick, SelectionModel, SelectionModelInput } from './selection';
 export { useToggleSweep } from './toggle-sweep';
 export type { ToggleSweep, ToggleSweepBind, ToggleSweepInput } from './toggle-sweep';
+export { PixelPlayer } from './PixelPlayer';
+export type {
+  PixelPlayerBackdrop, PixelPlayerCell, PixelPlayerDirection, PixelPlayerLoop, PixelPlayerMode, PixelPlayerProps, PixelPlayerTag, PixelPlayerZoom,
+} from './PixelPlayer';

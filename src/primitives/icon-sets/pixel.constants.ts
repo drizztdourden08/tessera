@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind data */
 import { PIXEL_ACTION_FILE_GRIDS } from './pixel-actions-file.constants';
+import { PIXEL_CANVAS_COMMAND_GRIDS } from './pixel-canvas-commands.constants';
 import { PIXEL_DOCUMENT_GRIDS } from './pixel-documents.constants';
 import { PIXEL_ARRANGE_EXTRA_GRIDS } from './pixel-arrange-extras.constants';
 import { PIXEL_DRAW_EFFECT_GRIDS } from './pixel-draw-effects.constants';
@@ -48,6 +49,7 @@ const PIXEL_GRIDS = {
   ...PIXEL_SELECT_EXTRA_GRIDS,
   ...PIXEL_TRANSFORM_EXTRA_GRIDS,
   ...PIXEL_ARRANGE_EXTRA_GRIDS,
+  ...PIXEL_CANVAS_COMMAND_GRIDS,
 } as const;
 
 const PIXEL_ICONS = pixelIconSet(PIXEL_GRIDS);

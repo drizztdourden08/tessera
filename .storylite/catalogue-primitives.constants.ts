@@ -42,6 +42,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'ScaleLabels', summary: 'Labels and ticks along a scale, from a value rule, pairs or a function.' },
         { name: 'Avatar', summary: 'A small round mark for a person: initials or an icon, a ring for the owner, a dashed circle when unassigned.' },
         { name: 'TypeMark', summary: 'A small tinted tile with an icon in a colour, to mark the type of an item.' },
+        { name: 'PixelThumbnail', summary: 'A small square that draws a pixel picture crisp, with a checker behind the clear pixels.' },
       ],
     },
     {

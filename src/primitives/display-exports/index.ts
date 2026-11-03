@@ -31,3 +31,13 @@ export { Avatar } from '../Avatar';
 export type { AvatarProps, AvatarSize, AvatarVariant } from '../Avatar';
 export { TypeMark } from '../TypeMark';
 export type { TypeMarkProps, TypeMarkSize } from '../TypeMark';
+export { PixelThumbnail } from '../PixelThumbnail';
+export type {
+  IndexedImage,
+  PixelThumbnailBackdrop,
+  PixelThumbnailBox,
+  PixelThumbnailFit,
+  PixelThumbnailFrame,
+  PixelThumbnailProps,
+  RgbaImage,
+} from '../PixelThumbnail';
