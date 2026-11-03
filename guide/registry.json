@@ -12834,7 +12834,7 @@
         "Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.",
         "Pass height=\"fill\" inside a box that sets the height, or a number for a fixed height in pixels.",
         "Set filterPlacement to left or right to move the search, filters, count and Copy all into a narrow column beside the lines.",
-        "A side column folds to a slim rail with the same dashed line and chevron as SidePanel; the lines take the room, and the chevron opens it again.",
+        "A side column folds to a slim strip with the same dashed line and chevron as SidePanel railSize=\"slim\"; the lines take the room, and the chevron opens it again. The lines keep a gutter the width of the chevron overhang, so the chevron never covers the time.",
         "Pass filtersCollapsed with onFiltersCollapsedChange when the app holds the fold, or defaultFiltersCollapsed to start folded; they apply to a left or right column only.",
         "Drag the dashed line to change the width of the side column. Pass storageKey to keep the width, and the fold under storageKey:collapsed.",
         "Set size=\"sm\" for a compact panel with smaller controls, smaller lines and tighter spacing, such as in a dashboard widget.",
@@ -13068,6 +13068,7 @@
         "--log-panel-min-rows",
         "--log-tag-w",
         "--opacity-muted",
+        "--pane-edge-overhang",
         "--shadow-2",
         "--space-2xs",
         "--space-lg",
@@ -17973,6 +17974,8 @@
         "Dragging the line about 32 px narrower than minWidth folds the panel to its rail, and dragging the line of a rail outward opens it; the arrow keys at the end of the range do the same.",
         "Pass action for a button in the heading, such as Add or Rescan; the folded rail reserves its top slot and shows the button there when present.",
         "Pass railItems as an array of item icons; the folded rail shows them under the title.",
+        "Pass railSize=\"slim\" for a folded rail that is only the dashed line and its chevron, about 12 px wide; the title, the action and the rail items are not drawn, so use it where the panel holds filters or settings that need no icons.",
+        "The chevron overhangs the line by half its width onto the main view; give the main view beside the panel inline padding of var(--pane-edge-overhang) on that side so the chevron never covers its content.",
         "Pass containers for the expanded body. Each container has a required heading and body; use a meaningful section title distinct from the pane title.",
         "The dashed primary border is the resize edge; it brightens and glows while hovered, focused or dragged.",
         "The border stays on the pane while expanded and folded; the chevron straddles it at the center of the actual heading row. Folding animates the pane, heading, body and rail, with motion disabled for reduced-motion preferences.",
@@ -17997,7 +18000,7 @@
         "rule": "SidePanel is the one side panel of a work screen: the sunken surface, neutral heading, dashed outside border with its overlapping fold button, the rail and the drag to resize or fold."
       },
       "example": "import type { ReactNode } from 'react';\nimport { Box, Flex, SidePanel } from '@drizztdourden08/tessera';\n\nconst HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: ReactNode; inspector: ReactNode }) => (\n  <Flex gap=\"2xs\" align=\"stretch\" className=\"hud-editor\">\n    <SidePanel title=\"Layers\" storageKey=\"hud.layers\" containers={[{ title: 'Outline', content: layers }]} />\n    <Box className=\"hud-editor__canvas\">{canvas}</Box>\n    <SidePanel side=\"end\" title=\"Inspector\" storageKey=\"hud.inspector\" containers={[{ title: 'Properties', content: inspector }]} />\n  </Flex>\n);\n",
-      "propsHash": "44c404657a79d5db",
+      "propsHash": "5daa752662787b36",
       "props": {
         "own": [
           {
@@ -18050,6 +18053,16 @@
             "optional": true,
             "text": "ReactNode[]",
             "default": "[]"
+          },
+          {
+            "name": "railSize",
+            "optional": true,
+            "text": "SidePanelRailSize",
+            "literals": [
+              "'default'",
+              "'slim'"
+            ],
+            "default": "'default'"
           },
           {
             "name": "collapsible",
@@ -18110,6 +18123,7 @@
         "--c-surface",
         "--radius-lg",
         "--side-nav-w",
+        "--side-panel-rail-slim-w",
         "--size-40",
         "--space-2xs",
         "--space-md",

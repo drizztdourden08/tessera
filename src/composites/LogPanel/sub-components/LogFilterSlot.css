@@ -1,0 +1,8 @@
+/* @layer renderer-components @kind style */
+.log-panel.tool-frame--toolbar-left > .tool-frame__body {
+  padding-inline-start: var(--pane-edge-overhang);
+}
+
+.log-panel.tool-frame--toolbar-right > .tool-frame__body {
+  padding-inline-end: var(--pane-edge-overhang);
+}

@@ -9,6 +9,16 @@
   font-size: var(--widget-title-compact-font);
 }
 
+.widget__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.widget__tab .widget__icon {
+  margin-inline-end: 0;
+}
+
 .widget--chrome-compact .widget__tab {
   padding: 0 var(--space-xs);
 }

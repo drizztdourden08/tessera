@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { SidePanelSide } from '../SidePanel.type';
+import type { SidePanelRailSize, SidePanelSide } from '../SidePanel.type';
 
 interface SidePanelLook {
   side: SidePanelSide;
@@ -7,6 +7,7 @@ interface SidePanelLook {
   collapsed: boolean;
   dragging: boolean;
   showHeader: boolean;
+  railSize: SidePanelRailSize;
 }
 
 export type { SidePanelLook };
