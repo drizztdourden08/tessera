@@ -5,7 +5,7 @@ import type { BrandMarkSize } from '../BrandMark.type';
 
 const markDetail = (mark: BrandMarkData, size: BrandMarkSize): BrandMarkData => {
   const level = MARK_DETAIL[size];
-  return (level && mark.detail?.[level]) || mark;
+  return level === null ? mark : (mark.detail?.[level] ?? mark);
 };
 
 export { markDetail };

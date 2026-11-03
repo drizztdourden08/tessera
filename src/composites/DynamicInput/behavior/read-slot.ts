@@ -3,6 +3,7 @@ import { classifySlotArg } from './classify-slot-arg';
 import { finishSlot } from './finish-slot';
 import { ARG_FORMS, ARG_KEYS, SLOT_NAME, SLOT_TYPES } from './parse-pattern.constants';
 import { PATTERN_PROBLEMS } from './pattern-problems.constants';
+import { OPTIONAL_MARK } from './read-slot.constants';
 import { splitArgs } from './split-args';
 import type { PatternSlotSpec, PatternSlotType, SlotRead } from './parse-pattern.type';
 
@@ -20,8 +21,6 @@ const applyArgs = (base: PatternSlotSpec, args: readonly string[]): SlotRead => 
   }
   return finishSlot(spec, problems);
 };
-
-const OPTIONAL_MARK = '?';
 
 const readSlot = (body: string): SlotRead => {
   const colon = body.indexOf(':');

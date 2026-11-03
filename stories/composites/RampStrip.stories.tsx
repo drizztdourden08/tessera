@@ -137,10 +137,10 @@ const Overview = overviewStory({
   points: [
     'Pass `steps` with a `color` each, `value` as the picked index and `onChange`; the app keeps the pick.',
     'A step takes a `caption`, or `numbered` adds its place; `size` is sm, md or preview for tall blocks.',
-    'Left, Right, Home and End move to the next open step and pick it; `selectionKeys` false makes them move focus only.',
+    'Arrow keys, Home and End move to the next open step and pick it; `selectionKeys` false moves focus only.',
     'A step can be `unused`, `disabled` or carry corner `marks`; `stepData` adds data attributes.',
     '`selected` with `onSelectionChange` picks several steps: Shift for a range, Ctrl or Command to toggle.',
-    '`onStepClick`, `onStepDoubleClick`, `onStepContextMenu`, `onSwatchDragStart` and `swatchMenu` reach each step; `wrap` adds lines.',
+    '`onStepClick`, `onStepDoubleClick`, `onStepContextMenu`, `swatchMenu` and `onSwatchDragStart` reach each step.',
   ],
   instead: '[ChoiceGrid] when the colours are a loose set and not an ordered ramp.',
   playground: Playground,
