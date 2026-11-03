@@ -29,12 +29,15 @@ type BrandInkTone = 'light' | 'dark';
 
 type BrandCurrentInk = Readonly<Record<BrandInkTone, string>>;
 
+type BrandMarkDetailLevel = 'medium' | 'small';
+
 interface BrandMarkData {
   viewBox: string;
   currentInk?: BrandCurrentInk;
   paths: readonly BrandMarkPath[];
   pixelArt?: boolean;
   grounds?: Readonly<Partial<Record<Ground, BrandMarkGround>>>;
+  detail?: Readonly<Record<BrandMarkDetailLevel, BrandMarkData>>;
 }
 
 type BrandGradientStops = readonly [from: string, to: string] | readonly [from: string, via: string, to: string];
@@ -128,6 +131,7 @@ interface BrandInfo {
   placement: string;
   mark: BrandMarkData;
   iconMark?: BrandMarkData;
+  twin?: BrandMarkData;
   fileTypes?: BrandFileTypes;
   mascot?: BrandMascot;
   wordmark: BrandWordmarkSpec;
@@ -136,7 +140,7 @@ interface BrandInfo {
 }
 
 export type {
-  BrandApp, BrandAppIcon, BrandCurrentInk, BrandGradient, BrandGradientStops, BrandInfo, BrandInkTone, BrandInks, BrandMarkData, BrandMarkGround, BrandMarkPath,
+  BrandApp, BrandAppIcon, BrandCurrentInk, BrandGradient, BrandGradientStops, BrandInfo, BrandInkTone, BrandInks, BrandMarkData, BrandMarkDetailLevel, BrandMarkGround, BrandMarkPath,
   BrandMascot, BrandMascotVariant, BrandPiece, BrandSceneData, BrandWordmarkSpec, MascotPose, SceneGroupNode, SceneNode, ScenePieceNode,
   ScenePoint, SceneTurn,
 };

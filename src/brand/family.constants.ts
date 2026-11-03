@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind data */
 import type { BrandApp, BrandInfo } from './brand.type';
-import { ARGUS_MARK } from './marks/argus.constants';
+import { ARGUS_MARK, ARGUS_TWIN_MARK } from './marks/argus.constants';
 import { ARCHIPELIA_MARK } from './marks/archipelia.constants';
 import { ARCHIPELIA_MASCOT } from './marks/archipelia-mascot.constants';
 import { BROCK_MARK } from './marks/brock.constants';
@@ -155,9 +155,10 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
     colourName: "Deep emerald, like the tail's eye rings",
     tile: '#ffffff',
     appIcon: 'straight',
-    summary: 'The watchful eye over the family: a geometric letter A that opens into an eye. Its deep emerald comes from the eye rings on the tail of Argus Panoptes.',
+    summary: 'The watchful eye over the family: a faceted stone shield with two eye cutouts and an emerald corner. Its deep emerald comes from the eye rings on the tail of Argus Panoptes.',
     placement: 'Beside Tessera in emerald, because it watches the whole family.',
     mark: ARGUS_MARK,
+    twin: ARGUS_TWIN_MARK,
     wordmark: { text: 'Argus', colors: ['#b8f0d8', '#5fd6a6', '#2dba88', '#12a06e'] },
     gradient: { angle: 160, stops: ['#0c3a2a', '#082a1f', '#05170f'] },
     backdrop: {
