@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { guardCellControl } from '../../../primitives/dom/guard-cell-control';
 import { drawnValue } from '../behavior/drawn-value';
+import { textClasses } from '../behavior/text-classes';
 import { viewClasses } from '../behavior/view-classes';
 import { Icon } from '../../../primitives/Icon';
 import { Pressable } from '../../../primitives/Pressable';
@@ -31,7 +32,7 @@ const InlineEditView = (props: InlineEditViewProps) => {
         onStart();
       }}
     >
-      <Span tone={empty ? 'muted' : undefined} className={drawn === undefined ? 'inline-edit__text' : 'inline-edit__text inline-edit__text--drawn'}>{drawn ?? shown}</Span>
+      <Span tone={empty ? 'muted' : undefined} className={textClasses(empty, drawn !== undefined)}>{drawn ?? shown}</Span>
       {!disabled && <Icon name="pencil" size={PEN_SIZE} className="inline-edit__pen" />}
     </Pressable>
   );
