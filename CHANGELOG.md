@@ -1,5 +1,18 @@
 # @drizztdourden08/tessera
 
+## 0.99.0
+
+### Minor Changes
+
+- 808fd3b: DropdownMenu takes size 2xs on a trigger, a 16 px icon button with a 24 px hit area; a trigger with a label draws at xs. The menu rows keep their smallest size. MenuTriggerSize is exported. TypeMark outline fills the box the tile would take, 16 px at xs and 20 px at sm. KanbanColumn takes header, a node drawn in the column head in place of the title text, while title stays the column name.
+- 0d21b81: DynamicInput now takes a whole value pasted into any slot. A full code such as ABCD-1234 or an address such as 192.168.0.1:8080 fills every slot at once, and the focus moves to the last filled slot. The text is split at the separators of the pattern when it has them, and by each slot's length or digit limit when it has none. Letter case and separators are ignored, and a choice slot matches an option by its value or its label. A value that a slot rejects does not fit, and the paste then lands in the one slot as before. New Storylite variant "Paste a full value" (I-96).
+- d239ecc: DynamicInput choice slots open their list on a click on the chip, and a second click closes it. The keyboard works as before. The list now sits under its chip with no gap on its right, and its rows line up with the section title. Two new choice arguments make a long list easy to use. With search, such as {player:choice @players search}, the slot is a text box that filters the options as you type, and Enter takes the first match. With free, the typed text is kept as the value when no option is picked, such as a player name the list does not have. The filter runs on a deferred query and long lists are windowed, so typing stays fast with thousands of options. Paste across slots works with both. New Storylite variant "Long searchable list" (I-97).
+- be56bac: The shared listbox of Select, Combobox and the DynamicInput choice slots draws only the rows in view once a list holds more than 200 options, so a list of thousands opens and scrolls at once. Spacers keep the full height for the slim scrollbar, group headings and the column header stay, and the active option is always drawn, so the arrow keys, Home, End and typeahead reach any row and `aria-activedescendant` always points at a drawn option. A hidden row with the longest label holds the width steady while the list scrolls. Lists of 200 options or fewer draw as before. `visibleRange` and `renderedIndices` now live in the data tier and are still exported from the same places (I-95).
+
+### Patch Changes
+
+- 96cf376: `LogPanel` scrolls inside a rigid `ToolFrame`: its scroll box and list now take `flex: 1 1 0`, so their height is set by the frame and not by the rows (I-99, Archipelia P-387).
+
 ## 0.98.0
 
 ### Minor Changes
