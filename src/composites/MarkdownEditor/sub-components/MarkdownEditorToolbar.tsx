@@ -5,10 +5,11 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import { MARKDOWN_EDITOR_ACTIONS, MARKDOWN_EDITOR_GROUPS } from '../MarkdownEditor.constants';
 import type { MarkdownEditorToolbarProps } from '../MarkdownEditor.type';
 import { MarkdownEditorActionButton } from './MarkdownEditorActionButton';
+import { MarkdownEditorImageButton } from './MarkdownEditorImageButton';
 import { MarkdownEditorPreviewToggle } from './MarkdownEditorPreviewToggle';
 
 const MarkdownEditorToolbar = (props: MarkdownEditorToolbarProps) => {
-  const { disabled, onAction, toggle, end } = props;
+  const { disabled, onAction, toggle, end, onImages } = props;
   const { markdownEditor } = useTesseraStrings();
   return (
     <Flex className="markdown-editor__toolbar" role="toolbar" aria-label={markdownEditor.toolbar} gap="xs" align="center" wrap>
@@ -20,7 +21,8 @@ const MarkdownEditorToolbar = (props: MarkdownEditorToolbarProps) => {
           ))}
         </Flex>
       ))}
-      {toggle && <MarkdownEditorPreviewToggle toggle={toggle} />}
+      {onImages && <MarkdownEditorImageButton disabled={disabled} onFiles={onImages} />}
+      {toggle &&<MarkdownEditorPreviewToggle toggle={toggle} />}
       {end != null && <Flex className="markdown-editor__toolbar-end" gap="xs" align="center">{end}</Flex>}
     </Flex>
   );

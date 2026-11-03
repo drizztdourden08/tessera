@@ -56,7 +56,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A range: no component yet.
   - A colour from a palette: [ChoiceGrid](components/ChoiceGrid.md). ChoiceGrid is the strip or grid of cells where one is picked; draw each cell as a ColorSwatch for a palette.
   - A colour from a ramp of steps: [RampStrip](components/RampStrip.md). RampStrip is the ordered row of shades of one ramp, with a caption on each step.
-  - A file: no component yet.
+  - A file: [FileInput](components/FileInput.md). FileInput is the hidden picker behind a button, for a file the user chooses from a dialog.
   - A path to a file or folder: [PathInput](components/PathInput.md). PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
     - Edit it in place: no component yet.
@@ -216,7 +216,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - A whole split into parts: [StackedBar](components/StackedBar.md). StackedBar shows how one total splits into named parts, in a single bar.
   - A picture or a video. **Which one?**
     - A picture that holds its box: no component yet.
-    - A small framed picture: no component yet.
+    - A small framed picture: [MediaGrid](components/MediaGrid.md). MediaGrid shows many pictures as thumbnails that each open large, in the same way in every app.
     - A video: [Video](components/Video.md). Video draws its bar over the video in white on black in every theme, and keeps its speed menu and volume inside the frame so they work in full screen.
   - Controller or keyboard input. **What about the input?**
     - A keyboard with keys marked: no component yet.

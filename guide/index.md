@@ -29,6 +29,7 @@ One line per component. 116 of 226 have their usage written; a linked name opens
 - `EmptyState`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Field`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FieldControlBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [FileInput](components/FileInput.md): A hidden file picker that a button of your own opens, and that hands back the chosen files. Import from `@drizztdourden08/tessera`.
 - `Flex`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Floating`: usage not written yet. Not exported; Tessera uses it inside.
 - [FoldText](components/FoldText.md): A block of text clamped to a few lines, with a More control or a hint that reveals the rest, such as the description under a form row. Import from `@drizztdourden08/tessera`.
@@ -157,6 +158,7 @@ One line per component. 116 of 226 have their usage written; a linked name opens
 - [Markdown](components/Markdown.md): Shows a Markdown text, such as the release note of a version, as formatted text drawn with Tessera parts: headings, paragraphs, lists, task lists, tables, bold, italic, strikethrough, links, inline code, code blocks, quotes and rules. Raw HTML is dropped. Import from `@drizztdourden08/tessera`.
 - [MarkdownEditor](components/MarkdownEditor.md): A multi-line field for writing Markdown, with a toolbar for bold, italic, lists, quotes, links and code, and a live preview drawn by Markdown. Import from `@drizztdourden08/tessera`.
 - [MarqueeBox](components/MarqueeBox.md): The rectangle that shows an area being dragged over items to pick them, drawn inside the box that scrolls. Import from `@drizztdourden08/tessera`.
+- [MediaGrid](components/MediaGrid.md): A grid of picture thumbnails, each with a caption and a small tag for where it came from, that opens a picture when one is clicked. Import from `@drizztdourden08/tessera`.
 - [MediaViewer](components/MediaViewer.md): Opens a picture or a video large over the page in a dialog, with zoom by steps, a Fit and actual size switch, dragging to look around, and arrows through a set. Import from `@drizztdourden08/tessera`.
 - [MillerColumns](components/MillerColumns.md): Side by side columns for a nested set, such as folders: picking a folder in one column shows its children in the next, and the pick is shared with the app. A building block. Import from `@drizztdourden08/tessera`.
 - [Navigator](components/Navigator.md): A small map of a large surface, such as a canvas or a long timeline, with a frame that marks the visible part and that the user drags to move the view. Import from `@drizztdourden08/tessera`.

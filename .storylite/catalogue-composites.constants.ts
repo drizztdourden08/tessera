@@ -164,6 +164,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'Markdown', summary: 'A Markdown text, such as a release note, drawn with Tessera parts, with raw HTML dropped.' },
         { name: 'Rating', summary: 'Stars that show how well something is rated, and let a person rate it.' },
         { name: 'Carousel', summary: 'One slide at a time from a set, with dots, arrows and an optional slow turn.' },
+        { name: 'MediaGrid', summary: 'Write the one job of MediaGrid in one sentence.' },
       ],
     },
     ...SHELL_GROUPS,

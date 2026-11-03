@@ -48,3 +48,5 @@ export { Checkbox } from '../Checkbox';
 export type { CheckboxProps } from '../Checkbox';
 export { ColorSwatch } from '../ColorSwatch';
 export type { ColorSwatchProps, SwatchCorner, SwatchCornerMarks, SwatchSize } from '../ColorSwatch';
+export { FileInput } from '../FileInput';
+export type { FileInputProps } from '../FileInput';

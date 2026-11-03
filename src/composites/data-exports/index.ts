@@ -58,6 +58,7 @@ export { CodeBlock, type CodeBlockLanguage, type CodeBlockProps } from '../CodeB
 export { Markdown, type MarkdownHeadingOffset, type MarkdownImageHandler, type MarkdownImageResolver, type MarkdownImageTarget, type MarkdownImages, type MarkdownLinkHandler, type MarkdownLinkId, type MarkdownProps, type MarkdownSize } from '../Markdown';
 export { Rating, type RatingProps, type RatingSize } from '../Rating';
 export { Carousel, type CarouselProps, type CarouselSlide } from '../Carousel';
+export { MediaGrid, type MediaGridItem, type MediaGridProps } from '../MediaGrid';
 export { MediaViewer, type MediaViewerItem, type MediaViewerKind, type MediaViewerProps } from '../MediaViewer';
 export { TrackTable, type TrackAlign, type TrackColumn, type TrackDrop, type TrackHideBelow, type TrackRowTone, type TrackTableProps } from '../TrackTable';
 export { RowGrid, type RowGridColumn, type RowGridDensity, type RowGridProps } from '../RowGrid';
