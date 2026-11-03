@@ -1,22 +1,10 @@
 /* @layer renderer-components @kind types */
 import type { FocusEvent, KeyboardEvent, RefObject } from 'react';
+import type { RowRange } from '../../data/row-window';
 
 type VirtualSize =
   | 'size-16' | 'size-20' | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'
   | 'size-80' | 'size-96' | 'size-128' | 'size-160' | 'size-192' | 'size-224' | 'size-256';
-
-interface VisibleRangeInput {
-  scrollTop: number;
-  viewport: number;
-  rowHeight: number;
-  count: number;
-  overscan: number;
-}
-
-interface RowRange {
-  start: number;
-  end: number;
-}
 
 interface VirtualMetrics {
   top: number;
@@ -96,5 +84,5 @@ interface ShowInput {
 }
 
 export type {
-  RowRange, ScrollAlign, ScrollParentInput, ShowInput, SpanInput, VirtualAxis, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualMetricsReader, VirtualScrollParent, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput,
+  ScrollAlign, ScrollParentInput, ShowInput, SpanInput, VirtualAxis, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualMetricsReader, VirtualScrollParent, VirtualSize, VirtualWindow, VirtualWindowInput,
 };

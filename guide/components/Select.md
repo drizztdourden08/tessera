@@ -39,11 +39,14 @@ Select is the field that opens a list of options, plain or grouped, and picks on
 - Pass width="fit" to size the control to its content, or width="narrow" for a 220 px control; TextInput, SearchInput and Combobox take the same prop.
 - Pass width="narrow-fill" for the 220 px control that fills its row when the nearest container is under 420 px wide; it needs an ancestor with a container type, such as a drawer or a window header.
 - Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen.
+- A list of more than 200 options draws only the rows in view, so a list of thousands opens and scrolls at once. Select, Combobox and the choice slots of DynamicInput share this list.
+- In a list that long every row has the height of the first one; an item component of rows with other heights fits a list under 200 options.
 
 ## Accessibility
 
 - The trigger is a combobox with a listbox; options are option rows, and a group heading names its block.
 - The arrow keys, Home and End move through the options, Enter picks, Escape closes and returns focus to the trigger.
+- In a long list the active option is always drawn, even far out of view, and each option gives its place and the size of its block.
 
 ## Example
 
@@ -113,7 +116,7 @@ const TintPicker = ({ tint, onTint }: TintPickerProps) => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-soft`, `--c-hover`, `--c-inset`, `--c-primary`, `--c-primary-soft`, `--c-primary-text`, `--c-sunken`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--field-w-inline`, `--field-w-inline-min`, `--field-w-narrow`, `--leading-normal`, `--listbox-attach`, `--listbox-columns`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-14`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--z-popover`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-soft`, `--c-hover`, `--c-inset`, `--c-primary`, `--c-primary-soft`, `--c-primary-text`, `--c-sunken`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--field-w-inline`, `--field-w-inline-min`, `--field-w-narrow`, `--leading-normal`, `--listbox-attach`, `--listbox-columns`, `--listbox-gap-rows`, `--listbox-row-size`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--size-1`, `--size-14`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--z-popover`, `--z-sticky`.
 
 ## Also exported from this folder
 

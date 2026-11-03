@@ -2,12 +2,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { observeResize } from '../../primitives/dom/observe-resize';
 import { isElement } from '../../primitives/dom/is-element';
+import { renderedIndices, visibleRange } from '../../data/row-window';
 import { INITIAL_METRICS, OVERSCAN } from './virtual.constants';
 import { indexOfTarget } from './index-of-target';
 import { readVirtualMetrics } from './read-virtual-metrics';
-import { renderedIndices } from './rendered-indices';
 import { sameMetrics } from './same-metrics';
-import { visibleRange } from './visible-range';
 import type { FocusEvent } from 'react';
 import type { VirtualMetrics, VirtualWindow, VirtualWindowInput } from './virtual.type';
 

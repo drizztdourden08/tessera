@@ -1,8 +1,8 @@
 /* @layer tooling-scripts @kind test */
 import { describe, expect, it } from 'vitest';
-import { renderedIndices } from '../src/composites/virtual/rendered-indices';
+import { renderedIndices } from '../src/data/row-window/rendered-indices';
 import { scrollTopToShow } from '../src/composites/virtual/scroll-top-to-show';
-import { visibleRange } from '../src/composites/virtual/visible-range';
+import { visibleRange } from '../src/data/row-window/visible-range';
 import { nextIndex } from '../src/composites/VirtualList/behavior/next-index';
 
 describe('K1 the windowing math', { tags: ['critical'] }, () => {

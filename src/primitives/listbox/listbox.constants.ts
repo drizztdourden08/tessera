@@ -1,5 +1,7 @@
 /* @layer renderer-components @kind data */
+import type { RowRange } from '../../data/row-window';
 import type { ColumnWidth } from './listbox.type';
+import type { ListboxWindow } from './listbox-window.type';
 
 const KEY_FIELDS: readonly string[] = ['value', 'id', 'key'];
 
@@ -32,9 +34,24 @@ const VIEW_MARGIN = 8;
 
 const MAX_DROP_HEIGHT = 288;
 
+const WINDOW_THRESHOLD = 200;
+
+const WINDOW_OVERSCAN = 10;
+
+const DEFAULT_ROW_SIZE = 32;
+
+const FIRST_RANGE: RowRange = { start: 0, end: 30 };
+
+const EMPTY_RANGE: RowRange = { start: 0, end: 0 };
+
+const FIRST_WINDOW: ListboxWindow = { rowSize: DEFAULT_ROW_SIZE, ranges: [] };
+
 export {
   DESCRIPTION_FIELD,
   DISABLED_FIELD,
+  EMPTY_RANGE,
+  FIRST_RANGE,
+  FIRST_WINDOW,
   KEY_FIELDS,
   LABEL_FIELDS,
   MARK_TRACK,
@@ -45,4 +62,6 @@ export {
   TYPEAHEAD_PAUSE_MS,
   VIEW_MARGIN,
   WIDTH_TRACKS,
+  WINDOW_OVERSCAN,
+  WINDOW_THRESHOLD,
 };

@@ -73,6 +73,19 @@
   color: var(--c-primary-text);
 }
 
+.listbox-gap {
+  grid-column: 1 / -1;
+  height: calc(var(--listbox-gap-rows) * var(--listbox-row-size));
+}
+
+.listbox-sizer {
+  height: 0;
+  padding-block: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .listbox-option[aria-disabled='true'] {
   opacity: var(--opacity-disabled);
   cursor: not-allowed;
