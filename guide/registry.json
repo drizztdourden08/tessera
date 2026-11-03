@@ -9918,6 +9918,7 @@
         "Pass validate on a slot or on the pattern, from the value to a message or nothing. A message turns the field invalid and shows under it.",
         "Make a list a function of the value, such as lists={{ item: (value) => itemsOf(value.player) }}, so its choices follow another slot; a choice the new list no longer offers is cleared.",
         "An empty slot reaches validate as null. Return nothing for it unless the slot is required.",
+        "A whole value pasted into any slot, such as ABCD-1234 or 192.168.0.1:8080, fills every slot when it fits the pattern. Separators and letter case are ignored, a choice matches by value or label, and a value a slot rejects leaves the paste in the one slot.",
         "The invalid prop wins over validate, and a Field with an error shows its own message."
       ],
       "a11y": [
