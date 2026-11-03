@@ -1,28 +1,29 @@
 /* @layer renderer-components @kind component */
-import { useRef } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { siblingMenu } from '../behavior/sibling-menu';
-import { springHandlers } from '../behavior/spring-handlers';
+import { useItemSpring } from '../behavior/useItemSpring';
+import { useSegmentRef } from '../behavior/useSegmentRef';
 import { SEPARATOR_SIZE } from '../Breadcrumbs.constants';
 import type { BreadcrumbItemProps } from '../Breadcrumbs.type';
 import { BreadcrumbSegmentButton } from './BreadcrumbSegmentButton';
 import { BreadcrumbSiblings } from './BreadcrumbSiblings';
 import { BreadcrumbSpringMenu } from './BreadcrumbSpringMenu';
 
-const BreadcrumbItem = ({ segment, index, current, first, drop, spring, onNavigate }: BreadcrumbItemProps) => {
+const BreadcrumbItem = ({ segment, index, current, first, drop, spring, dropOver, onSegmentRef, onNavigate }: BreadcrumbItemProps) => {
   const { id, label, title } = segment;
   const { menu, asMenu } = siblingMenu(segment);
-  const itemRef = useRef<HTMLElement>(null);
+  const { itemRef, setRef } = useSegmentRef(id, onSegmentRef);
+  const handlers = useItemSpring({ spring, id, current, hasMenu: menu !== undefined, dropOver });
 
   return (
     <Box
       as="li"
-      ref={itemRef}
+      ref={setRef}
       className="breadcrumbs__item"
       data-current={current || undefined}
       title={asMenu ? title : undefined}
-      {...springHandlers(spring, id, menu !== undefined)}
+      {...handlers}
     >
       {!first && <Icon name="chevron-right" size={SEPARATOR_SIZE} className="breadcrumbs__separator" aria-hidden />}
       {asMenu ? (

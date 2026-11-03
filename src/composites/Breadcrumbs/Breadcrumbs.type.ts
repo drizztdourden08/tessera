@@ -8,6 +8,8 @@ type BreadcrumbSibling = MenuNode & { group?: string };
 
 type SegmentDropProps = HTMLAttributes<HTMLElement> & DataAttributes;
 
+type SpringOpenMode = 'menu' | 'navigate';
+
 interface BreadcrumbSegment {
   id: string;
   label: string;
@@ -24,6 +26,10 @@ interface BreadcrumbsProps {
   onDropOn?: (id: string, event: DragEvent<HTMLElement>) => void;
   canDrop?: (id: string, event: DragEvent<HTMLElement>) => boolean;
   dropTarget?: (index: number, id: string) => SegmentDropProps;
+  onSegmentRef?: (id: string, element: HTMLElement | null) => void;
+  dropOverId?: string | null;
+  springOpen?: SpringOpenMode;
+  onSpringOpen?: (id: string) => void;
   validate?: (path: string) => string | null;
   path?: string;
   onPathSubmit?: (path: string) => void;
@@ -42,9 +48,17 @@ interface SegmentDropRules {
   onDropOn: BreadcrumbsProps['onDropOn'];
   canDrop: BreadcrumbsProps['canDrop'];
   dropTarget: BreadcrumbsProps['dropTarget'];
+  dropOverId: BreadcrumbsProps['dropOverId'];
+}
+
+interface SpringOpenOptions {
+  mode: BreadcrumbsProps['springOpen'];
+  onNavigate: (id: string) => void;
+  onSpringOpen: BreadcrumbsProps['onSpringOpen'];
 }
 
 interface SpringOpen {
+  mode: SpringOpenMode;
   openId: string | null;
   hold: (id: string) => void;
   release: () => void;
@@ -70,10 +84,25 @@ interface BreadcrumbItemProps {
   first: boolean;
   drop: SegmentDrop;
   spring: SpringOpen;
+  dropOver: boolean;
+  onSegmentRef: BreadcrumbsProps['onSegmentRef'];
   onNavigate: (id: string) => void;
 }
 
-type BreadcrumbSegmentButtonProps = Omit<BreadcrumbItemProps, 'first' | 'spring'>;
+interface SegmentRef {
+  itemRef: RefObject<HTMLElement | null>;
+  setRef: (element: HTMLElement | null) => void;
+}
+
+interface ItemSpringInput {
+  spring: SpringOpen;
+  id: string;
+  current: boolean;
+  hasMenu: boolean;
+  dropOver: boolean;
+}
+
+type BreadcrumbSegmentButtonProps = Omit<BreadcrumbItemProps, 'first' | 'spring' | 'dropOver' | 'onSegmentRef'>;
 
 type SiblingMenu =
   | { menu: readonly BreadcrumbSibling[]; asMenu: true }
@@ -105,6 +134,6 @@ interface BreadcrumbEditProps {
 }
 
 export type {
-  BreadcrumbEditProps, BreadcrumbItemProps, BreadcrumbOverflowProps, BreadcrumbSegment, BreadcrumbSegmentButtonProps, BreadcrumbSibling, BreadcrumbSiblingsProps, BreadcrumbSpringMenuProps, BreadcrumbsProps, FoldedSegments, OverSetter,
-  SegmentDrop, SegmentDropProps, SegmentDropRules, SiblingGroup, SiblingMenu, SpringOpen,
+  BreadcrumbEditProps, BreadcrumbItemProps, BreadcrumbOverflowProps, BreadcrumbSegment, BreadcrumbSegmentButtonProps, BreadcrumbSibling, BreadcrumbSiblingsProps, BreadcrumbSpringMenuProps, BreadcrumbsProps, FoldedSegments, ItemSpringInput, OverSetter,
+  SegmentDrop, SegmentDropProps, SegmentDropRules, SegmentRef, SiblingGroup, SiblingMenu, SpringOpen, SpringOpenMode, SpringOpenOptions,
 };
