@@ -76,6 +76,7 @@ const STATUS = {
     'a label and its value': null, 'terms and what they mean': null, 'a colour sample': null, 'a key or a shortcut': null,
     'a list of keys and what they do': null, 'a value to copy, such as an address or a key': null, 'a score in stars, or a rating to give': null,
     'a date or a time, such as 5 minutes ago': null,
+    'a row of attention chips that folds what does not fit': null, 'one cell per step, toned by its outcome': null,
   },
 } as const;
 
