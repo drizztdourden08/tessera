@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { ChangeEvent, KeyboardEvent, MouseEvent, RefCallback, RefObject } from 'react';
+import type { ChangeEvent, ClipboardEvent, KeyboardEvent, MouseEvent, RefCallback, RefObject } from 'react';
 import type { PatternSlotSpec } from './parse-pattern.type';
 import type { CaretPlace, PatternField } from './pattern-field.type';
 import type { SlotKind } from './slot-kind.type';
@@ -38,6 +38,7 @@ interface FreshClick<E extends HTMLElement> {
 
 interface TypedSegmentState extends TypedDraft {
   handleKeyDown: (event: KeyboardEvent<HTMLInputElement>) => void;
+  handlePaste: (event: ClipboardEvent<HTMLInputElement>) => void;
   handleMouseDown: (event: MouseEvent<HTMLInputElement>) => void;
   handleMouseUp: (event: MouseEvent<HTMLInputElement>) => void;
 }

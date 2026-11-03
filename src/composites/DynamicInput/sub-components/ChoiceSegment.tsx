@@ -41,6 +41,7 @@ const ChoiceSegment = (props: SegmentProps) => {
         aria-invalid={field.invalid || undefined}
         disabled={field.disabled}
         onKeyDown={choice.handleKeyDown}
+        onPaste={choice.handlePaste}
         onMouseDown={choice.handleMouseDown}
         onClick={choice.handleClick}
       >

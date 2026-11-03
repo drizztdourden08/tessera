@@ -10,11 +10,14 @@ import { choiceColumns } from './choice-columns';
 import { choiceLabel } from './choice-label';
 import { choiceOptions } from './choice-options';
 import { handleChoiceKey } from './handle-choice-key';
+import { pasteHandler } from './paste-handler';
 import { useFreshClick } from './useFreshClick';
 import type { KeyboardEvent } from 'react';
 import type { ChoiceSegmentState } from './choice-segment.type';
 import type { SegmentParams } from './typed-segment.type';
 import type { PatternChoice } from '../DynamicInput.type';
+
+const noRelease = (): void => undefined;
 
 const useChoiceSegment = (params: SegmentParams): ChoiceSegmentState => {
   const { field, slot, index } = params;
@@ -40,10 +43,11 @@ const useChoiceSegment = (params: SegmentParams): ChoiceSegmentState => {
   const attach = useCallback((node: HTMLButtonElement | null) => field.register(index)(node), [field.register, index]);
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) =>
     handleChoiceKey({ field, slot, index, model, open, pick, typed }, event);
+  const handlePaste = pasteHandler<HTMLButtonElement>(field, { index, release: noRelease });
   const handleClick = () => field.setOpen(fresh.takeFresh() || !open);
 
   return {
-    options, selected: options.find((option) => option.value === value), open, model, attach, handleKeyDown, handleClick,
+    options, selected: options.find((option) => option.value === value), open, model, attach, handleKeyDown, handlePaste, handleClick,
     handleMouseDown: fresh.handleMouseDown,
     view: { model, columns: setup.columns, multi: false, highlight: false, onPick: (entry) => pick(entry.item.value) },
   };
