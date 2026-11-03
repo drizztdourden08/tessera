@@ -23,12 +23,14 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'Drawer', summary: 'A panel that slides in from an edge.' },
         { name: 'DisabledOverlay', summary: 'Covers a disabled area and says why.' },
+        { name: 'AnchoredBar', summary: 'A bar or small dialog kept beside a rectangle: clamped to its box, docked at an edge when the target scrolls away.' },
         { name: 'GuidedTour', summary: 'A tour of a screen: one part lit at a time, steps from config, presented by the mascot.' },
       ],
     },
     {
       group: 'Feedback',
       entries: [
+        { name: 'TransientReadout', summary: 'A value in a corner that appears when it changes and fades after a second.' },
         { name: 'Toast', summary: 'A short message that dismisses itself.' },
         { name: 'LoadError', summary: 'What to show when something fails to load: a sentence, Retry and the raw error behind Details.' },
         { name: 'ErrorBoundary', summary: 'Catches a crash in its children and shows a notice in their place.' },
@@ -119,6 +121,8 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'PasswordInput', summary: 'A password with a show button, any mask character, a Caps Lock warning and an optional checklist.' },
         { name: 'TagInput', summary: 'Free tags with suggestions and validation.' },
         { name: 'PathInput', summary: 'A file or folder path to type, drop or browse for, with copy, reveal and clear.' },
+        { name: 'SpanBar', summary: 'A bar over a row of cells that is dragged to move, stretched from its ends and moved by keys, with a lane to draw a new one.' },
+        { name: 'ScrubRuler', summary: 'A ruler over a row of cells: drag to scrub the current cell, with markers, a range band and ticks.' },
       ],
     },
     {

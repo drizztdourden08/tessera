@@ -1,0 +1,24 @@
+/* @layer stories @kind style */
+.bar-demo {
+  position: relative;
+  inline-size: var(--size-320);
+  block-size: var(--size-160);
+  overflow: auto;
+  border: var(--border-width-thin) dashed var(--c-border-strong);
+  border-radius: var(--radius-sm);
+}
+
+.bar-demo__page {
+  position: relative;
+  block-size: var(--size-320);
+  padding-block-start: var(--size-48);
+}
+
+.bar-demo__target {
+  inline-size: var(--size-96);
+  block-size: var(--size-40);
+  margin-inline: var(--size-96);
+  border: var(--border-width-thin) solid var(--c-primary);
+  border-radius: var(--radius-sm);
+  background: var(--c-primary-soft);
+}

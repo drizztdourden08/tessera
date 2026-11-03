@@ -1,0 +1,135 @@
+/* @layer renderer-components @kind style */
+.scrub-ruler {
+  position: relative;
+  box-sizing: border-box;
+  inline-size: var(--scrub-width);
+  block-size: var(--size-28);
+  background: var(--c-surface);
+  border-block-end: var(--border-width-thin) solid var(--c-border);
+  user-select: none;
+}
+
+.scrub-ruler__track {
+  position: absolute;
+  inset: 0;
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.scrub-ruler__track:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-focus);
+  outline-offset: calc(-1 * var(--border-width-thick));
+}
+
+.scrub-ruler__tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--scrub-left);
+  inline-size: var(--scrub-width);
+  border-inline-start: var(--border-width-thin) solid var(--c-border);
+  pointer-events: none;
+}
+
+.scrub-ruler__tick[data-current] {
+  border-inline-start-color: var(--c-text);
+}
+
+.scrub-ruler__label {
+  position: absolute;
+  top: var(--space-2xs);
+  left: var(--space-2xs);
+  color: var(--c-text-muted);
+  white-space: nowrap;
+}
+
+.scrub-ruler__tick[data-current] .scrub-ruler__label {
+  color: var(--c-text);
+  font-weight: var(--weight-bold);
+}
+
+.scrub-ruler__playhead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--scrub-left);
+  inline-size: var(--scrub-cell);
+  background: var(--c-primary-soft);
+  border-inline-start: var(--border-width-thick) solid var(--c-primary);
+  pointer-events: none;
+}
+
+.scrub-ruler:not([data-read-only]):hover .scrub-ruler__playhead {
+  background: var(--c-selected);
+}
+
+.scrub-ruler[data-scrubbing] .scrub-ruler__playhead {
+  background: var(--c-primary-glow);
+}
+
+.scrub-ruler__band {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--scrub-left);
+  inline-size: var(--scrub-width);
+  background: var(--c-secondary-soft);
+  border-inline: var(--border-width-thin) solid var(--c-secondary);
+  pointer-events: none;
+}
+
+.scrub-ruler__band[data-draft] {
+  border-style: dashed;
+}
+
+.scrub-ruler__clear {
+  position: absolute;
+  top: 0;
+  right: 0;
+  pointer-events: auto;
+}
+
+.scrub-ruler__marker {
+  position: absolute;
+  bottom: 0;
+  left: var(--scrub-left);
+  inline-size: var(--size-24);
+  block-size: var(--size-16);
+  translate: -50% 0;
+  background: var(--hue-ink);
+  cursor: grab;
+  touch-action: none;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.scrub-ruler__marker[data-side='before'] {
+  clip-path: polygon(0 50%, 40% 0, 100% 0, 100% 100%, 40% 100%);
+}
+
+.scrub-ruler__marker[data-side='after'] {
+  clip-path: polygon(0 0, 60% 0, 100% 50%, 60% 100%, 0 100%);
+}
+
+.scrub-ruler__marker[data-dragging] {
+  cursor: grabbing;
+}
+
+.scrub-ruler__marker:focus-visible {
+  outline: var(--border-width-thick) solid var(--c-focus);
+  outline-offset: var(--border-width-thick);
+}
+
+.scrub-ruler[data-read-only] .scrub-ruler__track,
+.scrub-ruler[data-read-only] .scrub-ruler__marker {
+  cursor: default;
+}
+
+@media (forced-colors: active) {
+  .scrub-ruler__playhead {
+    border-inline-start-color: Highlight;
+  }
+
+  .scrub-ruler__marker {
+    background: CanvasText;
+  }
+}

@@ -53,7 +53,9 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A colour. **Where does the picker sit?**
     - In the page: [ColorPicker](components/ColorPicker.md). ColorPicker is the colour panel placed in the page; import it from the color-picker subpath.
     - Behind a swatch button: no component yet.
-  - A range: no component yet.
+  - A range:
+    - [ScrubRuler](components/ScrubRuler.md). ScrubRuler sets one current cell on a row of cells, with markers and a band, where SpanBar sets a range of cells.
+    - [SpanBar](components/SpanBar.md). SpanBar edits a range of cells on a row, where Slider edits a number between two limits.
   - A colour from a palette: [ChoiceGrid](components/ChoiceGrid.md). ChoiceGrid is the strip or grid of cells where one is picked; draw each cell as a ColorSwatch for a palette.
   - A colour from a ramp of steps: [RampStrip](components/RampStrip.md). RampStrip is the ordered row of shades of one ramp, with a caption on each step.
   - A file: [FileInput](components/FileInput.md). FileInput is the hidden picker behind a button, for a file the user chooses from a dialog.
@@ -91,6 +93,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A panel from the edge of the window: no component yet.
   - A search over every command: no component yet.
   - A cover over a part that is off: no component yet.
+  - A bar or small dialog kept beside a rectangle: [AnchoredBar](components/AnchoredBar.md). AnchoredBar adds a clamp, a dock, follow and focus handling to Anchored, for a bar that belongs to a rectangle.
   - A dim backdrop: no component yet.
   - A long job the user can hide or cancel: [JobDialog](components/JobDialog.md). JobDialog puts TaskProgress in a dialog whose buttons follow the state of the job.
   - A guided tour of the screen, one part at a time: [GuidedTour](components/GuidedTour.md). GuidedTour lights one target per step, runs the step onEnter first, and lets the mascot walk beside the bubble, facing the target.
@@ -175,6 +178,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A question that blocks one region until it is answered: [FloatingPrompt](components/FloatingPrompt.md). FloatingPrompt asks the user to answer before going on in one region, with actions from data and the look of a Toast.
   - What blocks a save, with a jump to each field: [ValidationSummary](components/ValidationSummary.md). ValidationSummary lists what blocks a save in one place and takes the user to each field, the same way in every editor.
   - Whether the edits are saved, with Save and Discard: [SaveBar](components/SaveBar.md). SaveBar says whether an editor is saved and holds Save and Discard at its foot, the same way in every app.
+  - A value that shows when it changes and fades: [TransientReadout](components/TransientReadout.md). TransientReadout is tied to one value and one surface, where Toast is a message raised from anywhere in the app.
 - Text. **What kind of text?**
   - A heading: no component yet.
   - A section heading with an action: no component yet.

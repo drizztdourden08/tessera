@@ -76,8 +76,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     JobDialog: 'square-activity',
     MediaViewer: 'scan-search',
   },
-  'Composites · Overlays': { Drawer: 'panel-right', DisabledOverlay: 'ban', GuidedTour: 'signpost' },
-  'Composites · Feedback': { Toast: 'bell', LoadError: 'circle-alert', ErrorBoundary: 'bug', Splash: 'rocket', 'Static splash': 'power' },
+  'Composites · Overlays': { Drawer: 'panel-right', DisabledOverlay: 'ban', GuidedTour: 'signpost', AnchoredBar: 'anchor' },
+  'Composites · Feedback': { Toast: 'bell', TransientReadout: 'gauge', LoadError: 'circle-alert', ErrorBoundary: 'bug', Splash: 'rocket', 'Static splash': 'power' },
   'Composites · Actions': { ConfirmIconButton: 'circle-check', ArmedIconButton: 'hard-drive-upload', ActionBar: 'rectangle-ellipsis', Toolbar: 'wrench', CopyButton: 'clipboard-copy', RetryButton: 'refresh-cw' },
   'Composites · Wizard': {
     Wizard: 'wand-sparkles', WizardStep: 'square-pen', WizardNav: 'move-horizontal',
@@ -116,6 +116,8 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Inputs': {
     DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus',
     CommandInput: 'square-terminal', PasswordInput: 'lock-keyhole', TagInput: 'tag', PathInput: 'folder-input',
+    SpanBar: 'ruler',
+    ScrubRuler: 'ruler',
   },
   'Composites · Forms': { InlineCreateForm: 'square-pen', InlineEdit: 'pencil-line', RecordEditor: 'file-pen-line', ValidationSummary: 'list-x', FormRow: 'rows-3', FormGroupTabs: 'folder-kanban', RowGrid: 'rows-4', SaveBar: 'save' },
   'Composites · Input devices': {
