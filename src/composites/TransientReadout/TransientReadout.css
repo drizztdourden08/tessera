@@ -1,0 +1,52 @@
+/* @layer renderer-components @kind style */
+.transient-readout {
+  position: absolute;
+  z-index: var(--z-floating);
+  padding: var(--space-2xs) var(--space-sm);
+  background: var(--c-surface);
+  color: var(--c-text);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-sm);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-normal);
+}
+
+.transient-readout[data-visible] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.transient-readout--bottom-end {
+  right: var(--space-sm);
+  bottom: var(--space-sm);
+}
+
+.transient-readout--bottom-start {
+  bottom: var(--space-sm);
+  left: var(--space-sm);
+}
+
+.transient-readout--top-end {
+  top: var(--space-sm);
+  right: var(--space-sm);
+}
+
+.transient-readout--top-start {
+  top: var(--space-sm);
+  left: var(--space-sm);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transient-readout {
+    transition: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .transient-readout {
+    background: Canvas;
+    color: CanvasText;
+    border-color: CanvasText;
+  }
+}

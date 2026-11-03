@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 120 of 230 have their usage written; a linked name opens its page.
+One line per component. 124 of 234 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -95,6 +95,7 @@ One line per component. 120 of 230 have their usage written; a linked name opens
 
 - [ActionBar](components/ActionBar.md): The actions on one item in a single row: the primary action last, the ones that do not fit folded into a More menu. Import from `@drizztdourden08/tessera`.
 - [ActionTile](components/ActionTile.md): A tile with one headline value that also does one thing: runs an action, copies a text, or leads to the full view. Import from `@drizztdourden08/tessera`.
+- [AnchoredBar](components/AnchoredBar.md): A small bar or dialog kept beside a rectangle, clamped to its box and docked at an edge when the target scrolls out of view. Import from `@drizztdourden08/tessera`.
 - [AnchorPicker](components/AnchorPicker.md): A three by three grid that picks where something is anchored: a corner, an edge or the centre. Import from `@drizztdourden08/tessera`.
 - [AngleField](components/AngleField.md): An angle in degrees, set by dragging a dial or typing a number, that snaps to 15, 22.5 or 45 degrees and wraps at a full turn. Import from `@drizztdourden08/tessera`.
 - [ArmedIconButton](components/ArmedIconButton.md): An icon button pressed twice: the first press arms it and its icon loops a short motion, the second press acts. Import from `@drizztdourden08/tessera`.
@@ -178,6 +179,7 @@ One line per component. 120 of 230 have their usage written; a linked name opens
 - [ScreenLayer](components/ScreenLayer.md): Building block: the overlay and the card of every screen, with one gap around the card that follows the room. A building block. Import from `@drizztdourden08/tessera`.
 - [ScreenPage](components/ScreenPage.md): Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls. A building block. Import from `@drizztdourden08/tessera`.
 - [ScreenWindow](components/ScreenWindow.md): Building block: the plain screen window, a ScreenLayer with a title bar, a page header or only corner buttons at its top, a close button and an empty container. A building block. Import from `@drizztdourden08/tessera`.
+- [ScrubRuler](components/ScrubRuler.md): A ruler over a row of cells that the user drags along to move the current cell, with markers, a range band and ticks. Import from `@drizztdourden08/tessera`.
 - `SearchResultGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResultHit`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SearchResults`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -195,6 +197,7 @@ One line per component. 120 of 230 have their usage written; a linked name opens
 - [SignalStrip](components/SignalStrip.md): One row of small toned chips, each an icon with a count, that never wraps: what does not fit folds into a +N chip whose tooltip lists the hidden ones. Import from `@drizztdourden08/tessera`.
 - [SiteFooter](components/SiteFooter.md): The foot of a page of a website: a small logo, one line of text and a few links such as rules, privacy and Discord. Import from `@drizztdourden08/tessera`.
 - [SiteHeader](components/SiteHeader.md): The band at the top of every page of a website: the logo and the site title as the link home, the main links and the signed-in person. Import from `@drizztdourden08/tessera`.
+- [SpanBar](components/SpanBar.md): A bar over a row of cells that the user drags to move, stretches from either end and moves with the keys, with a lane to draw a new one. Import from `@drizztdourden08/tessera`.
 - [Splash](components/Splash.md): The splash of the static page drawn from React, so the app can show it again, or take over from the static page with no jump. Import from `@drizztdourden08/tessera`.
 - [SplitButton](components/SplitButton.md): A button that runs its main action, joined to a chevron that opens a menu of related actions, such as New with the kinds of thing to create. Import from `@drizztdourden08/tessera`.
 - `SplitPane`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -209,6 +212,7 @@ One line per component. 120 of 230 have their usage written; a linked name opens
 - [Toolbar](components/Toolbar.md): A row or a column of tools, built from data, with a hint on each, a menu beside the tools that have options, and More for the tools that do not fit. Import from `@drizztdourden08/tessera`.
 - [ToolbarDock](components/ToolbarDock.md): The frame around a work area that holds toolbars on its four edges, up to two lanes on each, with the work area in the centre. Import from `@drizztdourden08/tessera`.
 - [TrackTable](components/TrackTable.md): A flat, read-only table whose columns share the width in fractions and drop out, least needed first, as the table narrows. Import from `@drizztdourden08/tessera`.
+- [TransientReadout](components/TransientReadout.md): A value in the corner of a surface that shows when it changes and fades after a second, such as the zoom of a canvas. Import from `@drizztdourden08/tessera`.
 - [Tree](components/Tree.md): A long tree of items that fold open, drawn only where it is in view, with the keys of a tree, many picked at once, and a drag that reorders or drops into a folder. A building block. Import from `@drizztdourden08/tessera`.
 - [UtilityScreen](components/UtilityScreen.md): A compact screen for one short task, laid out as the rotp update dialog: the window header shows the status with a spinner or a tone icon and the close button, then one column with a centred message, settings, details, a framed notes box and progress, then a report button over a rule and the actions. Import from `@drizztdourden08/tessera`.
 - [ValidationSummary](components/ValidationSummary.md): What blocks a save, listed above the form in a toned box, each problem a link that moves focus to its field. Import from `@drizztdourden08/tessera`.

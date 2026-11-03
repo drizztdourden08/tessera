@@ -1,0 +1,44 @@
+/* @layer renderer-components @kind style */
+.anchored-fallback.anchored-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  inline-size: max-content;
+  max-inline-size: stretch;
+  padding: var(--space-xs) var(--space-sm);
+  box-sizing: border-box;
+  background: var(--c-surface);
+  color: var(--c-text);
+  border: var(--border-width-thin) solid var(--c-border-strong);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-2);
+}
+
+.anchored-fallback.anchored-bar--inline {
+  position: absolute;
+  z-index: var(--z-floating);
+}
+
+.anchored-bar[data-measuring] {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.anchored-bar[data-docked] {
+  border-style: dashed;
+}
+
+.anchored-bar[data-error] {
+  border-color: var(--c-danger);
+  border-width: var(--border-width-thick);
+}
+
+.anchored-bar__docked {
+  color: var(--c-text-muted);
+}
+
+@media (forced-colors: active) {
+  .anchored-fallback.anchored-bar {
+    border-color: CanvasText;
+  }
+}

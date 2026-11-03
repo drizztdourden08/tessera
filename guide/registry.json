@@ -206,7 +206,10 @@
             }
           },
           "a range": {
-            "components": []
+            "components": [
+              "ScrubRuler",
+              "SpanBar"
+            ]
           },
           "a colour from a palette": {
             "components": [
@@ -357,6 +360,11 @@
           },
           "a cover over a part that is off": {
             "components": []
+          },
+          "a bar or small dialog kept beside a rectangle": {
+            "components": [
+              "AnchoredBar"
+            ]
           },
           "a dim backdrop": {
             "components": []
@@ -713,6 +721,11 @@
           "whether the edits are saved, with Save and Discard": {
             "components": [
               "SaveBar"
+            ]
+          },
+          "a value that shows when it changes and fades": {
+            "components": [
+              "TransientReadout"
             ]
           }
         }
@@ -5549,6 +5562,210 @@
         "title": "Composites · Content/ActionTile",
         "route": "#/story/composites-actiontile--overview",
         "file": "stories/composites/ActionTile.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "AnchoredBar",
+      "tier": "composites",
+      "source": "src/composites/AnchoredBar/AnchoredBar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A small bar or dialog kept beside a rectangle, clamped to its box and docked at an edge when the target scrolls out of view.",
+      "useWhen": [
+        "A toolbar or a small form belongs to a selection on a canvas or a long page, such as a rename bar over a clip.",
+        "The bar must stay reachable when its target scrolls away, or must follow it as the page moves."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The panel only needs to sit beside a rectangle, with no clamp, dock or focus handling.",
+          "use": "Anchored"
+        },
+        {
+          "case": "The user must answer before the app goes on.",
+          "use": "Dialog"
+        }
+      ],
+      "rules": [
+        "Return the target box from anchorRect; return null while there is none and the bar stays hidden.",
+        "Pass boundary to clamp the bar inside a box, and subscribe to hear the scrolls and resizes of that box.",
+        "Set dock to keep the bar in view at an edge when the target is off screen, and dockedText to say why.",
+        "Set inline when the bar sits in a scroll box instead of the top layer.",
+        "Name the bar with label and pick role: dialog, alertdialog, toolbar or status.",
+        "Pass initialFocus, a selector, to focus a control once the bar is placed, and onEscape to close it.",
+        "Set error to draw the danger border while the input in the bar is refused."
+      ],
+      "a11y": [
+        "The bar has the role you pass and a name from label; a dialog is not modal.",
+        "Focus moves to initialFocus once the bar is placed, and goes back where it was when the bar closes.",
+        "Escape runs onEscape and stops there, so a parent dialog stays open.",
+        "The bar is hidden from the tab order until it is measured."
+      ],
+      "tree": {
+        "path": [
+          "something over the page",
+          "a bar or small dialog kept beside a rectangle"
+        ],
+        "rule": "AnchoredBar adds a clamp, a dock, follow and focus handling to Anchored, for a bar that belongs to a rectangle."
+      },
+      "example": "import { AnchoredBar, Button } from '@drizztdourden08/tessera';\n\nconst SelectionBar = ({ rect, close }: { rect: () => DOMRect | null; close: () => void }) => (\n  <AnchoredBar anchorRect={rect} dock=\"bottom-center\" role=\"toolbar\" label=\"Selection\" onEscape={close}>\n    <Button size=\"sm\">Apply</Button>\n  </AnchoredBar>\n);\n",
+      "propsHash": "0d38013256e846b9",
+      "props": {
+        "own": [
+          {
+            "name": "anchorRect",
+            "optional": false,
+            "text": "() => AnchoredRect | null"
+          },
+          {
+            "name": "boundary",
+            "optional": true,
+            "text": "RefObject<HTMLElement | null>"
+          },
+          {
+            "name": "subscribe",
+            "optional": true,
+            "text": "(notify: () => void) => () => void"
+          },
+          {
+            "name": "inline",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "placement",
+            "optional": true,
+            "text": "BarPlacement",
+            "literals": [
+              "'bottom-center'",
+              "'top-center'"
+            ],
+            "default": "'bottom-center'"
+          },
+          {
+            "name": "margin",
+            "optional": true,
+            "text": "SpaceToken",
+            "literals": [
+              "'2xs'",
+              "'xs'",
+              "'sm'",
+              "'md'",
+              "'lg'",
+              "'xl'",
+              "'2xl'"
+            ],
+            "default": "'md'"
+          },
+          {
+            "name": "gap",
+            "optional": true,
+            "text": "SpaceToken",
+            "literals": [
+              "'2xs'",
+              "'xs'",
+              "'sm'",
+              "'md'",
+              "'lg'",
+              "'xl'",
+              "'2xl'"
+            ],
+            "default": "'sm'"
+          },
+          {
+            "name": "dock",
+            "optional": true,
+            "text": "BarDock",
+            "literals": [
+              "'top-center'",
+              "'bottom-center'",
+              "'none'"
+            ],
+            "default": "'none'"
+          },
+          {
+            "name": "follow",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "role",
+            "optional": true,
+            "text": "BarRole",
+            "literals": [
+              "'dialog'",
+              "'alertdialog'",
+              "'toolbar'",
+              "'status'"
+            ],
+            "default": "'dialog'"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "initialFocus",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "onEscape",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "error",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "dockedText",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border-strong",
+        "--c-danger",
+        "--c-surface",
+        "--c-text",
+        "--c-text-muted",
+        "--radius-md",
+        "--shadow-2",
+        "--space-sm",
+        "--space-xs",
+        "--z-floating"
+      ],
+      "gallery": {
+        "title": "Composites · Overlays/AnchoredBar",
+        "route": "#/story/composites-anchoredbar--overview",
+        "file": "stories/composites/AnchoredBar.stories.tsx"
       },
       "parts": []
     },
@@ -15751,6 +15968,167 @@
       "parts": []
     },
     {
+      "name": "ScrubRuler",
+      "tier": "composites",
+      "source": "src/composites/ScrubRuler/ScrubRuler.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A ruler over a row of cells that the user drags along to move the current cell, with markers, a range band and ticks.",
+      "useWhen": [
+        "The user scrubs through frames, steps or time and one cell is current.",
+        "Markers such as a hit frame, or a range of cells to loop, sit on the same ruler."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A range of cells is moved or stretched as one piece.",
+          "use": "SpanBar"
+        },
+        {
+          "case": "The value is a plain number with no cells behind it.",
+          "use": "Slider"
+        }
+      ],
+      "rules": [
+        "Pass the same cells as the SpanBar rows below it, so the ticks line up with the bars.",
+        "Keep value, markers and band in the parent and write them back from onChange, onMarkerChange and onBandChange.",
+        "Give every marker an id, a label and the min and max it may be dragged between.",
+        "Leave tickEvery on auto unless the ticks must fall on a fixed step; tickLabel writes the text of each tick.",
+        "Set readOnly to keep the ruler focusable and block every change."
+      ],
+      "a11y": [
+        "The track is a slider with a value text such as Frame 4 of 16.",
+        "Arrows step one cell, Page Up and Page Down step ten, Home and End jump to the ends.",
+        "Each marker is a slider of its own with its label, moved by the same keys.",
+        "A clear button removes the band and has a name."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "a range"
+        ],
+        "rule": "ScrubRuler sets one current cell on a row of cells, with markers and a band, where SpanBar sets a range of cells."
+      },
+      "example": "import { ScrubRuler } from '@drizztdourden08/tessera';\nimport type { CellGeometry } from '@drizztdourden08/tessera';\n\nconst Timeline = ({ cells, frame, setFrame }: { cells: CellGeometry; frame: number; setFrame: (index: number) => void }) => (\n  <ScrubRuler cells={cells} value={frame} onChange={setFrame} label=\"Frames\" />\n);\n",
+      "propsHash": "debbcfcf9039f706",
+      "props": {
+        "own": [
+          {
+            "name": "cells",
+            "optional": false,
+            "text": "CellGeometry"
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "onChange",
+            "optional": true,
+            "text": "(index: number) => void"
+          },
+          {
+            "name": "tickLabel",
+            "optional": true,
+            "text": "(index: number) => string",
+            "default": "plusOne"
+          },
+          {
+            "name": "tickEvery",
+            "optional": true,
+            "text": "number | 'auto'",
+            "default": "'auto'"
+          },
+          {
+            "name": "markers",
+            "optional": true,
+            "text": "readonly RulerMarker[]",
+            "default": "[]"
+          },
+          {
+            "name": "onMarkerChange",
+            "optional": true,
+            "text": "(id: string, index: number) => void"
+          },
+          {
+            "name": "band",
+            "optional": true,
+            "text": "RulerBand | null",
+            "default": "null"
+          },
+          {
+            "name": "onBandChange",
+            "optional": true,
+            "text": "(band: RulerBand | null) => void"
+          },
+          {
+            "name": "bandLabel",
+            "optional": true,
+            "text": "(band: RulerBand) => string"
+          },
+          {
+            "name": "valueText",
+            "optional": true,
+            "text": "(index: number, count: number) => string"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "readOnly",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-focus",
+        "--c-primary",
+        "--c-primary-glow",
+        "--c-primary-soft",
+        "--c-secondary",
+        "--c-secondary-soft",
+        "--c-selected",
+        "--c-surface",
+        "--c-text",
+        "--c-text-muted",
+        "--hue-ink",
+        "--scrub-cell",
+        "--scrub-left",
+        "--scrub-width",
+        "--size-16",
+        "--size-24",
+        "--size-28",
+        "--space-2xs",
+        "--weight-bold"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/ScrubRuler",
+        "route": "#/story/composites-scrubruler--overview",
+        "file": "stories/composites/ScrubRuler.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "SearchResultGroup",
       "tier": "composites",
       "source": "src/composites/SearchResultGroup/SearchResultGroup.tsx",
@@ -17039,6 +17417,196 @@
         "file": "stories/composites/SiteHeader.stories.tsx"
       },
       "parts": []
+    },
+    {
+      "name": "SpanBar",
+      "tier": "composites",
+      "source": "src/composites/SpanBar/SpanBar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A bar over a row of cells that the user drags to move, stretches from either end and moves with the keys, with a lane to draw a new one.",
+      "useWhen": [
+        "A range of cells is edited in place, such as the frames an animation clip covers.",
+        "The cells are equal, or have different widths such as frames with different hold times."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user picks one cell, not a range.",
+          "use": "ScrubRuler"
+        },
+        {
+          "case": "The range is a number between two limits, with no row of cells behind it.",
+          "use": "Slider"
+        }
+      ],
+      "rules": [
+        "Pass the same cells to every bar and ruler of a row, so they line up for any cell widths.",
+        "Keep start and end in the parent and write them back from onChange, which fires once when a drag ends.",
+        "Use onDraft to follow a drag in progress, such as a preview; it gets null when the drag is cancelled.",
+        "Wrap the bars in a SpanLane when the user may draw a new span, and add it from onCreate.",
+        "Pass announce so the range is read after each key step, and label so the bar has a name.",
+        "Set readOnly to keep the bar focusable and block every change."
+      ],
+      "a11y": [
+        "The bar is a button with a name; Enter activates it.",
+        "Alt + Shift + Left and Right move the end, and Alt + Ctrl + Left and Right move the whole span.",
+        "Each key step is announced through announce, such as Cells 3 to 6.",
+        "Escape cancels a drag, and the bar keeps a 24 pixel minimum size for touch."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "a range"
+        ],
+        "rule": "SpanBar edits a range of cells on a row, where Slider edits a number between two limits."
+      },
+      "example": "import { SpanBar, SpanLane } from '@drizztdourden08/tessera';\nimport type { CellGeometry, CellSpan } from '@drizztdourden08/tessera';\n\nconst ClipRow = ({ cells, span, setSpan }: { cells: CellGeometry; span: CellSpan; setSpan: (span: CellSpan) => void }) => (\n  <SpanLane cells={cells} label=\"Frames\">\n    <SpanBar start={span.start} end={span.end} cells={cells} onChange={setSpan} label=\"Walk\" colour=\"blue\">\n      Walk\n    </SpanBar>\n  </SpanLane>\n);\n",
+      "propsHash": "811dd36755c5e7d2",
+      "props": {
+        "own": [
+          {
+            "name": "start",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "end",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "cells",
+            "optional": false,
+            "text": "CellGeometry"
+          },
+          {
+            "name": "count",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "onChange",
+            "optional": true,
+            "text": "(span: CellSpan) => void"
+          },
+          {
+            "name": "onDraft",
+            "optional": true,
+            "text": "(span: CellSpan | null) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "readOnly",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "selected",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "onSelect",
+            "optional": true,
+            "text": "(event: MouseEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "onActivate",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "announce",
+            "optional": true,
+            "text": "(text: string) => void"
+          },
+          {
+            "name": "snap",
+            "optional": true,
+            "text": "SpanSnap",
+            "literals": [
+              "'cell'",
+              "'none'"
+            ],
+            "default": "'cell'"
+          },
+          {
+            "name": "minLength",
+            "optional": true,
+            "text": "number",
+            "default": "SPAN_DEFAULT_MIN_LENGTH"
+          },
+          {
+            "name": "colour",
+            "optional": true,
+            "text": "TagCategoryColor",
+            "literals": [
+              "'rose'",
+              "'orange'",
+              "'amber'",
+              "'lime'",
+              "'green'",
+              "'teal'",
+              "'cyan'",
+              "'blue'",
+              "'violet'",
+              "'pink'"
+            ]
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-focus",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-text",
+        "--hue-fill",
+        "--hue-ink",
+        "--opacity-muted",
+        "--radius-sm",
+        "--shadow-1",
+        "--size-24",
+        "--size-28",
+        "--space-xs",
+        "--span-lane-width",
+        "--span-left",
+        "--span-width",
+        "--z-sticky"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/SpanBar",
+        "route": "#/story/composites-spanbar--overview",
+        "file": "stories/composites/SpanBar.stories.tsx"
+      },
+      "parts": [
+        "SpanLane"
+      ]
     },
     {
       "name": "Splash",
@@ -18911,6 +19479,116 @@
         "title": "Composites · Data views/TrackTable",
         "route": "#/story/composites-tracktable--overview",
         "file": "stories/composites/TrackTable.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "TransientReadout",
+      "tier": "composites",
+      "source": "src/composites/TransientReadout/TransientReadout.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A value in the corner of a surface that shows when it changes and fades after a second, such as the zoom of a canvas.",
+      "useWhen": [
+        "A control changes a value the user wants to see for a moment, such as a zoom of 200%.",
+        "Double click on the value should reset it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user must be told that something finished or failed.",
+          "use": "Toast"
+        },
+        {
+          "case": "The value must stay on screen.",
+          "use": "Text"
+        }
+      ],
+      "rules": [
+        "Put it inside a positioned parent, which is the surface the corners belong to.",
+        "Pass the live value as text; it stays hidden on first render and shows on each change.",
+        "Leave showMs at one second unless the value is long to read.",
+        "Pass onActivate for a reset on double click, and a title that says so.",
+        "Make the control that changes the value carry its own accessible value, because the readout is hidden from screen readers."
+      ],
+      "a11y": [
+        "The readout is hidden from screen readers; it repeats what the control already exposes.",
+        "Reduced motion drops the fade.",
+        "Forced colours draw it with system colours."
+      ],
+      "tree": {
+        "path": [
+          "feedback",
+          "a value that shows when it changes and fades"
+        ],
+        "rule": "TransientReadout is tied to one value and one surface, where Toast is a message raised from anywhere in the app."
+      },
+      "example": "import { TransientReadout } from '@drizztdourden08/tessera';\n\nconst ZoomReadout = ({ zoom, reset }: { zoom: number; reset: () => void }) => (\n  <TransientReadout value={`${zoom}%`} corner=\"bottom-end\" onActivate={reset} title=\"Double click to reset\" />\n);\n",
+      "propsHash": "dfa32fe36a500685",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "corner",
+            "optional": true,
+            "text": "ReadoutCorner",
+            "literals": [
+              "'bottom-end'",
+              "'bottom-start'",
+              "'top-end'",
+              "'top-start'"
+            ],
+            "default": "'bottom-end'"
+          },
+          {
+            "name": "showMs",
+            "optional": true,
+            "text": "number",
+            "default": "READOUT_SHOW_MS"
+          },
+          {
+            "name": "onActivate",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "title",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-surface",
+        "--c-text",
+        "--duration-normal",
+        "--radius-sm",
+        "--space-2xs",
+        "--space-sm",
+        "--z-floating"
+      ],
+      "gallery": {
+        "title": "Composites · Feedback/TransientReadout",
+        "route": "#/story/composites-transientreadout--overview",
+        "file": "stories/composites/TransientReadout.stories.tsx"
       },
       "parts": []
     },

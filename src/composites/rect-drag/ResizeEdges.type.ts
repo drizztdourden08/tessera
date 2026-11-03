@@ -3,6 +3,7 @@ import type { PointerEvent as ReactPointerEvent } from 'react';
 import type { ResizeEdge } from './rect-drag.type';
 
 interface ResizeEdgesProps {
+  edges?: readonly ResizeEdge[];
   onPointerDown: (edge: ResizeEdge, event: ReactPointerEvent<HTMLElement>) => void;
 }
 

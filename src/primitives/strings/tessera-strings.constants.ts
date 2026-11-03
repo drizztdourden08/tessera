@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind data */
 import { ANCHOR_STRINGS } from './anchor-strings.constants';
+import { ANCHORED_BAR_STRINGS } from './anchored-bar-strings.constants';
 import { CAROUSEL_STRINGS } from './carousel-strings.constants';
 import { CHART_STRINGS } from './charts-strings.constants';
 import { COLOR_PICKER_STRINGS } from './color-picker-strings.constants';
@@ -28,7 +29,9 @@ import { RATING_STRINGS } from './rating-strings.constants';
 import { RECORD_STRINGS } from './records-strings.constants';
 import { ROW_GRID_STRINGS } from './row-grid-strings.constants';
 import { SAVE_BAR_STRINGS } from './save-bar-strings.constants';
+import { SCRUB_RULER_STRINGS } from './scrub-ruler-strings.constants';
 import { SETTINGS_STRINGS } from './settings-strings.constants';
+import { SPAN_BAR_STRINGS } from './span-bar-strings.constants';
 import { STEPPER_STRINGS } from './stepper-strings.constants';
 import { TABLE_STRINGS } from './table-strings.constants';
 import { TOOLBAR_STRINGS } from './toolbar-strings.constants';
@@ -79,6 +82,9 @@ const TESSERA_STRINGS = {
   controller: CONTROLLER_STRINGS,
   markdownEditor: MARKDOWN_EDITOR_STRINGS,
   inlineEdit: INLINE_EDIT_STRINGS,
+  anchoredBar: ANCHORED_BAR_STRINGS,
+  spanBar: SPAN_BAR_STRINGS,
+  scrubRuler: SCRUB_RULER_STRINGS,
 };
 
 export { TESSERA_STRINGS };

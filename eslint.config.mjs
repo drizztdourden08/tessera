@@ -60,6 +60,7 @@ export default standardsEslint({
     { files: ['src/composites/VirtualGrid/sub-components/GridRow.tsx'], why: 'a row of tiles sits at its index, set as one custom property' },
     { files: ['src/composites/VirtualGrid/sub-components/GridHeader.tsx'], why: 'a section header indents by its depth, set as one custom property' },
     { files: ['src/composites/Navigator/Navigator.tsx'], why: 'the map takes the shape of the surface and the frame sits at the share the host passes in, set from the props' },
+    { files: ['src/composites/SpanBar/SpanBar.tsx', 'src/composites/SpanBar/sub-components/SpanLane.tsx', 'src/composites/ScrubRuler/ScrubRuler.tsx', 'src/composites/ScrubRuler/sub-components/**', 'src/composites/AnchoredBar/AnchoredBar.tsx'], why: 'a span, a tick, a marker, a band and a bar sit at cell positions and measured spots, set as custom properties' },
     { files: ['src/composites/MarqueeBox/MarqueeBox.tsx'], why: 'the rectangle sits where the pointer dragged it, set as custom properties' },
     { files: ['src/composites/Tree/Tree.tsx', 'src/composites/Tree/sub-components/TreeRow.tsx', 'src/composites/Tree/sub-components/TreeGuides.tsx'], why: 'the body height follows the number of rows, a row sits at its index and indents by its depth, and a guide sits at its level, set as custom properties' },
     { files: ['src/composites/MillerColumns/MillerColumns.tsx'], why: 'the column width follows the size token the host passes in, set as one custom property' },

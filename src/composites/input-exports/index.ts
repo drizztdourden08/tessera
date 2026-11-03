@@ -32,3 +32,6 @@ export { RampStrip } from '../RampStrip';
 export type { RampSize, RampStep, RampStripProps } from '../RampStrip';
 export { PointerPalette } from '../PointerPalette';
 export type { PaletteItem, PalettePoint, PaletteSection, PointerPaletteProps } from '../PointerPalette';
+export { SpanBar, SpanLane, type SpanBarProps, type SpanLaneProps, type SpanSnap } from '../SpanBar';
+export { ScrubRuler, type RulerBand, type RulerMarker, type ScrubRulerProps } from '../ScrubRuler';
+export type { CellBox, CellGeometry, CellSpan } from '../cell-geometry';

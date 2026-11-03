@@ -4,7 +4,7 @@ import { RESIZE_EDGES } from './rect-drag.constants';
 import type { ResizeEdgesProps } from './ResizeEdges.type';
 import './ResizeEdges.css';
 
-const ResizeEdges = ({ onPointerDown }: ResizeEdgesProps) => RESIZE_EDGES.map((edge) => (
+const ResizeEdges = ({ onPointerDown, edges = RESIZE_EDGES }: ResizeEdgesProps) => edges.map((edge) => (
   <Box
     key={edge}
     className={`rect-resize rect-resize--${edge}`}
