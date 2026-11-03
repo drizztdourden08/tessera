@@ -15,17 +15,21 @@ type CommandOption = string | CommandEntry;
 
 type CommandParamKind = 'text' | 'number' | 'choice' | 'boolean';
 
+type CommandValue = string | number | boolean;
+
+type CommandValues = Readonly<Record<string, CommandValue>>;
+
+type CommandParamOptions = readonly string[] | ((values: CommandValues) => readonly string[]);
+
 interface CommandParam {
   name: string;
   label: string;
   kind: CommandParamKind;
-  options?: readonly string[];
+  options?: CommandParamOptions;
+  placeholder?: string;
+  dependsOn?: string;
   optional?: boolean;
 }
-
-type CommandValue = string | number | boolean;
-
-type CommandValues = Readonly<Record<string, CommandValue>>;
 
 interface CommandSpec {
   id: string;
@@ -121,6 +125,7 @@ type CommandSpecKeyAction = 'send' | 'clear' | null;
 
 interface CommandSpecParamProps {
   param: CommandParam;
+  values: CommandValues;
   value: CommandValue | undefined;
   size: ControlSize;
   disabled: boolean;
@@ -166,7 +171,7 @@ interface CommandInputLineProps extends CommandInputRowProps {
 }
 
 export type {
-  CommandControl, CommandEntry, CommandInputLineProps, CommandInputProps, CommandInputRowProps, CommandLineState, CommandKeyAction, CommandKeyEvent, CommandOption, CommandParam, CommandParamKind,
+  CommandControl, CommandEntry, CommandInputLineProps, CommandInputProps, CommandInputRowProps, CommandLineState, CommandKeyAction, CommandKeyEvent, CommandOption, CommandParam, CommandParamKind, CommandParamOptions,
   CommandSpec, CommandSpecControl, CommandSpecFieldsProps, CommandSpecKeyAction, CommandSpecParamProps, CommandSpecPickerProps, CommandSpecRowProps, CommandSpecState,
   CommandState, CommandSubmit, CommandValue, CommandValues, HistoryStep, HistoryWalk, SuggestKeyAction,
 };

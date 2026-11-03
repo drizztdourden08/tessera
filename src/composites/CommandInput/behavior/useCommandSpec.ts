@@ -25,7 +25,7 @@ const useCommandSpec = (specs: readonly CommandSpec[] = NO_SPECS): CommandSpecCo
     pick,
     clear: () => setState(IDLE_SPEC),
     reset,
-    setValue: (name, value) => setState((now) => specWithValue(now, name, value)),
+    setValue: (name, value) => setState((now) => specWithValue(now, spec, name, value)),
   };
 };
 

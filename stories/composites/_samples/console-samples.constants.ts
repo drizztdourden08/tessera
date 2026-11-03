@@ -23,10 +23,28 @@ const CONSOLE_COMMANDS: readonly CommandEntry[] = [
 
 const PLAYER_NAMES: readonly string[] = ['Ana', 'Bram', 'Cleo'];
 
+const PLAYER_ITEMS: Readonly<Record<string, readonly string[]>> = {
+  Ana: ['Timespinner Wheel', 'Lightwall', 'Cyber Pistol'],
+  Bram: ['Moon Pearl', 'Hookshot', 'Master Sword'],
+  Cleo: ['Hearthstone', 'Iron Boots'],
+};
+
 const CONSOLE_SPECS: readonly CommandSpec[] = [
   {
     id: 'hint', label: 'Hint', icon: 'flag', group: 'Items', description: 'Ask where an item is',
     params: [{ name: 'player', label: 'Player', kind: 'choice', options: PLAYER_NAMES }, { name: 'item', label: 'Item', kind: 'text' }],
+    format: (values) => `/hint ${String(values.player)} ${String(values.item)}`,
+  },
+  {
+    id: 'find', label: 'Find item', icon: 'search', group: 'Items', description: 'List where one item of a player lies',
+    params: [
+      { name: 'player', label: 'Player', kind: 'choice', options: PLAYER_NAMES, placeholder: 'Pick a player' },
+      {
+        name: 'item', label: 'Item', kind: 'choice', dependsOn: 'player', placeholder: 'Pick an item',
+        options: (values) => PLAYER_ITEMS[String(values.player)] ?? [],
+      },
+      { name: 'note', label: 'Note', kind: 'text', optional: true, placeholder: 'Why you need it' },
+    ],
     format: (values) => `/hint ${String(values.player)} ${String(values.item)}`,
   },
   {
