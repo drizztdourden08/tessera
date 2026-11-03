@@ -1,6 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
-import type { StepperOrientation } from '../../../primitives/Stepper';
+import type { StepperOrientation, StepperSize } from '../../../primitives/Stepper';
 import type { WizardApi, WizardValues } from '../wizard.type';
 
 interface WizardProps<V extends WizardValues> {
@@ -9,6 +9,7 @@ interface WizardProps<V extends WizardValues> {
   onExit: () => void;
   title?: string;
   orientation?: StepperOrientation;
+  stepperSize?: StepperSize;
   compactProgress?: boolean;
   activeSubStepId?: string;
   onSubStepSelect?: (stepId: string, subStepId: string) => void;

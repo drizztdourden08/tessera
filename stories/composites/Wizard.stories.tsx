@@ -105,7 +105,7 @@ const STEPS = [
 const NewProfile = ({ onDone }: { onDone: () => void }) => {
   const wizard = useWizard({ steps: STEPS, initialValues: EMPTY_PROFILE, onFinish: createProfile, onFinished: onDone });
   return (
-    <Wizard wizard={wizard} title="New profile" orientation="vertical" onExit={onDone}>
+    <Wizard wizard={wizard} title="New profile" orientation="vertical" stepperSize="sm" onExit={onDone}>
       <ProfileStep wizard={wizard} />
     </Wizard>
   );
@@ -119,7 +119,7 @@ const Overview = overviewStory({
     'Each step definition sets its label, its `validate` check, its `hint` and the look of its buttons.',
     'Next stays off until the step is valid; a failed finish keeps every input and shows the error.',
     '`busy` holds the buttons while the app works; `goTo(id, { force: true })` then moves past the checks.',
-    '`orientation` puts the [Stepper] on top or down the left.',
+    '`orientation` puts the [Stepper] on top or down the left; `stepperSize="sm"` draws it smaller.',
     'Leaving with unsaved input asks first, through [WizardExitGuard].',
   ],
   instead: '[WizardDialog] for the same wizard in a dialog.',

@@ -77,7 +77,7 @@ const ProfileWizard = ({ failNext, onFailUsed, onCreated, onLeft }: ProfileWizar
     if (wizard.current.id !== stepId) wizard.goTo(stepId);
   };
   return (
-    <Wizard wizard={wizard} title="New profile" orientation="vertical" onExit={onLeft} activeSubStepId={tab} onSubStepSelect={pickTab}>
+    <Wizard wizard={wizard} title="New profile" orientation="vertical" stepperSize="sm" onExit={onLeft} activeSubStepId={tab} onSubStepSelect={pickTab}>
       <StepBody wizard={wizard} tab={tab} onTab={setTab} connection={current ? connection : IDLE_CONNECTION} />
     </Wizard>
   );

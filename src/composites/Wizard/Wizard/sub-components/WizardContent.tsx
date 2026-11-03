@@ -14,7 +14,7 @@ import type { WizardContentProps } from './WizardContent.type';
 
 const WizardContent = <V extends WizardValues>(props: WizardContentProps<V>) => {
   const {
-    wizard, onCancel, showTitle, title, orientation = 'horizontal', compactProgress = false,
+    wizard, onCancel, showTitle, title, orientation = 'horizontal', stepperSize, compactProgress = false,
     activeSubStepId, onSubStepSelect, headerExtra, className = '', children,
   } = props;
   const { current } = wizard;
@@ -31,6 +31,7 @@ const WizardContent = <V extends WizardValues>(props: WizardContentProps<V>) => 
           steps={steps}
           currentId={current.id}
           orientation={orientation}
+          size={stepperSize}
           compact={compactProgress}
           canSelect={wizard.canGoTo}
           onSelect={wizard.goTo}
