@@ -24,4 +24,4 @@ interface BarPositionInput {
   dock: BarDock;
 }
 
-export type { BarPositionInput, BarSize, BarSpot };
+export type { BarPositionInput, BarSpot };
