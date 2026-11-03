@@ -6,19 +6,29 @@ type AvatarSize = 'xs' | 'sm';
 
 type AvatarVariant = 'default' | 'owner';
 
+type AvatarShape = 'circle' | 'square';
+
 type AvatarFace =
-  | { initials: string; icon?: never }
-  | { icon: IconName; initials?: never }
-  | { initials?: never; icon?: never };
+  | { initials: string; icon?: never; src?: never }
+  | { icon: IconName; initials?: never; src?: never }
+  | { src: string; initials?: never; icon?: never }
+  | { initials?: never; icon?: never; src?: never };
 
 interface AvatarBase {
   label: string;
   color?: TagCategoryColor;
   size?: AvatarSize;
   variant?: AvatarVariant;
+  shape?: AvatarShape;
   className?: string;
 }
 
 type AvatarProps = AvatarBase & AvatarFace;
 
-export type { AvatarProps, AvatarSize, AvatarVariant };
+interface AvatarFaceValue {
+  src?: string;
+  initials?: string;
+  icon?: IconName;
+}
+
+export type { AvatarFaceValue, AvatarProps, AvatarShape, AvatarSize, AvatarVariant };

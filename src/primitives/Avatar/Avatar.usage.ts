@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
-  job: 'A small round mark for a person, drawn as one or two initials or an icon on a tinted ground, or as a dashed circle when nobody is assigned.',
+  job: 'A small round or square mark for a person, drawn as one or two initials, an icon or a picture, or as a dashed circle when nobody is assigned.',
   useWhen: [
     'An item card or a list row shows who owns it, in 16 px beside other text.',
     'A detail pane names the assignee at 24 px.',
@@ -14,7 +14,9 @@ const usage = {
   ],
   rules: [
     'Pass label with the name of the person; it is the tooltip and the text a screen reader reads.',
-    'Pass initials, one or two letters, or icon, never both; with neither it draws the unassigned circle.',
+    'Pass initials, one or two letters, icon, or src for a picture, never more than one; with none it draws the unassigned circle.',
+    'A picture fills the shape and is cropped to it, with label as its alt text; if it fails to load, the initials of the label show instead.',
+    'Set shape square for a rounded square instead of a circle, for a team or a workspace.',
     'Set color to one of the category colours so a person keeps one colour on every screen.',
     'Set size xs for 16 px on a card and sm for 24 px in a pane.',
     'Set variant owner for the signed-in person; it draws a ring around the circle.',
@@ -33,11 +35,13 @@ const Assignees = () => (
   <>
     <Avatar label="Wren Archer" initials="WA" color="teal" />
     <Avatar label="You" icon="user" color="violet" variant="owner" size="sm" />
+    <Avatar label="Wren Archer" src="/people/wren.png" size="sm" />
+    <Avatar label="Platform team" src="/teams/platform.png" shape="square" size="sm" />
     <Avatar label="Unassigned" />
   </>
 );
 `,
-  propsHash: 'c79e5b8b62a0c33f',
+  propsHash: '1a99b8d85560ce48',
 } satisfies ComponentUsage;
 
 export { usage };

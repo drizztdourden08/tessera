@@ -27,6 +27,18 @@
   --avatar-text: var(--size-10);
 }
 
+.avatar--square {
+  border-radius: var(--radius-sm);
+}
+
+.avatar__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  object-fit: cover;
+}
+
 .avatar--owner {
   outline: var(--border-width-thin) solid var(--c-primary);
   outline-offset: var(--size-1);

@@ -1018,7 +1018,7 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": true,
-      "job": "A small round mark for a person, drawn as one or two initials or an icon on a tinted ground, or as a dashed circle when nobody is assigned.",
+      "job": "A small round or square mark for a person, drawn as one or two initials, an icon or a picture, or as a dashed circle when nobody is assigned.",
       "useWhen": [
         "An item card or a list row shows who owns it, in 16 px beside other text.",
         "A detail pane names the assignee at 24 px.",
@@ -1036,7 +1036,9 @@
       ],
       "rules": [
         "Pass label with the name of the person; it is the tooltip and the text a screen reader reads.",
-        "Pass initials, one or two letters, or icon, never both; with neither it draws the unassigned circle.",
+        "Pass initials, one or two letters, icon, or src for a picture, never more than one; with none it draws the unassigned circle.",
+        "A picture fills the shape and is cropped to it, with label as its alt text; if it fails to load, the initials of the label show instead.",
+        "Set shape square for a rounded square instead of a circle, for a team or a workspace.",
         "Set color to one of the category colours so a person keeps one colour on every screen.",
         "Set size xs for 16 px on a card and sm for 24 px in a pane.",
         "Set variant owner for the signed-in person; it draws a ring around the circle."
@@ -1052,8 +1054,8 @@
         ],
         "rule": "Avatar answers who an item belongs to with a small round mark."
       },
-      "example": "import { Avatar } from '@drizztdourden08/tessera';\n\nconst Assignees = () => (\n  <>\n    <Avatar label=\"Wren Archer\" initials=\"WA\" color=\"teal\" />\n    <Avatar label=\"You\" icon=\"user\" color=\"violet\" variant=\"owner\" size=\"sm\" />\n    <Avatar label=\"Unassigned\" />\n  </>\n);\n",
-      "propsHash": "c79e5b8b62a0c33f",
+      "example": "import { Avatar } from '@drizztdourden08/tessera';\n\nconst Assignees = () => (\n  <>\n    <Avatar label=\"Wren Archer\" initials=\"WA\" color=\"teal\" />\n    <Avatar label=\"You\" icon=\"user\" color=\"violet\" variant=\"owner\" size=\"sm\" />\n    <Avatar label=\"Wren Archer\" src=\"/people/wren.png\" size=\"sm\" />\n    <Avatar label=\"Platform team\" src=\"/teams/platform.png\" shape=\"square\" size=\"sm\" />\n    <Avatar label=\"Unassigned\" />\n  </>\n);\n",
+      "propsHash": "1a99b8d85560ce48",
       "props": {
         "own": [
           {
@@ -1097,6 +1099,15 @@
             ]
           },
           {
+            "name": "shape",
+            "optional": true,
+            "text": "AvatarShape",
+            "literals": [
+              "'circle'",
+              "'square'"
+            ]
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -1110,6 +1121,11 @@
             "name": "icon",
             "optional": true,
             "text": "IconName"
+          },
+          {
+            "name": "src",
+            "optional": true,
+            "text": "string"
           }
         ],
         "inherited": {
@@ -1145,6 +1161,7 @@
         "--c-text-dim-soft",
         "--c-text-muted",
         "--radius-round",
+        "--radius-sm",
         "--size-1",
         "--size-10",
         "--size-16",
@@ -5370,7 +5387,8 @@
       "rules": [
         "Pass icon with a Tessera icon name and label with the type name; the label is the tooltip and the text a screen reader reads.",
         "Set color to one of the category colours; the tile takes a tint of it and the icon takes the full colour.",
-        "Set size xs for 16 px in a dense row and sm for 20 px beside a title."
+        "Set size xs for 16 px in a dense row and sm for 20 px beside a title.",
+        "Set variant outline for the bare icon in the category colour, with no tile, border or padding; its box is the icon size."
       ],
       "a11y": [
         "It is an image with the label as its name, and the label shows in a tooltip on hover and focus.",
@@ -5383,8 +5401,8 @@
         ],
         "rule": "TypeMark answers what kind of thing an item is with a small icon tile."
       },
-      "example": "import { TypeMark } from '@drizztdourden08/tessera';\n\nconst BugMark = () => <TypeMark icon=\"bug\" label=\"Bug\" color=\"rose\" />;\n",
-      "propsHash": "7bfbc7ed40d2bb21",
+      "example": "import { TypeMark } from '@drizztdourden08/tessera';\n\nconst BugMarks = () => (\n  <>\n    <TypeMark icon=\"bug\" label=\"Bug\" color=\"rose\" />\n    <TypeMark icon=\"bug\" label=\"Bug\" color=\"rose\" variant=\"outline\" />\n  </>\n);\n",
+      "propsHash": "cfee2ed19acd0cf1",
       "props": {
         "own": [
           {
@@ -5423,6 +5441,16 @@
               "'sm'"
             ],
             "default": "'xs'"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "TypeMarkVariant",
+            "literals": [
+              "'tile'",
+              "'outline'"
+            ],
+            "default": "'tile'"
           },
           {
             "name": "className",
