@@ -6,7 +6,7 @@ One line per component. 132 of 242 have their usage written; a linked name opens
 
 - `Anchored`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ArmedIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [Avatar](components/Avatar.md): A small round mark for a person, drawn as one or two initials or an icon on a tinted ground, or as a dashed circle when nobody is assigned. Import from `@drizztdourden08/tessera`.
+- [Avatar](components/Avatar.md): A small round or square mark for a person, drawn as one or two initials, an icon or a picture, or as a dashed circle when nobody is assigned. Import from `@drizztdourden08/tessera`.
 - [BackdropLayer](components/BackdropLayer.md): A layer that fills its positioned parent with an image, a colour or a scene of your own, from one backdrop value. Import from `@drizztdourden08/tessera`.
 - `Badge`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Box](components/Box.md): The plain element every block is built from, with an optional sunken or raised surface for a well or a panel. Import from `@drizztdourden08/tessera`.

@@ -8,8 +8,8 @@ import './TypeMark.css';
 import '../../theme/tag-hue.css';
 
 const TypeMark = (props: TypeMarkProps) => {
-  const { icon, label, color, size = 'xs', className } = props;
-  const cls = ['type-mark', `type-mark--${size}`, tagHueClass(color), className].filter(Boolean).join(' ');
+  const { icon, label, color, size = 'xs', variant = 'tile', className } = props;
+  const cls = ['type-mark', `type-mark--${size}`, `type-mark--${variant}`, tagHueClass(color), className].filter(Boolean).join(' ');
   return (
     <Tooltip content={label}>
       <span className={cls} role="img" aria-label={label}>
