@@ -57,6 +57,9 @@ VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at
 - Give a section onDropData(dataTransfer) and a header takes a native drop, such as files or items dragged from another widget, with or without reorder; it shows the same into mark and announces the drop, and onDrop and onDropData can both be set.
 - Give a section accepts(dataTransfer) to say which drags the header takes; it runs while the drag is over the header, where only types, kinds and the item count can be read, and the data itself is read in onDropData; leave it out to take every drag.
 - Set density to swatch for small colour chips: the tile has no inner padding, the gap is the space-2xs token, and the tile itself is the focus ring target; tileSize may then be size-16 or size-20.
+- In swatch density the tile sets touch-action to none and may shrink to nothing, so a touch drag over the chips is read by the marquee and not by the page.
+- Give tileProps(item, index), returning { className, data }, to mark single tiles: the className is added to the cell props, and each key of data becomes a data- attribute on the cell, so the key tile-look sets data-tile-look.
+- Set data-tile-look to dashed on a swatch tile, such as an add tile, to draw a dashed border in the border colour; give it from tileProps, or on a trailing tile by spreading the cell props and adding the attribute.
 - Give trailing, a node or a function of the cell props, to draw one last tile after the final item, such as an add tile; it joins the arrow order and the tab stop, and is not a selectable item.
 - Give onWheelSize(direction) to step the tile size when the user turns the wheel with Ctrl or Meta held; direction is 1 for larger and -1 for smaller, and the page does not zoom.
 - Give ownsKey(event) and return true for a key your own tile handles, so the grid leaves that key alone.
@@ -126,6 +129,18 @@ const Tileset = ({ tiles }: { tiles: Frame[] }) => (
   />
 );
 
+const Palette = ({ colours }: { colours: Frame[] }) => (
+  <VirtualGrid
+    label="Palette"
+    items={colours}
+    getKey={(colour) => colour.id}
+    renderTile={(colour, _index, cell) => <Button {...cell}>{colour.name}</Button>}
+    tileProps={(colour) => (colour.id === 'add' ? { data: { 'tile-look': 'dashed' } } : {})}
+    density="swatch"
+    tileSize="size-20"
+  />
+);
+
 const Library = ({ folders }: { folders: Folder[] }) => (
   <VirtualGrid
     label="Library"
@@ -158,6 +173,7 @@ const Library = ({ folders }: { folders: Folder[] }) => (
 - `selection` (optional): `VirtualGridSelection`.
 - `getLabel` (optional): `(item: T, index: number) => string`.
 - `holes` (optional): `(item: T, index: number) => boolean`.
+- `tileProps` (optional): `(item: T, index: number) => VirtualGridTileProps`.
 - `reorder` (optional): `VirtualGridReorder<T>`.
 - `collapsed` (optional): `readonly string[]`.
 - `defaultCollapsed` (optional): `readonly string[]`.

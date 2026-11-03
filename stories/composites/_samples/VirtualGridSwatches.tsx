@@ -19,7 +19,7 @@ const VirtualGridSwatches = () => {
   const [size, setSize] = useState(1);
   const [count, setCount] = useState(120);
   const items = useMemo(() => tilesOf(count), [count]);
-  const add = (cell: VirtualGridCellBind) => <Button {...cell} variant="ghost" onClick={() => setCount((now) => now + 1)}>+</Button>;
+  const add = (cell: VirtualGridCellBind) => <Button {...cell} variant="ghost" data-tile-look="dashed" onClick={() => setCount((now) => now + 1)}>+</Button>;
   return (
     <ValueReadout value={`${count} swatches, turn the wheel with Ctrl held to resize`}>
       <Box className="virtual-grid-story">
@@ -31,6 +31,7 @@ const VirtualGridSwatches = () => {
           density="swatch"
           tileSize={SIZES[size]}
           trailing={add}
+          tileProps={(_tile, index) => (index === 0 ? { data: { 'tile-look': 'dashed' } } : {})}
           onWheelSize={(direction) => setSize((now) => Math.min(SIZES.length - 1, Math.max(0, now + direction)))}
           ownsKey={(event) => event.key === 'Delete'}
         />

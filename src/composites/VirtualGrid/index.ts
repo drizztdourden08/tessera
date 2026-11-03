@@ -2,5 +2,5 @@
 export { VirtualGrid } from './VirtualGrid';
 export type {
   VirtualGridBind, VirtualGridCellBind, VirtualGridDensity, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
-  VirtualGridSelection, VirtualGridTrailing,
+  VirtualGridSelection, VirtualGridTileProps, VirtualGridTrailing,
 } from './VirtualGrid.type';

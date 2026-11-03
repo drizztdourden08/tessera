@@ -128,9 +128,17 @@
 }
 
 .virtual-grid[data-density='swatch'] .virtual-grid__cell {
+  min-block-size: 0;
+  min-inline-size: 0;
   padding: 0;
+  touch-action: none;
   background-clip: padding-box;
   border: calc(var(--space-2xs) / 2) solid transparent;
+}
+
+.virtual-grid[data-density='swatch'] .virtual-grid__cell[data-tile-look='dashed'] {
+  border-color: var(--c-border);
+  border-style: dashed;
 }
 
 .virtual-grid[data-density='swatch'] .virtual-grid__cell[aria-selected='true'] {
