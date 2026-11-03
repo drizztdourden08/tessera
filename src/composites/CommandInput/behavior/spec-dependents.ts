@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind logic */
-import type { CommandSpec } from '../CommandInput.type';
+import type { CommandFieldsSpec } from '../CommandInput.type';
 
-const specDependents = (spec: CommandSpec, name: string): readonly string[] => {
+const specDependents = (spec: CommandFieldsSpec, name: string): readonly string[] => {
   const found: string[] = [];
   const queue = [name];
   while (queue.length > 0) {

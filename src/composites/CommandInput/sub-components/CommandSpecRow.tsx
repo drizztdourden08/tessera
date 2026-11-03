@@ -7,6 +7,7 @@ import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { specKey } from '../behavior/spec-key';
 import type { CommandSpecRowProps } from '../CommandInput.type';
+import { CommandPatternField } from './CommandPatternField';
 import { CommandSpecFields } from './CommandSpecFields';
 
 const CommandSpecRow = ({ command, specs, picker, size, disabled }: CommandSpecRowProps) => {
@@ -24,10 +25,13 @@ const CommandSpecRow = ({ command, specs, picker, size, disabled }: CommandSpecR
     event.stopPropagation();
     specs.clear();
   };
+  const rowClass = spec.pattern === undefined ? 'command-input__row command-input__row--spec' : 'command-input__row command-input__row--pattern';
   return (
-    <Box className="command-input__row command-input__row--spec" role="group" aria-label={commandInput.fieldsLabel(spec.label)} onKeyDown={onKeyDown}>
+    <Box className={rowClass} role="group" aria-label={commandInput.fieldsLabel(spec.label)} onKeyDown={onKeyDown}>
       {picker}
-      <CommandSpecFields spec={spec} values={specs.values} size={size} disabled={disabled} onValue={specs.setValue} />
+      {spec.pattern === undefined
+        ? <CommandSpecFields spec={spec} values={specs.values} size={size} disabled={disabled} onValue={specs.setValue} />
+        : <CommandPatternField spec={spec} values={specs.values} size={size} disabled={disabled} onValues={specs.setValues} />}
       <IconButton variant="ghost" size={size} label={commandInput.clear} disabled={disabled} onClick={specs.clear}>
         <Icon name="x" />
       </IconButton>

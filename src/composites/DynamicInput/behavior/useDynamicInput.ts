@@ -6,6 +6,7 @@ import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/
 import { applyRules } from './apply-rules';
 import { checkPattern } from './check-pattern';
 import { parsePattern } from './parse-pattern';
+import { pruneChoices } from './prune-choices';
 import { ruleMessage } from './rule-message';
 import { usePatternDismiss } from './usePatternDismiss';
 import { usePatternFocus } from './usePatternFocus';
@@ -33,7 +34,7 @@ const useDynamicInput = (props: DynamicInputProps): DynamicInputState => {
   const segments = useSegmentFocus();
   const focusState = usePatternFocus(rootRef, popoverRef);
   const dismiss = usePatternDismiss({ focusState, segments, rootRef, popoverRef });
-  const setSlot = useSlotValue(value, onChange);
+  const setSlot = useSlotValue(value, onChange, (next) => pruneChoices(parsed, lists, next));
   const { focus, setOpen, closeNow, handleFocus, handleBlur } = focusState;
   const errorId = `${useId()}-error`;
   const ruled = invalid === undefined && control.invalid !== true;

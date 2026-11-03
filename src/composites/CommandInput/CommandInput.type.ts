@@ -3,6 +3,7 @@ import type { KeyboardEventHandler, ReactNode } from 'react';
 import type { ComboboxKeyHandler } from '../../primitives/Combobox/Combobox.type';
 import type { ControlSize } from '../../primitives/field-control/field-control.type';
 import type { MenuItemIcon } from '../DropdownMenu';
+import type { PatternSetup } from '../DynamicInput';
 
 type CommandSubmit = (command: string) => boolean | void;
 
@@ -31,15 +32,28 @@ interface CommandParam {
   optional?: boolean;
 }
 
-interface CommandSpec {
+interface CommandSpecBase {
   id: string;
   label: string;
   icon: MenuItemIcon;
   group?: string;
   description?: string;
+}
+
+interface CommandFieldsSpec extends CommandSpecBase {
   params: readonly CommandParam[];
   format: (values: CommandValues) => string;
+  pattern?: undefined;
 }
+
+interface CommandPatternSpec extends CommandSpecBase {
+  pattern: string;
+  setup?: PatternSetup;
+  format?: (values: CommandValues) => string;
+  params?: undefined;
+}
+
+type CommandSpec = CommandFieldsSpec | CommandPatternSpec;
 
 interface CommandInputProps {
   onSubmit: CommandSubmit;
@@ -114,6 +128,7 @@ interface CommandSpecControl {
   clear: () => void;
   reset: () => void;
   setValue: (name: string, value: CommandValue | undefined) => void;
+  setValues: (values: CommandValues) => void;
 }
 
 interface CommandSpecState {
@@ -133,7 +148,7 @@ interface CommandSpecParamProps {
 }
 
 interface CommandSpecFieldsProps {
-  spec: CommandSpec;
+  spec: CommandFieldsSpec;
   values: CommandValues;
   size: ControlSize;
   disabled: boolean;
@@ -171,7 +186,7 @@ interface CommandInputLineProps extends CommandInputRowProps {
 }
 
 export type {
-  CommandControl, CommandEntry, CommandInputLineProps, CommandInputProps, CommandInputRowProps, CommandLineState, CommandKeyAction, CommandKeyEvent, CommandOption, CommandParam, CommandParamKind, CommandParamOptions,
-  CommandSpec, CommandSpecControl, CommandSpecFieldsProps, CommandSpecKeyAction, CommandSpecParamProps, CommandSpecPickerProps, CommandSpecRowProps, CommandSpecState,
+  CommandControl, CommandEntry, CommandFieldsSpec, CommandInputLineProps, CommandInputProps, CommandInputRowProps, CommandLineState, CommandKeyAction, CommandKeyEvent, CommandOption, CommandParam, CommandParamKind, CommandParamOptions,
+  CommandPatternSpec, CommandSpec, CommandSpecControl, CommandSpecFieldsProps, CommandSpecKeyAction, CommandSpecParamProps, CommandSpecPickerProps, CommandSpecRowProps, CommandSpecState,
   CommandState, CommandSubmit, CommandValue, CommandValues, HistoryStep, HistoryWalk, SuggestKeyAction,
 };

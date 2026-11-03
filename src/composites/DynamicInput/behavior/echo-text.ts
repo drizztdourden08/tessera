@@ -9,7 +9,7 @@ const echoText = (name: string, key: string | undefined, field: PatternField): s
   if (slot === undefined) return '';
   const value = field.value[name];
   if (slot.type !== 'choice') return SLOT_KINDS[slot.type].show(value, slot);
-  const choice = choiceOptions(slot, field.setup.lists).find((option) => option.value === value);
+  const choice = choiceOptions(slot, field.setup.lists, field.value).find((option) => option.value === value);
   if (choice === undefined) return '';
   return key === undefined ? choiceText(choice) : choice[key] ?? '';
 };
