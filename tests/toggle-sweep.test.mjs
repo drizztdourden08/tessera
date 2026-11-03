@@ -108,15 +108,62 @@ describe('K1 useToggleSweep commit and listeners', { tags: ['critical'] }, () =>
     expect(sweep.current.sweeping).toBe(false);
   });
 
-  it('takes the click of a pointer and lets the click of a key through', () => {
+  const clickEvent = (detail) => ({ detail, preventDefault: vi.fn(), stopPropagation: vi.fn() });
+
+  it('takes the click of a pointer after a press that started a sweep', () => {
+    const { view } = fakeView(() => null);
     const sweep = mountHook(() => useToggleSweep({ onSet: vi.fn() }));
-    const event = (detail) => ({ detail, preventDefault: vi.fn(), stopPropagation: vi.fn() });
-    const pointer = event(1);
-    const key = event(0);
+    sweep.act((now) => now.bind('a', false).onPointerDown(press(view)));
+    const pointer = clickEvent(1);
     sweep.current.bind('a', false).onClickCapture(pointer);
-    sweep.current.bind('a', false).onClickCapture(key);
     expect(pointer.preventDefault).toHaveBeenCalled();
     expect(pointer.stopPropagation).toHaveBeenCalled();
+  });
+
+  it('lets the click of a pointer through when no press started a sweep', () => {
+    const sweep = mountHook(() => useToggleSweep({ onSet: vi.fn() }));
+    const pointer = clickEvent(1);
+    sweep.current.bind('a', false).onClickCapture(pointer);
+    expect(pointer.preventDefault).not.toHaveBeenCalled();
+    expect(pointer.stopPropagation).not.toHaveBeenCalled();
+  });
+
+  it('lets the click of a key through even after a sweep press', () => {
+    const { view } = fakeView(() => null);
+    const sweep = mountHook(() => useToggleSweep({ onSet: vi.fn() }));
+    sweep.act((now) => now.bind('a', false).onPointerDown(press(view)));
+    const key = clickEvent(0);
+    sweep.current.bind('a', false).onClickCapture(key);
     expect(key.preventDefault).not.toHaveBeenCalled();
+  });
+});
+
+describe('K1 useToggleSweep start options', { tags: ['critical'] }, () => {
+  it('starts no sweep and leaves the click alone when startWhen says no', () => {
+    const { view } = fakeView(() => null);
+    const onSet = vi.fn();
+    const sweep = mountHook(() => useToggleSweep({ onSet, startWhen: (event) => !event.ctrlKey }));
+    sweep.act((now) => now.bind('a', false).onPointerDown({ ...press(view), ctrlKey: true }));
+    expect(onSet).not.toHaveBeenCalled();
+    expect(sweep.current.sweeping).toBe(false);
+    const pointer = { detail: 1, preventDefault: vi.fn(), stopPropagation: vi.fn() };
+    sweep.current.bind('a', false).onClickCapture(pointer);
+    expect(pointer.preventDefault).not.toHaveBeenCalled();
+  });
+
+  it('starts a sweep when startWhen says yes', () => {
+    const { view } = fakeView(() => null);
+    const sweep = mountHook(() => useToggleSweep({ onSet: vi.fn(), startWhen: (event) => !event.ctrlKey }));
+    sweep.act((now) => now.bind('a', false).onPointerDown({ ...press(view), ctrlKey: false }));
+    expect(sweep.current.sweeping).toBe(true);
+  });
+
+  it('sets every key expandStart returns together with the pressed one', () => {
+    const { view } = fakeView(() => null);
+    const onSet = vi.fn();
+    const sweep = mountHook(() => useToggleSweep({ onSet, expandStart: (key) => (key === 'b' ? ['b', 'c', 'e'] : [key]) }));
+    sweep.act((now) => now.bind('b', false).onPointerDown(press(view)));
+    expect(onSet.mock.calls).toEqual([['b', true], ['c', true], ['e', true]]);
+    expect(sweep.current.touched).toEqual(['b', 'c', 'e']);
   });
 });

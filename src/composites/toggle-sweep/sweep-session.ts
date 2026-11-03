@@ -3,7 +3,7 @@ import { rangeBetween } from '../selection/range-between';
 import type { SweepSession, SweepSessionInput } from './toggle-sweep.type';
 
 const sweepSession = (input: SweepSessionInput): SweepSession => {
-  const { first, value, order, onSet } = input;
+  const { first, value, order, together, onSet } = input;
   const touched = new Set<string>();
   let last = first;
   const touch = (key: string): void => {
@@ -12,6 +12,7 @@ const sweepSession = (input: SweepSessionInput): SweepSession => {
     onSet?.(key, value);
   };
   touch(first);
+  together?.forEach(touch);
   return {
     value,
     over: (key) => {

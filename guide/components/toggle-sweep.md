@@ -32,7 +32,9 @@ The source is `src/composites/toggle-sweep/index.ts`.
 - A key touched twice in one sweep is reported once, even when the pointer goes back over it.
 - Pass order, the keys as they are shown, so a fast drag that skips a row still sets the rows between the two it touched.
 - The hook follows the pointer on the window, so the drag may leave the column and come back, and it ends on release or cancel.
-- A mouse or touch click inside a bound element is taken by the sweep and does not reach the onChange of the toggle in it; a key press does, so keep onChange for the keyboard.
+- A mouse or touch click inside a bound element that started a sweep is taken by the sweep and does not reach the onChange of the toggle in it; a key press does, so keep onChange for the keyboard.
+- Pass startWhen(event) to choose which presses start a sweep, such as only a press with no Ctrl or Alt held; when it returns false no sweep starts and the click of the element goes on as usual.
+- Pass expandStart(key) to turn the pressed key into a set of keys, such as the whole selection when the pressed item is one of the selected; all of them take the value and are reported together.
 - Set touch-action to none on the bound elements, so a finger drag sweeps and does not scroll.
 - Sweeping is true while a drag runs, for a look such as a held column.
 
@@ -83,5 +85,7 @@ interface ToggleSweepInput {
   onSet?: (key: string, value: boolean) => void;
   onEnd?: (keys: readonly string[], value: boolean) => void;
   order?: readonly string[];
+  startWhen?: (event: PointerEvent<HTMLElement>) => boolean;
+  expandStart?: (key: string) => readonly string[];
 }
 ```

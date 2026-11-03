@@ -5,6 +5,7 @@ import { RampStrip } from '../../src/composites';
 import type { RampSize } from '../../src/composites';
 import { axis, Demonstrator, overviewStory, STATE, ValueReadout } from '../_template/value-story-kit';
 import type { PlaygroundArgTypes, PlaygroundStory, StateProps } from '../_template/value-story-kit';
+import { RampStripGapsDemo } from './_samples/RampStripGapsDemo';
 import { BLUES, NAMED, UNUSED_STEPS } from './_samples/ramp-steps';
 
 type RampStripArgs = {
@@ -64,6 +65,26 @@ const Unused = {
   ),
 } satisfies StoryLiteStoryDefinition<RampStripArgs>;
 
+const Several = {
+  name: 'selected and onSelectionChange: Shift picks a range, Ctrl or Command toggles a step',
+  render: () => <RampStripGapsDemo feature="multi" />,
+} satisfies StoryLiteStoryDefinition<RampStripArgs>;
+
+const Marked = {
+  name: 'marks: small corner indicators on a step',
+  render: () => <RampStripGapsDemo feature="marked" />,
+} satisfies StoryLiteStoryDefinition<RampStripArgs>;
+
+const Dragged = {
+  name: 'onSwatchDragStart: every step can be dragged out with a payload',
+  render: () => <RampStripGapsDemo feature="drag" />,
+} satisfies StoryLiteStoryDefinition<RampStripArgs>;
+
+const Menu = {
+  name: 'swatchMenu: a context menu on each step, by right click or the menu key',
+  render: () => <RampStripGapsDemo feature="menu" />,
+} satisfies StoryLiteStoryDefinition<RampStripArgs>;
+
 const renderState = (props: StateProps) => (
   <RampStrip
     aria-label="Blue ramp"
@@ -85,14 +106,15 @@ const Overview = overviewStory({
   description: 'A row of swatches for one colour ramp, with a caption on each step and one step picked.',
   points: [
     'Pass `steps` with a `color` each, `value` as the picked index and `onChange`; the app keeps the pick.',
-    'Each step can carry a `caption`; `numbered` fills the rest with the step number from 1.',
-    '`size` is sm or md for control sized swatches, or preview for tall blocks across the full width.',
+    'A step takes a `caption`, or `numbered` adds its place; `size` is sm, md or preview for tall blocks.',
     'Left, Right, Home and End move to the next open step and pick it; Tab enters on the picked one.',
-    'A step can be `unused` (dashed and faded) or `disabled` (skipped by the keys).',
+    'A step can be `unused` (dashed and faded), `disabled` (skipped by the keys) or carry corner `marks`.',
+    '`selected` with `onSelectionChange` picks several steps: Shift for a range, Ctrl or Command to toggle.',
+    '`onSwatchDragStart` makes steps draggable; `swatchMenu` gives each step a context menu.',
   ],
   instead: '[ChoiceGrid] when the colours are a loose set and not an ordered ramp.',
   playground: Playground,
-  variants: [Sizes, Captions, Unused],
+  variants: [Sizes, Captions, Unused, Several, Marked, Dragged, Menu],
   states: {
     render: renderState,
     list: [STATE.idle, STATE.selected, STATE.disabled],
@@ -101,4 +123,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Captions, Overview, Playground, Sizes, Unused };
+export { Captions, Dragged, Marked, Menu, Overview, Playground, Several, Sizes, Unused };

@@ -58,7 +58,7 @@ const CODE = `import { Breadcrumbs } from '@drizztdourden08/tessera';
 <Breadcrumbs
   segments={[
     { id: 'project', label: 'Mossgrove', icon: 'folder' },
-    { id: 'art', label: 'art', siblings: [{ id: 'audio', label: 'audio', onSelect: openAudio }] },
+    { id: 'art', label: 'art', title: 'Art assets', siblings: [{ id: 'audio', label: 'audio', group: 'Assets', onSelect: openAudio }] },
     { id: 'sprites', label: 'sprites' },
   ]}
   maxVisible={4}
@@ -71,7 +71,8 @@ const Overview = overviewStory({
   description: 'The trail of places that leads to the current one, with neighbour menus, a fold and a path box.',
   points: [
     '`segments` run from the root to the current place; the last one is current.',
-    'A segment takes an `icon` and `siblings`, a menu of its neighbours; `opensMenu` makes the segment the menu.',
+    'A segment takes an `icon`, a `title` tooltip and `siblings`, its neighbours; `opensMenu` makes it the menu.',
+    'A sibling takes a `group`, which becomes a heading in the menu above the siblings that share it.',
     '`maxVisible` keeps the first and the last segments and folds the middle ones behind an ellipsis.',
     '`onDropOn` makes every segment a drop target; `canDrop` turns a drag away.',
     '`onPathSubmit` makes the end a [PathInput]; `trailing` takes [Tag] chips, named by `trailingLabel`.',

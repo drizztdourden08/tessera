@@ -6,15 +6,21 @@ import { Box, Text, Toggle } from '../../../src/primitives';
 interface ToggleSweepDemoProps {
   count: number;
   ordered: boolean;
+  plainOnly?: boolean;
+  grouped?: boolean;
 }
 
-const ToggleSweepDemo = ({ count, ordered }: ToggleSweepDemoProps) => {
+const PICKED: readonly string[] = ['Layer 2', 'Layer 3', 'Layer 4'];
+
+const ToggleSweepDemo = ({ count, ordered, plainOnly = false, grouped = false }: ToggleSweepDemoProps) => {
   const ids = Array.from({ length: count }, (_, at) => `Layer ${at + 1}`);
   const [hidden, setHidden] = useState<ReadonlySet<string>>(new Set());
   const [last, setLast] = useState('Press a toggle and drag down the column');
   const set = (keys: readonly string[], value: boolean) => setHidden((now) => new Set(value ? [...now, ...keys] : [...now].filter((key) => !keys.includes(key))));
   const sweep = useToggleSweep({
     order: ordered ? ids : undefined,
+    startWhen: plainOnly ? (event) => !event.ctrlKey && !event.metaKey : undefined,
+    expandStart: grouped ? (key) => (PICKED.includes(key) ? PICKED : [key]) : undefined,
     onEnd: (keys, value) => {
       set(keys, value);
       setLast(`One change: ${keys.length} ${keys.length === 1 ? 'layer' : 'layers'} ${value ? 'hidden' : 'shown'}`);

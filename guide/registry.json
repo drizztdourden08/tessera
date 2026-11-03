@@ -6419,6 +6419,8 @@
         "segments run from the root to the current place, each with an id and a label, and optionally an icon from the set and siblings.",
         "The last segment is the current place and carries aria-current. onNavigate gets the id of the segment that was pressed.",
         "siblings are the menu nodes of a DropdownMenu. A chevron after the segment opens them; leave it out when a segment has no neighbours.",
+        "title on a segment is the tooltip text, apart from the label; leave it out for no tooltip.",
+        "A sibling takes group, a heading for the menu: siblings with the same group that follow each other sit under one heading, and siblings without a group sit under none.",
         "opensMenu on a segment with siblings makes the whole segment the menu button, for a place that has no page to go to; pressing it opens the siblings and never calls onNavigate.",
         "Pass maxVisible to fold a long trail: the first segment and the last ones stay, and the middle ones sit behind an ellipsis menu. The smallest value is 3.",
         "Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.",
@@ -15261,6 +15263,11 @@
         "Each step has a color, and optionally a caption, a label, unused and disabled. The caption shows on the swatch; label names the step to readers and as its tooltip, and falls back to the colour.",
         "numbered true captions every step without its own caption with its place in the ramp, starting at 1.",
         "size sm and md keep each swatch at the control height. preview stretches the steps over the full width as tall blocks, for a ramp you want to read at a glance.",
+        "To pick several steps, pass selected, a set of indexes, and onSelectionChange; a click picks one, Shift extends the range from the picked step, and Ctrl or Command adds or removes one. value still names the main step and onChange still runs on a plain click.",
+        "With selected the strip is a group of toggle buttons and not a radio group, and an arrow key moves to one step and selects only it.",
+        "A step takes marks, small corner indicators such as a dot or a letter, either a list or an object keyed top-start, top-end, bottom-start or bottom-end; they take their colour from the swatch.",
+        "Pass onSwatchDragStart(index, event) to make every step draggable; set the payload on event.dataTransfer there.",
+        "Pass swatchMenu(index) to give each step a context menu of menu items, opened by a right click, a long press or the menu key; return an empty list for a step with none.",
         "The left and right arrow keys, Home and End move to the next open step and pick it. Tab enters on the picked step."
       ],
       "a11y": [
@@ -15275,7 +15282,7 @@
         "rule": "RampStrip is the ordered row of shades of one ramp, with a caption on each step."
       },
       "example": "import { useState } from 'react';\nimport { RampStrip } from '@drizztdourden08/tessera';\n\nconst steps = [{ color: '#1b2a41' }, { color: '#324a5f' }, { color: '#4f7cac' }, { color: '#9ec1de' }];\n\nconst Ramp = () => {\n  const [step, setStep] = useState<number | null>(1);\n  return <RampStrip aria-label=\"Blue ramp\" steps={steps} value={step} onChange={setStep} numbered size=\"preview\" />;\n};\n",
-      "propsHash": "dd636f249d0ae649",
+      "propsHash": "a616741553d025f6",
       "props": {
         "own": [
           {
@@ -15297,6 +15304,26 @@
             "name": "aria-label",
             "optional": false,
             "text": "string"
+          },
+          {
+            "name": "selected",
+            "optional": true,
+            "text": "ReadonlySet<number>"
+          },
+          {
+            "name": "onSelectionChange",
+            "optional": true,
+            "text": "(selected: ReadonlySet<number>) => void"
+          },
+          {
+            "name": "onSwatchDragStart",
+            "optional": true,
+            "text": "(index: number, event: DragEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "swatchMenu",
+            "optional": true,
+            "text": "(index: number) => readonly MenuNode[]"
           },
           {
             "name": "size",
@@ -23009,7 +23036,9 @@
         "A key touched twice in one sweep is reported once, even when the pointer goes back over it.",
         "Pass order, the keys as they are shown, so a fast drag that skips a row still sets the rows between the two it touched.",
         "The hook follows the pointer on the window, so the drag may leave the column and come back, and it ends on release or cancel.",
-        "A mouse or touch click inside a bound element is taken by the sweep and does not reach the onChange of the toggle in it; a key press does, so keep onChange for the keyboard.",
+        "A mouse or touch click inside a bound element that started a sweep is taken by the sweep and does not reach the onChange of the toggle in it; a key press does, so keep onChange for the keyboard.",
+        "Pass startWhen(event) to choose which presses start a sweep, such as only a press with no Ctrl or Alt held; when it returns false no sweep starts and the click of the element goes on as usual.",
+        "Pass expandStart(key) to turn the pressed key into a set of keys, such as the whole selection when the pressed item is one of the selected; all of them take the value and are reported together.",
         "Set touch-action to none on the bound elements, so a finger drag sweeps and does not scroll.",
         "sweeping is true while a drag runs, for a look such as a held column."
       ],
@@ -23018,7 +23047,7 @@
         "Announce the end of a sweep in a polite live region, such as 5 layers hidden, since a drag changes no focus."
       ],
       "example": "import { useState } from 'react';\nimport { Box, Toggle, useToggleSweep } from '@drizztdourden08/tessera';\n\nconst Visibility = ({ ids }: { ids: string[] }) => {\n  const [hidden, setHidden] = useState<ReadonlySet<string>>(new Set());\n  const set = (keys: readonly string[], value: boolean) => setHidden((now) => new Set(value ? [...now, ...keys] : [...now].filter((key) => !keys.includes(key))));\n  const sweep = useToggleSweep({ order: ids, onEnd: set });\n  return ids.map((id) => (\n    <Box key={id} {...sweep.bind(id, hidden.has(id))}>\n      <Toggle label={id} checked={sweep.touched.includes(id) ? sweep.value === true : hidden.has(id)} onChange={(value) => set([id], value)} />\n    </Box>\n  ));\n};\n",
-      "propsHash": "01732d8547fa4834",
+      "propsHash": "cea95bf6c7851811",
       "exports": [
         {
           "name": "ToggleSweep",
@@ -23033,7 +23062,7 @@
         {
           "name": "ToggleSweepInput",
           "kind": "type",
-          "text": "interface ToggleSweepInput {\n  onSet?: (key: string, value: boolean) => void;\n  onEnd?: (keys: readonly string[], value: boolean) => void;\n  order?: readonly string[];\n}"
+          "text": "interface ToggleSweepInput {\n  onSet?: (key: string, value: boolean) => void;\n  onEnd?: (keys: readonly string[], value: boolean) => void;\n  order?: readonly string[];\n  startWhen?: (event: PointerEvent<HTMLElement>) => boolean;\n  expandStart?: (key: string) => readonly string[];\n}"
         },
         {
           "name": "useToggleSweep",

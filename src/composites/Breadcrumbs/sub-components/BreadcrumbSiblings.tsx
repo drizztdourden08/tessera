@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { DropdownMenu } from '../../DropdownMenu';
+import { groupSiblings } from '../behavior/group-siblings';
 import type { BreadcrumbSiblingsProps } from '../Breadcrumbs.type';
 
 const BreadcrumbSiblings = ({ label, siblings, named }: BreadcrumbSiblingsProps) => {
@@ -10,7 +11,7 @@ const BreadcrumbSiblings = ({ label, siblings, named }: BreadcrumbSiblingsProps)
   return (
     <DropdownMenu
       trigger={named ? { label, icon: 'chevron-down', iconSide: 'end' } : { label: menuLabel, icon: 'chevron-down', iconOnly: true }}
-      groups={[{ id: 'siblings', items: siblings }]}
+      groups={groupSiblings(siblings)}
       label={menuLabel}
       variant="ghost"
       size="xs"

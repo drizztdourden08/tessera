@@ -7,13 +7,14 @@ import { SEGMENT_ICON_SIZE } from '../Breadcrumbs.constants';
 import type { BreadcrumbSegmentButtonProps } from '../Breadcrumbs.type';
 
 const BreadcrumbSegmentButton = ({ segment, current, drop, onNavigate }: BreadcrumbSegmentButtonProps) => {
-  const { id, label, icon } = segment;
+  const { id, label, title, icon } = segment;
 
   return (
     <Pressable
       className="breadcrumbs__segment focus-ring-inset"
       aria-current={current ? 'page' : undefined}
       data-drop={drop.overId === id || undefined}
+      title={title}
       onClick={() => onNavigate(id)}
       {...drop.bind(id)}
     >

@@ -1,13 +1,16 @@
 /* @layer renderer-components @kind types */
 import type { DragEvent, ReactNode } from 'react';
 import type { IconName } from '../../primitives/Icon';
-import type { MenuNode } from '../DropdownMenu';
+import type { MenuGroup, MenuNode } from '../DropdownMenu';
+
+type BreadcrumbSibling = MenuNode & { group?: string };
 
 interface BreadcrumbSegment {
   id: string;
   label: string;
+  title?: string;
   icon?: IconName;
-  siblings?: readonly MenuNode[];
+  siblings?: readonly BreadcrumbSibling[];
   opensMenu?: boolean;
 }
 
@@ -36,6 +39,10 @@ interface SegmentDropHandlers {
   onDrop: (event: DragEvent<HTMLElement>) => void;
 }
 
+interface SiblingGroup extends MenuGroup {
+  items: MenuNode[];
+}
+
 type OverSetter = (update: (was: string | null) => string | null) => void;
 
 interface FoldedSegments {
@@ -55,12 +62,12 @@ interface BreadcrumbItemProps {
 type BreadcrumbSegmentButtonProps = Omit<BreadcrumbItemProps, 'first'>;
 
 type SiblingMenu =
-  | { menu: readonly MenuNode[]; asMenu: true }
-  | { menu: readonly MenuNode[] | undefined; asMenu: false };
+  | { menu: readonly BreadcrumbSibling[]; asMenu: true }
+  | { menu: readonly BreadcrumbSibling[] | undefined; asMenu: false };
 
 interface BreadcrumbSiblingsProps {
   label: string;
-  siblings: readonly MenuNode[];
+  siblings: readonly BreadcrumbSibling[];
   named: boolean;
 }
 
@@ -76,6 +83,6 @@ interface BreadcrumbEditProps {
 }
 
 export type {
-  BreadcrumbEditProps, BreadcrumbItemProps, BreadcrumbOverflowProps, BreadcrumbSegment, BreadcrumbSegmentButtonProps, BreadcrumbSiblingsProps, BreadcrumbsProps, FoldedSegments, OverSetter, SegmentDrop,
-  SegmentDropHandlers, SiblingMenu,
+  BreadcrumbEditProps, BreadcrumbItemProps, BreadcrumbOverflowProps, BreadcrumbSegment, BreadcrumbSegmentButtonProps, BreadcrumbSibling, BreadcrumbSiblingsProps, BreadcrumbsProps, FoldedSegments, OverSetter,
+  SegmentDrop, SegmentDropHandlers, SiblingGroup, SiblingMenu,
 };
