@@ -1,7 +1,7 @@
 /* @layer stories @kind component */
 import { useState } from 'react';
 import { Navigator } from '../../../src/composites';
-import type { NavigatorOverlay, NavigatorViewport } from '../../../src/composites';
+import type { NavigatorOverlay, NavigatorStep, NavigatorViewport } from '../../../src/composites';
 import { Box, Image, Text } from '../../../src/primitives';
 import { DUSK_URI } from '../../primitives/_samples/image-scenes.constants';
 import './NavigatorDemo.css';
@@ -15,8 +15,8 @@ const MARKS: readonly NavigatorOverlay[] = [
 
 type NavigatorDemoProps = {
   zoom?: number;
-  step?: number;
-  bigStep?: number;
+  step?: NavigatorStep;
+  bigStep?: NavigatorStep;
   unclamped?: boolean;
   label?: string;
   marked?: boolean;

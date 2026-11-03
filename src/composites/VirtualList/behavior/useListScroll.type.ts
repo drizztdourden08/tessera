@@ -6,6 +6,7 @@ import type { ItemLayout } from './item-layout.type';
 
 interface UseListScrollInput {
   rootRef: RefObject<HTMLElement | null>;
+  scrollerRef: RefObject<HTMLElement | null>;
   bodyRef: RefObject<HTMLElement | null>;
   layout: ItemLayout;
   axis: VirtualAxis;

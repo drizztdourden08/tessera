@@ -43,6 +43,11 @@ const Marked = {
   render: () => <NavigatorDemo marked />,
 } satisfies StoryLiteStoryDefinition<NavigatorArgs>;
 
+const Steps = {
+  name: 'A step for each axis: arrows move 100 across and 25 down',
+  render: () => <NavigatorDemo step={{ x: 100, y: 25 }} bigStep={{ x: 400, y: 100 }} />,
+} satisfies StoryLiteStoryDefinition<NavigatorArgs>;
+
 const CODE = `import { Image, Navigator } from '@drizztdourden08/tessera';
 import type { NavigatorViewport } from '@drizztdourden08/tessera';
 
@@ -51,6 +56,14 @@ const [view, setView] = useState<NavigatorViewport>({ x: 0, y: 0, width: 200, he
 <Navigator surface={{ width: 800, height: 500 }} viewport={view} onViewportChange={setView}>
   <Image src={preview} alt="" fit="fill" />
 </Navigator>
+
+<Navigator
+  surface={{ width: 800, height: 500 }}
+  viewport={view}
+  onViewportChange={setView}
+  step={{ x: view.width / 10, y: view.height / 10 }}
+  bigStep={{ x: view.width, y: view.height }}
+/>
 
 <Navigator
   surface={{ width: 800, height: 500 }}
@@ -71,15 +84,15 @@ const Overview = overviewStory({
     '`surface` is the size of the whole surface and `viewport` the visible rectangle, in the same units.',
     'Drag the frame, or press the map to centre it there; `onViewportChange` runs while it moves.',
     'The thumbnail goes in as `children`, such as an [Image]; the map takes the shape of the surface.',
-    'The frame is a slider: arrows move it by `step`, [[Shift]] by `bigStep`, and Page Up and Page Down by its height.',
+    'Arrows move the frame by `step`, a number or `{ x, y }`; [[Shift]] by `bigStep`; Page keys by its height.',
     '`overlays` mark the map; `onOverlayPress`, `onWheelZoom` (with `deltaY`) and `onKey` hand input on.',
     '`empty`, `caption` and `describe` fill the map with no surface, a line under it, and a hidden description.',
   ],
   instead: '[Slider] for one value on one line.',
   playground: Playground,
-  variants: [Zooms, Marked],
+  variants: [Zooms, Marked, Steps],
   code: CODE,
 });
 
 export default meta;
-export { Marked, Overview, Playground, Zooms };
+export { Marked, Overview, Playground, Steps, Zooms };

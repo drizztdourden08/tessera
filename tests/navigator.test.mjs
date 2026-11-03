@@ -34,20 +34,25 @@ describe('K1 Navigator movement', { tags: ['critical'] }, () => {
 
 describe('K1 Navigator keys', { tags: ['critical'] }, () => {
   it('steps by the arrow keys by the reach it is given', () => {
-    expect(keyMove('ArrowLeft', VIEW, 10)).toEqual({ dx: -10, dy: 0 });
-    expect(keyMove('ArrowDown', VIEW, 10)).toEqual({ dx: 0, dy: 10 });
-    expect(keyMove('ArrowRight', VIEW, 50)).toEqual({ dx: 50, dy: 0 });
-    expect(keyMove('ArrowUp', VIEW, 50)).toEqual({ dx: 0, dy: -50 });
+    expect(keyMove('ArrowLeft', VIEW, { x: 10, y: 10 })).toEqual({ dx: -10, dy: 0 });
+    expect(keyMove('ArrowDown', VIEW, { x: 10, y: 10 })).toEqual({ dx: 0, dy: 10 });
+    expect(keyMove('ArrowRight', VIEW, { x: 50, y: 50 })).toEqual({ dx: 50, dy: 0 });
+    expect(keyMove('ArrowUp', VIEW, { x: 50, y: 50 })).toEqual({ dx: 0, dy: -50 });
+  });
+
+  it('steps each axis by its own reach', () => {
+    expect(keyMove('ArrowRight', VIEW, { x: 10, y: 4 })).toEqual({ dx: 10, dy: 0 });
+    expect(keyMove('ArrowDown', VIEW, { x: 10, y: 4 })).toEqual({ dx: 0, dy: 4 });
   });
 
   it('pages by the height of the frame', () => {
-    expect(keyMove('PageUp', VIEW, 10)).toEqual({ dx: 0, dy: -50 });
-    expect(keyMove('PageDown', VIEW, 10)).toEqual({ dx: 0, dy: 50 });
+    expect(keyMove('PageUp', VIEW, { x: 10, y: 10 })).toEqual({ dx: 0, dy: -50 });
+    expect(keyMove('PageDown', VIEW, { x: 10, y: 10 })).toEqual({ dx: 0, dy: 50 });
   });
 
   it('leaves other keys alone', () => {
-    expect(keyMove('a', VIEW, 10)).toBeNull();
-    expect(keyMove('Tab', VIEW, 10)).toBeNull();
+    expect(keyMove('a', VIEW, { x: 10, y: 10 })).toBeNull();
+    expect(keyMove('Tab', VIEW, { x: 10, y: 10 })).toBeNull();
   });
 });
 

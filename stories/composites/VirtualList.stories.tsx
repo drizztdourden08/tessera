@@ -5,6 +5,7 @@ import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { VirtualListActive } from './_samples/VirtualListActive';
 import { VirtualListFrame } from './_samples/VirtualListFrame';
+import { VirtualListOuter } from './_samples/VirtualListOuter';
 import { VirtualListPicker } from './_samples/VirtualListPicker';
 import { VirtualListReorder } from './_samples/VirtualListReorder';
 import { FILLED_AND_EMPTY } from './_samples/virtual-states.constants';
@@ -61,6 +62,11 @@ const Strip = {
   render: () => <VirtualListPicker count={2000} horizontal />,
 } satisfies StoryLiteStoryDefinition<VirtualListArgs>;
 
+const Outer = {
+  name: 'A strip in a ScrollArea: the area scrolls, drag a row to its edge, Enter picks, the tab stop starts on Event 4',
+  render: () => <VirtualListOuter />,
+} satisfies StoryLiteStoryDefinition<VirtualListArgs>;
+
 const Picking = {
   name: 'Selection: click, Ctrl, Shift, Ctrl+A, Space, Shift with an arrow, and type ahead',
   render: () => <VirtualListPicker count={5000} />,
@@ -91,6 +97,20 @@ const CODE = `import { VirtualList } from '@drizztdourden08/tessera';
   selection={{ selected, onChange: setSelected }}
 />
 
+<ScrollArea axis="x">
+  <VirtualList
+    label="Events"
+    orientation="horizontal"
+    itemSize="size-96"
+    items={entries}
+    getKey={(entry) => entry.id}
+    renderItem={(entry) => entry.text}
+    scrollParent="auto"
+    initialFocusIndex={current}
+    onPick={(index, event) => open(entries[index])}
+  />
+</ScrollArea>
+
 <VirtualList
   label="Events"
   items={entries}
@@ -110,14 +130,14 @@ const Overview = overviewStory({
   points: [
     '`items`, `getKey` and `renderItem` draw the rows; `renderOption` draws a row from the cell props.',
     '`rowSize` or `rowHeight` sets one height from a token; `itemSize` as a function sets each height.',
-    '`orientation="horizontal"` lays a strip out left to right; `itemSize` is the width of each item.',
+    '`orientation="horizontal"` lays out a strip; `scrollParent` lets an outer ScrollArea scroll it.',
     '`selection` picks with click, Ctrl, Shift, Ctrl+A and Space; `getLabel` adds type ahead.',
     '`reorder` moves rows by drag or Alt with an arrow; `scrollRef`, `bind` and `overlay` let a marquee pick.',
-    'Arrows, Home, End, Page Up and Page Down move focus; a focused row stays drawn.',
+    'Arrows move focus; `onPick` runs on click or Enter; `initialFocusIndex` sets the first tab stop.',
   ],
   instead: '[DataTable] for rows with columns to sort, or [ItemList] for a short list.',
   playground: Playground,
-  variants: [Long, Compact, Taller, Short, Strip, Picking, Moving],
+  variants: [Long, Compact, Taller, Short, Strip, Outer, Picking, Moving],
   states: {
     render: (props: StateProps) => <VirtualListFrame count={40} {...props} />,
     list: FILLED_AND_EMPTY,
@@ -126,4 +146,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, Long, Moving, Overview, Picking, Playground, Short, Strip, Taller };
+export { Compact, Long, Moving, Outer, Overview, Picking, Playground, Short, Strip, Taller };

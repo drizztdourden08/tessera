@@ -9,5 +9,5 @@ export { sizeVariable } from './size-variable';
 export type { VirtualCellHandlers } from './virtual-cell-handlers.type';
 export { useWantedFocus } from './useWantedFocus';
 export { useVirtualWindow } from './useVirtualWindow';
-export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualAxis, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from './virtual.type';
+export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualAxis, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualScrollParent, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from './virtual.type';
 export { visibleRange } from './visible-range';
