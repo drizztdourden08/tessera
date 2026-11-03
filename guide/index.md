@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 124 of 234 have their usage written; a linked name opens its page.
+One line per component. 126 of 236 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -49,6 +49,7 @@ One line per component. 124 of 234 have their usage written; a linked name opens
 - `Overlay`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PageFrame](components/PageFrame.md): A full-height, padded page that scrolls inside its own frame, for a web app whose html and body stay locked. Import from `@drizztdourden08/tessera`.
 - [PageRoot](components/PageRoot.md): The root of a website page: it lets the whole document scroll, which a desktop app screen locks, and puts the page inside one box. Import from `@drizztdourden08/tessera`.
+- [PixelThumbnail](components/PixelThumbnail.md): A small square that draws a pixel picture crisp, from RGBA bytes or palette pixels, with a checker behind clear pixels. A building block. Import from `@drizztdourden08/tessera`.
 - `Portal`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Pressable`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ProgressBar`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -168,6 +169,7 @@ One line per component. 124 of 234 have their usage written; a linked name opens
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
+- [PixelPlayer](components/PixelPlayer.md): Plays a pixel animation inline, with a whole-number zoom, a control bar, frame ranges and keys; one frame shows as a still. A building block. Import from `@drizztdourden08/tessera`.
 - [PointerPalette](components/PointerPalette.md): A sectioned grid of icon cells that opens at a point, so a tool or mode is picked with the hand that stays on the canvas. Import from `@drizztdourden08/tessera`.
 - [RampStrip](components/RampStrip.md): A row of colour swatches that shows one ramp, from dark to light or step to step, with a caption on each step and one picked. Import from `@drizztdourden08/tessera`.
 - [Rating](components/Rating.md): A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with. Import from `@drizztdourden08/tessera`.
