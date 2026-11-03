@@ -36,6 +36,17 @@ interface SpanInput {
   scrollTop: number;
 }
 
+type VirtualMetricsReader = (root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics;
+
+type VirtualScrollParent = HTMLElement | RefObject<HTMLElement | null> | 'auto';
+
+interface ScrollParentInput {
+  option: VirtualScrollParent | undefined;
+  rootRef: RefObject<HTMLElement | null>;
+  scrollerRef: RefObject<HTMLElement | null>;
+  onChange: () => void;
+}
+
 interface VirtualWindowInput {
   enabled: boolean;
   count: number;
@@ -44,7 +55,7 @@ interface VirtualWindowInput {
   indexAttribute: string;
   overscan?: number;
   sizeKey?: string;
-  readMetrics?: (root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics;
+  readMetrics?: VirtualMetricsReader;
   rangeOf?: (metrics: VirtualMetrics, overscan: number) => RowRange;
 }
 
@@ -84,4 +95,6 @@ interface ShowInput {
   scrollTop: number;
 }
 
-export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualAxis, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput };
+export type {
+  RowRange, ScrollAlign, ScrollParentInput, ShowInput, SpanInput, VirtualAxis, VirtualFocusModel, VirtualItemsInput, VirtualMetrics, VirtualMetricsReader, VirtualScrollParent, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput,
+};

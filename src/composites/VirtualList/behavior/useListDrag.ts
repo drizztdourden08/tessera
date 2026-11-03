@@ -12,7 +12,7 @@ import type { ReorderModifier } from '../../reorder';
 import type { ListDrag, UseListDragInput } from './useListDrag.type';
 
 const useListDrag = (input: UseListDragInput): ListDrag => {
-  const { rootRef, bodyRef, layout, axis, keysOf, onDrop } = input;
+  const { rootRef, scrollerRef, bodyRef, layout, axis, keysOf, onDrop } = input;
   const [target, setTarget] = useState<number | null>(null);
   const [modifier, setModifier] = useState<ReorderModifier>('none');
   const [start, setStart] = useState<{ x: number; y: number } | null>(null);
@@ -30,7 +30,7 @@ const useListDrag = (input: UseListDragInput): ListDrag => {
   };
 
   const drag = useReorderDrag({
-    listRef: bodyRef, selector: ITEM_SELECTOR, axis, locate, keys: keysOf, scrollRef: rootRef,
+    listRef: bodyRef, selector: ITEM_SELECTOR, axis, locate, keys: keysOf, scrollRef: scrollerRef,
     onDrop: (_from, _to, info) => {
       if (landing.current !== null) onDrop(info.keys, landing.current, info.modifier);
     },

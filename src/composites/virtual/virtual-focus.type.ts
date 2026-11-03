@@ -18,6 +18,8 @@ interface VirtualFocusInput {
   axis?: VirtualAxis;
   onMove?: (event: KeyboardEvent<HTMLElement>, target: KeyTarget, from: number) => void;
   onActiveChange?: (index: number) => void;
+  scrollerRef?: RefObject<HTMLElement | null>;
+  initialIndex?: number;
 }
 
 interface VirtualFocus {

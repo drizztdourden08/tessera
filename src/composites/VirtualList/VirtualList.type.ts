@@ -1,8 +1,8 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
+import type { KeyboardEvent, MouseEvent, PointerEvent as ReactPointerEvent, ReactNode, Ref } from 'react';
 import type { MarqueeItem } from '../marquee';
 import type { ReorderModifier } from '../reorder';
-import type { ScrollAlign, VirtualAxis, VirtualCellHandlers, VirtualSize } from '../virtual';
+import type { ScrollAlign, VirtualAxis, VirtualCellHandlers, VirtualScrollParent, VirtualSize } from '../virtual';
 
 type VirtualListRowSize = 'compact' | 'normal' | 'roomy';
 
@@ -21,6 +21,8 @@ interface VirtualListBind {
 }
 
 type VirtualListItemSize = VirtualSize | ((index: number) => number);
+
+type VirtualListPick = (index: number, event: MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>) => void;
 
 interface VirtualListMove {
   keys: readonly string[];
@@ -78,6 +80,9 @@ interface VirtualListBase<T> {
   selection?: VirtualListSelection;
   getLabel?: (item: T, index: number) => string;
   onActiveChange?: (index: number) => void;
+  onPick?: VirtualListPick;
+  scrollParent?: VirtualScrollParent;
+  initialFocusIndex?: number;
   scrollRef?: Ref<HTMLElement>;
   bind?: VirtualListBind;
   overlay?: ReactNode;
@@ -88,5 +93,5 @@ interface VirtualListBase<T> {
 type VirtualListProps<T> = VirtualListBase<T> & (VirtualListDrawItem<T> | VirtualListDrawOption<T>);
 
 export type {
-  VirtualListBind, VirtualListCellBind, VirtualListHandle, VirtualListItemSize, VirtualListMove, VirtualListProps, VirtualListReorder, VirtualListRowSize, VirtualListSelection,
+  VirtualListBind, VirtualListCellBind, VirtualListHandle, VirtualListItemSize, VirtualListMove, VirtualListPick, VirtualListProps, VirtualListReorder, VirtualListRowSize, VirtualListSelection,
 };

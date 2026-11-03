@@ -1,24 +1,22 @@
 /* @layer renderer-components @kind hook */
 import { useCallback } from 'react';
 import { bodyOrigin } from '../../virtual/body-origin';
-import { scrollTopForSpan } from '../../virtual/scroll-top-for-span';
+import { scrollToSpan } from '../../virtual/scroll-to-span';
 import { listRects } from './list-rects';
 import type { ScrollAlign } from '../../virtual';
 import type { ListScroll, UseListScrollInput } from './useListScroll.type';
 
 const useListScroll = (input: UseListScrollInput): ListScroll => {
-  const { rootRef, bodyRef, layout, axis, keys, onScroll } = input;
+  const { rootRef, scrollerRef, bodyRef, layout, axis, keys, onScroll } = input;
   const across = axis === 'horizontal';
 
   const scrollToIndex = useCallback((index: number, align: ScrollAlign = 'nearest') => {
-    const root = rootRef.current;
-    if (!root) return;
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
     const span = { top: layout.startOf(index), height: layout.sizeOf(index) };
-    const place = { ...span, viewport: across ? root.clientWidth : root.clientHeight, scrollTop: across ? root.scrollLeft : root.scrollTop };
-    if (across) root.scrollLeft = scrollTopForSpan(place, align);
-    else root.scrollTop = scrollTopForSpan(place, align);
+    scrollToSpan({ scroller, body: bodyRef.current, shifted: scroller !== rootRef.current, across, span, align });
     onScroll();
-  }, [rootRef, layout, across, onScroll]);
+  }, [rootRef, scrollerRef, bodyRef, layout, across, onScroll]);
 
   const getRects = useCallback(() => {
     const root = rootRef.current;

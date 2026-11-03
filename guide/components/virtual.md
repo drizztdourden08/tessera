@@ -28,6 +28,7 @@ The source is `src/composites/virtual/index.ts`.
 - Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.
 - Use scrollTopToShow to find the scroll position that brings a row into view, or scrollTopForSpan for a row of any height with an align of start, center, end or nearest.
 - For items laid in a row, pass readHorizontalMetrics as readMetrics and place the items by left; the numbers then run along the x axis, and useVirtualFocus takes axis horizontal so the scroll and the pages follow.
+- VirtualScrollParent is an element, a ref to one or the word auto; a list that sits in an outer scroller takes it to measure against that scroller instead of its own box.
 - A VirtualSize may be size-16 or size-20 for swatch grids; stepVirtualSize stays on the steps from size-24 up.
 - StepVirtualSize(size, by) moves a size token along the ordered steps from size-24 to size-256, such as for a slider that sets the size of tiles.
 - For rows of more than one height, pass readMetrics to measure the heights and rangeOf to give the rows to draw for the scroll position; without them every row has one height.
@@ -63,7 +64,7 @@ const Rows = ({ names }: { names: string[] }) => {
 
 ## What it exports
 
-- `clickHandlers`, a function: `(select: SelectionModel, key: string, swallowClick: () => boolean) => Pick<VirtualCellHandlers, "onClick" | "onMouseDown">`.
+- `clickHandlers`, a function: `(select: SelectionModel, key: string, swallowClick: () => boolean, onPick?: ((event: MouseEvent<HTMLElement, MouseEvent>) => void) | undefined) => Pick<VirtualCellHandlers, "onClick" | "onMouseDown">`.
 - `readHorizontalMetrics`, a function: `(root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics`.
 - `renderedIndices`, a function: `(range: RowRange, pinned: number) => readonly number[]`.
 - `scrollTopForSpan`, a function: `(input: SpanInput, align: ScrollAlign) => number`.
@@ -138,6 +139,8 @@ interface VirtualMetrics {
   head?: number;
 }
 
+type VirtualScrollParent = HTMLElement | RefObject<HTMLElement | null> | 'auto';
+
 type VirtualSize =
   | 'size-16' | 'size-20' | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'
   | 'size-80' | 'size-96' | 'size-128' | 'size-160' | 'size-192' | 'size-224' | 'size-256';
@@ -159,7 +162,7 @@ interface VirtualWindowInput {
   indexAttribute: string;
   overscan?: number;
   sizeKey?: string;
-  readMetrics?: (root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics;
+  readMetrics?: VirtualMetricsReader;
   rangeOf?: (metrics: VirtualMetrics, overscan: number) => RowRange;
 }
 

@@ -12,6 +12,17 @@
   --vl-row-h: var(--size-48);
 }
 
+.virtual-list[data-scroll-parent] {
+  overflow: visible;
+  border-style: none;
+  border-radius: 0;
+  background: none;
+}
+
+.virtual-list[data-scroll-parent][data-orientation='horizontal'] {
+  inline-size: max-content;
+}
+
 .virtual-list__body {
   position: relative;
   inline-size: 100%;

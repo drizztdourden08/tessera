@@ -7,7 +7,7 @@ import { VirtualItem } from './VirtualItem';
 import type { ListRowsProps } from './ListRows.type';
 
 const ListRows = <T,>(props: ListRowsProps<T>) => {
-  const { items, model, renderItem, renderOption, current, ownsKey } = props;
+  const { items, model, renderItem, renderOption, current, ownsKey, onPick } = props;
   const { select, selecting } = model;
   return model.indices.map((at) => {
     const item = items[at];
@@ -21,9 +21,9 @@ const ListRows = <T,>(props: ListRowsProps<T>) => {
       selected: selecting ? select.isSelected(key) : undefined,
       current: key === current,
       bare: renderOption !== undefined,
-      extras: listCellExtras({ key, index: at, select, moving: model.moving, selecting }),
+      extras: listCellExtras({ key, index: at, select, moving: model.moving, selecting, onPick }),
       onActivate: model.activate,
-      onKeyDown: listKeyDown({ model, index: at, itemKey: key, ownsKey }),
+      onKeyDown: listKeyDown({ model, index: at, itemKey: key, ownsKey, onPick }),
     });
     return (
       <VirtualItem key={key} bind={bind} place={listPlace(model.layout, at, model.variable)} slot={renderOption !== undefined}>
