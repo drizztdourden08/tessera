@@ -32,6 +32,29 @@
   --pixel-thumbnail-box: var(--size-64);
 }
 
+.pixel-thumbnail[data-box='96'] {
+  --pixel-thumbnail-box: var(--size-96);
+}
+
+.pixel-thumbnail[data-box='128'] {
+  --pixel-thumbnail-box: var(--size-128);
+}
+
+.pixel-thumbnail[data-box='192'] {
+  --pixel-thumbnail-box: var(--size-192);
+}
+
+.pixel-thumbnail[data-box='256'] {
+  --pixel-thumbnail-box: var(--size-256);
+}
+
+.pixel-thumbnail[data-box='fluid'] {
+  display: flex;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+}
+
 .pixel-thumbnail--checker {
   background: repeating-conic-gradient(var(--c-checker-b) 0% 25%, var(--c-checker-a) 0% 50%) 0 0 / var(--checker-size) var(--checker-size);
 }

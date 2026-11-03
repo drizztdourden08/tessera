@@ -1,12 +1,13 @@
 /* @layer renderer-components @kind hook */
-import type { KeyboardEvent, PointerEvent } from 'react';
+import type { KeyboardEvent, MouseEvent, PointerEvent } from 'react';
+import { cellAt, localX } from '../../cell-geometry';
 import { scrubKeyStep } from './scrub-key-step';
 import { useBandDraw } from './useBandDraw';
 import { useScrubDrag } from './useScrubDrag';
 import type { ScrubRulerSetup, ScrubRulerState } from './useScrubRuler.type';
 
 const useScrubRuler = (setup: ScrubRulerSetup): ScrubRulerState => {
-  const { cells, total, value, readOnly, onChange, onBandChange } = setup;
+  const { cells, total, value, readOnly, onChange, onBandChange, onCellContextMenu } = setup;
   const scrub = useScrubDrag({ cells, total, value, onChange });
   const band = useBandDraw({ cells, total, onBandChange });
 
@@ -24,7 +25,11 @@ const useScrubRuler = (setup: ScrubRulerSetup): ScrubRulerState => {
     if (next !== value) onChange?.(next);
   };
 
-  return { scrubbing: scrub.scrubbing, draftBand: band.draft, press, onKeyDown };
+  const onContextMenu = (event: MouseEvent<HTMLElement>): void => {
+    onCellContextMenu?.(cellAt(cells, localX(event.clientX, event.currentTarget), total), event);
+  };
+
+  return { scrubbing: scrub.scrubbing, draftBand: band.draft, press, onKeyDown, onContextMenu };
 };
 
 export { useScrubRuler };

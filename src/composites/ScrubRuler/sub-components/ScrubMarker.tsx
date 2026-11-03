@@ -3,6 +3,7 @@ import type { CSSProperties, KeyboardEvent } from 'react';
 import { Box } from '../../../primitives/Box';
 import { tagHueClass } from '../../../primitives/tag-hue/tag-hue-class';
 import { markerKeyStep } from '../behavior/marker-key-step';
+import { markerX } from '../behavior/marker-x';
 import { useMarkerDrag } from '../behavior/useMarkerDrag';
 import type { ScrubMarkerProps } from './ScrubMarker.type';
 
@@ -12,10 +13,9 @@ const sideOf = (index: number, value: number): string => {
 };
 
 const ScrubMarker = (props: ScrubMarkerProps) => {
-  const { cells, total, marker, value, readOnly, onMarkerChange } = props;
-  const drag = useMarkerDrag({ cells, total, marker, readOnly, onMarkerChange });
-  const center = (cells.lefts[drag.index] ?? 0) + (cells.widths[drag.index] ?? 0) / 2;
-  const placed = { '--scrub-left': `${center}px` } as CSSProperties;
+  const { cells, total, marker, anchor, value, readOnly, onMarkerChange } = props;
+  const drag = useMarkerDrag({ cells, total, marker, anchor, readOnly, onMarkerChange });
+  const placed = { '--scrub-left': `${markerX(cells, drag.index, total, anchor)}px` } as CSSProperties;
 
   const onKeyDown = (event: KeyboardEvent<HTMLElement>): void => {
     if (readOnly) return;

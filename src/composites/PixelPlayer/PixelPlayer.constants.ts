@@ -1,10 +1,14 @@
 /* @layer renderer-components @kind constants */
 import type { IconName } from '../../primitives/Icon';
-import type { PixelPlayerCell, PixelPlayerLoop, PixelPlayerTag, PlayerKeyAction, PlayFace } from './PixelPlayer.type';
+import type { PixelPlayerCell, PixelPlayerDirection, PixelPlayerLoop, PixelPlayerTag, PlayerKeyAction, PlayFace } from './PixelPlayer.type';
 
 const DEFAULT_LOOP: PixelPlayerLoop = { direction: 'forward', repeat: 0 };
 
 const DEFAULT_SPEEDS: readonly number[] = [0.5, 1, 2];
+
+const BACKWARD_START: readonly PixelPlayerDirection[] = ['reverse', 'pingpongReverse'];
+
+const BOUNCING: readonly PixelPlayerDirection[] = ['pingpong', 'pingpongReverse'];
 
 const ALL_FRAMES = '*';
 
@@ -30,4 +34,4 @@ const PLAY_ICONS: Readonly<Record<PlayFace, IconName>> = {
   play: 'pixel-play',
 };
 
-export { ALL_FRAMES, DEFAULT_LOOP, DEFAULT_SPEEDS, KEY_ACTIONS, MIN_FRAME_MS, NO_CELLS, NO_TAGS, OUTLINE_WIDTH, PLAY_ICONS };
+export { ALL_FRAMES, BACKWARD_START, BOUNCING, DEFAULT_LOOP, DEFAULT_SPEEDS, KEY_ACTIONS, MIN_FRAME_MS, NO_CELLS, NO_TAGS, OUTLINE_WIDTH, PLAY_ICONS };

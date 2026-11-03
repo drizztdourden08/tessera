@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, PointerEvent } from 'react';
+import type { KeyboardEvent, MouseEvent, PointerEvent } from 'react';
 import type { CellGeometry } from '../../cell-geometry';
 import type { ScrubRulerProps } from '../ScrubRuler.type';
 
@@ -10,6 +10,7 @@ interface ScrubTrackProps extends Pick<ScrubRulerProps, 'tickLabel' | 'tickEvery
   readOnly: boolean;
   onPress: (event: PointerEvent<HTMLElement>) => void;
   onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
+  onContextMenu: (event: MouseEvent<HTMLElement>) => void;
 }
 
 export type { ScrubTrackProps };

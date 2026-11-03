@@ -8,7 +8,7 @@ const useSpanKeys = (setup: SpanKeysSetup): ((event: KeyboardEvent<HTMLElement>)
   const { span, total, minLength, readOnly, onChange, onActivate, announce } = setup;
   const { spanBar } = useTesseraStrings();
   return (event) => {
-    if (event.key === 'Enter' && onActivate) {
+    if (event.key === 'Enter' && onActivate && !readOnly) {
       event.preventDefault();
       onActivate();
       return;

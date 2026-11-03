@@ -3,6 +3,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { SpanBarDemo } from './_samples/SpanBarDemo';
+import { SpanBarTinted } from './_samples/SpanBarTinted';
 
 type SpanBarArgs = {
   label: string;
@@ -73,6 +74,11 @@ const LaneCreate = {
   render: () => <SpanBarDemo lane colour="green" />,
 } satisfies StoryLiteStoryDefinition<SpanBarArgs>;
 
+const Tinted = {
+  name: 'Tint, data attributes and one tab stop',
+  render: () => <SpanBarTinted />,
+} satisfies StoryLiteStoryDefinition<SpanBarArgs>;
+
 const Overview = overviewStory({
   component: 'SpanBar',
   description: 'A bar over a row of cells. Drag it to move, stretch it from either end, or use the keys.',
@@ -82,12 +88,12 @@ const Overview = overviewStory({
     '[[Alt]] + [[Shift]] + arrows move the end; [[Alt]] + [[Ctrl]] + arrows move the span; [[Enter]] activates.',
     '`onDraft` follows a drag in progress, and `onChange` fires once when it ends; [[Esc]] cancels the drag.',
     '`SpanLane` is the row that holds the bars; dragging on its empty part draws a new span through `onCreate`.',
-    '`announce` receives the new range after each key step, for a live region such as Cells 3 to 6.',
+    '`announce` reads the new range after a key step; `tint` colours one span and `data` adds data attributes.',
   ],
   instead: '[ScrubRuler] to pick one cell on the same cells.',
   playground: Playground,
-  variants: [Rest, Selected, ReadOnly, Coloured, Narrow, TimeMode, LaneCreate],
+  variants: [Rest, Selected, ReadOnly, Coloured, Tinted, Narrow, TimeMode, LaneCreate],
 });
 
 export default meta;
-export { Coloured, LaneCreate, Narrow, Overview, Playground, ReadOnly, Rest, Selected, TimeMode };
+export { Coloured, LaneCreate, Narrow, Overview, Playground, ReadOnly, Rest, Selected, Tinted, TimeMode };

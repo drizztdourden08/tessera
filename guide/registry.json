@@ -3066,7 +3066,8 @@
       ],
       "rules": [
         "Pass `image` or `indexed`, not both; `null` clears the box and keeps the checker.",
-        "Pick `box` from the size tokens, 16 to 64 px; `step` scales up in whole numbers, `contain` takes any scale.",
+        "Pick `box` from the size tokens, 16 to 256 px; `step` scales up in whole numbers, `contain` takes any scale.",
+        "Pass `box=\"fluid\"` to fill the width of the container as a square, so a diff view grows with its panel and stays crisp.",
         "Palette colours in `indexed` are `#rgb` or `#rrggbb`; the `transparent` index draws clear.",
         "Keep `frames` stable between renders, or the loop restarts; `playing` loops them and reduced motion shows frame 0.",
         "Use `lazy` for long lists and `throttleMs` for a live source; dim a hidden layer with a class from the caller."
@@ -3078,7 +3079,7 @@
       ],
       "buildingBlock": true,
       "example": "import { PixelThumbnail } from '@drizztdourden08/tessera';\nimport type { RgbaImage } from '@drizztdourden08/tessera';\n\nconst LayerThumb = ({ picture }: { picture: RgbaImage | null }) => (\n  <PixelThumbnail image={picture} box={24} throttleMs={80} lazy />\n);\n",
-      "propsHash": "2a9ee2768141f4a2",
+      "propsHash": "e6a0849ffddf1c7d",
       "props": {
         "own": [
           {
@@ -3102,7 +3103,12 @@
               "32",
               "40",
               "48",
-              "64"
+              "64",
+              "96",
+              "128",
+              "192",
+              "256",
+              "'fluid'"
             ],
             "default": "DEFAULT_BOX"
           },
@@ -3176,12 +3182,16 @@
         "--c-checker-b",
         "--checker-size",
         "--size-1",
+        "--size-128",
         "--size-16",
+        "--size-192",
         "--size-24",
+        "--size-256",
         "--size-32",
         "--size-40",
         "--size-48",
-        "--size-64"
+        "--size-64",
+        "--size-96"
       ],
       "gallery": {
         "title": "Primitives · Display/PixelThumbnail",
@@ -15009,6 +15019,7 @@
         "Pass `frames` with a duration for each; one frame is a still with no bar and no counter.",
         "`zoom=\"fit\"` picks the largest whole number that fits the stage, never below 1; the stage height follows the `--pixel-player-stage` property.",
         "Give `tags` to limit play to one named range; pass `tagId` and `onTagChange` to control which one.",
+        "`loop.direction` is `forward`, `reverse`, `pingpong` or `pingpongReverse`; the last starts on the final frame going backward, then bounces.",
         "`loop.repeat` of 0 runs forever; with a count, Play becomes Replay when the loop ends.",
         "`mode=\"compact\"` hides the bar and the counter; keep `frames` stable between renders so playback does not restart."
       ],
@@ -16932,6 +16943,10 @@
         "Keep value, markers and band in the parent and write them back from onChange, onMarkerChange and onBandChange.",
         "Give every marker an id, a label and the min and max it may be dragged between.",
         "Leave tickEvery on auto unless the ticks must fall on a fixed step; tickLabel writes the text of each tick.",
+        "Pass `secondBand` for a second read-only range beside `band`, such as an onion range next to the loop range.",
+        "Set `markerAnchor=\"edge\"` to put markers on the cell border instead of its centre; a drag then snaps to the nearest border.",
+        "Pass `onCellContextMenu` to get the cell under the pointer on a right-click, and call `preventDefault` on the event to open your own menu.",
+        "Set `compact` for a 20 pixel ruler where the 28 pixel one takes too much room.",
         "Set readOnly to keep the ruler focusable and block every change."
       ],
       "a11y": [
@@ -16948,7 +16963,7 @@
         "rule": "ScrubRuler sets one current cell on a row of cells, with markers and a band, where SpanBar sets a range of cells."
       },
       "example": "import { ScrubRuler } from '@drizztdourden08/tessera';\nimport type { CellGeometry } from '@drizztdourden08/tessera';\n\nconst Timeline = ({ cells, frame, setFrame }: { cells: CellGeometry; frame: number; setFrame: (index: number) => void }) => (\n  <ScrubRuler cells={cells} value={frame} onChange={setFrame} label=\"Frames\" />\n);\n",
-      "propsHash": "debbcfcf9039f706",
+      "propsHash": "0c69859be784c968",
       "props": {
         "own": [
           {
@@ -16988,6 +17003,15 @@
             "text": "(id: string, index: number) => void"
           },
           {
+            "name": "markerAnchor",
+            "optional": true,
+            "text": "RulerMarkerAnchor",
+            "literals": [
+              "'center'",
+              "'edge'"
+            ]
+          },
+          {
             "name": "band",
             "optional": true,
             "text": "RulerBand | null",
@@ -17002,6 +17026,21 @@
             "name": "bandLabel",
             "optional": true,
             "text": "(band: RulerBand) => string"
+          },
+          {
+            "name": "secondBand",
+            "optional": true,
+            "text": "RulerBand | null"
+          },
+          {
+            "name": "onCellContextMenu",
+            "optional": true,
+            "text": "(index: number, event: MouseEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "compact",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "valueText",
@@ -17043,6 +17082,8 @@
         "--c-secondary-soft",
         "--c-selected",
         "--c-surface",
+        "--c-tag-amber",
+        "--c-tag-amber-soft",
         "--c-text",
         "--c-text-muted",
         "--hue-ink",
@@ -17050,8 +17091,10 @@
         "--scrub-left",
         "--scrub-width",
         "--size-16",
+        "--size-20",
         "--size-24",
         "--size-28",
+        "--size-8",
         "--space-2xs",
         "--weight-bold"
       ],
@@ -18382,10 +18425,13 @@
         "Use onDraft to follow a drag in progress, such as a preview; it gets null when the drag is cancelled.",
         "Wrap the bars in a SpanLane when the user may draw a new span, and add it from onCreate.",
         "Pass announce so the range is read after each key step, and label so the bar has a name.",
-        "Set readOnly to keep the bar focusable and block every change."
+        "Set readOnly to keep the bar focusable and block every change, including onActivate.",
+        "Pass `tint` a token name such as `--c-tag-teal` or a CSS colour to colour one span; `colour` stays the preset hues.",
+        "Pass `data` to add data attributes to the bar, such as the id of the span in your model.",
+        "Bars inside a SpanLane share one tab stop: Left and Right move focus to the next bar."
       ],
       "a11y": [
-        "The bar is a button with a name; Enter activates it.",
+        "The bar is a button with a name; Enter activates it unless it is read only.",
         "Alt + Shift + Left and Right move the end, and Alt + Ctrl + Left and Right move the whole span.",
         "Each key step is announced through announce, such as Cells 3 to 6.",
         "Escape cancels a drag, and the bar keeps a 24 pixel minimum size for touch."
@@ -18398,7 +18444,7 @@
         "rule": "SpanBar edits a range of cells on a row, where Slider edits a number between two limits."
       },
       "example": "import { SpanBar, SpanLane } from '@drizztdourden08/tessera';\nimport type { CellGeometry, CellSpan } from '@drizztdourden08/tessera';\n\nconst ClipRow = ({ cells, span, setSpan }: { cells: CellGeometry; span: CellSpan; setSpan: (span: CellSpan) => void }) => (\n  <SpanLane cells={cells} label=\"Frames\">\n    <SpanBar start={span.start} end={span.end} cells={cells} onChange={setSpan} label=\"Walk\" colour=\"blue\">\n      Walk\n    </SpanBar>\n  </SpanLane>\n);\n",
-      "propsHash": "811dd36755c5e7d2",
+      "propsHash": "96c4062f8d0b879e",
       "props": {
         "own": [
           {
@@ -18497,6 +18543,16 @@
             ]
           },
           {
+            "name": "tint",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "data",
+            "optional": true,
+            "text": "DataAttributes"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -18520,8 +18576,6 @@
         "--c-primary",
         "--c-primary-soft",
         "--c-text",
-        "--hue-fill",
-        "--hue-ink",
         "--opacity-muted",
         "--radius-sm",
         "--shadow-1",
@@ -18530,6 +18584,7 @@
         "--space-xs",
         "--span-lane-width",
         "--span-left",
+        "--span-tint",
         "--span-width",
         "--z-sticky"
       ],
@@ -22615,12 +22670,14 @@
         "label names the field and is drawn before it; it defaults to Zoom.",
         "The minus and plus buttons, the wheel and the arrow keys move along the stops. The stops are min, max and the presets, or min doubled up to max when there are no presets.",
         "presets is a list of percent values, such as [25, 50, 100, 200, 400]. Each draws as a chip, the chip for the current value is pressed, and a press sets the value. Values outside min and max are left out.",
+        "`slider` draws a log slider on the same range, `beside` the field or `below` it; it needs a `min` above 0 and shares the stops of the field.",
         "actions is a node drawn after the chips, such as a Fit button; the app handles its press.",
         "disabled turns the field, the chips and the buttons off."
       ],
       "a11y": [
         "The number input is named by label, and the minus and plus buttons are named Zoom out and Zoom in.",
         "The chips are in a group named Zoom levels, and the chip for the current value is pressed.",
+        "The slider is named Zoom slider and moves along the same stops with the arrow keys.",
         "Every control is a native button or input with its own Tab stop."
       ],
       "tree": {
@@ -22632,7 +22689,7 @@
         "rule": "ZoomField is the zoom in percent you type, step along round stops and jump to from preset chips."
       },
       "example": "import { useState } from 'react';\nimport { Button, ZoomField } from '@drizztdourden08/tessera';\n\nconst CanvasZoom = ({ fit }: { fit: () => void }) => {\n  const [zoom, setZoom] = useState(100);\n  return (\n    <ZoomField\n      value={zoom}\n      onChange={setZoom}\n      min={25}\n      max={1600}\n      presets={[25, 50, 100, 200, 400]}\n      actions={<Button size=\"xs\" variant=\"ghost\" onClick={fit}>Fit</Button>}\n    />\n  );\n};\n",
-      "propsHash": "51da612c26e3c75b",
+      "propsHash": "5b12dd8bb79e26eb",
       "props": {
         "own": [
           {
@@ -22666,6 +22723,15 @@
             "text": "readonly number[]"
           },
           {
+            "name": "slider",
+            "optional": true,
+            "text": "ZoomSliderPlacement",
+            "literals": [
+              "'beside'",
+              "'below'"
+            ]
+          },
+          {
             "name": "actions",
             "optional": true,
             "text": "ReactNode"
@@ -22687,7 +22753,10 @@
           "extends": []
         }
       },
-      "tokens": [],
+      "tokens": [
+        "--size-128",
+        "--size-96"
+      ],
       "gallery": {
         "title": "Composites · Inputs/ZoomField",
         "route": "#/story/composites-zoomfield--overview",

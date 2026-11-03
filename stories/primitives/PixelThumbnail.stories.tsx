@@ -10,8 +10,9 @@ import type { StateProps } from '../_template/states/states.type';
 import { discImage } from './_samples/disc-image';
 import { heartFrames } from './_samples/heart-frames';
 import { PixelThumbnailBoxes } from './_samples/PixelThumbnailBoxes';
+import { PixelThumbnailFluid } from './_samples/PixelThumbnailFluid';
 import { PixelThumbnailShrunk } from './_samples/PixelThumbnailShrunk';
-import { DISC_SIZE, HEART_INDEXED, THUMBNAIL_BOX_KEYS, THUMBNAIL_BOXES } from './_samples/pixel-samples.constants';
+import { DISC_SIZE, HEART_INDEXED, THUMBNAIL_ALL_BOX_KEYS, THUMBNAIL_ALL_BOXES } from './_samples/pixel-samples.constants';
 import './PixelThumbnail.stories.css';
 
 type Picture = 'heart' | 'badge' | 'none';
@@ -43,7 +44,7 @@ const ARGS: Partial<PixelThumbnailArgs> = {
 const ARG_TYPES: PlaygroundArgTypes<PixelThumbnailArgs> = {
   picture: { group: 'Content', control: 'select', options: [...PICTURES], description: 'None clears the box and keeps the checker.' },
   label: { group: 'Content', control: 'text', description: 'Names the picture. Empty keeps it decorative.' },
-  box: { group: 'Appearance', control: 'select', options: [...THUMBNAIL_BOX_KEYS] },
+  box: { group: 'Appearance', control: 'select', options: [...THUMBNAIL_ALL_BOX_KEYS], description: 'Fluid fills the width of its container.' },
   fit: { group: 'Appearance', control: 'select', options: [...FITS], description: 'Step scales up in whole numbers; contain takes any scale.' },
   backdrop: { group: 'Appearance', control: 'select', options: [...BACKDROPS] },
   animated: { group: 'Motion', control: 'boolean', description: 'Uses four frames instead of the picture.' },
@@ -65,7 +66,7 @@ const Playground = {
       image={args.picture === 'badge' ? DISC : null}
       frames={args.animated ? BEAT : undefined}
       playing={args.playing}
-      box={THUMBNAIL_BOXES[args.box]}
+      box={THUMBNAIL_ALL_BOXES[args.box]}
       fit={args.fit}
       backdrop={args.backdrop}
       label={args.label || undefined}
@@ -81,6 +82,11 @@ const Boxes = {
 const Shrunk = {
   name: 'A larger picture shrinks',
   render: () => <PixelThumbnailShrunk />,
+} satisfies StoryLiteStoryDefinition<PixelThumbnailArgs>;
+
+const Fluid = {
+  name: 'Wide and fluid',
+  render: () => <PixelThumbnailFluid />,
 } satisfies StoryLiteStoryDefinition<PixelThumbnailArgs>;
 
 const MOTION = ['stopped', 'playing'] as const;
@@ -105,14 +111,14 @@ const Overview = overviewStory({
   description: 'A small square that draws a pixel picture crisp, with a checker behind the clear pixels.',
   points: [
     '`image` takes RGBA bytes and `indexed` takes palette pixels; `null` clears the box.',
-    '`box` sets the square, 16 to 64 px; `step` scales up in whole numbers and shrinks by any amount.',
+    '`box` sets the square, 16 to 256 px, or `fluid` to fill the container; `step` keeps whole-number scales.',
     '`lazy` draws when the box scrolls into view; `throttleMs` spaces redraws of a live source.',
     '`frames` and `playing` loop a short animation; reduced motion keeps the first frame.',
     'With no `label` it is hidden from screen readers, since the row or tile names the picture.',
   ],
   instead: '[Image] for a file or URL.',
   playground: Playground,
-  variants: [Boxes, Shrunk, Animated],
+  variants: [Boxes, Shrunk, Fluid, Animated],
   states: {
     render: renderState,
     list: [
@@ -126,4 +132,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Animated, Boxes, Overview, Playground, Shrunk };
+export { Animated, Boxes, Fluid, Overview, Playground, Shrunk };

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { MouseEvent, ReactNode } from 'react';
+import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 import type { TagCategoryColor } from '../../primitives/Tag';
 import type { CellGeometry, CellSpan } from '../cell-geometry';
 
@@ -21,6 +22,8 @@ interface SpanBarProps {
   snap?: SpanSnap;
   minLength?: number;
   colour?: TagCategoryColor;
+  tint?: string;
+  data?: DataAttributes;
   className?: string;
   children?: ReactNode;
 }

@@ -2,12 +2,13 @@
 import { useRef } from 'react';
 import type { PointerEvent } from 'react';
 import { clampNumber } from '../../../primitives/value-rule/clamp-number';
-import { cellAt } from '../../cell-geometry';
 import { useRectDrag } from '../../rect-drag/useRectDrag';
+import { markerIndexAt } from './marker-index-at';
+import { markerX } from './marker-x';
 import type { MarkerDragSetup, MarkerDragState } from './useMarkerDrag.type';
 
 const useMarkerDrag = (setup: MarkerDragSetup): MarkerDragState => {
-  const { cells, total, marker, readOnly, onMarkerChange } = setup;
+  const { cells, total, marker, anchor, readOnly, onMarkerChange } = setup;
   const { live, begin } = useRectDrag<number>();
   const last = useRef(marker.index);
 
@@ -16,9 +17,9 @@ const useMarkerDrag = (setup: MarkerDragSetup): MarkerDragState => {
     if (readOnly) return;
     event.currentTarget.focus();
     last.current = marker.index;
-    const originX = (cells.lefts[marker.index] ?? 0) + (cells.widths[marker.index] ?? 0) / 2;
+    const originX = markerX(cells, marker.index, total, anchor);
     begin(event, (delta) => {
-      const index = clampNumber(cellAt(cells, originX + delta.x, total), marker.min, marker.max);
+      const index = clampNumber(markerIndexAt(cells, originX + delta.x, total, anchor), marker.min, marker.max);
       if (index !== last.current) onMarkerChange?.(marker.id, index);
       last.current = index;
       return index;

@@ -6,7 +6,7 @@ import type { ScrubTrackProps } from './ScrubTrack.type';
 
 const plusOne = (index: number): string => String(index + 1);
 
-const ScrubTrack = ({ cells, total, current, readOnly, tickLabel = plusOne, tickEvery = 'auto', valueText, label, onPress, onKeyDown }: ScrubTrackProps) => {
+const ScrubTrack = ({ cells, total, current, readOnly, tickLabel = plusOne, tickEvery = 'auto', valueText, label, onPress, onKeyDown, onContextMenu }: ScrubTrackProps) => {
   const { scrubRuler } = useTesseraStrings();
   return (
     <Box
@@ -21,6 +21,7 @@ const ScrubTrack = ({ cells, total, current, readOnly, tickLabel = plusOne, tick
       className="scrub-ruler__track focus-ring-inset"
       onPointerDown={onPress}
       onKeyDown={onKeyDown}
+      onContextMenu={onContextMenu}
     >
       <ScrubTicks cells={cells} total={total} current={current} every={tickEvery} tickLabel={tickLabel} />
       <Box className="scrub-ruler__playhead" aria-hidden="true" />

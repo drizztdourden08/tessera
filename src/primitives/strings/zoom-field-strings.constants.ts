@@ -4,6 +4,7 @@ const ZOOM_FIELD_STRINGS = {
   zoomOut: 'Zoom out',
   zoomIn: 'Zoom in',
   presets: 'Zoom levels',
+  slider: 'Zoom slider',
 };
 
 export { ZOOM_FIELD_STRINGS };

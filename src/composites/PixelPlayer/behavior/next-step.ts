@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind util */
+import { BOUNCING } from '../PixelPlayer.constants';
 import type { PixelPlayerLoop, PlayerState, PlayRange } from '../PixelPlayer.type';
 import { freshState } from './fresh-state';
 
@@ -14,18 +15,24 @@ const wrapAtEdge = (state: PlayerState, range: PlayRange, loop: PixelPlayerLoop)
   return { ...freshState(range, loop.direction, true), cycles: state.cycles + 1 };
 };
 
+const turnBack = (state: PlayerState): PlayerState => {
+  const dir = state.dir === 1 ? -1 : 1;
+  return { ...state, dir, index: state.index + dir };
+};
+
 const bounceAtEdge = (state: PlayerState, loop: PixelPlayerLoop): PlayerState => {
-  if (state.dir === 1) return { ...state, dir: -1, index: state.index - 1 };
+  const closingDir = loop.direction === 'pingpongReverse' ? 1 : -1;
+  if (state.dir !== closingDir) return turnBack(state);
   const ended = closeCycle(state, loop);
   if (ended) return ended;
-  return { ...state, dir: 1, index: state.index + 1, cycles: state.cycles + 1 };
+  return { ...turnBack(state), cycles: state.cycles + 1 };
 };
 
 const nextStep = (state: PlayerState, range: PlayRange, loop: PixelPlayerLoop): PlayerState => {
   if (range.to <= range.from) return { ...state, playing: false };
   const inside = state.index + state.dir;
   if (inside >= range.from && inside <= range.to) return { ...state, index: inside };
-  return loop.direction === 'pingpong' ? bounceAtEdge(state, loop) : wrapAtEdge(state, range, loop);
+  return BOUNCING.includes(loop.direction) ? bounceAtEdge(state, loop) : wrapAtEdge(state, range, loop);
 };
 
 export { nextStep };
