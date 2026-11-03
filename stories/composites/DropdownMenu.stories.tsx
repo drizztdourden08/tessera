@@ -210,8 +210,7 @@ const Overview = overviewStory({
   description: 'A menu of actions, checks and sub-menus, built from data, that hangs from its own button.',
   points: [
     '`groups` lists the items: a `label`, an `icon` (a name, iconify data, path data or an element), `onSelect`.',
-    '`trigger` draws a [Button], or an [IconButton] with `iconOnly`; its icon keeps its shape while open.',
-    '`size="2xs"` makes an icon-only trigger 16 px with a 24 px hit area; a trigger with a label draws it at `xs`.',
+    '`trigger` draws a [Button], or an [IconButton] with `iconOnly`; `size="2xs"` makes that one 16 px.',
     '`checked` or `kind="radio"` shows a faint dot that turns into a check or radio; `children` opens a sub-menu.',
     '`tone="danger"` draws Delete red, `kind="confirm"` asks, `kind="slider"` sets a level, `kind="select"` picks.',
     'The arrow keys, [[Home]], [[End]] and typing move through it; [[Esc]] or a click outside closes it.',
