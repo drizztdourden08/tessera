@@ -22509,10 +22509,7 @@
       "name": "virtual",
       "tier": "composites",
       "source": "src/composites/virtual/index.ts",
-      "imports": [
-        "@drizztdourden08/tessera",
-        "@drizztdourden08/tessera/composites"
-      ],
+      "imports": [],
       "usage": true,
       "job": "The windowing of a long list of equal rows: which rows to draw for the scroll position, and which row to keep while it holds focus.",
       "useWhen": [
@@ -22547,8 +22544,13 @@
         "Give each row its position and the size of the list with aria-posinset and aria-setsize, since the rest are not in the page."
       ],
       "example": "import { useCallback, useRef } from 'react';\nimport { Box, useVirtualWindow } from '@drizztdourden08/tessera';\n\nconst ROW_ATTRIBUTE = 'data-row';\n\nconst Rows = ({ names }: { names: string[] }) => {\n  const rootRef = useRef<HTMLElement>(null);\n  const keyAt = useCallback((index: number) => names[index], [names]);\n  const windowed = useVirtualWindow({ enabled: true, count: names.length, keyAt, rootRef, indexAttribute: ROW_ATTRIBUTE });\n  return (\n    <Box ref={rootRef} onScroll={windowed.onScroll}>\n      <Box ref={windowed.bodyRef} onFocus={windowed.onFocus} onBlur={windowed.onBlur}>\n        {windowed.indices.map((at) => (\n          <Box key={names[at]} {...{ [ROW_ATTRIBUTE]: at }}>{names[at]}</Box>\n        ))}\n      </Box>\n    </Box>\n  );\n};\n",
-      "propsHash": "f5522b519b099e62",
+      "propsHash": "df04f3997f8d2bbb",
       "exports": [
+        {
+          "name": "clickHandlers",
+          "kind": "function",
+          "text": "(select: SelectionModel, key: string, swallowClick: () => boolean) => Pick<VirtualCellHandlers, \"onClick\" | \"onMouseDown\">"
+        },
         {
           "name": "readHorizontalMetrics",
           "kind": "function",
@@ -22605,9 +22607,19 @@
           "text": "(input: VirtualWindowInput) => VirtualWindow"
         },
         {
+          "name": "useWantedFocus",
+          "kind": "hook",
+          "text": "(wanted: RefObject<string | null>, indexOfKey: ReadonlyMap<string, number>, focusItem: (index: number) => void) => void"
+        },
+        {
           "name": "VirtualAxis",
           "kind": "type",
           "text": "type VirtualAxis = 'vertical' | 'horizontal';"
+        },
+        {
+          "name": "VirtualCellHandlers",
+          "kind": "type",
+          "text": "interface VirtualCellHandlers {\n  onFocus: () => void;\n  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;\n  onClick?: (event: MouseEvent<HTMLElement>) => void;\n  onMouseDown?: (event: MouseEvent<HTMLElement>) => void;\n  onPointerDown?: (event: ReactPointerEvent<HTMLElement>) => void;\n  onPointerMove?: (event: ReactPointerEvent<HTMLElement>) => void;\n  onPointerUp?: (event: ReactPointerEvent<HTMLElement>) => void;\n  onPointerCancel?: () => void;\n}"
         },
         {
           "name": "VirtualFocusModel",

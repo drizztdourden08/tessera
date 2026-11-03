@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind logic */
+import { clickHandlers } from '../../virtual';
 import type { VirtualListCellBind } from '../VirtualList.type';
 import type { ListCellExtrasInput } from './list-cell-extras.type';
 
@@ -8,12 +9,7 @@ const listCellExtras = (input: ListCellExtrasInput): Partial<VirtualListCellBind
   if (!selecting) return dragged;
   return {
     ...dragged,
-    onClick: (event) => {
-      if (!moving.swallowClick()) select.click(key, event);
-    },
-    onMouseDown: (event) => {
-      if (event.shiftKey) event.preventDefault();
-    },
+    ...clickHandlers(select, key, moving.swallowClick),
   };
 };
 

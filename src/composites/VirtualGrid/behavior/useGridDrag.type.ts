@@ -34,4 +34,4 @@ interface GridDrag {
   swallowClick: () => boolean;
 }
 
-export type { GridDrag, GridPointerHandlers, UseGridDragInput };
+export type { GridDrag, UseGridDragInput };

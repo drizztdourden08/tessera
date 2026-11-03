@@ -101,7 +101,7 @@ const CODE = `import { VirtualList } from '@drizztdourden08/tessera';
   current={activeKey}
   ownsKey={(event) => event.key === 'Delete'}
   renderOption={(entry, at, cell) => <Row {...cell}>{entry.text}</Row>}
-  reorder={{ onMove, canDrop, dropLabel: (position) => `Move to ${position}` }}
+  reorder={{ onMove, canDrop, dropLabel: (position) => \`Move to \${position}\` }}
 />`;
 
 const Overview = overviewStory({

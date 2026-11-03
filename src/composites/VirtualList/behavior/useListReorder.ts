@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { stepGap } from '../../reorder/step-gap';
+import { useWantedFocus } from '../../virtual';
 import { listKeyStep } from './list-key-step';
 import { listMarkOf } from './list-mark-of';
 import { listPosition } from './list-position';
@@ -48,13 +49,7 @@ const useListReorder = <T,>(input: UseListReorderInput<T>): ListReorder => {
     return true;
   };
 
-  useEffect(() => {
-    const key = wanted.current;
-    const at = key === null ? undefined : indexOfKey.get(key);
-    if (at === undefined) return;
-    wanted.current = null;
-    focusItem(at);
-  });
+  useWantedFocus(wanted, indexOfKey, focusItem);
 
   const thumbnails = dragging ? listThumbnails({ reorder, items, indexOfKey, keys: drag.dragKeys }) : [];
 

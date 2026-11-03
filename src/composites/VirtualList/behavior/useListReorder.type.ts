@@ -33,4 +33,4 @@ interface ListReorder {
   swallowClick: () => boolean;
 }
 
-export type { ListGhost, ListReorder, UseListReorderInput };
+export type { ListReorder, UseListReorderInput };

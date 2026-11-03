@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind hook */
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import { stepGap } from '../../reorder/step-gap';
+import { useWantedFocus } from '../../virtual';
 import { gridKeyStep } from './grid-key-step';
 import { gridMarkOf } from './grid-mark-of';
 import { gridMoveStays } from './grid-move-stays';
@@ -43,13 +44,7 @@ const useGridReorder = <T,>(input: UseGridReorderInput<T>): GridReorder => {
     return true;
   };
 
-  useEffect(() => {
-    const key = wanted.current;
-    const at = key === null ? undefined : indexOfKey.get(key);
-    if (at === undefined) return;
-    wanted.current = null;
-    focusItem(at);
-  });
+  useWantedFocus(wanted, indexOfKey, focusItem);
 
   const thumbnails = dragging ? drag.dragKeys.slice(0, 3).flatMap((key) => {
     const at = indexOfKey.get(key);

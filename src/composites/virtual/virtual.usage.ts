@@ -48,7 +48,7 @@ const Rows = ({ names }: { names: string[] }) => {
   );
 };
 `,
-  propsHash: 'f5522b519b099e62',
+  propsHash: 'df04f3997f8d2bbb',
 } satisfies HookUsage;
 
 export { usage };
