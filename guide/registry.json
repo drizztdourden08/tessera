@@ -7241,6 +7241,7 @@
       "rules": [
         "Pass history when the app already keeps the sent commands; otherwise let the input keep its own and pass storageKey to keep it across launches.",
         "Pass commands, as names or with a description, so typing lists the closest ones under the input; Tab or Right completes the active row or the top one.",
+        "Pass commandSpecs to add a picker of every command: a chosen one swaps the line for its fields and sends what its format returns.",
         "Return false from onSubmit when the command was not sent, so the text stays in the line.",
         "Put the replies above the input, such as in a LogPanel, and keep quick commands in actions.",
         "Disable it while there is nothing to send to, and say why in the text near it."
@@ -7260,7 +7261,7 @@
         "rule": "CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear."
       },
       "example": "import { CommandInput } from '@drizztdourden08/tessera';\n\nconst ServerConsole = ({ send }: { send: (command: string) => void }) => (\n  <CommandInput placeholder=\"/players\" storageKey=\"console.history\" commands={['/players', '/hint', '/save']} onSubmit={send} />\n);\n",
-      "propsHash": "d5573deb33ae8153",
+      "propsHash": "f944d1fb7618167a",
       "props": {
         "own": [
           {
@@ -7277,6 +7278,11 @@
             "name": "commands",
             "optional": true,
             "text": "readonly CommandOption[]"
+          },
+          {
+            "name": "commandSpecs",
+            "optional": true,
+            "text": "readonly CommandSpec[]"
           },
           {
             "name": "maxSuggestions",
@@ -7385,6 +7391,7 @@
         "--c-text-dim",
         "--font-mono",
         "--space-md",
+        "--space-sm",
         "--space-xs",
         "--text-sm"
       ],

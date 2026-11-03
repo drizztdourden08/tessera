@@ -12,6 +12,19 @@
   gap: var(--space-xs);
 }
 
+.command-input__row--spec {
+  align-items: flex-end;
+}
+
+.command-input__fields {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-xs) var(--space-sm);
+  min-inline-size: 0;
+}
+
 .combobox.command-input__field {
   flex: 1;
   min-inline-size: 0;
