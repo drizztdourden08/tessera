@@ -9,7 +9,8 @@ import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
-import { CONSOLE_COMMANDS, CONSOLE_HISTORY, CONSOLE_SPECS } from './_samples/console-samples.constants';
+import { CONSOLE_COMMANDS, CONSOLE_HISTORY } from './_samples/console-samples.constants';
+import { CONSOLE_SPECS } from './_samples/console-specs.constants';
 import { ConsoleDemo } from './_samples/ConsoleDemo';
 import './CommandInput.stories.css';
 
@@ -109,6 +110,7 @@ const CODE = `import { CommandInput } from '@drizztdourden08/tessera';
 
 <CommandInput placeholder="/players" storageKey="console.history" commands={['/players', '/hint', '/save']} onSubmit={send} />
 <CommandInput history={sent} onSubmit={send} actions={<Button size="sm" onClick={save}>Save</Button>} />
+<CommandInput commandSpecs={[{ id: 'release', label: 'Release', icon: 'users', pattern: '/release {player:choice @players}', setup: { lists: { players: [{ value: 'Ana' }, { value: 'Bram' }] } } }]} onSubmit={send} />
 <CommandInput commandSpecs={[{ id: 'hint', label: 'Hint', icon: 'flag', params: [{ name: 'item', label: 'Item', kind: 'text' }], format: (values) => \`/hint \${values.item}\` }]} onSubmit={send} />`;
 
 const Overview = overviewStory({
@@ -120,7 +122,7 @@ const Overview = overviewStory({
     '[[Tab]] completes a suggestion; [[Up]] and [[Down]] pick one while the list is open, else walk the history.',
     '[[Esc]] closes the list, then clears the line; on an empty line it passes on, so a dialog can close.',
     '`history` comes from the app or is kept under `storageKey`; `actions` and the key hints sit under the line.',
-    '`commandSpecs` adds a picker: a chosen command swaps the line for its fields and sends `format(values)`.',
+    '`commandSpecs` adds a picker: a chosen command swaps in its fields, or a [DynamicInput] for a `pattern`.',
   ],
   instead: 'A [TextInput] for text that is not a command, or a [SearchInput] to filter a list.',
   playground: Playground,

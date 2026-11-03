@@ -15,7 +15,7 @@ import '../../theme/visually-hidden.css';
 import './VirtualGrid.css';
 
 const VirtualGrid = <T,>(props: VirtualGridProps<T>) => {
-  const { sections, getKey, renderItem, renderTile, trailing, label, tileSize = 'size-96', density, overscan, scrollRef, bind, overlay, ref, className } = props;
+  const { sections, getKey, renderItem, renderTile, tileProps, trailing, label, tileSize = 'size-96', density, overscan, scrollRef, bind, overlay, ref, className } = props;
   const { tileWidth = tileSize, tileHeight = tileSize } = props;
   const model = useVirtualGrid({ ...props, overscan, sizeKey: `${tileWidth}-${tileHeight}-${String(density)}` });
   const { columns, layout } = model;
@@ -44,7 +44,7 @@ const VirtualGrid = <T,>(props: VirtualGridProps<T>) => {
         onFocus={model.onFocus}
         onBlur={model.onBlur}
       >
-        <GridRows model={model} sections={sections} getKey={getKey} renderItem={renderItem} renderTile={renderTile} trailing={trailing} density={density} />
+        <GridRows model={model} sections={sections} getKey={getKey} renderItem={renderItem} renderTile={renderTile} tileProps={tileProps} trailing={trailing} density={density} />
       </Box>
       {overlay}
       {model.ghost && <DragGhost count={model.ghost.count} thumbnails={model.ghost.thumbnails} point={model.ghost.point} />}

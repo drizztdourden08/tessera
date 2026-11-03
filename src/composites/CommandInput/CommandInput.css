@@ -16,6 +16,14 @@
   align-items: flex-end;
 }
 
+.command-input__row--pattern {
+  align-items: flex-start;
+}
+
+.dynamic-input.command-input__pattern {
+  flex: 1;
+}
+
 .command-input__fields {
   display: flex;
   flex: 1;

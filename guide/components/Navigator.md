@@ -34,7 +34,8 @@ Navigator draws any large surface as a small map with a frame the user drags, th
 - Press anywhere on the map to centre the frame there; the drag then goes on from that point.
 - Pass the thumbnail as children, such as an Image or a canvas. It fills the map and takes no pointer events.
 - Step is the distance of one arrow key press in surface units; the default is a twentieth of the larger side. Shift multiplies it by five.
-- BigStep is the distance of one Shift plus arrow key press in surface units; the default is step times five.
+- Pass step as { x, y } to give each axis its own distance, such as a tenth of the view width on x and a tenth of the view height on y; a single number still moves both axes.
+- BigStep is the distance of one Shift plus arrow key press in surface units, a number or { x, y }; the default is step times five on each axis.
 - Set unclamped to let the frame be dragged and moved past the edge of the surface, so that a quarter of it always stays over the surface.
 - Pass overlays, a list of { id, rect, kind, label, interactive }, to mark parts of the surface on the map: rect is in surface units, kind is selection, view or region, and each mark is clipped to the surface and drawn at least one pixel wide.
 - Overlays are hidden from screen readers; give label as the hover title of an interactive mark, and describe the marks in the describe line.
@@ -80,8 +81,8 @@ const CanvasMap = ({ preview, view, setView }: CanvasMapProps) => (
 - `onViewportChange`: `(viewport: NavigatorViewport) => void`.
 - `children` (optional): `ReactNode`.
 - `label` (optional): `string`.
-- `step` (optional): `number`.
-- `bigStep` (optional): `number`.
+- `step` (optional): `NavigatorStep`.
+- `bigStep` (optional): `NavigatorStep`.
 - `unclamped` (optional): `boolean`.
 - `overlays` (optional): `readonly NavigatorOverlay[]`.
 - `onOverlayPress` (optional): `(id: string) => void`.

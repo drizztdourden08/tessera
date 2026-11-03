@@ -64,6 +64,12 @@ interface VirtualGridCellBind extends VirtualCellHandlers {
   'aria-selected'?: boolean;
   'data-drop'?: 'before' | 'after';
   'data-dragging'?: true;
+  [attribute: `data-${string}`]: string | number | true | undefined;
+}
+
+interface VirtualGridTileProps {
+  className?: string;
+  data?: Readonly<Record<string, string>>;
 }
 
 interface VirtualGridDrawItem<T> {
@@ -92,6 +98,7 @@ interface VirtualGridBase<T> {
   selection?: VirtualGridSelection;
   getLabel?: (item: T, index: number) => string;
   holes?: (item: T, index: number) => boolean;
+  tileProps?: (item: T, index: number) => VirtualGridTileProps;
   reorder?: VirtualGridReorder<T>;
   collapsed?: readonly string[];
   defaultCollapsed?: readonly string[];
@@ -118,5 +125,5 @@ type VirtualGridProps<T> = (VirtualGridFlat<T> | VirtualGridSectioned<T>) & (Vir
 
 export type {
   VirtualGridBind, VirtualGridCellBind, VirtualGridDensity, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
-  VirtualGridSelection, VirtualGridTrailing,
+  VirtualGridSelection, VirtualGridTileProps, VirtualGridTrailing,
 };

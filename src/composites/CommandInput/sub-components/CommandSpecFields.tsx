@@ -6,7 +6,7 @@ import { CommandParamField } from './CommandParamField';
 const CommandSpecFields = ({ spec, values, size, disabled, onValue }: CommandSpecFieldsProps) => (
   <Box className="command-input__fields">
     {spec.params.map((param) => (
-      <CommandParamField key={param.name} param={param} value={values[param.name]} size={size} disabled={disabled} onValue={onValue} />
+      <CommandParamField key={param.name} param={param} values={values} value={values[param.name]} size={size} disabled={disabled} onValue={onValue} />
     ))}
   </Box>
 );

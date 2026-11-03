@@ -36,6 +36,7 @@ DynamicInput reads a pattern of slots, so a time, an address or a lobby code is 
 - Do not map an alias to a character that is itself an alias, because the text is cleaned again on every key.
 - Chars and aliases follow the case of the slot, so write them in either case.
 - Pass validate on a slot or on the pattern, from the value to a message or nothing. A message turns the field invalid and shows under it.
+- Make a list a function of the value, such as lists={{ item: (value) => itemsOf(value.player) }}, so its choices follow another slot; a choice the new list no longer offers is cleared.
 - An empty slot reaches validate as null. Return nothing for it unless the slot is required.
 - The invalid prop wins over validate, and a Field with an error shows its own message.
 
@@ -93,4 +94,4 @@ It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-bo
 
 ## Also exported from this folder
 
-`escapePatternText`, `parsePattern`.
+`escapePatternText`, `parsePattern`, `patternText`.

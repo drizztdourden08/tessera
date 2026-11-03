@@ -6,21 +6,21 @@ export type {
 } from '../DataTable';
 export { VirtualList } from '../VirtualList';
 export type {
-  VirtualListBind, VirtualListCellBind, VirtualListHandle, VirtualListItemSize, VirtualListMove, VirtualListProps, VirtualListReorder, VirtualListRowSize, VirtualListSelection,
+  VirtualListBind, VirtualListCellBind, VirtualListHandle, VirtualListItemSize, VirtualListMove, VirtualListPick, VirtualListProps, VirtualListReorder, VirtualListRowSize, VirtualListSelection,
 } from '../VirtualList';
 export { VirtualGrid } from '../VirtualGrid';
 export type {
   VirtualGridBind, VirtualGridCellBind, VirtualGridDensity, VirtualGridDrop, VirtualGridHandle, VirtualGridMove, VirtualGridProps, VirtualGridReorder, VirtualGridRowHeight, VirtualGridSection,
-  VirtualGridSelection, VirtualGridTrailing,
+  VirtualGridSelection, VirtualGridTileProps, VirtualGridTrailing,
 } from '../VirtualGrid';
 export { DragGhost, useNativeDragGhost } from '../DragGhost';
 export type { DragGhostPoint, DragGhostProps, NativeDragGhost, NativeDragGhostInput } from '../DragGhost';
 export { MarqueeBox } from '../MarqueeBox';
 export type { MarqueeBoxProps } from '../MarqueeBox';
 export { Navigator } from '../Navigator';
-export type { NavigatorOverlay, NavigatorOverlayKind, NavigatorProps, NavigatorSurface, NavigatorViewport, NavigatorWheelPoint } from '../Navigator';
+export type { NavigatorAxisStep, NavigatorOverlay, NavigatorOverlayKind, NavigatorProps, NavigatorStep, NavigatorSurface, NavigatorViewport, NavigatorWheelPoint } from '../Navigator';
 export { readHorizontalMetrics, renderedIndices, scrollTopForSpan, scrollTopToShow, sizeVariable, stepVirtualSize, useVirtualWindow, visibleRange } from '../virtual';
-export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualAxis, VirtualMetrics, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from '../virtual';
+export type { RowRange, ScrollAlign, ShowInput, SpanInput, VirtualAxis, VirtualMetrics, VirtualScrollParent, VirtualSize, VirtualWindow, VirtualWindowInput, VisibleRangeInput } from '../virtual';
 export {
   MARQUEE_KEY_ATTRIBUTE, cellRectOf, edgeScrollDelta, hitItems, hitKeys, marqueeItemRects, mergeSelection, modifiersOf, rectFromPoints, rectsIntersect, useMarqueeSelect,
 } from '../marquee';
@@ -52,6 +52,8 @@ export { SeatGrid } from '../SeatGrid';
 export type { SeatGridGap, SeatGridMinWidth, SeatGridProps } from '../SeatGrid';
 export { CopyButton } from '../CopyButton';
 export type { CopyButtonProps, CopyButtonSize, CopyText } from '../CopyButton';
+export { ResetButton } from '../ResetButton';
+export type { ResetButtonProps } from '../ResetButton';
 export { CopyValue, type CopyValueProps, type CopyValueSize, type CopyValueTruncate } from '../CopyValue';
 export { DateText, type DateTextProps } from '../DateText';
 export { Video } from '../Video';

@@ -5,6 +5,7 @@ import type { CommandSpec, CommandSpecControl, CommandSpecState } from '../Comma
 import { specBlank } from './spec-blank';
 import { specReady } from './spec-ready';
 import { specStart } from './spec-start';
+import { specText } from './spec-text';
 import { specWithValue } from './spec-with-value';
 
 const useCommandSpec = (specs: readonly CommandSpec[] = NO_SPECS): CommandSpecControl => {
@@ -19,13 +20,14 @@ const useCommandSpec = (specs: readonly CommandSpec[] = NO_SPECS): CommandSpecCo
   return {
     spec,
     values: state.values,
-    text: spec !== null && ready ? spec.format(state.values) : '',
+    text: spec !== null && ready ? specText(spec, state.values) : '',
     ready,
     blank: specBlank(state.values),
     pick,
     clear: () => setState(IDLE_SPEC),
     reset,
-    setValue: (name, value) => setState((now) => specWithValue(now, name, value)),
+    setValue: (name, value) => setState((now) => specWithValue(now, spec, name, value)),
+    setValues: (values) => setState((now) => ({ ...now, values })),
   };
 };
 

@@ -5,19 +5,24 @@ import { RampStrip } from '../../src/composites';
 import type { RampSize } from '../../src/composites';
 import { axis, Demonstrator, overviewStory, STATE, ValueReadout } from '../_template/value-story-kit';
 import type { PlaygroundArgTypes, PlaygroundStory, StateProps } from '../_template/value-story-kit';
+import { RampStripEventsDemo } from './_samples/RampStripEventsDemo';
 import { RampStripGapsDemo } from './_samples/RampStripGapsDemo';
 import { BLUES, NAMED, UNUSED_STEPS } from './_samples/ramp-steps';
 
 type RampStripArgs = {
   size: RampSize;
   numbered: boolean;
+  wrap: boolean;
+  selectionKeys: boolean;
 };
 
-const ARGS: RampStripArgs = { size: 'preview', numbered: true };
+const ARGS: RampStripArgs = { size: 'preview', numbered: true, wrap: false, selectionKeys: true };
 
 const ARG_TYPES: PlaygroundArgTypes<RampStripArgs> = {
   size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'preview'], description: 'sm and md are control sized swatches; preview stretches the steps over the full width as tall blocks.' },
   numbered: { group: 'Appearance', control: 'boolean', description: 'Captions each step with its place in the ramp.' },
+  wrap: { group: 'Layout', control: 'boolean', description: 'Lets the steps flow onto more lines when the row is full.' },
+  selectionKeys: { group: 'Behaviour', control: 'boolean', description: 'The arrow, Home and End keys move to a step and pick it; off leaves the keys to the app.' },
 };
 
 const meta = {
@@ -26,11 +31,11 @@ const meta = {
 } satisfies StoryLiteMeta<RampStripArgs>;
 
 const StatefulRamp = (props: Partial<RampStripArgs> & { steps?: typeof BLUES; initial?: number | null }) => {
-  const { steps = BLUES, initial = 3, size, numbered } = props;
+  const { steps = BLUES, initial = 3, size, numbered, wrap, selectionKeys } = props;
   const [value, setValue] = useState<number | null>(initial);
   return (
     <ValueReadout value={value === null ? 'none' : `step ${String(value + 1)}`}>
-      <RampStrip aria-label="Blue ramp" steps={steps} value={value} onChange={setValue} size={size} numbered={numbered} />
+      <RampStrip aria-label="Blue ramp" steps={steps} value={value} onChange={setValue} size={size} numbered={numbered} wrap={wrap} selectionKeys={selectionKeys} />
     </ValueReadout>
   );
 };
@@ -85,6 +90,26 @@ const Menu = {
   render: () => <RampStripGapsDemo feature="menu" />,
 } satisfies StoryLiteStoryDefinition<RampStripArgs>;
 
+const Clicks = {
+  name: 'onStepClick and onStepDoubleClick: the click and the double click of a step',
+  render: () => <RampStripEventsDemo feature="click" />,
+} satisfies StoryLiteStoryDefinition<RampStripArgs>;
+
+const StepData = {
+  name: 'stepData: data attributes on each step',
+  render: () => <RampStripEventsDemo feature="data" />,
+} satisfies StoryLiteStoryDefinition<RampStripArgs>;
+
+const OwnKeys = {
+  name: 'selectionKeys false: the arrow keys are left to the app',
+  render: () => <RampStripEventsDemo feature="keys" />,
+} satisfies StoryLiteStoryDefinition<RampStripArgs>;
+
+const Wrapping = {
+  name: 'wrap: the steps flow onto more lines',
+  render: () => <RampStripEventsDemo feature="wrap" />,
+} satisfies StoryLiteStoryDefinition<RampStripArgs>;
+
 const renderState = (props: StateProps) => (
   <RampStrip
     aria-label="Blue ramp"
@@ -107,14 +132,14 @@ const Overview = overviewStory({
   points: [
     'Pass `steps` with a `color` each, `value` as the picked index and `onChange`; the app keeps the pick.',
     'A step takes a `caption`, or `numbered` adds its place; `size` is sm, md or preview for tall blocks.',
-    'Left, Right, Home and End move to the next open step and pick it; Tab enters on the picked one.',
-    'A step can be `unused` (dashed and faded), `disabled` (skipped by the keys) or carry corner `marks`.',
+    'Left, Right, Home and End move to the next open step and pick it; `selectionKeys` false turns them off.',
+    'A step can be `unused`, `disabled` or carry corner `marks`; `stepData` adds data attributes.',
     '`selected` with `onSelectionChange` picks several steps: Shift for a range, Ctrl or Command to toggle.',
-    '`onSwatchDragStart` makes steps draggable; `swatchMenu` gives each step a context menu.',
+    '`onStepClick`, `onStepDoubleClick`, `onSwatchDragStart` and `swatchMenu` reach each step; `wrap` adds lines.',
   ],
   instead: '[ChoiceGrid] when the colours are a loose set and not an ordered ramp.',
   playground: Playground,
-  variants: [Sizes, Captions, Unused, Several, Marked, Dragged, Menu],
+  variants: [Sizes, Captions, Unused, Several, Marked, Dragged, Menu, Clicks, StepData, OwnKeys, Wrapping],
   states: {
     render: renderState,
     list: [STATE.idle, STATE.selected, STATE.disabled],
@@ -123,4 +148,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Captions, Dragged, Marked, Menu, Overview, Playground, Several, Sizes, Unused };
+export { Captions, Clicks, Dragged, Marked, Menu, OwnKeys, Overview, Playground, Several, Sizes, StepData, Unused, Wrapping };

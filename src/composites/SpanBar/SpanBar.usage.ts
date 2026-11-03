@@ -17,10 +17,13 @@ const usage = {
     'Use onDraft to follow a drag in progress, such as a preview; it gets null when the drag is cancelled.',
     'Wrap the bars in a SpanLane when the user may draw a new span, and add it from onCreate.',
     'Pass announce so the range is read after each key step, and label so the bar has a name.',
-    'Set readOnly to keep the bar focusable and block every change.',
+    'Set readOnly to keep the bar focusable and block every change, including onActivate.',
+    'Pass `tint` a token name such as `--c-tag-teal` or a CSS colour to colour one span; `colour` stays the preset hues.',
+    'Pass `data` to add data attributes to the bar, such as the id of the span in your model.',
+    'Bars inside a SpanLane share one tab stop: Left and Right move focus to the next bar.',
   ],
   a11y: [
-    'The bar is a button with a name; Enter activates it.',
+    'The bar is a button with a name; Enter activates it unless it is read only.',
     'Alt + Shift + Left and Right move the end, and Alt + Ctrl + Left and Right move the whole span.',
     'Each key step is announced through announce, such as Cells 3 to 6.',
     'Escape cancels a drag, and the bar keeps a 24 pixel minimum size for touch.',
@@ -40,7 +43,7 @@ const ClipRow = ({ cells, span, setSpan }: { cells: CellGeometry; span: CellSpan
   </SpanLane>
 );
 `,
-  propsHash: '811dd36755c5e7d2',
+  propsHash: '96c4062f8d0b879e',
 } satisfies ComponentUsage;
 
 export { usage };

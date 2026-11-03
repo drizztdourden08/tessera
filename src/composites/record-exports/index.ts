@@ -12,11 +12,11 @@ export { CreateRecordDialog } from '../CreateRecordDialog';
 export type { CreateOutcome, CreateRecordDialogProps } from '../CreateRecordDialog';
 export { CompactRecordView } from '../CompactRecordView';
 export type { CompactFieldRenderer, CompactIdRefResolver, CompactRecordViewProps, FieldDifference } from '../CompactRecordView';
-export { DynamicInput, escapePatternText, parsePattern } from '../DynamicInput';
+export { DynamicInput, escapePatternText, parsePattern, patternText } from '../DynamicInput';
 export { VolumeControl } from '../VolumeControl';
 export type { VolumeControlProps, VolumeSlider } from '../VolumeControl';
 export type {
-  DynamicInputProps, ParsedPattern, PatternAction, PatternActions, PatternAliases, PatternChoice, PatternIcons, PatternLists, PatternPart, PatternRuleMessage,
+  DynamicInputProps, ParsedPattern, PatternAction, PatternActions, PatternAliases, PatternChoice, PatternIcons, PatternListSource, PatternLists, PatternPart, PatternRuleMessage,
   PatternSetup, PatternSlotCase, PatternSlotChars, PatternSlotConfig, PatternSlotConfigs, PatternSlotControl, PatternSlotSpec,
   PatternSlotType, PatternSlotValue, PatternValue,
 } from '../DynamicInput';

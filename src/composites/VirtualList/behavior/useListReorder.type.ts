@@ -14,6 +14,7 @@ interface UseListReorderInput<T> {
   layout: ItemLayout;
   axis: VirtualAxis;
   rootRef: RefObject<HTMLElement | null>;
+  scrollerRef: RefObject<HTMLElement | null>;
   bodyRef: RefObject<HTMLElement | null>;
   focusItem: (index: number) => void;
 }

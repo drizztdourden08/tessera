@@ -15,6 +15,12 @@
   touch-action: none;
 }
 
+.span-bar[data-tint] {
+  --hue-ink: var(--span-tint);
+
+  background: color-mix(in srgb, var(--span-tint) 24%, transparent);
+}
+
 .span-bar__body {
   display: flex;
   align-items: center;

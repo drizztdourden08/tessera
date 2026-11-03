@@ -3,6 +3,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { ScrubRulerDemo } from './_samples/ScrubRulerDemo';
+import { ScrubRulerExtras } from './_samples/ScrubRulerExtras';
 
 type ScrubRulerArgs = {
   time: boolean;
@@ -62,21 +63,26 @@ const TimeMode = {
   render: () => <ScrubRulerDemo time markers />,
 } satisfies StoryLiteStoryDefinition<ScrubRulerArgs>;
 
+const Extras = {
+  name: 'Second band, edge markers, compact',
+  render: () => <ScrubRulerExtras />,
+} satisfies StoryLiteStoryDefinition<ScrubRulerArgs>;
+
 const Overview = overviewStory({
   component: 'ScrubRuler',
   description: 'A ruler over a row of cells. Drag along it to move the current cell, or use the keys.',
   points: [
     'The track is one slider: arrows step one cell, [[PageUp]] and [[PageDown]] ten, [[Home]] and [[End]] jump.',
-    '`markers` are sliders of their own, held between `min` and `max`, and `onMarkerChange` fires as they move.',
-    '`band` marks a range of cells; drag on the ruler to draw it, and a clear button removes it.',
+    '`markers` are sliders held between `min` and `max`; `markerAnchor="edge"` puts them on the cell border.',
+    '`band` marks a range drawn by dragging; `secondBand` adds a read-only range beside it.',
+    '`onCellContextMenu` reports the cell under the pointer; `compact` shrinks the ruler to 20 px.',
     '`tickEvery` thins the labels to fit, `auto` by default; `tickLabel` writes each one.',
     '`cells` shares its geometry with SpanBar, so a ruler and its bars line up for any cell widths.',
-    'With no cells the ruler draws nothing, and `readOnly` keeps the focus but blocks every change.',
   ],
   instead: '[SpanBar] for a range of cells that is moved as one piece.',
   playground: Playground,
-  variants: [Scrubbing, Band, Markers, ReadOnly, Empty, TimeMode],
+  variants: [Scrubbing, Band, Markers, Extras, ReadOnly, Empty, TimeMode],
 });
 
 export default meta;
-export { Band, Empty, Markers, Overview, Playground, ReadOnly, Scrubbing, TimeMode };
+export { Band, Empty, Extras, Markers, Overview, Playground, ReadOnly, Scrubbing, TimeMode };

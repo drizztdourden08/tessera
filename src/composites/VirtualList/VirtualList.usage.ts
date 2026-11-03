@@ -33,6 +33,10 @@ const usage = {
     'Pass reorder ({ onMove, renderThumbnail, canDrop, dropLabel }) to move rows by dragging or with Alt and an arrow; onMove gets the keys, the gap they land in and the modifier held.',
     'Return false from canDrop to refuse a move; the mark turns red, data-refused is set and the refusal is announced.',
     'Return a short text from dropLabel(position, modifier) to show it on the insertion mark, such as Move to 3 or Copy to 3.',
+    'Pass scrollParent, an element, a ref to one or the word auto, when a horizontal strip sits inside an outer ScrollArea: the visible items then come from that scroller, auto finds the nearest ancestor that scrolls, and a drag near its edge scrolls it.',
+    'With scrollParent the strip draws without its own border or scrollbar, so the outer scroller owns the box and the scrolling.',
+    'Pass initialFocusIndex, a position in items, to give that item the single tab stop first; it stays the stop only while that item is drawn.',
+    'Pass onPick(index, event) to hear a click or an Enter on an item, and a Space when the list has no selection; a click that ends a drag does not count.',
     'Raise overscan for rows that load slowly while the user scrolls fast; the default is 10 rows on each side.',
     'Use onActiveChange to follow the row that holds focus, such as to show its detail beside the list.',
   ],
@@ -64,7 +68,7 @@ const EventLog = ({ entries }: { entries: Entry[] }) => (
   />
 );
 `,
-  propsHash: 'c46d068b115473f7',
+  propsHash: 'c3be253e3dacfe6b',
 } satisfies ComponentUsage;
 
 export { usage };

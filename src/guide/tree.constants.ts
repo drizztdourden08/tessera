@@ -8,7 +8,7 @@ const ACTIONS = {
       question: 'What does the action look like?',
       answers: {
         'a visible word': null, 'an icon only': null, 'irreversible, on a row': null,
-        'irreversible, for a whole view': null, 'goes to a URL': null, 'copies a text': null,
+        'irreversible, for a whole view': null, 'goes to a URL': null, 'copies a text': null, 'puts a changed setting back to its default': null,
         'tries a failed step again': null, 'a whole area the user presses': null, 'a main action with a menu of related ones': null,
       },
     },

@@ -6,7 +6,7 @@ import { Span } from '../../../primitives/text-elements';
 import { SEGMENT_ICON_SIZE } from '../Breadcrumbs.constants';
 import type { BreadcrumbSegmentButtonProps } from '../Breadcrumbs.type';
 
-const BreadcrumbSegmentButton = ({ segment, current, drop, onNavigate }: BreadcrumbSegmentButtonProps) => {
+const BreadcrumbSegmentButton = ({ segment, index, current, drop, onNavigate }: BreadcrumbSegmentButtonProps) => {
   const { id, label, title, icon } = segment;
 
   return (
@@ -16,7 +16,7 @@ const BreadcrumbSegmentButton = ({ segment, current, drop, onNavigate }: Breadcr
       data-drop={drop.overId === id || undefined}
       title={title}
       onClick={() => onNavigate(id)}
-      {...drop.bind(id)}
+      {...drop.bind(id, index)}
     >
       {icon !== undefined && <Icon name={icon} size={SEGMENT_ICON_SIZE} aria-hidden />}
       <Span className="breadcrumbs__label">{label}</Span>

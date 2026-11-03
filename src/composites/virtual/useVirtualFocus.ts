@@ -1,14 +1,15 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useLayoutEffect, useRef, useState } from 'react';
-import { scrollTopForSpan } from './scroll-top-for-span';
+import { scrollToSpan } from './scroll-to-span';
 import type { KeyboardEvent } from 'react';
 import type { VirtualFocus, VirtualFocusInput } from './virtual-focus.type';
 
 const useVirtualFocus = (input: VirtualFocusInput): VirtualFocus => {
   const { rootRef, bodyRef, cellAttribute, metrics, onScroll, resolve, spanOf, axis = 'vertical', onMove, onActiveChange } = input;
+  const { scrollerRef = rootRef, initialIndex = 0 } = input;
   const across = axis === 'horizontal';
   const pending = useRef<number | null>(null);
-  const [active, setActive] = useState(0);
+  const [active, setActive] = useState(initialIndex);
 
   useLayoutEffect(() => {
     const target = pending.current;
@@ -26,23 +27,20 @@ const useVirtualFocus = (input: VirtualFocusInput): VirtualFocus => {
   }, [active, onActiveChange]);
 
   const pageRows = useCallback(() => {
-    const root = rootRef.current;
-    const viewport = (across ? root?.clientWidth : root?.clientHeight) ?? metrics.viewport;
+    const scroller = scrollerRef.current;
+    const viewport = (across ? scroller?.clientWidth : scroller?.clientHeight) ?? metrics.viewport;
     return Math.max(1, Math.floor(viewport / metrics.rowHeight) - 1);
-  }, [rootRef, metrics, across]);
+  }, [scrollerRef, metrics, across]);
 
   const goTo = useCallback((index: number, row: number) => {
     pending.current = index;
     activate(index);
-    const root = rootRef.current;
-    if (!root) return;
-    const viewport = across ? root.clientWidth : root.clientHeight;
+    const scroller = scrollerRef.current;
+    if (!scroller) return;
     const span = spanOf?.(row) ?? { top: row * metrics.rowHeight, height: metrics.rowHeight };
-    const place = { ...span, viewport, scrollTop: across ? root.scrollLeft : root.scrollTop };
-    if (across) root.scrollLeft = scrollTopForSpan(place, 'nearest');
-    else root.scrollTop = scrollTopForSpan(place, 'nearest');
+    scrollToSpan({ scroller, body: bodyRef.current, shifted: scroller !== rootRef.current, across, span, align: 'nearest' });
     onScroll();
-  }, [rootRef, metrics, spanOf, activate, onScroll, across]);
+  }, [scrollerRef, rootRef, bodyRef, metrics, spanOf, activate, onScroll, across]);
 
   const navigate = useCallback((event: KeyboardEvent<HTMLElement>, index: number) => {
     if (event.target !== event.currentTarget) return;

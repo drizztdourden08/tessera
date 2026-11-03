@@ -41,6 +41,11 @@
                   "CopyButton"
                 ]
               },
+              "puts a changed setting back to its default": {
+                "components": [
+                  "ResetButton"
+                ]
+              },
               "tries a failed step again": {
                 "components": [
                   "RetryButton"
@@ -3061,7 +3066,8 @@
       ],
       "rules": [
         "Pass `image` or `indexed`, not both; `null` clears the box and keeps the checker.",
-        "Pick `box` from the size tokens, 16 to 64 px; `step` scales up in whole numbers, `contain` takes any scale.",
+        "Pick `box` from the size tokens, 16 to 256 px; `step` scales up in whole numbers, `contain` takes any scale.",
+        "Pass `box=\"fluid\"` to fill the width of the container as a square, so a diff view grows with its panel and stays crisp.",
         "Palette colours in `indexed` are `#rgb` or `#rrggbb`; the `transparent` index draws clear.",
         "Keep `frames` stable between renders, or the loop restarts; `playing` loops them and reduced motion shows frame 0.",
         "Use `lazy` for long lists and `throttleMs` for a live source; dim a hidden layer with a class from the caller."
@@ -3073,7 +3079,7 @@
       ],
       "buildingBlock": true,
       "example": "import { PixelThumbnail } from '@drizztdourden08/tessera';\nimport type { RgbaImage } from '@drizztdourden08/tessera';\n\nconst LayerThumb = ({ picture }: { picture: RgbaImage | null }) => (\n  <PixelThumbnail image={picture} box={24} throttleMs={80} lazy />\n);\n",
-      "propsHash": "2a9ee2768141f4a2",
+      "propsHash": "e6a0849ffddf1c7d",
       "props": {
         "own": [
           {
@@ -3097,7 +3103,12 @@
               "32",
               "40",
               "48",
-              "64"
+              "64",
+              "96",
+              "128",
+              "192",
+              "256",
+              "'fluid'"
             ],
             "default": "DEFAULT_BOX"
           },
@@ -3171,12 +3182,16 @@
         "--c-checker-b",
         "--checker-size",
         "--size-1",
+        "--size-128",
         "--size-16",
+        "--size-192",
         "--size-24",
+        "--size-256",
         "--size-32",
         "--size-40",
         "--size-48",
-        "--size-64"
+        "--size-64",
+        "--size-96"
       ],
       "gallery": {
         "title": "Primitives · Display/PixelThumbnail",
@@ -6424,7 +6439,10 @@
         "opensMenu on a segment with siblings makes the whole segment the menu button, for a place that has no page to go to; pressing it opens the siblings and never calls onNavigate.",
         "Pass maxVisible to fold a long trail: the first segment and the last ones stay, and the middle ones sit behind an ellipsis menu. The smallest value is 3.",
         "Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.",
+        "Pass dropTarget(index, id) to hand each segment the props a drag and drop library attaches, such as its drag over and drop handlers; it replaces onDropOn and canDrop, and index counts from the root.",
+        "Holding a drag over a segment that has siblings for about half a second opens its siblings menu, so the drag can reach a neighbour.",
         "Pass onPathSubmit to let the user click the empty space at the end and type the path in a PathInput. path is the text shown there and defaults to the labels joined by a slash.",
+        "Pass validate(path) to check the typed path: return a message to show it under the box in the field error look and hold Enter back, or null when the path is fine.",
         "trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place. trailingLabel names that group for screen readers, such as Place state; without it the group has no name."
       ],
       "a11y": [
@@ -6441,7 +6459,7 @@
         "rule": "Breadcrumbs shows the levels of a path as a trail with neighbour menus, a fold and a path box in one place."
       },
       "example": "import { Breadcrumbs } from '@drizztdourden08/tessera';\nimport type { BreadcrumbSegment } from '@drizztdourden08/tessera';\n\ninterface FolderBarProps {\n  trail: readonly BreadcrumbSegment[];\n  open: (id: string) => void;\n  openPath: (path: string) => void;\n}\n\nconst FolderBar = ({ trail, open, openPath }: FolderBarProps) => (\n  <Breadcrumbs segments={trail} maxVisible={4} onNavigate={open} onPathSubmit={openPath} />\n);\n",
-      "propsHash": "ec9e6b16006f7885",
+      "propsHash": "dbb0d55f8bb852a8",
       "props": {
         "own": [
           {
@@ -6468,6 +6486,16 @@
             "name": "canDrop",
             "optional": true,
             "text": "(id: string, event: DragEvent<HTMLElement>) => boolean"
+          },
+          {
+            "name": "dropTarget",
+            "optional": true,
+            "text": "(index: number, id: string) => SegmentDropProps"
+          },
+          {
+            "name": "validate",
+            "optional": true,
+            "text": "(path: string) => string | null"
           },
           {
             "name": "path",
@@ -7266,6 +7294,10 @@
         "Pass history when the app already keeps the sent commands; otherwise let the input keep its own and pass storageKey to keep it across launches.",
         "Pass commands, as names or with a description, so typing lists the closest ones under the input; Tab or Right completes the active row or the top one.",
         "Pass commandSpecs to add a picker of every command: a chosen one swaps the line for its fields and sends what its format returns.",
+        "Give a spec a pattern, such as /hint {player:choice @players} {item:choice @items}, and a setup with its lists, and the line becomes one DynamicInput that sends its composed text, or what format returns when the spec gives one.",
+        "Make a list of the setup a function of the slot values, such as items: (value) => itemsOf(value.player), to list choices that follow another slot; a choice the new list no longer offers is cleared.",
+        "Give a field a placeholder to show a hint in the empty text, number or choice field.",
+        "Set dependsOn to the name of another field so it stays disabled until that one is filled and clears when that one changes; make options a function of the values to list choices that follow it.",
         "Return false from onSubmit when the command was not sent, so the text stays in the line.",
         "Put the replies above the input, such as in a LogPanel, and keep quick commands in actions.",
         "Disable it while there is nothing to send to, and say why in the text near it."
@@ -9855,6 +9887,7 @@
         "Do not map an alias to a character that is itself an alias, because the text is cleaned again on every key.",
         "chars and aliases follow the case of the slot, so write them in either case.",
         "Pass validate on a slot or on the pattern, from the value to a message or nothing. A message turns the field invalid and shows under it.",
+        "Make a list a function of the value, such as lists={{ item: (value) => itemsOf(value.player) }}, so its choices follow another slot; a choice the new list no longer offers is cleared.",
         "An empty slot reaches validate as null. Return nothing for it unless the slot is required.",
         "The invalid prop wins over validate, and a Field with an error shows its own message."
       ],
@@ -10037,7 +10070,8 @@
       },
       "parts": [
         "escapePatternText",
-        "parsePattern"
+        "parsePattern",
+        "patternText"
       ]
     },
     {
@@ -12762,6 +12796,9 @@
         "Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.",
         "Pass height=\"fill\" inside a box that sets the height, or a number for a fixed height in pixels.",
         "Set filterPlacement to left or right to move the search, filters, count and Copy all into a narrow column beside the lines.",
+        "A side column folds to a slim rail with the same dashed line and chevron as SidePanel; the lines take the room, and the chevron opens it again.",
+        "Pass filtersCollapsed with onFiltersCollapsedChange when the app holds the fold, or defaultFiltersCollapsed to start folded; they apply to a left or right column only.",
+        "Drag the dashed line to change the width of the side column. Pass storageKey to keep the width, and the fold under storageKey:collapsed.",
         "Set size=\"sm\" for a compact panel with smaller controls, smaller lines and tighter spacing, such as in a dashboard widget.",
         "minRows keeps at least that many lines visible, default 3 with height fill."
       ],
@@ -12779,7 +12816,7 @@
         "rule": "LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick."
       },
       "example": "import { Button, LogPanel } from '@drizztdourden08/tessera';\nimport type { LogRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\nconst ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lines: readonly LogRow[]) => void }) => {\n  const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());\n  const picked = rows.filter((row) => selected.has(row.id));\n  return (\n    <LogPanel\n      rows={rows}\n      kinds={[{ id: 'error', label: 'Errors', tone: 'danger', toneMessage: true }]}\n      selectedIds={selected}\n      onSelectionChange={setSelected}\n      toolbarExtra={<Button size=\"sm\" disabled={picked.length === 0} onClick={() => onReport(picked)}>Report these lines</Button>}\n      height=\"fill\"\n    />\n  );\n};\n",
-      "propsHash": "c7eed973200c9e78",
+      "propsHash": "05e6597a11ef3f0d",
       "props": {
         "own": [
           {
@@ -12827,6 +12864,26 @@
               "'left'",
               "'right'"
             ]
+          },
+          {
+            "name": "filtersCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultFiltersCollapsed",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onFiltersCollapsedChange",
+            "optional": true,
+            "text": "(collapsed: boolean) => void"
+          },
+          {
+            "name": "storageKey",
+            "optional": true,
+            "text": "string"
           },
           {
             "name": "size",
@@ -13896,7 +13953,8 @@
         "Press anywhere on the map to centre the frame there; the drag then goes on from that point.",
         "Pass the thumbnail as children, such as an Image or a canvas. It fills the map and takes no pointer events.",
         "step is the distance of one arrow key press in surface units; the default is a twentieth of the larger side. Shift multiplies it by five.",
-        "bigStep is the distance of one Shift plus arrow key press in surface units; the default is step times five.",
+        "Pass step as { x, y } to give each axis its own distance, such as a tenth of the view width on x and a tenth of the view height on y; a single number still moves both axes.",
+        "bigStep is the distance of one Shift plus arrow key press in surface units, a number or { x, y }; the default is step times five on each axis.",
         "Set unclamped to let the frame be dragged and moved past the edge of the surface, so that a quarter of it always stays over the surface.",
         "Pass overlays, a list of { id, rect, kind, label, interactive }, to mark parts of the surface on the map: rect is in surface units, kind is selection, view or region, and each mark is clipped to the surface and drawn at least one pixel wide.",
         "Overlays are hidden from screen readers; give label as the hover title of an interactive mark, and describe the marks in the describe line.",
@@ -13923,7 +13981,7 @@
         "rule": "Navigator draws any large surface as a small map with a frame the user drags, the same way in every editor."
       },
       "example": "import { Image, Navigator } from '@drizztdourden08/tessera';\nimport type { NavigatorViewport } from '@drizztdourden08/tessera';\n\ninterface CanvasMapProps {\n  preview: string;\n  view: NavigatorViewport;\n  setView: (view: NavigatorViewport) => void;\n}\n\nconst CanvasMap = ({ preview, view, setView }: CanvasMapProps) => (\n  <Navigator surface={{ width: 512, height: 512 }} viewport={view} onViewportChange={setView}>\n    <Image src={preview} alt=\"\" fit=\"fill\" pixelated />\n  </Navigator>\n);\n",
-      "propsHash": "ef786871951fcaca",
+      "propsHash": "4e92165f454c7544",
       "props": {
         "own": [
           {
@@ -13954,12 +14012,12 @@
           {
             "name": "step",
             "optional": true,
-            "text": "number"
+            "text": "NavigatorStep"
           },
           {
             "name": "bigStep",
             "optional": true,
-            "text": "number"
+            "text": "NavigatorStep"
           },
           {
             "name": "unclamped",
@@ -14961,6 +15019,7 @@
         "Pass `frames` with a duration for each; one frame is a still with no bar and no counter.",
         "`zoom=\"fit\"` picks the largest whole number that fits the stage, never below 1; the stage height follows the `--pixel-player-stage` property.",
         "Give `tags` to limit play to one named range; pass `tagId` and `onTagChange` to control which one.",
+        "`loop.direction` is `forward`, `reverse`, `pingpong` or `pingpongReverse`; the last starts on the final frame going backward, then bounces.",
         "`loop.repeat` of 0 runs forever; with a count, Play becomes Replay when the loop ends.",
         "`mode=\"compact\"` hides the bar and the counter; keep `frames` stable between renders so playback does not restart."
       ],
@@ -15268,6 +15327,10 @@
         "A step takes marks, small corner indicators such as a dot or a letter, either a list or an object keyed top-start, top-end, bottom-start or bottom-end; they take their colour from the swatch.",
         "Pass onSwatchDragStart(index, event) to make every step draggable; set the payload on event.dataTransfer there.",
         "Pass swatchMenu(index) to give each step a context menu of menu items, opened by a right click, a long press or the menu key; return an empty list for a step with none.",
+        "Pass onStepClick(index, event) and onStepDoubleClick(index, event) to react to a click or a double click on a step; onStepClick runs after the pick.",
+        "Pass stepData(index) to put data attributes on a step; write each key with its data- prefix, such as data-slot.",
+        "Pass selectionKeys false to turn off the built-in arrow, Home and End keys, so the app can own the keyboard; Tab still enters on the picked step.",
+        "Pass wrap to let the steps flow onto more lines when the row is full.",
         "The left and right arrow keys, Home and End move to the next open step and pick it. Tab enters on the picked step."
       ],
       "a11y": [
@@ -15282,7 +15345,7 @@
         "rule": "RampStrip is the ordered row of shades of one ramp, with a caption on each step."
       },
       "example": "import { useState } from 'react';\nimport { RampStrip } from '@drizztdourden08/tessera';\n\nconst steps = [{ color: '#1b2a41' }, { color: '#324a5f' }, { color: '#4f7cac' }, { color: '#9ec1de' }];\n\nconst Ramp = () => {\n  const [step, setStep] = useState<number | null>(1);\n  return <RampStrip aria-label=\"Blue ramp\" steps={steps} value={step} onChange={setStep} numbered size=\"preview\" />;\n};\n",
-      "propsHash": "a616741553d025f6",
+      "propsHash": "45e54d5cc32cad68",
       "props": {
         "own": [
           {
@@ -15326,6 +15389,31 @@
             "text": "(index: number) => readonly MenuNode[]"
           },
           {
+            "name": "onStepClick",
+            "optional": true,
+            "text": "(index: number, event: MouseEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "onStepDoubleClick",
+            "optional": true,
+            "text": "(index: number, event: MouseEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "stepData",
+            "optional": true,
+            "text": "(index: number) => DataAttributes"
+          },
+          {
+            "name": "selectionKeys",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "wrap",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
             "name": "size",
             "optional": true,
             "text": "RampSize",
@@ -15333,14 +15421,12 @@
               "'sm'",
               "'md'",
               "'preview'"
-            ],
-            "default": "'md'"
+            ]
           },
           {
             "name": "numbered",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "className",
@@ -15512,6 +15598,77 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "ResetButton",
+      "tier": "composites",
+      "source": "src/composites/ResetButton/ResetButton.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A small icon button that puts one changed setting back to its default, named after the setting.",
+      "useWhen": [
+        "A row shows a setting that can differ from its default and the user may want to undo the change.",
+        "A custom row head needs the same reset button as FormRow and OptionRow."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A whole form or panel resets at once.",
+          "use": "ActionBar"
+        }
+      ],
+      "rules": [
+        "Pass the name of the setting as label; the button and its tooltip read Reset followed by that name.",
+        "Pass changed so the button shows only while the value differs from its default.",
+        "It renders nothing without onReset, so a read only row needs no condition around it."
+      ],
+      "a11y": [
+        "The button is named by its label and shows the same name as a tooltip."
+      ],
+      "tree": {
+        "path": [
+          "actions",
+          "one action",
+          "puts a changed setting back to its default"
+        ],
+        "rule": "ResetButton gives every settings row the same reset icon, name and tooltip."
+      },
+      "example": "import { ResetButton } from '@drizztdourden08/tessera';\n\nconst VolumeReset = ({ changed, onReset }: { changed: boolean; onReset: () => void }) => (\n  <ResetButton label=\"Volume\" changed={changed} onReset={onReset} />\n);\n",
+      "propsHash": "2e50df01f671866b",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "onReset",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "changed",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Composites · Actions/ResetButton",
+        "route": "#/story/composites-resetbutton--overview",
+        "file": "stories/composites/ResetButton.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "ResizeHandle",
@@ -16786,6 +16943,10 @@
         "Keep value, markers and band in the parent and write them back from onChange, onMarkerChange and onBandChange.",
         "Give every marker an id, a label and the min and max it may be dragged between.",
         "Leave tickEvery on auto unless the ticks must fall on a fixed step; tickLabel writes the text of each tick.",
+        "Pass `secondBand` for a second read-only range beside `band`, such as an onion range next to the loop range.",
+        "Set `markerAnchor=\"edge\"` to put markers on the cell border instead of its centre; a drag then snaps to the nearest border.",
+        "Pass `onCellContextMenu` to get the cell under the pointer on a right-click, and call `preventDefault` on the event to open your own menu.",
+        "Set `compact` for a 20 pixel ruler where the 28 pixel one takes too much room.",
         "Set readOnly to keep the ruler focusable and block every change."
       ],
       "a11y": [
@@ -16802,7 +16963,7 @@
         "rule": "ScrubRuler sets one current cell on a row of cells, with markers and a band, where SpanBar sets a range of cells."
       },
       "example": "import { ScrubRuler } from '@drizztdourden08/tessera';\nimport type { CellGeometry } from '@drizztdourden08/tessera';\n\nconst Timeline = ({ cells, frame, setFrame }: { cells: CellGeometry; frame: number; setFrame: (index: number) => void }) => (\n  <ScrubRuler cells={cells} value={frame} onChange={setFrame} label=\"Frames\" />\n);\n",
-      "propsHash": "debbcfcf9039f706",
+      "propsHash": "0c69859be784c968",
       "props": {
         "own": [
           {
@@ -16842,6 +17003,15 @@
             "text": "(id: string, index: number) => void"
           },
           {
+            "name": "markerAnchor",
+            "optional": true,
+            "text": "RulerMarkerAnchor",
+            "literals": [
+              "'center'",
+              "'edge'"
+            ]
+          },
+          {
             "name": "band",
             "optional": true,
             "text": "RulerBand | null",
@@ -16856,6 +17026,21 @@
             "name": "bandLabel",
             "optional": true,
             "text": "(band: RulerBand) => string"
+          },
+          {
+            "name": "secondBand",
+            "optional": true,
+            "text": "RulerBand | null"
+          },
+          {
+            "name": "onCellContextMenu",
+            "optional": true,
+            "text": "(index: number, event: MouseEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "compact",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "valueText",
@@ -16897,6 +17082,8 @@
         "--c-secondary-soft",
         "--c-selected",
         "--c-surface",
+        "--c-tag-amber",
+        "--c-tag-amber-soft",
         "--c-text",
         "--c-text-muted",
         "--hue-ink",
@@ -16904,8 +17091,10 @@
         "--scrub-left",
         "--scrub-width",
         "--size-16",
+        "--size-20",
         "--size-24",
         "--size-28",
+        "--size-8",
         "--space-2xs",
         "--weight-bold"
       ],
@@ -18236,10 +18425,13 @@
         "Use onDraft to follow a drag in progress, such as a preview; it gets null when the drag is cancelled.",
         "Wrap the bars in a SpanLane when the user may draw a new span, and add it from onCreate.",
         "Pass announce so the range is read after each key step, and label so the bar has a name.",
-        "Set readOnly to keep the bar focusable and block every change."
+        "Set readOnly to keep the bar focusable and block every change, including onActivate.",
+        "Pass `tint` a token name such as `--c-tag-teal` or a CSS colour to colour one span; `colour` stays the preset hues.",
+        "Pass `data` to add data attributes to the bar, such as the id of the span in your model.",
+        "Bars inside a SpanLane share one tab stop: Left and Right move focus to the next bar."
       ],
       "a11y": [
-        "The bar is a button with a name; Enter activates it.",
+        "The bar is a button with a name; Enter activates it unless it is read only.",
         "Alt + Shift + Left and Right move the end, and Alt + Ctrl + Left and Right move the whole span.",
         "Each key step is announced through announce, such as Cells 3 to 6.",
         "Escape cancels a drag, and the bar keeps a 24 pixel minimum size for touch."
@@ -18252,7 +18444,7 @@
         "rule": "SpanBar edits a range of cells on a row, where Slider edits a number between two limits."
       },
       "example": "import { SpanBar, SpanLane } from '@drizztdourden08/tessera';\nimport type { CellGeometry, CellSpan } from '@drizztdourden08/tessera';\n\nconst ClipRow = ({ cells, span, setSpan }: { cells: CellGeometry; span: CellSpan; setSpan: (span: CellSpan) => void }) => (\n  <SpanLane cells={cells} label=\"Frames\">\n    <SpanBar start={span.start} end={span.end} cells={cells} onChange={setSpan} label=\"Walk\" colour=\"blue\">\n      Walk\n    </SpanBar>\n  </SpanLane>\n);\n",
-      "propsHash": "811dd36755c5e7d2",
+      "propsHash": "96c4062f8d0b879e",
       "props": {
         "own": [
           {
@@ -18351,6 +18543,16 @@
             ]
           },
           {
+            "name": "tint",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "data",
+            "optional": true,
+            "text": "DataAttributes"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -18375,7 +18577,6 @@
         "--c-primary-soft",
         "--c-text",
         "--hue-fill",
-        "--hue-ink",
         "--opacity-muted",
         "--radius-sm",
         "--shadow-1",
@@ -18384,6 +18585,7 @@
         "--space-xs",
         "--span-lane-width",
         "--span-left",
+        "--span-tint",
         "--span-width",
         "--z-sticky"
       ],
@@ -21204,6 +21406,9 @@
         "Give a section onDropData(dataTransfer) and a header takes a native drop, such as files or items dragged from another widget, with or without reorder; it shows the same into mark and announces the drop, and onDrop and onDropData can both be set.",
         "Give a section accepts(dataTransfer) to say which drags the header takes; it runs while the drag is over the header, where only types, kinds and the item count can be read, and the data itself is read in onDropData; leave it out to take every drag.",
         "Set density to swatch for small colour chips: the tile has no inner padding, the gap is the space-2xs token, and the tile itself is the focus ring target; tileSize may then be size-16 or size-20.",
+        "In swatch density the tile sets touch-action to none and may shrink to nothing, so a touch drag over the chips is read by the marquee and not by the page.",
+        "Give tileProps(item, index), returning { className, data }, to mark single tiles: the className is added to the cell props, and each key of data becomes a data- attribute on the cell, so the key tile-look sets data-tile-look.",
+        "Set data-tile-look to dashed on a swatch tile, such as an add tile, to draw a dashed border in the border colour; give it from tileProps, or on a trailing tile by spreading the cell props and adding the attribute.",
         "Give trailing, a node or a function of the cell props, to draw one last tile after the final item, such as an add tile; it joins the arrow order and the tab stop, and is not a selectable item.",
         "Give onWheelSize(direction) to step the tile size when the user turns the wheel with Ctrl or Meta held; direction is 1 for larger and -1 for smaller, and the page does not zoom.",
         "Give ownsKey(event) and return true for a key your own tile handles, so the grid leaves that key alone.",
@@ -21231,8 +21436,8 @@
         ],
         "rule": "VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly."
       },
-      "example": "import { Button, VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n\nconst Buttons = ({ frames, open }: { frames: Frame[]; open: (frame: Frame) => void }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderTile={(frame, _index, cell) => (\n      <Button {...cell} onClick={() => open(frame)}>{frame.name}</Button>\n    )}\n  />\n);\n\ninterface Folder {\n  key: string;\n  label: string;\n  items: Frame[];\n}\n\nconst Tileset = ({ tiles }: { tiles: Frame[] }) => (\n  <VirtualGrid\n    label=\"Tileset\"\n    items={tiles}\n    getKey={(tile) => tile.id}\n    renderItem={(tile) => tile.name}\n    tileSize=\"size-64\"\n    columns={6}\n  />\n);\n\nconst Library = ({ folders }: { folders: Folder[] }) => (\n  <VirtualGrid\n    label=\"Library\"\n    sections={folders}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileWidth=\"size-128\"\n    tileHeight=\"size-64\"\n    defaultCollapsed={['archive']}\n  />\n);\n",
-      "propsHash": "e6293d7cc8ddeea1",
+      "example": "import { Button, VirtualGrid } from '@drizztdourden08/tessera';\n\ninterface Frame {\n  id: string;\n  name: string;\n}\n\nconst Thumbnails = ({ frames }: { frames: Frame[] }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileSize=\"size-64\"\n  />\n);\n\nconst Buttons = ({ frames, open }: { frames: Frame[]; open: (frame: Frame) => void }) => (\n  <VirtualGrid\n    label=\"Frames\"\n    items={frames}\n    getKey={(frame) => frame.id}\n    renderTile={(frame, _index, cell) => (\n      <Button {...cell} onClick={() => open(frame)}>{frame.name}</Button>\n    )}\n  />\n);\n\ninterface Folder {\n  key: string;\n  label: string;\n  items: Frame[];\n}\n\nconst Tileset = ({ tiles }: { tiles: Frame[] }) => (\n  <VirtualGrid\n    label=\"Tileset\"\n    items={tiles}\n    getKey={(tile) => tile.id}\n    renderItem={(tile) => tile.name}\n    tileSize=\"size-64\"\n    columns={6}\n  />\n);\n\nconst Palette = ({ colours }: { colours: Frame[] }) => (\n  <VirtualGrid\n    label=\"Palette\"\n    items={colours}\n    getKey={(colour) => colour.id}\n    renderTile={(colour, _index, cell) => <Button {...cell}>{colour.name}</Button>}\n    tileProps={(colour) => (colour.id === 'add' ? { data: { 'tile-look': 'dashed' } } : {})}\n    density=\"swatch\"\n    tileSize=\"size-20\"\n  />\n);\n\nconst Library = ({ folders }: { folders: Folder[] }) => (\n  <VirtualGrid\n    label=\"Library\"\n    sections={folders}\n    getKey={(frame) => frame.id}\n    renderItem={(frame) => frame.name}\n    tileWidth=\"size-128\"\n    tileHeight=\"size-64\"\n    defaultCollapsed={['archive']}\n  />\n);\n",
+      "propsHash": "3d19b3c0d1414375",
       "props": {
         "own": [
           {
@@ -21328,6 +21533,11 @@
             "name": "holes",
             "optional": true,
             "text": "(item: T, index: number) => boolean"
+          },
+          {
+            "name": "tileProps",
+            "optional": true,
+            "text": "(item: T, index: number) => VirtualGridTileProps"
           },
           {
             "name": "reorder",
@@ -21484,6 +21694,10 @@
         "Pass reorder ({ onMove, renderThumbnail, canDrop, dropLabel }) to move rows by dragging or with Alt and an arrow; onMove gets the keys, the gap they land in and the modifier held.",
         "Return false from canDrop to refuse a move; the mark turns red, data-refused is set and the refusal is announced.",
         "Return a short text from dropLabel(position, modifier) to show it on the insertion mark, such as Move to 3 or Copy to 3.",
+        "Pass scrollParent, an element, a ref to one or the word auto, when a horizontal strip sits inside an outer ScrollArea: the visible items then come from that scroller, auto finds the nearest ancestor that scrolls, and a drag near its edge scrolls it.",
+        "With scrollParent the strip draws without its own border or scrollbar, so the outer scroller owns the box and the scrolling.",
+        "Pass initialFocusIndex, a position in items, to give that item the single tab stop first; it stays the stop only while that item is drawn.",
+        "Pass onPick(index, event) to hear a click or an Enter on an item, and a Space when the list has no selection; a click that ends a drag does not count.",
         "Raise overscan for rows that load slowly while the user scrolls fast; the default is 10 rows on each side.",
         "Use onActiveChange to follow the row that holds focus, such as to show its detail beside the list."
       ],
@@ -21503,7 +21717,7 @@
         "rule": "VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly."
       },
       "example": "import { VirtualList } from '@drizztdourden08/tessera';\n\ninterface Entry {\n  id: string;\n  text: string;\n}\n\nconst EventLog = ({ entries }: { entries: Entry[] }) => (\n  <VirtualList\n    label=\"Events\"\n    items={entries}\n    getKey={(entry) => entry.id}\n    renderItem={(entry) => entry.text}\n  />\n);\n",
-      "propsHash": "c46d068b115473f7",
+      "propsHash": "c3be253e3dacfe6b",
       "props": {
         "own": [
           {
@@ -21596,6 +21810,21 @@
             "name": "onActiveChange",
             "optional": true,
             "text": "(index: number) => void"
+          },
+          {
+            "name": "onPick",
+            "optional": true,
+            "text": "VirtualListPick"
+          },
+          {
+            "name": "scrollParent",
+            "optional": true,
+            "text": "VirtualScrollParent"
+          },
+          {
+            "name": "initialFocusIndex",
+            "optional": true,
+            "text": "number"
           },
           {
             "name": "scrollRef",
@@ -22450,12 +22679,14 @@
         "label names the field and is drawn before it; it defaults to Zoom.",
         "The minus and plus buttons, the wheel and the arrow keys move along the stops. The stops are min, max and the presets, or min doubled up to max when there are no presets.",
         "presets is a list of percent values, such as [25, 50, 100, 200, 400]. Each draws as a chip, the chip for the current value is pressed, and a press sets the value. Values outside min and max are left out.",
+        "`slider` draws a log slider on the same range, `beside` the field or `below` it; it needs a `min` above 0 and shares the stops of the field.",
         "actions is a node drawn after the chips, such as a Fit button; the app handles its press.",
         "disabled turns the field, the chips and the buttons off."
       ],
       "a11y": [
         "The number input is named by label, and the minus and plus buttons are named Zoom out and Zoom in.",
         "The chips are in a group named Zoom levels, and the chip for the current value is pressed.",
+        "The slider is named Zoom slider and moves along the same stops with the arrow keys.",
         "Every control is a native button or input with its own Tab stop."
       ],
       "tree": {
@@ -22467,7 +22698,7 @@
         "rule": "ZoomField is the zoom in percent you type, step along round stops and jump to from preset chips."
       },
       "example": "import { useState } from 'react';\nimport { Button, ZoomField } from '@drizztdourden08/tessera';\n\nconst CanvasZoom = ({ fit }: { fit: () => void }) => {\n  const [zoom, setZoom] = useState(100);\n  return (\n    <ZoomField\n      value={zoom}\n      onChange={setZoom}\n      min={25}\n      max={1600}\n      presets={[25, 50, 100, 200, 400]}\n      actions={<Button size=\"xs\" variant=\"ghost\" onClick={fit}>Fit</Button>}\n    />\n  );\n};\n",
-      "propsHash": "51da612c26e3c75b",
+      "propsHash": "5b12dd8bb79e26eb",
       "props": {
         "own": [
           {
@@ -22501,6 +22732,15 @@
             "text": "readonly number[]"
           },
           {
+            "name": "slider",
+            "optional": true,
+            "text": "ZoomSliderPlacement",
+            "literals": [
+              "'beside'",
+              "'below'"
+            ]
+          },
+          {
             "name": "actions",
             "optional": true,
             "text": "ReactNode"
@@ -22522,7 +22762,10 @@
           "extends": []
         }
       },
-      "tokens": [],
+      "tokens": [
+        "--size-128",
+        "--size-96"
+      ],
       "gallery": {
         "title": "Composites · Inputs/ZoomField",
         "route": "#/story/composites-zoomfield--overview",
@@ -23101,6 +23344,7 @@
         "Pass sizeKey, any string that changes with the row height, so the rows are measured again; sizeVariable turns a size token name into the var() of that token.",
         "Use scrollTopToShow to find the scroll position that brings a row into view, or scrollTopForSpan for a row of any height with an align of start, center, end or nearest.",
         "For items laid in a row, pass readHorizontalMetrics as readMetrics and place the items by left; the numbers then run along the x axis, and useVirtualFocus takes axis horizontal so the scroll and the pages follow.",
+        "VirtualScrollParent is an element, a ref to one or the word auto; a list that sits in an outer scroller takes it to measure against that scroller instead of its own box.",
         "A VirtualSize may be size-16 or size-20 for swatch grids; stepVirtualSize stays on the steps from size-24 up.",
         "stepVirtualSize(size, by) moves a size token along the ordered steps from size-24 to size-256, such as for a slider that sets the size of tiles.",
         "For rows of more than one height, pass readMetrics to measure the heights and rangeOf to give the rows to draw for the scroll position; without them every row has one height."
@@ -23110,12 +23354,12 @@
         "Give each row its position and the size of the list with aria-posinset and aria-setsize, since the rest are not in the page."
       ],
       "example": "import { useCallback, useRef } from 'react';\nimport { Box, useVirtualWindow } from '@drizztdourden08/tessera';\n\nconst ROW_ATTRIBUTE = 'data-row';\n\nconst Rows = ({ names }: { names: string[] }) => {\n  const rootRef = useRef<HTMLElement>(null);\n  const keyAt = useCallback((index: number) => names[index], [names]);\n  const windowed = useVirtualWindow({ enabled: true, count: names.length, keyAt, rootRef, indexAttribute: ROW_ATTRIBUTE });\n  return (\n    <Box ref={rootRef} onScroll={windowed.onScroll}>\n      <Box ref={windowed.bodyRef} onFocus={windowed.onFocus} onBlur={windowed.onBlur}>\n        {windowed.indices.map((at) => (\n          <Box key={names[at]} {...{ [ROW_ATTRIBUTE]: at }}>{names[at]}</Box>\n        ))}\n      </Box>\n    </Box>\n  );\n};\n",
-      "propsHash": "df04f3997f8d2bbb",
+      "propsHash": "509a3a1ea4c591b1",
       "exports": [
         {
           "name": "clickHandlers",
           "kind": "function",
-          "text": "(select: SelectionModel, key: string, swallowClick: () => boolean) => Pick<VirtualCellHandlers, \"onClick\" | \"onMouseDown\">"
+          "text": "(select: SelectionModel, key: string, swallowClick: () => boolean, onPick?: ((event: MouseEvent<HTMLElement, MouseEvent>) => void) | undefined) => Pick<VirtualCellHandlers, \"onClick\" | \"onMouseDown\">"
         },
         {
           "name": "readHorizontalMetrics",
@@ -23203,6 +23447,11 @@
           "text": "interface VirtualMetrics {\n  top: number;\n  viewport: number;\n  rowHeight: number;\n  head?: number;\n}"
         },
         {
+          "name": "VirtualScrollParent",
+          "kind": "type",
+          "text": "type VirtualScrollParent = HTMLElement | RefObject<HTMLElement | null> | 'auto';"
+        },
+        {
           "name": "VirtualSize",
           "kind": "type",
           "text": "type VirtualSize =\n  | 'size-16' | 'size-20' | 'size-24' | 'size-28' | 'size-32' | 'size-40' | 'size-48' | 'size-56' | 'size-64'\n  | 'size-80' | 'size-96' | 'size-128' | 'size-160' | 'size-192' | 'size-224' | 'size-256';"
@@ -23215,7 +23464,7 @@
         {
           "name": "VirtualWindowInput",
           "kind": "type",
-          "text": "interface VirtualWindowInput {\n  enabled: boolean;\n  count: number;\n  keyAt: (index: number) => string | undefined;\n  rootRef: RefObject<HTMLElement | null>;\n  indexAttribute: string;\n  overscan?: number;\n  sizeKey?: string;\n  readMetrics?: (root: HTMLElement, body: HTMLElement, before: VirtualMetrics) => VirtualMetrics;\n  rangeOf?: (metrics: VirtualMetrics, overscan: number) => RowRange;\n}"
+          "text": "interface VirtualWindowInput {\n  enabled: boolean;\n  count: number;\n  keyAt: (index: number) => string | undefined;\n  rootRef: RefObject<HTMLElement | null>;\n  indexAttribute: string;\n  overscan?: number;\n  sizeKey?: string;\n  readMetrics?: VirtualMetricsReader;\n  rangeOf?: (metrics: VirtualMetrics, overscan: number) => RowRange;\n}"
         },
         {
           "name": "visibleRange",

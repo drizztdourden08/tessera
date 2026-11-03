@@ -116,7 +116,7 @@ const Overview = overviewStory({
   points: [
     '`frames` carry a picture and a duration; one frame is a still with no bar and no counter.',
     '`zoom="fit"` takes the largest whole number that fits the stage, never below 1, and shows it in a corner.',
-    '`loop` runs forward, reverse or ping pong; a `repeat` count ends on Replay, 0 runs forever.',
+    '`loop` runs forward, reverse, ping pong or ping pong reverse; `repeat` 0 runs forever.',
     '`tags` limit play to one range, and `cells` outline on hover and report the cell.',
     'Space plays, Left and Right step, Home and End jump; reduced motion never starts by itself.',
   ],

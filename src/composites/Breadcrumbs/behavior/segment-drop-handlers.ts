@@ -1,11 +1,11 @@
 /* @layer renderer-components @kind logic */
-import type { BreadcrumbsProps, OverSetter, SegmentDropHandlers } from '../Breadcrumbs.type';
+import type { BreadcrumbsProps, OverSetter, SegmentDropProps } from '../Breadcrumbs.type';
 
 const segmentDropHandlers = (
   id: string,
   rules: Pick<BreadcrumbsProps, 'onDropOn' | 'canDrop'>,
   setOver: OverSetter,
-): SegmentDropHandlers => {
+): SegmentDropProps => {
   const { onDropOn, canDrop } = rules;
   return {
     onDragOver: (event) => {

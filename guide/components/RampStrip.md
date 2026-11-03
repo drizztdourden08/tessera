@@ -37,6 +37,10 @@ RampStrip is the ordered row of shades of one ramp, with a caption on each step.
 - A step takes marks, small corner indicators such as a dot or a letter, either a list or an object keyed top-start, top-end, bottom-start or bottom-end; they take their colour from the swatch.
 - Pass onSwatchDragStart(index, event) to make every step draggable; set the payload on event.dataTransfer there.
 - Pass swatchMenu(index) to give each step a context menu of menu items, opened by a right click, a long press or the menu key; return an empty list for a step with none.
+- Pass onStepClick(index, event) and onStepDoubleClick(index, event) to react to a click or a double click on a step; onStepClick runs after the pick.
+- Pass stepData(index) to put data attributes on a step; write each key with its data- prefix, such as data-slot.
+- Pass selectionKeys false to turn off the built-in arrow, Home and End keys, so the app can own the keyboard; Tab still enters on the picked step.
+- Pass wrap to let the steps flow onto more lines when the row is full.
 - The left and right arrow keys, Home and End move to the next open step and pick it. Tab enters on the picked step.
 
 ## Accessibility
@@ -68,8 +72,13 @@ const Ramp = () => {
 - `onSelectionChange` (optional): `(selected: ReadonlySet<number>) => void`.
 - `onSwatchDragStart` (optional): `(index: number, event: DragEvent<HTMLElement>) => void`.
 - `swatchMenu` (optional): `(index: number) => readonly MenuNode[]`.
-- `size` (optional): `RampSize`, one of `'sm'`, `'md'`, `'preview'`. Default `'md'`.
-- `numbered` (optional): `boolean`. Default `false`.
+- `onStepClick` (optional): `(index: number, event: MouseEvent<HTMLElement>) => void`.
+- `onStepDoubleClick` (optional): `(index: number, event: MouseEvent<HTMLElement>) => void`.
+- `stepData` (optional): `(index: number) => DataAttributes`.
+- `selectionKeys` (optional): `boolean`.
+- `wrap` (optional): `boolean`.
+- `size` (optional): `RampSize`, one of `'sm'`, `'md'`, `'preview'`.
+- `numbered` (optional): `boolean`.
 - `className` (optional): `string`.
 
 ## Tokens

@@ -21,14 +21,21 @@ interface NavigatorWheelPoint {
   y: number;
 }
 
+interface NavigatorAxisStep {
+  x: number;
+  y: number;
+}
+
+type NavigatorStep = number | NavigatorAxisStep;
+
 interface NavigatorProps {
   surface: NavigatorSurface;
   viewport: NavigatorViewport;
   onViewportChange: (viewport: NavigatorViewport) => void;
   children?: ReactNode;
   label?: string;
-  step?: number;
-  bigStep?: number;
+  step?: NavigatorStep;
+  bigStep?: NavigatorStep;
   unclamped?: boolean;
   overlays?: readonly NavigatorOverlay[];
   onOverlayPress?: (id: string) => void;
@@ -46,8 +53,8 @@ interface KeyMove {
 }
 
 interface NavigatorSteps {
-  unit: number;
-  bigUnit: number;
+  unit: NavigatorAxisStep;
+  bigUnit: NavigatorAxisStep;
 }
 
 interface PercentSpans {
@@ -55,4 +62,4 @@ interface PercentSpans {
   down: [number, number];
 }
 
-export type { KeyMove, NavigatorOverlay, NavigatorOverlayKind, NavigatorProps, NavigatorSteps, NavigatorSurface, NavigatorViewport, NavigatorWheelPoint, PercentSpans };
+export type { KeyMove, NavigatorAxisStep, NavigatorOverlay, NavigatorOverlayKind, NavigatorProps, NavigatorStep, NavigatorSteps, NavigatorSurface, NavigatorViewport, NavigatorWheelPoint, PercentSpans };

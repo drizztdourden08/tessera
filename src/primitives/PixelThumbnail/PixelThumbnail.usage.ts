@@ -13,7 +13,8 @@ const usage = {
   ],
   rules: [
     'Pass `image` or `indexed`, not both; `null` clears the box and keeps the checker.',
-    'Pick `box` from the size tokens, 16 to 64 px; `step` scales up in whole numbers, `contain` takes any scale.',
+    'Pick `box` from the size tokens, 16 to 256 px; `step` scales up in whole numbers, `contain` takes any scale.',
+    'Pass `box="fluid"` to fill the width of the container as a square, so a diff view grows with its panel and stays crisp.',
     'Palette colours in `indexed` are `#rgb` or `#rrggbb`; the `transparent` index draws clear.',
     'Keep `frames` stable between renders, or the loop restarts; `playing` loops them and reduced motion shows frame 0.',
     'Use `lazy` for long lists and `throttleMs` for a live source; dim a hidden layer with a class from the caller.',
@@ -31,7 +32,7 @@ const LayerThumb = ({ picture }: { picture: RgbaImage | null }) => (
   <PixelThumbnail image={picture} box={24} throttleMs={80} lazy />
 );
 `,
-  propsHash: '2a9ee2768141f4a2',
+  propsHash: 'e6a0849ffddf1c7d',
 } satisfies ComponentUsage;
 
 export { usage };

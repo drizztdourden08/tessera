@@ -32,6 +32,10 @@ ScrubRuler sets one current cell on a row of cells, with markers and a band, whe
 - Keep value, markers and band in the parent and write them back from onChange, onMarkerChange and onBandChange.
 - Give every marker an id, a label and the min and max it may be dragged between.
 - Leave tickEvery on auto unless the ticks must fall on a fixed step; tickLabel writes the text of each tick.
+- Pass `secondBand` for a second read-only range beside `band`, such as an onion range next to the loop range.
+- Set `markerAnchor="edge"` to put markers on the cell border instead of its centre; a drag then snaps to the nearest border.
+- Pass `onCellContextMenu` to get the cell under the pointer on a right-click, and call `preventDefault` on the event to open your own menu.
+- Set `compact` for a 20 pixel ruler where the 28 pixel one takes too much room.
 - Set readOnly to keep the ruler focusable and block every change.
 
 ## Accessibility
@@ -61,9 +65,13 @@ const Timeline = ({ cells, frame, setFrame }: { cells: CellGeometry; frame: numb
 - `tickEvery` (optional): `number | 'auto'`.
 - `markers` (optional): `readonly RulerMarker[]`. Default `[]`.
 - `onMarkerChange` (optional): `(id: string, index: number) => void`.
+- `markerAnchor` (optional): `RulerMarkerAnchor`, one of `'center'`, `'edge'`.
 - `band` (optional): `RulerBand | null`. Default `null`.
 - `onBandChange` (optional): `(band: RulerBand | null) => void`.
 - `bandLabel` (optional): `(band: RulerBand) => string`.
+- `secondBand` (optional): `RulerBand | null`.
+- `onCellContextMenu` (optional): `(index: number, event: MouseEvent<HTMLElement>) => void`.
+- `compact` (optional): `boolean`.
 - `valueText` (optional): `(index: number, count: number) => string`.
 - `label` (optional): `string`.
 - `readOnly` (optional): `boolean`. Default `false`.
@@ -71,4 +79,4 @@ const Timeline = ({ cells, frame, setFrame }: { cells: CellGeometry; frame: numb
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-primary`, `--c-primary-glow`, `--c-primary-soft`, `--c-secondary`, `--c-secondary-soft`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-muted`, `--hue-ink`, `--scrub-cell`, `--scrub-left`, `--scrub-width`, `--size-16`, `--size-24`, `--size-28`, `--space-2xs`, `--weight-bold`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-focus`, `--c-primary`, `--c-primary-glow`, `--c-primary-soft`, `--c-secondary`, `--c-secondary-soft`, `--c-selected`, `--c-surface`, `--c-tag-amber`, `--c-tag-amber-soft`, `--c-text`, `--c-text-muted`, `--hue-ink`, `--scrub-cell`, `--scrub-left`, `--scrub-width`, `--size-16`, `--size-20`, `--size-24`, `--size-28`, `--size-8`, `--space-2xs`, `--weight-bold`.

@@ -22,7 +22,10 @@ const usage = {
     'opensMenu on a segment with siblings makes the whole segment the menu button, for a place that has no page to go to; pressing it opens the siblings and never calls onNavigate.',
     'Pass maxVisible to fold a long trail: the first segment and the last ones stay, and the middle ones sit behind an ellipsis menu. The smallest value is 3.',
     'Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.',
+    'Pass dropTarget(index, id) to hand each segment the props a drag and drop library attaches, such as its drag over and drop handlers; it replaces onDropOn and canDrop, and index counts from the root.',
+    'Holding a drag over a segment that has siblings for about half a second opens its siblings menu, so the drag can reach a neighbour.',
     'Pass onPathSubmit to let the user click the empty space at the end and type the path in a PathInput. path is the text shown there and defaults to the labels joined by a slash.',
+    'Pass validate(path) to check the typed path: return a message to show it under the box in the field error look and hold Enter back, or null when the path is fine.',
     'trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place. trailingLabel names that group for screen readers, such as Place state; without it the group has no name.',
   ],
   a11y: [
@@ -48,7 +51,7 @@ const FolderBar = ({ trail, open, openPath }: FolderBarProps) => (
   <Breadcrumbs segments={trail} maxVisible={4} onNavigate={open} onPathSubmit={openPath} />
 );
 `,
-  propsHash: 'ec9e6b16006f7885',
+  propsHash: 'dbb0d55f8bb852a8',
 } satisfies ComponentUsage;
 
 export { usage };

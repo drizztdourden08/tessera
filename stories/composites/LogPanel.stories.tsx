@@ -198,7 +198,7 @@ const Overview = overviewStory({
   description: 'A running log, such as a server log or a simulation trace, in one framed box with a filter toolbar.',
   points: [
     'Each row has a gutter, a tag, a `kind` and a message; `indent` nests it and `tone` colours one line.',
-    'The toolbar is a [FilterBar]: search, filters on type, tag or message, a line count and Copy all.',
+    'The toolbar is a [FilterBar]; `filterPlacement` left or right sets it in a column that folds like [SidePanel].',
     '`kinds` give each type a `tone`, tint or hex colour; `toneMessage`, `strong` and `uppercase` set the message.',
     'Only the newest lines are mounted; `order` picks the end that stays in view, and a button returns to it.',
     '`selectedIds` with `onSelectionChange` picks rows: a click, [[Shift]] and a click, [[Up]] and [[Down]].',

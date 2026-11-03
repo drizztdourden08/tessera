@@ -7,6 +7,7 @@ import { drawRgba } from '../pixel-image/draw-rgba';
 import { fitSize } from './behavior/fit-size';
 import { thumbnailClass } from './behavior/thumbnail-class';
 import { thumbnailNaming } from './behavior/thumbnail-naming';
+import { useBoxSize } from './behavior/useBoxSize';
 import { useFrameClock } from './behavior/useFrameClock';
 import { useThrottledValue } from './behavior/useThrottledValue';
 import { useThumbnailSource } from './behavior/useThumbnailSource';
@@ -16,10 +17,11 @@ import './PixelThumbnail.css';
 
 const PixelThumbnail = (props: PixelThumbnailProps) => {
   const {
-    image = null, indexed, box = DEFAULT_BOX, fit = 'step', backdrop = 'checker', lazy = false, throttleMs = 0, frames, playing = false, label, ref, className,
+    image = null, indexed, box: boxProp = DEFAULT_BOX, fit = 'step', backdrop = 'checker', lazy = false, throttleMs = 0, frames, playing = false, label, ref, className,
   } = props;
   const frameRef = useRef<HTMLSpanElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const box = useBoxSize(boxProp, frameRef);
   const seen = useInView(frameRef, { once: true });
   const frameIndex = useFrameClock({ frames, playing, frameRef });
   const source = useThumbnailSource({ image, indexed, frames, frameIndex });
@@ -32,7 +34,7 @@ const PixelThumbnail = (props: PixelThumbnailProps) => {
   const naming = thumbnailNaming(label);
 
   return (
-    <span ref={frameRef} className={classes} data-box={box}>
+    <span ref={frameRef} className={classes} data-box={boxProp}>
       <Canvas ref={canvasRefs} className="pixel-thumbnail__canvas" {...naming} />
     </span>
   );

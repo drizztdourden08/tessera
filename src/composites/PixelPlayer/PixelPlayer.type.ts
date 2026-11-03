@@ -9,7 +9,7 @@ type PixelPlayerZoom = 'fit' | number;
 
 type PixelPlayerBackdrop = 'checker' | 'none';
 
-type PixelPlayerDirection = 'forward' | 'reverse' | 'pingpong';
+type PixelPlayerDirection = 'forward' | 'reverse' | 'pingpong' | 'pingpongReverse';
 
 interface PixelPlayerLoop {
   direction: PixelPlayerDirection;

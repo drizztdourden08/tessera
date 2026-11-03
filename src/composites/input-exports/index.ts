@@ -28,7 +28,7 @@ export { ValueTag } from '../ValueTag';
 export type { ValueTagProps } from '../ValueTag';
 export { SaveBar, type SaveBarProps, type SaveBarState } from '../SaveBar';
 export {
-  CommandInput, type CommandEntry, type CommandInputProps, type CommandOption, type CommandParam, type CommandParamKind, type CommandSpec, type CommandSubmit, type CommandValue,
+  CommandInput, type CommandEntry, type CommandFieldsSpec, type CommandInputProps, type CommandOption, type CommandParam, type CommandParamKind, type CommandParamOptions, type CommandPatternSpec, type CommandSpec, type CommandSubmit, type CommandValue,
   type CommandValues,
 } from '../CommandInput';
 export { PasswordInput, type PasswordInputProps, type PasswordMode, type PasswordRule, type PasswordScore, type PasswordStrength, type PasswordStrengthLevel } from '../PasswordInput';
@@ -38,7 +38,7 @@ export { PathInput,type PathBrowse, type PathInputProps, type PathKind } from '.
 export { NumberField } from '../NumberField';
 export type { NumberFieldProps, NumberPreset, NumberPresetInput } from '../NumberField';
 export { ZoomField } from '../ZoomField';
-export type { ZoomFieldProps } from '../ZoomField';
+export type { ZoomFieldProps, ZoomSliderPlacement } from '../ZoomField';
 export { AngleField } from '../AngleField';
 export type { AngleFieldProps } from '../AngleField';
 export { RampStrip } from '../RampStrip';

@@ -35,7 +35,9 @@ interface PatternAction {
   onPress: (value: PatternValue) => void;
 }
 
-type PatternLists = Readonly<Record<string, readonly PatternChoice[]>>;
+type PatternListSource = readonly PatternChoice[] | ((value: PatternValue) => readonly PatternChoice[]);
+
+type PatternLists = Readonly<Record<string, PatternListSource>>;
 
 type PatternActions = Readonly<Record<string, PatternAction>>;
 
@@ -68,6 +70,6 @@ interface DynamicInputProps extends PatternSetup {
 }
 
 export type {
-  DynamicInputProps, PatternAction, PatternActions, PatternAliases, PatternChoice, PatternIcons, PatternLists, PatternRuleMessage,
+  DynamicInputProps, PatternAction, PatternActions, PatternAliases, PatternChoice, PatternIcons, PatternListSource, PatternLists, PatternRuleMessage,
   PatternSetup, PatternSlotConfig, PatternSlotConfigs, PatternSlotValue, PatternValue,
 };
