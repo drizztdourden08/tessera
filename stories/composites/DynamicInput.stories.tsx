@@ -15,6 +15,7 @@ import { PATTERN_EXAMPLES, PLAYGROUND_PATTERN } from './_samples/pattern-data';
 import { PatternDocTable } from './_samples/PatternDocTable';
 import { PatternExampleField } from './_samples/PatternExampleField';
 import { PatternKeys } from './_samples/PatternKeys';
+import { PatternPasteDemo } from './_samples/PatternPasteDemo';
 import { PatternPlayground } from './_samples/PatternPlayground';
 import { PatternRulesDemo } from './_samples/PatternRulesDemo';
 import type { PatternPlaygroundArgs } from './_samples/PatternPlayground';
@@ -80,6 +81,11 @@ const Rules = {
   render: () => <PatternRulesDemo />,
 } satisfies Story;
 
+const Paste = {
+  name: 'Paste a full value',
+  render: () => <PatternPasteDemo />,
+} satisfies Story;
+
 const Playground = {
   name: 'Playground',
   args: ARGS,
@@ -118,11 +124,12 @@ const Overview = overviewStory({
     'Typing fills a slot and a full slot moves on; a text slot takes its own `chars` and `aliases`.',
     'The slot in focus opens the control its type calls for, such as a [NumberInput] or a [ColorPicker].',
     '[[Tab]] and [[Shift+Tab]] move between slots, and [[Backspace]] in an empty slot goes back.',
+    'Paste a whole value, such as `ABCD-1234` or `192.168.0.1:8080`, into any slot and every slot fills; the case and the separators do not matter.',
     '**A bad pattern never throws:** the part it cannot read shows as text, with a warning.',
     'Put it in a [Field] for its label, hint and size; a `validate` rule shows its own error.',
   ],
   playground: Playground,
-  variants: [Examples, Rules, Sizes],
+  variants: [Examples, Rules, Paste, Sizes],
   sections: [
     { title: 'Pattern syntax', node: <PatternDocTable corner="Part" columns={['Write', 'Means']} rows={SYNTAX_ROWS} /> },
     { title: 'Slot types', node: <PatternDocTable corner="Type" columns={['Example', 'Value', 'Typing', 'Popover']} rows={TYPE_ROWS} /> },
@@ -144,4 +151,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Examples, Overview, Playground, Rules, Sizes };
+export { Examples, Overview, Paste, Playground, Rules, Sizes };

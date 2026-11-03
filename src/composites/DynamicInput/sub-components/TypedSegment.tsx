@@ -43,6 +43,7 @@ const TypedSegment = (props: TypedSegmentProps) => {
         onBlur={typed.handleBlur}
         onChange={typed.handleChange}
         onKeyDown={typed.handleKeyDown}
+        onPaste={typed.handlePaste}
         onMouseDown={typed.handleMouseDown}
         onMouseUp={typed.handleMouseUp}
       />

@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, MouseEvent, RefCallback } from 'react';
+import type { ClipboardEvent, KeyboardEvent, MouseEvent, RefCallback } from 'react';
 import type { ListboxModel } from '../../../primitives/listbox/listbox-state.type';
 import type { ListboxView } from '../../../primitives/listbox/listbox-view.type';
 import type { PatternChoice } from '../DynamicInput.type';
@@ -20,6 +20,7 @@ interface ChoiceSegmentState {
   view: ListboxView<PatternChoice>;
   attach: RefCallback<HTMLButtonElement>;
   handleKeyDown: (event: KeyboardEvent<HTMLButtonElement>) => void;
+  handlePaste: (event: ClipboardEvent<HTMLButtonElement>) => void;
   handleMouseDown: (event: MouseEvent<HTMLButtonElement>) => void;
   handleClick: () => void;
 }

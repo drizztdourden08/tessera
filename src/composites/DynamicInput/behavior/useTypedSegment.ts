@@ -1,12 +1,13 @@
 /* @layer renderer-components @kind hook */
 import { handleTypedKey } from './handle-typed-key';
+import { pasteHandler } from './paste-handler';
 import { useFreshClick } from './useFreshClick';
 import { useTypedDraft } from './useTypedDraft';
 import type { KeyboardEvent, MouseEvent } from 'react';
 import type { TypedParams, TypedSegmentState } from './typed-segment.type';
 
 const useTypedSegment = (params: TypedParams): TypedSegmentState => {
-  const { field, slot } = params;
+  const { field, slot, index } = params;
   const draft = useTypedDraft(params);
   const fresh = useFreshClick<HTMLInputElement>();
 
@@ -18,7 +19,9 @@ const useTypedSegment = (params: TypedParams): TypedSegmentState => {
     field.setOpen(true);
   };
 
-  return { ...draft, handleKeyDown, handleMouseDown: fresh.handleMouseDown, handleMouseUp };
+  const handlePaste = pasteHandler<HTMLInputElement>(field, { index, release: () => draft.writeDraft(null) });
+
+  return { ...draft, handleKeyDown, handlePaste, handleMouseDown: fresh.handleMouseDown, handleMouseUp };
 };
 
 export { useTypedSegment };
