@@ -1,0 +1,9 @@
+/* @layer stories @kind style */
+.signal-story {
+  inline-size: var(--size-320);
+  max-inline-size: 100%;
+}
+
+.signal-story--narrow {
+  inline-size: var(--size-160);
+}

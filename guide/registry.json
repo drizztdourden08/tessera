@@ -318,6 +318,16 @@
             "components": [
               "DateText"
             ]
+          },
+          "a row of attention chips that folds what does not fit": {
+            "components": [
+              "SignalStrip"
+            ]
+          },
+          "one cell per step, toned by its outcome": {
+            "components": [
+              "OutcomeStrip"
+            ]
           }
         }
       },
@@ -13498,6 +13508,125 @@
       "parts": []
     },
     {
+      "name": "OutcomeStrip",
+      "tier": "composites",
+      "source": "src/composites/OutcomeStrip/OutcomeStrip.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A row of small cells, one per step of a test plan, each toned by its outcome, with the current step outlined and its label on hover.",
+      "useWhen": [
+        "A card or a runner shows how far a list of steps has got and how each one ended.",
+        "The user may jump to a step by pressing its cell."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The steps are numbered stages of one task with a current position.",
+          "use": "Stepper"
+        },
+        {
+          "case": "The row shows parts of one total as proportions.",
+          "use": "StackedBar"
+        }
+      ],
+      "rules": [
+        "Pass steps. A step has an id, an outcome and a label. The strip keeps no state.",
+        "outcome is pass, fail, partial, blocked, skip, pending or current. Pass is green, fail red, partial amber, blocked blue, skip faint and pending an empty cell. Current is an empty cell with an outline.",
+        "size xs is for a card and sm is for a runner. sm is the default.",
+        "The label of a step shows in a tooltip on hover and focus and is the name of the cell.",
+        "Pass onSelect and every cell becomes a button that calls it with the step id. Without it the cells are static.",
+        "The cells wrap to the next line when there are more than the row can hold."
+      ],
+      "a11y": [
+        "With onSelect the strip is a toolbar with one Tab stop, on the current cell or the last one focused. Left and Right arrows, Home and End move between cells; Enter and Space select.",
+        "Without onSelect the strip is a group of images named by their labels.",
+        "The current cell has aria-current step and an outline, so the outcome is not shown by colour alone."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "one cell per step, toned by its outcome"
+        ],
+        "rule": "OutcomeStrip is the row of toned cells that shows how each step of a plan ended."
+      },
+      "example": "import { OutcomeStrip } from '@drizztdourden08/tessera';\n\nconst opened: string[] = [];\nconst openStep = (id: string) => opened.push(id);\n\nconst steps = [\n  { id: 't1', outcome: 'pass', label: 'Sign in' },\n  { id: 't2', outcome: 'fail', label: 'Reset password' },\n  { id: 't3', outcome: 'current', label: 'Change email' },\n  { id: 't4', outcome: 'pending', label: 'Delete account' },\n] as const;\n\nconst Runner = () => <OutcomeStrip aria-label=\"Test plan\" steps={steps} size=\"sm\" onSelect={openStep} />;\n",
+      "propsHash": "06756cb5c719d88e",
+      "props": {
+        "own": [
+          {
+            "name": "steps",
+            "optional": false,
+            "text": "readonly OutcomeStep[]"
+          },
+          {
+            "name": "onSelect",
+            "optional": true,
+            "text": "(id: string) => void"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "OutcomeSize",
+            "literals": [
+              "'xs'",
+              "'sm'"
+            ],
+            "default": "'sm'"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-danger",
+        "--c-danger-bright",
+        "--c-focus",
+        "--c-info",
+        "--c-info-bright",
+        "--c-inset",
+        "--c-primary",
+        "--c-success",
+        "--c-success-bright",
+        "--c-text-dim",
+        "--c-text-dim-soft",
+        "--c-warning",
+        "--c-warning-bright",
+        "--radius-sm",
+        "--size-1",
+        "--size-12",
+        "--size-16",
+        "--size-2",
+        "--size-24",
+        "--size-8",
+        "--space-2xs"
+      ],
+      "gallery": {
+        "title": "Composites · Feedback/OutcomeStrip",
+        "route": "#/story/composites-outcomestrip--overview",
+        "file": "stories/composites/OutcomeStrip.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "PanelContainer",
       "tier": "composites",
       "source": "src/composites/PanelContainer/PanelContainer.tsx",
@@ -16385,6 +16514,93 @@
         "title": "Composites · Layout/SidePanel",
         "route": "#/story/composites-sidepanel--overview",
         "file": "stories/composites/SidePanel.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "SignalStrip",
+      "tier": "composites",
+      "source": "src/composites/SignalStrip/SignalStrip.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "One row of small toned chips, each an icon with a count, that never wraps: what does not fit folds into a +N chip whose tooltip lists the hidden ones.",
+      "useWhen": [
+        "A card or a header carries a few attention signals, such as open questions, failing tests or blockers, and must keep to one line.",
+        "Some signals open a place when pressed and others only inform."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A single label or state is shown, with no row of signals.",
+          "use": "Tag"
+        },
+        {
+          "case": "The user picks one of several chips.",
+          "use": "TagPicker"
+        }
+      ],
+      "rules": [
+        "Pass items. An item has an id, an icon, a label, a tone and optionally a count and an onClick. The strip keeps no state.",
+        "tone is danger, warning, info, success or neutral and sets the colour of the chip.",
+        "A chip shows its icon and its count. An item without a count shows its label as text. The label is also the title of the chip.",
+        "An item with onClick is a button chip. An item without it is a static chip.",
+        "The row never wraps. It measures the chips and the room, and what does not fit folds into a +N chip. The tooltip of +N lists the hidden labels.",
+        "max keeps at most that many chips before the +N chip, even when there is room for more.",
+        "An empty items list renders nothing."
+      ],
+      "a11y": [
+        "Pass aria-label to name the row as a group.",
+        "A button chip is a Tab stop and is named by its label. The +N chip is a Tab stop and its tooltip opens on focus.",
+        "Tone is never the only cue: each chip has an icon and a label."
+      ],
+      "tree": {
+        "path": [
+          "a status, a count or a label",
+          "a row of attention chips that folds what does not fit"
+        ],
+        "rule": "SignalStrip is the one-line row of attention chips that folds the overflow into a +N chip with a tooltip."
+      },
+      "example": "import { SignalStrip } from '@drizztdourden08/tessera';\n\nconst openQuestions = () => undefined;\nconst openTests = () => undefined;\n\nconst items = [\n  { id: 'questions', icon: 'circle-help', count: 2, label: 'Open questions', tone: 'warning', onClick: openQuestions },\n  { id: 'tests', icon: 'flask', count: 1, label: 'Failing tests', tone: 'danger', onClick: openTests },\n  { id: 'quiet', icon: 'moon', label: 'Quiet', tone: 'neutral' },\n] as const;\n\nconst Signals = () => <SignalStrip aria-label=\"Attention\" items={items} />;\n",
+      "propsHash": "abf57c227fe044fe",
+      "props": {
+        "own": [
+          {
+            "name": "items",
+            "optional": false,
+            "text": "readonly SignalItem[]"
+          },
+          {
+            "name": "max",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--size-4",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Feedback/SignalStrip",
+        "route": "#/story/composites-signalstrip--overview",
+        "file": "stories/composites/SignalStrip.stories.tsx"
       },
       "parts": []
     },

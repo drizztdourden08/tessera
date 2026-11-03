@@ -23,3 +23,5 @@ export { RetryButton, type RetryButtonProps } from '../RetryButton';
 export { LoadError, type LoadErrorProps, type LoadErrorVariant } from '../LoadError';
 export { ErrorBoundary, type ErrorBoundaryProps } from '../ErrorBoundary';
 export { Toast, ToastStack, toast, type ToastAction, type ToastApi, type ToastCloseReason, type ToastInput, type ToastItem, type ToastPosition, type ToastProps, type ToastStackProps, type ToastVariant } from '../Toast';
+export { SignalStrip, type SignalItem, type SignalStripProps, type SignalTone } from '../SignalStrip';
+export { OutcomeStrip, type OutcomeKind, type OutcomeSize, type OutcomeStep, type OutcomeStripProps } from '../OutcomeStrip';
