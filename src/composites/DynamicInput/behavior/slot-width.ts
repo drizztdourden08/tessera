@@ -1,9 +1,8 @@
 /* @layer renderer-components @kind util */
 import { digitLimit } from './digit-limit';
+import { NUMBER_TYPES } from './slot-width.constants';
 import { HEX_DIGITS, HEX_PREFIX, MINUS } from './slot-format.constants';
 import type { PatternSlotSpec } from './parse-pattern.type';
-
-const NUMBER_TYPES: ReadonlySet<string> = new Set(['number', 'hour', 'minute']);
 
 const slotWidth = (slot: PatternSlotSpec, first: string): number => {
   if (slot.type === 'text') return slot.length ?? slot.maxLength ?? Number.POSITIVE_INFINITY;

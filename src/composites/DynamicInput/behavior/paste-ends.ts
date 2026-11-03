@@ -1,9 +1,8 @@
 /* @layer renderer-components @kind logic */
+import { BLANK } from './paste-ends.constants';
 import { slotWidth } from './slot-width';
 import type { PatternChoice, PatternValue } from '../DynamicInput.type';
 import type { PasteCut, PasteScan, PasteStep } from './split-pasted.type';
-
-const BLANK = /\s+/g;
 
 const skipBlank = (text: string, at: number): number => {
   let next = at;
