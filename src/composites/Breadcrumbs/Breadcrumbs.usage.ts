@@ -24,6 +24,9 @@ const usage = {
     'Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.',
     'Pass dropTarget(index, id) to hand each segment the props a drag and drop library attaches, such as its drag over and drop handlers; it replaces onDropOn and canDrop, and index counts from the root.',
     'Holding a drag over a segment that has siblings for about half a second opens its siblings menu, so the drag can reach a neighbour.',
+    'Pass onSegmentRef(id, element) to get the element of each segment, and null when it goes away, so a pointer based drag and drop library can bind its drop target to it. The element is the list item around the segment, so the chevrons count as the segment.',
+    'Pass dropOverId with the id of the segment the pointer drag is over, or null: that segment draws the same drop look as a native drag and the spring open timer runs for it. The library sets it; Breadcrumbs never does.',
+    'springOpen is menu by default, which opens the siblings menu. springOpen navigate calls onNavigate with the segment after the hold instead, on every segment but the current one. onSpringOpen(id) is called with the segment in both modes.',
     'Pass onPathSubmit to let the user click the empty space at the end and type the path in a PathInput. path is the text shown there and defaults to the labels joined by a slash.',
     'Pass validate(path) to check the typed path: return a message to show it under the box in the field error look and hold Enter back, or null when the path is fine.',
     'trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place. trailingLabel names that group for screen readers, such as Place state; without it the group has no name.',
@@ -51,7 +54,7 @@ const FolderBar = ({ trail, open, openPath }: FolderBarProps) => (
   <Breadcrumbs segments={trail} maxVisible={4} onNavigate={open} onPathSubmit={openPath} />
 );
 `,
-  propsHash: 'dbb0d55f8bb852a8',
+  propsHash: '40c5823d4ea1ed54',
 } satisfies ComponentUsage;
 
 export { usage };

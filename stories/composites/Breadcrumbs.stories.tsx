@@ -4,6 +4,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { overviewStory } from '../_template/overview-story';
 import { BreadcrumbsDemo } from './_samples/BreadcrumbsDemo';
 import { BreadcrumbsHooksDemo } from './_samples/BreadcrumbsHooksDemo';
+import { BreadcrumbsPointerDemo } from './_samples/BreadcrumbsPointerDemo';
 
 type BreadcrumbsArgs = { withSiblings: boolean; maxVisible: number; withDrop: boolean; editable: boolean; withTags: boolean };
 
@@ -64,6 +65,16 @@ const SpringOpened = {
   render: () => <BreadcrumbsHooksDemo feature="spring" />,
 } satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
 
+const PointerDropped = {
+  name: 'dropOverId: a pointer drag held over a segment draws the drop look and opens its menu',
+  render: () => <BreadcrumbsPointerDemo />,
+} satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
+
+const PointerNavigated = {
+  name: 'springOpen navigate: holding a pointer drag over a segment opens that place',
+  render: () => <BreadcrumbsPointerDemo springOpen="navigate" />,
+} satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
+
 const Validated = {
   name: 'validate: a message under the path box and Enter held back',
   render: () => <BreadcrumbsHooksDemo feature="validate" />,
@@ -91,13 +102,14 @@ const Overview = overviewStory({
     '`maxVisible` keeps the first and the last segments and folds the middle ones behind an ellipsis.',
     '`onDropOn` makes every segment a drop target; `canDrop` turns a drag away; `dropTarget` plugs in a library.',
     '`onPathSubmit` makes the end a [PathInput] checked by `validate`; `trailing` takes [Tag] chips.',
-    'A drag held over a segment with siblings opens its menu after a short delay.',
+    'A drag held over a segment with siblings opens its menu after a short delay; `springOpen` can open that place instead.',
+    '`onSegmentRef` and `dropOverId` serve a pointer based drag and drop library that has no native drag events.',
   ],
   instead: '[Tabs] to move between views of one area.',
   playground: Playground,
-  variants: [Siblings, MenuSegments, Folded, Dropping, DropTargeted, SpringOpened, PathBox, Validated],
+  variants: [Siblings, MenuSegments, Folded, Dropping, DropTargeted, SpringOpened, PointerDropped, PointerNavigated, PathBox, Validated],
   code: CODE,
 });
 
 export default meta;
-export { Dropping, DropTargeted, Folded, MenuSegments, Overview, PathBox, Playground, Siblings, SpringOpened, Validated };
+export { Dropping, DropTargeted, Folded, MenuSegments, Overview, PathBox, Playground, PointerDropped, PointerNavigated, Siblings, SpringOpened, Validated };
