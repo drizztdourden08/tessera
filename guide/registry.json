@@ -5128,6 +5128,7 @@
       ],
       "rules": [
         "Pass the tools in toolbar, such as ToolGroups or a FilterBar; it sits on the surface colour over a line.",
+        "Pass toolbarPlacement=\"left\" or \"right\" to put the tools in a narrow column beside the content instead of above it.",
         "Give a SearchInput, Select or Combobox in the toolbar grow={false}, so it keeps a set width and sits on one line with the other tools.",
         "The content scrolls under the toolbar; give the frame a height or a flex parent.",
         "Pass shrink={false} when the frame must never get smaller than its toolbar plus the least its content needs, such as a list with a minimum height in a short flex parent.",
@@ -5146,7 +5147,7 @@
         "rule": "ToolFrame is the one frame with tools on its top edge: StudioLayout holds its editor in it and LogPanel its lines."
       },
       "example": "import { Button, ToolFrame, ToolGroups } from '@drizztdourden08/tessera';\nimport type { ReactNode } from 'react';\n\nconst ScriptEditor = ({ script, onRun }: { script: ReactNode; onRun: () => void }) => (\n  <ToolFrame\n    as=\"section\"\n    aria-label=\"Intro script\"\n    padded\n    toolbar={<ToolGroups groups={[{ id: 'file', label: 'File', content: <Button size=\"sm\" onClick={onRun}>Run</Button> }]} />}\n  >\n    {script}\n  </ToolFrame>\n);\n",
-      "propsHash": "f9e7b1f0e83b059e",
+      "propsHash": "6cc79fc6152cf939",
       "props": {
         "own": [
           {
@@ -5158,6 +5159,17 @@
             "name": "toolbar",
             "optional": true,
             "text": "ReactNode"
+          },
+          {
+            "name": "toolbarPlacement",
+            "optional": true,
+            "text": "ToolFramePlacement",
+            "literals": [
+              "'top'",
+              "'left'",
+              "'right'"
+            ],
+            "default": "'top'"
           },
           {
             "name": "padded",
@@ -5196,7 +5208,9 @@
         "--c-chrome",
         "--c-chrome-border",
         "--space-md",
-        "--space-sm"
+        "--space-sm",
+        "--tool-frame-side-w",
+        "--tool-frame-toolbar-pad"
       ],
       "gallery": {
         "title": "Primitives · Layout/ToolFrame",
@@ -12730,6 +12744,8 @@
         "While a returned promise is pending a second Enter is ignored, so one line is never sent twice.",
         "Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.",
         "Pass height=\"fill\" inside a box that sets the height, or a number for a fixed height in pixels.",
+        "Set filterPlacement to left or right to move the search, filters, count and Copy all into a narrow column beside the lines.",
+        "Set size=\"sm\" for a compact panel with smaller controls, smaller lines and tighter spacing, such as in a dashboard widget.",
         "minRows keeps at least that many lines visible, default 3 with height fill."
       ],
       "a11y": [
@@ -12746,7 +12762,7 @@
         "rule": "LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick."
       },
       "example": "import { Button, LogPanel } from '@drizztdourden08/tessera';\nimport type { LogRow } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\nconst ServerLog = ({ rows, onReport }: { rows: readonly LogRow[]; onReport: (lines: readonly LogRow[]) => void }) => {\n  const [selected, setSelected] = useState<ReadonlySet<string>>(new Set());\n  const picked = rows.filter((row) => selected.has(row.id));\n  return (\n    <LogPanel\n      rows={rows}\n      kinds={[{ id: 'error', label: 'Errors', tone: 'danger', toneMessage: true }]}\n      selectedIds={selected}\n      onSelectionChange={setSelected}\n      toolbarExtra={<Button size=\"sm\" disabled={picked.length === 0} onClick={() => onReport(picked)}>Report these lines</Button>}\n      height=\"fill\"\n    />\n  );\n};\n",
-      "propsHash": "d1f7708920ae15bf",
+      "propsHash": "c7eed973200c9e78",
       "props": {
         "own": [
           {
@@ -12784,6 +12800,25 @@
             "optional": true,
             "text": "boolean",
             "default": "true"
+          },
+          {
+            "name": "filterPlacement",
+            "optional": true,
+            "text": "LogFilterPlacement",
+            "literals": [
+              "'top'",
+              "'left'",
+              "'right'"
+            ]
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "LogPanelSize",
+            "literals": [
+              "'md'",
+              "'sm'"
+            ]
           },
           {
             "name": "copyText",
@@ -12922,10 +12957,12 @@
         "--log-tag-w",
         "--opacity-muted",
         "--shadow-2",
+        "--space-2xs",
         "--space-lg",
         "--space-md",
         "--space-sm",
         "--space-xs",
+        "--text-2xs",
         "--text-sm",
         "--text-xs",
         "--weight-bold",

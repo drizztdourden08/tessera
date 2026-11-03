@@ -9,9 +9,38 @@
 
 .tool-frame__toolbar {
   flex: none;
-  padding: var(--space-sm);
+  padding: var(--tool-frame-toolbar-pad, var(--space-sm));
   border-block-end: var(--border-width-thin) solid var(--c-chrome-border);
   background: var(--c-chrome);
+}
+
+.tool-frame--toolbar-left,
+.tool-frame--toolbar-right {
+  flex-direction: row;
+}
+
+.tool-frame--toolbar-right {
+  flex-direction: row-reverse;
+}
+
+.tool-frame--toolbar-left > .tool-frame__toolbar,
+.tool-frame--toolbar-right > .tool-frame__toolbar {
+  inline-size: var(--tool-frame-side-w);
+  overflow: auto;
+  border-block-end: none;
+}
+
+.tool-frame--toolbar-left > .tool-frame__toolbar {
+  border-inline-end: var(--border-width-thin) solid var(--c-chrome-border);
+}
+
+.tool-frame--toolbar-right > .tool-frame__toolbar {
+  border-inline-start: var(--border-width-thin) solid var(--c-chrome-border);
+}
+
+.tool-frame--toolbar-left > .tool-frame__body,
+.tool-frame--toolbar-right > .tool-frame__body {
+  min-inline-size: 0;
 }
 
 .tool-frame__body {
