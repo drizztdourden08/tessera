@@ -1,55 +1,44 @@
 /* @layer renderer-components @kind hook */
-import { useCallback, useId } from 'react';
-import { listboxSetup } from '../../../primitives/listbox/listbox-setup';
-import { useActiveScroll } from '../../../primitives/listbox/useActiveScroll';
-import { useListbox } from '../../../primitives/listbox/useListbox';
-import { useStartActive } from '../../../primitives/listbox/useStartActive';
+import { useCallback, useRef } from 'react';
 import { useTypeaheadText } from '../../../primitives/listbox/useTypeaheadText';
-import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { choiceColumns } from './choice-columns';
-import { choiceLabel } from './choice-label';
 import { choiceOptions } from './choice-options';
 import { handleChoiceKey } from './handle-choice-key';
 import { pasteHandler } from './paste-handler';
-import { useFreshClick } from './useFreshClick';
-import type { KeyboardEvent } from 'react';
+import { pressChoice } from './press-choice';
+import { useChoiceModel } from './useChoiceModel';
+import type { KeyboardEvent, MouseEvent } from 'react';
 import type { ChoiceSegmentState } from './choice-segment.type';
 import type { SegmentParams } from './typed-segment.type';
-import type { PatternChoice } from '../DynamicInput.type';
 
 const noRelease = (): void => undefined;
 
 const useChoiceSegment = (params: SegmentParams): ChoiceSegmentState => {
   const { field, slot, index } = params;
-  const { fields } = useTesseraStrings();
-  const idBase = useId();
   const typed = useTypeaheadText();
-  const fresh = useFreshClick<HTMLButtonElement>();
+  const anchorRef = useRef<HTMLElement | null>(null);
   const value = field.value[slot.name];
   const options = choiceOptions(slot, field.setup.lists, field.value);
-  const setup = listboxSetup<PatternChoice, 'value'>({
-    items: options, valueField: 'value', value: typeof value === 'string' ? value : null,
-    getKey: 'value', getLabel: choiceLabel, columns: choiceColumns(options),
-  }, fields.noOptions);
-  const model = useListbox({ setup, query: '', filter: false, idBase: `pattern${idBase}` });
-  const open = field.focus.index === index && field.focus.open;
-  useStartActive(open, model);
-  useActiveScroll(field.popoverRef, model.active.index);
 
   const pick = (choice: string) => {
     field.setSlot(slot.name, choice);
     if (!field.moveTo(index + 1, 'all')) field.setOpen(false);
   };
-  const attach = useCallback((node: HTMLButtonElement | null) => field.register(index)(node), [field.register, index]);
+  const { model, open, view } = useChoiceModel(params, options, { query: '', pickFirst: true, pick });
+  const attach = useCallback((node: HTMLButtonElement | null) => {
+    anchorRef.current = node;
+    field.register(index)(node);
+  }, [field.register, index]);
   const handleKeyDown = (event: KeyboardEvent<HTMLButtonElement>) =>
     handleChoiceKey({ field, slot, index, model, open, pick, typed }, event);
   const handlePaste = pasteHandler<HTMLButtonElement>(field, { index, release: noRelease });
-  const handleClick = () => field.setOpen(fresh.takeFresh() || !open);
+  const handleMouseDown = (event: MouseEvent<HTMLButtonElement>) => pressChoice({ field, index, open }, event);
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    if (event.detail === 0) field.setOpen(!open);
+  };
 
   return {
-    options, selected: options.find((option) => option.value === value), open, model, attach, handleKeyDown, handlePaste, handleClick,
-    handleMouseDown: fresh.handleMouseDown,
-    view: { model, columns: setup.columns, multi: false, highlight: false, onPick: (entry) => pick(entry.item.value) },
+    selected: options.find((option) => option.value === value), open, model, view, anchorRef, attach,
+    handleKeyDown, handlePaste, handleMouseDown, handleClick,
   };
 };
 

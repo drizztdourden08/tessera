@@ -4,10 +4,10 @@ import { SLOT_KINDS } from './slot-kinds.constants';
 import type { PatternSlotSpec } from './parse-pattern.type';
 import type { PatternChoice, PatternSlotValue } from '../DynamicInput.type';
 
-const choiceFrom = (text: string, options: readonly PatternChoice[]): PatternSlotValue | undefined => {
+const choiceFrom = (text: string, options: readonly PatternChoice[], free: boolean): PatternSlotValue | undefined => {
   const wanted = text.toLowerCase();
   const found = options.find((option) => option.value.toLowerCase() === wanted || (option.label ?? option.value).toLowerCase() === wanted);
-  return found?.value;
+  return found?.value ?? (free ? text : undefined);
 };
 
 const typedFrom = (text: string, slot: PatternSlotSpec): PatternSlotValue | undefined => {
@@ -21,7 +21,7 @@ const typedFrom = (text: string, slot: PatternSlotSpec): PatternSlotValue | unde
 const slotFromText = (slot: PatternSlotSpec, raw: string, options: readonly PatternChoice[]): PatternSlotValue | undefined => {
   const text = raw.trim();
   if (text === '') return slot.optional === true ? null : undefined;
-  return slot.type === 'choice' ? choiceFrom(text, options) : typedFrom(text, slot);
+  return slot.type === 'choice' ? choiceFrom(text, options, slot.free === true) : typedFrom(text, slot);
 };
 
 export { slotFromText };

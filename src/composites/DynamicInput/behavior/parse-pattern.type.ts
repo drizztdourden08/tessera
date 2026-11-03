@@ -23,6 +23,8 @@ interface PatternSlotSpec {
   choices?: readonly string[];
   list?: string;
   flag?: boolean;
+  search?: boolean;
+  free?: boolean;
   minLength?: number;
   maxLength?: number;
   length?: number;

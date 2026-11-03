@@ -2,11 +2,9 @@
 import { Box } from '../../../primitives/Box';
 import { Span } from '../../../primitives/text-elements';
 import { echoText } from '../behavior/echo-text';
-import { SLOT_KINDS } from '../behavior/slot-kinds.constants';
-import { ChoiceSegment } from './ChoiceSegment';
 import { PatternActionButton } from './PatternActionButton';
 import { PatternIcon } from './PatternIcon';
-import { TypedSegment } from './TypedSegment';
+import { PatternSlot } from './PatternSlot';
 import type { PatternPartProps } from './PatternAdornment.type';
 
 const PatternPart = (props: PatternPartProps) => {
@@ -22,11 +20,8 @@ const PatternPart = (props: PatternPartProps) => {
       return <PatternActionButton field={field} name={part.name} />;
     case 'spacer':
       return <Box className="dynamic-input__spacer" />;
-    case 'slot': {
-      const { slot, index } = part;
-      if (slot.type === 'choice') return <ChoiceSegment field={field} slot={slot} index={index} />;
-      return <TypedSegment field={field} slot={slot} index={index} kind={SLOT_KINDS[slot.type]} />;
-    }
+    case 'slot':
+      return <PatternSlot field={field} slot={part.slot} index={part.index} />;
   }
 };
 

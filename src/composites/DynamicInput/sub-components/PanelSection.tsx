@@ -8,7 +8,7 @@ const PanelSection = (props: PanelSectionProps) => {
 
   return (
     <Box className={`dynamic-input__section${fill ? ' dynamic-input__section--fill' : ''}`}>
-      <Text variant="subtitle">{title}</Text>
+      <Text variant="subtitle" className="dynamic-input__section-title">{title}</Text>
       {children}
     </Box>
   );

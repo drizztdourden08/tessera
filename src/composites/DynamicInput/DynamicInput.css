@@ -173,6 +173,10 @@
   color: var(--c-text-muted);
 }
 
+.dynamic-input__segment--search {
+  gap: var(--space-2xs);
+}
+
 .dynamic-input .dynamic-input__segment--optional .dynamic-input__slot::placeholder,
 .dynamic-input__segment--optional .dynamic-input__placeholder {
   color: var(--c-text-faint);
@@ -259,6 +263,14 @@
   min-height: 0;
   margin-inline: calc(-1 * var(--space-md));
   margin-block-end: calc(-1 * var(--space-md));
+}
+
+.dynamic-input__panel--list .dynamic-input__section-title {
+  padding-inline-start: calc(var(--row-inset) - var(--space-md) + var(--size-14) + var(--space-sm));
+}
+
+.dynamic-input__panel--list .listbox-drop__scroll {
+  padding-inline-end: 0;
 }
 
 .dynamic-input__time {

@@ -11,7 +11,7 @@ const PatternRulesCard = (props: { rule: PatternRulesCase }) => {
   return (
     <Box className="pattern-story__card">
       <Field label={rule.label} hint={rule.hint}>
-        <DynamicInput pattern={rule.pattern} value={value} onChange={setValue} slots={rule.slots} validate={rule.validate} />
+        <DynamicInput pattern={rule.pattern} value={value} onChange={setValue} slots={rule.slots} lists={rule.lists} validate={rule.validate} />
       </Field>
       <Text className="pattern-story__value">{JSON.stringify(value)}</Text>
     </Box>

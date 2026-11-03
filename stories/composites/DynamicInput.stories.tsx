@@ -18,6 +18,7 @@ import { PatternKeys } from './_samples/PatternKeys';
 import { PatternPasteDemo } from './_samples/PatternPasteDemo';
 import { PatternPlayground } from './_samples/PatternPlayground';
 import { PatternRulesDemo } from './_samples/PatternRulesDemo';
+import { PatternSearchDemo } from './_samples/PatternSearchDemo';
 import type { PatternPlaygroundArgs } from './_samples/PatternPlayground';
 import type { StateProps } from '../_template/states/states.type';
 import './DynamicInput.stories.css';
@@ -86,6 +87,11 @@ const Paste = {
   render: () => <PatternPasteDemo />,
 } satisfies Story;
 
+const Search = {
+  name: 'Long searchable list',
+  render: () => <PatternSearchDemo />,
+} satisfies Story;
+
 const Playground = {
   name: 'Playground',
   args: ARGS,
@@ -121,15 +127,14 @@ const Overview = overviewStory({
   description: 'One field built from a pattern of typed slots, muted text and icons, such as a time or a price with its currency.',
   points: [
     'Write slots in braces, such as `{hh:hour 12h}`; the value is one object keyed by slot name.',
-    'Typing fills a slot and a full slot moves on; a text slot takes its own `chars` and `aliases`.',
-    'The slot in focus opens the control its type calls for, such as a [NumberInput] or a [ColorPicker].',
+    'Typing fills a slot and a full slot moves on; the slot in focus opens its own control.',
     '[[Tab]] and [[Shift+Tab]] move between slots, and [[Backspace]] in an empty slot goes back.',
-    'Paste a whole value, such as `ABCD-1234` or `192.168.0.1:8080`, into any slot and every slot fills; the case and the separators do not matter.',
-    '**A bad pattern never throws:** the part it cannot read shows as text, with a warning.',
-    'Put it in a [Field] for its label, hint and size; a `validate` rule shows its own error.',
+    'A whole value pasted into any slot, such as `ABCD-1234`, fills every slot.',
+    'A `search` choice filters a long list as you type; `free` also keeps text that is not listed.',
+    'Put it in a [Field] for its label, hint and size; a bad pattern shows as text, never throws.',
   ],
   playground: Playground,
-  variants: [Examples, Rules, Paste, Sizes],
+  variants: [Examples, Rules, Paste, Search, Sizes],
   sections: [
     { title: 'Pattern syntax', node: <PatternDocTable corner="Part" columns={['Write', 'Means']} rows={SYNTAX_ROWS} /> },
     { title: 'Slot types', node: <PatternDocTable corner="Type" columns={['Example', 'Value', 'Typing', 'Popover']} rows={TYPE_ROWS} /> },
@@ -151,4 +156,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Examples, Overview, Paste, Playground, Rules, Sizes };
+export { Examples, Overview, Paste, Playground, Rules, Search, Sizes };
