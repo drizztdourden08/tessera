@@ -3017,6 +3017,156 @@
       "parts": []
     },
     {
+      "name": "PixelThumbnail",
+      "tier": "primitives",
+      "source": "src/primitives/PixelThumbnail/PixelThumbnail.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "A small square that draws a pixel picture crisp, from RGBA bytes or palette pixels, with a checker behind clear pixels.",
+      "useWhen": [
+        "A row, tile or drag ghost needs a preview of a sprite, a layer or a frame, drawn from data in memory.",
+        "A live picture changes often and the preview must redraw at a calm pace, or only when it scrolls into view."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The picture is a file or a URL, not pixels in memory.",
+          "use": "Image"
+        },
+        {
+          "case": "The caller draws into the canvas itself and needs no box, fit or checker.",
+          "use": "Canvas"
+        }
+      ],
+      "rules": [
+        "Pass `image` or `indexed`, not both; `null` clears the box and keeps the checker.",
+        "Pick `box` from the size tokens, 16 to 64 px; `step` scales up in whole numbers, `contain` takes any scale.",
+        "Palette colours in `indexed` are `#rgb` or `#rrggbb`; the `transparent` index draws clear.",
+        "Keep `frames` stable between renders, or the loop restarts; `playing` loops them and reduced motion shows frame 0.",
+        "Use `lazy` for long lists and `throttleMs` for a live source; dim a hidden layer with a class from the caller."
+      ],
+      "a11y": [
+        "It is hidden from screen readers and not focusable, since the row or tile that holds it carries the name.",
+        "With a `label` it becomes an image with that name.",
+        "High contrast draws a border in the system text colour, so the box stays visible."
+      ],
+      "buildingBlock": true,
+      "example": "import { PixelThumbnail } from '@drizztdourden08/tessera';\nimport type { RgbaImage } from '@drizztdourden08/tessera';\n\nconst LayerThumb = ({ picture }: { picture: RgbaImage | null }) => (\n  <PixelThumbnail image={picture} box={24} throttleMs={80} lazy />\n);\n",
+      "propsHash": "2a9ee2768141f4a2",
+      "props": {
+        "own": [
+          {
+            "name": "image",
+            "optional": true,
+            "text": "RgbaImage | null",
+            "default": "null"
+          },
+          {
+            "name": "indexed",
+            "optional": true,
+            "text": "IndexedImage"
+          },
+          {
+            "name": "box",
+            "optional": true,
+            "text": "PixelThumbnailBox",
+            "literals": [
+              "16",
+              "24",
+              "32",
+              "40",
+              "48",
+              "64"
+            ],
+            "default": "DEFAULT_BOX"
+          },
+          {
+            "name": "fit",
+            "optional": true,
+            "text": "PixelThumbnailFit",
+            "literals": [
+              "'step'",
+              "'contain'"
+            ],
+            "default": "'step'"
+          },
+          {
+            "name": "backdrop",
+            "optional": true,
+            "text": "PixelThumbnailBackdrop",
+            "literals": [
+              "'checker'",
+              "'none'"
+            ],
+            "default": "'checker'"
+          },
+          {
+            "name": "lazy",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "throttleMs",
+            "optional": true,
+            "text": "number",
+            "default": "0"
+          },
+          {
+            "name": "frames",
+            "optional": true,
+            "text": "readonly PixelThumbnailFrame[]"
+          },
+          {
+            "name": "playing",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "ref",
+            "optional": true,
+            "text": "Ref<HTMLCanvasElement>"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-checker-a",
+        "--c-checker-b",
+        "--checker-size",
+        "--size-1",
+        "--size-16",
+        "--size-24",
+        "--size-32",
+        "--size-40",
+        "--size-48",
+        "--size-64"
+      ],
+      "gallery": {
+        "title": "Primitives · Display/PixelThumbnail",
+        "route": "#/story/primitives-pixelthumbnail--overview",
+        "file": "stories/primitives/PixelThumbnail.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "Portal",
       "tier": "primitives",
       "source": "src/primitives/Portal/Portal.tsx",
@@ -14113,6 +14263,175 @@
         "title": "Composites · Inputs/PathInput",
         "route": "#/story/composites-pathinput--overview",
         "file": "stories/composites/PathInput.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "PixelPlayer",
+      "tier": "composites",
+      "source": "src/composites/PixelPlayer/PixelPlayer.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Plays a pixel animation inline, with a whole-number zoom, a control bar, frame ranges and keys; one frame shows as a still.",
+      "useWhen": [
+        "A preview pane shows the picked sprite or animation and the reader needs to play, pause and step through it.",
+        "A sheet preview needs outlines on hover over named cells, with the cell reported to the host."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A small fixed square in a row or tile, with no controls.",
+          "use": "PixelThumbnail"
+        },
+        {
+          "case": "The source is a video file, not frames in memory.",
+          "use": "Video"
+        }
+      ],
+      "rules": [
+        "Pass `frames` with a duration for each; one frame is a still with no bar and no counter.",
+        "`zoom=\"fit\"` picks the largest whole number that fits the stage, never below 1; the stage height follows the `--pixel-player-stage` property.",
+        "Give `tags` to limit play to one named range; pass `tagId` and `onTagChange` to control which one.",
+        "`loop.repeat` of 0 runs forever; with a count, Play becomes Replay when the loop ends.",
+        "`mode=\"compact\"` hides the bar and the counter; keep `frames` stable between renders so playback does not restart."
+      ],
+      "a11y": [
+        "The stage is one tab stop: Space plays and pauses, Left and Right step, Home and End jump.",
+        "The picture is an image with the `label`; the controls are a named group of labelled buttons.",
+        "The counter is a status that is read when a step changes it, not on every tick of playback.",
+        "Reduced motion never starts playback by itself; Play still works. A hidden page stops playback."
+      ],
+      "buildingBlock": true,
+      "example": "import { PixelPlayer } from '@drizztdourden08/tessera';\nimport type { PixelThumbnailFrame } from '@drizztdourden08/tessera';\n\nconst SpritePreview = ({ frames }: { frames: readonly PixelThumbnailFrame[] }) => (\n  <PixelPlayer label=\"Walk cycle\" frames={frames} loop={{ direction: 'pingpong', repeat: 0 }} />\n);\n",
+      "propsHash": "618d4e0559735cef",
+      "props": {
+        "own": [
+          {
+            "name": "frames",
+            "optional": false,
+            "text": "readonly PixelThumbnailFrame[]"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "mode",
+            "optional": true,
+            "text": "PixelPlayerMode",
+            "literals": [
+              "'compact'",
+              "'large'"
+            ],
+            "default": "'large'"
+          },
+          {
+            "name": "zoom",
+            "optional": true,
+            "text": "PixelPlayerZoom",
+            "default": "'fit'"
+          },
+          {
+            "name": "backdrop",
+            "optional": true,
+            "text": "PixelPlayerBackdrop",
+            "literals": [
+              "'checker'",
+              "'none'"
+            ],
+            "default": "'checker'"
+          },
+          {
+            "name": "loop",
+            "optional": true,
+            "text": "PixelPlayerLoop",
+            "default": "DEFAULT_LOOP"
+          },
+          {
+            "name": "speeds",
+            "optional": true,
+            "text": "readonly number[]",
+            "default": "DEFAULT_SPEEDS"
+          },
+          {
+            "name": "tags",
+            "optional": true,
+            "text": "readonly PixelPlayerTag[]",
+            "default": "NO_TAGS"
+          },
+          {
+            "name": "tagId",
+            "optional": true,
+            "text": "string | null"
+          },
+          {
+            "name": "onTagChange",
+            "optional": true,
+            "text": "(id: string | null) => void"
+          },
+          {
+            "name": "cells",
+            "optional": true,
+            "text": "readonly PixelPlayerCell[]",
+            "default": "NO_CELLS"
+          },
+          {
+            "name": "onCellHover",
+            "optional": true,
+            "text": "(id: string | null) => void"
+          },
+          {
+            "name": "controls",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "autoPlay",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "placeholder",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--c-checker-a",
+        "--c-checker-b",
+        "--c-focus",
+        "--c-primary",
+        "--c-sunken",
+        "--c-surface",
+        "--c-text-dim",
+        "--checker-size",
+        "--radius-sm",
+        "--size-128",
+        "--size-256",
+        "--space-sm",
+        "--space-xs"
+      ],
+      "gallery": {
+        "title": "Composites · Content/PixelPlayer",
+        "route": "#/story/composites-pixelplayer--overview",
+        "file": "stories/composites/PixelPlayer.stories.tsx"
       },
       "parts": []
     },

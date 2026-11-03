@@ -24,6 +24,7 @@ import { OPTION_STRINGS } from './options-strings.constants';
 import { PANEL_STRINGS } from './panels-strings.constants';
 import { PASSWORD_STRINGS } from './password-strings.constants';
 import { PATH_STRINGS } from './paths-strings.constants';
+import { PIXEL_PLAYER_STRINGS } from './pixel-player-strings.constants';
 import { RATING_STRINGS } from './rating-strings.constants';
 import { RECORD_STRINGS } from './records-strings.constants';
 import { ROW_GRID_STRINGS } from './row-grid-strings.constants';
@@ -79,6 +80,7 @@ const TESSERA_STRINGS = {
   controller: CONTROLLER_STRINGS,
   markdownEditor: MARKDOWN_EDITOR_STRINGS,
   inlineEdit: INLINE_EDIT_STRINGS,
+  pixelPlayer: PIXEL_PLAYER_STRINGS,
 };
 
 export { TESSERA_STRINGS };

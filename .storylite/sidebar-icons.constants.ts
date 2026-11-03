@@ -54,6 +54,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     EmptyState: 'inbox', Disclosure: 'list-collapse', List: 'list', Table: 'table', Image: 'image', Canvas: 'frame', Svg: 'vector-square', ScaleLabels: 'ruler-dimension-line',
     Avatar: 'user',
     TypeMark: 'shapes',
+    PixelThumbnail: 'image',
   },
   'Primitives · Actions': { Button: 'mouse-pointer-click', IconButton: 'circle-plus', ButtonRow: 'rectangle-ellipsis', ButtonGroup: 'group', ToolGroups: 'group', Pressable: 'pointer', Link: 'link' },
   'Primitives · Inputs': {
@@ -110,6 +111,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     Carousel: 'gallery-horizontal',
     Markdown: 'scroll-text',
     MediaGrid: 'images',
+    PixelPlayer: 'play',
   },
   'Composites · Inputs': {
     DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus',
