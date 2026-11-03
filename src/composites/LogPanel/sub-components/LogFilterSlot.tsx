@@ -4,6 +4,7 @@ import { SidePanel } from '../../SidePanel';
 import { isSideFilter } from '../behavior/is-side-filter';
 import { SIDE_FILTER_WIDTH, SIDE_FILTER_WIDTH_SM } from '../LogPanel.constants';
 import type { LogFilterSlotProps } from './LogFilterSlot.type';
+import './LogFilterSlot.css';
 
 const LogFilterSlot = ({ props, children }: LogFilterSlotProps) => {
   const { filterPlacement, size, filtersCollapsed, defaultFiltersCollapsed, onFiltersCollapsedChange, storageKey } = props;
@@ -14,6 +15,7 @@ const LogFilterSlot = ({ props, children }: LogFilterSlotProps) => {
       title={panels.logFilters}
       side={filterPlacement === 'right' ? 'end' : 'start'}
       showTitle={false}
+      railSize="slim"
       width={size === 'sm' ? SIDE_FILTER_WIDTH_SM : SIDE_FILTER_WIDTH}
       collapsed={filtersCollapsed}
       defaultCollapsed={defaultFiltersCollapsed}

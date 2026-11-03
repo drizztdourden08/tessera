@@ -308,6 +308,7 @@
   --pixel-wordmark-sm: calc(29 * 1px);
   --pixel-wordmark-md: calc(58 * 1px);
   --pixel-wordmark-lg: calc(87 * 1px);
+  --control-h-2xs: 16px;
   --control-h-xs: 20px;
   --hit-gutter: calc((24px - 20px) / 2);
   --hit-gutter-none: calc(0 * 1px);
@@ -416,6 +417,7 @@
   --opsz-display: 32;
   --leading-tight: 1.3;
   --leading-normal: 1.5;
+  --leading-16: 16px;
   --tracking-tight: -0.01em;
   --tracking-normal: 0;
   --tracking-wide: 0.04em;

@@ -1018,7 +1018,7 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": true,
-      "job": "A small round mark for a person, drawn as one or two initials or an icon on a tinted ground, or as a dashed circle when nobody is assigned.",
+      "job": "A small round or square mark for a person, drawn as one or two initials, an icon or a picture, or as a dashed circle when nobody is assigned.",
       "useWhen": [
         "An item card or a list row shows who owns it, in 16 px beside other text.",
         "A detail pane names the assignee at 24 px.",
@@ -1036,7 +1036,9 @@
       ],
       "rules": [
         "Pass label with the name of the person; it is the tooltip and the text a screen reader reads.",
-        "Pass initials, one or two letters, or icon, never both; with neither it draws the unassigned circle.",
+        "Pass initials, one or two letters, icon, or src for a picture, never more than one; with none it draws the unassigned circle.",
+        "A picture fills the shape and is cropped to it, with label as its alt text; if it fails to load, the initials of the label show instead.",
+        "Set shape square for a rounded square instead of a circle, for a team or a workspace.",
         "Set color to one of the category colours so a person keeps one colour on every screen.",
         "Set size xs for 16 px on a card and sm for 24 px in a pane.",
         "Set variant owner for the signed-in person; it draws a ring around the circle."
@@ -1052,8 +1054,8 @@
         ],
         "rule": "Avatar answers who an item belongs to with a small round mark."
       },
-      "example": "import { Avatar } from '@drizztdourden08/tessera';\n\nconst Assignees = () => (\n  <>\n    <Avatar label=\"Wren Archer\" initials=\"WA\" color=\"teal\" />\n    <Avatar label=\"You\" icon=\"user\" color=\"violet\" variant=\"owner\" size=\"sm\" />\n    <Avatar label=\"Unassigned\" />\n  </>\n);\n",
-      "propsHash": "c79e5b8b62a0c33f",
+      "example": "import { Avatar } from '@drizztdourden08/tessera';\n\nconst Assignees = () => (\n  <>\n    <Avatar label=\"Wren Archer\" initials=\"WA\" color=\"teal\" />\n    <Avatar label=\"You\" icon=\"user\" color=\"violet\" variant=\"owner\" size=\"sm\" />\n    <Avatar label=\"Wren Archer\" src=\"/people/wren.png\" size=\"sm\" />\n    <Avatar label=\"Platform team\" src=\"/teams/platform.png\" shape=\"square\" size=\"sm\" />\n    <Avatar label=\"Unassigned\" />\n  </>\n);\n",
+      "propsHash": "1a99b8d85560ce48",
       "props": {
         "own": [
           {
@@ -1097,6 +1099,15 @@
             ]
           },
           {
+            "name": "shape",
+            "optional": true,
+            "text": "AvatarShape",
+            "literals": [
+              "'circle'",
+              "'square'"
+            ]
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -1110,6 +1121,11 @@
             "name": "icon",
             "optional": true,
             "text": "IconName"
+          },
+          {
+            "name": "src",
+            "optional": true,
+            "text": "string"
           }
         ],
         "inherited": {
@@ -1145,6 +1161,7 @@
         "--c-text-dim-soft",
         "--c-text-muted",
         "--radius-round",
+        "--radius-sm",
         "--size-1",
         "--size-10",
         "--size-16",
@@ -4899,6 +4916,7 @@
         "Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.",
         "Set size md for the 13 px step between the small and base sizes, such as a dense row of values; with no size the variant sets it.",
         "Set size lead for the 15 px step between the base and large sizes.",
+        "Set leading 16 to fix the line height at 16 px, so a caption in a card head row stays one 16 px line beside a 2xs IconButton and an Icon with a hue.",
         "Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.",
         "Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.",
         "Set clamp to a line count to cut longer text with an ellipsis; the full text shows in a tooltip only when it is cut.",
@@ -4916,7 +4934,7 @@
         "rule": "Text sets interface copy in a role from the scale, and its members draw each text element."
       },
       "example": "import { Text } from '@drizztdourden08/tessera';\n\nconst SyncLine = () => (\n  <Text.P>\n    <Text variant=\"caption\" tone=\"muted\">Last synced 12 seconds ago</Text>\n    <Text variant=\"caption\" tone=\"faint\"> · Hold Shift to snap</Text>\n  </Text.P>\n);\n",
-      "propsHash": "71d2b3c04fdc32f1",
+      "propsHash": "0b004b2a700f0b3d",
       "props": {
         "own": [
           {
@@ -4950,6 +4968,11 @@
             "name": "font",
             "optional": true,
             "text": "TextFont"
+          },
+          {
+            "name": "leading",
+            "optional": true,
+            "text": "TextLeading"
           },
           {
             "name": "tone",
@@ -5040,6 +5063,7 @@
         "--c-warning",
         "--font-mono",
         "--font-title",
+        "--leading-16",
         "--text-base",
         "--text-lead",
         "--text-lg",
@@ -5370,7 +5394,8 @@
       "rules": [
         "Pass icon with a Tessera icon name and label with the type name; the label is the tooltip and the text a screen reader reads.",
         "Set color to one of the category colours; the tile takes a tint of it and the icon takes the full colour.",
-        "Set size xs for 16 px in a dense row and sm for 20 px beside a title."
+        "Set size xs for 16 px in a dense row and sm for 20 px beside a title.",
+        "Set variant outline for the bare icon in the category colour, with no tile, border or padding; its box is the icon size."
       ],
       "a11y": [
         "It is an image with the label as its name, and the label shows in a tooltip on hover and focus.",
@@ -5383,8 +5408,8 @@
         ],
         "rule": "TypeMark answers what kind of thing an item is with a small icon tile."
       },
-      "example": "import { TypeMark } from '@drizztdourden08/tessera';\n\nconst BugMark = () => <TypeMark icon=\"bug\" label=\"Bug\" color=\"rose\" />;\n",
-      "propsHash": "7bfbc7ed40d2bb21",
+      "example": "import { TypeMark } from '@drizztdourden08/tessera';\n\nconst BugMarks = () => (\n  <>\n    <TypeMark icon=\"bug\" label=\"Bug\" color=\"rose\" />\n    <TypeMark icon=\"bug\" label=\"Bug\" color=\"rose\" variant=\"outline\" />\n  </>\n);\n",
+      "propsHash": "cfee2ed19acd0cf1",
       "props": {
         "own": [
           {
@@ -5423,6 +5448,16 @@
               "'sm'"
             ],
             "default": "'xs'"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "TypeMarkVariant",
+            "literals": [
+              "'tile'",
+              "'outline'"
+            ],
+            "default": "'tile'"
           },
           {
             "name": "className",
@@ -6288,7 +6323,7 @@
         "rule": "ArmedIconButton shares the one ask of ConfirmIconButton: the same timeout, Escape, blur and focus return."
       },
       "example": "import { ArmedIconButton } from '@drizztdourden08/tessera';\n\nconst SaveSlotTools = ({ slot, onLoad, onSave, onDelete }: { slot: string; onLoad: () => void; onSave: () => void; onDelete: () => void }) => (\n  <>\n    <ArmedIconButton icon=\"load-state\" tone=\"info\" label={`Load ${slot}`} onConfirm={onLoad} />\n    <ArmedIconButton icon=\"save-state\" tone=\"warning\" label={`Overwrite ${slot}`} onConfirm={onSave} />\n    <ArmedIconButton icon=\"trash-2\" tone=\"danger\" label={`Delete ${slot}`} onConfirm={onDelete} />\n  </>\n);\n",
-      "propsHash": "dbad7a84d57edcd8",
+      "propsHash": "fcbf4f70ca8d46ac",
       "props": {
         "own": [
           {
@@ -6350,6 +6385,7 @@
             "optional": true,
             "text": "IconButtonSize",
             "literals": [
+              "'2xs'",
               "'xs'",
               "'sm'",
               "'md'"
@@ -12826,7 +12862,7 @@
         "Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.",
         "Pass height=\"fill\" inside a box that sets the height, or a number for a fixed height in pixels.",
         "Set filterPlacement to left or right to move the search, filters, count and Copy all into a narrow column beside the lines.",
-        "A side column folds to a slim rail with the same dashed line and chevron as SidePanel; the lines take the room, and the chevron opens it again.",
+        "A side column folds to a slim strip with the same dashed line and chevron as SidePanel railSize=\"slim\"; the lines take the room, and the chevron opens it again. The lines keep a gutter the width of the chevron overhang, so the chevron never covers the time.",
         "Pass filtersCollapsed with onFiltersCollapsedChange when the app holds the fold, or defaultFiltersCollapsed to start folded; they apply to a left or right column only.",
         "Drag the dashed line to change the width of the side column. Pass storageKey to keep the width, and the fold under storageKey:collapsed.",
         "Set size=\"sm\" for a compact panel with smaller controls, smaller lines and tighter spacing, such as in a dashboard widget.",
@@ -13060,6 +13096,7 @@
         "--log-panel-min-rows",
         "--log-tag-w",
         "--opacity-muted",
+        "--pane-edge-overhang",
         "--shadow-2",
         "--space-2xs",
         "--space-lg",
@@ -17965,6 +18002,8 @@
         "Dragging the line about 32 px narrower than minWidth folds the panel to its rail, and dragging the line of a rail outward opens it; the arrow keys at the end of the range do the same.",
         "Pass action for a button in the heading, such as Add or Rescan; the folded rail reserves its top slot and shows the button there when present.",
         "Pass railItems as an array of item icons; the folded rail shows them under the title.",
+        "Pass railSize=\"slim\" for a folded rail that is only the dashed line and its chevron, about 12 px wide; the title, the action and the rail items are not drawn, so use it where the panel holds filters or settings that need no icons.",
+        "The chevron overhangs the line by half its width onto the main view; give the main view beside the panel inline padding of var(--pane-edge-overhang) on that side so the chevron never covers its content.",
         "Pass containers for the expanded body. Each container has a required heading and body; use a meaningful section title distinct from the pane title.",
         "The dashed primary border is the resize edge; it brightens and glows while hovered, focused or dragged.",
         "The border stays on the pane while expanded and folded; the chevron straddles it at the center of the actual heading row. Folding animates the pane, heading, body and rail, with motion disabled for reduced-motion preferences.",
@@ -17989,7 +18028,7 @@
         "rule": "SidePanel is the one side panel of a work screen: the sunken surface, neutral heading, dashed outside border with its overlapping fold button, the rail and the drag to resize or fold."
       },
       "example": "import type { ReactNode } from 'react';\nimport { Box, Flex, SidePanel } from '@drizztdourden08/tessera';\n\nconst HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: ReactNode; inspector: ReactNode }) => (\n  <Flex gap=\"2xs\" align=\"stretch\" className=\"hud-editor\">\n    <SidePanel title=\"Layers\" storageKey=\"hud.layers\" containers={[{ title: 'Outline', content: layers }]} />\n    <Box className=\"hud-editor__canvas\">{canvas}</Box>\n    <SidePanel side=\"end\" title=\"Inspector\" storageKey=\"hud.inspector\" containers={[{ title: 'Properties', content: inspector }]} />\n  </Flex>\n);\n",
-      "propsHash": "44c404657a79d5db",
+      "propsHash": "5daa752662787b36",
       "props": {
         "own": [
           {
@@ -18042,6 +18081,16 @@
             "optional": true,
             "text": "ReactNode[]",
             "default": "[]"
+          },
+          {
+            "name": "railSize",
+            "optional": true,
+            "text": "SidePanelRailSize",
+            "literals": [
+              "'default'",
+              "'slim'"
+            ],
+            "default": "'default'"
           },
           {
             "name": "collapsible",
@@ -18102,6 +18151,7 @@
         "--c-surface",
         "--radius-lg",
         "--side-nav-w",
+        "--side-panel-rail-slim-w",
         "--size-40",
         "--space-2xs",
         "--space-md",
@@ -20068,7 +20118,7 @@
         "rule": "Toolbar is the set of tools of an editor, with a hint on each and options beside the ones that have them."
       },
       "example": "import { Toolbar } from '@drizztdourden08/tessera';\nimport type { ToolbarItem } from '@drizztdourden08/tessera';\n\ninterface ToolRailProps {\n  tool: string;\n  pick: (tool: string) => void;\n  undo: () => void;\n}\n\nconst ToolRail = ({ tool, pick, undo }: ToolRailProps) => {\n  const items: ToolbarItem[] = [\n    { kind: 'toggle', id: 'pencil', label: 'Pencil', icon: 'pencil', description: 'Draw one pixel at a time.', shortcut: 'P', pressed: tool === 'pencil', onChange: () => pick('pencil') },\n    { kind: 'toggle', id: 'eraser', label: 'Eraser', icon: 'eraser', description: 'Clear pixels.', shortcut: 'E', pressed: tool === 'eraser', onChange: () => pick('eraser') },\n    { kind: 'separator', id: 'tools-end' },\n    { kind: 'button', id: 'undo', label: 'Undo', icon: 'undo-2', shortcut: 'Ctrl+Z', onSelect: undo },\n  ];\n  return <Toolbar label=\"Drawing tools\" orientation=\"vertical\" items={items} />;\n};\n",
-      "propsHash": "cb46279a1d8a07fd",
+      "propsHash": "26cc3b329a62a35c",
       "props": {
         "own": [
           {
@@ -20102,11 +20152,11 @@
           {
             "name": "size",
             "optional": true,
-            "text": "IconButtonSize",
+            "text": "ToolbarSize",
             "literals": [
-              "'xs'",
+              "'md'",
               "'sm'",
-              "'md'"
+              "'xs'"
             ]
           },
           {

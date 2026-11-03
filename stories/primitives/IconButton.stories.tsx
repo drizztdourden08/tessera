@@ -8,6 +8,7 @@ import { overviewStory } from '../_template/overview-story';
 import { forceAttributes } from '../_template/states/force-attributes';
 import type { StateEntry, StateProps } from '../_template/states/states.type';
 import { BUTTON_STATES } from './_samples/button-states';
+import { CardHeadRow } from './_samples/CardHeadRow';
 import { IconButtonMixedPin } from './_samples/IconButtonMixedPin';
 import { IconButtonToolbar } from './_samples/IconButtonToolbar';
 import { markedStates } from './_samples/marked-states';
@@ -49,8 +50,10 @@ const LABELS: Record<GlyphName, string> = {
   bug: 'Report a bug',
 };
 
+const GLYPH_PX: Record<IconButtonSize, number> = { '2xs': 10, xs: 12, sm: 12, md: 16 };
+
 const glyph = (name: GlyphName, size: IconButtonSize) => (
-  <Icon name={GLYPHS[name]} size={size === 'md' ? 16 : 12} />
+  <Icon name={GLYPHS[name]} size={GLYPH_PX[size]} />
 );
 
 const ARGS: Partial<IconButtonArgs> = {
@@ -62,7 +65,7 @@ const ARG_TYPES: PlaygroundArgTypes<IconButtonArgs> = {
     glyph: { group: 'Content', control: 'select', options: Object.keys(GLYPHS) as GlyphName[], optionView: (name) => <Icon name={GLYPHS[name]} size={16} /> },
     variant: { group: 'Appearance', control: 'select', options: [...VARIANTS] },
     tone: { group: 'Appearance', control: 'select', options: ['none', 'danger', 'info', 'accent'], description: 'Draws a ghost button in a status colour with a soft glow; accent is the brand colour.' },
-    size: { group: 'Appearance', control: 'select', options: ['xs', 'sm', 'md'] },
+    size: { group: 'Appearance', control: 'select', options: ['2xs', 'xs', 'sm', 'md'] },
     active: { group: 'State', control: 'boolean' },
     loading: { group: 'State', control: 'boolean', description: 'Shows the spinner in place of the icon and disables the button.' },
     disabled: { group: 'State', control: 'boolean' },
@@ -92,7 +95,7 @@ const Playground = {
   ),
 } satisfies PlaygroundStory<IconButtonArgs>;
 
-const SIZES = ['md', 'sm', 'xs'] as const;
+const SIZES = ['md', 'sm', 'xs', '2xs'] as const;
 
 const STATE_VARIANTS: readonly IconButtonVariant[] = ['primary', 'tertiary', 'danger', 'ghost'];
 
@@ -165,6 +168,11 @@ const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
   </Flex>
 );
 
+const HeadRow = {
+  name: 'Card head row at 16 px',
+  render: () => <CardHeadRow />,
+} satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+
 const Toolbar = {
   name: 'Toggle toolbar',
   render: () => <IconButtonToolbar />,
@@ -175,17 +183,17 @@ const Overview = overviewStory({
   description: 'A square button that shows only an icon, for toolbars, panel headers and row actions where a word would not fit.',
   points: [
     '**`label` is required:** it becomes the name screen readers announce.',
-    'It takes the variants and sizes of [Button]: `md` 39, `sm` 28 and `xs` 20 px. Header back and close buttons are `md`.',
-    '`xs` is for dense rows, compact panels and widget title bars. An unsized icon draws at 16 px in `md`, 12 px below.',
+    'It takes the variants of [Button]; sizes `md` 39, `sm` 28, `xs` 20 and `2xs` 16 px. Back and close are `md`.',
+    '`xs` suits dense rows, compact panels and title bars; `2xs` is a 16 px square for a card head row.',
+    'An unsized icon draws at 16 px in `md`, 12 px below; give a `2xs` button a 10 px icon.',
     '`active` marks a toggle as on, `mixed` hatches it when picked items differ; `loading` swaps in a [Spinner].',
-    '`tone` tints a ghost button with a soft glow: `danger`, `info`, or `accent` in the brand colour.',
-    '`hint` reports a one-line description to the [HintScope] around it, for a [HintLine] to show.',
+    '`tone` tints a ghost button (`danger`, `info`, `accent`); `hint` feeds a one-line description to a [HintLine].',
   ],
   instead: '[Button] when a word fits.',
   playground: Playground,
-  variants: [AllVariants, Tones, Mixed, Loading],
+  variants: [AllVariants, Tones, Mixed, Loading, HeadRow],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, Loading, Mixed, Overview, Playground, Tones, Toolbar };
+export { AllVariants, HeadRow, Loading, Mixed, Overview, Playground, Tones, Toolbar };

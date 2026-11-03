@@ -1,0 +1,4 @@
+/* @layer renderer-components @kind style */
+.icon--hue {
+  color: var(--hue-ink);
+}

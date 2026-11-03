@@ -11,6 +11,8 @@ type ToolbarIcon = SegmentIcon;
 
 type ToolbarOrientation = 'horizontal' | 'vertical';
 
+type ToolbarSize = Exclude<IconButtonSize, '2xs'>;
+
 type ToolbarShape = 'bar' | 'list';
 
 type ToolbarOpenOn = 'hover' | 'click' | 'hold';
@@ -125,7 +127,7 @@ interface ToolbarProps {
   label: string;
   orientation?: ToolbarOrientation;
   layout?: ToolbarShape;
-  size?: IconButtonSize;
+  size?: ToolbarSize;
   labels?: boolean;
   handle?: boolean;
   handleProps?: ToolbarHandleProps;
@@ -144,5 +146,5 @@ interface ToolbarSplit {
 
 export type {
   ToolbarBadge, ToolbarButton, ToolbarChoice, ToolbarChoices, ToolbarChoicesDisplay, ToolbarColumns, ToolbarContextEvent, ToolbarHandleProps, ToolbarIcon, ToolbarItem, ToolbarItemBase,
-  ToolbarMenuSide, ToolbarNumber, ToolbarOpenOn, ToolbarOrientation, ToolbarPopover, ToolbarProps, ToolbarSeparator, ToolbarShape, ToolbarSplit, ToolbarToggle,
+  ToolbarMenuSide, ToolbarNumber, ToolbarOpenOn, ToolbarOrientation, ToolbarPopover, ToolbarProps, ToolbarSeparator, ToolbarShape, ToolbarSize, ToolbarSplit, ToolbarToggle,
 };

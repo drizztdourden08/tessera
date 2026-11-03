@@ -1,15 +1,18 @@
 /* @layer renderer-components @kind util */
 import { tagHueClass } from '../../tag-hue/tag-hue-class';
-import type { AvatarProps } from '../Avatar.type';
+import type { AvatarFaceValue, AvatarProps } from '../Avatar.type';
 
-const avatarClass = (props: AvatarProps): string => {
-  const { color, size = 'xs', variant = 'default', initials, icon, className } = props;
+const isBlank = (face: AvatarFaceValue): boolean => face.initials === undefined && face.icon === undefined && face.src === undefined;
+
+const avatarClass = (props: AvatarProps, face: AvatarFaceValue): string => {
+  const { color, size = 'xs', variant = 'default', shape = 'circle', className } = props;
   return [
     'avatar',
     `avatar--${size}`,
     tagHueClass(color),
     variant === 'owner' && 'avatar--owner',
-    initials === undefined && icon === undefined && 'avatar--unassigned',
+    shape === 'square' && 'avatar--square',
+    isBlank(face) && 'avatar--unassigned',
     className,
   ].filter(Boolean).join(' ');
 };

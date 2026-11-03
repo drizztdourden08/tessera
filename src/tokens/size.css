@@ -30,6 +30,7 @@
   --pixel-wordmark-sm: calc(29 * var(--size-1));
   --pixel-wordmark-md: calc(58 * var(--size-1));
   --pixel-wordmark-lg: calc(87 * var(--size-1));
+  --control-h-2xs: var(--size-16);
   --control-h-xs: var(--size-20);
   --hit-gutter: calc((var(--hit-area-min) - var(--control-h-xs)) / 2);
   --hit-gutter-none: calc(0 * var(--size-1));
@@ -69,6 +70,8 @@
   --side-nav-item-h: var(--size-40);
   --collapse-toggle-d: var(--size-24);
   --collapse-toggle-hit: var(--size-28);
+  --pane-edge-overhang: calc(var(--collapse-toggle-d) / 2);
+  --side-panel-rail-slim-w: var(--pane-edge-overhang);
   --search-results-head-h: calc(52 * var(--size-1));
   --dock-grip-h: calc(18 * var(--size-1));
   --widget-titlebar-h: calc(30 * var(--size-1));

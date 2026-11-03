@@ -18,6 +18,7 @@ const usage = {
     'Never colour text with --c-text-disabled; it is under 2:1 and only for text inside a disabled control, borders and decoration.',
     'Set size md for the 13 px step between the small and base sizes, such as a dense row of values; with no size the variant sets it.',
     'Set size lead for the 15 px step between the base and large sizes.',
+    'Set leading 16 to fix the line height at 16 px, so a caption in a card head row stays one 16 px line beside a 2xs IconButton and an Icon with a hue.',
     'Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.',
     'Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.',
     'Set clamp to a line count to cut longer text with an ellipsis; the full text shows in a tooltip only when it is cut.',
@@ -40,7 +41,7 @@ const SyncLine = () => (
   </Text.P>
 );
 `,
-  propsHash: '71d2b3c04fdc32f1',
+  propsHash: '0b004b2a700f0b3d',
 } satisfies ComponentUsage;
 
 export { usage };

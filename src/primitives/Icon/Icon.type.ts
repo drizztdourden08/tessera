@@ -2,6 +2,7 @@
 import type { SVGProps } from 'react';
 import type { IconifyIcon } from '@iconify/types';
 import type { BrandApp } from '../../brand/brand.type';
+import type { TagCategoryColor } from '../Tag/Tag.type';
 import type { ICONS } from './Icon.constants';
 
 type IconName = keyof typeof ICONS;
@@ -42,6 +43,7 @@ interface IconLook extends Omit<SVGProps<SVGSVGElement>, 'ref' | 'rotate' | 'nam
   inline?: boolean;
   label?: string;
   effect?: IconEffect;
+  hue?: TagCategoryColor;
 }
 
 interface IconPathCircle {

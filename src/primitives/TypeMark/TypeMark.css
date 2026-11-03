@@ -12,6 +12,14 @@
   color: var(--hue-ink);
 }
 
+.type-mark--outline {
+  width: auto;
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
 .type-mark--xs {
   --type-mark-size: var(--size-16);
 }

@@ -31,6 +31,7 @@ TypeMark answers what kind of thing an item is with a small icon tile.
 - Pass icon with a Tessera icon name and label with the type name; the label is the tooltip and the text a screen reader reads.
 - Set color to one of the category colours; the tile takes a tint of it and the icon takes the full colour.
 - Set size xs for 16 px in a dense row and sm for 20 px beside a title.
+- Set variant outline for the bare icon in the category colour, with no tile, border or padding; its box is the icon size.
 
 ## Accessibility
 
@@ -42,7 +43,12 @@ TypeMark answers what kind of thing an item is with a small icon tile.
 ```tsx
 import { TypeMark } from '@drizztdourden08/tessera';
 
-const BugMark = () => <TypeMark icon="bug" label="Bug" color="rose" />;
+const BugMarks = () => (
+  <>
+    <TypeMark icon="bug" label="Bug" color="rose" />
+    <TypeMark icon="bug" label="Bug" color="rose" variant="outline" />
+  </>
+);
 ```
 
 ## Props
@@ -51,6 +57,7 @@ const BugMark = () => <TypeMark icon="bug" label="Bug" color="rose" />;
 - `label`: `string`.
 - `color` (optional): `TagCategoryColor`, one of `'rose'`, `'orange'`, `'amber'`, `'lime'`, `'green'`, `'teal'`, `'cyan'`, `'blue'`, `'violet'`, `'pink'`.
 - `size` (optional): `TypeMarkSize`, one of `'xs'`, `'sm'`. Default `'xs'`.
+- `variant` (optional): `TypeMarkVariant`, one of `'tile'`, `'outline'`. Default `'tile'`.
 - `className` (optional): `string`.
 
 ## Tokens
