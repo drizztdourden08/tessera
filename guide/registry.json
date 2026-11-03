@@ -272,6 +272,11 @@
             "components": [
               "AnchorPicker"
             ]
+          },
+          "the options of a game, in tabs and groups": {
+            "components": [
+              "OptionsPanel"
+            ]
           }
         }
       },
@@ -14206,6 +14211,310 @@
       "parts": []
     },
     {
+      "name": "OptionGroup",
+      "tier": "composites",
+      "source": "src/composites/OptionGroup/OptionGroup.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A titled group of option rows, with the title in small capitals over the rows.",
+      "useWhen": [
+        "The rows of one section of a long list of options need a heading, such as the items or the dungeon of a game preset.",
+        "Some groups hold options that can change while a game runs and need to stand out."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The groups are tabs of a form with a search and change counts.",
+          "use": "FormGroupTabs"
+        },
+        {
+          "case": "The group is a titled section of an app settings page.",
+          "use": "SettingsSection"
+        }
+      ],
+      "rules": [
+        "Put OptionRow children inside; the group adds the title and nothing else.",
+        "Pass tone=\"live\" for a group whose options can change while a game runs; its title takes the brighter accent."
+      ],
+      "a11y": [
+        "The group is a labelled group named by its visible title."
+      ],
+      "buildingBlock": true,
+      "example": "import { OptionGroup, OptionRow, Toggle } from '@drizztdourden08/tessera';\n\nconst Items = () => (\n  <OptionGroup title=\"Items\">\n    <OptionRow label=\"Shuffle\" control={<Toggle checked onChange={() => {}} aria-label=\"Shuffle\" />} />\n  </OptionGroup>\n);\n",
+      "propsHash": "3f8685aefd95a5c2",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "tone",
+            "optional": true,
+            "text": "OptionGroupTone",
+            "literals": [
+              "'default'",
+              "'live'"
+            ],
+            "default": "'default'"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-primary",
+        "--c-primary-bright",
+        "--space-xs",
+        "--text-xs",
+        "--tracking-caps"
+      ],
+      "parts": []
+    },
+    {
+      "name": "OptionRow",
+      "tier": "composites",
+      "source": "src/composites/OptionRow/OptionRow.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "One option of a randomizer or game preset: its name, tag and description on the left, its control in the middle, and an optional cell at the end.",
+      "useWhen": [
+        "A list of game options needs rows that show locked, forced and changed options the same way in every app.",
+        "The row has an extra cell at the end, such as the effect of the option on the item pool."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The option comes from a schema and its control is laid out by the form.",
+          "use": "FormRow"
+        },
+        {
+          "case": "The row is an app setting with a live hint.",
+          "use": "SettingsRow"
+        }
+      ],
+      "rules": [
+        "Pass the control you want as control: a Toggle, a Select, a Slider or a ValueTag. The row does not pick it for you.",
+        "Set locked for an option the user cannot change; the row dims.",
+        "Set forced with note when another option overrides this one; the row stays at full strength and the note shows in the danger tone.",
+        "Set changed when the value differs from its default, and pass onReset to show the reset button after the name.",
+        "Pass tag for a short word after the name and aside for the cell at the end of the row."
+      ],
+      "a11y": [
+        "The reset button is named Reset and the option, and the changed mark is written as text.",
+        "Give the control an accessible name from the same label."
+      ],
+      "buildingBlock": true,
+      "example": "import { OptionRow, Toggle } from '@drizztdourden08/tessera';\n\nconst ShuffleRow = ({ on, setOn }: { on: boolean; setOn: (on: boolean) => void }) => (\n  <OptionRow label=\"Shuffle items\" description=\"Mix the items between the chests.\" control={<Toggle checked={on} onChange={setOn} aria-label=\"Shuffle items\" />} />\n);\n",
+      "propsHash": "26c11397312d9e81",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "description",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "tag",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "note",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "locked",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "forced",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "changed",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "onReset",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "control",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "aside",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-text",
+        "--leading-normal",
+        "--leading-tight",
+        "--opacity-muted",
+        "--option-aside-w",
+        "--option-control-w",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm"
+      ],
+      "parts": []
+    },
+    {
+      "name": "OptionsPanel",
+      "tier": "composites",
+      "source": "src/composites/OptionsPanel/OptionsPanel.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The panel of a game preset editor: a small title with a toolbar, a row of tabs, the groups of the open tab, and an optional panel beside them.",
+      "useWhen": [
+        "An app edits or shows the options of a randomizer or a game preset, split into tabs of OptionGroup and OptionRow.",
+        "A side panel, such as the item pool, sits next to the options and the options panel must leave it room."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The tabs need a search, Show advanced and counts of changed options.",
+          "use": "FormGroupTabs"
+        },
+        {
+          "case": "The page is the settings of the app.",
+          "use": "SettingsPage"
+        }
+      ],
+      "rules": [
+        "Give tabs, activeTab and onTabChange; the app owns which tab is open and what each tab shows.",
+        "Put OptionGroup children inside; the body scrolls when they are taller than the panel.",
+        "Pass toolbar for the buttons at the end of the title line and aside for a panel beside the options.",
+        "A tab with a zero badge hides the badge."
+      ],
+      "a11y": [
+        "The tabs are Tabs, with their arrow keys, and the tab names are their labels."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "the options of a game, in tabs and groups"
+        ],
+        "rule": "OptionsPanel lays out the tabs, groups and rows of a game preset the same way in every app."
+      },
+      "example": "import { OptionGroup, OptionRow, OptionsPanel, ValueTag } from '@drizztdourden08/tessera';\n\nconst Preset = ({ tab, setTab }: { tab: string; setTab: (tab: string) => void }) => (\n  <OptionsPanel title=\"Randomizer options\" tabs={[{ id: 'items', label: 'Items' }, { id: 'world', label: 'World' }]} activeTab={tab} onTabChange={setTab}>\n    <OptionGroup title=\"Shuffle\">\n      <OptionRow label=\"Chests\" control={<ValueTag value />} />\n    </OptionGroup>\n  </OptionsPanel>\n);\n",
+      "propsHash": "1eed73493f16ee15",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "tabs",
+            "optional": false,
+            "text": "TabItem[]"
+          },
+          {
+            "name": "activeTab",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "onTabChange",
+            "optional": false,
+            "text": "(tabId: string) => void"
+          },
+          {
+            "name": "toolbar",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "aside",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-text-muted",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--text-xs",
+        "--tracking-caps"
+      ],
+      "gallery": {
+        "title": "Composites · Forms/OptionsPanel",
+        "route": "#/story/composites-optionspanel--overview",
+        "file": "stories/composites/OptionsPanel.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "OutcomeStrip",
       "tier": "composites",
       "source": "src/composites/OutcomeStrip/OutcomeStrip.tsx",
@@ -20577,6 +20886,80 @@
         "route": "#/story/composites-validationsummary--overview",
         "file": "stories/composites/ValidationSummary.stories.tsx"
       },
+      "parts": []
+    },
+    {
+      "name": "ValueTag",
+      "tier": "composites",
+      "source": "src/composites/ValueTag/ValueTag.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A read only value of an option: a tag for text and numbers, a True or False pill for a switch, with an optional label before it.",
+      "useWhen": [
+        "A view shows the options of a game or preset without letting the user change them.",
+        "An OptionRow control column shows the chosen value instead of an input."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The tag is a label the user can click or remove.",
+          "use": "Tag"
+        },
+        {
+          "case": "The value is a state with a tone, such as running or failed.",
+          "use": "Status"
+        }
+      ],
+      "rules": [
+        "Pass a boolean to get the True or False pill, and a string or a number to get a plain tag.",
+        "Pass label for the name of the value, written before the tag.",
+        "Pass compact for the narrow form: the label is smaller and breaks anywhere."
+      ],
+      "a11y": [
+        "The value is written as text, not shown by colour alone."
+      ],
+      "buildingBlock": true,
+      "example": "import { ValueTag } from '@drizztdourden08/tessera';\n\nconst Shuffle = () => <ValueTag value label=\"Shuffle\" />;\n",
+      "propsHash": "8c558007f2043285",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "boolean | string | number"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "compact",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-text",
+        "--leading-tight",
+        "--space-sm",
+        "--text-sm",
+        "--text-xs"
+      ],
       "parts": []
     },
     {

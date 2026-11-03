@@ -70,6 +70,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - One option in a long form, with a reset: [FormRow](components/FormRow.md). FormRow lays out the name, the control, the changed mark and the reset of an option the same way in every app.
   - A long form split into tabs: [FormGroupTabs](components/FormGroupTabs.md). FormGroupTabs shows where the changes are in a long form and how to find an option, the same way in every app.
   - One of nine anchor points: [AnchorPicker](components/AnchorPicker.md). AnchorPicker picks one of nine anchor points, as an image editor does for canvas resize.
+  - The options of a game, in tabs and groups: [OptionsPanel](components/OptionsPanel.md). OptionsPanel lays out the tabs, groups and rows of a game preset the same way in every app.
 - A status, a count or a label. **What does it show?**
   - The state something is in: [Status](components/Status.md). Status draws one word in the tone of its state; with a table from defineStatuses, a state reads the same on every screen.
   - A count, or a dot for news: no component yet.
@@ -249,9 +250,12 @@ No question leads to these parts. Other components are built on them; reach for 
 - [PixelThumbnail](components/PixelThumbnail.md). A small square that draws a pixel picture crisp, from RGBA bytes or palette pixels, with a checker behind clear pixels.
 - [DragGhost](components/DragGhost.md). The picture that follows the pointer while items are dragged: a stack of up to three thumbnails and the count of items.
 - [MillerColumns](components/MillerColumns.md). Side by side columns for a nested set, such as folders: picking a folder in one column shows its children in the next, and the pick is shared with the app.
+- [OptionGroup](components/OptionGroup.md). A titled group of option rows, with the title in small capitals over the rows.
+- [OptionRow](components/OptionRow.md). One option of a randomizer or game preset: its name, tag and description on the left, its control in the middle, and an optional cell at the end.
 - [PanelContainer](components/PanelContainer.md). A plain stacked section with a heading, optional action and a body.
 - [PixelPlayer](components/PixelPlayer.md). Plays a pixel animation inline, with a whole-number zoom, a control bar, frame ranges and keys; one frame shows as a still.
 - [ScreenLayer](components/ScreenLayer.md). Building block: the overlay and the card of every screen, with one gap around the card that follows the room.
 - [ScreenPage](components/ScreenPage.md). Building block: the page header container WorkspaceScreen and StageScreen show, a card with a header of icon, title and fading backdrop over a body that compacts the header once it scrolls.
 - [ScreenWindow](components/ScreenWindow.md). Building block: the plain screen window, a ScreenLayer with a title bar, a page header or only corner buttons at its top, a close button and an empty container.
 - [Tree](components/Tree.md). A long tree of items that fold open, drawn only where it is in view, with the keys of a tree, many picked at once, and a drag that reorders or drops into a folder.
+- [ValueTag](components/ValueTag.md). A read only value of an option: a tag for text and numbers, a True or False pill for a switch, with an optional label before it.

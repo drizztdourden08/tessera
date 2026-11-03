@@ -1,0 +1,59 @@
+/* @layer renderer-components @kind style */
+.option-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--option-control-w);
+  align-items: start;
+  gap: var(--space-md);
+  padding-block: var(--space-sm);
+  border-block-start: var(--border-width-thin) solid var(--c-border);
+}
+
+.option-row[data-aside] {
+  grid-template-columns: minmax(0, 1fr) var(--option-control-w) var(--option-aside-w);
+}
+
+.option-row[data-locked] {
+  opacity: var(--opacity-muted);
+}
+
+.option-row[data-forced] {
+  opacity: 1;
+}
+
+.option-row__text {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.option-row__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.option-row__label {
+  min-inline-size: 0;
+  color: var(--c-text);
+  font-size: var(--text-sm);
+  overflow-wrap: break-word;
+}
+
+.option-row__description {
+  line-height: var(--leading-normal);
+  overflow-wrap: break-word;
+}
+
+.option-row__note {
+  line-height: var(--leading-tight);
+}
+
+.option-row__control {
+  min-inline-size: 0;
+}
+
+.option-row__aside {
+  min-inline-size: 0;
+  padding-block-start: var(--space-xs);
+}

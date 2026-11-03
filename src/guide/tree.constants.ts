@@ -57,6 +57,7 @@ const VALUES = {
     },
     'several settings, behind one button': null, 'the label and help around an input': null, 'smaller form parts for a whole panel': null,
     'one option in a long form, with a reset': null, 'a long form split into tabs': null, 'one of nine anchor points': null,
+    'the options of a game, in tabs and groups': null,
   },
 } as const;
 

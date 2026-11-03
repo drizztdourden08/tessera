@@ -1,0 +1,18 @@
+/* @layer renderer-components @kind style */
+.option-group {
+  display: flex;
+  min-inline-size: 0;
+  flex-direction: column;
+}
+
+.option-group__title {
+  padding-block-end: var(--space-xs);
+  color: var(--c-primary);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-caps);
+  text-transform: uppercase;
+}
+
+.option-group[data-tone='live'] .option-group__title {
+  color: var(--c-primary-bright);
+}
