@@ -6429,7 +6429,10 @@
         "opensMenu on a segment with siblings makes the whole segment the menu button, for a place that has no page to go to; pressing it opens the siblings and never calls onNavigate.",
         "Pass maxVisible to fold a long trail: the first segment and the last ones stay, and the middle ones sit behind an ellipsis menu. The smallest value is 3.",
         "Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.",
+        "Pass dropTarget(index, id) to hand each segment the props a drag and drop library attaches, such as its drag over and drop handlers; it replaces onDropOn and canDrop, and index counts from the root.",
+        "Holding a drag over a segment that has siblings for about half a second opens its siblings menu, so the drag can reach a neighbour.",
         "Pass onPathSubmit to let the user click the empty space at the end and type the path in a PathInput. path is the text shown there and defaults to the labels joined by a slash.",
+        "Pass validate(path) to check the typed path: return a message to show it under the box in the field error look and hold Enter back, or null when the path is fine.",
         "trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place. trailingLabel names that group for screen readers, such as Place state; without it the group has no name."
       ],
       "a11y": [
@@ -6446,7 +6449,7 @@
         "rule": "Breadcrumbs shows the levels of a path as a trail with neighbour menus, a fold and a path box in one place."
       },
       "example": "import { Breadcrumbs } from '@drizztdourden08/tessera';\nimport type { BreadcrumbSegment } from '@drizztdourden08/tessera';\n\ninterface FolderBarProps {\n  trail: readonly BreadcrumbSegment[];\n  open: (id: string) => void;\n  openPath: (path: string) => void;\n}\n\nconst FolderBar = ({ trail, open, openPath }: FolderBarProps) => (\n  <Breadcrumbs segments={trail} maxVisible={4} onNavigate={open} onPathSubmit={openPath} />\n);\n",
-      "propsHash": "ec9e6b16006f7885",
+      "propsHash": "dbb0d55f8bb852a8",
       "props": {
         "own": [
           {
@@ -6473,6 +6476,16 @@
             "name": "canDrop",
             "optional": true,
             "text": "(id: string, event: DragEvent<HTMLElement>) => boolean"
+          },
+          {
+            "name": "dropTarget",
+            "optional": true,
+            "text": "(index: number, id: string) => SegmentDropProps"
+          },
+          {
+            "name": "validate",
+            "optional": true,
+            "text": "(path: string) => string | null"
           },
           {
             "name": "path",
@@ -15297,6 +15310,10 @@
         "A step takes marks, small corner indicators such as a dot or a letter, either a list or an object keyed top-start, top-end, bottom-start or bottom-end; they take their colour from the swatch.",
         "Pass onSwatchDragStart(index, event) to make every step draggable; set the payload on event.dataTransfer there.",
         "Pass swatchMenu(index) to give each step a context menu of menu items, opened by a right click, a long press or the menu key; return an empty list for a step with none.",
+        "Pass onStepClick(index, event) and onStepDoubleClick(index, event) to react to a click or a double click on a step; onStepClick runs after the pick.",
+        "Pass stepData(index) to put data attributes on a step; write each key with its data- prefix, such as data-slot.",
+        "Pass selectionKeys false to turn off the built-in arrow, Home and End keys, so the app can own the keyboard; Tab still enters on the picked step.",
+        "Pass wrap to let the steps flow onto more lines when the row is full.",
         "The left and right arrow keys, Home and End move to the next open step and pick it. Tab enters on the picked step."
       ],
       "a11y": [
@@ -15311,7 +15328,7 @@
         "rule": "RampStrip is the ordered row of shades of one ramp, with a caption on each step."
       },
       "example": "import { useState } from 'react';\nimport { RampStrip } from '@drizztdourden08/tessera';\n\nconst steps = [{ color: '#1b2a41' }, { color: '#324a5f' }, { color: '#4f7cac' }, { color: '#9ec1de' }];\n\nconst Ramp = () => {\n  const [step, setStep] = useState<number | null>(1);\n  return <RampStrip aria-label=\"Blue ramp\" steps={steps} value={step} onChange={setStep} numbered size=\"preview\" />;\n};\n",
-      "propsHash": "a616741553d025f6",
+      "propsHash": "45e54d5cc32cad68",
       "props": {
         "own": [
           {
@@ -15355,6 +15372,31 @@
             "text": "(index: number) => readonly MenuNode[]"
           },
           {
+            "name": "onStepClick",
+            "optional": true,
+            "text": "(index: number, event: MouseEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "onStepDoubleClick",
+            "optional": true,
+            "text": "(index: number, event: MouseEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "stepData",
+            "optional": true,
+            "text": "(index: number) => DataAttributes"
+          },
+          {
+            "name": "selectionKeys",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "wrap",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
             "name": "size",
             "optional": true,
             "text": "RampSize",
@@ -15362,14 +15404,12 @@
               "'sm'",
               "'md'",
               "'preview'"
-            ],
-            "default": "'md'"
+            ]
           },
           {
             "name": "numbered",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "className",

@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { DragEvent, KeyboardEvent, MouseEvent, ReactNode, RefObject } from 'react';
 import type { ColorSwatchProps } from '../../primitives/ColorSwatch';
+import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
 import type { MenuNode } from '../DropdownMenu';
 
 type RampSize = 'sm' | 'md' | 'preview';
@@ -23,6 +24,11 @@ interface RampStripProps {
   onSelectionChange?: (selected: ReadonlySet<number>) => void;
   onSwatchDragStart?: (index: number, event: DragEvent<HTMLElement>) => void;
   swatchMenu?: (index: number) => readonly MenuNode[];
+  onStepClick?: (index: number, event: MouseEvent<HTMLElement>) => void;
+  onStepDoubleClick?: (index: number, event: MouseEvent<HTMLElement>) => void;
+  stepData?: (index: number) => DataAttributes;
+  selectionKeys?: boolean;
+  wrap?: boolean;
   size?: RampSize;
   numbered?: boolean;
   className?: string;
@@ -31,6 +37,7 @@ interface RampStripProps {
 interface RampStripInput {
   steps: readonly RampStep[];
   value: number | null;
+  selectionKeys: boolean;
   onChange: (index: number) => void;
   onSelectionChange?: (selected: ReadonlySet<number>) => void;
 }
@@ -57,7 +64,9 @@ interface RampStripStepProps {
   numbered: boolean;
   strip: RampStripControl;
   menu: readonly MenuNode[] | undefined;
+  data: DataAttributes | undefined;
   onPress: (event: MouseEvent<HTMLElement>) => void;
+  onDoubleClick: ((event: MouseEvent<HTMLElement>) => void) | undefined;
   onDragStart: ((event: DragEvent<HTMLElement>) => void) | undefined;
 }
 

@@ -21,3 +21,11 @@
   aspect-ratio: auto;
   block-size: var(--size-80);
 }
+
+.ramp-strip--wrap {
+  flex-wrap: wrap;
+}
+
+.ramp-strip--wrap.ramp-strip--preview .ramp-strip__step {
+  flex-basis: var(--size-80);
+}

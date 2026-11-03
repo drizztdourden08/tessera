@@ -6,6 +6,7 @@ import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/use
 import { foldSegments } from './behavior/fold-segments';
 import { pathTextOf } from './behavior/path-text-of';
 import { useSegmentDrop } from './behavior/useSegmentDrop';
+import { useSpringOpen } from './behavior/useSpringOpen';
 import { BreadcrumbEdit } from './sub-components/BreadcrumbEdit';
 import { BreadcrumbItem } from './sub-components/BreadcrumbItem';
 import { BreadcrumbOverflow } from './sub-components/BreadcrumbOverflow';
@@ -13,21 +14,31 @@ import type { BreadcrumbsProps } from './Breadcrumbs.type';
 import './Breadcrumbs.css';
 
 const Breadcrumbs = (props: BreadcrumbsProps) => {
-  const { segments, onNavigate, maxVisible, onDropOn, canDrop, path, onPathSubmit, trailing, trailingLabel, label, className } = props;
+  const { segments, onNavigate, maxVisible, onDropOn, canDrop, dropTarget, validate, path, onPathSubmit, trailing, trailingLabel, label, className } = props;
   const { navigation } = useTesseraStrings();
   const [editing, setEditing] = useState(false);
-  const drop = useSegmentDrop(onDropOn, canDrop);
+  const drop = useSegmentDrop({ onDropOn, canDrop, dropTarget });
+  const spring = useSpringOpen();
   const { head, hidden, tail } = foldSegments(segments, maxVisible);
   const lastId = segments[segments.length - 1]?.id;
   const item = (segment: (typeof segments)[number], first: boolean) => (
-    <BreadcrumbItem key={segment.id} segment={segment} current={segment.id === lastId} first={first} drop={drop} onNavigate={onNavigate} />
+    <BreadcrumbItem
+      key={segment.id}
+      segment={segment}
+      index={segments.indexOf(segment)}
+      current={segment.id === lastId}
+      first={first}
+      drop={drop}
+      spring={spring}
+      onNavigate={onNavigate}
+    />
   );
 
   if (editing && onPathSubmit !== undefined) {
     const finish = (): void => setEditing(false);
     return (
       <Box as="nav" aria-label={label ?? navigation.breadcrumbs} className={['breadcrumbs', 'breadcrumbs--editing', className].filter(Boolean).join(' ')}>
-        <BreadcrumbEdit initial={pathTextOf(segments, path)} onSubmit={(next) => { finish(); onPathSubmit(next); }} onCancel={finish} />
+        <BreadcrumbEdit initial={pathTextOf(segments, path)} onSubmit={(next) => { finish(); onPathSubmit(next); }} onCancel={finish} validate={validate} />
       </Box>
     );
   }

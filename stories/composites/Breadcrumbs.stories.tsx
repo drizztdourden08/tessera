@@ -3,6 +3,7 @@ import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storyli
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { BreadcrumbsDemo } from './_samples/BreadcrumbsDemo';
+import { BreadcrumbsHooksDemo } from './_samples/BreadcrumbsHooksDemo';
 
 type BreadcrumbsArgs = { withSiblings: boolean; maxVisible: number; withDrop: boolean; editable: boolean; withTags: boolean };
 
@@ -53,6 +54,21 @@ const MenuSegments = {
   render: () => <BreadcrumbsDemo menuSegments withTags />,
 } satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
 
+const DropTargeted = {
+  name: 'dropTarget: the props a drag and drop library attaches, per segment',
+  render: () => <BreadcrumbsHooksDemo feature="dropTarget" />,
+} satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
+
+const SpringOpened = {
+  name: 'Holding a drag over a segment opens its siblings menu',
+  render: () => <BreadcrumbsHooksDemo feature="spring" />,
+} satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
+
+const Validated = {
+  name: 'validate: a message under the path box and Enter held back',
+  render: () => <BreadcrumbsHooksDemo feature="validate" />,
+} satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
+
 const CODE = `import { Breadcrumbs } from '@drizztdourden08/tessera';
 
 <Breadcrumbs
@@ -71,17 +87,17 @@ const Overview = overviewStory({
   description: 'The trail of places that leads to the current one, with neighbour menus, a fold and a path box.',
   points: [
     '`segments` run from the root to the current place; the last one is current.',
-    'A segment takes an `icon`, a `title` tooltip and `siblings`, its neighbours; `opensMenu` makes it the menu.',
-    'A sibling takes a `group`, which becomes a heading in the menu above the siblings that share it.',
+    'A segment takes an `icon`, a `title` and `siblings`, each with an optional `group`; `opensMenu` makes it the menu.',
     '`maxVisible` keeps the first and the last segments and folds the middle ones behind an ellipsis.',
-    '`onDropOn` makes every segment a drop target; `canDrop` turns a drag away.',
-    '`onPathSubmit` makes the end a [PathInput]; `trailing` takes [Tag] chips, named by `trailingLabel`.',
+    '`onDropOn` makes every segment a drop target; `canDrop` turns a drag away; `dropTarget` plugs in a library.',
+    '`onPathSubmit` makes the end a [PathInput] checked by `validate`; `trailing` takes [Tag] chips.',
+    'A drag held over a segment with siblings opens its menu after a short delay.',
   ],
   instead: '[Tabs] to move between views of one area.',
   playground: Playground,
-  variants: [Siblings, MenuSegments, Folded, Dropping, PathBox],
+  variants: [Siblings, MenuSegments, Folded, Dropping, DropTargeted, SpringOpened, PathBox, Validated],
   code: CODE,
 });
 
 export default meta;
-export { Dropping, Folded, MenuSegments, Overview, PathBox, Playground, Siblings };
+export { Dropping, DropTargeted, Folded, MenuSegments, Overview, PathBox, Playground, Siblings, SpringOpened, Validated };

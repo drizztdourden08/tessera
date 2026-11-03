@@ -38,7 +38,10 @@ Breadcrumbs shows the levels of a path as a trail with neighbour menus, a fold a
 - OpensMenu on a segment with siblings makes the whole segment the menu button, for a place that has no page to go to; pressing it opens the siblings and never calls onNavigate.
 - Pass maxVisible to fold a long trail: the first segment and the last ones stay, and the middle ones sit behind an ellipsis menu. The smallest value is 3.
 - Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.
+- Pass dropTarget(index, id) to hand each segment the props a drag and drop library attaches, such as its drag over and drop handlers; it replaces onDropOn and canDrop, and index counts from the root.
+- Holding a drag over a segment that has siblings for about half a second opens its siblings menu, so the drag can reach a neighbour.
 - Pass onPathSubmit to let the user click the empty space at the end and type the path in a PathInput. path is the text shown there and defaults to the labels joined by a slash.
+- Pass validate(path) to check the typed path: return a message to show it under the box in the field error look and hold Enter back, or null when the path is fine.
 - Trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place. trailingLabel names that group for screen readers, such as Place state; without it the group has no name.
 
 ## Accessibility
@@ -72,6 +75,8 @@ const FolderBar = ({ trail, open, openPath }: FolderBarProps) => (
 - `maxVisible` (optional): `number`.
 - `onDropOn` (optional): `(id: string, event: DragEvent<HTMLElement>) => void`.
 - `canDrop` (optional): `(id: string, event: DragEvent<HTMLElement>) => boolean`.
+- `dropTarget` (optional): `(index: number, id: string) => SegmentDropProps`.
+- `validate` (optional): `(path: string) => string | null`.
 - `path` (optional): `string`.
 - `onPathSubmit` (optional): `(path: string) => void`.
 - `trailing` (optional): `ReactNode`.
