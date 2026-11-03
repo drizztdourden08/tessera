@@ -6,6 +6,7 @@ import { markBox } from './behavior/mark-box';
 import { markClass } from './behavior/mark-class';
 import { markFit } from './behavior/mark-fit';
 import { markLabelProps } from './behavior/mark-label-props';
+import { markDetail } from './behavior/mark-detail';
 import { markLook } from './behavior/mark-look';
 import { tileFace } from './behavior/tile-face';
 import { tileTransform } from './behavior/tile-transform';
@@ -16,11 +17,13 @@ import { BrandMarkRim } from './sub-components/BrandMarkRim';
 import './BrandMark.css';
 
 const BrandMark = (props: BrandMarkProps) => {
-  const { app, size = 'md', variant = 'mark', rim = 'none', title, className = '' } = props;
+  const { app, size = 'md', variant = 'mark', twin = false, rim = 'none', title, className = '' } = props;
   const shape = markFit(size, props.fit);
   const brand = BRAND_FAMILY[app];
   const tile = variant === 'app-icon' && brand.appIcon === 'tile';
-  const { drawn, scale } = tileFace(brand, tile);
+  const face = tileFace(brand, tile, twin);
+  const { scale } = face;
+  const drawn = markDetail(face.drawn, size);
   const look = markLook(drawn, useMarkGround(tile), rim);
   const { viewBox, pixelArt } = drawn;
   const box = markBox(viewBox, shape, tile);
