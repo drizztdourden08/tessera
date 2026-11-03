@@ -60,17 +60,17 @@ const SelectionBar = ({ rect, close }: { rect: () => DOMRect | null; close: () =
 - `anchorRect`: `() => AnchoredRect | null`.
 - `boundary` (optional): `RefObject<HTMLElement | null>`.
 - `subscribe` (optional): `(notify: () => void) => () => void`.
-- `inline` (optional): `boolean`. Default `false`.
-- `placement` (optional): `BarPlacement`, one of `'bottom-center'`, `'top-center'`. Default `'bottom-center'`.
-- `margin` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`. Default `'md'`.
-- `gap` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`. Default `'sm'`.
-- `dock` (optional): `BarDock`, one of `'top-center'`, `'bottom-center'`, `'none'`. Default `'none'`.
-- `follow` (optional): `boolean`. Default `true`.
-- `role` (optional): `BarRole`, one of `'dialog'`, `'alertdialog'`, `'toolbar'`, `'status'`. Default `'dialog'`.
+- `inline` (optional): `boolean`.
+- `placement` (optional): `BarPlacement`, one of `'bottom-center'`, `'top-center'`.
+- `margin` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`.
+- `gap` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`.
+- `dock` (optional): `BarDock`, one of `'top-center'`, `'bottom-center'`, `'none'`.
+- `follow` (optional): `boolean`.
+- `role` (optional): `BarRole`, one of `'dialog'`, `'alertdialog'`, `'toolbar'`, `'status'`.
 - `label` (optional): `string`.
 - `initialFocus` (optional): `string`.
 - `onEscape` (optional): `() => void`.
-- `error` (optional): `boolean`. Default `false`.
+- `error` (optional): `boolean`.
 - `dockedText` (optional): `ReactNode`.
 - `className` (optional): `string`.
 - `children` (optional): `ReactNode`.

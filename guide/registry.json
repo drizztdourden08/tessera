@@ -5799,8 +5799,7 @@
           {
             "name": "inline",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "placement",
@@ -5809,8 +5808,7 @@
             "literals": [
               "'bottom-center'",
               "'top-center'"
-            ],
-            "default": "'bottom-center'"
+            ]
           },
           {
             "name": "margin",
@@ -5824,8 +5822,7 @@
               "'lg'",
               "'xl'",
               "'2xl'"
-            ],
-            "default": "'md'"
+            ]
           },
           {
             "name": "gap",
@@ -5839,8 +5836,7 @@
               "'lg'",
               "'xl'",
               "'2xl'"
-            ],
-            "default": "'sm'"
+            ]
           },
           {
             "name": "dock",
@@ -5850,14 +5846,12 @@
               "'top-center'",
               "'bottom-center'",
               "'none'"
-            ],
-            "default": "'none'"
+            ]
           },
           {
             "name": "follow",
             "optional": true,
-            "text": "boolean",
-            "default": "true"
+            "text": "boolean"
           },
           {
             "name": "role",
@@ -5868,8 +5862,7 @@
               "'alertdialog'",
               "'toolbar'",
               "'status'"
-            ],
-            "default": "'dialog'"
+            ]
           },
           {
             "name": "label",
@@ -5889,8 +5882,7 @@
           {
             "name": "error",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "dockedText",
@@ -14652,20 +14644,17 @@
           {
             "name": "loop",
             "optional": true,
-            "text": "PixelPlayerLoop",
-            "default": "DEFAULT_LOOP"
+            "text": "PixelPlayerLoop"
           },
           {
             "name": "speeds",
             "optional": true,
-            "text": "readonly number[]",
-            "default": "DEFAULT_SPEEDS"
+            "text": "readonly number[]"
           },
           {
             "name": "tags",
             "optional": true,
-            "text": "readonly PixelPlayerTag[]",
-            "default": "NO_TAGS"
+            "text": "readonly PixelPlayerTag[]"
           },
           {
             "name": "tagId",
@@ -14697,8 +14686,7 @@
           {
             "name": "autoPlay",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "placeholder",
@@ -16440,14 +16428,12 @@
           {
             "name": "tickLabel",
             "optional": true,
-            "text": "(index: number) => string",
-            "default": "plusOne"
+            "text": "(index: number) => string"
           },
           {
             "name": "tickEvery",
             "optional": true,
-            "text": "number | 'auto'",
-            "default": "'auto'"
+            "text": "number | 'auto'"
           },
           {
             "name": "markers",

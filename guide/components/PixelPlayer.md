@@ -57,15 +57,15 @@ const SpritePreview = ({ frames }: { frames: readonly PixelThumbnailFrame[] }) =
 - `mode` (optional): `PixelPlayerMode`, one of `'compact'`, `'large'`. Default `'large'`.
 - `zoom` (optional): `PixelPlayerZoom`. Default `'fit'`.
 - `backdrop` (optional): `PixelPlayerBackdrop`, one of `'checker'`, `'none'`. Default `'checker'`.
-- `loop` (optional): `PixelPlayerLoop`. Default `DEFAULT_LOOP`.
-- `speeds` (optional): `readonly number[]`. Default `DEFAULT_SPEEDS`.
-- `tags` (optional): `readonly PixelPlayerTag[]`. Default `NO_TAGS`.
+- `loop` (optional): `PixelPlayerLoop`.
+- `speeds` (optional): `readonly number[]`.
+- `tags` (optional): `readonly PixelPlayerTag[]`.
 - `tagId` (optional): `string | null`.
 - `onTagChange` (optional): `(id: string | null) => void`.
 - `cells` (optional): `readonly PixelPlayerCell[]`. Default `NO_CELLS`.
 - `onCellHover` (optional): `(id: string | null) => void`.
 - `controls` (optional): `boolean`. Default `true`.
-- `autoPlay` (optional): `boolean`. Default `false`.
+- `autoPlay` (optional): `boolean`.
 - `placeholder` (optional): `ReactNode`.
 - `className` (optional): `string`.
 

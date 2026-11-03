@@ -57,8 +57,8 @@ const Timeline = ({ cells, frame, setFrame }: { cells: CellGeometry; frame: numb
 - `cells`: `CellGeometry`.
 - `value`: `number`.
 - `onChange` (optional): `(index: number) => void`.
-- `tickLabel` (optional): `(index: number) => string`. Default `plusOne`.
-- `tickEvery` (optional): `number | 'auto'`. Default `'auto'`.
+- `tickLabel` (optional): `(index: number) => string`.
+- `tickEvery` (optional): `number | 'auto'`.
 - `markers` (optional): `readonly RulerMarker[]`. Default `[]`.
 - `onMarkerChange` (optional): `(id: string, index: number) => void`.
 - `band` (optional): `RulerBand | null`. Default `null`.
