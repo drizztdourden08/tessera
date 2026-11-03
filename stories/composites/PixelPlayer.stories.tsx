@@ -45,9 +45,9 @@ const ARG_TYPES: PlaygroundArgTypes<PixelPlayerArgs> = {
   zoom: { group: 'Appearance', control: 'select', options: [...PLAYER_ZOOMS], description: 'Fit is the largest whole number that fits the stage.' },
   backdrop: { group: 'Appearance', control: 'select', options: [...BACKDROPS] },
   controls: { group: 'Appearance', control: 'boolean' },
-  direction: { group: 'Playback', control: 'select', options: [...PLAYER_DIRECTIONS] },
-  repeat: { group: 'Playback', control: 'range', min: 0, max: 5, step: 1, description: '0 runs forever; a count ends on Replay.' },
-  autoPlay: { group: 'Playback', control: 'boolean', description: 'Reduced motion waits for Play.' },
+  direction: { group: 'Behaviour', control: 'select', options: [...PLAYER_DIRECTIONS] },
+  repeat: { group: 'Behaviour', control: 'range', min: 0, max: 5, step: 1, description: '0 runs forever; a count ends on Replay.' },
+  autoPlay: { group: 'Behaviour', control: 'boolean', description: 'Reduced motion waits for Play.' },
 };
 
 const meta = {
