@@ -16,11 +16,6 @@
   touch-action: none;
 }
 
-.scrub-ruler__track:focus-visible {
-  outline: var(--border-width-thick) solid var(--c-focus);
-  outline-offset: calc(var(--border-width-thick) * -1);
-}
-
 .scrub-ruler__tick {
   position: absolute;
   top: 0;
