@@ -31,7 +31,7 @@ const usage = {
     'Set inputDisabled to show the row with a disabled field even when onInput is absent, and inputPlaceholder to say why, such as This run has no input.',
     'Pass height="fill" inside a box that sets the height, or a number for a fixed height in pixels.',
     'Set filterPlacement to left or right to move the search, filters, count and Copy all into a narrow column beside the lines.',
-    'A side column folds to a slim rail with the same dashed line and chevron as SidePanel; the lines take the room, and the chevron opens it again.',
+    'A side column folds to a slim strip with the same dashed line and chevron as SidePanel railSize="slim"; the lines take the room, and the chevron opens it again. The lines keep a gutter the width of the chevron overhang, so the chevron never covers the time.',
     'Pass filtersCollapsed with onFiltersCollapsedChange when the app holds the fold, or defaultFiltersCollapsed to start folded; they apply to a left or right column only.',
     'Drag the dashed line to change the width of the side column. Pass storageKey to keep the width, and the fold under storageKey:collapsed.',
     'Set size="sm" for a compact panel with smaller controls, smaller lines and tighter spacing, such as in a dashboard widget.',

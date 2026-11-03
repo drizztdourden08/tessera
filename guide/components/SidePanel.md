@@ -37,6 +37,8 @@ SidePanel is the one side panel of a work screen: the sunken surface, neutral he
 - Dragging the line about 32 px narrower than minWidth folds the panel to its rail, and dragging the line of a rail outward opens it; the arrow keys at the end of the range do the same.
 - Pass action for a button in the heading, such as Add or Rescan; the folded rail reserves its top slot and shows the button there when present.
 - Pass railItems as an array of item icons; the folded rail shows them under the title.
+- Pass railSize="slim" for a folded rail that is only the dashed line and its chevron, about 12 px wide; the title, the action and the rail items are not drawn, so use it where the panel holds filters or settings that need no icons.
+- The chevron overhangs the line by half its width onto the main view; give the main view beside the panel inline padding of var(--pane-edge-overhang) on that side so the chevron never covers its content.
 - Pass containers for the expanded body. Each container has a required heading and body; use a meaningful section title distinct from the pane title.
 - The dashed primary border is the resize edge; it brightens and glows while hovered, focused or dragged.
 - The border stays on the pane while expanded and folded; the chevron straddles it at the center of the actual heading row. Folding animates the pane, heading, body and rail, with motion disabled for reduced-motion preferences.
@@ -78,6 +80,7 @@ const HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: R
 - `showTitle` (optional): `boolean`. Default `true`.
 - `action` (optional): `ReactNode`.
 - `railItems` (optional): `ReactNode[]`. Default `[]`.
+- `railSize` (optional): `SidePanelRailSize`, one of `'default'`, `'slim'`. Default `'default'`.
 - `collapsible` (optional): `boolean`.
 - `collapsed` (optional): `boolean`.
 - `defaultCollapsed` (optional): `boolean`.
@@ -90,4 +93,4 @@ const HudEditor = ({ layers, canvas, inspector }: { layers: ReactNode; canvas: R
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-surface`, `--radius-lg`, `--side-nav-w`, `--size-40`, `--space-2xs`, `--space-md`, `--space-sm`, `--transition-normal`.
+It draws on `--border-width-thin`, `--c-border`, `--c-primary`, `--c-surface`, `--radius-lg`, `--side-nav-w`, `--side-panel-rail-slim-w`, `--size-40`, `--space-2xs`, `--space-md`, `--space-sm`, `--transition-normal`.
