@@ -14,8 +14,11 @@ import { LOG_KINDS, LOG_ROWS, longSession } from './_samples/data-log';
 import { CHANNEL_KINDS, CHANNEL_ROWS } from './_samples/data-log-channels';
 import { SIM_KINDS, SIM_ROWS } from './_samples/data-log-kinds';
 import { LogArrivalDemo } from './_samples/LogArrivalDemo';
+import { LogHeightsDemo } from './_samples/LogHeightsDemo';
 import { LogInputStatesDemo } from './_samples/LogInputStatesDemo';
+import { LogNarrowDemo } from './_samples/LogNarrowDemo';
 import { LogSelectionDemo } from './_samples/LogSelectionDemo';
+import { LogShortParentDemo } from './_samples/LogShortParentDemo';
 import { LogShellDemo } from './_samples/LogShellDemo';
 import { LogTerminalDemo } from './_samples/LogTerminalDemo';
 import './LogPanel.stories.css';
@@ -147,47 +150,11 @@ const Bare = {
   render: () => <LogDemo {...(ARGS as LogPanelArgs)} toolbar={false} rows={LOG_ROWS} />,
 } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
-const Heights = {
-  name: 'A fixed height, and filling a box',
-  render: () => (
-    <Box className="story-row log-panel-story__heights">
-      <Box className="story-column">
-        <Text className="story-label">height={'{160}'}</Text>
-        <LogPanel rows={LOG_ROWS} kinds={LOG_KINDS} height={160} toolbar={false} />
-      </Box>
-      <Box className="story-column">
-        <Text className="story-label">height="fill" in a 224 px box</Text>
-        <Box className="log-panel-story__box">
-          <LogPanel rows={LOG_ROWS} kinds={LOG_KINDS} height="fill" toolbar={false} />
-        </Box>
-      </Box>
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+const Heights = { name: 'A fixed height, and filling a box', render: () => <LogHeightsDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
-const Narrow = {
-  name: 'Narrow, the message wraps below the tag',
-  render: () => (
-    <Box className="story-column">
-      <Text className="story-label">In a 185 px parent the message moves under its tag instead of shrinking.</Text>
-      <Box className="log-panel-story__narrow">
-        <LogPanel rows={ONE_ROW} kinds={LOG_KINDS} height="fill" toolbar={false} className="server-log" />
-      </Box>
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+const Narrow = { name: 'Narrow, the message wraps below the tag', render: () => <LogNarrowDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
-const ShortParent = {
-  name: 'A short parent, minRows keeps rows visible',
-  render: () => (
-    <Box className="story-column">
-      <Text className="story-label">height="fill" with minRows={'{3}'} in a parent shorter than three rows: the panel keeps its three rows.</Text>
-      <Box className="log-panel-story__short">
-        <LogPanel rows={LOG_ROWS} kinds={LOG_KINDS} height="fill" minRows={3} toolbar={false} className="server-log" />
-      </Box>
-    </Box>
-  ),
-} satisfies StoryLiteStoryDefinition<LogPanelArgs>;
+const ShortParent = { name: 'A short parent, minRows keeps rows visible', render: () => <LogShortParentDemo /> } satisfies StoryLiteStoryDefinition<LogPanelArgs>;
 
 const Kinds = {
   name: 'Fifteen kinds, as a simulator trace',
