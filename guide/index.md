@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 130 of 240 have their usage written; a linked name opens its page.
+One line per component. 131 of 241 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -237,6 +237,7 @@ One line per component. 130 of 240 have their usage written; a linked name opens
 - `WizardReview`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `WizardStep`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [WorkspaceScreen](components/WorkspaceScreen.md): A screen to work in, built from one content object: a side nav of pages, the current page under a header that compacts as it scrolls, and a search over every setting. Import from `@drizztdourden08/tessera`.
+- [ZoomField](components/ZoomField.md): A zoom value in percent that you type, step with buttons and the wheel, or jump to from a row of preset chips, with room for extra buttons such as fit. Import from `@drizztdourden08/tessera`.
 
 ## Brand
 

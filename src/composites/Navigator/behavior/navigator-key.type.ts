@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind types */
-import type { NavigatorProps, NavigatorSurface, NavigatorViewport } from '../Navigator.type';
+import type { NavigatorProps, NavigatorSteps, NavigatorSurface, NavigatorViewport } from '../Navigator.type';
 
-interface NavigatorKeyInput extends Pick<NavigatorProps, 'onKey' | 'onViewportChange'> {
+interface NavigatorKeyInput extends Pick<NavigatorProps, 'onKey' | 'onViewportChange' | 'unclamped'> {
   shown: NavigatorViewport;
   surface: NavigatorSurface;
-  unit: number;
+  steps: NavigatorSteps;
 }
 
 export type { NavigatorKeyInput };

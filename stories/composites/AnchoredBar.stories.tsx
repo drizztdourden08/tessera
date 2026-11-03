@@ -5,7 +5,7 @@ import { overviewStory } from '../_template/overview-story';
 import { AnchoredBarDemo } from './_samples/AnchoredBarDemo';
 
 type AnchoredBarArgs = {
-  placement: 'bottom-center' | 'top-center';
+  placement: 'bottom-center' | 'top-center' | 'auto';
   dock: 'none' | 'top-center' | 'bottom-center';
   follow: boolean;
   error: boolean;
@@ -14,7 +14,7 @@ type AnchoredBarArgs = {
 const ARGS: Partial<AnchoredBarArgs> = { placement: 'bottom-center', dock: 'bottom-center', follow: true, error: false };
 
 const ARG_TYPES: PlaygroundArgTypes<AnchoredBarArgs> = {
-  placement: { group: 'Layout', control: 'select', options: ['bottom-center', 'top-center'] },
+  placement: { group: 'Layout', control: 'select', options: ['bottom-center', 'top-center', 'auto'], description: 'Auto flips the bar above the target when there is no room below.' },
   dock: { group: 'Layout', control: 'select', options: ['none', 'top-center', 'bottom-center'], description: 'Where the bar waits when its target scrolls out of view.' },
   follow: { group: 'Behaviour', control: 'boolean', description: 'Keep up with the target as the page scrolls.' },
   error: { group: 'State', control: 'boolean' },
@@ -56,7 +56,7 @@ const Overview = overviewStory({
   component: 'AnchoredBar',
   description: 'A small bar or dialog kept beside a rectangle, such as a toolbar over a selection.',
   points: [
-    '`anchorRect` returns the target box; the bar sits below or above it and stays inside `boundary`.',
+    '`anchorRect` is the target; `placement` auto flips the bar above it; `boundary` is a ref, element or selector.',
     '`dock` keeps the bar in view at an edge when the target scrolls away, and says so with `dockedText`.',
     '`follow` makes it track the target as `subscribe` reports scrolls and resizes, one measure per frame.',
     '`initialFocus` is a selector focused once the bar is placed; focus goes back where it was on close.',

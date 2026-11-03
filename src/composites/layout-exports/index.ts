@@ -31,5 +31,5 @@ export { ContentHeader } from '../ContentHeader';
 export type { ContentHeaderLevel, ContentHeaderProps, ContentHeaderVariant } from '../ContentHeader';
 export { Splash } from '../Splash';
 export type { SplashAction, SplashBar, SplashProgress, SplashProps } from '../Splash';
-export { AnchoredBar, type AnchoredBarProps, type BarDock, type BarPlacement, type BarRole } from '../AnchoredBar';
+export { AnchoredBar, type AnchoredBarProps, type BarBoundary, type BarDock, type BarPlacement, type BarRole } from '../AnchoredBar';
 export { TransientReadout, type ReadoutCorner, type TransientReadoutProps } from '../TransientReadout';

@@ -37,6 +37,8 @@ export { MarkdownEditor, type MarkdownEditorActionId, type MarkdownEditorLayout,
 export { PathInput,type PathBrowse, type PathInputProps, type PathKind } from '../PathInput';
 export { NumberField } from '../NumberField';
 export type { NumberFieldProps, NumberPreset, NumberPresetInput } from '../NumberField';
+export { ZoomField } from '../ZoomField';
+export type { ZoomFieldProps } from '../ZoomField';
 export { AngleField } from '../AngleField';
 export type { AngleFieldProps } from '../AngleField';
 export { RampStrip } from '../RampStrip';

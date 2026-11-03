@@ -115,7 +115,8 @@
               "a number stepped up or down": {
                 "components": [
                   "AngleField",
-                  "NumberField"
+                  "NumberField",
+                  "ZoomField"
                 ]
               },
               "text that follows a pattern": {
@@ -5776,7 +5777,8 @@
       ],
       "rules": [
         "Return the target box from anchorRect; return null while there is none and the bar stays hidden.",
-        "Pass boundary to clamp the bar inside a box, and subscribe to hear the scrolls and resizes of that box.",
+        "Pass boundary, a ref, an element or a CSS selector, to clamp the bar inside a box, and subscribe to hear the scrolls and resizes of that box.",
+        "Set placement to bottom-center or top-center to pick the side of the target; auto puts the bar below and flips it above when there is no room below.",
         "Set dock to keep the bar in view at an edge when the target is off screen, and dockedText to say why.",
         "Set inline when the bar sits in a scroll box instead of the top layer.",
         "Name the bar with label and pick role: dialog, alertdialog, toolbar or status.",
@@ -5797,7 +5799,7 @@
         "rule": "AnchoredBar adds a clamp, a dock, follow and focus handling to Anchored, for a bar that belongs to a rectangle."
       },
       "example": "import { AnchoredBar, Button } from '@drizztdourden08/tessera';\n\nconst SelectionBar = ({ rect, close }: { rect: () => DOMRect | null; close: () => void }) => (\n  <AnchoredBar anchorRect={rect} dock=\"bottom-center\" role=\"toolbar\" label=\"Selection\" onEscape={close}>\n    <Button size=\"sm\">Apply</Button>\n  </AnchoredBar>\n);\n",
-      "propsHash": "0d38013256e846b9",
+      "propsHash": "c259a5d03ff94263",
       "props": {
         "own": [
           {
@@ -5808,7 +5810,7 @@
           {
             "name": "boundary",
             "optional": true,
-            "text": "RefObject<HTMLElement | null>"
+            "text": "BarBoundary"
           },
           {
             "name": "subscribe",
@@ -5826,7 +5828,8 @@
             "text": "BarPlacement",
             "literals": [
               "'bottom-center'",
-              "'top-center'"
+              "'top-center'",
+              "'auto'"
             ]
           },
           {
@@ -13891,10 +13894,12 @@
         "Press anywhere on the map to centre the frame there; the drag then goes on from that point.",
         "Pass the thumbnail as children, such as an Image or a canvas. It fills the map and takes no pointer events.",
         "step is the distance of one arrow key press in surface units; the default is a twentieth of the larger side. Shift multiplies it by five.",
+        "bigStep is the distance of one Shift plus arrow key press in surface units; the default is step times five.",
+        "Set unclamped to let the frame be dragged and moved past the edge of the surface, so that a quarter of it always stays over the surface.",
         "Pass overlays, a list of { id, rect, kind, label, interactive }, to mark parts of the surface on the map: rect is in surface units, kind is selection, view or region, and each mark is clipped to the surface and drawn at least one pixel wide.",
         "Overlays are hidden from screen readers; give label as the hover title of an interactive mark, and describe the marks in the describe line.",
         "Pass onOverlayPress(id) to make marks with interactive set press targets; a press on one does not move the frame.",
-        "Pass onWheelZoom(direction, at) to zoom from the wheel over the map; direction is 1 to zoom in and -1 to zoom out, at is the point under the pointer in surface units, and the page does not scroll.",
+        "Pass onWheelZoom(direction, at, deltaY) to zoom from the wheel over the map; direction is 1 to zoom in and -1 to zoom out, at is the point under the pointer in surface units, deltaY is the size of the wheel turn so a trackpad can zoom smoothly, and the page does not scroll.",
         "Pass onKey(event) to handle a key first, such as Plus and Minus for zoom; return true when you handled it and the frame arrows leave it alone.",
         "Pass empty, a node, to draw it in place of the map while the surface has no size.",
         "Pass caption, a node, to draw a line of muted text under the map.",
@@ -13916,7 +13921,7 @@
         "rule": "Navigator draws any large surface as a small map with a frame the user drags, the same way in every editor."
       },
       "example": "import { Image, Navigator } from '@drizztdourden08/tessera';\nimport type { NavigatorViewport } from '@drizztdourden08/tessera';\n\ninterface CanvasMapProps {\n  preview: string;\n  view: NavigatorViewport;\n  setView: (view: NavigatorViewport) => void;\n}\n\nconst CanvasMap = ({ preview, view, setView }: CanvasMapProps) => (\n  <Navigator surface={{ width: 512, height: 512 }} viewport={view} onViewportChange={setView}>\n    <Image src={preview} alt=\"\" fit=\"fill\" pixelated />\n  </Navigator>\n);\n",
-      "propsHash": "db0b6782ded5a58c",
+      "propsHash": "ef786871951fcaca",
       "props": {
         "own": [
           {
@@ -13950,6 +13955,16 @@
             "text": "number"
           },
           {
+            "name": "bigStep",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "unclamped",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
             "name": "overlays",
             "optional": true,
             "text": "readonly NavigatorOverlay[]"
@@ -13962,7 +13977,7 @@
           {
             "name": "onWheelZoom",
             "optional": true,
-            "text": "(direction: 1 | -1, at: NavigatorWheelPoint) => void"
+            "text": "(direction: 1 | -1, at: NavigatorWheelPoint, deltaY: number) => void"
           },
           {
             "name": "onKey",
@@ -22376,6 +22391,115 @@
         "title": "Composites · Screens/WorkspaceScreen",
         "route": "#/story/composites-workspacescreen--overview",
         "file": "stories/composites/WorkspaceScreen.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "ZoomField",
+      "tier": "composites",
+      "source": "src/composites/ZoomField/ZoomField.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A zoom value in percent that you type, step with buttons and the wheel, or jump to from a row of preset chips, with room for extra buttons such as fit.",
+      "useWhen": [
+        "An editor zooms a canvas, a timeline or a preview, and the user wants exact steps, round presets and a fit button in one place.",
+        "The zoom value runs on stops that grow by doubling, such as 25, 50, 100, 200 and 400 percent."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The value is any other number, such as a size or an offset.",
+          "use": "NumberField"
+        },
+        {
+          "case": "The number is a position on a track, such as a volume.",
+          "use": "Slider"
+        }
+      ],
+      "rules": [
+        "Pass value in percent and onChange; the app keeps the value. min and max are the lowest and highest zoom, and a typed value outside them is clamped.",
+        "label names the field and is drawn before it; it defaults to Zoom.",
+        "The minus and plus buttons, the wheel and the arrow keys move along the stops. The stops are min, max and the presets, or min doubled up to max when there are no presets.",
+        "presets is a list of percent values, such as [25, 50, 100, 200, 400]. Each draws as a chip, the chip for the current value is pressed, and a press sets the value. Values outside min and max are left out.",
+        "actions is a node drawn after the chips, such as a Fit button; the app handles its press.",
+        "disabled turns the field, the chips and the buttons off."
+      ],
+      "a11y": [
+        "The number input is named by label, and the minus and plus buttons are named Zoom out and Zoom in.",
+        "The chips are in a group named Zoom levels, and the chip for the current value is pressed.",
+        "Every control is a native button or input with its own Tab stop."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "free text or a number",
+          "a number stepped up or down"
+        ],
+        "rule": "ZoomField is the zoom in percent you type, step along round stops and jump to from preset chips."
+      },
+      "example": "import { useState } from 'react';\nimport { Button, ZoomField } from '@drizztdourden08/tessera';\n\nconst CanvasZoom = ({ fit }: { fit: () => void }) => {\n  const [zoom, setZoom] = useState(100);\n  return (\n    <ZoomField\n      value={zoom}\n      onChange={setZoom}\n      min={25}\n      max={1600}\n      presets={[25, 50, 100, 200, 400]}\n      actions={<Button size=\"xs\" variant=\"ghost\" onClick={fit}>Fit</Button>}\n    />\n  );\n};\n",
+      "propsHash": "51da612c26e3c75b",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(value: number) => void"
+          },
+          {
+            "name": "min",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "max",
+            "optional": false,
+            "text": "number"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "presets",
+            "optional": true,
+            "text": "readonly number[]"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [],
+      "gallery": {
+        "title": "Composites · Inputs/ZoomField",
+        "route": "#/story/composites-zoomfield--overview",
+        "file": "stories/composites/ZoomField.stories.tsx"
       },
       "parts": []
     },

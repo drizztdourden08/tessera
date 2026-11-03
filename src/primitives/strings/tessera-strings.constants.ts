@@ -43,6 +43,7 @@ import { VIDEO_STRINGS } from './video-strings.constants';
 import { WIDGET_STRINGS } from './widgets-strings.constants';
 import { WINDOW_STRINGS } from './windows-strings.constants';
 import { WIZARD_STRINGS } from './wizard-strings.constants';
+import { ZOOM_FIELD_STRINGS } from './zoom-field-strings.constants';
 
 const TESSERA_STRINGS = {
   common: COMMON_STRINGS,
@@ -89,6 +90,7 @@ const TESSERA_STRINGS = {
   spanBar: SPAN_BAR_STRINGS,
   scrubRuler: SCRUB_RULER_STRINGS,
   commandInput: COMMAND_INPUT_STRINGS,
+  zoomField: ZOOM_FIELD_STRINGS,
 };
 
 export { TESSERA_STRINGS };

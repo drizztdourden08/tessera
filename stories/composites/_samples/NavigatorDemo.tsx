@@ -16,11 +16,13 @@ const MARKS: readonly NavigatorOverlay[] = [
 type NavigatorDemoProps = {
   zoom?: number;
   step?: number;
+  bigStep?: number;
+  unclamped?: boolean;
   label?: string;
   marked?: boolean;
 };
 
-const NavigatorDemo = ({ zoom = 4, step, label, marked = false }: NavigatorDemoProps) => {
+const NavigatorDemo = ({ zoom = 4, step, bigStep, unclamped, label, marked = false }: NavigatorDemoProps) => {
   const size = { width: SURFACE.width / zoom, height: SURFACE.height / zoom };
   const [view, setView] = useState<NavigatorViewport>({ x: 200, y: 120, ...size });
   const shown = { ...view, ...size };
@@ -29,6 +31,8 @@ const NavigatorDemo = ({ zoom = 4, step, label, marked = false }: NavigatorDemoP
     <Box className="story-row navigator-demo">
       <Navigator surface={SURFACE} viewport={shown} onViewportChange={setView}
         step={step}
+        bigStep={bigStep}
+        unclamped={unclamped}
         label={label}
         overlays={marked ? MARKS : undefined}
         onOverlayPress={marked ? setPressed : undefined}

@@ -34,10 +34,12 @@ Navigator draws any large surface as a small map with a frame the user drags, th
 - Press anywhere on the map to centre the frame there; the drag then goes on from that point.
 - Pass the thumbnail as children, such as an Image or a canvas. It fills the map and takes no pointer events.
 - Step is the distance of one arrow key press in surface units; the default is a twentieth of the larger side. Shift multiplies it by five.
+- BigStep is the distance of one Shift plus arrow key press in surface units; the default is step times five.
+- Set unclamped to let the frame be dragged and moved past the edge of the surface, so that a quarter of it always stays over the surface.
 - Pass overlays, a list of { id, rect, kind, label, interactive }, to mark parts of the surface on the map: rect is in surface units, kind is selection, view or region, and each mark is clipped to the surface and drawn at least one pixel wide.
 - Overlays are hidden from screen readers; give label as the hover title of an interactive mark, and describe the marks in the describe line.
 - Pass onOverlayPress(id) to make marks with interactive set press targets; a press on one does not move the frame.
-- Pass onWheelZoom(direction, at) to zoom from the wheel over the map; direction is 1 to zoom in and -1 to zoom out, at is the point under the pointer in surface units, and the page does not scroll.
+- Pass onWheelZoom(direction, at, deltaY) to zoom from the wheel over the map; direction is 1 to zoom in and -1 to zoom out, at is the point under the pointer in surface units, deltaY is the size of the wheel turn so a trackpad can zoom smoothly, and the page does not scroll.
 - Pass onKey(event) to handle a key first, such as Plus and Minus for zoom; return true when you handled it and the frame arrows leave it alone.
 - Pass empty, a node, to draw it in place of the map while the surface has no size.
 - Pass caption, a node, to draw a line of muted text under the map.
@@ -79,9 +81,11 @@ const CanvasMap = ({ preview, view, setView }: CanvasMapProps) => (
 - `children` (optional): `ReactNode`.
 - `label` (optional): `string`.
 - `step` (optional): `number`.
+- `bigStep` (optional): `number`.
+- `unclamped` (optional): `boolean`.
 - `overlays` (optional): `readonly NavigatorOverlay[]`.
 - `onOverlayPress` (optional): `(id: string) => void`.
-- `onWheelZoom` (optional): `(direction: 1 | -1, at: NavigatorWheelPoint) => void`.
+- `onWheelZoom` (optional): `(direction: 1 | -1, at: NavigatorWheelPoint, deltaY: number) => void`.
 - `onKey` (optional): `(event: KeyboardEvent<HTMLElement>) => boolean`.
 - `empty` (optional): `ReactNode`.
 - `caption` (optional): `ReactNode`.

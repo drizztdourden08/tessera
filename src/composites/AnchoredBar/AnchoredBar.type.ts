@@ -5,13 +5,15 @@ import type { SpaceToken } from '../../primitives/Flex';
 
 type BarDock = 'top-center' | 'bottom-center' | 'none';
 
-type BarPlacement = 'bottom-center' | 'top-center';
+type BarPlacement = 'bottom-center' | 'top-center' | 'auto';
+
+type BarBoundary = RefObject<HTMLElement | null> | HTMLElement | string;
 
 type BarRole = 'dialog' | 'alertdialog' | 'toolbar' | 'status';
 
 interface AnchoredBarProps {
   anchorRect: () => AnchoredRect | null;
-  boundary?: RefObject<HTMLElement | null>;
+  boundary?: BarBoundary;
   subscribe?: (notify: () => void) => () => void;
   inline?: boolean;
   placement?: BarPlacement;
@@ -29,4 +31,4 @@ interface AnchoredBarProps {
   children?: ReactNode;
 }
 
-export type { AnchoredBarProps, BarDock, BarPlacement, BarRole };
+export type { AnchoredBarProps, BarBoundary, BarDock, BarPlacement, BarRole };

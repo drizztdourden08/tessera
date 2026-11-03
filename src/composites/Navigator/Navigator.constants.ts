@@ -5,4 +5,6 @@ const STEPS_ACROSS = 20;
 
 const PERCENT = 100;
 
-export { BIG_STEP, PERCENT, STEPS_ACROSS };
+const KEPT_SHARE = 0.25;
+
+export { BIG_STEP, KEPT_SHARE, PERCENT, STEPS_ACROSS };
