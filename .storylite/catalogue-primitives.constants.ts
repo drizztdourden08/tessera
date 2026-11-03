@@ -40,6 +40,8 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Canvas', summary: 'A 2D drawing surface for charts and pixel art.' },
         { name: 'Svg', summary: 'Inline SVG pieces for computed drawings.' },
         { name: 'ScaleLabels', summary: 'Labels and ticks along a scale, from a value rule, pairs or a function.' },
+        { name: 'Avatar', summary: 'A small round mark for a person: initials or an icon, a ring for the owner, a dashed circle when unassigned.' },
+        { name: 'TypeMark', summary: 'A small tinted tile with an icon in a colour, to mark the type of an item.' },
       ],
     },
     {

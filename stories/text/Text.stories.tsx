@@ -183,6 +183,23 @@ const Figures = {
   ),
 } satisfies StoryLiteStoryDefinition<TextArgs>;
 
+const Clamped = {
+  name: 'clamp: cut at n lines, a tooltip only when cut',
+  render: () => (
+    <Stack gap="sm">
+      <Box className="story-narrow">
+        <Text as="p" clamp={3}>{SAMPLES.body} {SAMPLES.body} {SAMPLES.body}</Text>
+      </Box>
+      <Box className="story-narrow">
+        <Text as="p" clamp={1}>{SAMPLES.body}</Text>
+      </Box>
+      <Box className="story-narrow">
+        <Text as="p" clamp={3}>Short enough to fit, so no tooltip.</Text>
+      </Box>
+    </Stack>
+  ),
+} satisfies StoryLiteStoryDefinition<TextArgs>;
+
 const Composed = {
   name: 'Composed block',
   render: () => (
@@ -203,14 +220,14 @@ const Overview = overviewStory({
     'Every element hangs off it by full and short name, such as `Text.P`, `Text.Strong` or `Text.Sc`.',
     '`variant` picks a role: `title`, `subtitle`, `body`, `label`, `caption`, or `overline` over a group.',
     'With no `variant` it takes the size and colour of its parent; `size` sets `md` 13 px or `lead` 15 px.',
-    '`as` swaps the default `<span>` for another element, such as `p` or `label`.',
+    '`as` swaps the default `<span>` for another element; `clamp` cuts the text at that many lines and shows it all in a tooltip.',
     '`weight` and `italic` set the face; `font="title"` the title face; `mono` the code face.',
     '`tone` colours it as on [Span]; `numeric` sets tabular figures; `smartTimes` adds a times sign.',
   ],
   instead: '[Title] for headings.',
   playground: Playground,
-  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Composed],
+  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Clamped, Composed],
 });
 
 export default meta;
-export { AllVariants, Composed, Figures, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };
+export { AllVariants, Clamped, Composed, Figures, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };

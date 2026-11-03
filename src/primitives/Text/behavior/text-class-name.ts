@@ -2,7 +2,7 @@
 import type { TextClassParams } from './text-class-name.type';
 
 const textClassName = (params: TextClassParams): string => {
-  const { variant, size, font, tone, mono, numeric, className } = params;
+  const { variant, size, font, tone, mono, numeric, clamp, className } = params;
   return [
     'text',
     variant && `text--${variant}`,
@@ -11,6 +11,7 @@ const textClassName = (params: TextClassParams): string => {
     tone && `text--toned text-el--tone-${tone}`,
     mono === true && 'text--mono',
     numeric === true && 'text--numeric',
+    clamp === true && 'text--clamp',
     className,
   ].filter(Boolean).join(' ');
 };

@@ -33,6 +33,10 @@ body {
   gap: var(--space-md);
 }
 
+.story-narrow {
+  max-inline-size: var(--size-256);
+}
+
 .story-label {
   font-family: var(--font-mono);
   font-size: var(--text-xs);

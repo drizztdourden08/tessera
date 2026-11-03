@@ -6,7 +6,7 @@ import { Pressable } from '../../Pressable';
 import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { measures } from '../behavior/fold-measures';
 import { foldState } from '../behavior/fold-state';
-import { useClamped } from '../behavior/useClamped';
+import { useClamped } from '../../dom/useClamped';
 import type { FoldLinesProps } from '../FoldText.type';
 
 const FoldLines = (props: FoldLinesProps) => {
