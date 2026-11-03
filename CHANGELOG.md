@@ -1,5 +1,36 @@
 # @drizztdourden08/tessera
 
+## 0.96.0
+
+### Minor Changes
+
+- e646ed6: Add AnchoredBar, TransientReadout, SpanBar with SpanLane, and ScrubRuler, which share one cell geometry (I-72).
+- 319f998: New Avatar and TypeMark primitives, and Text takes `clamp` to cut text after a set count of lines with the full text in a tooltip (I-71).
+- 2b13554: NumberField takes `buttons` and `stepLabels`, Slider takes `scale="log"` and `ladder` and shows Mixed in its number box, Toggle, SegmentedControl and IconButton take `mixed`, and Breadcrumbs takes `trailingLabel` and a segment option `opensMenu` (I-72).
+- 852e5a7: VirtualList takes row heights by index (`itemSize` as a function, `itemSizeKey`), `endGutter`, `renderOption`, `current`, `ownsKey` and `reorder` with thumbnails, `canDrop` and `dropLabel`. VirtualGrid takes `density="swatch"` with `size-16` and `size-20`, `trailing`, `onWheelSize` and `ownsKey`. Navigator takes `overlays`, `onOverlayPress`, `onWheelZoom`, `onKey`, `empty`, `caption` and `describe` (I-72, Bxel P-348).
+- d37714e: PixelThumbnail takes `box` sizes 96 to 256 and `fluid`; PixelPlayer loops accept `pingpongReverse`; SpanBar gains `tint`, `data`, one tab stop in a lane and no activation when read only; ScrubRuler gains `secondBand`, `markerAnchor`, `onCellContextMenu` and `compact`; ZoomField gains `slider` (I-81).
+- 6eb6dc7: RampStrip takes `onStepClick`, `onStepDoubleClick`, `stepData`, `selectionKeys` and `wrap`. Breadcrumbs takes `dropTarget` for a drag and drop library and `validate` for the typed path, and a drag held over a segment with siblings opens its menu (I-85, Bxel P-368 P-369).
+- 3e36849: useToggleSweep takes `startWhen` and `expandStart` and no longer swallows the click of an element that did not start a sweep, Breadcrumbs takes a segment `title` and a sibling `group`, and RampStrip takes `selected` with `onSelectionChange`, step `marks`, `onSwatchDragStart` and `swatchMenu` (I-80).
+- ccca101: VirtualList takes `scrollParent` (an element, a ref or `auto`) so a horizontal strip inside an outer scroller draws from that scroller and scrolls it near the edge while a row is dragged, `initialFocusIndex` for the first tab stop, and `onPick(index, event)` for a click or Enter. Navigator `step` and `bigStep` also take `{ x, y }` for a distance on each axis (I-82, Bxel P-364 P-365).
+- 55b114b: Add ZoomField, a zoom value in percent with step buttons, preset chips and an `actions` slot. Navigator takes `unclamped` and `bigStep`, and `onWheelZoom` also gets the wheel `deltaY`. AnchoredBar takes `placement` auto and a `boundary` given as an element or a selector (I-79, Bxel P-357 P-358).
+- c718836: A CommandInput spec takes `pattern` and `setup`: the picked command renders one DynamicInput and sends its composed text, or `format(values)` when given. A DynamicInput list may be a function of the value, and a choice the new list no longer offers is cleared (I-86).
+- 0edb197: CommandInput takes commandSpecs: a picker of every command, with fields for the params of the chosen one and a Send button named after it (I-76).
+- f736fad: CommandInput fields take `placeholder`, and a field takes `dependsOn` (disabled until that field is filled, cleared when it changes) with `options` as a function of the current values (I-83).
+- 58daca2: LogPanel folds its side filter column to a rail with the SidePanel dashed edge and chevron; adds filtersCollapsed, defaultFiltersCollapsed, onFiltersCollapsedChange and storageKey (I-84).
+- 726201b: LogPanel keeps its minRows rows in a short parent and wraps the message below the tag in a narrow one; ToolFrame gets a shrink prop.
+- b18449f: LogPanel gains filterPlacement (top, left or right) and size (md or sm); ToolFrame gains toolbarPlacement (I-74, Archipelia D-22).
+- e214f5b: MarkdownEditor takes `onImageFiles` for image paste, drop and a toolbar image button, and `count` for the counter; new MediaGrid composite and FileInput primitive (I-71).
+- aab9a2a: OptionGroup, OptionRow, ValueTag and OptionsPanel lay out the randomizer settings of a game: titled groups, rows with locked, forced and changed states and a reset, a read only value tag, and a tabbed panel with a side cell (I-78).
+- 589d76e: PixelThumbnail draws a pixel picture crisp in a small box, and PixelPlayer plays a pixel animation with a bar, ranges and keys. Two pixel icons, pixel-crop and pixel-trim, join the set.
+- c5f6606: SignalStrip folds a row of attention chips into a +N chip with a tooltip, and OutcomeStrip draws one toned cell per test step.
+- a166b3a: VirtualGrid swatch cells set `touch-action: none` and may shrink to nothing. New `tileProps(item, index)` returns `{ className, data }` for one tile, and `data-tile-look="dashed"` draws a dashed border on a swatch tile, such as an add tile (I-87, Bxel P-372).
+
+### Patch Changes
+
+- 5142cc7: The DocumentTabs overflow menu button is centered on the tab row even when the parent stretches the strip (I-75).
+- ea7385d: ResetButton composite: the reset icon, name and tooltip shared by the FormRow and OptionRow heads (I-82).
+- 5626044: The widget title icon sits on the vertical center of the title text instead of riding high on the baseline.
+
 ## 0.95.0
 
 ### Minor Changes
