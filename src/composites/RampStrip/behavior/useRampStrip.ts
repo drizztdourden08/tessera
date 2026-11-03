@@ -13,12 +13,13 @@ const useRampStrip = (input: RampStripInput): RampStripControl => {
   const tabStop = rampTabStop(steps, value, focused);
 
   const onKeyDown = (event: KeyboardEvent<HTMLElement>) => {
-    if (!selectionKeys || tabStop === null) return;
+    if (tabStop === null) return;
     const next = nextRampStep(event.key, tabStop, steps);
     if (next === null) return;
     event.preventDefault();
     setFocused(next);
     rootRef.current?.querySelector<HTMLElement>(`[${RAMP_INDEX_ATTRIBUTE}="${next}"]`)?.focus();
+    if (!selectionKeys) return;
     if (next !== value) onChange(next);
     onSelectionChange?.(new Set([next]));
   };

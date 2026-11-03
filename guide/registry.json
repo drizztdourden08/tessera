@@ -15358,8 +15358,9 @@
         "Pass onSwatchDragStart(index, event) to make every step draggable; set the payload on event.dataTransfer there.",
         "Pass swatchMenu(index) to give each step a context menu of menu items, opened by a right click, a long press or the menu key; return an empty list for a step with none.",
         "Pass onStepClick(index, event) and onStepDoubleClick(index, event) to react to a click or a double click on a step; onStepClick runs after the pick.",
+        "Pass onStepContextMenu(index, event) to hear a right click or the menu key on a step, with or without swatchMenu; with both, it runs first and the menu opens unless the handler calls event.preventDefault().",
         "Pass stepData(index) to put data attributes on a step; write each key with its data- prefix, such as data-slot.",
-        "Pass selectionKeys false to turn off the built-in arrow, Home and End keys, so the app can own the keyboard; Tab still enters on the picked step.",
+        "Pass selectionKeys false to keep the arrow, Home and End keys from picking: they only move focus between the open steps, and Enter or Space press the focused step and run onStepClick. Tab still enters on the picked step.",
         "Pass wrap to let the steps flow onto more lines when the row is full.",
         "The left and right arrow keys, Home and End move to the next open step and pick it. Tab enters on the picked step."
       ],
@@ -15375,7 +15376,7 @@
         "rule": "RampStrip is the ordered row of shades of one ramp, with a caption on each step."
       },
       "example": "import { useState } from 'react';\nimport { RampStrip } from '@drizztdourden08/tessera';\n\nconst steps = [{ color: '#1b2a41' }, { color: '#324a5f' }, { color: '#4f7cac' }, { color: '#9ec1de' }];\n\nconst Ramp = () => {\n  const [step, setStep] = useState<number | null>(1);\n  return <RampStrip aria-label=\"Blue ramp\" steps={steps} value={step} onChange={setStep} numbered size=\"preview\" />;\n};\n",
-      "propsHash": "45e54d5cc32cad68",
+      "propsHash": "16d5a27439bfbf44",
       "props": {
         "own": [
           {
@@ -15427,6 +15428,11 @@
             "name": "onStepDoubleClick",
             "optional": true,
             "text": "(index: number, event: MouseEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "onStepContextMenu",
+            "optional": true,
+            "text": "(index: number, event: RampContextEvent) => void"
           },
           {
             "name": "stepData",

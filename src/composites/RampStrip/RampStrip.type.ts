@@ -6,6 +6,8 @@ import type { MenuNode } from '../DropdownMenu';
 
 type RampSize = 'sm' | 'md' | 'preview';
 
+type RampContextEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement>;
+
 interface RampStep {
   color: string;
   caption?: ReactNode;
@@ -26,6 +28,7 @@ interface RampStripProps {
   swatchMenu?: (index: number) => readonly MenuNode[];
   onStepClick?: (index: number, event: MouseEvent<HTMLElement>) => void;
   onStepDoubleClick?: (index: number, event: MouseEvent<HTMLElement>) => void;
+  onStepContextMenu?: (index: number, event: RampContextEvent) => void;
   stepData?: (index: number) => DataAttributes;
   selectionKeys?: boolean;
   wrap?: boolean;
@@ -67,7 +70,13 @@ interface RampStripStepProps {
   data: DataAttributes | undefined;
   onPress: (event: MouseEvent<HTMLElement>) => void;
   onDoubleClick: ((event: MouseEvent<HTMLElement>) => void) | undefined;
+  onContextMenu: ((event: RampContextEvent) => void) | undefined;
   onDragStart: ((event: DragEvent<HTMLElement>) => void) | undefined;
+}
+
+interface RampStepContextProps {
+  onContextMenu?: (event: RampContextEvent) => void;
+  onKeyDown?: (event: KeyboardEvent<HTMLElement>) => void;
 }
 
 interface RampStripControl {
@@ -77,4 +86,4 @@ interface RampStripControl {
   onFocusStep: (index: number) => void;
 }
 
-export type { RampSelection, RampSelectionInput, RampSize, RampStep, RampStripControl, RampStripInput, RampStripProps, RampStripStepProps };
+export type { RampContextEvent, RampSelection, RampSelectionInput, RampSize, RampStep, RampStepContextProps, RampStripControl, RampStripInput, RampStripProps, RampStripStepProps };
