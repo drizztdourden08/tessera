@@ -1,5 +1,6 @@
 /* @layer stories @kind component */
-import { OptionRow, Toggle, ValueTag } from '../../../src/composites';
+import { OptionRow, ValueTag } from '../../../src/composites';
+import { Toggle } from '../../../src/primitives';
 import type { SampleOption } from './options-panel-samples.type';
 
 interface OptionsPanelRowProps {
