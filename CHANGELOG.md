@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.100.1
+
+### Patch Changes
+
+- f015a9d: `Avatar` with a picture names itself once: the picture now has empty alt text, and `label` stays on the avatar itself, so screen readers and tests read the name one time (I-101, Argus P-390).
+
 ## 0.100.0
 
 ### Minor Changes
