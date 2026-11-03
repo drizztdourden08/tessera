@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.100.2
+
+### Patch Changes
+
+- 47527ee: `InlineEdit` shows its empty placeholder muted and in italic, so an empty field reads like the placeholder of a multiline description field (I-102, Argus P-391).
+
 ## 0.100.1
 
 ### Patch Changes
