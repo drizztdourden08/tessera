@@ -44,6 +44,7 @@ interface CommandFieldsSpec extends CommandSpecBase {
   params: readonly CommandParam[];
   format: (values: CommandValues) => string;
   pattern?: undefined;
+  setup?: undefined;
 }
 
 interface CommandPatternSpec extends CommandSpecBase {

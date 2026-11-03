@@ -6441,6 +6441,9 @@
         "Pass onDropOn to make every segment a drop target. canDrop turns a drag away, such as a drag that is not a file.",
         "Pass dropTarget(index, id) to hand each segment the props a drag and drop library attaches, such as its drag over and drop handlers; it replaces onDropOn and canDrop, and index counts from the root.",
         "Holding a drag over a segment that has siblings for about half a second opens its siblings menu, so the drag can reach a neighbour.",
+        "Pass onSegmentRef(id, element) to get the element of each segment, and null when it goes away, so a pointer based drag and drop library can bind its drop target to it. The element is the list item around the segment, so the chevrons count as the segment.",
+        "Pass dropOverId with the id of the segment the pointer drag is over, or null: that segment draws the same drop look as a native drag and the spring open timer runs for it. The library sets it; Breadcrumbs never does.",
+        "springOpen is menu by default, which opens the siblings menu. springOpen navigate calls onNavigate with the segment after the hold instead, on every segment but the current one. onSpringOpen(id) is called with the segment in both modes.",
         "Pass onPathSubmit to let the user click the empty space at the end and type the path in a PathInput. path is the text shown there and defaults to the labels joined by a slash.",
         "Pass validate(path) to check the typed path: return a message to show it under the box in the field error look and hold Enter back, or null when the path is fine.",
         "trailing takes small parts at the end of the bar, such as Tag chips for the kind or state of the place. trailingLabel names that group for screen readers, such as Place state; without it the group has no name."
@@ -6459,7 +6462,7 @@
         "rule": "Breadcrumbs shows the levels of a path as a trail with neighbour menus, a fold and a path box in one place."
       },
       "example": "import { Breadcrumbs } from '@drizztdourden08/tessera';\nimport type { BreadcrumbSegment } from '@drizztdourden08/tessera';\n\ninterface FolderBarProps {\n  trail: readonly BreadcrumbSegment[];\n  open: (id: string) => void;\n  openPath: (path: string) => void;\n}\n\nconst FolderBar = ({ trail, open, openPath }: FolderBarProps) => (\n  <Breadcrumbs segments={trail} maxVisible={4} onNavigate={open} onPathSubmit={openPath} />\n);\n",
-      "propsHash": "dbb0d55f8bb852a8",
+      "propsHash": "40c5823d4ea1ed54",
       "props": {
         "own": [
           {
@@ -6491,6 +6494,30 @@
             "name": "dropTarget",
             "optional": true,
             "text": "(index: number, id: string) => SegmentDropProps"
+          },
+          {
+            "name": "onSegmentRef",
+            "optional": true,
+            "text": "(id: string, element: HTMLElement | null) => void"
+          },
+          {
+            "name": "dropOverId",
+            "optional": true,
+            "text": "string | null"
+          },
+          {
+            "name": "springOpen",
+            "optional": true,
+            "text": "SpringOpenMode",
+            "literals": [
+              "'menu'",
+              "'navigate'"
+            ]
+          },
+          {
+            "name": "onSpringOpen",
+            "optional": true,
+            "text": "(id: string) => void"
           },
           {
             "name": "validate",
@@ -7295,6 +7322,7 @@
         "Pass commands, as names or with a description, so typing lists the closest ones under the input; Tab or Right completes the active row or the top one.",
         "Pass commandSpecs to add a picker of every command: a chosen one swaps the line for its fields and sends what its format returns.",
         "Give a spec a pattern, such as /hint {player:choice @players} {item:choice @items}, and a setup with its lists, and the line becomes one DynamicInput that sends its composed text, or what format returns when the spec gives one.",
+        "Write a ? after a slot type, such as /countdown {seconds:number? 1..3600}, to make the slot optional: the command can be sent with it empty, and the composed text drops the slot and the space before it. A format function gets an empty optional slot as undefined, or as an empty string for a text slot.",
         "Make a list of the setup a function of the slot values, such as items: (value) => itemsOf(value.player), to list choices that follow another slot; a choice the new list no longer offers is cleared.",
         "Give a field a placeholder to show a hint in the empty text, number or choice field.",
         "Set dependsOn to the name of another field so it stays disabled until that one is filled and clears when that one changes; make options a function of the values to list choices that follow it.",
@@ -9882,6 +9910,7 @@
       "rules": [
         "Write the shape in the pattern, such as {hh:hour 12h}:{mm:minute}, and keep the value as one object keyed by slot name.",
         "Put it in a Field for the label, hint and size.",
+        "Write a ? after the slot type, such as {seconds:number? 1..3600}, to make the slot optional: it may stay empty, shows its placeholder in a fainter tone, and patternText drops it with the space before it.",
         "A text slot takes digits, letters or alnum in the pattern. For any other set, pass slots with chars, a string or a Set of the allowed characters.",
         "Pass aliases, from typed to stored, to read a typed character as another, such as I and L as 1. A slot entry wins over the pattern one.",
         "Do not map an alias to a character that is itself an alias, because the text is cleaned again on every key.",
@@ -10026,6 +10055,7 @@
         "--c-surface",
         "--c-text",
         "--c-text-dim",
+        "--c-text-faint",
         "--c-text-muted",
         "--control-h-md",
         "--control-h-sm",
@@ -15328,8 +15358,9 @@
         "Pass onSwatchDragStart(index, event) to make every step draggable; set the payload on event.dataTransfer there.",
         "Pass swatchMenu(index) to give each step a context menu of menu items, opened by a right click, a long press or the menu key; return an empty list for a step with none.",
         "Pass onStepClick(index, event) and onStepDoubleClick(index, event) to react to a click or a double click on a step; onStepClick runs after the pick.",
+        "Pass onStepContextMenu(index, event) to hear a right click or the menu key on a step, with or without swatchMenu; with both, it runs first and the menu opens unless the handler calls event.preventDefault().",
         "Pass stepData(index) to put data attributes on a step; write each key with its data- prefix, such as data-slot.",
-        "Pass selectionKeys false to turn off the built-in arrow, Home and End keys, so the app can own the keyboard; Tab still enters on the picked step.",
+        "Pass selectionKeys false to keep the arrow, Home and End keys from picking: they only move focus between the open steps, and Enter or Space press the focused step and run onStepClick. Tab still enters on the picked step.",
         "Pass wrap to let the steps flow onto more lines when the row is full.",
         "The left and right arrow keys, Home and End move to the next open step and pick it. Tab enters on the picked step."
       ],
@@ -15345,7 +15376,7 @@
         "rule": "RampStrip is the ordered row of shades of one ramp, with a caption on each step."
       },
       "example": "import { useState } from 'react';\nimport { RampStrip } from '@drizztdourden08/tessera';\n\nconst steps = [{ color: '#1b2a41' }, { color: '#324a5f' }, { color: '#4f7cac' }, { color: '#9ec1de' }];\n\nconst Ramp = () => {\n  const [step, setStep] = useState<number | null>(1);\n  return <RampStrip aria-label=\"Blue ramp\" steps={steps} value={step} onChange={setStep} numbered size=\"preview\" />;\n};\n",
-      "propsHash": "45e54d5cc32cad68",
+      "propsHash": "16d5a27439bfbf44",
       "props": {
         "own": [
           {
@@ -15397,6 +15428,11 @@
             "name": "onStepDoubleClick",
             "optional": true,
             "text": "(index: number, event: MouseEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "onStepContextMenu",
+            "optional": true,
+            "text": "(index: number, event: RampContextEvent) => void"
           },
           {
             "name": "stepData",

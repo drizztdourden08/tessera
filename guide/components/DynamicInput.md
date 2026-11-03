@@ -31,6 +31,7 @@ DynamicInput reads a pattern of slots, so a time, an address or a lobby code is 
 
 - Write the shape in the pattern, such as {hh:hour 12h}:{mm:minute}, and keep the value as one object keyed by slot name.
 - Put it in a Field for the label, hint and size.
+- Write a ? after the slot type, such as {seconds:number? 1..3600}, to make the slot optional: it may stay empty, shows its placeholder in a fainter tone, and patternText drops it with the space before it.
 - A text slot takes digits, letters or alnum in the pattern. For any other set, pass slots with chars, a string or a Set of the allowed characters.
 - Pass aliases, from typed to stored, to read a typed character as another, such as I and L as 1. A slot entry wins over the pattern one.
 - Do not map an alias to a character that is itself an alias, because the text is cleaned again on every key.
@@ -90,7 +91,7 @@ const LobbyCode = () => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-soft`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-primary-text`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--leading-normal`, `--listbox-attach`, `--listbox-columns`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--shadow-dropdown`, `--size-1`, `--size-14`, `--size-16`, `--size-192`, `--size-2`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--weight-normal`, `--weight-semi`, `--z-popover`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-soft`, `--c-focus`, `--c-hover`, `--c-primary`, `--c-primary-soft`, `--c-primary-text`, `--c-selected`, `--c-surface`, `--c-text`, `--c-text-dim`, `--c-text-faint`, `--c-text-muted`, `--control-h-md`, `--control-h-sm`, `--control-pad-md`, `--control-pad-sm`, `--leading-normal`, `--listbox-attach`, `--listbox-columns`, `--listbox-space`, `--opacity-disabled`, `--radius-md`, `--radius-sm`, `--shadow-2`, `--shadow-dropdown`, `--size-1`, `--size-14`, `--size-16`, `--size-192`, `--size-2`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-base`, `--text-sm`, `--text-xs`, `--tracking-wide`, `--transition-fast`, `--transition-normal`, `--weight-medium`, `--weight-normal`, `--weight-semi`, `--z-popover`, `--z-sticky`.
 
 ## Also exported from this folder
 

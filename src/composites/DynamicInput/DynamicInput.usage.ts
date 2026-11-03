@@ -15,6 +15,7 @@ const usage = {
   rules: [
     'Write the shape in the pattern, such as {hh:hour 12h}:{mm:minute}, and keep the value as one object keyed by slot name.',
     'Put it in a Field for the label, hint and size.',
+    'Write a ? after the slot type, such as {seconds:number? 1..3600}, to make the slot optional: it may stay empty, shows its placeholder in a fainter tone, and patternText drops it with the space before it.',
     'A text slot takes digits, letters or alnum in the pattern. For any other set, pass slots with chars, a string or a Set of the allowed characters.',
     'Pass aliases, from typed to stored, to read a typed character as another, such as I and L as 1. A slot entry wins over the pattern one.',
     'Do not map an alias to a character that is itself an alias, because the text is cleaned again on every key.',

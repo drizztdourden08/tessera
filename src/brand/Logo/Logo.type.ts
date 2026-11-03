@@ -11,6 +11,7 @@ interface LogoProps {
   size?: BrandMarkSize;
   fit?: BrandMarkFit;
   variant?: BrandMarkVariant;
+  twin?: boolean;
   rim?: BrandRim;
   title?: string;
   className?: string;

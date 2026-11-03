@@ -1,6 +1,6 @@
 /* @layer tooling-scripts @kind test */
 import { describe, expect, it } from 'vitest';
-import { escapePatternText, parsePattern } from '../src/composites/DynamicInput';
+import { escapePatternText, parsePattern, patternText } from '../src/composites/DynamicInput';
 import { checkPattern } from '../src/composites/DynamicInput/behavior/check-pattern';
 import { decimalKind } from '../src/composites/DynamicInput/behavior/decimal-kind';
 import { flagGlyph } from '../src/composites/DynamicInput/behavior/flag-glyph';
@@ -177,3 +177,22 @@ describe('K1 RecordEditor position pairs', { tags: ['critical'] }, () => {
   });
 });
 
+
+describe('K1 optional slots', { tags: ['critical'] }, () => {
+  const PATTERN = '/countdown {seconds:number? 1..3600} {note:text? max20}';
+
+  it('reads a ? after the type as optional and keeps the rest of the slot', () => {
+    const parsed = parsePattern(PATTERN);
+    expect(parsed.problems).toEqual([]);
+    expect(parsed.slots[0]).toMatchObject({ name: 'seconds', type: 'number', min: 1, max: 3600, optional: true });
+    expect(parsed.slots[1]).toMatchObject({ name: 'note', type: 'text', maxLength: 20, optional: true });
+    expect(only('{n:number 1..9}').optional).toBeUndefined();
+  });
+
+  it('drops an empty optional slot with the space before it', () => {
+    const parsed = parsePattern(PATTERN);
+    expect(patternText(parsed, { seconds: null, note: null })).toBe('/countdown');
+    expect(patternText(parsed, { seconds: 30, note: '' })).toBe('/countdown 30');
+    expect(patternText(parsed, { seconds: 30, note: 'go' })).toBe('/countdown 30 go');
+  });
+});

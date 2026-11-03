@@ -2,14 +2,15 @@
 import type { RampStripProps } from '../../../src/composites';
 import { BLUES } from './ramp-steps';
 
-type RampEventsFeature = 'click' | 'data' | 'keys' | 'wrap';
+type RampEventsFeature = 'click' | 'context' | 'data' | 'keys' | 'wrap';
 
 type NoteSetter = (note: string) => void;
 
 const NOTES: Readonly<Record<RampEventsFeature, string>> = {
   click: 'Click or double click a step.',
+  context: 'Right click a step, or focus it and press the menu key.',
   data: 'Each step carries a data-slot attribute; click one to read it.',
-  keys: 'The arrow keys do nothing here. Tab enters, Enter or Space picks.',
+  keys: 'The arrow keys only move focus here. Enter or Space picks the focused step.',
   wrap: 'Forty eight steps in a row that is too narrow: they flow onto more lines.',
 };
 
@@ -20,6 +21,12 @@ const eventProps = (feature: RampEventsFeature, setNote: NoteSetter): Partial<Ra
     click: {
       onStepClick: (index) => setNote(`Clicked step ${index + 1}`),
       onStepDoubleClick: (index) => setNote(`Double clicked step ${index + 1}`),
+    },
+    context: {
+      onStepContextMenu: (index, event) => {
+        event.preventDefault();
+        setNote(`Context menu on step ${index + 1}`);
+      },
     },
     data: {
       stepData: (index) => ({ 'data-slot': `slot-${index + 1}` }),

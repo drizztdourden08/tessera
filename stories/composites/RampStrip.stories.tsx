@@ -22,7 +22,7 @@ const ARG_TYPES: PlaygroundArgTypes<RampStripArgs> = {
   size: { group: 'Appearance', control: 'select', options: ['sm', 'md', 'preview'], description: 'sm and md are control sized swatches; preview stretches the steps over the full width as tall blocks.' },
   numbered: { group: 'Appearance', control: 'boolean', description: 'Captions each step with its place in the ramp.' },
   wrap: { group: 'Layout', control: 'boolean', description: 'Lets the steps flow onto more lines when the row is full.' },
-  selectionKeys: { group: 'Behaviour', control: 'boolean', description: 'The arrow, Home and End keys move to a step and pick it; off leaves the keys to the app.' },
+  selectionKeys: { group: 'Behaviour', control: 'boolean', description: 'The arrow, Home and End keys move to a step and pick it; off makes them move focus only.' },
 };
 
 const meta = {
@@ -101,8 +101,13 @@ const StepData = {
 } satisfies StoryLiteStoryDefinition<RampStripArgs>;
 
 const OwnKeys = {
-  name: 'selectionKeys false: the arrow keys are left to the app',
+  name: 'selectionKeys false: the arrow keys only move focus, Enter or Space press',
   render: () => <RampStripEventsDemo feature="keys" />,
+} satisfies StoryLiteStoryDefinition<RampStripArgs>;
+
+const RightClick = {
+  name: 'onStepContextMenu: the right click and the menu key on a step',
+  render: () => <RampStripEventsDemo feature="context" />,
 } satisfies StoryLiteStoryDefinition<RampStripArgs>;
 
 const Wrapping = {
@@ -132,14 +137,14 @@ const Overview = overviewStory({
   points: [
     'Pass `steps` with a `color` each, `value` as the picked index and `onChange`; the app keeps the pick.',
     'A step takes a `caption`, or `numbered` adds its place; `size` is sm, md or preview for tall blocks.',
-    'Left, Right, Home and End move to the next open step and pick it; `selectionKeys` false turns them off.',
+    'Arrow keys, Home and End move to the next open step and pick it; `selectionKeys` false moves focus only.',
     'A step can be `unused`, `disabled` or carry corner `marks`; `stepData` adds data attributes.',
     '`selected` with `onSelectionChange` picks several steps: Shift for a range, Ctrl or Command to toggle.',
-    '`onStepClick`, `onStepDoubleClick`, `onSwatchDragStart` and `swatchMenu` reach each step; `wrap` adds lines.',
+    '`onStepClick`, `onStepDoubleClick`, `onStepContextMenu`, `swatchMenu` and `onSwatchDragStart` reach each step.',
   ],
   instead: '[ChoiceGrid] when the colours are a loose set and not an ordered ramp.',
   playground: Playground,
-  variants: [Sizes, Captions, Unused, Several, Marked, Dragged, Menu, Clicks, StepData, OwnKeys, Wrapping],
+  variants: [Sizes, Captions, Unused, Several, Marked, Dragged, Menu, Clicks, RightClick, StepData, OwnKeys, Wrapping],
   states: {
     render: renderState,
     list: [STATE.idle, STATE.selected, STATE.disabled],
@@ -148,4 +153,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Captions, Clicks, Dragged, Marked, Menu, OwnKeys, Overview, Playground, Several, Sizes, StepData, Unused, Wrapping };
+export { Captions, Clicks, Dragged, Marked, Menu, OwnKeys, Overview, Playground, RightClick, Several, Sizes, StepData, Unused, Wrapping };

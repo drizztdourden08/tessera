@@ -2,6 +2,7 @@
 import type { BrandMarkData } from '../../brand.type';
 
 interface TileFace {
+  tile: boolean;
   drawn: BrandMarkData;
   scale: number;
 }

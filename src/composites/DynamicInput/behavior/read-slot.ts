@@ -3,6 +3,7 @@ import { classifySlotArg } from './classify-slot-arg';
 import { finishSlot } from './finish-slot';
 import { ARG_FORMS, ARG_KEYS, SLOT_NAME, SLOT_TYPES } from './parse-pattern.constants';
 import { PATTERN_PROBLEMS } from './pattern-problems.constants';
+import { OPTIONAL_MARK } from './read-slot.constants';
 import { splitArgs } from './split-args';
 import type { PatternSlotSpec, PatternSlotType, SlotRead } from './parse-pattern.type';
 
@@ -26,9 +27,11 @@ const readSlot = (body: string): SlotRead => {
   if (colon <= 0) return { slot: null, problems: [PATTERN_PROBLEMS.badSlot(body)] };
   const name = body.slice(0, colon).trim();
   if (!SLOT_NAME.test(name)) return { slot: null, problems: [PATTERN_PROBLEMS.badName(name)] };
-  const [type = '', ...args] = splitArgs(body.slice(colon + 1));
+  const [kind = '', ...args] = splitArgs(body.slice(colon + 1));
+  const optional = kind.endsWith(OPTIONAL_MARK);
+  const type = optional ? kind.slice(0, -OPTIONAL_MARK.length) : kind;
   if (!isSlotType(type)) return { slot: null, problems: [PATTERN_PROBLEMS.unknownType(name, type, SLOT_TYPES.join(', '))] };
-  return applyArgs({ name, type }, args);
+  return applyArgs(optional ? { name, type, optional } : { name, type }, args);
 };
 
 export { readSlot };

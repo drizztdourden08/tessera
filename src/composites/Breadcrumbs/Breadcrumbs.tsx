@@ -14,11 +14,11 @@ import type { BreadcrumbsProps } from './Breadcrumbs.type';
 import './Breadcrumbs.css';
 
 const Breadcrumbs = (props: BreadcrumbsProps) => {
-  const { segments, onNavigate, maxVisible, onDropOn, canDrop, dropTarget, validate, path, onPathSubmit, trailing, trailingLabel, label, className } = props;
+  const { segments, onNavigate, maxVisible, onDropOn, canDrop, dropTarget, dropOverId, onSegmentRef, springOpen, onSpringOpen, validate, path, onPathSubmit, trailing, trailingLabel, label, className } = props;
   const { navigation } = useTesseraStrings();
   const [editing, setEditing] = useState(false);
-  const drop = useSegmentDrop({ onDropOn, canDrop, dropTarget });
-  const spring = useSpringOpen();
+  const drop = useSegmentDrop({ onDropOn, canDrop, dropTarget, dropOverId });
+  const spring = useSpringOpen({ mode: springOpen, onNavigate, onSpringOpen });
   const { head, hidden, tail } = foldSegments(segments, maxVisible);
   const lastId = segments[segments.length - 1]?.id;
   const item = (segment: (typeof segments)[number], first: boolean) => (
@@ -30,6 +30,8 @@ const Breadcrumbs = (props: BreadcrumbsProps) => {
       first={first}
       drop={drop}
       spring={spring}
+      dropOver={dropOverId === segment.id}
+      onSegmentRef={onSegmentRef}
       onNavigate={onNavigate}
     />
   );

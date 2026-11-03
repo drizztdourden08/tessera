@@ -7,6 +7,7 @@
   --size-6: 6px;
   --size-8: 8px;
   --size-10: 10px;
+  --size-11: 11px;
   --size-12: 12px;
   --size-13: 13px;
   --size-14: 14px;
@@ -325,6 +326,7 @@
   --table-select-w: 28px;
   --open-entry-width: 128px;
   --filter-clause-width: 192px;
+  --tool-frame-side-w: 224px;
   --badge-d-xs: 20px;
   --status-h-sm: calc(18 * 1px);
   --board-stack-w: calc(420 * 1px);
@@ -340,6 +342,8 @@
   --avatar-d: 40px;
   --side-nav-w: calc(40px + 2 * (8px + 2 * 1px));
   --side-nav-w-open: 224px;
+  --option-control-w: calc(200 * 1px);
+  --option-aside-w: calc(140 * 1px);
   --side-nav-item-h: 40px;
   --collapse-toggle-d: 24px;
   --collapse-toggle-hit: 28px;
@@ -389,6 +393,7 @@
   --font-title: 'Chakra Petch', Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Consolas', 'Courier New', monospace;
   --font-emoji: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif;
+  --text-2xs: 11px;
   --text-xs: 12px;
   --text-sm: 12px;
   --text-md: 13px;
@@ -490,6 +495,24 @@
   --brand-google-hover: #1f1f20;
   --brand-google-edge: #8e918f;
   --brand-google-ink: #e3e3e3;
+  --brand-argus-emerald: #12a06e;
+  --brand-argus-stone-light: #d6d6dc;
+  --brand-argus-stone-sheen: #c4c4cb;
+  --brand-argus-stone-lit: #b8b8bf;
+  --brand-argus-stone-base: #a8a8b0;
+  --brand-argus-stone-shade: #a2a2aa;
+  --brand-argus-stone-dim: #8e8e96;
+  --brand-argus-stone-dark: #8c8c94;
+  --brand-argus-stone-deep: #767680;
+  --brand-argus-twin-light: #5fd6a6;
+  --brand-argus-twin-bright: #3fcf9a;
+  --brand-argus-twin-sheen: #2dba88;
+  --brand-argus-twin-lit: #25b080;
+  --brand-argus-twin-base: #1fa878;
+  --brand-argus-twin-shade: #18a070;
+  --brand-argus-twin-dim: #12906a;
+  --brand-argus-twin-dark: #0e8760;
+  --brand-argus-twin-deep: #0a6f4b;
   --brand-tessera-gradient: linear-gradient(160deg, #3d3d42, #232327, #0e0e12);
   --brand-rotp-gradient: linear-gradient(160deg, #3a2e14, #1e1810, #12100e);
   --brand-archipelia-gradient: linear-gradient(160deg, #ece6ff, #e2d8ff, #c1a8ff);

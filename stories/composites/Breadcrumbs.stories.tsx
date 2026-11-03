@@ -4,6 +4,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { overviewStory } from '../_template/overview-story';
 import { BreadcrumbsDemo } from './_samples/BreadcrumbsDemo';
 import { BreadcrumbsHooksDemo } from './_samples/BreadcrumbsHooksDemo';
+import { BreadcrumbsPointerDemo } from './_samples/BreadcrumbsPointerDemo';
 
 type BreadcrumbsArgs = { withSiblings: boolean; maxVisible: number; withDrop: boolean; editable: boolean; withTags: boolean };
 
@@ -64,6 +65,16 @@ const SpringOpened = {
   render: () => <BreadcrumbsHooksDemo feature="spring" />,
 } satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
 
+const PointerDropped = {
+  name: 'dropOverId: a pointer drag held over a segment draws the drop look and opens its menu',
+  render: () => <BreadcrumbsPointerDemo />,
+} satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
+
+const PointerNavigated = {
+  name: 'springOpen navigate: holding a pointer drag over a segment opens that place',
+  render: () => <BreadcrumbsPointerDemo springOpen="navigate" />,
+} satisfies StoryLiteStoryDefinition<BreadcrumbsArgs>;
+
 const Validated = {
   name: 'validate: a message under the path box and Enter held back',
   render: () => <BreadcrumbsHooksDemo feature="validate" />,
@@ -86,18 +97,18 @@ const Overview = overviewStory({
   component: 'Breadcrumbs',
   description: 'The trail of places that leads to the current one, with neighbour menus, a fold and a path box.',
   points: [
-    '`segments` run from the root to the current place; the last one is current.',
-    'A segment takes an `icon`, a `title` and `siblings`, each with an optional `group`; `opensMenu` makes it the menu.',
-    '`maxVisible` keeps the first and the last segments and folds the middle ones behind an ellipsis.',
+    '`segments` run from the root to the current place; each takes an `icon`, a `title` and `siblings`.',
+    '`opensMenu` makes a segment the menu; `maxVisible` folds the middle segments behind an ellipsis.',
     '`onDropOn` makes every segment a drop target; `canDrop` turns a drag away; `dropTarget` plugs in a library.',
     '`onPathSubmit` makes the end a [PathInput] checked by `validate`; `trailing` takes [Tag] chips.',
-    'A drag held over a segment with siblings opens its menu after a short delay.',
+    'A drag held over a segment opens its menu after a short delay; `springOpen` can open that place instead.',
+    '`onSegmentRef` and `dropOverId` serve a pointer based drag and drop library with no native drag events.',
   ],
   instead: '[Tabs] to move between views of one area.',
   playground: Playground,
-  variants: [Siblings, MenuSegments, Folded, Dropping, DropTargeted, SpringOpened, PathBox, Validated],
+  variants: [Siblings, MenuSegments, Folded, Dropping, DropTargeted, SpringOpened, PointerDropped, PointerNavigated, PathBox, Validated],
   code: CODE,
 });
 
 export default meta;
-export { Dropping, DropTargeted, Folded, MenuSegments, Overview, PathBox, Playground, Siblings, SpringOpened, Validated };
+export { Dropping, DropTargeted, Folded, MenuSegments, Overview, PathBox, Playground, PointerDropped, PointerNavigated, Siblings, SpringOpened, Validated };

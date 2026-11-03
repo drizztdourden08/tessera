@@ -18,6 +18,7 @@ const usage = {
     'Pass commands, as names or with a description, so typing lists the closest ones under the input; Tab or Right completes the active row or the top one.',
     'Pass commandSpecs to add a picker of every command: a chosen one swaps the line for its fields and sends what its format returns.',
     'Give a spec a pattern, such as /hint {player:choice @players} {item:choice @items}, and a setup with its lists, and the line becomes one DynamicInput that sends its composed text, or what format returns when the spec gives one.',
+    'Write a ? after a slot type, such as /countdown {seconds:number? 1..3600}, to make the slot optional: the command can be sent with it empty, and the composed text drops the slot and the space before it. A format function gets an empty optional slot as undefined, or as an empty string for a text slot.',
     'Make a list of the setup a function of the slot values, such as items: (value) => itemsOf(value.player), to list choices that follow another slot; a choice the new list no longer offers is cleared.',
     'Give a field a placeholder to show a hint in the empty text, number or choice field.',
     'Set dependsOn to the name of another field so it stays disabled until that one is filled and clears when that one changes; make options a function of the values to list choices that follow it.',

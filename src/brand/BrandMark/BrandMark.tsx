@@ -16,11 +16,10 @@ import { BrandMarkRim } from './sub-components/BrandMarkRim';
 import './BrandMark.css';
 
 const BrandMark = (props: BrandMarkProps) => {
-  const { app, size = 'md', variant = 'mark', rim = 'none', title, className = '' } = props;
+  const { app, size = 'md', variant = 'mark', twin = false, rim = 'none', title, className = '' } = props;
   const shape = markFit(size, props.fit);
   const brand = BRAND_FAMILY[app];
-  const tile = variant === 'app-icon' && brand.appIcon === 'tile';
-  const { drawn, scale } = tileFace(brand, tile);
+  const { tile, drawn, scale } = tileFace(brand, variant, twin, size);
   const look = markLook(drawn, useMarkGround(tile), rim);
   const { viewBox, pixelArt } = drawn;
   const box = markBox(viewBox, shape, tile);
