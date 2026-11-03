@@ -169,7 +169,7 @@ const Overview = overviewStory({
     'Every element hangs off it by full and short name, such as `Text.P`, `Text.Strong` or `Text.Sc`.',
     '`variant` picks a role: `title`, `subtitle`, `body`, `label`, `caption`, or `overline` over a group.',
     'With no `variant` it takes the size and colour of its parent; `size` sets `md` 13 px or `lead` 15 px.',
-    '`as` swaps the default `<span>` for another element; `clamp` cuts the text at that many lines and shows it all in a tooltip.',
+    '`as` swaps the default `<span>`; `clamp` cuts the text at that many lines, with all of it in a tooltip.',
     '`weight` and `italic` set the face; `font="title"` the title face; `mono` the code face.',
     '`tone` colours it as on [Span]; `numeric` sets tabular figures; `smartTimes` adds a times sign.',
   ],
