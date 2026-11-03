@@ -33,11 +33,14 @@ SpanBar edits a range of cells on a row, where Slider edits a number between two
 - Use onDraft to follow a drag in progress, such as a preview; it gets null when the drag is cancelled.
 - Wrap the bars in a SpanLane when the user may draw a new span, and add it from onCreate.
 - Pass announce so the range is read after each key step, and label so the bar has a name.
-- Set readOnly to keep the bar focusable and block every change.
+- Set readOnly to keep the bar focusable and block every change, including onActivate.
+- Pass `tint` a token name such as `--c-tag-teal` or a CSS colour to colour one span; `colour` stays the preset hues.
+- Pass `data` to add data attributes to the bar, such as the id of the span in your model.
+- Bars inside a SpanLane share one tab stop: Left and Right move focus to the next bar.
 
 ## Accessibility
 
-- The bar is a button with a name; Enter activates it.
+- The bar is a button with a name; Enter activates it unless it is read only.
 - Alt + Shift + Left and Right move the end, and Alt + Ctrl + Left and Right move the whole span.
 - Each key step is announced through announce, such as Cells 3 to 6.
 - Escape cancels a drag, and the bar keeps a 24 pixel minimum size for touch.
@@ -74,12 +77,14 @@ const ClipRow = ({ cells, span, setSpan }: { cells: CellGeometry; span: CellSpan
 - `snap` (optional): `SpanSnap`, one of `'cell'`, `'none'`. Default `'cell'`.
 - `minLength` (optional): `number`. Default `SPAN_DEFAULT_MIN_LENGTH`.
 - `colour` (optional): `TagCategoryColor`, one of `'rose'`, `'orange'`, `'amber'`, `'lime'`, `'green'`, `'teal'`, `'cyan'`, `'blue'`, `'violet'`, `'pink'`.
+- `tint` (optional): `string`.
+- `data` (optional): `DataAttributes`.
 - `className` (optional): `string`.
 - `children` (optional): `ReactNode`.
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-primary`, `--c-primary-soft`, `--c-text`, `--hue-fill`, `--hue-ink`, `--opacity-muted`, `--radius-sm`, `--shadow-1`, `--size-24`, `--size-28`, `--space-xs`, `--span-lane-width`, `--span-left`, `--span-width`, `--z-sticky`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-primary`, `--c-primary-soft`, `--c-text`, `--opacity-muted`, `--radius-sm`, `--shadow-1`, `--size-24`, `--size-28`, `--space-xs`, `--span-lane-width`, `--span-left`, `--span-tint`, `--span-width`, `--z-sticky`.
 
 ## Also exported from this folder
 

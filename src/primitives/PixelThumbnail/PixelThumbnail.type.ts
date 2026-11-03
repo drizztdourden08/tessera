@@ -7,7 +7,7 @@ interface PixelThumbnailFrame {
   durationMs: number;
 }
 
-type PixelThumbnailBox = 16 | 24 | 32 | 40 | 48 | 64;
+type PixelThumbnailBox = 16 | 24 | 32 | 40 | 48 | 64 | 96 | 128 | 192 | 256 | 'fluid';
 
 type PixelThumbnailFit = 'step' | 'contain';
 

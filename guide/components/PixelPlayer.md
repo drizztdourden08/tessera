@@ -29,6 +29,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Pass `frames` with a duration for each; one frame is a still with no bar and no counter.
 - `zoom="fit"` picks the largest whole number that fits the stage, never below 1; the stage height follows the `--pixel-player-stage` property.
 - Give `tags` to limit play to one named range; pass `tagId` and `onTagChange` to control which one.
+- `loop.direction` is `forward`, `reverse`, `pingpong` or `pingpongReverse`; the last starts on the final frame going backward, then bounces.
 - `loop.repeat` of 0 runs forever; with a count, Play becomes Replay when the loop ends.
 - `mode="compact"` hides the bar and the counter; keep `frames` stable between renders so playback does not restart.
 

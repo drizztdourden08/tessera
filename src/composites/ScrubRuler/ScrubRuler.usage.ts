@@ -16,6 +16,10 @@ const usage = {
     'Keep value, markers and band in the parent and write them back from onChange, onMarkerChange and onBandChange.',
     'Give every marker an id, a label and the min and max it may be dragged between.',
     'Leave tickEvery on auto unless the ticks must fall on a fixed step; tickLabel writes the text of each tick.',
+    'Pass `secondBand` for a second read-only range beside `band`, such as an onion range next to the loop range.',
+    'Set `markerAnchor="edge"` to put markers on the cell border instead of its centre; a drag then snaps to the nearest border.',
+    'Pass `onCellContextMenu` to get the cell under the pointer on a right-click, and call `preventDefault` on the event to open your own menu.',
+    'Set `compact` for a 20 pixel ruler where the 28 pixel one takes too much room.',
     'Set readOnly to keep the ruler focusable and block every change.',
   ],
   a11y: [
@@ -35,7 +39,7 @@ const Timeline = ({ cells, frame, setFrame }: { cells: CellGeometry; frame: numb
   <ScrubRuler cells={cells} value={frame} onChange={setFrame} label="Frames" />
 );
 `,
-  propsHash: 'debbcfcf9039f706',
+  propsHash: '0c69859be784c968',
 } satisfies ComponentUsage;
 
 export { usage };

@@ -16,12 +16,14 @@ const usage = {
     'label names the field and is drawn before it; it defaults to Zoom.',
     'The minus and plus buttons, the wheel and the arrow keys move along the stops. The stops are min, max and the presets, or min doubled up to max when there are no presets.',
     'presets is a list of percent values, such as [25, 50, 100, 200, 400]. Each draws as a chip, the chip for the current value is pressed, and a press sets the value. Values outside min and max are left out.',
+    '`slider` draws a log slider on the same range, `beside` the field or `below` it; it needs a `min` above 0 and shares the stops of the field.',
     'actions is a node drawn after the chips, such as a Fit button; the app handles its press.',
     'disabled turns the field, the chips and the buttons off.',
   ],
   a11y: [
     'The number input is named by label, and the minus and plus buttons are named Zoom out and Zoom in.',
     'The chips are in a group named Zoom levels, and the chip for the current value is pressed.',
+    'The slider is named Zoom slider and moves along the same stops with the arrow keys.',
     'Every control is a native button or input with its own Tab stop.',
   ],
   tree: {
@@ -45,7 +47,7 @@ const CanvasZoom = ({ fit }: { fit: () => void }) => {
   );
 };
 `,
-  propsHash: '51da612c26e3c75b',
+  propsHash: '5b12dd8bb79e26eb',
 } satisfies ComponentUsage;
 
 export { usage };

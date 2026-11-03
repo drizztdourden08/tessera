@@ -1,4 +1,5 @@
 /* @layer renderer-components @kind types */
+import type { MouseEvent } from 'react';
 import type { TagCategoryColor } from '../../primitives/Tag';
 import type { CellGeometry } from '../cell-geometry';
 
@@ -16,6 +17,8 @@ interface RulerBand {
   to: number;
 }
 
+type RulerMarkerAnchor = 'center' | 'edge';
+
 interface ScrubRulerProps {
   cells: CellGeometry;
   value: number;
@@ -24,13 +27,17 @@ interface ScrubRulerProps {
   tickEvery?: number | 'auto';
   markers?: readonly RulerMarker[];
   onMarkerChange?: (id: string, index: number) => void;
+  markerAnchor?: RulerMarkerAnchor;
   band?: RulerBand | null;
   onBandChange?: (band: RulerBand | null) => void;
   bandLabel?: (band: RulerBand) => string;
+  secondBand?: RulerBand | null;
+  onCellContextMenu?: (index: number, event: MouseEvent<HTMLElement>) => void;
+  compact?: boolean;
   valueText?: (index: number, count: number) => string;
   label?: string;
   readOnly?: boolean;
   className?: string;
 }
 
-export type { RulerBand, RulerMarker, ScrubRulerProps };
+export type { RulerBand, RulerMarker, RulerMarkerAnchor, ScrubRulerProps };

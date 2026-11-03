@@ -7,6 +7,7 @@ interface ScrubBandViewProps {
   total: number;
   band: RulerBand;
   draft: boolean;
+  second?: boolean;
   title: string;
   onClear?: () => void;
 }

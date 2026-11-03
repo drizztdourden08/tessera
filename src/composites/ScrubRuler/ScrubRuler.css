@@ -9,6 +9,14 @@
   user-select: none;
 }
 
+.scrub-ruler[data-compact] {
+  block-size: var(--size-20);
+}
+
+.scrub-ruler[data-compact] .scrub-ruler__label {
+  top: 0;
+}
+
 .scrub-ruler__track {
   position: absolute;
   inset: 0;
@@ -71,6 +79,13 @@
   background: var(--c-secondary-soft);
   border-inline: var(--border-width-thin) solid var(--c-secondary);
   pointer-events: none;
+}
+
+.scrub-ruler__band[data-second] {
+  top: auto;
+  block-size: var(--size-8);
+  background: var(--c-tag-amber-soft);
+  border-inline-color: var(--c-tag-amber);
 }
 
 .scrub-ruler__band[data-draft] {

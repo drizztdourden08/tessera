@@ -13,6 +13,6 @@ const HEART_CELLS: readonly PixelPlayerCell[] = [
 
 const PLAYER_ZOOMS = ['fit', '1', '2', '4', '8'] as const;
 
-const PLAYER_DIRECTIONS = ['forward', 'reverse', 'pingpong'] as const;
+const PLAYER_DIRECTIONS = ['forward', 'reverse', 'pingpong', 'pingpongReverse'] as const;
 
 export { HEART_CELLS, HEART_TAGS, PLAYER_DIRECTIONS, PLAYER_ZOOMS };
