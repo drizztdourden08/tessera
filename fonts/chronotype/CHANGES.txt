@@ -1,0 +1,17 @@
+Changes made to "ChronoType" by Caveras for ChronoKi. The original is licensed under
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0
+(http://creativecommons.org/licenses/by-nc-sa/3.0/). This modified font stays
+non-commercial and ships under the same licence. README.txt and LICENSE.txt in this
+folder are the originals and are unchanged.
+
+2026-11-04
+- Added glyphs for 4 characters the face did not have:
+  U+00BC (one quarter), U+00BD (one half), U+00BE (three quarters), U+2605 (black star).
+  They are drawn on the face's own pixel grid, and their source outlines are in
+  extra-glyphs/.
+- Appended "(modified for ChronoKi)" to the version string and a note listing the added
+  characters to the description. The credit to Caveras is kept.
+- Every original glyph keeps its outline and advance width.
+- chronotype-ext.woff2 is the web build and chronotype-ext.ttf the same font as
+  TrueType. The optional LTSH and hdmx tables were dropped because they list glyphs by
+  number and would no longer match.

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 190" width="540" height="190" font-family="monospace" font-size="11">
+  <title>Added glyphs on the 64 unit pixel grid: cap line at row 7, baseline under row 0, advance shaded</title>
+  <rect width="100%" height="100%" fill="#f2eee5"/>
+  <g transform="translate(10 10)">
+    <rect width="100" height="120" fill="#e3dccb"/>
+    <line x1="0" y1="0" x2="100" y2="0" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="10" x2="100" y2="10" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="20" x2="100" y2="20" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="30" x2="100" y2="30" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="40" x2="100" y2="40" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="50" x2="100" y2="50" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="60" x2="100" y2="60" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="70" x2="100" y2="70" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="80" x2="100" y2="80" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="90" x2="100" y2="90" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="100" y2="100" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="110" x2="100" y2="110" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="120" x2="100" y2="120" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="10" x2="100" y2="10" stroke="#b9453a" stroke-width="0.5"/>
+    <line x1="0" y1="90" x2="100" y2="90" stroke="#3a6bb9" stroke-width="0.5"/>
+    <g transform="scale(10)"><path fill="#222" d="M0 3V2H2V3ZM0 6V5H3V6ZM1 5V3H2V5ZM1 2V1H2V2ZM3 9V7H4V9ZM4 7V5H5V7ZM5 4V3H6V4ZM5 5V4H7V5ZM6 6V5H7V6ZM6 3V1H7V3ZM6 7V6H9V7ZM8 9V7H9V9ZM8 6V4H9V6Z"/></g>
+    <text x="0" y="140">onequarter U+00BC</text>
+  </g>
+  <g transform="translate(140 10)">
+    <rect width="100" height="120" fill="#e3dccb"/>
+    <line x1="0" y1="0" x2="100" y2="0" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="10" x2="100" y2="10" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="20" x2="100" y2="20" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="30" x2="100" y2="30" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="40" x2="100" y2="40" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="50" x2="100" y2="50" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="60" x2="100" y2="60" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="70" x2="100" y2="70" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="80" x2="100" y2="80" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="90" x2="100" y2="90" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="100" y2="100" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="110" x2="100" y2="110" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="120" x2="100" y2="120" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="10" x2="100" y2="10" stroke="#b9453a" stroke-width="0.5"/>
+    <line x1="0" y1="90" x2="100" y2="90" stroke="#3a6bb9" stroke-width="0.5"/>
+    <g transform="scale(10)"><path fill="#222" d="M0 3V2H2V3ZM0 6V5H3V6ZM1 5V3H2V5ZM1 2V1H2V2ZM3 9V7H4V9ZM4 7V5H5V7ZM5 4V3H6V4ZM5 5V4H9V5ZM6 8V7H7V8ZM6 3V1H7V3ZM6 9V8H9V9ZM6 7V6H9V7ZM8 6V5H9V6Z"/></g>
+    <text x="0" y="140">onehalf U+00BD</text>
+  </g>
+  <g transform="translate(270 10)">
+    <rect width="100" height="120" fill="#e3dccb"/>
+    <line x1="0" y1="0" x2="100" y2="0" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="10" x2="100" y2="10" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="20" x2="100" y2="20" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="30" x2="100" y2="30" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="40" x2="100" y2="40" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="50" x2="100" y2="50" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="60" x2="100" y2="60" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="70" x2="100" y2="70" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="80" x2="100" y2="80" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="90" x2="100" y2="90" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="100" y2="100" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="110" x2="100" y2="110" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="120" x2="100" y2="120" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="10" x2="100" y2="10" stroke="#b9453a" stroke-width="0.5"/>
+    <line x1="0" y1="90" x2="100" y2="90" stroke="#3a6bb9" stroke-width="0.5"/>
+    <g transform="scale(10)"><path fill="#222" d="M0 6V5H3V6ZM0 2V1H3V2ZM1 4V3H3V4ZM2 5V4H3V5ZM2 3V2H3V3ZM3 9V7H4V9ZM4 7V5H5V7ZM5 4V3H6V4ZM5 5V4H7V5ZM6 6V5H7V6ZM6 3V1H7V3ZM6 7V6H9V7ZM8 9V7H9V9ZM8 6V4H9V6Z"/></g>
+    <text x="0" y="140">threequarters U+00BE</text>
+  </g>
+  <g transform="translate(400 10)">
+    <rect width="80" height="120" fill="#e3dccb"/>
+    <line x1="0" y1="0" x2="80" y2="0" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="10" x2="80" y2="10" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="20" x2="80" y2="20" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="30" x2="80" y2="30" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="40" x2="80" y2="40" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="50" x2="80" y2="50" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="60" x2="80" y2="60" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="70" x2="80" y2="70" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="80" x2="80" y2="80" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="90" x2="80" y2="90" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="100" x2="80" y2="100" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="110" x2="80" y2="110" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="120" x2="80" y2="120" stroke="#cfc6b3" stroke-width="0.5"/>
+    <line x1="0" y1="10" x2="80" y2="10" stroke="#b9453a" stroke-width="0.5"/>
+    <line x1="0" y1="90" x2="80" y2="90" stroke="#3a6bb9" stroke-width="0.5"/>
+    <g transform="scale(10)"><path fill="#222" d="M0 9V8H2V9ZM0 4V3H7V4ZM1 8V7H2V8ZM1 7V6H3V7ZM1 5V4H6V5ZM2 6V5H5V6ZM2 3V2H5V3ZM3 2V1H4V2ZM4 7V6H6V7ZM5 8V7H6V8ZM5 9V8H7V9Z"/></g>
+    <text x="0" y="140">blackstar U+2605</text>
+  </g>
+</svg>

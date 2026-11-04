@@ -1,0 +1,14 @@
+/* @layer renderer-components @kind style */
+@font-face {
+  font-family: ChronoType;
+  src:
+    url('./chronotype-ext.woff2') format('woff2'),
+    url('./chronotype-ext.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  --font-chrono: ChronoType, var(--font-mono);
+}
