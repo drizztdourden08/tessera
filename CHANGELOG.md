@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.105.0
+
+### Minor Changes
+
+- Brands can set iconOutline, a colour drawn as a size-aware outline around the app icon. ChronoKi uses black.
+
 ## 0.104.1
 
 ### Patch Changes
