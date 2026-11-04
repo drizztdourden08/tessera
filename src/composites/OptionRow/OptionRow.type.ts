@@ -1,9 +1,12 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { FoldOverflow } from '../../primitives/FoldText';
 
 interface OptionRowProps {
   label: string;
   description?: ReactNode;
+  descriptionLines?: number;
+  descriptionOverflow?: FoldOverflow;
   tag?: string;
   note?: ReactNode;
   locked?: boolean;
@@ -15,6 +18,6 @@ interface OptionRowProps {
   className?: string;
 }
 
-type OptionRowTextProps = Pick<OptionRowProps, 'label' | 'description' | 'tag' | 'note' | 'changed' | 'onReset' | 'forced'>;
+type OptionRowTextProps = Pick<OptionRowProps, 'label' | 'description' | 'descriptionLines' | 'descriptionOverflow' | 'tag' | 'note' | 'changed' | 'onReset' | 'forced'>;
 
 export type { OptionRowProps, OptionRowTextProps };
