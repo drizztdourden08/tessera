@@ -36,7 +36,7 @@ const ShuffleRow = ({ on, setOn }: { on: boolean; setOn: (on: boolean) => void }
   />
 );
 `,
-  propsHash: '26c11397312d9e81',
+  propsHash: 'dc93a912effc3a13',
 } satisfies ComponentUsage;
 
 export { usage };
