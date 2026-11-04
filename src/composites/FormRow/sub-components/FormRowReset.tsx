@@ -1,11 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
 import { ResetButton } from '../../ResetButton';
-
-interface FormRowResetProps {
-  label: string;
-  onReset?: () => void;
-}
+import type { FormRowResetProps } from './FormRowReset.type';
 
 const FormRowReset = (props: FormRowResetProps) => {
   const { label, onReset } = props;

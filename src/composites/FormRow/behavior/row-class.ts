@@ -6,7 +6,7 @@ const rowClass = (resettable: boolean, className?: string): string =>
 
 const rowAttrs = (props: FormRowProps) => ({
   className: rowClass(props.changed === true && props.onReset !== undefined, props.className),
-  'data-changed': props.changed || undefined,
+  'data-changed': props.changed === true ? true : undefined,
   'data-problem': props.problem ? true : undefined,
 });
 
