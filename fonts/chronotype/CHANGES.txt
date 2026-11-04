@@ -5,8 +5,8 @@ non-commercial and ships under the same licence. README.txt and LICENSE.txt in t
 folder are the originals and are unchanged.
 
 2026-11-04
-- Added glyphs for 3 characters the face did not have:
-  U+00BC (one quarter), U+00BD (one half), U+00BE (three quarters).
+- Added glyphs for 4 characters the face did not have:
+  U+00BC (one quarter), U+00BD (one half), U+00BE (three quarters), U+2605 (black star).
   They are drawn on the face's own pixel grid, and their source outlines are in
   extra-glyphs/.
 - Appended "(modified for ChronoKi)" to the version string and a note listing the added
