@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind style */
 .combobox {
   position: relative;
+  min-inline-size: 0;
   display: flex;
   flex-wrap: wrap;
   align-items: center;

@@ -12,6 +12,6 @@ describe('K1 Grid fit', { tags: ['critical'] }, () => {
   });
 
   it('leaves a fixed column count alone', () => {
-    expect(templateFor(3, undefined, true)).toEqual({ gridTemplateColumns: 'repeat(3, 1fr)' });
+    expect(templateFor(3, undefined, true)).toEqual({ gridTemplateColumns: 'repeat(3, minmax(0, 1fr))' });
   });
 });
