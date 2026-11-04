@@ -1,12 +1,16 @@
 /* @layer renderer-components @kind style */
 .form-row {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  grid-template-columns: minmax(0, 1fr) minmax(var(--size-256), 1.3fr);
   align-items: start;
   gap: var(--space-md);
   padding-block: var(--space-md);
   border-block-start: var(--border-width-thin) solid var(--c-hairline);
   container-type: inline-size;
+}
+
+.form-row--resettable {
+  grid-template-columns: minmax(0, 1fr) minmax(var(--size-256), 1.3fr) auto;
 }
 
 .form-row__head {
@@ -36,9 +40,32 @@
   text-align: end;
 }
 
+.form-row__reset {
+  display: flex;
+  align-items: center;
+  align-self: start;
+}
+
+.form-row__head .fold-text__text {
+  font-size: var(--text-xs);
+  color: var(--c-text-muted);
+}
+
+.form-row__head .form-row__description {
+  display: inline;
+}
+
 @container (max-width: 640px) {
   .form-row__head,
   .form-row__control {
     grid-column: 1 / -1;
+  }
+
+  .form-row--resettable {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .form-row--resettable .form-row__control {
+    grid-column: 1 / 2;
   }
 }

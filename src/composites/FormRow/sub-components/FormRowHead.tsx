@@ -6,18 +6,16 @@ import { Status } from '../../../primitives/Status';
 import { Tag } from '../../../primitives/Tag';
 import { Text } from '../../../primitives/Text';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { ResetButton } from '../../ResetButton';
 import type { FormRowHeadProps } from '../FormRow.type';
 
 const FormRowHead = (props: FormRowHeadProps) => {
-  const { label, labelId, controlId, onNameClick, help, description, descriptionLines, descriptionOverflow, descriptionId, changed, advanced, onReset } = props;
+  const { label, labelId, controlId, onNameClick, help, description, descriptionLines, descriptionOverflow, descriptionId, changed, advanced } = props;
   const { options } = useTesseraStrings();
   return (
     <Box className="form-row__head">
       <Box className="form-row__title">
         <Text as="label" id={labelId} variant="body" className="form-row__label" onClick={onNameClick} {...{ htmlFor: controlId }}>{label}</Text>
         <HelpTip help={help} />
-        <ResetButton label={label} changed={changed} onReset={onReset} />
         {advanced && <Tag>{options.advanced}</Tag>}
         {changed && <Status tone="warning" dot>{options.changed}</Status>}
       </Box>
