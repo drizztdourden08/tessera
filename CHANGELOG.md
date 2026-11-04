@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.103.0
+
+### Minor Changes
+
+- c0d9082: ChronoKi gets its new mark, the mosaic C, with regenerated icons, and darker ChronoKi surfaces so gold and red stand out more.
+
 ## 0.102.1
 
 ### Patch Changes
