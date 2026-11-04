@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.101.1
+
+### Patch Changes
+
+- ad7b080: `Grid` with `columns` now splits the row into equal tracks that long content cannot widen, and a `Select` or `Combobox` with a long label shrinks inside a grid cell and ends the label in an ellipsis on one line (I-104, RotP D-47).
+
 ## 0.101.0
 
 ### Minor Changes
