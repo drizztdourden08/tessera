@@ -3,6 +3,7 @@ import type { BrandApp, BrandInfo } from './brand.type';
 import { ARGUS_MARK, ARGUS_TWIN_MARK } from './marks/argus.constants';
 import { ARCHIPELIA_MARK } from './marks/archipelia.constants';
 import { ARCHIPELIA_MASCOT } from './marks/archipelia-mascot.constants';
+import { CHRONOKI_BRAND } from './chronoki.constants';
 import { BROCK_MARK } from './marks/brock.constants';
 import { BXEL_ICON_MARK, BXEL_MARK } from './marks/bxel.constants';
 import { BXEL_FILE_TYPES } from './file-types/bxel-file-types.constants';
@@ -174,8 +175,9 @@ const BRAND_FAMILY: Record<BrandApp, BrandInfo> = {
       ],
     },
   },
+  chronoki: CHRONOKI_BRAND,
 };
 
-const BRAND_APPS: readonly BrandApp[] = ['tessera', 'rotp', 'archipelia', 'brock', 'bxel', 'argus'];
+const BRAND_APPS: readonly BrandApp[] = ['tessera', 'rotp', 'archipelia', 'brock', 'bxel', 'argus', 'chronoki'];
 
 export { BRAND_APPS, BRAND_FAMILY };

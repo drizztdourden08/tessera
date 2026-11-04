@@ -33,6 +33,7 @@ export default defineConfig({
     './src/tokens/palettes/archipelia.css',
     './src/tokens/palettes/brock.css',
     './src/tokens/palettes/bxel.css',
+    './src/tokens/palettes/chronoki.css',
     './stories/storylite.css',
   ],
   renderers: [controlledReact()],
