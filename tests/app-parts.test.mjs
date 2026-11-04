@@ -114,7 +114,7 @@ describe('E2 a views folder shared by the root and two apps', { tags: ['e2e'] },
 });
 
 describe('E2 a parts file on its own', { tags: ['e2e'] }, () => {
-  const tscErrors = (dir, project) => spawnSync(process.execPath, [TSC, '--noEmit', '-p', project], { cwd: dir, encoding: 'utf8' }).stdout
+  const tscErrors = (dir, project) => spawnSync(process.execPath, [TSC, '--noEmit', '-p', project], { cwd: dir, encoding: 'utf8', windowsHide: true }).stdout
     .split('\n').filter((line) => line.includes('error TS'));
 
   it('imports the package first, so it type-checks in an app that imports only a subpath', async () => {

@@ -49,7 +49,7 @@ const appCopy = () => sandbox((dir) => {
 
 const removeSandbox = (dir) => rmSync(dir, { recursive: true, force: true });
 
-const pnpm = (cwd, script) => spawnSync(`pnpm ${script}`, { cwd, encoding: 'utf8', shell: true });
+const pnpm = (cwd, script) => spawnSync(`pnpm ${script}`, { cwd, encoding: 'utf8', shell: true, windowsHide: true });
 
 const runNew = async (cwd, argv, { interactive = false, answers = [] } = {}) => {
   const out = [];
@@ -73,7 +73,7 @@ const runNew = async (cwd, argv, { interactive = false, answers = [] } = {}) => 
 };
 
 const node = (cwd, args) => {
-  const result = spawnSync(process.execPath, args, { cwd, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024 });
+  const result = spawnSync(process.execPath, args, { cwd, encoding: 'utf8', maxBuffer: 64 * 1024 * 1024, windowsHide: true });
   return { status: result.status, output: `${result.stdout}${result.stderr}` };
 };
 

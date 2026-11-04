@@ -39,7 +39,7 @@ const knip = (config) => {
   const dir = fixtureRepo({ ...LIBRARY, ...config });
   dirs.push(dir);
   const name = Object.keys(config)[0];
-  return spawnSync(process.execPath, [KNIP, '--config', name, '--include', 'files', '--no-progress'], { cwd: dir, encoding: 'utf8' }).stdout;
+  return spawnSync(process.execPath, [KNIP, '--config', name, '--include', 'files', '--no-progress'], { cwd: dir, encoding: 'utf8', windowsHide: true }).stdout;
 };
 
 describe('K1 the knip compiler for usage files', { tags: ['critical'] }, () => {

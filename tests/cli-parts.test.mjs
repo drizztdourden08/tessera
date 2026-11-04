@@ -11,7 +11,7 @@ import { treePath } from '../scripts/cli/tree-path.mjs';
 
 const BIN = fileURLToPath(new URL('../scripts/cli/tessera.mjs', import.meta.url));
 const VERSION = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8')).version;
-const tessera = (...args) => spawnSync(process.execPath, [BIN, ...args], { encoding: 'utf8' });
+const tessera = (...args) => spawnSync(process.execPath, [BIN, ...args], { encoding: 'utf8', windowsHide: true });
 
 const scripted = (answers) => {
   const out = [];
