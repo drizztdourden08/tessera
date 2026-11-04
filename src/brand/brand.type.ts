@@ -131,6 +131,7 @@ interface BrandInfo {
   placement: string;
   mark: BrandMarkData;
   iconMark?: BrandMarkData;
+  iconOutline?: string;
   twin?: BrandMarkData;
   fileTypes?: BrandFileTypes;
   mascot?: BrandMascot;

@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind logic */
 import { rmSync } from 'node:fs';
 import { join } from 'node:path';
-import { OUTPUT_FOLDERS } from './app-icons.constants.mjs';
+import { ICON_OUTLINE, OUTPUT_FOLDERS } from './app-icons.constants.mjs';
 import { appArt } from './app-art.mjs';
 import { buildApp, ladder, writer } from './app-files.mjs';
 import { artFile, markArt, sceneArt } from './art.mjs';
@@ -10,6 +10,7 @@ import { buildGround } from './build-ground.mjs';
 import { buildRim } from './build-rim.mjs';
 import { groundArt } from './ground-art.mjs';
 import { crisp } from './raster.mjs';
+import { rimFraction, rimmedArt } from './rim-art.mjs';
 
 const variantArt = (variant, loaded) => {
   const scene = variant.compose();
@@ -25,6 +26,8 @@ const buildMascot = (write, id, brand, loaded) => brand.mascot.variants.flatMap(
   ];
 });
 
+const outlined = (brand, mark, fraction) => (brand.iconOutline ? rimmedArt(mark, brand.mark, brand.iconOutline, fraction) : mark);
+
 const buildBrand = async (root, id, loaded) => {
   const brand = loaded.family[id];
   const write = writer(root);
@@ -33,13 +36,11 @@ const buildBrand = async (root, id, loaded) => {
   const dark = groundArt(loaded.drawn[id], loaded, 'dark');
   const face = brand.iconMark ? markArt(brand.iconMark) : undefined;
   const written = [write(`${id}.svg`, artFile(mark, brand.name))];
-  if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, mark, dark.mark, face)));
+  if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, outlined(brand, mark, ICON_OUTLINE.ratio), dark.mark, face)));
   if (brand.mascot) written.push(...buildMascot(write, id, brand, loaded));
-  const artFor = { icon: () => appArt(brand, mark, mark, face).icon, mark: () => mark, mascot: () => variantArt(brand.mascot.variants[0], loaded) };
-  for (const files of loaded.iconFiles(id)) {
-    const art = artFor[files.kind]();
-    written.push(...await ladder(write, () => art, files, loaded.sizes));
-  }
+  const iconAt = (size) => { const m = outlined(brand, mark, rimFraction(ICON_OUTLINE, size)); return appArt(brand, m, m, face).icon; };
+  const artFor = { icon: () => iconAt, mark: () => () => mark, mascot: () => { const art = variantArt(brand.mascot.variants[0], loaded); return () => art; } };
+  for (const files of loaded.iconFiles(id)) written.push(...await ladder(write, artFor[files.kind](), files, loaded.sizes));
   written.push(...await buildFileTypes(write, id, loaded));
   for (const tone of loaded.rimTones) written.push(...await buildRim({ root, write, loaded }, id, tone));
   written.push(...await buildGround({ root, write, loaded }, id, 'dark', dark));
