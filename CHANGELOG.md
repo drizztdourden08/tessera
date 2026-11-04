@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.104.0
+
+### Minor Changes
+
+- OptionRow folds its description at two lines and gives the reset button its own cell.
+
 ## 0.103.1
 
 ### Patch Changes
