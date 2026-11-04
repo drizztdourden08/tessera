@@ -2,22 +2,22 @@
 import type { BrandMarkData } from '../brand.type';
 
 const INK = {
-  outline: '#1a1008',
+  night: '#1a1008',
   gold: '#d4a537',
   bronze: '#8c6a2e',
   oxblood: '#7e1a1c',
   face: '#4a0e10',
   glint: '#f0d58a',
-  onDarkOutline: '#8c6a2e',
+  onDarkNight: '#8c6a2e',
   onDarkFace: '#b34a44',
   onDarkGem: '#d0463f',
 } as const;
 
 const CHRONOKI_MARK: BrandMarkData = {
   viewBox: '0 0 64 64',
-  grounds: { dark: { inks: 'onDark' }, light: { outline: 'dark' } },
+  grounds: { dark: { inks: 'onDark' } },
   paths: [
-    { ink: INK.outline, onDark: INK.onDarkOutline, d: 'M32 2a30 30 0 1 0 0 60a30 30 0 1 0 0-60z' },
+    { ink: INK.night, onDark: INK.onDarkNight, d: 'M32 2a30 30 0 1 0 0 60a30 30 0 1 0 0-60z' },
     { ink: INK.gold, evenOdd: true, d: 'M32 4a28 28 0 1 0 0 56a28 28 0 1 0 0-56zM32 10a22 22 0 1 1 0 44a22 22 0 1 1 0-44z' },
     { ink: INK.bronze, evenOdd: true, d: 'M32 8.4a23.6 23.6 0 1 0 0 47.2a23.6 23.6 0 1 0 0-47.2zM32 10a22 22 0 1 1 0 44a22 22 0 1 1 0-44z' },
     { ink: INK.face, onDark: INK.onDarkFace, d: 'M32 10a22 22 0 1 0 0 44a22 22 0 1 0 0-44z' },
