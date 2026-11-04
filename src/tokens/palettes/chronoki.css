@@ -1,0 +1,32 @@
+/* @layer renderer-design-system @kind style */
+/* stylelint-disable brock/no-token-override -- a brand palette sets the seeds, the way an app theme.css does */
+@layer ds.palette {
+  [data-palette="chronoki"] {
+    --p-primary: #d4a537;
+    --p-secondary: #be4340;
+    --p-tertiary: #8c6a2e;
+    --p-bg: #0a0705;
+    --p-chrome: #120d09;
+    --p-panel: #1a130d;
+    --p-surface-fill: #261c13;
+    --p-border: #3a2d20;
+    --p-border-strong: #55432e;
+    --p-text: #f4ead6;
+    --p-text-dim: #d8c9aa;
+    --p-text-muted: #b8a888;
+    --p-text-faint: #a39373;
+    --p-white: #f4ead6;
+    --p-black: #1a1008;
+    --p-gradient-light-from: #f4ead6;
+    --p-gradient-light-to: #d9c08a;
+    --p-gradient-dark-from: #2a1d0e;
+    --p-gradient-dark-to: #0e0905;
+    --p-on-primary: var(--p-pure-black);
+    --p-on-secondary: var(--p-pure-white);
+    --p-on-tertiary: var(--p-pure-white);
+    --p-danger: #f0786c;
+    --p-warning: #f0b34a;
+    --p-info: #5fa8d3;
+    --p-success: #5cb87a;
+  }
+}

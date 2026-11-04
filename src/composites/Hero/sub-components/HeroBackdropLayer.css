@@ -17,6 +17,7 @@
 .hero[data-brand='brock'] .hero__backdrop--brand { background: var(--brand-brock-backdrop); }
 .hero[data-brand='bxel'] .hero__backdrop--brand { background: var(--brand-bxel-backdrop); }
 .hero[data-brand='argus'] .hero__backdrop--brand { background: var(--brand-argus-backdrop); }
+.hero[data-brand='chronoki'] .hero__backdrop--brand { background: var(--brand-chronoki-backdrop); }
 
 .hero__shade {
   z-index: -1;
