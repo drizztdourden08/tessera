@@ -65,7 +65,7 @@ const BalancingRow = ({ value, onChange }: { value: number; onChange: (value: nu
 - `label`: `string`.
 - `description` (optional): `ReactNode`.
 - `descriptionLines` (optional): `number`. Default `2`.
-- `descriptionOverflow` (optional): `FoldOverflow`, one of `'more'`, `'hint'`, `'clip'`.
+- `descriptionOverflow` (optional): `FoldOverflow`, one of `'more'`, `'hint'`, `'clip'`. Default `'hint'`.
 - `help` (optional): `ReactNode`.
 - `changed` (optional): `boolean`. Default `false`.
 - `advanced` (optional): `boolean`. Default `false`.
@@ -77,4 +77,4 @@ const BalancingRow = ({ value, onChange }: { value: number; onChange: (value: nu
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-hairline`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--weight-semi`.
+It draws on `--border-width-thin`, `--c-hairline`, `--c-text-muted`, `--size-256`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
