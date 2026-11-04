@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.104.1
+
+### Patch Changes
+
+- ChronoKi app icon is the C on transparent, with no dark tile.
+
 ## 0.104.0
 
 ### Minor Changes
