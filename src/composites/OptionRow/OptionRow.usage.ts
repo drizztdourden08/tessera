@@ -15,7 +15,8 @@ const usage = {
     'Pass the control you want as control: a Toggle, a Select, a Slider or a ValueTag. The row does not pick it for you.',
     'Set locked for an option the user cannot change; the row dims.',
     'Set forced with note when another option overrides this one; the row stays at full strength and the note shows in the danger tone.',
-    'Set changed when the value differs from its default, and pass onReset to show the reset button after the name.',
+    'Set changed when the value differs from its default, and pass onReset to show the reset button in its own cell after the control. The extra column exists only on a changed row with onReset.',
+    'A long description folds to two lines; set descriptionLines and descriptionOverflow to change that, as on FormRow.',
     'Pass tag for a short word after the name and aside for the cell at the end of the row.',
   ],
   a11y: [
@@ -26,10 +27,16 @@ const usage = {
   example: `import { OptionRow, Toggle } from '@drizztdourden08/tessera';
 
 const ShuffleRow = ({ on, setOn }: { on: boolean; setOn: (on: boolean) => void }) => (
-  <OptionRow label="Shuffle items" description="Mix the items between the chests." control={<Toggle checked={on} onChange={setOn} aria-label="Shuffle items" />} />
+  <OptionRow
+    label="Shuffle items"
+    description="Mix the items between the chests. A long description folds to two lines and the rest shows as a hint, the same way a FormRow description does."
+    changed={on}
+    onReset={() => setOn(false)}
+    control={<Toggle checked={on} onChange={setOn} aria-label="Shuffle items" />}
+  />
 );
 `,
-  propsHash: '26c11397312d9e81',
+  propsHash: 'dc93a912effc3a13',
 } satisfies ComponentUsage;
 
 export { usage };

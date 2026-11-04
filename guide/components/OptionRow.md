@@ -29,7 +29,8 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Pass the control you want as control: a Toggle, a Select, a Slider or a ValueTag. The row does not pick it for you.
 - Set locked for an option the user cannot change; the row dims.
 - Set forced with note when another option overrides this one; the row stays at full strength and the note shows in the danger tone.
-- Set changed when the value differs from its default, and pass onReset to show the reset button after the name.
+- Set changed when the value differs from its default, and pass onReset to show the reset button in its own cell after the control. The extra column exists only on a changed row with onReset.
+- A long description folds to two lines; set descriptionLines and descriptionOverflow to change that, as on FormRow.
 - Pass tag for a short word after the name and aside for the cell at the end of the row.
 
 ## Accessibility
@@ -43,7 +44,13 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 import { OptionRow, Toggle } from '@drizztdourden08/tessera';
 
 const ShuffleRow = ({ on, setOn }: { on: boolean; setOn: (on: boolean) => void }) => (
-  <OptionRow label="Shuffle items" description="Mix the items between the chests." control={<Toggle checked={on} onChange={setOn} aria-label="Shuffle items" />} />
+  <OptionRow
+    label="Shuffle items"
+    description="Mix the items between the chests. A long description folds to two lines and the rest shows as a hint, the same way a FormRow description does."
+    changed={on}
+    onReset={() => setOn(false)}
+    control={<Toggle checked={on} onChange={setOn} aria-label="Shuffle items" />}
+  />
 );
 ```
 
@@ -51,11 +58,13 @@ const ShuffleRow = ({ on, setOn }: { on: boolean; setOn: (on: boolean) => void }
 
 - `label`: `string`.
 - `description` (optional): `ReactNode`.
+- `descriptionLines` (optional): `number`.
+- `descriptionOverflow` (optional): `FoldOverflow`, one of `'more'`, `'hint'`, `'clip'`.
 - `tag` (optional): `string`.
 - `note` (optional): `ReactNode`.
-- `locked` (optional): `boolean`. Default `false`.
-- `forced` (optional): `boolean`. Default `false`.
-- `changed` (optional): `boolean`. Default `false`.
+- `locked` (optional): `boolean`.
+- `forced` (optional): `boolean`.
+- `changed` (optional): `boolean`.
 - `onReset` (optional): `() => void`.
 - `control`: `ReactNode`.
 - `aside` (optional): `ReactNode`.
@@ -63,4 +72,4 @@ const ShuffleRow = ({ on, setOn }: { on: boolean; setOn: (on: boolean) => void }
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-text`, `--leading-normal`, `--leading-tight`, `--opacity-muted`, `--option-aside-w`, `--option-control-w`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`.
+It draws on `--border-width-thin`, `--c-border`, `--c-text`, `--c-text-muted`, `--leading-normal`, `--leading-tight`, `--opacity-muted`, `--option-aside-w`, `--option-control-w`, `--space-md`, `--space-sm`, `--space-xs`, `--text-sm`, `--text-xs`.
