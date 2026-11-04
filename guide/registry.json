@@ -10639,7 +10639,8 @@
               "'more'",
               "'hint'",
               "'clip'"
-            ]
+            ],
+            "default": "'hint'"
           },
           {
             "name": "help",
@@ -10693,10 +10694,13 @@
       "tokens": [
         "--border-width-thin",
         "--c-hairline",
+        "--c-text-muted",
+        "--size-256",
         "--space-2xs",
         "--space-md",
         "--space-sm",
         "--space-xs",
+        "--text-xs",
         "--weight-semi"
       ],
       "gallery": {
