@@ -1,4 +1,4 @@
-/* @layer renderer-components @kind type */
+/* @layer renderer-components @kind types */
 interface FormRowResetProps {
   label: string;
   onReset?: () => void;
