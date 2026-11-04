@@ -37,7 +37,7 @@ const withMode = async (mode, work) => {
   }
 };
 
-const tsc = (project) => spawnSync(process.execPath, [TSC, '--noEmit', '-p', project], { cwd: state.dir, encoding: 'utf8' }).stdout
+const tsc = (project) => spawnSync(process.execPath, [TSC, '--noEmit', '-p', project], { cwd: state.dir, encoding: 'utf8', windowsHide: true }).stdout
   .split('\n').filter((line) => line.includes('error TS'));
 
 const structure = (packageDir) => tesseraExtension().structure.checks[0]({ rootDir: state.dir, packageDir: at(packageDir), label: packageDir, pkg: {}, kind: 'package' });

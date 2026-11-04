@@ -11,7 +11,7 @@ const ask = async (question) => {
   }
 };
 
-const runScript = (cwd, script) => spawnSync(`pnpm ${script}`, { cwd, stdio: 'inherit', shell: true }).status ?? 1;
+const runScript = (cwd, script) => spawnSync(`pnpm ${script}`, { cwd, stdio: 'inherit', shell: true, windowsHide: true }).status ?? 1;
 
 const defaultIo = () => ({
   log: (line) => console.log(line),
