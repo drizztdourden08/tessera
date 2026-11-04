@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.103.1
+
+### Patch Changes
+
+- ad842b2: Ship brand/chronoki-wordmark.svg, the ChronoKi pixel wordmark.
+
 ## 0.103.0
 
 ### Minor Changes
