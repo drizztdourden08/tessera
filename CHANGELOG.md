@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.102.1
+
+### Patch Changes
+
+- FormRow descriptions fold at two lines in caption text with the full text on hover, and the reset button sits in its own cell after the control.
+
 ## 0.102.0
 
 ### Minor Changes
