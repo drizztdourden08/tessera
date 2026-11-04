@@ -1,0 +1,14 @@
+Notes on "ChronoType" by Caveras for ChronoKi. The original is licensed under
+Creative Commons Attribution-NonCommercial-ShareAlike 3.0
+(http://creativecommons.org/licenses/by-nc-sa/3.0/). This font stays non-commercial and
+ships under the same licence. README.txt and LICENSE.txt in this folder are the
+originals and are unchanged.
+
+2026-11-04
+- Checked every printable ASCII character (0x20 to 0x7E). The face already has a glyph
+  for all of them, so no glyph was added and extra-glyphs/ does not exist.
+- chronotype.ttf is the original ChronoType.ttf, byte for byte.
+- chronotype.woff2 is the same font converted to WOFF2 for the web. Every outline,
+  advance width and name entry is unchanged, so the version string and description
+  are the original ones.
+- Prepared for ChronoKi and registered as --font-chrono. Credit: Caveras.
