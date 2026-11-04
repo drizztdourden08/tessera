@@ -2,8 +2,8 @@
 @font-face {
   font-family: 'ChronoType';
   src:
-    url('./chronotype.woff2') format('woff2'),
-    url('./chronotype.ttf') format('truetype');
+    url('./chronotype-ext.woff2') format('woff2'),
+    url('./chronotype-ext.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: block;
