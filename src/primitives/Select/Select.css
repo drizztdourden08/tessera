@@ -6,6 +6,7 @@
 
 .select-trigger {
   display: flex;
+  min-inline-size: 0;
   align-items: center;
   gap: var(--space-sm);
   text-align: left;

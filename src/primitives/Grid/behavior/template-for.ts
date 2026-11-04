@@ -3,7 +3,7 @@ import type { CSSProperties } from 'react';
 
 const templateFor = (columns: number | undefined, minColWidth: number | undefined, fit = false): CSSProperties | undefined => {
   if (minColWidth) return { gridTemplateColumns: `repeat(${fit ? 'auto-fit' : 'auto-fill'}, minmax(min(100%, ${minColWidth}px), 1fr))` };
-  if (columns) return { gridTemplateColumns: `repeat(${columns}, 1fr)` };
+  if (columns) return { gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` };
   return undefined;
 };
 
