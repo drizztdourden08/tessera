@@ -2,7 +2,8 @@
 import { Box } from '../../primitives/Box';
 import { ResetButton } from '../ResetButton';
 import type { OptionRowProps } from './OptionRow.type';
-import { isResettable, rowAttrs } from './behavior/row-attrs';
+import { isResettable } from './behavior/is-resettable';
+import { rowAttrs } from './behavior/row-attrs';
 import { OptionRowText } from './sub-components/OptionRowText';
 import './OptionRow.css';
 

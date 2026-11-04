@@ -1,9 +1,8 @@
 /* @layer renderer-components @kind logic */
 import type { OptionRowProps } from '../OptionRow.type';
+import { isResettable } from './is-resettable';
 
 const flag = (on: boolean | undefined): true | undefined => (on === true ? true : undefined);
-
-const isResettable = (props: OptionRowProps): boolean => props.changed === true && props.onReset !== undefined;
 
 const rowAttrs = (props: OptionRowProps) => ({
   className: ['option-row', props.className].filter(Boolean).join(' '),
@@ -14,4 +13,4 @@ const rowAttrs = (props: OptionRowProps) => ({
   'data-aside': flag(props.aside !== undefined),
 });
 
-export { isResettable, rowAttrs };
+export { rowAttrs };
