@@ -1,5 +1,12 @@
 # @drizztdourden08/tessera
 
+## 0.102.0
+
+### Minor Changes
+
+- ae3bb0c: ChronoKi, the native port project, joins the family as a brand. The `chronoki` palette is new, with a light and a dark look: import `@drizztdourden08/tessera/palettes/chronoki.css` and set `data-palette="chronoki"`. Aged gold is the primary colour, oxblood the secondary and bronze the tertiary. `BrandApp` takes `chronoki`, and `BRAND_FAMILY.chronoki` carries its mark, wordmark, gradient and backdrop. The mark is an original clock face with a gold rim, an oxblood gem and a dark outline. The icon files, desktop and Android, are written under `brand/chronoki` and the ground and rim folders.
+- b46c891: The pixel font ChronoType by Caveras (CC BY-NC-SA 3.0, non-commercial) is available as `var(--font-chrono)` (I-105, ChronoKi).
+
 ## 0.101.1
 
 ### Patch Changes
