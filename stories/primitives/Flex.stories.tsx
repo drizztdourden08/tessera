@@ -144,7 +144,7 @@ const Overview = overviewStory({
     '`direction`, `gap`, `align` and `justify` each take a small fixed set of values.',
     '`gap` takes a space token, so spacing stays on the scale.',
     '`wrap` lets items flow onto new lines; `inline` makes it sit in a line of text.',
-    '`as` picks the element it renders. `first-line` centres an icon on the first line of wrapping text.',
+    '`as` picks the element; `align="first-line"` centres an icon on the first line of wrapping text.',
     '`container` makes it a size container, so `narrow-fill` fields inside follow its width.',
   ],
   instead: '[Stack] for a plain column, [Inline] for a plain row, [Center] for content in the middle, or [Grid] for equal columns.',

@@ -28,6 +28,7 @@
   min-block-size: 1lh;
   align-content: center;
 }
+.flex[data-align='first-line']:has(> .text) { font-size: var(--text-base); }
 .flex[data-align='first-line']:has(> .text--caption),
 .flex[data-align='first-line']:has(> .text--label),
 .flex[data-align='first-line']:has(> .text--overline) { font-size: var(--text-xs); }
