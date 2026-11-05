@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.114.0
+
+### Minor Changes
+
+- DropZone takes onReject, called with the files accept refused, and gains a usage file.
+
 ## 0.113.0
 
 ### Minor Changes
