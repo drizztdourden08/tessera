@@ -31,29 +31,27 @@ const usage = {
     rule: 'OverflowRow keeps mixed nodes on one line and folds the lowest priority ones into a popover, never moving what stays.',
   },
   example: `import { OverflowRow } from '@drizztdourden08/tessera';
-import type { OverflowRowItem } from '@drizztdourden08/tessera';
-import { Icon, IconButton, Tag, Text } from '@drizztdourden08/tessera';
+import type { OverflowRowItem, TabItem } from '@drizztdourden08/tessera';
+import { Icon, IconButton, Tabs, Tag, Text } from '@drizztdourden08/tessera';
 
 interface BoardHeaderProps {
   name: string;
   players: number;
+  tabs: TabItem[];
+  tab: string;
+  onTab: (id: string) => void;
   onSettings: () => void;
 }
 
-const BoardHeader = ({ name, players, onSettings }: BoardHeaderProps) => {
+const BoardHeader = ({ name, players, tabs, tab, onTab, onSettings }: BoardHeaderProps) => {
   const items: OverflowRowItem[] = [
     { id: 'name', pinned: true, node: <Text as="span" variant="title">{name}</Text> },
+    { id: 'tabs', pinned: true, node: ({ tight }) => <Tabs tabs={tabs} activeTab={tab} onTabChange={onTab} iconOnly={tight} /> },
     { id: 'status', priority: 5, node: <Tag variant="urgency" color="success">Running</Tag> },
     { id: 'players', priority: 3, node: <Text as="span" variant="caption">{\`\${players} players\`}</Text> },
     { id: 'settings', pinned: true, node: <IconButton label="Settings" onClick={onSettings}><Icon name="settings" /></IconButton> },
   ];
   return <OverflowRow items={items} />;
-};
-
-const tabsItem: OverflowRowItem = {
-  id: 'tabs',
-  pinned: true,
-  node: ({ tight }) => <Tabs items={tabs} value={tab} onChange={setTab} iconOnly={tight} />,
 };
 `,
   propsHash: '71b7979a54068661',
