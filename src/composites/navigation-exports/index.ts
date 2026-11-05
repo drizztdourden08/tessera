@@ -40,6 +40,8 @@ export type {
 export { ControlMenu, ControlMenuGroup, ControlMenuRow, ControlMenuSub } from '../ControlMenu';
 export type { ControlMenuGroupProps, ControlMenuProps, ControlMenuRowProps, ControlMenuSubProps } from '../ControlMenu';
 export { ActionBar } from '../ActionBar';
+export { OverflowRow } from '../OverflowRow';
+export type { OverflowRowItem, OverflowRowProps } from '../OverflowRow';
 export type { ActionBarAlign, ActionBarProps, ActionConfirm, ActionItem, ActionKind } from '../ActionBar';
 export { ShortcutList, type ShortcutGesture, type ShortcutListGroup, type ShortcutListItem, type ShortcutListProps } from '../ShortcutList';
 export { ActionTile } from '../ActionTile';

@@ -23,6 +23,7 @@
 
 .check-list__counts {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: var(--space-xs) var(--space-md);
 }

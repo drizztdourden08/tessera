@@ -601,6 +601,10 @@ input, select {
   --duration-volume-morph: calc(var(--duration-slow) * 1.5);
   --duration-armed-loop: 1.4s;
   --duration-hero-pan: 60s;
+  --duration-reflow: 0.16s;
+  --duration-reflow-step: 0.02s;
+  --duration-reflow-span: calc(var(--duration-reflow) + var(--duration-reflow-step) * 7);
+  --duration-reflow-total: calc(var(--duration-reflow-span) * 2);
   --duration-step-skip: calc(var(--duration-step-skip-fill) + var(--duration-step-skip-line) + var(--duration-step-skip-ring));
   --ease-standard:    ease;
   --ease-in-out:      ease-in-out;

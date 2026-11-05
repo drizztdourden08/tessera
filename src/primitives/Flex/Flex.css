@@ -3,7 +3,10 @@
 .flex--inline { display: inline-flex; }
 .flex--container { container-type: inline-size; }
 
-.flex[data-dir='row'] { flex-direction: row; }
+.flex[data-dir='row'] {
+  flex-direction: row;
+  align-items: center;
+}
 .flex[data-dir='column'] { flex-direction: column; }
 .flex[data-wrap] { flex-wrap: wrap; }
 

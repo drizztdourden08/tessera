@@ -13,6 +13,7 @@
 .rating__star {
   position: relative;
   display: inline-flex;
+  align-items: center;
   color: var(--c-text-muted);
 }
 

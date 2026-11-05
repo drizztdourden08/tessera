@@ -29,7 +29,7 @@ const ListItemRow = (props: ListItemRowProps) => {
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => rowActivate({ onClick, onDoubleClick }, event.detail);
 
   return (
-    <Box ref={rowRef} className={frame.className} role={frame.role} style={style} {...(interactive ? {} : { onContextMenu, onKeyDown })} {...drag} {...data}>
+    <Box ref={rowRef} className={frame.className} role={frame.role} data-swap-item="" style={style} {...(interactive ? {} : { onContextMenu, onKeyDown })} {...drag} {...data}>
       {interactive ? (
         <Pressable
           className="list-item-row__main row-inset"
