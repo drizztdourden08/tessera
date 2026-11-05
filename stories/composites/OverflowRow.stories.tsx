@@ -69,7 +69,7 @@ const Overview = overviewStory({
     '`pinned` items never fold.',
     '`node` may be a function of `{ tight }`; tight is true when the pinned items alone overflow.',
     '`menuNode` is how an item looks inside the popover; it defaults to `node`.',
-    'The More button shows only when something is folded; Escape or a press outside closes the popover and focus goes back to the button.',
+    'More shows only when something is folded; Escape or a press outside closes it and focus returns.',
   ],
   instead: '[ActionBar] for actions on one item, or [Toolbar] for tools.',
   playground: Playground,
