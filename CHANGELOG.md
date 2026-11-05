@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.111.0
+
+### Minor Changes
+
+- Avatar takes size lg, 48 px.
+
 ## 0.110.0
 
 ### Minor Changes
