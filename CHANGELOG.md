@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.117.0
+
+### Minor Changes
+
+- IconButton takes a tooltip prop; Avatar takes a status prop that draws a corner dot.
+
 ## 0.116.0
 
 ### Minor Changes
