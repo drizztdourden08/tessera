@@ -26,7 +26,9 @@ const useIconPicker = ({ onChange }: UseIconPickerParams) => {
   };
 
   const upload = async (files: File[]) => {
-    const result = await readIconFile(files[0]);
+    const [file] = files;
+    if (!file) return;
+    const result = await readIconFile(file);
     if ('problem' in result) { setProblem(result.problem); return; }
     onChange(result.value);
     close();

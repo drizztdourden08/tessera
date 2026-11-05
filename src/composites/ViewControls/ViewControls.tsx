@@ -4,11 +4,9 @@ import { Box } from '../../primitives/Box';
 import { Button } from '../../primitives/Button';
 import { Icon } from '../../primitives/Icon';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { FilterBar } from '../FilterBar';
-import { GroupControl } from '../GroupControl';
-import { SortControl } from '../SortControl';
 import { activeCount } from './behavior/active-count';
 import { useOpenState } from './behavior/useOpenState';
+import { ViewControlsRow } from './sub-components/ViewControlsRow';
 import type { ViewControlsProps } from './ViewControls.type';
 import '../../theme/view-controls.css';
 
@@ -20,7 +18,7 @@ const ViewControls = (props: ViewControlsProps) => {
   const name = state.open ? views.hideControls : views.showControls;
 
   return (
-    <Box className={`view-controls${className ? ` ${className}` : ''}`}>
+    <Box className={['view-controls', className].filter(Boolean).join(' ')}>
       <Button
         variant="tertiary"
         size="sm"
@@ -34,13 +32,7 @@ const ViewControls = (props: ViewControlsProps) => {
       >
         {label ?? views.controls}
       </Button>
-      {state.open && (
-        <Box className="view-controls__row">
-          {filter !== undefined && <FilterBar {...filter} />}
-          {group !== undefined && <GroupControl {...group} />}
-          {sort !== undefined && <SortControl {...sort} />}
-        </Box>
-      )}
+      {state.open && <ViewControlsRow filter={filter} group={group} sort={sort} />}
     </Box>
   );
 };

@@ -40,6 +40,7 @@ const PART_SNIPPETS: Readonly<Record<TesseraPart, ProviderSnippet>> = {
     define: 'const APP_ICONS: IconSet = { ...ICONS, house: houseDuotone };',
     entry: 'icons: APP_ICONS',
   },
+  paletteTransition: { entry: 'paletteTransition: false' },
 };
 
 const SETUP_IMPORTS = `import { createRoot } from 'react-dom/client';

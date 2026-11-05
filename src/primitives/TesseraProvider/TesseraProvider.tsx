@@ -3,6 +3,7 @@ import { useContext, useMemo } from 'react';
 import { mergeOverrides } from './behavior/merge-overrides';
 import { TesseraOverridesContext } from './behavior/tessera-overrides-context';
 import type { TesseraProviderProps } from './TesseraProvider.type';
+import '../../theme/palette-transition.css';
 
 const TesseraProvider = (props: TesseraProviderProps) => {
   const { overrides, children } = props;

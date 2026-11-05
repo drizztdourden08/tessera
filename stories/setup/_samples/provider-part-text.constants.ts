@@ -39,10 +39,14 @@ const PART_TEXT: Readonly<Record<TesseraPart, ProviderPartText>> = {
     title: 'Icon set',
     note: 'Icon looks each name up in the app set. Here some names draw Phosphor duotone icons.',
   },
+  paletteTransition: {
+    title: 'Palette transition',
+    note: 'useSwitchPalette cross-fades a palette change. False turns the fade off, so the palette switches at once.',
+  },
 };
 
 const PROVIDER_PARTS: readonly TesseraPart[] = [
-  'spinner', 'writeText', 'imagePlaceholder', 'strings', 'errorFallback', 'emptyArt', 'portalDocument', 'icons',
+  'spinner', 'writeText', 'imagePlaceholder', 'strings', 'errorFallback', 'emptyArt', 'portalDocument', 'icons', 'paletteTransition',
 ];
 
 export { PART_TEXT, PROVIDER_PARTS };
