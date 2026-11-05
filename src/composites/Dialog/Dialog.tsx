@@ -20,6 +20,7 @@ const Dialog = (props: DialogProps) => {
     variant = 'default',
     size,
     steady,
+    surface,
     onConfirm,
     onCancel,
     id,
@@ -51,6 +52,7 @@ const Dialog = (props: DialogProps) => {
       initialFocus={start.mode}
       size={size}
       steady={steady}
+      surface={surface}
       id={id}
       data={data}
     >

@@ -1581,6 +1581,8 @@
         "Give the card a title for a header, or a header node for a custom one; without either it is a bare surface.",
         "onActivate makes the surface focusable and fires on a click and on Enter or Space when the card itself has focus. The look is interactive unless a variant is given.",
         "onActivate never fires from an inner button, link, field, menu or editable text, nor from a menu drawn in a portal.",
+        "Pass surface glass for the translucent acrylic look: a blurred fill, a bright top edge and a soft shadow. It needs something behind it to show; variant stays separate and still sets the tone.",
+        "Glass falls back to an opaque fill where blur is not supported or the user asks for reduced transparency, so text keeps its contrast.",
         "The card gets no button role, since it may hold buttons. Pass aria-label to name it."
       ],
       "a11y": [
@@ -1594,8 +1596,8 @@
         ],
         "rule": "Card is the raised surface that groups related content and can open a detail view when pressed."
       },
-      "example": "import { Button, Card } from '@drizztdourden08/tessera';\n\nconst openDetail = () => undefined;\nconst archive = () => undefined;\n\nconst Task = () => (\n  <Card title=\"Fix the login form\" aria-label=\"Task: Fix the login form\" onActivate={openDetail}>\n    <Button onClick={archive}>Archive</Button>\n  </Card>\n);\n",
-      "propsHash": "c0d4c940b3d1e1c2",
+      "example": "import { Button, Card } from '@drizztdourden08/tessera';\n\nconst openDetail = () => undefined;\nconst archive = () => undefined;\n\nconst Task = () => (\n  <Card title=\"Fix the login form\" aria-label=\"Task: Fix the login form\" onActivate={openDetail}>\n    <Button onClick={archive}>Archive</Button>\n  </Card>\n);\n\nconst Floating = () => (\n  <Card title=\"Now playing\" surface=\"glass\">\n    Over a picture or a map, the card blurs what is behind it.\n  </Card>\n);\n",
+      "propsHash": "e9168d4ef6636ff5",
       "props": {
         "own": [
           {
@@ -1611,6 +1613,15 @@
               "'default'",
               "'interactive'",
               "'danger'"
+            ]
+          },
+          {
+            "name": "surface",
+            "optional": true,
+            "text": "Surface",
+            "literals": [
+              "'solid'",
+              "'glass'"
             ]
           },
           {
@@ -1733,6 +1744,10 @@
         "--c-danger-bright",
         "--c-danger-dim",
         "--c-focus",
+        "--c-glass-border",
+        "--c-glass-edge",
+        "--c-glass-fill",
+        "--c-glass-solid",
         "--c-info",
         "--c-info-bright",
         "--c-primary",
@@ -1742,7 +1757,10 @@
         "--c-surface",
         "--c-warning",
         "--c-warning-bright",
+        "--glass-blur",
+        "--glass-saturate",
         "--radius-lg",
+        "--shadow-glass",
         "--size-4",
         "--size-40",
         "--space-md",
@@ -9361,6 +9379,7 @@
         "The width follows the content between the min and the max of the size, and never passes the window minus a margin.",
         "The height grows with the content up to the window minus a margin; the header and the buttons stay and only the body scrolls.",
         "Set steady when the width must not move while the content changes, such as an error that appears under a form.",
+        "Set surface glass for the translucent acrylic look over a busy page; it falls back to an opaque fill without blur support or with reduced transparency.",
         "Use variant danger for an action that cannot be undone; focus then starts on cancel."
       ],
       "a11y": [
@@ -9376,7 +9395,7 @@
         "rule": "Dialog holds a message and a confirm and a cancel button, and takes its width from its content within the size."
       },
       "example": "import { Dialog } from '@drizztdourden08/tessera';\n\nconst ReadmeDialog = ({ open, close }: { open: boolean; close: () => void }) => (\n  <Dialog open={open} title=\"README\" message=\"\" size=\"lg\" confirmLabel=\"Close\" hideCancel onConfirm={close} onCancel={close}>\n    Release notes go here.\n  </Dialog>\n);\n",
-      "propsHash": "58f13098eec70cc5",
+      "propsHash": "4a23910ebd7e2dc8",
       "props": {
         "own": [
           {
@@ -9438,6 +9457,15 @@
             "name": "steady",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "surface",
+            "optional": true,
+            "text": "Surface",
+            "literals": [
+              "'solid'",
+              "'glass'"
+            ]
           },
           {
             "name": "onConfirm",
@@ -9511,6 +9539,7 @@
         "The width follows the content between the min and the max, and never passes the window minus a margin.",
         "The height grows with the content up to the window minus a margin; the header and the actions stay and only the body scrolls.",
         "Set steady to pin the width to the max of the size, for a body whose content changes, such as a wizard step or an error line.",
+        "Set surface glass for the translucent acrylic look; it falls back to an opaque fill without blur support or with reduced transparency.",
         "Set dismissable to false while a save runs, so only your own actions close it."
       ],
       "a11y": [
@@ -9526,7 +9555,7 @@
         "rule": "DialogShell gives the frame, the focus and the scrolling body, and leaves the content and the buttons to you."
       },
       "example": "import { Button, DialogShell } from '@drizztdourden08/tessera';\n\nconst DetailsDialog = ({ open, close }: { open: boolean; close: () => void }) => (\n  <DialogShell open={open} onClose={close} title=\"Friday async\" size=\"md\" actions={<Button onClick={close}>Close</Button>}>\n    Eight players are connected.\n  </DialogShell>\n);\n",
-      "propsHash": "80113886b20170a4",
+      "propsHash": "c4ce0c5aa82d431f",
       "props": {
         "own": [
           {
@@ -9581,6 +9610,15 @@
             "text": "boolean"
           },
           {
+            "name": "surface",
+            "optional": true,
+            "text": "Surface",
+            "literals": [
+              "'solid'",
+              "'glass'"
+            ]
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -9625,6 +9663,10 @@
       "tokens": [
         "--border-width-thin",
         "--c-border",
+        "--c-glass-border",
+        "--c-glass-edge",
+        "--c-glass-fill",
+        "--c-glass-solid",
         "--c-scrim",
         "--c-surface",
         "--dialog-fit",
@@ -9635,7 +9677,10 @@
         "--dialog-w-lg",
         "--dialog-w-md",
         "--dialog-w-sm",
+        "--glass-blur",
+        "--glass-saturate",
         "--radius-lg",
+        "--shadow-glass",
         "--shadow-lg",
         "--space-lg",
         "--space-md",
@@ -15184,6 +15229,7 @@
         "Pass title for the heading and children for the body.",
         "The title is always shown above the body without a card surface or border.",
         "Pass sublabel for a muted label right after the title; it shrinks first, then the title, and a clipped one shows in a Tooltip.",
+        "Pass surface glass to draw the section as a translucent acrylic panel with an edge highlight and shadow; the default solid stays unframed.",
         "Pass action for a control in the header.",
         "Pass fill to take the room left in a flex column; the body then has a definite height, so a DataTable inside scrolls on its own."
       ],
@@ -15191,8 +15237,8 @@
         "The title is a heading; the body remains arbitrary content."
       ],
       "buildingBlock": true,
-      "example": "import { PanelContainer } from '@drizztdourden08/tessera';\n\n<PanelContainer title=\"Profiles\" action=\"New\">\n  Profiles go here.\n</PanelContainer>",
-      "propsHash": "4dcec4742a425e1b",
+      "example": "import { PanelContainer } from '@drizztdourden08/tessera';\n\n<>\n<PanelContainer title=\"Profiles\" action=\"New\">\n  Profiles go here.\n</PanelContainer>\n\n<PanelContainer title=\"Now playing\" surface=\"glass\">\n  Blurs what is behind it.\n</PanelContainer>\n</>",
+      "propsHash": "cbb97a845ee1bf7d",
       "props": {
         "own": [
           {
@@ -15231,6 +15277,16 @@
             "default": "false"
           },
           {
+            "name": "surface",
+            "optional": true,
+            "text": "Surface",
+            "literals": [
+              "'solid'",
+              "'glass'"
+            ],
+            "default": "'solid'"
+          },
+          {
             "name": "children",
             "optional": false,
             "text": "ReactNode"
@@ -15248,6 +15304,15 @@
         }
       },
       "tokens": [
+        "--border-width-thin",
+        "--c-glass-border",
+        "--c-glass-edge",
+        "--c-glass-fill",
+        "--c-glass-solid",
+        "--glass-blur",
+        "--glass-saturate",
+        "--radius-lg",
+        "--shadow-glass",
         "--space-md",
         "--space-sm"
       ],

@@ -32,6 +32,7 @@ Dialog holds a message and a confirm and a cancel button, and takes its width fr
 - The width follows the content between the min and the max of the size, and never passes the window minus a margin.
 - The height grows with the content up to the window minus a margin; the header and the buttons stay and only the body scrolls.
 - Set steady when the width must not move while the content changes, such as an error that appears under a form.
+- Set surface glass for the translucent acrylic look over a busy page; it falls back to an opaque fill without blur support or with reduced transparency.
 - Use variant danger for an action that cannot be undone; focus then starts on cancel.
 
 ## Accessibility
@@ -64,6 +65,7 @@ const ReadmeDialog = ({ open, close }: { open: boolean; close: () => void }) => 
 - `variant` (optional): `'danger' | 'default'`. Default `'default'`.
 - `size` (optional): `DialogSize`, one of `'sm'`, `'md'`, `'lg'`.
 - `steady` (optional): `boolean`.
+- `surface` (optional): `Surface`, one of `'solid'`, `'glass'`.
 - `onConfirm`: `() => void`.
 - `onCancel`: `() => void`.
 - `id` (optional): `string`.

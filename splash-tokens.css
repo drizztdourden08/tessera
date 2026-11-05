@@ -132,6 +132,10 @@
   --c-glass: #0e0e12eb;
   --c-panel: #17171a8c;
   --c-inset: #05050673;
+  --c-glass-fill: #17171a9e;
+  --c-glass-solid: #222225;
+  --c-glass-edge: #ffffff38;
+  --c-glass-border: #ffffff19;
   --c-hairline: #ffffff0f;
   --c-border: #27272b;
   --c-border-strong: #3c3c41;
@@ -254,6 +258,8 @@
   --c-checker-b: #3c3c41;
   --c-grid-line: #9a9aa48c;
   --blur: 8px;
+  --glass-blur: 20px;
+  --glass-saturate: 180%;
   --dialog-w-sm: 384px;
   --dialog-w-md: 640px;
   --dialog-w-lg: 896px;
@@ -428,6 +434,7 @@
   --shadow-dropdown: 0 8px 24px #00000080;
   --shadow-overlay: 0 4px 16px #0006;
   --shadow-lg: 0 12px 32px #0009;
+  --shadow-glass: 0 8px 32px #00000059;
   --blur-glow: 6px;
   --glow-reach: 24px;
   --glow-reach-strong: 32px;
@@ -600,6 +607,8 @@
   --c-glass: #0d0b14eb;
   --c-panel: #1a18218c;
   --c-inset: #06060973;
+  --c-glass-fill: #1a18219e;
+  --c-glass-solid: #25232c;
   --c-border: #2c2936;
   --c-border-strong: #423e50;
   --c-chrome: #1a1821;
@@ -744,6 +753,8 @@
   --c-glass: #121314eb;
   --c-panel: #1414148c;
   --c-inset: #04040473;
+  --c-glass-fill: #1414149e;
+  --c-glass-solid: #1f1f1f;
   --c-border: #222323;
   --c-border-strong: #353636;
   --c-chrome: #141414;
@@ -888,6 +899,8 @@
   --c-glass: #140b26eb;
   --c-panel: #141415;
   --c-inset: #07070873;
+  --c-glass-fill: #2020229e;
+  --c-glass-solid: #2b2b2d;
   --c-border: #343437;
   --c-border-strong: #4d4d51;
   --c-chrome: #0e0e10;
@@ -1042,6 +1055,8 @@
   --c-glass: #1a1008eb;
   --c-panel: #120d09;
   --c-inset: #04020073;
+  --c-glass-fill: #1b140e9e;
+  --c-glass-solid: #261f19;
   --c-border: #2f2419;
   --c-border-strong: #4a3a28;
   --c-chrome: #0c0806;

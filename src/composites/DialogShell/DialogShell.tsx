@@ -9,6 +9,7 @@ import { useDialogEscape } from './behavior/useDialogEscape';
 import { useDialogFocus } from './behavior/useDialogFocus';
 import { dialogClass } from './behavior/dialog-class';
 import './DialogShell.css';
+import '../../theme/glass-panel.css';
 import { type DialogShellProps } from './DialogShell.type';
 
 const keepFocus = (event: MouseEvent<HTMLElement>): void => {

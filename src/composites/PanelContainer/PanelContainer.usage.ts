@@ -9,6 +9,7 @@ const usage = {
     'Pass title for the heading and children for the body.',
     'The title is always shown above the body without a card surface or border.',
     'Pass sublabel for a muted label right after the title; it shrinks first, then the title, and a clipped one shows in a Tooltip.',
+    'Pass surface glass to draw the section as a translucent acrylic panel with an edge highlight and shadow; the default solid stays unframed.',
     'Pass action for a control in the header.',
     'Pass fill to take the room left in a flex column; the body then has a definite height, so a DataTable inside scrolls on its own.',
   ],
@@ -16,10 +17,16 @@ const usage = {
   buildingBlock: true,
   example: `import { PanelContainer } from '@drizztdourden08/tessera';
 
+<>
 <PanelContainer title="Profiles" action="New">
   Profiles go here.
-</PanelContainer>`,
-  propsHash: '4dcec4742a425e1b',
+</PanelContainer>
+
+<PanelContainer title="Now playing" surface="glass">
+  Blurs what is behind it.
+</PanelContainer>
+</>`,
+  propsHash: 'cbb97a845ee1bf7d',
 } satisfies ComponentUsage;
 
 export { usage };

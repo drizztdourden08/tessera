@@ -15,6 +15,8 @@ const usage = {
     'Give the card a title for a header, or a header node for a custom one; without either it is a bare surface.',
     'onActivate makes the surface focusable and fires on a click and on Enter or Space when the card itself has focus. The look is interactive unless a variant is given.',
     'onActivate never fires from an inner button, link, field, menu or editable text, nor from a menu drawn in a portal.',
+    'Pass surface glass for the translucent acrylic look: a blurred fill, a bright top edge and a soft shadow. It needs something behind it to show; variant stays separate and still sets the tone.',
+    'Glass falls back to an opaque fill where blur is not supported or the user asks for reduced transparency, so text keeps its contrast.',
     'The card gets no button role, since it may hold buttons. Pass aria-label to name it.',
   ],
   a11y: [
@@ -35,8 +37,14 @@ const Task = () => (
     <Button onClick={archive}>Archive</Button>
   </Card>
 );
+
+const Floating = () => (
+  <Card title="Now playing" surface="glass">
+    Over a picture or a map, the card blurs what is behind it.
+  </Card>
+);
 `,
-  propsHash: 'c0d4c940b3d1e1c2',
+  propsHash: 'e9168d4ef6636ff5',
 } satisfies ComponentUsage;
 
 export { usage };
