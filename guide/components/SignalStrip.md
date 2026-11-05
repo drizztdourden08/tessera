@@ -83,4 +83,4 @@ const Wrapped = () => <SignalStrip aria-label="Attention" items={[...items, ...w
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--brand-rim-width`, `--size-12`, `--size-4`, `--size-8`, `--space-xs`.
+It draws on `--border-width-thin`, `--brand-rim-sm`, `--signal-mark`, `--signal-mark-rimmed`, `--size-4`, `--size-8`, `--space-xs`.

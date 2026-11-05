@@ -19907,8 +19907,9 @@
       },
       "tokens": [
         "--border-width-thin",
-        "--brand-rim-width",
-        "--size-12",
+        "--brand-rim-sm",
+        "--signal-mark",
+        "--signal-mark-rimmed",
         "--size-4",
         "--size-8",
         "--space-xs"
