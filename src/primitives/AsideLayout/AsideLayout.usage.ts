@@ -48,7 +48,7 @@ const Detail = () => {
   );
 };
 `,
-  propsHash: '0000000000000000',
+  propsHash: 'dc128f7184b53afb',
 } satisfies ComponentUsage;
 
 export { usage };
