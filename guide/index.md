@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 135 of 244 have their usage written; a linked name opens its page.
+One line per component. 139 of 248 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -141,6 +141,7 @@ One line per component. 135 of 244 have their usage written; a linked name opens
 - `FloatingSwitch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [FormGroupTabs](components/FormGroupTabs.md): The top of a long form split into groups: a search over the options, Show advanced, and a tab per group with how many options changed. Import from `@drizztdourden08/tessera`.
 - [FormRow](components/FormRow.md): One option of a long form: its name and help on the left, its control on the right edge, a changed mark and a reset after the name. Import from `@drizztdourden08/tessera`.
+- [GroupControl](components/GroupControl.md): A menu that picks the one field a list is grouped by, or no grouping. Import from `@drizztdourden08/tessera`.
 - `GroupTree`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [GuidedTour](components/GuidedTour.md): A tour of a screen, step by step: one part stays lit with a glow while the rest dims and blurs, a bubble explains it and the mascot presents it. Import from `@drizztdourden08/tessera`.
 - `HeaderAnchorNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -206,6 +207,7 @@ One line per component. 135 of 244 have their usage written; a linked name opens
 - [SignalStrip](components/SignalStrip.md): One row of small toned chips, each an icon with a count, that never wraps: what does not fit folds into a +N chip whose tooltip lists the hidden ones. Import from `@drizztdourden08/tessera`.
 - [SiteFooter](components/SiteFooter.md): The foot of a page of a website: a small logo, one line of text and a few links such as rules, privacy and Discord. Import from `@drizztdourden08/tessera`.
 - [SiteHeader](components/SiteHeader.md): The band at the top of every page of a website: the logo and the site title as the link home, the main links and the signed-in person. Import from `@drizztdourden08/tessera`.
+- [SortControl](components/SortControl.md): A menu that picks the field a list is sorted by, with one button that flips the direction. Import from `@drizztdourden08/tessera`.
 - [SpanBar](components/SpanBar.md): A bar over a row of cells that the user drags to move, stretches from either end and moves with the keys, with a lane to draw a new one. Import from `@drizztdourden08/tessera`.
 - [Splash](components/Splash.md): The splash of the static page drawn from React, so the app can show it again, or take over from the static page with no jump. Import from `@drizztdourden08/tessera`.
 - [SplitButton](components/SplitButton.md): A button that runs its main action, joined to a chevron that opens a menu of related actions, such as New with the kinds of thing to create. Import from `@drizztdourden08/tessera`.
@@ -227,6 +229,7 @@ One line per component. 135 of 244 have their usage written; a linked name opens
 - [ValidationSummary](components/ValidationSummary.md): What blocks a save, listed above the form in a toned box, each problem a link that moves focus to its field. Import from `@drizztdourden08/tessera`.
 - [ValueTag](components/ValueTag.md): A read only value of an option: a tag for text and numbers, a True or False pill for a switch, with an optional label before it. A building block. Import from `@drizztdourden08/tessera`.
 - [Video](components/Video.md): A video player with its own control bar: seek with a time preview, volume, speed, picture in picture, theater mode and full screen. Import from `@drizztdourden08/tessera`.
+- [ViewControls](components/ViewControls.md): Filter, group and sort controls in one row, behind a button that shows or hides them. Import from `@drizztdourden08/tessera`.
 - [VirtualGrid](components/VirtualGrid.md): A very long grid of equal tiles, such as sprite thumbnails, in sections if wanted, where only the rows in view are drawn, with the arrow keys to move between tiles. Import from `@drizztdourden08/tessera`.
 - [VirtualList](components/VirtualList.md): A very long list of rows, usually of one height, where only the rows in view are drawn, with the arrow keys to move between them. Import from `@drizztdourden08/tessera`.
 - `VolumeControl`: usage not written yet. Import from `@drizztdourden08/tessera`.
