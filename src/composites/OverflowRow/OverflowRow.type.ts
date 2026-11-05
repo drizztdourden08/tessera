@@ -12,6 +12,7 @@ interface OverflowRowItem {
   node: OverflowRowNode;
   priority?: number;
   pinned?: boolean;
+  end?: boolean;
   menuNode?: ReactNode;
 }
 
@@ -24,6 +25,11 @@ interface OverflowRowProps {
 interface FoldResult {
   folded: readonly string[];
   tight: boolean;
+}
+
+interface OverflowRowSplit {
+  start: readonly OverflowRowItem[];
+  end: readonly OverflowRowItem[];
 }
 
 interface FoldParams {
@@ -51,4 +57,4 @@ interface OverflowRowMoreProps {
   label: string;
 }
 
-export type { FoldInput, FoldParams, FoldResult, OverflowRowItem, OverflowRowMeasureProps, OverflowRowMoreProps, OverflowRowNode, OverflowRowNodeState, OverflowRowProps };
+export type { FoldInput, FoldParams, FoldResult, OverflowRowItem, OverflowRowMeasureProps, OverflowRowMoreProps, OverflowRowNode, OverflowRowNodeState, OverflowRowProps, OverflowRowSplit };

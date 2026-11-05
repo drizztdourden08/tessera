@@ -66,7 +66,7 @@ const Overview = overviewStory({
   points: [
     '`items` keep their order; each has an `id` and a `node`.',
     'A higher `priority` stays longer; the lowest priority unpinned item folds first.',
-    '`pinned` items never fold.',
+    '`pinned` items never fold; `end` puts an item and the ones after it at the far right.',
     '`node` may be a function of `{ tight }`; tight is true when the pinned items alone overflow.',
     '`menuNode` is how an item looks inside the popover; it defaults to `node`.',
     'More shows only when something is folded; Escape or a press outside closes it and focus returns.',

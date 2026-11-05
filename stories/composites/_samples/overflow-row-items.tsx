@@ -16,7 +16,7 @@ const headerItems = (): readonly OverflowRowItem[] => [
   fact('games', 'Timespinner, A Link to the Past', 2),
   fact('updated', 'Updated 2 hours ago', 1),
   { id: 'refresh', priority: 4, node: <IconButton label="Refresh" variant="ghost"><Icon name="refresh-cw" /></IconButton> },
-  { id: 'gear', pinned: true, node: <IconButton label="Settings" variant="ghost"><Icon name="settings" /></IconButton> },
+  { id: 'gear', pinned: true, end: true, node: <IconButton label="Settings" variant="ghost"><Icon name="settings" /></IconButton> },
 ];
 
 const tightItems = (): readonly OverflowRowItem[] => [

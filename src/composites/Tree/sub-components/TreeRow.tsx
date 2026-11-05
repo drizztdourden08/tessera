@@ -14,6 +14,7 @@ const TreeRow = <T,>(props: TreeRowProps<T>) => {
   return (
     <Box
       role="treeitem"
+      data-swap-item=""
       className={rowClasses(row.branch, bind.state.selected, bind.dragging)}
       style={placed}
       tabIndex={bind.tabIndex}
