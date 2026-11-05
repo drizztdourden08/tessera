@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.119.1
+
+### Patch Changes
+
+- FilterBar extra content wraps inside the bar when it is narrow.
+
 ## 0.119.0
 
 ### Minor Changes
