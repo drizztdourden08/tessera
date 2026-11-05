@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 
-interface RecordCardSlotProps {
+interface RecordHeaderSlotProps {
   when?: boolean;
   main?: boolean;
   children?: ReactNode;
 }
 
-export type { RecordCardSlotProps };
+export type { RecordHeaderSlotProps };

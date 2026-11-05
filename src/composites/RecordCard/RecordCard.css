@@ -17,54 +17,9 @@
   padding: var(--record-card-pad);
 }
 
-.record-card__header {
-  display: flex;
-  align-items: center;
-  gap: var(--record-card-gap);
-  min-inline-size: 0;
-}
-
-.record-card__slot {
-  display: flex;
-  flex: none;
-  align-items: center;
-  min-inline-size: 0;
-}
-
-.record-card__slot--main {
-  flex: 1;
-  gap: var(--record-card-gap);
-}
-
-.record-card__title {
-  flex: 0 1 auto;
-  min-inline-size: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.record-card__chevron {
-  transition: transform var(--duration-fast) var(--ease-standard);
-}
-
-.record-card__chevron--open {
-  transform: rotate(90deg);
-}
-
 .record-card__body {
   display: flex;
   flex-direction: column;
   gap: var(--record-card-gap);
   min-inline-size: 0;
-}
-
-.record-card__body[hidden] {
-  display: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .record-card__chevron {
-    transition: none;
-  }
 }

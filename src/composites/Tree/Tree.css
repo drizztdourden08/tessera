@@ -156,7 +156,7 @@
 .tree__label {
   display: flex;
   flex: 1;
-  align-items: baseline;
+  align-items: center;
   gap: var(--space-sm);
   min-inline-size: 0;
   overflow: hidden;

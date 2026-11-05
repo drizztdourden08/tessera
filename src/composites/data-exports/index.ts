@@ -67,4 +67,4 @@ export { MediaViewer, type MediaViewerItem, type MediaViewerKind, type MediaView
 export { TrackTable, type TrackAlign, type TrackColumn, type TrackDrop, type TrackHideBelow, type TrackRowTone, type TrackTableProps } from '../TrackTable';
 export { RowGrid, type RowGridColumn, type RowGridDensity, type RowGridProps } from '../RowGrid';
 export { KanbanBoard, moveCard } from '../KanbanBoard';
-export type { KanbanBoardProps, KanbanCardData, KanbanColumn, KanbanColumnHeight, KanbanColumnWidth, KanbanMove, KanbanPlace } from '../KanbanBoard';
+export type { KanbanBoardProps, KanbanCardData, KanbanCardFrame, KanbanCardFrameMode, KanbanColumn, KanbanColumnHeight, KanbanColumnWidth, KanbanGroupFold, KanbanMove, KanbanPlace } from '../KanbanBoard';

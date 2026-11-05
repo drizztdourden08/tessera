@@ -93,7 +93,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Settings': { SettingsPage: 'file-cog', SettingsSection: 'settings-2', SettingsRow: 'sliders-horizontal' },
   'Composites · Menus': { DropdownMenu: 'square-chevron-down', CommandPalette: 'command', CommandPaletteRow: 'text-search', ControlMenu: 'sliders-horizontal' },
   'Composites · Data views': {
-    'DataTable': 'table', 'FilterBar': 'filter', 'GroupControl': 'layers', 'GroupBar': 'layers', 'SortControl': 'arrow-up-down', 'ViewControls': 'sliders-horizontal', 'RecordCard': 'panel-top', 'CompactRecordView': 'id-card', 'KanbanBoard': 'columns-3', 'Field kits': 'toolbox',
+    'DataTable': 'table', 'FilterBar': 'filter', 'GroupControl': 'layers', 'GroupBar': 'layers', 'SortControl': 'arrow-up-down', 'ViewControls': 'sliders-horizontal', 'RecordCard': 'panel-top', 'RecordHeader': 'heading', 'CompactRecordView': 'id-card', 'KanbanBoard': 'columns-3', 'Field kits': 'toolbox',
   },
   'Composites · Content': {
     LogPanel: 'logs', FactsPanel: 'table-properties', Hero: 'mountain-snow',

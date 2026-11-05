@@ -9,6 +9,7 @@ import { TreeActionsDemo } from './_samples/TreeActionsDemo';
 import { TreeDemo } from './_samples/TreeDemo';
 import { TreeDragOutDemo } from './_samples/TreeDragOutDemo';
 import { TreeLazyDemo } from './_samples/TreeLazyDemo';
+import { TreeRecordDemo } from './_samples/TreeRecordDemo';
 import { TreeRoomyDemo } from './_samples/TreeRoomyDemo';
 import type { TreeArgs } from './_samples/tree-demo.type';
 import './Tree.stories.css';
@@ -81,6 +82,11 @@ const RoomyRows = {
   render: () => <TreeRoomyDemo />,
 } satisfies StoryLiteStoryDefinition<TreeArgs>;
 
+const RecordRows = {
+  name: 'RecordHeader rows: a TypeMark icon, a code and a title, centred on the row',
+  render: () => <TreeRecordDemo />,
+} satisfies StoryLiteStoryDefinition<TreeArgs>;
+
 const Big = {
   name: '10,100 rows drawn only where they are in view',
   render: () => <TreeBigDemo />,
@@ -112,7 +118,7 @@ const Overview = overviewStory({
   ],
   instead: '[GroupTree] for counted groups with one picked row, or [VirtualList] for a flat list.',
   playground: Playground,
-  variants: [Files, Reorder, HoverActions, BadgesAndActions, DragOut, Single, Filtered, Lazy, RoomyRows, Big],
+  variants: [Files, Reorder, HoverActions, BadgesAndActions, DragOut, Single, Filtered, Lazy, RoomyRows, RecordRows, Big],
   states: {
     render: (props: StateProps) => <TreeDemo mode="single" guides open={props.open === true ? ['src', 'components'] : []} />,
     list: [
@@ -126,4 +132,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { BadgesAndActions, Big, DragOut, Files, Filtered, HoverActions, Lazy, Overview, Playground, Reorder, RoomyRows, Single };
+export { BadgesAndActions, Big, DragOut, Files, Filtered, HoverActions, Lazy, Overview, Playground, Reorder, RecordRows, RoomyRows, Single };
