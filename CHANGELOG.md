@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.127.0
+
+### Minor Changes
+
+- ContentSwap sequence out-in: the leaving layer is gone before the entering one shows.
+
 ## 0.126.0
 
 ### Minor Changes
