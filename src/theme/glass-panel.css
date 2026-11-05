@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind style */
 .glass-panel,
 .card.surface-glass,
+.card--interactive.surface-glass:hover,
 .panel-container.surface-glass,
 .dialog.surface-glass {
   background: var(--c-glass-fill);
@@ -14,6 +15,7 @@
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .glass-panel,
   .card.surface-glass,
+  .card--interactive.surface-glass:hover,
   .panel-container.surface-glass,
   .dialog.surface-glass {
     background: var(--c-glass-solid);
@@ -23,6 +25,7 @@
 @media (prefers-reduced-transparency: reduce) {
   .glass-panel,
   .card.surface-glass,
+  .card--interactive.surface-glass:hover,
   .panel-container.surface-glass,
   .dialog.surface-glass {
     background: var(--c-glass-solid);
