@@ -46,6 +46,10 @@
   --aside-width-sm: 200px;
   --aside-width-md: 280px;
   --aside-width-lg: 360px;
+  --record-card-pad-row: var(--space-xs) var(--space-sm);
+  --record-card-pad-card: var(--space-sm) var(--space-md);
+  --record-card-gap-row: var(--space-xs);
+  --record-card-gap-card: var(--space-sm);
 }
 }
 
