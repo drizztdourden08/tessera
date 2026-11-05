@@ -168,6 +168,16 @@ const renderState = (props: StateProps, pseudo?: StateEntry['pseudo']) => (
   </Flex>
 );
 
+const WithTooltip = {
+  name: 'Tooltip on hover and focus',
+  render: () => (
+    <Flex gap="md" align="center">
+      <IconButton label={LABELS.pin} tooltip="Pin tracker" size="md">{glyph('pin', 'md')}</IconButton>
+      <IconButton label={LABELS.mute} tooltip="Mute audio" tooltipPlacement="bottom" size="md">{glyph('mute', 'md')}</IconButton>
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition<IconButtonArgs>;
+
 const HeadRow = {
   name: 'Card head row at 16 px',
   render: () => <CardHeadRow />,
@@ -184,16 +194,16 @@ const Overview = overviewStory({
   points: [
     '**`label` is required:** it becomes the name screen readers announce.',
     'It takes the variants of [Button]; sizes `md` 39, `sm` 28, `xs` 20 and `2xs` 16 px. Back and close are `md`.',
-    '`xs` suits dense rows, compact panels and title bars; `2xs` is a 16 px square for a card head row.',
-    'An unsized icon draws at 16 px in `md`, 12 px below; give a `2xs` button a 10 px icon.',
+    '`xs` suits dense rows, `2xs` card head rows; an unsized icon draws 16 px in `md`, 12 below, 10 in `2xs`.',
+    '`tooltip` shows a [Tooltip] on hover and keyboard focus; `tooltipPlacement` picks the side.',
     '`active` marks a toggle as on, `mixed` hatches it when picked items differ; `loading` swaps in a [Spinner].',
     '`tone` tints a ghost button (`danger`, `info`, `accent`); `hint` feeds a one-line description to a [HintLine].',
   ],
   instead: '[Button] when a word fits.',
   playground: Playground,
-  variants: [AllVariants, Tones, Mixed, Loading, HeadRow],
+  variants: [AllVariants, Tones, Mixed, Loading, WithTooltip, HeadRow],
   states: markedStates(BUTTON_STATES, renderState),
 });
 
 export default meta;
-export { AllVariants, HeadRow, Loading, Mixed, Overview, Playground, Tones, Toolbar };
+export { AllVariants, HeadRow, Loading, Mixed, Overview, Playground, Tones, Toolbar, WithTooltip };

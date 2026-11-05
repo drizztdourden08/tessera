@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react';
 import type { HintTargetProps } from '../hint/hint.type';
+import type { TooltipPlacement } from '../Tooltip/Tooltip.type';
 
 type IconButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'info' | 'success' | 'ghost' | 'quiet';
 
@@ -16,6 +17,8 @@ interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>, HintT
   mixed?: boolean;
   loading?: boolean;
   label: string;
+  tooltip?: ReactNode;
+  tooltipPlacement?: TooltipPlacement;
   children: ReactNode;
   ref?: Ref<HTMLButtonElement>;
 }
