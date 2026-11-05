@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.121.1
+
+### Patch Changes
+
+- Toggle: an explicit aria-label now names the switch even when a visible label is shown.
+
 ## 0.121.0
 
 ### Minor Changes
