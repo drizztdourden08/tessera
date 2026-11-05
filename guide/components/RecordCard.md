@@ -36,6 +36,7 @@ RecordCard is the shared card of every list item: header slots in a fixed order,
 - Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.
 - Use density row for a compact list and card for roomy items.
 - Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.
+- Pass fill when cards sit in a grid, so every card of a row takes the full cell height.
 
 ## Accessibility
 
@@ -77,6 +78,7 @@ const TaskCard = () => (
 - `edge` (optional): `CardEdge`, one of `'left'`, `'border'`.
 - `edgeTone` (optional): `CardTone`, one of `'neutral'`, `'primary'`, `'info'`, `'success'`, `'warning'`, `'danger'`.
 - `variant` (optional): `CardVariant`, one of `'default'`, `'interactive'`, `'danger'`.
+- `fill` (optional): `boolean`.
 - `aria-label` (optional): `string`.
 
 ## Tokens
