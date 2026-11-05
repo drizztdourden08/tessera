@@ -55,6 +55,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A colour. **Where does the picker sit?**
     - In the page: [ColorPicker](components/ColorPicker.md). ColorPicker is the colour panel placed in the page; import it from the color-picker subpath.
     - Behind a swatch button: no component yet.
+  - An icon: [IconPicker](components/IconPicker.md). IconPicker is the button that picks an icon from a grid or uploads an SVG or PNG.
   - A range:
     - [ScrubRuler](components/ScrubRuler.md). ScrubRuler sets one current cell on a row of cells, with markers and a band, where SpanBar sets a range of cells.
     - [SpanBar](components/SpanBar.md). SpanBar edits a range of cells on a row, where Slider edits a number between two limits.

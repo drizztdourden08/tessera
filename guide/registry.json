@@ -211,6 +211,11 @@
               }
             }
           },
+          "an icon": {
+            "components": [
+              "IconPicker"
+            ]
+          },
           "a range": {
             "components": [
               "ScrubRuler",
@@ -11319,6 +11324,118 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "IconPicker",
+      "tier": "composites",
+      "source": "src/composites/IconPicker/IconPicker.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "An icon button that opens a popover to pick one icon from a searchable grid, or to upload an SVG or PNG, and hands back one value.",
+      "useWhen": [
+        "The user gives something an icon, such as a project, a folder or a shortcut.",
+        "The user may bring their own image: leave allowUpload on, so an SVG or PNG can be uploaded."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user picks one cell from a strip or grid you draw yourself.",
+          "use": "ChoiceGrid"
+        },
+        {
+          "case": "The icon is shown, not edited.",
+          "use": "Icon"
+        }
+      ],
+      "rules": [
+        "The app owns the value: pass value and onChange. The value is an icon name, an SVG text or a PNG data URL, told apart by kind.",
+        "Pass label to name the button for assistive tools, such as Project icon.",
+        "Pass icons to limit the grid to a short list of names; without it the grid holds every icon of the family.",
+        "An uploaded SVG must be 64 KB or less and start with an svg element; a PNG must be 256 KB or less. A rejected file shows the reason under the button and leaves the value alone.",
+        "An SVG is drawn as an image, never as markup, so its scripts never run. Store the SVG text as given.",
+        "Pass allowUpload false to hide the upload button."
+      ],
+      "a11y": [
+        "The button reads its label, says it opens a dialog and reports whether it is open.",
+        "The search field has focus on open; Down moves into the grid. The grid is one Tab stop, arrows move, Home and End jump, Enter or Space picks, and Escape closes and returns focus to the button.",
+        "Each icon is an option named after the icon. A rejected file is read as an error under the upload button."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "an icon"
+        ],
+        "rule": "IconPicker is the button that picks an icon from a grid or uploads an SVG or PNG."
+      },
+      "example": "import { useState } from 'react';\nimport { IconPicker } from '@drizztdourden08/tessera';\nimport type { IconPickerValue } from '@drizztdourden08/tessera';\n\nconst ProjectIcon = () => {\n  const [icon, setIcon] = useState<IconPickerValue>({ kind: 'icon', name: 'folder' });\n  return <IconPicker label=\"Project icon\" value={icon} onChange={setIcon} />;\n};\n",
+      "propsHash": "ce42bfd48e78d453",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "IconPickerValue"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(value: IconPickerValue) => void"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "icons",
+            "optional": true,
+            "text": "readonly IconName[]",
+            "default": "ALL_ICON_NAMES"
+          },
+          {
+            "name": "allowUpload",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--radius-md",
+        "--shadow-dropdown",
+        "--size-16",
+        "--size-224",
+        "--size-288",
+        "--space-md",
+        "--space-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/IconPicker",
+        "route": "#/story/composites-iconpicker--overview",
+        "file": "stories/composites/IconPicker.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "InfoScreen",

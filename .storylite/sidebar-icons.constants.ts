@@ -114,7 +114,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     PixelPlayer: 'play',
   },
   'Composites · Inputs': {
-    DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus',
+    DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', IconPicker: 'shapes', KeyValueEditor: 'list-plus',
     CommandInput: 'square-terminal', PasswordInput: 'lock-keyhole', TagInput: 'tag', PathInput: 'folder-input',
     SpanBar: 'ruler',
     ScrubRuler: 'ruler',
