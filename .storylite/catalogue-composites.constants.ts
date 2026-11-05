@@ -147,6 +147,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'DataTable', summary: 'Sortable, groupable, resizable table with saved layouts.' },
         { name: 'FilterBar', summary: 'A search box and filter chips, each added with + and edited in place.' },
         { name: 'GroupControl', summary: 'A menu that picks one field to group a list by, or none.' },
+        { name: 'GroupBar', summary: 'Group by chips with an Add group menu, laid out like the filter chips.' },
         { name: 'SortControl', summary: 'A menu that picks the sort field, with one button for the direction.' },
         { name: 'ViewControls', summary: 'Filter, group and sort in one row, behind a show button with a count of what is on.' },
         { name: 'CompactRecordView', summary: 'One record read-only, with differences marked.' },

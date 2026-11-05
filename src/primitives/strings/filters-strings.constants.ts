@@ -14,6 +14,9 @@ const FILTER_STRINGS = {
   valueRange: (low: string, high: string) => `${low} to ${high}`,
   moreValues: (shown: string, more: number) => `${shown} +${more}`,
   editValueNamed: (label: string) => `Change the ${label} filter value`,
+  addGroup: 'Add group',
+  groupBy: 'Group by',
+  removeGroupNamed: (label: string) => `Remove grouping by ${label}`,
   clearFilters: 'Clear filters',
   moreFilters: (count: number) => `Show ${count} more ${count === 1 ? 'filter' : 'filters'}`,
 };

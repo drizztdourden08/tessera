@@ -1,0 +1,19 @@
+/* @layer renderer-components @kind style */
+.group-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.filter-chip > .group-bar__field {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--control-pad-sm);
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border);
+  margin-inline-end: calc(-1 * var(--border-width-thin));
+  font-size: var(--text-sm);
+  white-space: nowrap;
+}

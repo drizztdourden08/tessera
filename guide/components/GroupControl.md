@@ -24,6 +24,7 @@ GroupControl offers one grouping field at a time, with None to turn grouping off
 ## Use something else when
 
 - The list needs a filter, a group and a sort together behind one show button. Use [ViewControls](ViewControls.md) instead.
+- The list groups by several levels, or the grouping should look like the FilterBar chips. Use [GroupBar](GroupBar.md) instead.
 - The user picks the field to order rows by. Use [SortControl](SortControl.md) instead.
 - The user narrows rows by a value. Use `FilterBar` instead.
 
