@@ -23,7 +23,3 @@
   gap: var(--record-card-gap);
   min-inline-size: 0;
 }
-
-.record-card__body[hidden] {
-  display: none;
-}

@@ -16,12 +16,14 @@ const usage = {
   rules: [
     'Pass icon, code, content and menu to fill the header slots; they sit in that order after the chevron.',
     'The chevron shows only when there are children, and only it toggles the card, never a click in the menu.',
-    'Folded, the title sits in the header; open, the header keeps content and the title moves above the children.',
+    'Folded, the title sits in the header and the body is not rendered; open, the title moves above the children, so it shows once.',
     'Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.',
     'Use density row for a compact list and card for roomy items.',
+    'Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.',
   ],
   a11y: [
-    'The chevron is a button with aria-expanded and aria-controls pointing at the body.',
+    'The chevron is a button with aria-expanded, and aria-controls pointing at the body while it is open.',
+    'Pass name, or aria-label, so the chevron reads Expand ARG-12 rather than a bare Expand.',
     'Pass aria-label to name the card as a group.',
   ],
   tree: {
@@ -41,7 +43,7 @@ const TaskCard = () => (
   </RecordCard>
 );
 `,
-  propsHash: '6dc2c764117f14c6',
+  propsHash: '4311d56a89744f12',
 } satisfies ComponentUsage;
 
 export { usage };

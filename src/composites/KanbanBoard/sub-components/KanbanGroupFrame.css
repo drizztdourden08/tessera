@@ -19,13 +19,7 @@
 }
 
 .kanban__item[data-group='last'],
-.kanban__item[data-group='only'] {
-  padding-block-end: var(--space-xs);
-  border-end-start-radius: var(--radius-lg);
-  border-end-end-radius: var(--radius-lg);
-  border-block-end: var(--border-width-thin) solid var(--c-border-strong);
-}
-
+.kanban__item[data-group='only'],
 .kanban__group-bar {
   margin-inline: calc(-1 * var(--space-xs));
   margin-block-end: var(--space-xs);

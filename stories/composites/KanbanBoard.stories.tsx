@@ -5,6 +5,7 @@ import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import { KanbanDemo } from './_samples/KanbanDemo';
 import { KanbanGroupDemo } from './_samples/KanbanGroupDemo';
+import { KanbanRecordDemo } from './_samples/KanbanRecordDemo';
 import { KANBAN_ARG_TYPES, KANBAN_ARGS, KANBAN_CODE } from './_samples/kanban-board.constants';
 import type { FoldedColumn, KanbanArgs } from './_samples/kanban-board.type';
 import './KanbanBoard.stories.css';
@@ -68,6 +69,11 @@ const CardEdges = {
   render: () => <KanbanDemo edges />,
 } satisfies StoryLiteStoryDefinition<KanbanArgs>;
 
+const RecordCards = {
+  name: 'cardFrame none: each card is a RecordCard with one frame, its danger edge from cardEdgeTone',
+  render: () => <KanbanRecordDemo />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
 const NodeHeads = {
   name: 'header: a node in the head, such as a parent record with its icon, code and link',
   render: () => <KanbanDemo heads slots />,
@@ -113,12 +119,12 @@ const Overview = overviewStory({
     'Drag the grip, or press [[Up]] and [[Down]] to move within a column and [[Left]] and [[Right]] to change column.',
     'Each move is announced, and focus stays on the card, even in its new column.',
     'A head has the count, `badge`, `action`, a fold button and an optional `header` node in place of the title.',
-    '`renderCard` draws the inside of a card; `cardEdgeTone` gives a card a coloured edge, such as `danger`.',
+    '`renderCard` draws the inside of a card; `cardEdgeTone` gives it a coloured edge; `cardFrame="none"` drops the frame.',
     'Opt-in looks: `columnWidth="fill"`, `columnHeight="fit"`, `grip={false}`, `foldable={false}` and `stack`.',
   ],
   instead: '[RowGrid] for one list edited in place, or [DataTable] for many records to sort and filter.',
   playground: Playground,
-  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, NodeHeads, GroupFold, AddForm, CardEdges, Folded, Narrow, Empty],
+  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, NodeHeads, GroupFold, AddForm, CardEdges, RecordCards, Folded, Narrow, Empty],
   states: {
     render: (props: StateProps) => <KanbanDemo folded={(props.folded as FoldedColumn | undefined) ?? 'none'} />,
     list: FOLDS.map((folded) => ({ name: folded === 'none' ? 'all open' : 'one folded', props: { folded } })),
@@ -127,4 +133,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, GroupFold, HeaderSlots, Live, Narrow, NoFold, NoGrip, NodeHeads, Overview, Playground, Stacked };
+export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, GroupFold, HeaderSlots, Live, Narrow, NoFold, NoGrip, NodeHeads, Overview, Playground, RecordCards, Stacked };

@@ -13030,6 +13030,7 @@
         "The board never changes a card group. A move reports the neighbours the card has after it, above and below (card ids, left out at an end), so the app sets the group of the moved card and the frame forms again from the new order and keys.",
         "Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.",
         "Pass cardEdgeTone to draw a coloured edge on some cards, such as danger for a card that needs the user; return undefined for a card with no edge.",
+        "When renderCard returns its own framed card, such as a RecordCard, pass cardFrame none so the board draws no frame; pass the edgeTone from the second renderCard argument to that card.",
         "Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.",
         "Set columnWidth to fill so the columns share the board width instead of a fixed width; each keeps a minimum, and the board scrolls sideways when the minimums do not fit.",
         "Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.",
@@ -13060,7 +13061,7 @@
         "rule": "KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards."
       },
       "example": "import { useState } from 'react';\nimport { Badge, KanbanBoard, Text, moveCard } from '@drizztdourden08/tessera';\nimport type { KanbanColumn } from '@drizztdourden08/tessera';\n\ninterface Task {\n  id: string;\n  title: string;\n  tag: string;\n  group?: string;\n}\n\nconst START: KanbanColumn<Task>[] = [\n  { id: 'todo', title: 'To do', cards: [\n    { id: 't1', title: 'Fix login', tag: 'bug', group: 'auth' },\n    { id: 't2', title: 'Add reset link', tag: 'feature', group: 'auth' },\n    { id: 't3', title: 'Update docs', tag: 'chore' },\n  ] },\n  { id: 'doing', title: 'Doing', cards: [] },\n  { id: 'done', title: 'Done', cards: [] },\n];\n\nconst Tasks = () => {\n  const [columns, setColumns] = useState(START);\n  return (\n    <KanbanBoard\n      label=\"Sprint\"\n      columns={columns}\n      cardLabel={(task) => task.title}\n      renderGroupHeader={(group) => group}\n      renderCard={(task) => (\n        <>\n          <Text>{task.title}</Text>\n          <Badge variant=\"inline\" value={task.tag} color=\"info\" />\n        </>\n      )}\n      onMove={(move) => setColumns((now) => moveCard(now, move))}\n    />\n  );\n};\n",
-      "propsHash": "52d86df9c10f28b3",
+      "propsHash": "9d3c6814048aced1",
       "props": {
         "own": [
           {
@@ -13071,7 +13072,7 @@
           {
             "name": "renderCard",
             "optional": false,
-            "text": "(card: Card) => ReactNode"
+            "text": "(card: Card, frame: KanbanCardFrame) => ReactNode"
           },
           {
             "name": "onMove",
@@ -13097,6 +13098,15 @@
             "name": "cardEdgeTone",
             "optional": true,
             "text": "(card: Card) => CardTone | undefined"
+          },
+          {
+            "name": "cardFrame",
+            "optional": true,
+            "text": "KanbanCardFrameMode",
+            "literals": [
+              "'card'",
+              "'none'"
+            ]
           },
           {
             "name": "columnWidth",
@@ -17017,12 +17027,14 @@
       "rules": [
         "Pass icon, code, content and menu to fill the header slots; they sit in that order after the chevron.",
         "The chevron shows only when there are children, and only it toggles the card, never a click in the menu.",
-        "Folded, the title sits in the header; open, the header keeps content and the title moves above the children.",
+        "Folded, the title sits in the header and the body is not rendered; open, the title moves above the children, so it shows once.",
         "Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.",
-        "Use density row for a compact list and card for roomy items."
+        "Use density row for a compact list and card for roomy items.",
+        "Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card."
       ],
       "a11y": [
-        "The chevron is a button with aria-expanded and aria-controls pointing at the body.",
+        "The chevron is a button with aria-expanded, and aria-controls pointing at the body while it is open.",
+        "Pass name, or aria-label, so the chevron reads Expand ARG-12 rather than a bare Expand.",
         "Pass aria-label to name the card as a group."
       ],
       "tree": {
@@ -17033,7 +17045,7 @@
         "rule": "RecordCard is the shared card of every list item: header slots in a fixed order, a body that folds away."
       },
       "example": "import { Badge, Icon, IconButton, RecordCard, Text } from '@drizztdourden08/tessera';\n\nconst TaskCard = () => (\n  <RecordCard\n    title=\"Fix the login redirect\"\n    code=\"ARG-12\"\n    content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n    menu={<IconButton variant=\"ghost\" size=\"sm\" label=\"Actions\"><Icon name=\"ellipsis\" /></IconButton>}\n  >\n    <Text>The redirect drops the return path after sign in.</Text>\n  </RecordCard>\n);\n",
-      "propsHash": "6dc2c764117f14c6",
+      "propsHash": "4311d56a89744f12",
       "props": {
         "own": [
           {
@@ -17096,6 +17108,43 @@
             "name": "className",
             "optional": true,
             "text": "string"
+          },
+          {
+            "name": "name",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "edge",
+            "optional": true,
+            "text": "CardEdge",
+            "literals": [
+              "'left'",
+              "'border'"
+            ]
+          },
+          {
+            "name": "edgeTone",
+            "optional": true,
+            "text": "CardTone",
+            "literals": [
+              "'neutral'",
+              "'primary'",
+              "'info'",
+              "'success'",
+              "'warning'",
+              "'danger'"
+            ]
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "CardVariant",
+            "literals": [
+              "'default'",
+              "'interactive'",
+              "'danger'"
+            ]
           },
           {
             "name": "aria-label",

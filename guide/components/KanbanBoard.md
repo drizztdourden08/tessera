@@ -41,6 +41,7 @@ KanbanBoard keeps the move, the keys, the counts and the fold the same in every 
 - The board never changes a card group. A move reports the neighbours the card has after it, above and below (card ids, left out at an end), so the app sets the group of the moved card and the frame forms again from the new order and keys.
 - Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.
 - Pass cardEdgeTone to draw a coloured edge on some cards, such as danger for a card that needs the user; return undefined for a card with no edge.
+- When renderCard returns its own framed card, such as a RecordCard, pass cardFrame none so the board draws no frame; pass the edgeTone from the second renderCard argument to that card.
 - Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.
 - Set columnWidth to fill so the columns share the board width instead of a fixed width; each keeps a minimum, and the board scrolls sideways when the minimums do not fit.
 - Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.
@@ -111,12 +112,13 @@ const Tasks = () => {
 ## Props
 
 - `columns`: `readonly KanbanColumn<Card>[]`.
-- `renderCard`: `(card: Card) => ReactNode`.
+- `renderCard`: `(card: Card, frame: KanbanCardFrame) => ReactNode`.
 - `onMove`: `(move: KanbanMove) => void`.
 - `onCardOpen` (optional): `(cardId: string) => void`.
 - `renderGroupHeader` (optional): `(group: string, column: KanbanColumn<Card>, fold: KanbanGroupFold) => ReactNode`.
 - `cardLabel` (optional): `(card: Card) => string`.
 - `cardEdgeTone` (optional): `(card: Card) => CardTone | undefined`.
+- `cardFrame` (optional): `KanbanCardFrameMode`, one of `'card'`, `'none'`.
 - `columnWidth` (optional): `KanbanColumnWidth`, one of `'fixed'`, `'fill'`. Default `'fixed'`.
 - `columnHeight` (optional): `KanbanColumnHeight`, one of `'stretch'`, `'fit'`. Default `'stretch'`.
 - `grip` (optional): `boolean`. Default `true`.

@@ -6,6 +6,8 @@ const NAVIGATION_STRINGS = {
   expandNavigation: 'Expand navigation',
   collapseItem: 'Collapse',
   expandItem: 'Expand',
+  collapseItemNamed: (name: string) => `Collapse ${name}`,
+  expandItemNamed: (name: string) => `Expand ${name}`,
   navigationPane: 'navigation',
   clearSearch: 'Clear search',
   commandPlaceholder: 'Search screens, settings and actions',

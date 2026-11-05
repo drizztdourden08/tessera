@@ -41,14 +41,21 @@ interface KanbanGroupFold {
   controls: string;
 }
 
+type KanbanCardFrameMode = 'card' | 'none';
+
+interface KanbanCardFrame {
+  edgeTone: CardTone | undefined;
+}
+
 interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
   columns: readonly KanbanColumn<Card>[];
-  renderCard: (card: Card) => ReactNode;
+  renderCard: (card: Card, frame: KanbanCardFrame) => ReactNode;
   onMove: (move: KanbanMove) => void;
   onCardOpen?: (cardId: string) => void;
   renderGroupHeader?: (group: string, column: KanbanColumn<Card>, fold: KanbanGroupFold) => ReactNode;
   cardLabel?: (card: Card) => string;
   cardEdgeTone?: (card: Card) => CardTone | undefined;
+  cardFrame?: KanbanCardFrameMode;
   columnWidth?: KanbanColumnWidth;
   columnHeight?: KanbanColumnHeight;
   grip?: boolean;
@@ -63,10 +70,11 @@ interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
 
 interface KanbanShared<Card extends KanbanCardData> {
   columns: readonly KanbanColumn<Card>[];
-  renderCard: (card: Card) => ReactNode;
+  renderCard: (card: Card, frame: KanbanCardFrame) => ReactNode;
   renderGroupHeader: ((group: string, column: KanbanColumn<Card>, fold: KanbanGroupFold) => ReactNode) | undefined;
   cardLabel: (card: Card) => string;
   cardEdgeTone: ((card: Card) => CardTone | undefined) | undefined;
+  cardFrame: KanbanCardFrameMode;
   grip: boolean;
   foldable: boolean;
   drag: ReorderDrag;
@@ -111,6 +119,12 @@ interface KanbanCardProps<Card extends KanbanCardData> {
   shared: KanbanShared<Card>;
 }
 
+interface KanbanCardFaceProps<Card extends KanbanCardData> {
+  card: Card;
+  slot: number;
+  shared: KanbanShared<Card>;
+}
+
 interface KanbanToggleProps {
   columnId: string;
   title: string;
@@ -125,6 +139,6 @@ interface CardPlace {
 }
 
 export type {
-  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardProps, KanbanColumn, KanbanColumnHeight, KanbanColumnProps, KanbanColumnWidth, KanbanFramePart, KanbanGroupFold, KanbanGroupFrameProps, KanbanLaneHeadProps, KanbanMove, KanbanPlace, KanbanRun, KanbanShared,
+  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardFaceProps, KanbanCardFrame, KanbanCardFrameMode, KanbanCardProps, KanbanColumn, KanbanColumnHeight, KanbanColumnProps, KanbanColumnWidth, KanbanFramePart, KanbanGroupFold, KanbanGroupFrameProps, KanbanLaneHeadProps, KanbanMove, KanbanPlace, KanbanRun, KanbanShared,
   KanbanToggleProps,
 };

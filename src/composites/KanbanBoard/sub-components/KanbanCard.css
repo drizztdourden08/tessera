@@ -17,6 +17,14 @@
   opacity: var(--opacity-muted);
 }
 
+.kanban__card--bare {
+  border-radius: var(--radius-lg);
+}
+
+.kanban__card--bare .kanban__card-body {
+  padding-block: 0;
+}
+
 .kanban__card-row {
   display: flex;
   align-items: flex-start;
