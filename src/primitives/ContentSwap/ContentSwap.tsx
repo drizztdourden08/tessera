@@ -4,6 +4,7 @@ import { Box } from '../Box';
 import { useLeavingLayer } from './behavior/useLeavingLayer';
 import type { ContentSwapProps } from './ContentSwap.type';
 import './ContentSwap.css';
+import './ContentSwapReflow.css';
 
 const ContentSwap = (props: ContentSwapProps) => {
   const { swapKey, children, effect = 'fade', direction = 'forward', className } = props;
@@ -13,7 +14,7 @@ const ContentSwap = (props: ContentSwapProps) => {
   return (
     <Box ref={root} className={className ? `content-swap ${className}` : 'content-swap'} data-effect={effect} data-direction={direction}>
       {leaving && (
-        <Box key={`out-${leaving.key}`} className="content-swap__layer" data-phase="out" aria-hidden="true" onAnimationEnd={finish}>
+        <Box key={`out-${leaving.key}`} className="content-swap__layer" data-phase="out" aria-hidden="true" onAnimationEnd={(event) => event.target === event.currentTarget && finish()}>
           {leaving.node}
         </Box>
       )}

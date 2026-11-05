@@ -16,6 +16,7 @@ const KanbanCard = <Item extends KanbanCardData>({ card, frame, slot, last, shar
     <Box
       as="li"
       className="kanban__item"
+      data-swap-item=""
       data-reorder-index={slot}
       data-reorder-key={card.id}
       data-group={frame?.part}

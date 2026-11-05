@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
-  job: 'Shows its content and, when the key changes, moves from the old content to the new with a fade, a slide or a scale, without the layout jumping.',
+  job: 'Shows its content and, when the key changes, moves from the old content to the new with a fade, a slide, a scale or a reflow of its items, without the layout jumping.',
   useWhen: [
     'A panel shows one of several views, and the change should read as a change, such as a wizard step or a detail pane.',
     'The content is replaced in the same place, and the key says when it is a different thing.',
@@ -14,6 +14,7 @@ const usage = {
   rules: [
     'Give swapKey a value that changes only when the content is a different thing, not on every render.',
     'Pick the effect by meaning: fade for a replacement, slide for steps with a direction, scale for a detail that opens.',
+    'Use reflow around a list: the items inside collapse and fade, then the new items grow in. Items take part when they carry data-swap-item; KanbanBoard cards, ItemList rows, ListItemRow and DataTable rows already do. The frame around the items does not move.',
     'Set direction to back for a slide that goes to an earlier step.',
     'The old content stays on screen for the length of the motion, then is dropped; it is a copy, so it does not take input.',
   ],
@@ -25,15 +26,26 @@ const usage = {
     path: ['layout', 'content that changes with a key'],
     rule: 'ContentSwap replaces content in place and animates the change when its key changes.',
   },
-  example: `import { ContentSwap, Text } from '@drizztdourden08/tessera';
+  example: `import { ContentSwap, ItemList, Text } from '@drizztdourden08/tessera';
 
 const StepPanel = ({ step }: { step: number }) => (
   <ContentSwap swapKey={step} effect="slide">
     <Text>Current step</Text>
   </ContentSwap>
 );
+
+interface Task {
+  id: string;
+  name: string;
+}
+
+const ReflowList = ({ view, tasks }: { view: string; tasks: Task[] }) => (
+  <ContentSwap swapKey={view} effect="reflow">
+    <ItemList title="Tasks" items={tasks} getId={(task) => task.id} getName={(task) => task.name} />
+  </ContentSwap>
+);
 `,
-  propsHash: 'd872196a9992c2db',
+  propsHash: 'c6fcef6461d43468',
 } satisfies ComponentUsage;
 
 export { usage };
