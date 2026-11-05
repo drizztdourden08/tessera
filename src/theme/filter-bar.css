@@ -19,6 +19,12 @@
   height: var(--control-h-sm);
 }
 
+.filter-bar__leading {
+  display: flex;
+  flex: none;
+  align-items: center;
+}
+
 .filter-bar__extra {
   display: flex;
   flex: none;

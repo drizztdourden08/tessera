@@ -34,6 +34,7 @@ const SelectTrigger = <T, V>(props: SelectTriggerProps<T, V>) => {
       onClick={() => (open ? drop.close() : drop.show())}
       onKeyDown={select.onKeyDown}
     >
+      {look.prefix !== undefined && <Span className="select-trigger__prefix">{look.prefix}</Span>}
       <Span className="select-trigger__value">
         <SelectTriggerValue {...props} />
       </Span>

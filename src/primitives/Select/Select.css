@@ -29,6 +29,11 @@
   min-width: 0;
 }
 
+.select-trigger__prefix {
+  flex-shrink: 0;
+  color: var(--c-text-muted);
+}
+
 .select-trigger__chevron {
   flex-shrink: 0;
   color: var(--c-text-muted);

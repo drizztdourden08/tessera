@@ -22,6 +22,7 @@ interface SelectGroup {
 type MultiDisplay = 'count' | 'tags';
 
 interface SelectLookProps extends ListboxFieldProps {
+  prefix?: ReactNode;
   searchable?: boolean;
   mixed?: boolean;
   multiDisplay?: MultiDisplay;
