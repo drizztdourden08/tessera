@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.125.0
+
+### Minor Changes
+
+- RecordCard takes fill, so cards in a grid row share one height.
+
 ## 0.124.0
 
 ### Minor Changes
