@@ -2,7 +2,7 @@
 import type { ElementType, HTMLAttributes, ReactNode } from 'react';
 
 type SpaceToken = '2xs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
-type FlexAlign = 'start' | 'center' | 'end' | 'stretch' | 'baseline';
+type FlexAlign = 'start' | 'center' | 'end' | 'stretch' | 'baseline' | 'first-line';
 type FlexJustify = 'start' | 'center' | 'end' | 'between' | 'around';
 
 interface FlexProps extends HTMLAttributes<HTMLElement> {
