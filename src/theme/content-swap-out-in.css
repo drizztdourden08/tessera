@@ -1,0 +1,36 @@
+/* @layer renderer-components @kind style */
+.content-swap[data-effect='reflow'][data-sequence='out-in'] > [data-phase='out'] {
+  animation-duration: var(--duration-reflow-span);
+}
+
+.content-swap[data-effect='reflow'][data-sequence='out-in'] > [data-phase='in'] [data-swap-item]:nth-child(1) {
+  animation-delay: calc(var(--duration-reflow-step) * 0);
+}
+
+.content-swap[data-effect='reflow'][data-sequence='out-in'] > [data-phase='in'] [data-swap-item]:nth-child(2) {
+  animation-delay: calc(var(--duration-reflow-step) * 1);
+}
+
+.content-swap[data-effect='reflow'][data-sequence='out-in'] > [data-phase='in'] [data-swap-item]:nth-child(3) {
+  animation-delay: calc(var(--duration-reflow-step) * 2);
+}
+
+.content-swap[data-effect='reflow'][data-sequence='out-in'] > [data-phase='in'] [data-swap-item]:nth-child(4) {
+  animation-delay: calc(var(--duration-reflow-step) * 3);
+}
+
+.content-swap[data-effect='reflow'][data-sequence='out-in'] > [data-phase='in'] [data-swap-item]:nth-child(5) {
+  animation-delay: calc(var(--duration-reflow-step) * 4);
+}
+
+.content-swap[data-effect='reflow'][data-sequence='out-in'] > [data-phase='in'] [data-swap-item]:nth-child(6) {
+  animation-delay: calc(var(--duration-reflow-step) * 5);
+}
+
+.content-swap[data-effect='reflow'][data-sequence='out-in'] > [data-phase='in'] [data-swap-item]:nth-child(7) {
+  animation-delay: calc(var(--duration-reflow-step) * 6);
+}
+
+.content-swap[data-effect='reflow'][data-sequence='out-in'] > [data-phase='in'] [data-swap-item]:nth-child(8) {
+  animation-delay: calc(var(--duration-reflow-step) * 7);
+}
