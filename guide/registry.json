@@ -13040,7 +13040,7 @@
         "Keep the columns in the app: onMove gets { cardId, from, to } with a columnId and an index each, and the app changes its data.",
         "Read to.index as the place the card has after the move, in its new column; moveCard applies a move to the columns for you.",
         "Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.",
-        "Pass onCardOpen to open a card: it gets the card id on a plain click of the card, never after a drag and never for a click inside a button, link, input, textarea, select or an element with role menu, menuitem or button, so controls inside renderCard keep their own click.",
+        "Pass onCardOpen to open a card: it gets the card id on a plain click of the card, never after a drag and never for a click inside a button, link, input, textarea, select or an element with role menu, menuitem or button, or a RecordHeader row that toggles, so controls inside renderCard keep their own click.",
         "Give cards a group key (group on the card data) to frame them: consecutive cards in one column with the same key sit inside one frame with a slim top bar, such as the subtasks of one parent. Cards with no key look as before.",
         "Pass renderGroupHeader to draw the bar from the key, such as the parent icon and title: it gets the group key and the column, and a long header is cut with an ellipsis.",
         "Pass fold, the third argument of renderGroupHeader, to the chevron of a RecordHeader to let the group fold: fold.open says if the cards show, fold.toggle flips it and fold.controls names the list for aria-controls. A folded group hides its cards and keeps its bar; the board keeps the state, and a group key folds in every column that holds it.",
@@ -17234,7 +17234,7 @@
       ],
       "rules": [
         "Pass icon, code, title, content and menu to fill the slots; they sit in that order after the chevron, and content sits at the end, next to the menu.",
-        "Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. controls names the folded element and label replaces the default name.",
+        "Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. That row counts as a control, so its click never opens a Kanban card or a clickable Card around it. controls names the folded element and label replaces the default name.",
         "The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.",
         "Use density row for a compact line and card for a roomy one; it only changes the gap between the slots.",
         "In a Kanban group bar, pass the fold of renderGroupHeader to chevron: { expanded: fold.open, onToggle: fold.toggle, controls: fold.controls }.",

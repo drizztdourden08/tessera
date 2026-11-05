@@ -4,7 +4,7 @@ import { isInteractiveTarget } from '../../dom/is-interactive-target';
 import type { ActivationProps } from './card-activation.type';
 
 const ownsClick = (event: MouseEvent<HTMLDivElement>): boolean =>
-  event.target instanceof Node && event.currentTarget.contains(event.target) && !isInteractiveTarget(event.target, event.currentTarget);
+  event.currentTarget.contains(event.target as Node | null) && !isInteractiveTarget(event.target, event.currentTarget);
 
 const isActivationKey = (event: KeyboardEvent<HTMLDivElement>): boolean =>
   event.target === event.currentTarget && (event.key === 'Enter' || event.key === ' ');

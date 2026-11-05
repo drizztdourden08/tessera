@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind data */
-const INTERACTIVE_TARGET = 'button, a, input, textarea, select, [role="menu"], [role="menuitem"], [role="button"], [contenteditable]';
+const INTERACTIVE_TARGET = 'button, a, input, textarea, select, [role="menu"], [role="menuitem"], [role="button"], [contenteditable], [data-row-toggle]';
 
 const ELEMENT_NODE = 1;
 

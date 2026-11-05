@@ -14,7 +14,7 @@ const usage = {
   ],
   rules: [
     'Pass icon, code, title, content and menu to fill the slots; they sit in that order after the chevron, and content sits at the end, next to the menu.',
-    'Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. controls names the folded element and label replaces the default name.',
+    'Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. That row counts as a control, so its click never opens a Kanban card or a clickable Card around it. controls names the folded element and label replaces the default name.',
     'The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.',
     'Use density row for a compact line and card for a roomy one; it only changes the gap between the slots.',
     'In a Kanban group bar, pass the fold of renderGroupHeader to chevron: { expanded: fold.open, onToggle: fold.toggle, controls: fold.controls }.',

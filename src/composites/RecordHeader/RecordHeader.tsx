@@ -16,7 +16,7 @@ const RecordHeader = (props: RecordHeaderProps) => {
     if (toggle && !isInteractiveTarget(event.target, event.currentTarget)) toggle();
   };
   return (
-    <Box className={recordHeaderClass(density, className, toggle != null)} onClick={toggle ? onRowClick : undefined}>
+    <Box className={recordHeaderClass(density, className, toggle != null)} onClick={toggle ? onRowClick : undefined} data-row-toggle={toggle ? '' : undefined}>
       <RecordHeaderSlot when={chevron != null}>{chevron && <RecordHeaderChevron {...chevron} />}</RecordHeaderSlot>
       <RecordHeaderSlot when={icon != null}>{icon}</RecordHeaderSlot>
       <RecordHeaderSlot when={code != null}>
