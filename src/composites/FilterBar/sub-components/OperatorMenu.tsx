@@ -1,9 +1,9 @@
 /* @layer renderer-components @kind component */
 import { Button } from '../../../primitives/Button';
 import { Span } from '../../../primitives/text-elements';
-import { operatorsFor } from '../../../data/filter/operators';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { DropdownMenu } from '../../DropdownMenu';
+import { allowedOperators } from '../behavior/allowed-operators';
 import { operatorMenuItems } from '../behavior/operator-menu-items';
 import { supportsCaseModifier } from '../behavior/supports-case-modifier';
 import { useAnchorMenu } from '../behavior/useAnchorMenu';
@@ -13,7 +13,7 @@ const OperatorMenu = (props: OperatorMenuProps) => {
   const { field, op, caseSensitive, onChange, onChangeCaseSensitive } = props;
   const menu = useAnchorMenu<HTMLButtonElement>('.dropdown-menu');
   const { filters, filterOperators } = useTesseraStrings();
-  const specs = operatorsFor(field.kind);
+  const specs = allowedOperators(field);
   const current = specs.find((spec) => spec.id === op) ?? specs[0];
 
   const handlePick = (id: string): void => {
@@ -23,6 +23,7 @@ const OperatorMenu = (props: OperatorMenuProps) => {
 
   const items = operatorMenuItems({
     kind: field.kind,
+    specs,
     op,
     caseSensitive,
     onPickOperator: handlePick,

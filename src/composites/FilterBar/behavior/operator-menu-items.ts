@@ -1,5 +1,4 @@
 /* @layer renderer-components @kind logic */
-import { operatorsFor } from '../../../data/filter/operators';
 import { glyphForOperatorIcon } from './operator-icon-glyphs';
 import { menuMark } from './menu-mark';
 import { supportsCaseModifier } from './supports-case-modifier';
@@ -9,10 +8,10 @@ import type { OperatorMenuInput } from './operator-menu-items.type';
 
 const operatorMenuItems = (input: OperatorMenuInput): MenuNode[] => {
   const {
-    kind, op, caseSensitive, onPickOperator, onToggleCaseSensitive, strings, operatorLabels,
+    kind, specs, op, caseSensitive, onPickOperator, onToggleCaseSensitive, strings, operatorLabels,
   } = input;
 
-  const items: MenuNode[] = operatorsFor(kind).map((spec) => ({
+  const items: MenuNode[] = specs.map((spec) => ({
     id: spec.id,
     icon: menuMark(glyphForOperatorIcon(spec.icon)),
     label: operatorLabels[spec.icon],

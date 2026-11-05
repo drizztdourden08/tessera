@@ -10,7 +10,7 @@ import '../../theme/filter-bar.css';
 const FilterBar = (props: FilterBarProps) => {
   const {
     search, onSearchChange, searchPlaceholder, searchLabel,
-    schema, clauses, onChange, fields, maxChips, parseToken, extra, className,
+    schema, clauses, onChange, fields, maxChips, parseToken, leading, extra, className,
   } = props;
   const { common } = useTesseraStrings();
   const tokens = useTokenSearch({ search, onSearchChange, schema, clauses, onChange, parseToken });
@@ -26,6 +26,7 @@ const FilterBar = (props: FilterBarProps) => {
         onKeyDown={tokens.onKeyDown}
         aria-label={searchLabel ?? common.search}
       />
+      {leading !== undefined && <Box className="filter-bar__leading">{leading}</Box>}
       {schema !== undefined && clauses !== undefined && onChange !== undefined && (
         <FilterClauseList schema={schema} clauses={clauses} fields={fields} maxChips={maxChips} onChange={onChange} />
       )}

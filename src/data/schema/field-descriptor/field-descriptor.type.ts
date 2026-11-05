@@ -37,6 +37,7 @@ interface FieldDescriptor {
   format?: NumberFormat;
   unit?: string;
   date?: DateFormat;
+  operators?: readonly string[];
 }
 
 interface FieldGroup {

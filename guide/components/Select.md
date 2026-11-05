@@ -38,6 +38,7 @@ Select is the field that opens a list of options, plain or grouped, and picks on
 - Pass grow={false} to keep a fixed width (the token --field-w-inline, 256 px, shrinking to 160 px) beside other tools in a toolbar; TextInput, SearchInput and Combobox take the same prop.
 - Pass width="fit" to size the control to its content, or width="narrow" for a 220 px control; TextInput, SearchInput and Combobox take the same prop.
 - Pass width="narrow-fill" for the 220 px control that fills its row when the nearest container is under 420 px wide; it needs an ancestor with a container type, such as a drawer or a window header.
+- Pass prefix to show a muted label inside the trigger before the value, so it reads Focus: Open.
 - Use NativeSelect instead of Select for a form that posts to the browser, or on a touch screen.
 - A list of more than 200 options draws only the rows in view, so a list of thousands opens and scrolls at once. Select, Combobox and the choice slots of DynamicInput share this list.
 - In a list that long every row has the height of the first one; an item component of rows with other heights fits a list under 200 options.
@@ -84,6 +85,7 @@ const TintPicker = ({ tint, onTint }: TintPickerProps) => (
 - `valueDisplay` (optional): `ValueDisplay`, one of `'full'`, `'label'`.
 - `renderOption` (optional): `(option: SelectOption, isSelected: boolean) => ReactNode`.
 - `items` (optional): `readonly T[]`.
+- `prefix` (optional): `ReactNode`.
 - `searchable` (optional): `boolean`.
 - `mixed` (optional): `boolean`.
 - `multiDisplay` (optional): `MultiDisplay`, one of `'count'`, `'tags'`.

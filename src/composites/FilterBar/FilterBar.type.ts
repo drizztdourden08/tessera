@@ -15,6 +15,7 @@ interface FilterBarProps {
   fields?: readonly string[];
   maxChips?: number;
   parseToken?: boolean | FilterTokenParser;
+  leading?: ReactNode;
   extra?: ReactNode;
   className?: string;
 }
