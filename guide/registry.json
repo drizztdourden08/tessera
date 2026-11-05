@@ -802,7 +802,19 @@
             ]
           },
           "filters over a collection": {
-            "components": []
+            "components": [
+              "ViewControls"
+            ]
+          },
+          "a menu to group a collection by one field": {
+            "components": [
+              "GroupControl"
+            ]
+          },
+          "a menu to sort a collection by one field and a direction": {
+            "components": [
+              "SortControl"
+            ]
           },
           "a list the user adds to, renames and deletes from": {
             "components": [
@@ -11011,6 +11023,89 @@
       "parts": []
     },
     {
+      "name": "GroupControl",
+      "tier": "composites",
+      "source": "src/composites/GroupControl/GroupControl.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A menu that picks the one field a list is grouped by, or no grouping.",
+      "useWhen": [
+        "A list or board can be split into sections by one of a few fields, such as status or owner.",
+        "The choice sits in a toolbar beside a filter and a sort."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The list needs a filter, a group and a sort together behind one show button.",
+          "use": "ViewControls"
+        },
+        {
+          "case": "The user picks the field to order rows by.",
+          "use": "SortControl"
+        },
+        {
+          "case": "The user narrows rows by a value.",
+          "use": "FilterBar"
+        }
+      ],
+      "rules": [
+        "Pass options as id and label pairs and keep the chosen id in your state; null means no grouping.",
+        "Change the grouping only in onChange; the control keeps no value of its own.",
+        "Set label to rename the menu title when the list calls its sections something else."
+      ],
+      "a11y": [
+        "The trigger is a button that opens a keyboard menu named by label.",
+        "The options are radio items, and the checked one is the current grouping."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a menu to group a collection by one field"
+        ],
+        "rule": "GroupControl offers one grouping field at a time, with None to turn grouping off, drawn like the other view controls."
+      },
+      "example": "import { useState } from 'react';\nimport { GroupControl } from '@drizztdourden08/tessera';\n\nconst FIELDS = [\n  { id: 'status', label: 'Status' },\n  { id: 'owner', label: 'Owner' },\n];\n\nconst GroupPicker = () => {\n  const [grouping, setGrouping] = useState<string | null>(null);\n  return <GroupControl options={FIELDS} value={grouping} onChange={setGrouping} />;\n};\n",
+      "propsHash": "325dd0615e140e75",
+      "props": {
+        "own": [
+          {
+            "name": "options",
+            "optional": false,
+            "text": "readonly ViewOption[]"
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string | null"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(next: string | null) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [],
+      "parts": []
+    },
+    {
       "name": "GroupTree",
       "tier": "composites",
       "source": "src/composites/GroupTree/GroupTree.tsx",
@@ -18884,6 +18979,94 @@
       "parts": []
     },
     {
+      "name": "SortControl",
+      "tier": "composites",
+      "source": "src/composites/SortControl/SortControl.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A menu that picks the field a list is sorted by, with one button that flips the direction.",
+      "useWhen": [
+        "A list or board can be ordered by one of a few fields, such as name or date.",
+        "The choice sits in a toolbar beside a filter and a group."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The list needs a filter, a group and a sort together behind one show button.",
+          "use": "ViewControls"
+        },
+        {
+          "case": "The user sorts by clicking a column header in a table.",
+          "use": "DataTable"
+        },
+        {
+          "case": "The user splits the list into sections.",
+          "use": "GroupControl"
+        }
+      ],
+      "rules": [
+        "Pass options as id and label pairs and keep the value, a key and a direction, in your state.",
+        "A null key means the default order; the direction button still flips the direction.",
+        "Change the sort only in onChange; the control keeps no value of its own."
+      ],
+      "a11y": [
+        "The trigger is a button that opens a keyboard menu; its options are radio items.",
+        "The direction button is named by the sort it switches to, such as Sort descending."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a menu to sort a collection by one field and a direction"
+        ],
+        "rule": "SortControl pairs a field menu with one direction button, drawn like the other view controls."
+      },
+      "example": "import { useState } from 'react';\nimport { SortControl } from '@drizztdourden08/tessera';\nimport type { SortState } from '@drizztdourden08/tessera';\n\nconst FIELDS = [\n  { id: 'name', label: 'Name' },\n  { id: 'updated', label: 'Updated' },\n];\n\nconst SortPicker = () => {\n  const [sort, setSort] = useState<SortState>({ key: 'name', direction: 'asc' });\n  return <SortControl options={FIELDS} value={sort} onChange={setSort} />;\n};\n",
+      "propsHash": "906913cca4a6294c",
+      "props": {
+        "own": [
+          {
+            "name": "options",
+            "optional": false,
+            "text": "readonly ViewOption[]"
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "text": "SortState"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(next: SortState) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--control-h-sm",
+        "--size-224",
+        "--space-sm",
+        "--space-xs"
+      ],
+      "parts": []
+    },
+    {
       "name": "SpanBar",
       "tier": "composites",
       "source": "src/composites/SpanBar/SpanBar.tsx",
@@ -21835,6 +22018,111 @@
         "route": "#/story/composites-video--overview",
         "file": "stories/composites/Video.stories.tsx"
       },
+      "parts": []
+    },
+    {
+      "name": "ViewControls",
+      "tier": "composites",
+      "source": "src/composites/ViewControls/ViewControls.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Filter, group and sort controls in one row, behind a button that shows or hides them.",
+      "useWhen": [
+        "A list, board or table offers any of a filter, a group and a sort, and the controls should be able to fold away.",
+        "Different screens need different parts: each part shows only when its config is passed."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The screen only needs a search box and filter chips, always visible.",
+          "use": "FilterBar"
+        },
+        {
+          "case": "The screen only needs a grouping menu.",
+          "use": "GroupControl"
+        },
+        {
+          "case": "The screen only needs a sort menu.",
+          "use": "SortControl"
+        }
+      ],
+      "rules": [
+        "Pass filter, group and sort with the props of FilterBar, GroupControl and SortControl; leave out a part to hide it.",
+        "Control the row with open and onOpenChange, or leave both out and set defaultOpen; the row starts open.",
+        "Folded, the button shows a count of the search, enabled filters, grouping and sort that are on.",
+        "Set label to rename the button."
+      ],
+      "a11y": [
+        "The button reports aria-expanded and is named Show view controls or Hide view controls.",
+        "The count is a badge named by its number, such as 3 active settings."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "filters over a collection"
+        ],
+        "rule": "ViewControls keeps filter, group and sort in one row with one show button, so every collection view folds its controls the same way."
+      },
+      "example": "import { useState } from 'react';\nimport { ViewControls } from '@drizztdourden08/tessera';\nimport type { SortState } from '@drizztdourden08/tessera';\n\nconst FIELDS = [\n  { id: 'name', label: 'Name' },\n  { id: 'status', label: 'Status' },\n];\n\nconst PlayerControls = () => {\n  const [search, setSearch] = useState('');\n  const [grouping, setGrouping] = useState<string | null>(null);\n  const [sort, setSort] = useState<SortState>({ key: 'name', direction: 'asc' });\n  return (\n    <ViewControls\n      filter={{ search, onSearchChange: setSearch }}\n      group={{ options: FIELDS, value: grouping, onChange: setGrouping }}\n      sort={{ options: FIELDS, value: sort, onChange: setSort }}\n    />\n  );\n};\n",
+      "propsHash": "5a7ecbdea2fc1436",
+      "props": {
+        "own": [
+          {
+            "name": "filter",
+            "optional": true,
+            "text": "FilterBarProps"
+          },
+          {
+            "name": "group",
+            "optional": true,
+            "text": "GroupControlProps"
+          },
+          {
+            "name": "sort",
+            "optional": true,
+            "text": "SortControlProps"
+          },
+          {
+            "name": "open",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultOpen",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "onOpenChange",
+            "optional": true,
+            "text": "(open: boolean) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--control-h-sm",
+        "--size-224",
+        "--space-sm",
+        "--space-xs"
+      ],
       "parts": []
     },
     {

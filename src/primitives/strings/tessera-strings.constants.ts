@@ -42,6 +42,7 @@ import { TOUR_STRINGS } from './tour-strings.constants';
 import { VIDEO_STRINGS } from './video-strings.constants';
 import { WIDGET_STRINGS } from './widgets-strings.constants';
 import { WINDOW_STRINGS } from './windows-strings.constants';
+import { VIEW_STRINGS } from './views-strings.constants';
 import { WIZARD_STRINGS } from './wizard-strings.constants';
 import { ZOOM_FIELD_STRINGS } from './zoom-field-strings.constants';
 
@@ -68,6 +69,7 @@ const TESSERA_STRINGS = {
   widgets: WIDGET_STRINGS,
   stepper: STEPPER_STRINGS,
   windows: WINDOW_STRINGS,
+  views: VIEW_STRINGS,
   wizard: WIZARD_STRINGS,
   tour: TOUR_STRINGS,
   charts: CHART_STRINGS,

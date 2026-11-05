@@ -1,6 +1,12 @@
 /* @layer renderer-components @kind barrel */
 export { FilterBar } from '../FilterBar';
 export type { FilterBarProps, FilterTokenParser } from '../FilterBar';
+export { GroupControl } from '../GroupControl';
+export type { GroupControlProps, ViewOption } from '../GroupControl';
+export { SortControl } from '../SortControl';
+export type { SortControlProps, SortDirection, SortState } from '../SortControl';
+export { ViewControls } from '../ViewControls';
+export type { ViewControlsProps } from '../ViewControls';
 export { IDENTITY_PATH, RecordEditor, ReferencedBy } from '../RecordEditor';
 export type {
   EditorGroupModel, IdRefOption, IdRefOptionResolver, NumberBounds, NumberBoundsResolver,
