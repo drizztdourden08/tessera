@@ -72,6 +72,11 @@ const Keys = {
   render: () => <MarkdownEditorDemo initial="" layout="tabs" rows={4} keys />,
 } satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
 
+const SendGate = {
+  name: 'Send stays off until the note has three characters',
+  render: () => <MarkdownEditorDemo initial="" layout="tabs" rows={4} keys minSend={3} />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
 const ListKeys = {
   name: 'Enter continues a list, Tab indents it',
   render: () => <MarkdownListKeysDemo />,
@@ -134,4 +139,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Compact, ImageButton, ImagePaste, ImageRefused, Keys, Limited, ListKeys, LongDocument, Overview, Playground, Split, Tabs, TextCounter, ToolbarEnd, WriteOnly };
+export { Compact, ImageButton, ImagePaste, ImageRefused, Keys, Limited, ListKeys, LongDocument, Overview, Playground, SendGate, Split, Tabs, TextCounter, ToolbarEnd, WriteOnly };

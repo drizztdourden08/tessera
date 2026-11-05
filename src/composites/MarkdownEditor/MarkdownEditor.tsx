@@ -18,7 +18,7 @@ import './MarkdownEditor.css';
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
   const {
-    value, onChange, label, hint, error, placeholder, disabled = false, layout, compact, preview, toolbarEnd, actions, submitLabel, rows, onLink, images, linkIds, onSubmit, onEscape, maxLength, count, onImageFiles, autoFocus = false, className,
+    value, onChange, label, hint, error, placeholder, disabled = false, layout, compact, preview, toolbarEnd, actions, submitLabel, submitDisabled = false, rows, onLink, images, linkIds, onSubmit, onEscape, maxLength, count, onImageFiles, autoFocus = false, className,
   } = props;
   const rootRef = useRef<HTMLElement | null>(null);
   const areaRef = useRef<HTMLTextAreaElement | null>(null);
@@ -27,7 +27,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   const off = disabled || !writing;
   const { run, onKeyDown: onShortcut } = useMarkdownActions(areaRef, off);
   const image = useImageInsert(areaRef, { onImageFiles, disabled: off });
-  const onKeyDown = useEditorKeys({ value, onSubmit, onEscape, onShortcut });
+  const onKeyDown = useEditorKeys({ value, onSubmit, submitDisabled, onEscape, onShortcut });
 
   return (
     <Field label={label} hint={hint} error={error} width="full">
@@ -53,7 +53,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
             {previewDrawn && <MarkdownEditorPreview value={value} onLink={onLink} images={images} linkIds={linkIds} hidden={!previewShown} />}
           </Box>
         </Box>
-        <MarkdownEditorFoot value={value} maxLength={maxLength} count={count} actions={actions} send={onSubmit && submitLabel ? { label: submitLabel, value, disabled, onSubmit } : undefined} />
+        <MarkdownEditorFoot value={value} maxLength={maxLength} count={count} actions={actions} send={onSubmit && submitLabel ? { label: submitLabel, value, disabled: disabled || submitDisabled, onSubmit } : undefined} />
       </Box>
     </Field>
   );

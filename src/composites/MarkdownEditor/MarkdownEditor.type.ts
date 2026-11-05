@@ -25,6 +25,7 @@ interface MarkdownEditorProps {
   toolbarEnd?: ReactNode;
   actions?: ReactNode;
   submitLabel?: string;
+  submitDisabled?: boolean;
   rows?: number;
   onLink?: MarkdownLinkHandler;
   images?: MarkdownImages;
@@ -53,6 +54,7 @@ interface MarkdownEditorKeyEvent {
 interface MarkdownEditorKeysInput {
   value: string;
   onSubmit: ((value: string) => void) | undefined;
+  submitDisabled: boolean;
   onEscape: (() => void) | undefined;
   onShortcut: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
 }

@@ -43,6 +43,7 @@ MarkdownEditor writes Markdown with a toolbar and a live preview, the same way i
 - The toolbar is the family Toolbar, so each button carries a hint with its name and shortcut and the preview toggle shows its pressed state.
 - Pass actions, such as Save and Cancel buttons, to draw them in a row under the frame, right aligned; the counter, when shown, sits on the left of the same row.
 - Pass onSubmit with submitLabel to draw a primary send button at the right end of the row under the frame; its tooltip shows the shortcut, such as Ctrl+Enter, so the editor needs no hint line.
+- Pass submitDisabled to turn off only the send button and Ctrl+Enter, such as until the note is long enough; the text stays editable.
 - The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.
 - Enter at the end of a list item starts the next one: a bullet, a number that counts up, or an open task; on an empty item it ends the list.
 - Tab indents a list line by two spaces and Shift+Tab takes them back; outside a list Tab moves the focus as usual.
@@ -103,6 +104,7 @@ const NoteForm = ({ save, cancel }: { save: () => void; cancel: () => void }) =>
 - `toolbarEnd` (optional): `ReactNode`.
 - `actions` (optional): `ReactNode`.
 - `submitLabel` (optional): `string`.
+- `submitDisabled` (optional): `boolean`. Default `false`.
 - `rows` (optional): `number`.
 - `onLink` (optional): `MarkdownLinkHandler`.
 - `images` (optional): `MarkdownImages`.
