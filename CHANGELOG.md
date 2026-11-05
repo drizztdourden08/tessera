@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.116.0
+
+### Minor Changes
+
+- OverflowRow items take end to sit at the far right, and Tree rows carry data-swap-item.
+
 ## 0.115.0
 
 ### Minor Changes
