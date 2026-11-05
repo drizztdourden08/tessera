@@ -9,6 +9,7 @@ const usage = {
   ],
   avoidWhen: [
     { case: 'The list needs a filter, a group and a sort together behind one show button.', use: 'ViewControls' },
+    { case: 'The list groups by several levels, or the grouping should look like the FilterBar chips.', use: 'GroupBar' },
     { case: 'The user picks the field to order rows by.', use: 'SortControl' },
     { case: 'The user narrows rows by a value.', use: 'FilterBar' },
   ],
