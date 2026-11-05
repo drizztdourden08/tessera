@@ -40,7 +40,7 @@ RecordCard is the shared card of every list item: header slots in a fixed order,
 ## Accessibility
 
 - The chevron is a button with aria-expanded, and aria-controls pointing at the body while it is open.
-- Pass name, or aria-label, so the chevron reads Expand ARG-12 rather than a bare Expand.
+- Pass name, or aria-label, so the chevron reads Expand ARG-12, not a bare Expand.
 - Pass aria-label to name the card as a group.
 
 ## Example
