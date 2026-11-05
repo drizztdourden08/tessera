@@ -1,29 +1,23 @@
 /* @layer renderer-components @kind component */
-import { Divider } from '../../../primitives/Divider';
+import { useRef } from 'react';
+import { FileInput } from '../../../primitives/FileInput';
 import { Flex } from '../../../primitives/Flex';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
-import { MARKDOWN_EDITOR_ACTIONS, MARKDOWN_EDITOR_GROUPS } from '../MarkdownEditor.constants';
+import { Toolbar } from '../../Toolbar';
+import { toolbarItems } from '../behavior/toolbar-items';
+import { IMAGE_ACCEPT } from '../MarkdownEditor.constants';
 import type { MarkdownEditorToolbarProps } from '../MarkdownEditor.type';
-import { MarkdownEditorActionButton } from './MarkdownEditorActionButton';
-import { MarkdownEditorImageButton } from './MarkdownEditorImageButton';
-import { MarkdownEditorPreviewToggle } from './MarkdownEditorPreviewToggle';
 
 const MarkdownEditorToolbar = (props: MarkdownEditorToolbarProps) => {
   const { disabled, onAction, toggle, end, onImages } = props;
   const { markdownEditor } = useTesseraStrings();
+  const pick = useRef<HTMLInputElement>(null);
+  const items = toolbarItems(markdownEditor, { disabled, onAction, toggle, onPickImages: onImages ? () => pick.current?.click() : undefined });
   return (
-    <Flex className="markdown-editor__toolbar" role="toolbar" aria-label={markdownEditor.toolbar} gap="xs" align="center" wrap>
-      {MARKDOWN_EDITOR_GROUPS.map((group, index) => (
-        <Flex key={group.join('-')} gap="2xs" align="center">
-          {index > 0 && <Divider orientation="vertical" />}
-          {MARKDOWN_EDITOR_ACTIONS.filter((spec) => group.includes(spec.id)).map((spec) => (
-            <MarkdownEditorActionButton key={spec.id} spec={spec} disabled={disabled} onAction={onAction} />
-          ))}
-        </Flex>
-      ))}
-      {onImages && <MarkdownEditorImageButton disabled={disabled} onFiles={onImages} />}
-      {toggle &&<MarkdownEditorPreviewToggle toggle={toggle} />}
+    <Flex className="markdown-editor__toolbar" gap="xs" align="center">
+      <Toolbar items={items} label={markdownEditor.toolbar} />
       {end != null && <Flex className="markdown-editor__toolbar-end" gap="xs" align="center">{end}</Flex>}
+      {onImages && <FileInput ref={pick} accept={IMAGE_ACCEPT} multiple disabled={disabled} onFiles={onImages} />}
     </Flex>
   );
 };
