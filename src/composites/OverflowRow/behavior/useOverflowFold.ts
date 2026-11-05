@@ -3,8 +3,7 @@ import { useLayoutEffect, useRef, useState } from 'react';
 import { observeResize } from '../../../primitives/dom/observe-resize';
 import type { FoldParams } from '../OverflowRow.type';
 import { measureRow } from './measure-row';
-
-const SEPARATOR = '\u0000';
+import { SEPARATOR } from './useOverflowFold.constants';
 
 const useOverflowFold = (params: FoldParams): readonly string[] => {
   const { rowRef, measureRef, items } = params;

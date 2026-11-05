@@ -4,7 +4,7 @@ import { Box } from '../Box';
 import { useLeavingLayer } from './behavior/useLeavingLayer';
 import type { ContentSwapProps } from './ContentSwap.type';
 import './ContentSwap.css';
-import './ContentSwapReflow.css';
+import '../../theme/content-swap-reflow.css';
 
 const ContentSwap = (props: ContentSwapProps) => {
   const { swapKey, children, effect = 'fade', direction = 'forward', className } = props;
