@@ -25,8 +25,9 @@ const DropZone = (props: DropZoneProps) => {
     icon,
     status,
     onDrop,
+    onReject,
   } = props;
-  const zone = useDropZone(accept, !disabled, onDrop);
+  const zone = useDropZone({ accept, enabled: !disabled, onDrop, onReject });
   const controlSize = useControlSize(size);
   const { invalid } = useFieldControl();
   const inline = variant === 'inline';

@@ -188,7 +188,7 @@ const Overview = overviewStory({
     '`block` is the tall target with a glyph, a label and a hint; `inline` is a one line box for a header row.',
     '`status` adds a success or error line under the label, and a success edge; the app sets it after a check.',
     'A dragged file lights the box at once; `disabled` shows the not allowed pointer and swallows the drop.',
-    '**`accept` takes extensions and media types such as `image/*`:** `onDrop` gets only the files that pass.',
+    '**`accept` takes extensions or types like `image/*`:** `onDrop` gets what passes, `onReject` the rest.',
     '`md` and `sm` set the height of the inline box; `sm` also tightens the block.',
     'A click or [[Enter]] on the inline box opens the file dialog; [[Ctrl+V]] pastes files while pointed at.',
   ],

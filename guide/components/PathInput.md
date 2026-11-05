@@ -23,7 +23,7 @@ PathInput takes a typed, dropped or browsed path in one box and cuts a long one 
 
 ## Use something else when
 
-- The app needs the contents of the files, not their path. Use `DropZone` instead.
+- The app needs the contents of the files, not their path. Use [DropZone](DropZone.md) instead.
 - The value is free text that is not a path. Use `TextInput` instead.
 
 ## Rules

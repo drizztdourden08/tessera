@@ -21,6 +21,7 @@ interface DropZoneProps {
   icon?: ReactNode;
   status?: DropZoneStatus;
   onDrop: (files: File[]) => void;
+  onReject?: (files: File[]) => void;
 }
 
 export type {
