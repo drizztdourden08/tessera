@@ -914,3 +914,17 @@ input, select {
   letter-spacing: 0;
   line-height: var(--leading-normal);
 }
+
+@font-face {
+  font-family: ChronoType;
+  src:
+    url('./fonts/chronotype/chronotype-ext.woff2') format('woff2'),
+    url('./fonts/chronotype/chronotype-ext.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  --font-chrono: ChronoType, var(--font-mono);
+}

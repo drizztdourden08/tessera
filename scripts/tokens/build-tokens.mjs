@@ -4,12 +4,18 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { loadBrands } from './load-brands.mjs';
 import { markContrast } from './mark-contrast.mjs';
+import { staleFiles } from './stale-files.mjs';
 import { tokenFiles } from './token-files.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
 const brands = await loadBrands(ROOT);
 const files = tokenFiles(ROOT, brands);
+if (process.argv.includes('--check')) {
+  const stale = staleFiles(ROOT, files);
+  if (stale.length > 0) console.error(`tokens: stale ${stale.join(', ')}; run pnpm tokens`);
+  process.exit(stale.length > 0 ? 1 : 0);
+}
 for (const [path, content] of Object.entries(files)) writeFileSync(join(ROOT, path), content);
 console.log(`tokens: ${Object.keys(files).join(', ')}`);
 for (const app of brands.apps) {
