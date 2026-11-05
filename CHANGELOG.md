@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.113.0
+
+### Minor Changes
+
+- OverflowRow items can render from a tight flag, true when the pinned items alone overflow.
+
 ## 0.112.0
 
 ### Minor Changes
