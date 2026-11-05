@@ -43,6 +43,10 @@
   --aside-width-sm: 200px;
   --aside-width-md: 280px;
   --aside-width-lg: 360px;
+  --record-card-pad-row: 4px 8px;
+  --record-card-pad-card: 8px 12px;
+  --record-card-gap-row: 4px;
+  --record-card-gap-card: 8px;
   --p-primary: #8a8a96;
   --p-secondary: #6e6e7a;
   --p-tertiary: #9a9aa4;

@@ -860,6 +860,11 @@
           "a row in a list, with its actions": {
             "components": []
           },
+          "a card for each item of a list, folded to one line": {
+            "components": [
+              "RecordCard"
+            ]
+          },
           "a stream of log lines": {
             "components": [
               "LogPanel"
@@ -16968,6 +16973,144 @@
         "title": "Composites · Content/Rating",
         "route": "#/story/composites-rating--overview",
         "file": "stories/composites/Rating.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "RecordCard",
+      "tier": "composites",
+      "source": "src/composites/RecordCard/RecordCard.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The one card every item of a list uses: a single line when folded, its title and body when open.",
+      "useWhen": [
+        "A list shows records, such as tasks or runs, that each have a title, a short code, badges and an actions menu.",
+        "Each record has details that stay hidden until the user opens it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The content is a plain surface with no fold and no header slots.",
+          "use": "Card"
+        },
+        {
+          "case": "The item is a catalogue tile with a picture or media.",
+          "use": "ItemCard"
+        },
+        {
+          "case": "A plain line shows or hides some text and nothing else.",
+          "use": "Disclosure"
+        }
+      ],
+      "rules": [
+        "Pass icon, code, content and menu to fill the header slots; they sit in that order after the chevron.",
+        "The chevron shows only when there are children, and only it toggles the card, never a click in the menu.",
+        "Folded, the title sits in the header; open, the header keeps content and the title moves above the children.",
+        "Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.",
+        "Use density row for a compact list and card for roomy items."
+      ],
+      "a11y": [
+        "The chevron is a button with aria-expanded and aria-controls pointing at the body.",
+        "Pass aria-label to name the card as a group."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a card for each item of a list, folded to one line"
+        ],
+        "rule": "RecordCard is the shared card of every list item: header slots in a fixed order, a body that folds away."
+      },
+      "example": "import { Badge, Icon, IconButton, RecordCard, Text } from '@drizztdourden08/tessera';\n\nconst TaskCard = () => (\n  <RecordCard\n    title=\"Fix the login redirect\"\n    code=\"ARG-12\"\n    content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n    menu={<IconButton variant=\"ghost\" size=\"sm\" label=\"Actions\"><Icon name=\"ellipsis\" /></IconButton>}\n  >\n    <Text>The redirect drops the return path after sign in.</Text>\n  </RecordCard>\n);\n",
+      "propsHash": "6dc2c764117f14c6",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "icon",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "code",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "content",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "menu",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "open",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultOpen",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "onOpenChange",
+            "optional": true,
+            "text": "(open: boolean) => void"
+          },
+          {
+            "name": "density",
+            "optional": true,
+            "text": "RecordCardDensity",
+            "literals": [
+              "'row'",
+              "'card'"
+            ],
+            "default": "'card'"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--duration-fast",
+        "--ease-standard",
+        "--record-card-gap-card",
+        "--record-card-gap-row",
+        "--record-card-pad-card",
+        "--record-card-pad-row"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/RecordCard",
+        "route": "#/story/composites-recordcard--overview",
+        "file": "stories/composites/RecordCard.stories.tsx"
       },
       "parts": []
     },

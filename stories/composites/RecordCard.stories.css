@@ -1,0 +1,21 @@
+/* @layer stories @kind style */
+.record-card-story__list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  inline-size: var(--size-448);
+  max-inline-size: 100%;
+}
+
+.record-card-story__one {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: flex-start;
+  inline-size: var(--size-448);
+  max-inline-size: 100%;
+}
+
+.record-card-story__one > .record-card {
+  align-self: stretch;
+}

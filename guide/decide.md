@@ -209,6 +209,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A list the user reorders, with on and off icons on each row: no component yet.
   - One record, compact and read only: no component yet.
   - A row in a list, with its actions: no component yet.
+  - A card for each item of a list, folded to one line: [RecordCard](components/RecordCard.md). RecordCard is the shared card of every list item: header slots in a fixed order, a body that folds away.
   - A stream of log lines: [LogPanel](components/LogPanel.md). LogPanel shows a running log with search, filters, the newest lines first in view and rows the user can pick.
   - Items of a catalogue, as cards: [ItemCard](components/ItemCard.md). ItemCard gives every catalogue the same card, with its media, facts and actions in fixed places.
   - One item as a tile with a picture, a name and corner marks: [Tile](components/Tile.md). Tile gives every grid of thumbnails the same square media, name line and four corner marks.
