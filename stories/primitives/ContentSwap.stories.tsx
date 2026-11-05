@@ -43,7 +43,7 @@ const TabSwap = ({ effect, sequence }: Partial<ContentSwapArgs>) => {
       </Flex>
       <ContentSwap swapKey={tab} effect={effect} sequence={sequence}>
         <Box className="content-swap-story__panel">
-          <Paragraph tone="dim">{TABS[tab][1]}</Paragraph>
+          <Paragraph tone="dim">{TABS[tab]?.[1]}</Paragraph>
         </Box>
       </ContentSwap>
     </Stack>

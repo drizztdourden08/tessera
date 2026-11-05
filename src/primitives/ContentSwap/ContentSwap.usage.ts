@@ -53,7 +53,7 @@ const ReflowList = ({ view, tasks }: { view: string; tasks: Task[] }) => (
   </ContentSwap>
 );
 `,
-  propsHash: 'c6fcef6461d43468',
+  propsHash: 'eaa6bde622254f8f',
 } satisfies ComponentUsage;
 
 export { usage };

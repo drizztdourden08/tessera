@@ -2159,7 +2159,7 @@
         "rule": "ContentSwap replaces content in place and animates the change when its key changes."
       },
       "example": "import { ContentSwap, ItemList, Text } from '@drizztdourden08/tessera';\n\nconst StepPanel = ({ step }: { step: number }) => (\n  <ContentSwap swapKey={step} effect=\"slide\">\n    <Text>Current step</Text>\n  </ContentSwap>\n);\n\nconst TabPanel = ({ tab }: { tab: string }) => (\n  <ContentSwap swapKey={tab} sequence=\"out-in\">\n    <Text>{tab}</Text>\n  </ContentSwap>\n);\n\ninterface Task {\n  id: string;\n  name: string;\n}\n\nconst ReflowList = ({ view, tasks }: { view: string; tasks: Task[] }) => (\n  <ContentSwap swapKey={view} effect=\"reflow\">\n    <ItemList title=\"Tasks\" items={tasks} getId={(task) => task.id} getName={(task) => task.name} />\n  </ContentSwap>\n);\n",
-      "propsHash": "c6fcef6461d43468",
+      "propsHash": "eaa6bde622254f8f",
       "props": {
         "own": [
           {
