@@ -1,13 +1,13 @@
 /* @layer renderer-components @kind hook */
 import { useLayoutEffect, useRef, useState } from 'react';
 import { observeResize } from '../../../primitives/dom/observe-resize';
-import type { FoldParams } from '../OverflowRow.type';
+import type { FoldParams, FoldResult } from '../OverflowRow.type';
 import { measureRow } from './measure-row';
 import { SEPARATOR } from './useOverflowFold.constants';
 
-const useOverflowFold = (params: FoldParams): readonly string[] => {
+const useOverflowFold = (params: FoldParams): FoldResult => {
   const { rowRef, measureRef, items } = params;
-  const [folded, setFolded] = useState<readonly string[]>([]);
+  const [result, setFolded] = useState<FoldResult>({ folded: [], tight: false });
   const itemsRef = useRef(items);
   itemsRef.current = items;
   const key = items.map((item) => `${item.id}:${item.priority ?? ''}:${item.pinned ? 1 : 0}`).join(SEPARATOR);
@@ -18,13 +18,13 @@ const useOverflowFold = (params: FoldParams): readonly string[] => {
     if (!row || !measure) return undefined;
     const update = () => {
       const next = measureRow(row, measure, itemsRef.current);
-      setFolded((current) => (current.join(SEPARATOR) === next.join(SEPARATOR) ? current : next));
+      setFolded((current) => (current.tight === next.tight && current.folded.join(SEPARATOR) === next.folded.join(SEPARATOR) ? current : next));
     };
     update();
     return observeResize([row, measure], update);
   }, [rowRef, measureRef, key]);
 
-  return folded;
+  return result;
 };
 
 export { useOverflowFold };

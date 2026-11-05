@@ -2,10 +2,10 @@
 import { cssZoomOf } from '../../../primitives/dom/css-zoom-of';
 import { ownerWindowOf } from '../../../primitives/dom/owner-window';
 import { FIT_SLACK } from '../OverflowRow.constants';
-import type { OverflowRowItem } from '../OverflowRow.type';
+import type { FoldResult, OverflowRowItem } from '../OverflowRow.type';
 import { foldItems } from './fold-items';
 
-const measureRow = (row: HTMLElement, measure: HTMLElement, items: readonly OverflowRowItem[]): readonly string[] => {
+const measureRow = (row: HTMLElement, measure: HTMLElement, items: readonly OverflowRowItem[]): FoldResult => {
   const zoom = cssZoomOf(measure);
   const widths = [...measure.children].map((child) => child.getBoundingClientRect().width / zoom);
   const gap = Number.parseFloat(ownerWindowOf(measure).getComputedStyle(measure).columnGap) || 0;

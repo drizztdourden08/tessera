@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind util */
 import { DEFAULT_PRIORITY } from '../OverflowRow.constants';
-import type { FoldInput } from '../OverflowRow.type';
+import type { FoldInput, FoldResult } from '../OverflowRow.type';
 
 const rowWidth = (widths: readonly number[], gap: number): number => widths.reduce((sum, width) => sum + width, 0) + gap * Math.max(widths.length - 1, 0);
 
-const foldItems = (input: FoldInput): readonly string[] => {
+const foldItems = (input: FoldInput): FoldResult => {
   const { items, widths, moreWidth, gap, room } = input;
   const shown = items.map((item, index) => ({ item, width: widths[index] ?? 0 }));
   const folded: string[] = [];
@@ -16,11 +16,11 @@ const foldItems = (input: FoldInput): readonly string[] => {
       const current = pick < 0 ? undefined : shown[pick]?.item;
       if (current === undefined || (entry.item.priority ?? DEFAULT_PRIORITY) <= (current.priority ?? DEFAULT_PRIORITY)) pick = index;
     });
-    if (pick < 0) break;
+    if (pick < 0) return { folded, tight: true };
     const [gone] = shown.splice(pick, 1);
     if (gone) folded.push(gone.item.id);
   }
-  return folded;
+  return { folded, tight: false };
 };
 
 export { foldItems };
