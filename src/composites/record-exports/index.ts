@@ -1,6 +1,8 @@
 /* @layer renderer-components @kind barrel */
 export { FilterBar } from '../FilterBar';
 export type { FilterBarProps, FilterTokenParser } from '../FilterBar';
+export { GroupBar } from '../GroupBar';
+export type { GroupBarProps } from '../GroupBar';
 export { GroupControl } from '../GroupControl';
 export type { GroupControlProps, ViewOption } from '../GroupControl';
 export { SortControl } from '../SortControl';
