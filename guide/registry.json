@@ -836,6 +836,11 @@
               "GroupControl"
             ]
           },
+          "group by chips with an Add group menu, like a filter bar": {
+            "components": [
+              "GroupBar"
+            ]
+          },
           "a menu to sort a collection by one field and a direction": {
             "components": [
               "SortControl"
@@ -11490,6 +11495,118 @@
       "parts": []
     },
     {
+      "name": "GroupBar",
+      "tier": "composites",
+      "source": "src/composites/GroupBar/GroupBar.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A row of group by chips, each added from an Add group menu and removed with its x.",
+      "useWhen": [
+        "A list can be grouped by one or several fields and the choice sits beside a FilterBar.",
+        "The grouping should read like the filter chips, with a plus button to add a level."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The list is grouped by one field chosen from a single menu.",
+          "use": "GroupControl"
+        },
+        {
+          "case": "The user narrows rows by a value.",
+          "use": "FilterBar"
+        },
+        {
+          "case": "The list needs a filter, a group and a sort together behind one show button.",
+          "use": "ViewControls"
+        }
+      ],
+      "rules": [
+        "Keep the ordered ids in your state; the first id is the outermost group. Change them only in onChange.",
+        "Set maxLevels to cap the levels; at the cap, or when every option is used, the Add group button is not drawn.",
+        "An id that is not in options draws no chip."
+      ],
+      "a11y": [
+        "Each chip is a group named by its option, and its remove button is named Remove grouping by that option.",
+        "The Add group button opens a keyboard menu of the options not yet used."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "group by chips with an Add group menu, like a filter bar"
+        ],
+        "rule": "GroupBar lists the grouping levels as removable chips and adds one through a menu, drawn like the FilterBar chips."
+      },
+      "example": "import { useState } from 'react';\nimport { GroupBar } from '@drizztdourden08/tessera';\n\nconst FIELDS = [\n  { id: 'status', label: 'Status' },\n  { id: 'owner', label: 'Owner' },\n];\n\nconst Grouping = () => {\n  const [levels, setLevels] = useState<string[]>([]);\n  return <GroupBar options={FIELDS} value={levels} onChange={setLevels} maxLevels={2} />;\n};\n",
+      "propsHash": "1e7233dd4411db61",
+      "props": {
+        "own": [
+          {
+            "name": "options",
+            "optional": false,
+            "text": "readonly ViewOption[]"
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "text": "readonly string[]"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(next: string[]) => void"
+          },
+          {
+            "name": "maxLevels",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-primary-bright",
+        "--c-primary-text",
+        "--c-surface",
+        "--c-text",
+        "--c-text-muted",
+        "--control-h-sm",
+        "--control-pad-sm",
+        "--filter-clause-width",
+        "--font-mono",
+        "--radius-md",
+        "--shadow-dropdown",
+        "--size-160",
+        "--size-224",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--text-sm",
+        "--text-xs",
+        "--z-base",
+        "--z-sticky"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/GroupBar",
+        "route": "#/story/composites-groupbar--overview",
+        "file": "stories/composites/GroupBar.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "GroupControl",
       "tier": "composites",
       "source": "src/composites/GroupControl/GroupControl.tsx",
@@ -11507,6 +11624,10 @@
         {
           "case": "The list needs a filter, a group and a sort together behind one show button.",
           "use": "ViewControls"
+        },
+        {
+          "case": "The list groups by several levels, or the grouping should look like the FilterBar chips.",
+          "use": "GroupBar"
         },
         {
           "case": "The user picks the field to order rows by.",

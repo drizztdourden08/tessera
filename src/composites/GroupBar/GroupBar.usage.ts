@@ -22,7 +22,7 @@ const usage = {
     'The Add group button opens a keyboard menu of the options not yet used.',
   ],
   tree: {
-    path: ['data', 'a bar of group by chips with an Add group menu'],
+    path: ['data', 'group by chips with an Add group menu, like a filter bar'],
     rule: 'GroupBar lists the grouping levels as removable chips and adds one through a menu, drawn like the FilterBar chips.',
   },
   example: `import { useState } from 'react';
@@ -38,7 +38,7 @@ const Grouping = () => {
   return <GroupBar options={FIELDS} value={levels} onChange={setLevels} maxLevels={2} />;
 };
 `,
-  propsHash: '0000000000000000',
+  propsHash: '1e7233dd4411db61',
 } satisfies ComponentUsage;
 
 export { usage };
