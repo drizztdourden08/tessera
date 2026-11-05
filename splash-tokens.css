@@ -313,6 +313,8 @@
   --brand-mark-h26: calc(26 * 1px);
   --brand-mark-h39: calc(39 * 1px);
   --brand-rim-sm: 1px;
+  --signal-mark: 12px;
+  --signal-mark-rimmed: calc(12px - 2 * 1px);
   --brand-rim-md: calc(1.5 * 1px);
   --brand-rim-lg: 2px;
   --brand-rim-xl: calc(3 * 1px);
