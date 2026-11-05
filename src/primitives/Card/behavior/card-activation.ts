@@ -1,8 +1,7 @@
 /* @layer renderer-components @kind util */
-import type { HTMLAttributes, KeyboardEvent, MouseEvent } from 'react';
+import type { KeyboardEvent, MouseEvent } from 'react';
 import { isInteractiveTarget } from '../../dom/is-interactive-target';
-
-type ActivationProps = Pick<HTMLAttributes<HTMLDivElement>, 'tabIndex' | 'onClick' | 'onKeyDown'>;
+import type { ActivationProps } from './card-activation.type';
 
 const ownsClick = (event: MouseEvent<HTMLDivElement>): boolean =>
   event.target instanceof Node && event.currentTarget.contains(event.target) && !isInteractiveTarget(event.target, event.currentTarget);
