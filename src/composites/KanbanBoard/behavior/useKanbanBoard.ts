@@ -13,10 +13,11 @@ import { inColumnMove } from './in-column-move';
 import { listOfColumn } from './list-of-column';
 import { sideMove } from './side-move';
 import { slotAt } from './slot-at';
+import { useCardOpen } from './useCardOpen';
 import { useCollapsedColumns } from './useCollapsedColumns';
 
 const useKanbanBoard = <Card extends KanbanCardData>(props: KanbanBoardProps<Card>) => {
-  const { columns, renderCard, onMove, cardLabel = (card: Card) => card.id, cardEdgeTone, grip = true, foldable = true } = props;
+  const { columns, renderCard, onMove, cardLabel = (card: Card) => card.id, cardEdgeTone, grip = true, foldable = true, onCardOpen } = props;
   const { kanbanBoard } = useTesseraStrings();
   const boardRef = useRef<HTMLElement>(null);
   const landingRef = useRef<HTMLElement | null>(null);
@@ -68,7 +69,9 @@ const useKanbanBoard = <Card extends KanbanCardData>(props: KanbanBoardProps<Car
     commit(across, true);
   };
 
-  const shared: KanbanShared<Card> = { columns, renderCard, cardLabel, cardEdgeTone, grip, foldable, drag, onCardKeyDown, onToggle: fold.toggle };
+  const onCardClick = useCardOpen<Card>(drag.dragging, onCardOpen);
+
+  const shared: KanbanShared<Card> = { columns, renderCard, cardLabel, cardEdgeTone, grip, foldable, drag, onCardKeyDown, onCardClick, onToggle: fold.toggle };
   return { boardRef, shared, collapsed: folded, message: focus.message };
 };
 

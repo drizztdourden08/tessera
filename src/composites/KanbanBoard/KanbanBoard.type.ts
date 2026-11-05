@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, ReactNode } from 'react';
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { CardTone } from '../../primitives/Card';
 import type { ReorderDrag } from '../reorder/reorder.type';
 
@@ -36,6 +36,7 @@ interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
   columns: readonly KanbanColumn<Card>[];
   renderCard: (card: Card) => ReactNode;
   onMove: (move: KanbanMove) => void;
+  onCardOpen?: (cardId: string) => void;
   cardLabel?: (card: Card) => string;
   cardEdgeTone?: (card: Card) => CardTone | undefined;
   columnWidth?: KanbanColumnWidth;
@@ -59,6 +60,7 @@ interface KanbanShared<Card extends KanbanCardData> {
   foldable: boolean;
   drag: ReorderDrag;
   onCardKeyDown: (event: KeyboardEvent<HTMLElement>, card: Card) => void;
+  onCardClick: (event: MouseEvent<HTMLElement>, card: Card) => void;
   onToggle: (columnId: string) => void;
 }
 
