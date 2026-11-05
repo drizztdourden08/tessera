@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.112.0
+
+### Minor Changes
+
+- OverflowRow folds row items into a More menu, ContentSwap gains a reflow effect, MarkdownEditor gains submitLabel and a sunken writing area, and icons and row content centre vertically.
+
 ## 0.111.0
 
 ### Minor Changes
