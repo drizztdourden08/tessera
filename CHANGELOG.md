@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.118.0
+
+### Minor Changes
+
+- New AsideLayout primitive: main content with a side rail that hides below a container breakpoint.
+
 ## 0.117.0
 
 ### Minor Changes
