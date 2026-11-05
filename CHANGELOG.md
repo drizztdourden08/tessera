@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.127.1
+
+### Patch Changes
+
+- A toggling RecordHeader row no longer opens the Kanban card around it, and ContentSwap shows the new content when no animation runs.
+
 ## 0.127.0
 
 ### Minor Changes
