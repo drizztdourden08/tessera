@@ -23,6 +23,7 @@ interface MarkdownEditorProps {
   compact?: boolean;
   preview?: boolean;
   toolbarEnd?: ReactNode;
+  actions?: ReactNode;
   rows?: number;
   onLink?: MarkdownLinkHandler;
   images?: MarkdownImages;
@@ -91,19 +92,18 @@ interface MarkdownEditorToolbarProps {
   onImages?: (files: File[]) => void;
 }
 
-interface MarkdownEditorImageButtonProps {
-  disabled: boolean;
-  onFiles: (files: File[]) => void;
-}
-
-interface MarkdownEditorPreviewToggleProps {
-  toggle: MarkdownEditorPreviewToggle;
-}
-
-interface MarkdownEditorActionButtonProps {
-  spec: MarkdownEditorActionSpec;
+interface MarkdownEditorToolbarItemsInput {
   disabled: boolean;
   onAction: (id: MarkdownEditorActionId) => void;
+  toggle?: MarkdownEditorPreviewToggle;
+  onPickImages?: () => void;
+}
+
+interface MarkdownEditorFootProps {
+  value: string;
+  maxLength?: number;
+  count?: (text: string) => number;
+  actions?: ReactNode;
 }
 
 interface MarkdownEditorMode {
@@ -138,7 +138,7 @@ interface MarkdownEditorPreviewProps {
 }
 
 export type {
-  MarkdownEditorActionButtonProps, MarkdownEditorActionId, MarkdownEditorActionSpec, MarkdownEditorLayout, MarkdownEditorListStyle,
-  MarkdownEditorCounterProps, MarkdownEditorCounterTone, MarkdownEditorImageButtonProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode, MarkdownEditorModeOptions,
-  MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorPreviewToggleProps, MarkdownEditorProps, MarkdownEditorTabsProps, MarkdownEditorToolbarProps, TextEdit,
+  MarkdownEditorActionId, MarkdownEditorActionSpec, MarkdownEditorLayout, MarkdownEditorListStyle,
+  MarkdownEditorCounterProps, MarkdownEditorCounterTone, MarkdownEditorFootProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode, MarkdownEditorModeOptions,
+  MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorProps, MarkdownEditorTabsProps, MarkdownEditorToolbarItemsInput, MarkdownEditorToolbarProps, TextEdit,
 };
