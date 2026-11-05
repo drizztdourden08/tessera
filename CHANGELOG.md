@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.108.0
+
+### Minor Changes
+
+- MarkdownEditor draws the family Toolbar inside one framed editor and takes an actions row below, with the counter on the left. The SignalStrip avatar mark is 14 px with a flush owner ring, so it fits the chip like a brand mark.
+
 ## 0.107.1
 
 ### Patch Changes
