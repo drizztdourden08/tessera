@@ -86,8 +86,8 @@
   ],
   "scripts": {
     "typecheck": "tsc --noEmit && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide",
-    "lint": "standards lint && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide && pnpm guide --check && node scripts/storylite/check-descriptions.mjs && node scripts/tokens/check-contrast.mjs",
-    "lint:all": "standards lint --all && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide && pnpm guide --check && node scripts/storylite/check-descriptions.mjs && node scripts/tokens/check-contrast.mjs",
+    "lint": "standards lint && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide && pnpm guide --check && node scripts/storylite/check-descriptions.mjs && node scripts/tokens/check-contrast.mjs && node scripts/tokens/build-tokens.mjs --check",
+    "lint:all": "standards lint --all && tsc --noEmit -p .storylite && tsc --noEmit -p tests/fixtures/guide && pnpm guide --check && node scripts/storylite/check-descriptions.mjs && node scripts/tokens/check-contrast.mjs && node scripts/tokens/build-tokens.mjs --check",
     "lint:md": "markdownlint-cli2",
     "test": "standards test",
     "test:pr": "standards test pr",
