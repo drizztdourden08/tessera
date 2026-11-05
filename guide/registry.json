@@ -242,6 +242,11 @@
               "FileInput"
             ]
           },
+          "files dropped or pasted onto an area": {
+            "components": [
+              "DropZone"
+            ]
+          },
           "a path to a file or folder": {
             "components": [
               "PathInput"
@@ -2289,7 +2294,152 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
       ],
-      "usage": false
+      "usage": true,
+      "job": "A visible target for files, dropped in, pasted or picked with a click that opens the file dialog.",
+      "useWhen": [
+        "The user brings files onto a screen by dragging them in, such as a ROM, an icon or an avatar picture.",
+        "A header row needs a one line box that takes a file, with the inline variant."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A button of your own opens the file dialog and no area takes a drop.",
+          "use": "FileInput"
+        },
+        {
+          "case": "The user types or browses to a path on disk.",
+          "use": "PathInput"
+        }
+      ],
+      "rules": [
+        "Pass accept as extensions such as .png or media types such as image/*; onDrop gets only the files that pass.",
+        "Pass onReject to hear about the files accept refused, and tell the user why, for example through status.",
+        "Set status after a check, success or error with a message, to show the result under the label.",
+        "Set variant inline for a one line box in a header row; block is the tall target with a glyph and a hint.",
+        "Set disabled to show the not allowed pointer and swallow drops."
+      ],
+      "a11y": [
+        "The inline box is a button: a click, Enter or Space opens the file dialog.",
+        "Ctrl+V pastes files while the box is pointed at or focused."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "files dropped or pasted onto an area"
+        ],
+        "rule": "DropZone is the visible area that takes files dragged in, pasted or picked."
+      },
+      "example": "import { useState } from 'react';\nimport { DropZone } from '@drizztdourden08/tessera';\nimport type { DropZoneStatus } from '@drizztdourden08/tessera';\n\nconst IconUpload = ({ onIcon }: { onIcon: (file: File) => void }) => {\n  const [status, setStatus] = useState<DropZoneStatus | undefined>(undefined);\n  return (\n    <DropZone\n      accept={['.png', '.svg']}\n      label=\"Drop an icon here\"\n      status={status}\n      onDrop={([file]) => {\n        if (!file) return;\n        setStatus(undefined);\n        onIcon(file);\n      }}\n      onReject={() => setStatus({ tone: 'error', message: 'Only PNG and SVG' })}\n    />\n  );\n};\n",
+      "propsHash": "ebc4a7f413e0f0f5",
+      "props": {
+        "own": [
+          {
+            "name": "accept",
+            "optional": true,
+            "text": "string[]"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string",
+            "default": "fields.dropFiles"
+          },
+          {
+            "name": "hint",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "DropZoneVariant",
+            "literals": [
+              "'block'",
+              "'inline'"
+            ],
+            "default": "'block'"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "ControlSize",
+            "literals": [
+              "'sm'",
+              "'md'"
+            ]
+          },
+          {
+            "name": "icon",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "status",
+            "optional": true,
+            "text": "DropZoneStatus"
+          },
+          {
+            "name": "onDrop",
+            "optional": false,
+            "text": "(files: File[]) => void"
+          },
+          {
+            "name": "onReject",
+            "optional": true,
+            "text": "(files: File[]) => void"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-bg",
+        "--c-border",
+        "--c-danger",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-primary-soft",
+        "--c-success",
+        "--c-success-soft",
+        "--c-text",
+        "--control-h-md",
+        "--control-h-sm",
+        "--control-pad-md",
+        "--control-pad-sm",
+        "--dropzone-inline-w",
+        "--opacity-muted",
+        "--radius-lg",
+        "--radius-md",
+        "--size-2",
+        "--space-lg",
+        "--space-md",
+        "--space-sm",
+        "--space-xl",
+        "--space-xs",
+        "--text-2xl",
+        "--text-base",
+        "--text-lg",
+        "--text-sm",
+        "--text-xl",
+        "--text-xs",
+        "--weight-medium"
+      ],
+      "gallery": {
+        "title": "Primitives · Inputs/DropZone",
+        "route": "#/story/primitives-dropzone--overview",
+        "file": "stories/primitives/DropZone.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "EmojiIcon",

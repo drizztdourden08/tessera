@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 140 of 249 have their usage written; a linked name opens its page.
+One line per component. 141 of 249 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -24,7 +24,7 @@ One line per component. 140 of 249 have their usage written; a linked name opens
 - [DensityScope](components/DensityScope.md): Sets how dense the form parts inside it are, once for a whole panel, such as an inspector beside a canvas. Import from `@drizztdourden08/tessera`.
 - [Disclosure](components/Disclosure.md): A line, such as Details or Show log, that shows or hides the content under it when clicked. Import from `@drizztdourden08/tessera`.
 - `Divider`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `DropZone`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [DropZone](components/DropZone.md): A visible target for files, dropped in, pasted or picked with a click that opens the file dialog. Import from `@drizztdourden08/tessera`.
 - `EmojiIcon`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Emphasis`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `EmptyState`: usage not written yet. Import from `@drizztdourden08/tessera`.

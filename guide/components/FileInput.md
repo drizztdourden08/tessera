@@ -23,7 +23,7 @@ FileInput is the hidden picker behind a button, for a file the user chooses from
 
 ## Use something else when
 
-- The user drops or pastes files into a visible area. Use `DropZone` instead.
+- The user drops or pastes files into a visible area. Use [DropZone](DropZone.md) instead.
 - The user types or browses to a path on disk. Use [PathInput](PathInput.md) instead.
 
 ## Rules

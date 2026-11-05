@@ -63,6 +63,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A colour from a palette: [ChoiceGrid](components/ChoiceGrid.md). ChoiceGrid is the strip or grid of cells where one is picked; draw each cell as a ColorSwatch for a palette.
   - A colour from a ramp of steps: [RampStrip](components/RampStrip.md). RampStrip is the ordered row of shades of one ramp, with a caption on each step.
   - A file: [FileInput](components/FileInput.md). FileInput is the hidden picker behind a button, for a file the user chooses from a dialog.
+  - Files dropped or pasted onto an area: [DropZone](components/DropZone.md). DropZone is the visible area that takes files dragged in, pasted or picked.
   - A path to a file or folder: [PathInput](components/PathInput.md). PathInput takes a typed, dropped or browsed path in one box and cuts a long one in the middle, the same way in every app.
   - A whole record. **What happens to the record?**
     - Edit it in place: no component yet.

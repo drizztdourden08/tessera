@@ -1,19 +1,21 @@
 /* @layer renderer-components @kind hook */
 import { useCallback, useRef, useState } from 'react';
 import type { ChangeEvent, KeyboardEvent } from 'react';
-import { filterFiles } from './filter-files';
+import { splitFiles } from './split-files';
 import { useFileDrag } from './useFileDrag';
 import { usePasteFiles } from './usePasteFiles';
-import type { DropZoneBehavior } from './useDropZone.type';
+import type { DropZoneBehavior, DropZoneOptions } from './useDropZone.type';
 
-const useDropZone = (accept: readonly string[] | undefined, enabled: boolean, onDrop: (files: File[]) => void): DropZoneBehavior => {
+const useDropZone = (options: DropZoneOptions): DropZoneBehavior => {
+  const { accept, enabled, onDrop, onReject } = options;
   const inputRef = useRef<HTMLInputElement>(null);
   const [zone, setZone] = useState<HTMLElement | null>(null);
 
   const deliver = useCallback((files: File[]) => {
-    const accepted = filterFiles(files, accept);
+    const { accepted, rejected } = splitFiles(files, accept);
     if (accepted.length > 0) onDrop(accepted);
-  }, [accept, onDrop]);
+    if (rejected.length > 0) onReject?.(rejected);
+  }, [accept, onDrop, onReject]);
 
   const drag = useFileDrag({ enabled, onDrop: (data) => deliver(Array.from(data.files)) });
   const pasteHandlers = usePasteFiles(zone, enabled, deliver);
