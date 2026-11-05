@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.110.0
+
+### Minor Changes
+
+- FilterBar fields can limit their operators, FilterBar takes a leading slot, and Select takes a prefix label.
+
 ## 0.109.0
 
 ### Minor Changes
