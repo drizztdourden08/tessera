@@ -1,0 +1,72 @@
+# RecordCard
+
+The one card every item of a list uses: a single line when folded, its title and body when open.
+
+Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
+
+```tsx
+import { RecordCard } from '@drizztdourden08/tessera';
+```
+
+The source is `src/composites/RecordCard/RecordCard.tsx`. Its gallery page is Composites · Data views/RecordCard (`#/story/composites-recordcard--overview`).
+
+## Where the questions lead here
+
+What are you placing? Data. What data are you showing? A card for each item of a list, folded to one line.
+
+RecordCard is the shared card of every list item: header slots in a fixed order, a body that folds away.
+
+## Use it when
+
+- A list shows records, such as tasks or runs, that each have a title, a short code, badges and an actions menu.
+- Each record has details that stay hidden until the user opens it.
+
+## Use something else when
+
+- The content is a plain surface with no fold and no header slots. Use [Card](Card.md) instead.
+- The item is a catalogue tile with a picture or media. Use [ItemCard](ItemCard.md) instead.
+- A plain line shows or hides some text and nothing else. Use [Disclosure](Disclosure.md) instead.
+
+## Rules
+
+- Pass icon, code, content and menu to fill the header slots; they sit in that order after the chevron.
+- The chevron shows only when there are children, and only it toggles the card, never a click in the menu.
+- Folded, the title sits in the header; open, the header keeps content and the title moves above the children.
+- Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.
+- Use density row for a compact list and card for roomy items.
+
+## Accessibility
+
+- The chevron is a button with aria-expanded and aria-controls pointing at the body.
+- Pass aria-label to name the card as a group.
+
+## Example
+
+```tsx
+import { RecordCard } from '@drizztdourden08/tessera';
+
+const TaskCard = () => (
+  <RecordCard title="Fix the login redirect" code="ARG-12" content={<Badge value="Open" color="info" />} menu={<TaskMenu />}>
+    <Text>The redirect drops the return path after sign in.</Text>
+  </RecordCard>
+);
+```
+
+## Props
+
+- `title`: `ReactNode`.
+- `icon` (optional): `ReactNode`.
+- `code` (optional): `ReactNode`.
+- `content` (optional): `ReactNode`.
+- `menu` (optional): `ReactNode`.
+- `children` (optional): `ReactNode`.
+- `open` (optional): `boolean`.
+- `defaultOpen` (optional): `boolean`. Default `false`.
+- `onOpenChange` (optional): `(open: boolean) => void`.
+- `density` (optional): `RecordCardDensity`, one of `'row'`, `'card'`. Default `'card'`.
+- `className` (optional): `string`.
+- `aria-label` (optional): `string`.
+
+## Tokens
+
+It draws on `--duration-fast`, `--ease-standard`, `--record-card-gap-card`, `--record-card-gap-row`, `--record-card-pad-card`, `--record-card-pad-row`.
