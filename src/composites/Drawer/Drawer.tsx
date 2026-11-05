@@ -3,6 +3,7 @@ import { useId } from 'react';
 import { Box } from '../../primitives/Box';
 import { ButtonRow } from '../../primitives/ButtonRow';
 import { Overlay } from '../../primitives/Overlay';
+import { Portal } from '../../primitives/Portal';
 import { ScrollArea } from '../../primitives/ScrollArea';
 import { useDialogEscape } from '../DialogShell/behavior/useDialogEscape';
 import { useDialogFocus } from '../DialogShell/behavior/useDialogFocus';
@@ -19,34 +20,36 @@ const Drawer = (props: DrawerProps) => {
   useDialogEscape(open ? focus.node : null, true, onClose);
 
   return (
-    <Box className={drawerClass(side, size, open)} aria-hidden={!open} inert={!open}>
-      <Overlay visible={open} keepMounted tone="scrim" onClick={onClose} className="drawer__scrim" />
-      <Box
-        ref={focus.ref}
-        className="drawer__panel"
-        role="dialog"
-        aria-modal="true"
-        aria-label={label}
-        aria-labelledby={labelledBy}
-        tabIndex={-1}
-        onKeyDown={focus.onKeyDown}
-      >
-        <DrawerHeader
-          look={look}
-          eyebrow={eyebrow}
-          title={title}
-          titleWrap={titleWrap}
-          stackNarrow={stackNarrow}
-          titleId={titleId}
-          subtitle={subtitle}
-          headerActions={headerActions}
-          headerActionsRow={headerActionsRow}
-          onClose={onClose}
-        />
-        <ScrollArea className="drawer__body">{children}</ScrollArea>
-        {actions !== undefined && <ButtonRow className="drawer__actions">{actions}</ButtonRow>}
+    <Portal layer="modal">
+      <Box className={drawerClass(side, size, open)} aria-hidden={!open} inert={!open}>
+        <Overlay visible={open} keepMounted tone="scrim" onClick={onClose} className="drawer__scrim" />
+        <Box
+          ref={focus.ref}
+          className="drawer__panel"
+          role="dialog"
+          aria-modal="true"
+          aria-label={label}
+          aria-labelledby={labelledBy}
+          tabIndex={-1}
+          onKeyDown={focus.onKeyDown}
+        >
+          <DrawerHeader
+            look={look}
+            eyebrow={eyebrow}
+            title={title}
+            titleWrap={titleWrap}
+            stackNarrow={stackNarrow}
+            titleId={titleId}
+            subtitle={subtitle}
+            headerActions={headerActions}
+            headerActionsRow={headerActionsRow}
+            onClose={onClose}
+          />
+          <ScrollArea className="drawer__body">{children}</ScrollArea>
+          {actions !== undefined && <ButtonRow className="drawer__actions">{actions}</ButtonRow>}
+        </Box>
       </Box>
-    </Box>
+    </Portal>
   );
 };
 
