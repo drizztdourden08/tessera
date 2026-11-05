@@ -17025,8 +17025,8 @@
         }
       ],
       "rules": [
-        "Pass icon, code, content and menu to fill the header slots; they sit in that order after the chevron.",
-        "The chevron shows only when there are children, and only it toggles the card, never a click in the menu.",
+        "Pass icon, code, content and menu to fill the header slots; they sit in that order after the chevron, and content sits at the end, next to the menu.",
+        "The chevron shows only when there are children, and a click on the header row toggles the card, but never a click in the menu or a control.",
         "Folded, the title sits in the header and the body is not rendered; open, the title moves above the children, so it shows once.",
         "Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.",
         "Use density row for a compact list and card for roomy items.",
@@ -17196,7 +17196,7 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "The one title line every item uses: a chevron, an icon, a code, a title with badges and a menu, centred in a single row.",
+      "job": "The one title line every item uses: a chevron, an icon, a code, a title, badges and a menu, centred in a single row.",
       "useWhen": [
         "An item shows its identity in one line, such as a task with a code, a title, a status badge and an actions menu.",
         "A Kanban group bar or a Tree row needs the same line as a RecordCard, with no frame around it."
@@ -17216,15 +17216,15 @@
         }
       ],
       "rules": [
-        "Pass icon, code, content and menu to fill the slots; they sit in that order after the chevron, and the title comes before content.",
-        "Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. controls names the folded element and label replaces the default name.",
+        "Pass icon, code, title, content and menu to fill the slots; they sit in that order after the chevron, and content sits at the end, next to the menu.",
+        "Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. controls names the folded element and label replaces the default name.",
         "The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.",
         "Use density row for a compact line and card for a roomy one; it only changes the gap between the slots.",
         "In a Kanban group bar, pass the fold of renderGroupHeader to chevron: { expanded: fold.open, onToggle: fold.toggle, controls: fold.controls }.",
         "In a Tree, draw it from renderLabel with density row and no chevron, since the tree has its own twisty."
       ],
       "a11y": [
-        "The chevron is a button with aria-expanded and, when controls is set, aria-controls.",
+        "The chevron is a bare button with aria-expanded and, when controls is set, aria-controls; Enter and Space on it toggle. The row has no role of its own.",
         "A long title is cut with an ellipsis and the slots never wrap."
       ],
       "tree": {
