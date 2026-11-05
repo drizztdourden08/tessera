@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.119.0
+
+### Minor Changes
+
+- OverflowRow items take shrink, so a pinned Tabs narrows and scrolls sideways instead of pushing end items out.
+
 ## 0.118.0
 
 ### Minor Changes
