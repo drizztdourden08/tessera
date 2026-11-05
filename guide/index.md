@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 134 of 243 have their usage written; a linked name opens its page.
+One line per component. 135 of 244 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -144,6 +144,7 @@ One line per component. 134 of 243 have their usage written; a linked name opens
 - [GuidedTour](components/GuidedTour.md): A tour of a screen, step by step: one part stays lit with a glow while the rest dims and blurs, a bubble explains it and the mascot presents it. Import from `@drizztdourden08/tessera`.
 - `HeaderAnchorNav`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Hero`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [IconPicker](components/IconPicker.md): An icon button that opens a popover to pick one icon from a searchable grid, or to upload an SVG or PNG, and hands back one value. Import from `@drizztdourden08/tessera`.
 - [InfoScreen](components/InfoScreen.md): An informational window to read, such as About or credits: a small dialog sized to its content and centred, with the title bar, the close button and one column. Import from `@drizztdourden08/tessera`.
 - `InlineCreateForm`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [InlineEdit](components/InlineEdit.md): A piece of text that shows as text with a pen and turns into a field when the user clicks it, such as the title of a card. Import from `@drizztdourden08/tessera`.

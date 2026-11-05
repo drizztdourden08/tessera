@@ -49,7 +49,7 @@ const VALUES = {
       question: 'Where does the picker sit?',
       answers: { 'in the page': null, 'behind a swatch button': null },
     },
-    'a range': null, 'a colour from a palette': null, 'a colour from a ramp of steps': null, 'a file': null,
+    'an icon': null, 'a range': null, 'a colour from a palette': null, 'a colour from a ramp of steps': null, 'a file': null,
     'a path to a file or folder': null,
     'a whole record': {
       question: 'What happens to the record?',
