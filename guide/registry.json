@@ -1071,7 +1071,7 @@
       "avoidWhen": [
         {
           "case": "The rail is a panel the user drags wider or folds.",
-          "use": "a resizable side panel"
+          "use": "SplitPane"
         },
         {
           "case": "The pieces are equal columns.",

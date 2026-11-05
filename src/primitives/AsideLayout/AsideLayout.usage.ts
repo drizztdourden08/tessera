@@ -9,7 +9,7 @@ const usage = {
     'The page must know whether the rail shows, to move its content into the main area when it hides.',
   ],
   avoidWhen: [
-    { case: 'The rail is a panel the user drags wider or folds.', use: 'a resizable side panel' },
+    { case: 'The rail is a panel the user drags wider or folds.', use: 'SplitPane' },
     { case: 'The pieces are equal columns.', use: 'Grid' },
   ],
   rules: [

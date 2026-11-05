@@ -24,7 +24,7 @@ AsideLayout puts a rail beside the main content and drops it when its own contai
 
 ## Use something else when
 
-- The rail is a panel the user drags wider or folds. Use `a resizable side panel` instead.
+- The rail is a panel the user drags wider or folds. Use `SplitPane` instead.
 - The pieces are equal columns. Use [Grid](Grid.md) instead.
 
 ## Rules
