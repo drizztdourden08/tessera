@@ -2,6 +2,7 @@
 import { useRef } from 'react';
 import { Box } from '../../primitives/Box';
 import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { itemClass } from './behavior/item-class';
 import { splitEnd } from './behavior/split-end';
 import { renderNode } from './behavior/render-node';
 import { useOverflowFold } from './behavior/useOverflowFold';
@@ -23,9 +24,9 @@ const OverflowRow = (props: OverflowRowProps) => {
 
   return (
     <Box ref={rowRef} className={className ? `overflow-row ${className}` : 'overflow-row'}>
-      {start.map((item) => <Box key={item.id}>{renderNode(item.node, tight)}</Box>)}
+      {start.map((item) => <Box key={item.id} className={itemClass(item, false)}>{renderNode(item.node, tight)}</Box>)}
       {folded.length > 0 && <OverflowRowMore folded={folded} label={label} />}
-      {end.map((item, index) => <Box key={item.id} className={index === 0 ? 'overflow-row__end' : undefined}>{renderNode(item.node, tight)}</Box>)}
+      {end.map((item, index) => <Box key={item.id} className={itemClass(item, index === 0)}>{renderNode(item.node, tight)}</Box>)}
       <OverflowRowMeasure measureRef={measureRef} items={items} label={label} />
     </Box>
   );

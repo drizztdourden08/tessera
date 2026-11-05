@@ -1,6 +1,7 @@
 /* @layer stories @kind logic */
 import type { OverflowRowItem } from '../../../src/composites';
-import { Icon, IconButton, Tag, Text } from '../../../src/primitives';
+import { Icon, IconButton, Tabs, Tag, Text } from '../../../src/primitives';
+import type { TabItem } from '../../../src/primitives';
 
 const fact = (id: string, text: string, priority: number): OverflowRowItem => ({
   id,
@@ -25,4 +26,19 @@ const tightItems = (): readonly OverflowRowItem[] => [
   { id: 'gear', pinned: true, node: <IconButton label="Settings" variant="ghost"><Icon name="settings" /></IconButton> },
 ];
 
-export { headerItems, tightItems };
+const BOARD_TABS: readonly TabItem[] = [
+  { id: 'board', label: 'Board', icon: <Icon name="layout-dashboard" /> },
+  { id: 'players', label: 'Players', icon: <Icon name="users" /> },
+  { id: 'items', label: 'Items', icon: <Icon name="package" /> },
+  { id: 'hints', label: 'Hints', icon: <Icon name="info" /> },
+  { id: 'log', label: 'Log', icon: <Icon name="scroll-text" /> },
+  { id: 'settings', label: 'Settings', icon: <Icon name="sliders-horizontal" /> },
+];
+
+const scrollItems = (): readonly OverflowRowItem[] => [
+  { id: 'name', pinned: true, node: <Text as="span" variant="title">Keysanity</Text> },
+  { id: 'tabs', pinned: true, shrink: true, node: ({ tight }) => <Tabs tabs={[...BOARD_TABS]} activeTab="board" onTabChange={() => undefined} iconOnly={tight} /> },
+  { id: 'gear', pinned: true, end: true, node: <IconButton label="Settings" variant="ghost"><Icon name="settings" /></IconButton> },
+];
+
+export { headerItems, scrollItems, tightItems };

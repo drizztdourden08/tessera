@@ -35,6 +35,7 @@ OverflowRow keeps mixed nodes on one line and folds the lowest priority ones int
 - Set pinned on what must always show, such as the name and the settings button.
 - Set end on an item to push it and every later item to the far right of the row; the More button stays before them and the fold still counts them.
 - Give node as a function of { tight } when a pinned item must shrink: tight is true only when the pinned items alone overflow, after every unpinned item is folded. The hidden measure copy and the menu always get tight false.
+- Set shrink on a pinned item that scrolls itself, such as Tabs: when even tight is too wide, it narrows and scrolls sideways so end items stay in the row.
 - Set menuNode when an item needs another look inside the popover, such as a label next to an icon button; it defaults to node.
 - Set moreLabel only when the default More does not fit the screen.
 
@@ -63,7 +64,7 @@ interface BoardHeaderProps {
 const BoardHeader = ({ name, players, tabs, tab, onTab, onSettings }: BoardHeaderProps) => {
   const items: OverflowRowItem[] = [
     { id: 'name', pinned: true, node: <Text as="span" variant="title">{name}</Text> },
-    { id: 'tabs', pinned: true, node: ({ tight }) => <Tabs tabs={tabs} activeTab={tab} onTabChange={onTab} iconOnly={tight} /> },
+    { id: 'tabs', pinned: true, shrink: true, node: ({ tight }) => <Tabs tabs={tabs} activeTab={tab} onTabChange={onTab} iconOnly={tight} /> },
     { id: 'status', priority: 5, node: <Tag variant="urgency" color="success">Running</Tag> },
     { id: 'players', priority: 3, node: <Text as="span" variant="caption">{`${players} players`}</Text> },
     { id: 'settings', pinned: true, end: true, node: <IconButton label="Settings" onClick={onSettings}><Icon name="settings" /></IconButton> },
