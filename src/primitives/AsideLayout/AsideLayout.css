@@ -1,0 +1,17 @@
+/* @layer renderer-components @kind style */
+.aside-layout {
+  display: flex;
+  gap: var(--space-md);
+  align-items: flex-start;
+}
+.aside-layout[data-side='start'] { flex-direction: row-reverse; }
+
+.aside-layout__main {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.aside-layout__aside { flex: 0 0 auto; }
+.aside-layout[data-aside-width='sm'] > .aside-layout__aside { width: var(--aside-width-sm); }
+.aside-layout[data-aside-width='md'] > .aside-layout__aside { width: var(--aside-width-md); }
+.aside-layout[data-aside-width='lg'] > .aside-layout__aside { width: var(--aside-width-lg); }

@@ -1,0 +1,10 @@
+/* @layer stories @kind style */
+
+.aside-layout-demo {
+  padding: var(--space-sm);
+  border: var(--border-width-thin) dashed var(--c-border);
+  border-radius: var(--radius-md);
+}
+
+.aside-layout-demo--narrow { width: var(--size-384); }
+.aside-layout-demo--wide { width: var(--size-1024); max-width: 100%; }
