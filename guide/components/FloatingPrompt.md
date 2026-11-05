@@ -39,7 +39,7 @@ FloatingPrompt asks the user to answer before going on in one region, with actio
 ## Accessibility
 
 - The bar is an alert dialog that is not modal to the app: a screen reader reads its message at once, and only the region it covers is out of reach.
-- On open focus moves to the first action, Tab stays in the bar, and on close focus returns to where it was.
+- On open focus moves to the bar, so no action shows a ring until Tab; Tab stays in the bar, and on close focus returns to where it was.
 - The siblings of the bar in its parent are inert while it is open, so the region gets no pointer or keyboard input.
 - Escape runs the action marked cancel; with none, Escape does nothing.
 - Pass label when the message is not enough to name the bar; otherwise the message names it.

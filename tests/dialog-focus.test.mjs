@@ -66,14 +66,15 @@ describe('K1 focus on open', { tags: ['critical'] }, () => {
     expect(initialFocusOf(dialog, { initialFocusRef: { current: confirm }, initialFocus: 'first' })).toBe(confirm);
   });
 
-  it('skips the header close button for the first stop of the body', () => {
-    expect(initialFocusOf(dialog, { initialFocus: 'first' })).toBe(cancel);
+  it('focuses the dialog itself without a ref, so no control shows a ring', () => {
+    expect(initialFocusOf(dialog, { initialFocus: 'first' })).toBe(dialog);
   });
 
-  it('falls back from a disabled or missing ref, to the dialog itself when asked', () => {
+  it('falls back from a disabled or missing ref to the dialog itself', () => {
     const disabled = element('create', { tabIndex: -1 });
     const field = element('field', { tagName: 'INPUT' });
-    expect(initialFocusOf(dialogOf([close, field, disabled]), { initialFocusRef: { current: disabled }, initialFocus: 'first' })).toBe(field);
+    const form = dialogOf([close, field, disabled]);
+    expect(initialFocusOf(form, { initialFocusRef: { current: disabled }, initialFocus: 'first' })).toBe(form);
     const lone = dialogOf([close]);
     expect(initialFocusOf(lone, { initialFocusRef: { current: null }, initialFocus: 'dialog' })).toBe(lone);
     expect(initialFocusOf(lone, { initialFocus: 'first' })).toBe(lone);
@@ -84,7 +85,7 @@ describe('K1 focus on open', { tags: ['critical'] }, () => {
     const screen = { ...dialogOf([cancel]), ownerDocument: { getElementById: (id) => (id === 'title' ? heading : null) }, contains: (node) => node === heading || node === cancel };
     expect(initialFocusOf(screen, { initialFocus: 'first', headingId: 'title' })).toBe(heading);
     expect(heading.setAttribute).toHaveBeenCalledWith('tabindex', '-1');
-    expect(initialFocusOf(screen, { initialFocus: 'first', headingId: 'missing' })).toBe(cancel);
+    expect(initialFocusOf(screen, { initialFocus: 'first', headingId: 'missing' })).toBe(screen);
   });
 
   it('counts only the checked radio of a group as a stop', () => {
