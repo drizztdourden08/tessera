@@ -43,7 +43,7 @@ const KanbanLane = <Item extends KanbanCardData>({ column, index, collapsed, sha
             <KanbanCard
               key={card.id}
               card={card}
-              frame={group === undefined ? undefined : { group, column, part: framePart(place, run.length) }}
+              frame={group === undefined ? undefined : { group, column, listId, part: framePart(place, run.length) }}
               slot={start + at}
               last={endMark && at === cards.length - 1}
               shared={shared}

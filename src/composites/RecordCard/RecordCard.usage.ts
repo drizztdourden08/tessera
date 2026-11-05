@@ -10,6 +10,7 @@ const usage = {
   avoidWhen: [
     { case: 'The content is a plain surface with no fold and no header slots.', use: 'Card' },
     { case: 'The item is a catalogue tile with a picture or media.', use: 'ItemCard' },
+    { case: 'Only the title line is needed, in a Kanban group bar or a Tree row, with no frame and no body.', use: 'RecordHeader' },
     { case: 'A plain line shows or hides some text and nothing else.', use: 'Disclosure' },
   ],
   rules: [

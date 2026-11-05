@@ -151,6 +151,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'SortControl', summary: 'A menu that picks the sort field, with one button for the direction.' },
         { name: 'ViewControls', summary: 'Filter, group and sort in one row, behind a show button with a count of what is on.' },
         { name: 'RecordCard', summary: 'The card every item of a list uses: one line when folded, its title and body when open.' },
+        { name: 'RecordHeader', summary: 'The title line of an item: chevron, icon, code, title, badges and a menu in one centred row.' },
         { name: 'CompactRecordView', summary: 'One record read-only, with differences marked.' },
         { name: 'KanbanBoard', summary: 'Cards in named columns the user drags between or moves by keys, with a count and a fold per column.' },
         { name: 'Field kits', summary: 'The editor, cell and filter for each field kind.' },

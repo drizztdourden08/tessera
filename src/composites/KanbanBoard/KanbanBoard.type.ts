@@ -35,12 +35,18 @@ interface KanbanMove {
   below?: string;
 }
 
+interface KanbanGroupFold {
+  open: boolean;
+  toggle: () => void;
+  controls: string;
+}
+
 interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
   columns: readonly KanbanColumn<Card>[];
   renderCard: (card: Card) => ReactNode;
   onMove: (move: KanbanMove) => void;
   onCardOpen?: (cardId: string) => void;
-  renderGroupHeader?: (group: string, column: KanbanColumn<Card>) => ReactNode;
+  renderGroupHeader?: (group: string, column: KanbanColumn<Card>, fold: KanbanGroupFold) => ReactNode;
   cardLabel?: (card: Card) => string;
   cardEdgeTone?: (card: Card) => CardTone | undefined;
   columnWidth?: KanbanColumnWidth;
@@ -58,7 +64,7 @@ interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
 interface KanbanShared<Card extends KanbanCardData> {
   columns: readonly KanbanColumn<Card>[];
   renderCard: (card: Card) => ReactNode;
-  renderGroupHeader: ((group: string, column: KanbanColumn<Card>) => ReactNode) | undefined;
+  renderGroupHeader: ((group: string, column: KanbanColumn<Card>, fold: KanbanGroupFold) => ReactNode) | undefined;
   cardLabel: (card: Card) => string;
   cardEdgeTone: ((card: Card) => CardTone | undefined) | undefined;
   grip: boolean;
@@ -67,6 +73,8 @@ interface KanbanShared<Card extends KanbanCardData> {
   onCardKeyDown: (event: KeyboardEvent<HTMLElement>, card: Card) => void;
   onCardClick: (event: MouseEvent<HTMLElement>, card: Card) => void;
   onToggle: (columnId: string) => void;
+  foldedGroups: readonly string[];
+  onGroupToggle: (group: string) => void;
 }
 
 interface KanbanColumnProps<Card extends KanbanCardData> {
@@ -91,12 +99,13 @@ type KanbanFramePart = 'first' | 'middle' | 'last' | 'only';
 interface KanbanGroupFrameProps<Card extends KanbanCardData> {
   group: string;
   column: KanbanColumn<Card>;
+  listId: string;
   shared: KanbanShared<Card>;
 }
 
 interface KanbanCardProps<Card extends KanbanCardData> {
   card: Card;
-  frame?: { group: string; part: KanbanFramePart; column: KanbanColumn<Card> } | undefined;
+  frame?: { group: string; part: KanbanFramePart; column: KanbanColumn<Card>; listId: string } | undefined;
   slot: number;
   last: boolean;
   shared: KanbanShared<Card>;
@@ -116,6 +125,6 @@ interface CardPlace {
 }
 
 export type {
-  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardProps, KanbanColumn, KanbanColumnHeight, KanbanColumnProps, KanbanColumnWidth, KanbanFramePart, KanbanGroupFrameProps, KanbanLaneHeadProps, KanbanMove, KanbanPlace, KanbanRun, KanbanShared,
+  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardProps, KanbanColumn, KanbanColumnHeight, KanbanColumnProps, KanbanColumnWidth, KanbanFramePart, KanbanGroupFold, KanbanGroupFrameProps, KanbanLaneHeadProps, KanbanMove, KanbanPlace, KanbanRun, KanbanShared,
   KanbanToggleProps,
 };

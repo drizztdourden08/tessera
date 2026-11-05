@@ -11,6 +11,7 @@ import './KanbanCard.css';
 
 const KanbanCard = <Item extends KanbanCardData>({ card, frame, slot, last, shared }: KanbanCardProps<Item>) => {
   const { kanbanBoard } = useTesseraStrings();
+  const folded = frame !== undefined && shared.foldedGroups.includes(frame.group);
   const { drag, grip, cardLabel, cardEdgeTone, renderCard, onCardKeyDown, onCardClick } = shared;
   return (
     <Box
@@ -20,9 +21,10 @@ const KanbanCard = <Item extends KanbanCardData>({ card, frame, slot, last, shar
       data-reorder-index={slot}
       data-reorder-key={card.id}
       data-group={frame?.part}
+      data-folded={folded ? 'yes' : undefined}
       data-drop={last ? 'after' : drag.dropMark(slot, NO_END)}
     >
-      {(frame?.part === 'first' || frame?.part === 'only') && <KanbanGroupFrame group={frame.group} column={frame.column} shared={shared} />}
+      {(frame?.part === 'first' || frame?.part === 'only') && <KanbanGroupFrame group={frame.group} column={frame.column} listId={frame.listId} shared={shared} />}
       <Card className="kanban__card" edgeTone={cardEdgeTone?.(card)} data-dragging={drag.dragging === slot ? 'yes' : undefined}
         onClick={(event) => onCardClick(event, card)}
       >

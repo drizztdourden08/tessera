@@ -17,6 +17,7 @@ const usage = {
     'Pass items, the top level, with getKey, getChildren and getLabel; getChildren gives the children of an item, or nothing for a leaf.',
     'A folder that is empty gives an empty list; a folder whose children are not loaded yet gives nothing and says so with isBranch.',
     'Pass renderLead, renderLabel, renderBadges and renderTrail to fill the four slots of a row, before the text, as the text, after it and at the end; each gets the item and its state.',
+    'Pass a RecordHeader with density row and no chevron to renderLabel to draw an icon, a code, a title and badges in one line; the label centres its items on the row line, and the tree twisty stays the fold control.',
     'The tree has no toggles of its own for visibility or lock; put them in renderTrail.',
     'Pass renderBadges for status marks that always show, such as modified or locked; it sits between the label and the trail and trail hover never hides it.',
     'Pass trail hover to fade the trail out at rest and show it when the row is hovered, focused, holds focus inside it or is picked; the row does not shift, a tab or an arrow into the row reveals the actions, and a screen with no hover keeps them shown.',

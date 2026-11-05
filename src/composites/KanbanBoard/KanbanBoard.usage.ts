@@ -21,6 +21,7 @@ const usage = {
     'Pass onCardOpen to open a card: it gets the card id on a plain click of the card, never after a drag and never for a click inside a button, link, input, textarea, select or an element with role menu, menuitem or button, so controls inside renderCard keep their own click.',
     'Give cards a group key (group on the card data) to frame them: consecutive cards in one column with the same key sit inside one frame with a slim top bar, such as the subtasks of one parent. Cards with no key look as before.',
     'Pass renderGroupHeader to draw the bar from the key, such as the parent icon and title: it gets the group key and the column, and a long header is cut with an ellipsis.',
+    'Pass fold, the third argument of renderGroupHeader, to the chevron of a RecordHeader to let the group fold: fold.open says if the cards show, fold.toggle flips it and fold.controls names the list for aria-controls. A folded group hides its cards and keeps its bar; the board keeps the state, and a group key folds in every column that holds it.',
     'The board never changes a card group. A move reports the neighbours the card has after it, above and below (card ids, left out at an end), so the app sets the group of the moved card and the frame forms again from the new order and keys.',
     'Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.',
     'Pass cardEdgeTone to draw a coloured edge on some cards, such as danger for a card that needs the user; return undefined for a card with no edge.',

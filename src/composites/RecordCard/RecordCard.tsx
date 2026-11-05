@@ -3,10 +3,10 @@ import { useId } from 'react';
 import { Box } from '../../primitives/Box';
 import { Card } from '../../primitives/Card';
 import { Text } from '../../primitives/Text';
+import { RecordHeader } from '../RecordHeader';
 import { useOpenState } from '../ViewControls/behavior/useOpenState';
 import { recordCardClass } from './behavior/record-card-class';
 import type { RecordCardProps } from './RecordCard.type';
-import { RecordCardHeader } from './sub-components/RecordCardHeader';
 import './RecordCard.css';
 
 const RecordCard = (props: RecordCardProps) => {
@@ -19,7 +19,15 @@ const RecordCard = (props: RecordCardProps) => {
   return (
     <Card flush className={recordCardClass(density, className)} aria-label={label} role={label ? 'group' : undefined}>
       <Box className="record-card__inner">
-        <RecordCardHeader title={title} icon={icon} code={code} content={content} menu={menu} expandable={expandable} expanded={expanded} bodyId={bodyId} onToggle={() => state.setOpen(!state.open)} />
+        <RecordHeader
+          title={expanded ? undefined : title}
+          icon={icon}
+          code={code}
+          content={content}
+          menu={menu}
+          density={density}
+          chevron={expandable ? { expanded, controls: bodyId, onToggle: () => state.setOpen(!state.open) } : undefined}
+        />
         {expandable && (
           <Box id={bodyId} className="record-card__body" hidden={!expanded}>
             <Text variant="label">{title}</Text>

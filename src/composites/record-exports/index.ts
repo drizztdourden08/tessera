@@ -7,6 +7,8 @@ export { GroupControl } from '../GroupControl';
 export type { GroupControlProps, ViewOption } from '../GroupControl';
 export { RecordCard } from '../RecordCard';
 export type { RecordCardDensity, RecordCardProps } from '../RecordCard';
+export { RecordHeader } from '../RecordHeader';
+export type { RecordHeaderChevron, RecordHeaderDensity, RecordHeaderProps } from '../RecordHeader';
 export { SortControl } from '../SortControl';
 export type { SortControlProps, SortDirection, SortState } from '../SortControl';
 export { ViewControls } from '../ViewControls';

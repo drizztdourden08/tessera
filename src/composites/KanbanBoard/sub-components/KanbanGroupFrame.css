@@ -44,3 +44,25 @@
 .kanban__group-bar:empty {
   display: none;
 }
+
+.kanban__item[data-folded='yes'] .kanban__card {
+  display: none;
+}
+
+.kanban__item[data-folded='yes'][data-group='middle'],
+.kanban__item[data-folded='yes'][data-group='last'] {
+  display: none;
+}
+
+.kanban__item[data-folded='yes'][data-group='first'] {
+  padding-block-end: var(--space-xs);
+  border-end-start-radius: var(--radius-lg);
+  border-end-end-radius: var(--radius-lg);
+  border-block-end: var(--border-width-thin) solid var(--c-border-strong);
+}
+
+.kanban__item[data-folded='yes'] .kanban__group-bar {
+  margin-block-end: 0;
+  border-end-start-radius: var(--radius-lg);
+  border-end-end-radius: var(--radius-lg);
+}

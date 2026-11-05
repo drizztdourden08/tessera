@@ -1,7 +1,8 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { RecordHeaderDensity } from '../RecordHeader';
 
-type RecordCardDensity = 'row' | 'card';
+type RecordCardDensity = RecordHeaderDensity;
 
 interface RecordCardProps {
   title: ReactNode;

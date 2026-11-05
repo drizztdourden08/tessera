@@ -49,5 +49,7 @@
   --record-card-pad-card: var(--space-sm) var(--space-md);
   --record-card-gap-row: var(--space-xs);
   --record-card-gap-card: var(--space-sm);
+  --record-header-gap-row: var(--space-xs);
+  --record-header-gap-card: var(--space-sm);
 }
 }

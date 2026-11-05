@@ -4,6 +4,7 @@ import type { PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import { KanbanDemo } from './_samples/KanbanDemo';
+import { KanbanGroupDemo } from './_samples/KanbanGroupDemo';
 import { KANBAN_ARG_TYPES, KANBAN_ARGS, KANBAN_CODE } from './_samples/kanban-board.constants';
 import type { FoldedColumn, KanbanArgs } from './_samples/kanban-board.type';
 import './KanbanBoard.stories.css';
@@ -72,6 +73,11 @@ const NodeHeads = {
   render: () => <KanbanDemo heads slots />,
 } satisfies StoryLiteStoryDefinition<KanbanArgs>;
 
+const GroupFold = {
+  name: 'Group header: a RecordHeader whose chevron folds the group, in every column that holds it',
+  render: () => <KanbanGroupDemo />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
 const FitHeight = {
   name: 'columnHeight fit: each column is as tall as its cards',
   render: () => <KanbanDemo columnHeight="fit" />,
@@ -112,7 +118,7 @@ const Overview = overviewStory({
   ],
   instead: '[RowGrid] for one list edited in place, or [DataTable] for many records to sort and filter.',
   playground: Playground,
-  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, NodeHeads, AddForm, CardEdges, Folded, Narrow, Empty],
+  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, NodeHeads, GroupFold, AddForm, CardEdges, Folded, Narrow, Empty],
   states: {
     render: (props: StateProps) => <KanbanDemo folded={(props.folded as FoldedColumn | undefined) ?? 'none'} />,
     list: FOLDS.map((folded) => ({ name: folded === 'none' ? 'all open' : 'one folded', props: { folded } })),
@@ -121,4 +127,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, HeaderSlots, Live, Narrow, NoFold, NoGrip, NodeHeads, Overview, Playground, Stacked };
+export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, GroupFold, HeaderSlots, Live, Narrow, NoFold, NoGrip, NodeHeads, Overview, Playground, Stacked };
