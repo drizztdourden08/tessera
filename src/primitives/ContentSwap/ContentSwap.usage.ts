@@ -29,7 +29,7 @@ const usage = {
 
 const StepPanel = ({ step }: { step: number }) => (
   <ContentSwap swapKey={step} effect="slide">
-    <Text>{`Step ${step}`}</Text>
+    <Text>Current step</Text>
   </ContentSwap>
 );
 `,
