@@ -3,6 +3,8 @@ import type { ReactNode } from 'react';
 
 type ContentSwapEffect = 'fade' | 'slide' | 'scale' | 'reflow';
 
+type ContentSwapSequence = 'overlap' | 'out-in';
+
 type ContentSwapDirection = 'forward' | 'back';
 
 interface ContentSwapProps {
@@ -10,6 +12,7 @@ interface ContentSwapProps {
   children?: ReactNode;
   effect?: ContentSwapEffect;
   direction?: ContentSwapDirection;
+  sequence?: ContentSwapSequence;
   className?: string;
 }
 
@@ -18,4 +21,4 @@ interface ContentSwapLayer {
   node: ReactNode;
 }
 
-export type { ContentSwapDirection, ContentSwapEffect, ContentSwapLayer, ContentSwapProps };
+export type { ContentSwapDirection, ContentSwapEffect, ContentSwapLayer, ContentSwapProps, ContentSwapSequence };

@@ -8,7 +8,7 @@ export { Center, type CenterProps } from '../Center';
 export { AsideLayout, type AsideLayoutProps, type AsideSide, type AsideWidth } from '../AsideLayout';
 export { Grid, type GridCellProps, type GridProps, type GridSpan } from '../Grid';
 export { Divider, type DividerProps } from '../Divider';
-export { ContentSwap, type ContentSwapDirection, type ContentSwapEffect, type ContentSwapProps } from '../ContentSwap';
+export { ContentSwap, type ContentSwapDirection, type ContentSwapEffect, type ContentSwapProps, type ContentSwapSequence } from '../ContentSwap';
 export { Spacer, type SpacerProps } from '../Spacer';
 export { PageRoot, type PageRootProps } from '../PageRoot';
 export { PageFrame, type PageFramePadding, type PageFrameProps, type PageFrameWidth } from '../PageFrame';
