@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 144 of 252 have their usage written; a linked name opens its page.
+One line per component. 145 of 253 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -185,6 +185,7 @@ One line per component. 144 of 252 have their usage written; a linked name opens
 - [Rating](components/Rating.md): A row of stars that shows how well something is rated, to the nearest half star, with the number and the count; with onChange it is the picker a person rates with. Import from `@drizztdourden08/tessera`.
 - [RecordCard](components/RecordCard.md): The one card every item of a list uses: a single line when folded, its title and body when open. Import from `@drizztdourden08/tessera`.
 - `RecordEditor`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [RecordHeader](components/RecordHeader.md): The one title line every item uses: a chevron, an icon, a code, a title with badges and a menu, centred in a single row. Import from `@drizztdourden08/tessera`.
 - [ResetButton](components/ResetButton.md): A small icon button that puts one changed setting back to its default, named after the setting. Import from `@drizztdourden08/tessera`.
 - [ResizeHandle](components/ResizeHandle.md): The one thin line between two panels that the user drags, or moves with the keys, to resize the panel beside it, and that folds the panel when pulled past the end of its range. Import from `@drizztdourden08/tessera`.
 - [RetryButton](components/RetryButton.md): Tries a failed step again, such as a lost connection or a failed fetch, and counts down to the next automatic try. Import from `@drizztdourden08/tessera`.

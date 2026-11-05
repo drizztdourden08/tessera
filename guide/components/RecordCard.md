@@ -25,6 +25,7 @@ RecordCard is the shared card of every list item: header slots in a fixed order,
 
 - The content is a plain surface with no fold and no header slots. Use [Card](Card.md) instead.
 - The item is a catalogue tile with a picture or media. Use [ItemCard](ItemCard.md) instead.
+- Only the title line is needed, in a Kanban group bar or a Tree row, with no frame and no body. Use [RecordHeader](RecordHeader.md) instead.
 - A plain line shows or hides some text and nothing else. Use [Disclosure](Disclosure.md) instead.
 
 ## Rules
@@ -68,10 +69,10 @@ const TaskCard = () => (
 - `open` (optional): `boolean`.
 - `defaultOpen` (optional): `boolean`. Default `false`.
 - `onOpenChange` (optional): `(open: boolean) => void`.
-- `density` (optional): `RecordCardDensity`, one of `'row'`, `'card'`. Default `'card'`.
+- `density` (optional): `RecordCardDensity`, one of `'card'`, `'row'`. Default `'card'`.
 - `className` (optional): `string`.
 - `aria-label` (optional): `string`.
 
 ## Tokens
 
-It draws on `--duration-fast`, `--ease-standard`, `--record-card-gap-card`, `--record-card-gap-row`, `--record-card-pad-card`, `--record-card-pad-row`.
+It draws on `--record-card-gap-card`, `--record-card-gap-row`, `--record-card-pad-card`, `--record-card-pad-row`.

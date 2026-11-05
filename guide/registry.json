@@ -865,6 +865,11 @@
               "RecordCard"
             ]
           },
+          "the title line of an item, with icon, code, badges and actions": {
+            "components": [
+              "RecordHeader"
+            ]
+          },
           "a stream of log lines": {
             "components": [
               "LogPanel"
@@ -13021,6 +13026,7 @@
         "Pass onCardOpen to open a card: it gets the card id on a plain click of the card, never after a drag and never for a click inside a button, link, input, textarea, select or an element with role menu, menuitem or button, so controls inside renderCard keep their own click.",
         "Give cards a group key (group on the card data) to frame them: consecutive cards in one column with the same key sit inside one frame with a slim top bar, such as the subtasks of one parent. Cards with no key look as before.",
         "Pass renderGroupHeader to draw the bar from the key, such as the parent icon and title: it gets the group key and the column, and a long header is cut with an ellipsis.",
+        "Pass fold, the third argument of renderGroupHeader, to the chevron of a RecordHeader to let the group fold: fold.open says if the cards show, fold.toggle flips it and fold.controls names the list for aria-controls. A folded group hides its cards and keeps its bar; the board keeps the state, and a group key folds in every column that holds it.",
         "The board never changes a card group. A move reports the neighbours the card has after it, above and below (card ids, left out at an end), so the app sets the group of the moved card and the frame forms again from the new order and keys.",
         "Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.",
         "Pass cardEdgeTone to draw a coloured edge on some cards, such as danger for a card that needs the user; return undefined for a card with no edge.",
@@ -13054,7 +13060,7 @@
         "rule": "KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards."
       },
       "example": "import { useState } from 'react';\nimport { Badge, KanbanBoard, Text, moveCard } from '@drizztdourden08/tessera';\nimport type { KanbanColumn } from '@drizztdourden08/tessera';\n\ninterface Task {\n  id: string;\n  title: string;\n  tag: string;\n  group?: string;\n}\n\nconst START: KanbanColumn<Task>[] = [\n  { id: 'todo', title: 'To do', cards: [\n    { id: 't1', title: 'Fix login', tag: 'bug', group: 'auth' },\n    { id: 't2', title: 'Add reset link', tag: 'feature', group: 'auth' },\n    { id: 't3', title: 'Update docs', tag: 'chore' },\n  ] },\n  { id: 'doing', title: 'Doing', cards: [] },\n  { id: 'done', title: 'Done', cards: [] },\n];\n\nconst Tasks = () => {\n  const [columns, setColumns] = useState(START);\n  return (\n    <KanbanBoard\n      label=\"Sprint\"\n      columns={columns}\n      cardLabel={(task) => task.title}\n      renderGroupHeader={(group) => group}\n      renderCard={(task) => (\n        <>\n          <Text>{task.title}</Text>\n          <Badge variant=\"inline\" value={task.tag} color=\"info\" />\n        </>\n      )}\n      onMove={(move) => setColumns((now) => moveCard(now, move))}\n    />\n  );\n};\n",
-      "propsHash": "331dd8e2323312a2",
+      "propsHash": "52d86df9c10f28b3",
       "props": {
         "own": [
           {
@@ -13080,7 +13086,7 @@
           {
             "name": "renderGroupHeader",
             "optional": true,
-            "text": "(group: string, column: KanbanColumn<Card>) => ReactNode"
+            "text": "(group: string, column: KanbanColumn<Card>, fold: KanbanGroupFold) => ReactNode"
           },
           {
             "name": "cardLabel",
@@ -17000,6 +17006,10 @@
           "use": "ItemCard"
         },
         {
+          "case": "Only the title line is needed, in a Kanban group bar or a Tree row, with no frame and no body.",
+          "use": "RecordHeader"
+        },
+        {
           "case": "A plain line shows or hides some text and nothing else.",
           "use": "Disclosure"
         }
@@ -17077,8 +17087,8 @@
             "optional": true,
             "text": "RecordCardDensity",
             "literals": [
-              "'row'",
-              "'card'"
+              "'card'",
+              "'row'"
             ],
             "default": "'card'"
           },
@@ -17100,8 +17110,6 @@
         }
       },
       "tokens": [
-        "--duration-fast",
-        "--ease-standard",
         "--record-card-gap-card",
         "--record-card-gap-row",
         "--record-card-pad-card",
@@ -17123,6 +17131,122 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "RecordHeader",
+      "tier": "composites",
+      "source": "src/composites/RecordHeader/RecordHeader.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "The one title line every item uses: a chevron, an icon, a code, a title with badges and a menu, centred in a single row.",
+      "useWhen": [
+        "An item shows its identity in one line, such as a task with a code, a title, a status badge and an actions menu.",
+        "A Kanban group bar or a Tree row needs the same line as a RecordCard, with no frame around it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The item needs a frame, a fold and a body under its title line.",
+          "use": "RecordCard"
+        },
+        {
+          "case": "The line is plain text with no slots.",
+          "use": "Text"
+        },
+        {
+          "case": "The item is a catalogue tile with a picture or media.",
+          "use": "ItemCard"
+        }
+      ],
+      "rules": [
+        "Pass icon, code, content and menu to fill the slots; they sit in that order after the chevron, and the title comes before content.",
+        "Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. controls names the folded element and label replaces the default name.",
+        "The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.",
+        "Use density row for a compact line and card for a roomy one; it only changes the gap between the slots.",
+        "In a Kanban group bar, pass the fold of renderGroupHeader to chevron: { expanded: fold.open, onToggle: fold.toggle, controls: fold.controls }.",
+        "In a Tree, draw it from renderLabel with density row and no chevron, since the tree has its own twisty."
+      ],
+      "a11y": [
+        "The chevron is a button with aria-expanded and, when controls is set, aria-controls.",
+        "A long title is cut with an ellipsis and the slots never wrap."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "the title line of an item, with icon, code, badges and actions"
+        ],
+        "rule": "RecordHeader is the shared title line of every item: slots in a fixed order, centred, with no frame of its own."
+      },
+      "example": "import { useState } from 'react';\nimport { Badge, RecordHeader, TypeMark } from '@drizztdourden08/tessera';\n\nconst TaskLine = () => {\n  const [open, setOpen] = useState(true);\n  return (\n    <RecordHeader\n      icon={<TypeMark icon=\"bug\" label=\"Bug\" color=\"violet\" variant=\"outline\" />}\n      code=\"ARG-12\"\n      title=\"Fix the login redirect\"\n      content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n      chevron={{ expanded: open, onToggle: () => setOpen(!open), controls: 'task-body' }}\n    />\n  );\n};\n",
+      "propsHash": "58903893b66e56b8",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "icon",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "code",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "content",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "menu",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "chevron",
+            "optional": true,
+            "text": "RecordHeaderChevron"
+          },
+          {
+            "name": "density",
+            "optional": true,
+            "text": "RecordHeaderDensity",
+            "literals": [
+              "'row'",
+              "'card'"
+            ],
+            "default": "'card'"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--duration-fast",
+        "--ease-standard",
+        "--record-header-gap-card",
+        "--record-header-gap-row"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/RecordHeader",
+        "route": "#/story/composites-recordheader--overview",
+        "file": "stories/composites/RecordHeader.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "ResetButton",
@@ -22258,6 +22382,7 @@
         "Pass items, the top level, with getKey, getChildren and getLabel; getChildren gives the children of an item, or nothing for a leaf.",
         "A folder that is empty gives an empty list; a folder whose children are not loaded yet gives nothing and says so with isBranch.",
         "Pass renderLead, renderLabel, renderBadges and renderTrail to fill the four slots of a row, before the text, as the text, after it and at the end; each gets the item and its state.",
+        "Pass a RecordHeader with density row and no chevron to renderLabel to draw an icon, a code, a title and badges in one line; the label centres its items on the row line, and the tree twisty stays the fold control.",
         "The tree has no toggles of its own for visibility or lock; put them in renderTrail.",
         "Pass renderBadges for status marks that always show, such as modified or locked; it sits between the label and the trail and trail hover never hides it.",
         "Pass trail hover to fade the trail out at rest and show it when the row is hovered, focused, holds focus inside it or is picked; the row does not shift, a tab or an arrow into the row reveals the actions, and a screen with no hover keeps them shown.",

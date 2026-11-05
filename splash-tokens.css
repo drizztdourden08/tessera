@@ -47,6 +47,8 @@
   --record-card-pad-card: 8px 12px;
   --record-card-gap-row: 4px;
   --record-card-gap-card: 8px;
+  --record-header-gap-row: 4px;
+  --record-header-gap-card: 8px;
   --p-primary: #8a8a96;
   --p-secondary: #6e6e7a;
   --p-tertiary: #9a9aa4;
