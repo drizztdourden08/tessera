@@ -17022,7 +17022,7 @@
         ],
         "rule": "RecordCard is the shared card of every list item: header slots in a fixed order, a body that folds away."
       },
-      "example": "import { RecordCard } from '@drizztdourden08/tessera';\n\nconst TaskCard = () => (\n  <RecordCard title=\"Fix the login redirect\" code=\"ARG-12\" content={<Badge value=\"Open\" color=\"info\" />} menu={<TaskMenu />}>\n    <Text>The redirect drops the return path after sign in.</Text>\n  </RecordCard>\n);\n",
+      "example": "import { Badge, Icon, IconButton, RecordCard, Text } from '@drizztdourden08/tessera';\n\nconst TaskCard = () => (\n  <RecordCard\n    title=\"Fix the login redirect\"\n    code=\"ARG-12\"\n    content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n    menu={<IconButton variant=\"ghost\" size=\"sm\" label=\"Actions\"><Icon name=\"ellipsis\" /></IconButton>}\n  >\n    <Text>The redirect drops the return path after sign in.</Text>\n  </RecordCard>\n);\n",
       "propsHash": "6dc2c764117f14c6",
       "props": {
         "own": [

@@ -27,10 +27,15 @@ const usage = {
     path: ['data', 'a card for each item of a list, folded to one line'],
     rule: 'RecordCard is the shared card of every list item: header slots in a fixed order, a body that folds away.',
   },
-  example: `import { RecordCard } from '@drizztdourden08/tessera';
+  example: `import { Badge, Icon, IconButton, RecordCard, Text } from '@drizztdourden08/tessera';
 
 const TaskCard = () => (
-  <RecordCard title="Fix the login redirect" code="ARG-12" content={<Badge value="Open" color="info" />} menu={<TaskMenu />}>
+  <RecordCard
+    title="Fix the login redirect"
+    code="ARG-12"
+    content={<Badge variant="inline" value="Open" color="info" />}
+    menu={<IconButton variant="ghost" size="sm" label="Actions"><Icon name="ellipsis" /></IconButton>}
+  >
     <Text>The redirect drops the return path after sign in.</Text>
   </RecordCard>
 );
