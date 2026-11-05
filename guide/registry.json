@@ -18365,14 +18365,14 @@
         }
       ],
       "rules": [
-        "Pass items. An item has an id, an icon, a label, a tone and optionally a count and an onClick. The strip keeps no state.",
+        "Pass items. An item has an id, an icon, a label, a tone and optionally a count and an onClick. count is a number or a short text such as \"42h\". The strip keeps no state.",
         "tone is danger, warning, info, success or neutral and sets the colour of the chip.",
         "A chip shows its icon and its count. An item without a count shows its label as text. The label is also the title of the chip.",
         "An item with onClick is a button chip. An item without it is a static chip.",
         "The row never wraps. It measures the chips and the room, and what does not fit folds into a +N chip. The tooltip of +N lists the hidden labels.",
         "max keeps at most that many chips before the +N chip, even when there is room for more.",
         "iconOnly on the strip, or on one item, hides the chip text. The label stays as the title of the chip and the count still shows.",
-        "mark2 on an item adds a second mark inside the chip, after the icon: { icon } for an icon or { avatar } with the Avatar props for an avatar.",
+        "mark2 on an item adds a second mark inside the chip, after the icon: { icon } for an icon, { avatar } with the Avatar props for an avatar (an Avatar with src shows a plain image), or { brand } with a brand app name for its brand mark.",
         "wrap shows every item over several lines and never folds into a +N chip. Without it the row stays on one line. max is ignored in wrap mode.",
         "An empty items list renders nothing."
       ],
@@ -18388,7 +18388,7 @@
         ],
         "rule": "SignalStrip is the one-line row of attention chips that folds the overflow into a +N chip with a tooltip."
       },
-      "example": "import { SignalStrip } from '@drizztdourden08/tessera';\n\nconst openQuestions = () => undefined;\nconst openTests = () => undefined;\n\nconst items = [\n  { id: 'questions', icon: 'circle-help', count: 2, label: 'Open questions', tone: 'warning', onClick: openQuestions },\n  { id: 'tests', icon: 'flask', count: 1, label: 'Failing tests', tone: 'danger', onClick: openTests },\n  { id: 'quiet', icon: 'moon', label: 'Quiet', tone: 'neutral' },\n] as const;\n\nconst Signals = () => <SignalStrip aria-label=\"Attention\" items={items} />;\n\nconst withMarks = [\n  { id: 'mine', icon: 'circle-help', count: 3, label: 'Asked of Ana', tone: 'info', mark2: { avatar: { label: 'Ana', initials: 'A' } } },\n  { id: 'late', icon: 'flask', count: 1, label: 'Late', tone: 'danger', mark2: { icon: 'moon' } },\n] as const;\n\nconst IconOnly = () => <SignalStrip aria-label=\"Attention\" items={withMarks} iconOnly />;\n\nconst Wrapped = () => <SignalStrip aria-label=\"Attention\" items={[...items, ...withMarks]} wrap />;\n",
+      "example": "import { SignalStrip } from '@drizztdourden08/tessera';\n\nconst openQuestions = () => undefined;\nconst openTests = () => undefined;\n\nconst items = [\n  { id: 'questions', icon: 'circle-help', count: 2, label: 'Open questions', tone: 'warning', onClick: openQuestions },\n  { id: 'tests', icon: 'flask', count: 1, label: 'Failing tests', tone: 'danger', onClick: openTests },\n  { id: 'quiet', icon: 'moon', label: 'Quiet', tone: 'neutral' },\n] as const;\n\nconst Signals = () => <SignalStrip aria-label=\"Attention\" items={items} />;\n\nconst withMarks = [\n  { id: 'mine', icon: 'circle-help', count: 3, label: 'Asked of Ana', tone: 'info', mark2: { avatar: { label: 'Ana', initials: 'A' } } },\n  { id: 'late', icon: 'flask', count: 1, label: 'Late', tone: 'danger', mark2: { icon: 'moon' } },\n  { id: 'lead', icon: 'flask', count: '42h', label: 'Waiting on Brock', tone: 'warning', mark2: { brand: 'brock' } },\n] as const;\n\nconst IconOnly = () => <SignalStrip aria-label=\"Attention\" items={withMarks} iconOnly />;\n\nconst Wrapped = () => <SignalStrip aria-label=\"Attention\" items={[...items, ...withMarks]} wrap />;\n",
       "propsHash": "1232cb06b3432c7b",
       "props": {
         "own": [

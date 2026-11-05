@@ -28,14 +28,14 @@ SignalStrip is the one-line row of attention chips that folds the overflow into 
 
 ## Rules
 
-- Pass items. An item has an id, an icon, a label, a tone and optionally a count and an onClick. The strip keeps no state.
+- Pass items. An item has an id, an icon, a label, a tone and optionally a count and an onClick. count is a number or a short text such as "42h". The strip keeps no state.
 - Tone is danger, warning, info, success or neutral and sets the colour of the chip.
 - A chip shows its icon and its count. An item without a count shows its label as text. The label is also the title of the chip.
 - An item with onClick is a button chip. An item without it is a static chip.
 - The row never wraps. It measures the chips and the room, and what does not fit folds into a +N chip. The tooltip of +N lists the hidden labels.
 - Max keeps at most that many chips before the +N chip, even when there is room for more.
 - IconOnly on the strip, or on one item, hides the chip text. The label stays as the title of the chip and the count still shows.
-- Mark2 on an item adds a second mark inside the chip, after the icon: { icon } for an icon or { avatar } with the Avatar props for an avatar.
+- Mark2 on an item adds a second mark inside the chip, after the icon: { icon } for an icon, { avatar } with the Avatar props for an avatar (an Avatar with src shows a plain image), or { brand } with a brand app name for its brand mark.
 - Wrap shows every item over several lines and never folds into a +N chip. Without it the row stays on one line. max is ignored in wrap mode.
 - An empty items list renders nothing.
 
@@ -64,6 +64,7 @@ const Signals = () => <SignalStrip aria-label="Attention" items={items} />;
 const withMarks = [
   { id: 'mine', icon: 'circle-help', count: 3, label: 'Asked of Ana', tone: 'info', mark2: { avatar: { label: 'Ana', initials: 'A' } } },
   { id: 'late', icon: 'flask', count: 1, label: 'Late', tone: 'danger', mark2: { icon: 'moon' } },
+  { id: 'lead', icon: 'flask', count: '42h', label: 'Waiting on Brock', tone: 'warning', mark2: { brand: 'brock' } },
 ] as const;
 
 const IconOnly = () => <SignalStrip aria-label="Attention" items={withMarks} iconOnly />;
