@@ -81,8 +81,8 @@ const Overview = overviewStory({
   component: 'RecordCard',
   description: 'The one card every item of a list uses. Folded it is a single line; open it shows the title and the body.',
   points: [
-    'Header slots in order: chevron, `icon`, `code`, the title with `content`, then `menu` at the end.',
-    'The chevron shows only when there are children, and only it toggles the card.',
+    'Header slots in order: chevron, `icon`, `code`, the title, then `content` and `menu` at the end.',
+    'The chevron shows only when there are children, and a click on the header toggles it, not the menu.',
     'Folded, the title is in the header; open, the title moves above the children.',
     '`open` with `onOpenChange` controls it; `defaultOpen` starts it open and the card keeps its own state.',
     '`density` is `card` for roomy items or `row` for a compact single line.',

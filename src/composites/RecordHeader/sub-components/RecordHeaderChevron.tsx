@@ -8,7 +8,7 @@ const RecordHeaderChevron = ({ expanded, onToggle, controls, label }: RecordHead
   const { navigation } = useTesseraStrings();
   const name = label ?? (expanded ? navigation.collapseItem : navigation.expandItem);
   return (
-    <IconButton variant="ghost" size="sm" label={name} aria-expanded={expanded} aria-controls={controls} onClick={onToggle}>
+    <IconButton variant="bare" size="sm" label={name} aria-expanded={expanded} aria-controls={controls} onClick={onToggle}>
       <Icon name="chevron-right" className={expanded ? 'record-header__chevron record-header__chevron--open' : 'record-header__chevron'} aria-hidden />
     </IconButton>
   );
