@@ -42,5 +42,8 @@
   --size-896:  896px;
   --size-1024: 1024px;
   --log-msg-min: 16ch;
+  --aside-width-sm: 200px;
+  --aside-width-md: 280px;
+  --aside-width-lg: 360px;
 }
 }

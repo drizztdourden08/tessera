@@ -130,6 +130,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - [Inline](components/Inline.md). Inline lays its children side by side in a row, with a token gap and the items centred across it.
   - Blocks stacked in a column: no component yet.
   - Items on a grid: [Grid](components/Grid.md). Grid lays out equal columns from a count or a minimum width, with Grid.Cell spans and dense packing for dashboards.
+  - A main area with a side rail: [AsideLayout](components/AsideLayout.md). AsideLayout puts a rail beside the main content and drops it when its own container is narrow.
   - One item in the centre: no component yet.
   - One raised item: [Card](components/Card.md). Card is the raised surface that groups related content and can open a detail view when pressed.
   - Empty space: no component yet.

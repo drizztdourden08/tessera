@@ -95,7 +95,7 @@ const NAVIGATION = {
 const LAYOUT = {
   question: 'What are you arranging?',
   answers: {
-    'a plain block': null, 'items in a row or a column': null, 'blocks stacked in a column': null, 'items on a grid': null,
+    'a plain block': null, 'items in a row or a column': null, 'blocks stacked in a column': null, 'items on a grid': null, 'a main area with a side rail': null,
     'one item in the centre': null, 'one raised item': null, 'empty space': null, 'a line between sections': null,
     'content that scrolls': null, 'a full-height page that scrolls inside one frame': null, 'more content behind a line that shows or hides it': null, 'a list beside its detail': null, 'two panes the user resizes': null,
     'a side panel the user drags wider': null, 'a side panel with a heading that folds to a rail': null, 'the button that folds a panel to its edge': null,

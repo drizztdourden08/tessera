@@ -5,6 +5,7 @@ export { Flex, type FlexProps, type SpaceToken, type FlexAlign, type FlexJustify
 export { Stack, type StackProps } from '../Stack';
 export { Inline, type InlineProps } from '../Inline';
 export { Center, type CenterProps } from '../Center';
+export { AsideLayout, type AsideLayoutProps, type AsideSide, type AsideWidth } from '../AsideLayout';
 export { Grid, type GridCellProps, type GridProps, type GridSpan } from '../Grid';
 export { Divider, type DividerProps } from '../Divider';
 export { ContentSwap, type ContentSwapDirection, type ContentSwapEffect, type ContentSwapProps } from '../ContentSwap';
