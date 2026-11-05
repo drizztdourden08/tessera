@@ -3,3 +3,7 @@
   inline-size: 100%;
   max-inline-size: 52rem;
 }
+
+.filter-bar-story--narrow {
+  max-inline-size: var(--size-256);
+}

@@ -27,10 +27,19 @@
 
 .filter-bar__extra {
   display: flex;
-  flex: none;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
   align-items: center;
+  justify-content: flex-end;
   gap: var(--space-sm);
+  min-width: 0;
+  max-width: 100%;
   margin-inline-start: auto;
+}
+
+.filter-bar__extra > * {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .filter-chip {
