@@ -18,7 +18,7 @@ const usage = {
     'Keep the columns in the app: onMove gets { cardId, from, to } with a columnId and an index each, and the app changes its data.',
     'Read to.index as the place the card has after the move, in its new column; moveCard applies a move to the columns for you.',
     'Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.',
-    'Pass onCardOpen to open a card: it gets the card id on a plain click of the card, never after a drag and never for a click inside a button, link, input, textarea, select or an element with role menu, menuitem or button, so controls inside renderCard keep their own click.',
+    'Pass onCardOpen to open a card: it gets the card id on a plain click of the card, never after a drag and never for a click inside a button, link, input, textarea, select or an element with role menu, menuitem or button, or a RecordHeader row that toggles, so controls inside renderCard keep their own click.',
     'Give cards a group key (group on the card data) to frame them: consecutive cards in one column with the same key sit inside one frame with a slim top bar, such as the subtasks of one parent. Cards with no key look as before.',
     'Pass renderGroupHeader to draw the bar from the key, such as the parent icon and title: it gets the group key and the column, and a long header is cut with an ellipsis.',
     'Pass fold, the third argument of renderGroupHeader, to the chevron of a RecordHeader to let the group fold: fold.open says if the cards show, fold.toggle flips it and fold.controls names the list for aria-controls. A folded group hides its cards and keeps its bar; the board keeps the state, and a group key folds in every column that holds it.',
