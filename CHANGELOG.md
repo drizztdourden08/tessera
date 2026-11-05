@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.120.0
+
+### Minor Changes
+
+- Flex takes align first-line, which centres an icon on the first line of text that wraps.
+
 ## 0.119.1
 
 ### Patch Changes
