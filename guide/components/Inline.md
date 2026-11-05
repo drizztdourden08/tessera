@@ -57,7 +57,7 @@ const SessionRow = () => (
 
 - `as` (optional): `ElementType`.
 - `children` (optional): `ReactNode`.
-- `align` (optional): `FlexAlign`, one of `'start'`, `'center'`, `'end'`, `'stretch'`, `'baseline'`. Default `'center'`.
+- `align` (optional): `FlexAlign`, one of `'start'`, `'center'`, `'end'`, `'stretch'`, `'baseline'`, `'first-line'`. Default `'center'`.
 - `justify` (optional): `FlexJustify`, one of `'start'`, `'center'`, `'end'`, `'between'`, `'around'`.
 - `gap` (optional): `SpaceToken`, one of `'2xs'`, `'xs'`, `'sm'`, `'md'`, `'lg'`, `'xl'`, `'2xl'`. Default `'sm'`.
 - `wrap` (optional): `boolean`.

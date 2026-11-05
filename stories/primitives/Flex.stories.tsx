@@ -1,7 +1,7 @@
 /* @layer stories @kind story */
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { Box, Flex, Text } from '../../src/primitives';
+import { Box, Flex, Icon, Text } from '../../src/primitives';
 import type { FlexAlign, FlexJustify, SpaceToken } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
@@ -19,7 +19,7 @@ type FlexArgs = {
 };
 
 const GAPS: readonly SpaceToken[] = ['2xs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'];
-const ALIGNS: readonly FlexAlign[] = ['start', 'center', 'end', 'stretch', 'baseline'];
+const ALIGNS: readonly FlexAlign[] = ['start', 'center', 'end', 'stretch', 'baseline', 'first-line'];
 const JUSTIFIES: readonly FlexJustify[] = ['start', 'center', 'end', 'between', 'around'];
 const PLAYERS = ['Aria', 'Brom', 'Cadence', 'Dov', 'Esker', 'Fen'];
 
@@ -96,6 +96,26 @@ const Align = {
   ),
 } satisfies StoryLiteStoryDefinition<FlexArgs>;
 
+const WRAPPING = 'A long line of text that wraps over three lines inside a narrow box.';
+
+const FIRST_LINE_VARIANTS = ['caption', 'subtitle', 'body', 'title'] as const;
+
+const FirstLine = {
+  name: 'align first-line',
+  render: () => (
+    <Demonstrator
+      rows={axis(FIRST_LINE_VARIANTS)}
+      align="stretch"
+      cell={(variant) => (
+        <Flex className="flex-demo flex-demo--narrow" align="first-line" gap="xs">
+          <Icon name="info" size={12} />
+          <Text variant={variant}>{WRAPPING}</Text>
+        </Flex>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<FlexArgs>;
+
 const GapScale = {
   name: 'Gap scale',
   render: () => (
@@ -124,13 +144,13 @@ const Overview = overviewStory({
     '`direction`, `gap`, `align` and `justify` each take a small fixed set of values.',
     '`gap` takes a space token, so spacing stays on the scale.',
     '`wrap` lets items flow onto new lines; `inline` makes it sit in a line of text.',
-    '`as` picks the element it renders.',
+    '`as` picks the element; `align="first-line"` centres an icon on the first line of wrapping text.',
     '`container` makes it a size container, so `narrow-fill` fields inside follow its width.',
   ],
   instead: '[Stack] for a plain column, [Inline] for a plain row, [Center] for content in the middle, or [Grid] for equal columns.',
   playground: Playground,
-  variants: [Justify, Align, GapScale, Container],
+  variants: [Justify, Align, FirstLine, GapScale, Container],
 });
 
 export default meta;
-export { Align, Container, GapScale, Justify, Overview, Playground };
+export { Align, Container, FirstLine, GapScale, Justify, Overview, Playground };

@@ -23,3 +23,8 @@
 .flex-demo__item--tall {
   padding-block: var(--space-lg);
 }
+
+.flex-demo--narrow {
+  max-inline-size: var(--size-160);
+  min-height: 0;
+}

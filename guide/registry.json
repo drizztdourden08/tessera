@@ -3259,7 +3259,7 @@
         "rule": "Inline lays its children side by side in a row, with a token gap and the items centred across it."
       },
       "example": "import { Icon, Inline, Status, Text } from '@drizztdourden08/tessera';\n\nconst SessionRow = () => (\n  <Inline>\n    <Icon name=\"gamepad-2\" />\n    <Text>Session 4</Text>\n    <Status tone=\"success\" dot>Connected</Status>\n  </Inline>\n);\n",
-      "propsHash": "fbba2aedbbb70ac4",
+      "propsHash": "9e4b26e270d599a3",
       "props": {
         "own": [
           {
@@ -3281,7 +3281,8 @@
               "'center'",
               "'end'",
               "'stretch'",
-              "'baseline'"
+              "'baseline'",
+              "'first-line'"
             ],
             "default": "'center'"
           },
