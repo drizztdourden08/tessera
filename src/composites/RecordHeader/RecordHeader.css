@@ -14,6 +14,10 @@
   gap: var(--record-header-gap-card);
 }
 
+.record-header--toggle {
+  cursor: pointer;
+}
+
 .record-header__slot {
   display: flex;
   flex: none;

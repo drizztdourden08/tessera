@@ -1,6 +1,6 @@
 # RecordHeader
 
-The one title line every item uses: a chevron, an icon, a code, a title with badges and a menu, centred in a single row.
+The one title line every item uses: a chevron, an icon, a code, a title, badges and a menu, centred in a single row.
 
 Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdourden08/tessera/composites`.
 
@@ -29,8 +29,8 @@ RecordHeader is the shared title line of every item: slots in a fixed order, cen
 
 ## Rules
 
-- Pass icon, code, content and menu to fill the slots; they sit in that order after the chevron, and the title comes before content.
-- Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. controls names the folded element and label replaces the default name.
+- Pass icon, code, title, content and menu to fill the slots; they sit in that order after the chevron, and content sits at the end, next to the menu.
+- Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. controls names the folded element and label replaces the default name.
 - The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.
 - Use density row for a compact line and card for a roomy one; it only changes the gap between the slots.
 - In a Kanban group bar, pass the fold of renderGroupHeader to chevron: { expanded: fold.open, onToggle: fold.toggle, controls: fold.controls }.
@@ -38,7 +38,7 @@ RecordHeader is the shared title line of every item: slots in a fixed order, cen
 
 ## Accessibility
 
-- The chevron is a button with aria-expanded and, when controls is set, aria-controls.
+- The chevron is a bare button with aria-expanded and, when controls is set, aria-controls; Enter and Space on it toggle. The row has no role of its own.
 - A long title is cut with an ellipsis and the slots never wrap.
 
 ## Example

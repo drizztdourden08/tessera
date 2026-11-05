@@ -75,9 +75,9 @@ const Overview = overviewStory({
   component: 'RecordHeader',
   description: 'The one title line every item uses, in RecordCard, in Kanban group bars and in Tree rows.',
   points: [
-    'Slots in order: chevron, `icon`, `code`, `title` with `content`, then `menu` at the end.',
+    'Slots in order: chevron, `icon`, `code`, `title`, then `content` and `menu` at the end.',
     'Every slot is a centred box, so a tall icon and a text line sit on the same centre line.',
-    '`chevron` shows the fold button; leave it out for a tree row, which has its own twisty.',
+    '`chevron` shows a bare fold button, and a click on the row toggles; a tree row has no chevron.',
     'It has no padding and no surface; the card, bar or row around it gives them.',
     '`density` is `row` or `card` and only changes the gap between the slots.',
   ],

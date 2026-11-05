@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes, ReactNode, Ref } from 'react';
 import type { HintTargetProps } from '../hint/hint.type';
 import type { TooltipPlacement } from '../Tooltip/Tooltip.type';
 
-type IconButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'info' | 'success' | 'ghost' | 'quiet';
+type IconButtonVariant = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'info' | 'success' | 'ghost' | 'quiet' | 'bare';
 
 type IconButtonTone = 'danger' | 'info' | 'accent';
 

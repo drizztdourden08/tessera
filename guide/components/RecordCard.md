@@ -30,8 +30,8 @@ RecordCard is the shared card of every list item: header slots in a fixed order,
 
 ## Rules
 
-- Pass icon, code, content and menu to fill the header slots; they sit in that order after the chevron.
-- The chevron shows only when there are children, and only it toggles the card, never a click in the menu.
+- Pass icon, code, content and menu to fill the header slots; they sit in that order after the chevron, and content sits at the end, next to the menu.
+- The chevron shows only when there are children, and a click on the header row toggles the card, but never a click in the menu or a control.
 - Folded, the title sits in the header and the body is not rendered; open, the title moves above the children, so it shows once.
 - Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.
 - Use density row for a compact list and card for roomy items.

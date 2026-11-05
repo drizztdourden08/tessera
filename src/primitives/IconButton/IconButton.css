@@ -5,6 +5,19 @@
   line-height: 1;
 }
 
+.icon-btn.icon-btn--bare {
+  width: auto;
+  height: auto;
+  background: none;
+  border-color: transparent;
+  border-radius: 0;
+}
+
+.icon-btn.icon-btn--bare:hover:not(:disabled) {
+  background: none;
+  color: var(--c-text);
+}
+
 .icon-btn--2xs {
   width: var(--control-h-2xs);
   height: var(--control-h-2xs);
