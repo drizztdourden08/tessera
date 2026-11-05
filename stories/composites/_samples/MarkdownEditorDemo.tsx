@@ -14,9 +14,10 @@ interface MarkdownEditorDemoProps {
   maxLength?: number;
   keys?: boolean;
   decide?: boolean;
+  minSend?: number;
 }
 
-const MarkdownEditorDemo = ({ initial, layout, compact, preview, disabled, rows, maxLength, keys = false, decide = false }: MarkdownEditorDemoProps) => {
+const MarkdownEditorDemo = ({ initial, layout, compact, preview, disabled, rows, maxLength, keys = false, decide = false, minSend }: MarkdownEditorDemoProps) => {
   const [value, setValue] = useState(initial);
   const [last, setLast] = useState('Press Mod+Enter to send, or Escape to cancel');
   return (
@@ -35,6 +36,8 @@ const MarkdownEditorDemo = ({ initial, layout, compact, preview, disabled, rows,
         placeholder="Write some Markdown"
         onSubmit={keys ? (text) => setLast(`Sent ${text.length} characters`) : undefined}
         onEscape={keys ? () => setLast('Cancelled') : undefined}
+        submitLabel={minSend === undefined ? undefined : 'Send'}
+        submitDisabled={minSend !== undefined && value.trim().length < minSend}
       />
       {(keys || decide) && <Text className="story-label">{last}</Text>}
     </Box>

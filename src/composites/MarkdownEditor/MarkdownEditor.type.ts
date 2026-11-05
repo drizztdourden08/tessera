@@ -25,6 +25,7 @@ interface MarkdownEditorProps {
   toolbarEnd?: ReactNode;
   actions?: ReactNode;
   submitLabel?: string;
+  submitDisabled?: boolean;
   rows?: number;
   onLink?: MarkdownLinkHandler;
   images?: MarkdownImages;
@@ -53,6 +54,7 @@ interface MarkdownEditorKeyEvent {
 interface MarkdownEditorKeysInput {
   value: string;
   onSubmit: ((value: string) => void) | undefined;
+  submitDisabled: boolean;
   onEscape: (() => void) | undefined;
   onShortcut: (event: KeyboardEvent<HTMLTextAreaElement>) => void;
 }
@@ -107,6 +109,14 @@ interface MarkdownEditorSendProps {
   onSubmit: (value: string) => void;
 }
 
+interface MarkdownEditorSendInput {
+  label: string | undefined;
+  value: string;
+  disabled: boolean;
+  submitDisabled: boolean | undefined;
+  onSubmit: ((value: string) => void) | undefined;
+}
+
 interface MarkdownEditorFootProps {
   value: string;
   maxLength?: number;
@@ -149,5 +159,5 @@ interface MarkdownEditorPreviewProps {
 export type {
   MarkdownEditorActionId, MarkdownEditorActionSpec, MarkdownEditorLayout, MarkdownEditorListStyle,
   MarkdownEditorCounterProps, MarkdownEditorCounterTone, MarkdownEditorFootProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode, MarkdownEditorModeOptions,
-  MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorProps, MarkdownEditorSendProps, MarkdownEditorTabsProps, MarkdownEditorToolbarItemsInput, MarkdownEditorToolbarProps, TextEdit,
+  MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorProps, MarkdownEditorSendInput, MarkdownEditorSendProps, MarkdownEditorTabsProps, MarkdownEditorToolbarItemsInput, MarkdownEditorToolbarProps, TextEdit,
 };
