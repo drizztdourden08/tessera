@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.115.0
+
+### Minor Changes
+
+- Drawer mounts through Portal, and dialogs, drawers and screens focus their container on open instead of the first control.
+
 ## 0.114.0
 
 ### Minor Changes
