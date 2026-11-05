@@ -24,6 +24,7 @@ interface TesseraOverrides {
   emptyArt?: ReactNode;
   portalDocument?: Document;
   icons?: IconSet;
+  paletteTransition?: boolean;
 }
 
 type TesseraPart = keyof TesseraOverrides;

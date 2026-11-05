@@ -1,0 +1,105 @@
+/* @layer renderer-components @kind style */
+.content-swap {
+  display: grid;
+}
+
+.content-swap .content-swap__layer {
+  grid-area: 1 / 1;
+  min-width: 0;
+}
+
+.content-swap__layer[data-phase='out'] {
+  pointer-events: none;
+}
+
+.content-swap[data-effect='fade'] > [data-phase='in'] {
+  animation: content-swap-fade-in var(--duration-slow) var(--ease-out) both;
+}
+
+.content-swap[data-effect='fade'] > [data-phase='out'] {
+  animation: content-swap-fade-out var(--duration-slow) var(--ease-out) both;
+}
+
+.content-swap[data-effect='slide'] > [data-phase='in'] {
+  animation: content-swap-slide-from-end var(--duration-slow) var(--ease-out) both;
+}
+
+.content-swap[data-effect='slide'] > [data-phase='out'] {
+  animation: content-swap-slide-to-start var(--duration-slow) var(--ease-out) both;
+}
+
+.content-swap[data-effect='slide'][data-direction='back'] > [data-phase='in'] {
+  animation-name: content-swap-slide-from-start;
+}
+
+.content-swap[data-effect='slide'][data-direction='back'] > [data-phase='out'] {
+  animation-name: content-swap-slide-to-end;
+}
+
+.content-swap[data-effect='scale'] > [data-phase='in'] {
+  animation: content-swap-scale-in var(--duration-slow) var(--ease-out) both;
+}
+
+.content-swap[data-effect='scale'] > [data-phase='out'] {
+  animation: content-swap-scale-out var(--duration-slow) var(--ease-out) both;
+}
+
+@keyframes content-swap-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes content-swap-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes content-swap-slide-from-end {
+  from {
+    opacity: 0;
+    transform: translateX(var(--space-lg));
+  }
+}
+
+@keyframes content-swap-slide-from-start {
+  from {
+    opacity: 0;
+    transform: translateX(calc(var(--space-lg) * -1));
+  }
+}
+
+@keyframes content-swap-slide-to-start {
+  to {
+    opacity: 0;
+    transform: translateX(calc(var(--space-lg) * -1));
+  }
+}
+
+@keyframes content-swap-slide-to-end {
+  to {
+    opacity: 0;
+    transform: translateX(var(--space-lg));
+  }
+}
+
+@keyframes content-swap-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(var(--scale-swap));
+  }
+}
+
+@keyframes content-swap-scale-out {
+  to {
+    opacity: 0;
+    transform: scale(var(--scale-swap));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .content-swap > .content-swap__layer {
+    animation: none;
+  }
+}

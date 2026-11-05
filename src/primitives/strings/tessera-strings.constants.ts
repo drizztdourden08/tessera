@@ -42,8 +42,10 @@ import { TOUR_STRINGS } from './tour-strings.constants';
 import { VIDEO_STRINGS } from './video-strings.constants';
 import { WIDGET_STRINGS } from './widgets-strings.constants';
 import { WINDOW_STRINGS } from './windows-strings.constants';
+import { VIEW_STRINGS } from './views-strings.constants';
 import { WIZARD_STRINGS } from './wizard-strings.constants';
 import { ZOOM_FIELD_STRINGS } from './zoom-field-strings.constants';
+import { ICON_PICKER_STRINGS } from './icon-picker-strings.constants';
 
 const TESSERA_STRINGS = {
   common: COMMON_STRINGS,
@@ -68,6 +70,7 @@ const TESSERA_STRINGS = {
   widgets: WIDGET_STRINGS,
   stepper: STEPPER_STRINGS,
   windows: WINDOW_STRINGS,
+  views: VIEW_STRINGS,
   wizard: WIZARD_STRINGS,
   tour: TOUR_STRINGS,
   charts: CHART_STRINGS,
@@ -91,6 +94,7 @@ const TESSERA_STRINGS = {
   scrubRuler: SCRUB_RULER_STRINGS,
   commandInput: COMMAND_INPUT_STRINGS,
   zoomField: ZOOM_FIELD_STRINGS,
+  iconPicker: ICON_PICKER_STRINGS,
 };
 
 export { TESSERA_STRINGS };

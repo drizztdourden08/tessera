@@ -117,6 +117,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'VolumeControl', summary: 'A mute button beside a volume slider, with the icon following the level.' },
         { name: 'ColorPicker', summary: 'A full colour picker with hex and fields.' },
         { name: 'ColorPickerPopover', summary: 'A swatch that opens the picker.' },
+        { name: 'IconPicker', summary: 'A button that opens a grid of icons, with a search and an SVG or PNG upload.' },
         { name: 'KeyValueEditor', summary: 'A map of names to values, row by row, with a duplicate check and an add row.' },
         { name: 'CommandInput', summary: 'A command line with Enter to send, Up and Down through past commands and Escape to clear.' },
         { name: 'PasswordInput', summary: 'A password with a show button, any mask character, a Caps Lock warning and an optional checklist.' },
@@ -144,6 +145,9 @@ const COMPOSITES_TIER: CatalogueTier = {
       entries: [
         { name: 'DataTable', summary: 'Sortable, groupable, resizable table with saved layouts.' },
         { name: 'FilterBar', summary: 'A search box and filter chips, each added with + and edited in place.' },
+        { name: 'GroupControl', summary: 'A menu that picks one field to group a list by, or none.' },
+        { name: 'SortControl', summary: 'A menu that picks the sort field, with one button for the direction.' },
+        { name: 'ViewControls', summary: 'Filter, group and sort in one row, behind a show button with a count of what is on.' },
         { name: 'CompactRecordView', summary: 'One record read-only, with differences marked.' },
         { name: 'KanbanBoard', summary: 'Cards in named columns the user drags between or moves by keys, with a count and a fold per column.' },
         { name: 'Field kits', summary: 'The editor, cell and filter for each field kind.' },

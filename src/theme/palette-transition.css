@@ -1,0 +1,11 @@
+/* @layer renderer-components @kind style */
+::view-transition-group(root) {
+  animation-duration: var(--duration-palette);
+  animation-timing-function: var(--ease-in-out);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(root) {
+    animation-duration: 0s;
+  }
+}

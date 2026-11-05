@@ -49,7 +49,7 @@ const VALUES = {
       question: 'Where does the picker sit?',
       answers: { 'in the page': null, 'behind a swatch button': null },
     },
-    'a range': null, 'a colour from a palette': null, 'a colour from a ramp of steps': null, 'a file': null,
+    'an icon': null, 'a range': null, 'a colour from a palette': null, 'a colour from a ramp of steps': null, 'a file': null,
     'a path to a file or folder': null,
     'a whole record': {
       question: 'What happens to the record?',
@@ -100,6 +100,7 @@ const LAYOUT = {
     'content that scrolls': null, 'a full-height page that scrolls inside one frame': null, 'more content behind a line that shows or hides it': null, 'a list beside its detail': null, 'two panes the user resizes': null,
     'a side panel the user drags wider': null, 'a side panel with a heading that folds to a rail': null, 'the button that folds a panel to its edge': null,
     'one slide at a time from a set': null,
+    'content that changes with a key': null,
     'a list beside an editor, with unsaved edits guarded': null, 'a list, an editor and an inspector side by side': null, 'a frame with a toolbar on its top edge': null,
     'an app frame with its navigation': null, 'panels the user docks and moves': null, 'toolbars the user docks on the edges of a work area': null,
     'a header with an icon and a title over a block': null, 'a picture, a colour or a scene behind a block': null,
@@ -144,7 +145,7 @@ const TEXT = {
 const DATA = {
   question: 'What data are you showing?',
   answers: {
-    'rows and columns to sort and filter': null, 'a small table of facts that is only read': null, 'a flat table of rows that drops columns as it narrows': null, 'filters over a collection': null,
+    'rows and columns to sort and filter': null, 'a small table of facts that is only read': null, 'a flat table of rows that drops columns as it narrows': null, 'filters over a collection': null, 'a menu to group a collection by one field': null, 'a menu to sort a collection by one field and a direction': null,
     'a list the user adds to, renames and deletes from': null, 'a list the user reorders, with on and off icons on each row': null,
     'one record, compact and read only': null, 'a row in a list, with its actions': null, 'a stream of log lines': null,
     'items of a catalogue, as cards': null, 'one item as a tile with a picture, a name and corner marks': null, 'the seats of a lobby, taken, open or to add': null, 'cards in columns the user drags between, such as tasks by state': null,

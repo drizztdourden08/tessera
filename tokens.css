@@ -225,6 +225,10 @@ input, select {
     --c-glass:         color-mix(in srgb, var(--c-layer) 92%, transparent);
     --c-panel:         var(--p-panel, color-mix(in srgb, var(--c-surface) 55%, transparent));
     --c-inset:         color-mix(in srgb, var(--c-sunken) 45%, transparent);
+    --c-glass-fill:    color-mix(in srgb, var(--c-surface) 62%, transparent);
+    --c-glass-solid:   color-mix(in oklab, var(--c-surface) 94%, var(--c-lift));
+    --c-glass-edge:    color-mix(in srgb, var(--p-pure-white) 22%, transparent);
+    --c-glass-border:  color-mix(in srgb, var(--p-pure-white) 10%, transparent);
     --c-hairline:      color-mix(in srgb, var(--p-pure-white) 6%, transparent);
     --c-border:        var(--p-border, var(--p-surface-850));
     --c-border-strong: var(--p-border-strong, var(--p-surface-800));
@@ -350,6 +354,8 @@ input, select {
 
   :root {
     --blur:            var(--size-8);
+    --glass-blur:      var(--size-20);
+    --glass-saturate:  180%;
     --dialog-w-sm: var(--size-384);
     --dialog-w-md: var(--size-640);
     --dialog-w-lg: var(--size-896);
@@ -555,6 +561,7 @@ input, select {
   --shadow-dropdown: 0 var(--size-8) var(--size-24) color-mix(in srgb, var(--p-pure-black) 50%, transparent);
   --shadow-overlay:  0 var(--size-4) var(--size-16) color-mix(in srgb, var(--p-pure-black) 40%, transparent);
   --shadow-lg:       0 var(--size-12) var(--size-32) color-mix(in srgb, var(--p-pure-black) 60%, transparent);
+  --shadow-glass:    0 var(--size-8) var(--size-32) color-mix(in srgb, var(--p-pure-black) 35%, transparent);
   --blur-glow:       var(--size-6);
   --glow-reach:      var(--size-24);
   --glow-reach-strong: var(--size-32);
@@ -566,6 +573,8 @@ input, select {
   --duration-fast:   0.1s;
   --duration-normal: 0.15s;
   --duration-slow:   0.26s;
+  --duration-palette: 0.32s;
+  --scale-swap: 0.96;
   --duration-drawer: 0.38s;
   --duration-twinkle: 3.5s;
   --duration-status-breathe: 3s;

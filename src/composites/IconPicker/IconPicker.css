@@ -1,0 +1,27 @@
+/* @layer renderer-components @kind style */
+.icon-picker__image {
+  width: var(--size-16);
+  height: var(--size-16);
+}
+
+.icon-picker__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  width: var(--size-288);
+  max-width: 100%;
+  padding: var(--space-sm);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-dropdown);
+}
+
+.icon-picker__scroll {
+  max-height: var(--size-224);
+  overflow-y: auto;
+}
+
+.icon-picker__empty {
+  padding: var(--space-md);
+  text-align: center;
+}

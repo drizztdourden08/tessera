@@ -32,6 +32,7 @@ DialogShell gives the frame, the focus and the scrolling body, and leaves the co
 - The width follows the content between the min and the max, and never passes the window minus a margin.
 - The height grows with the content up to the window minus a margin; the header and the actions stay and only the body scrolls.
 - Set steady to pin the width to the max of the size, for a body whose content changes, such as a wizard step or an error line.
+- Set surface glass for the translucent acrylic look; it falls back to an opaque fill without blur support or with reduced transparency.
 - Set dismissable to false while a save runs, so only your own actions close it.
 
 ## Accessibility
@@ -63,6 +64,7 @@ const DetailsDialog = ({ open, close }: { open: boolean; close: () => void }) =>
 - `actions` (optional): `ReactNode`.
 - `size` (optional): `DialogSize`, one of `'sm'`, `'md'`, `'lg'`.
 - `steady` (optional): `boolean`.
+- `surface` (optional): `Surface`, one of `'solid'`, `'glass'`.
 - `className` (optional): `string`.
 - `initialFocusRef` (optional): `RefObject<HTMLElement | null>`.
 - `initialFocus` (optional): `DialogInitialFocus`, one of `'first'`, `'dialog'`. Default `'first'`.
@@ -72,4 +74,4 @@ const DetailsDialog = ({ open, close }: { open: boolean; close: () => void }) =>
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-border`, `--c-scrim`, `--c-surface`, `--dialog-fit`, `--dialog-margin`, `--dialog-min-lg`, `--dialog-min-md`, `--dialog-min-sm`, `--dialog-w-lg`, `--dialog-w-md`, `--dialog-w-sm`, `--radius-lg`, `--shadow-lg`, `--space-lg`, `--space-md`, `--space-sm`.
+It draws on `--border-width-thin`, `--c-border`, `--c-glass-border`, `--c-glass-edge`, `--c-glass-fill`, `--c-glass-solid`, `--c-scrim`, `--c-surface`, `--dialog-fit`, `--dialog-margin`, `--dialog-min-lg`, `--dialog-min-md`, `--dialog-min-sm`, `--dialog-w-lg`, `--dialog-w-md`, `--dialog-w-sm`, `--glass-blur`, `--glass-saturate`, `--radius-lg`, `--shadow-glass`, `--shadow-lg`, `--space-lg`, `--space-md`, `--space-sm`.

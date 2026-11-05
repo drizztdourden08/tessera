@@ -55,6 +55,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A colour. **Where does the picker sit?**
     - In the page: [ColorPicker](components/ColorPicker.md). ColorPicker is the colour panel placed in the page; import it from the color-picker subpath.
     - Behind a swatch button: no component yet.
+  - An icon: [IconPicker](components/IconPicker.md). IconPicker is the button that picks an icon from a grid or uploads an SVG or PNG.
   - A range:
     - [ScrubRuler](components/ScrubRuler.md). ScrubRuler sets one current cell on a row of cells, with markers and a band, where SpanBar sets a range of cells.
     - [SpanBar](components/SpanBar.md). SpanBar edits a range of cells on a row, where Slider edits a number between two limits.
@@ -140,6 +141,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A side panel with a heading that folds to a rail: [SidePanel](components/SidePanel.md). SidePanel is the one side panel of a work screen: the sunken surface, neutral heading, dashed outside border with its overlapping fold button, the rail and the drag to resize or fold.
   - The button that folds a panel to its edge: [CollapseToggle](components/CollapseToggle.md). CollapseToggle is the one fold button of every Tessera panel: SideNav, SidePanel, StudioLayout and ListDetailLayout all draw it.
   - One slide at a time from a set: [Carousel](components/Carousel.md). Carousel shows one slide at a time with dots and arrows, and can turn by itself.
+  - Content that changes with a key: [ContentSwap](components/ContentSwap.md). ContentSwap replaces content in place and animates the change when its key changes.
   - A list beside an editor, with unsaved edits guarded: [ListDetail](components/ListDetail.md). ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app.
   - A list, an editor and an inspector side by side: [StudioLayout](components/StudioLayout.md). StudioLayout draws every studio screen the same way: a raised bar, two SidePanels and a ToolFrame for the editor.
   - A frame with a toolbar on its top edge: [ToolFrame](components/ToolFrame.md). ToolFrame is the one frame with tools on its top edge: StudioLayout holds its editor in it and LogPanel its lines.
@@ -196,7 +198,9 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Rows and columns to sort and filter: [DataTable](components/DataTable.md). DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long.
   - A small table of facts that is only read: [Table](components/Table.md). Table draws a static table from TableSection, TableRow and TableCell; DataTable is the table the user sorts and filters.
   - A flat table of rows that drops columns as it narrows: [TrackTable](components/TrackTable.md). TrackTable shares the width by fractions and drops the least needed columns by the width of the table, not the window.
-  - Filters over a collection: no component yet.
+  - Filters over a collection: [ViewControls](components/ViewControls.md). ViewControls keeps filter, group and sort in one row with one show button, so every collection view folds its controls the same way.
+  - A menu to group a collection by one field: [GroupControl](components/GroupControl.md). GroupControl offers one grouping field at a time, with None to turn grouping off, drawn like the other view controls.
+  - A menu to sort a collection by one field and a direction: [SortControl](components/SortControl.md). SortControl pairs a field menu with one direction button, drawn like the other view controls.
   - A list the user adds to, renames and deletes from: [ItemList](components/ItemList.md). ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
   - A list the user reorders, with on and off icons on each row: no component yet.
   - One record, compact and read only: no component yet.

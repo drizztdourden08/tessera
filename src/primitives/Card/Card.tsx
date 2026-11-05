@@ -1,12 +1,13 @@
 /* @layer renderer-components @kind component */
 import './Card.css';
+import '../../theme/glass-panel.css';
 import { cardActivation } from './behavior/card-activation';
 import { cardClass } from './behavior/card-class';
 import { CardHeader } from './sub-components/CardHeader';
 import type { CardProps } from './Card.type';
 
 const Card = (props: CardProps) => {
-  const { variant, edgeTone, edge, fill, flush, container, header, title, subtitle, actions, count, hideZero, tone, level, children, className, onActivate, ...rest } = props;
+  const { variant, surface: look, edgeTone, edge, fill, flush, container, header, title, subtitle, actions, count, hideZero, tone, level, children, className, onActivate, ...rest } = props;
   const headed = (header ?? title) != null;
   const classes = cardClass({ ...props, variant: variant ?? (onActivate === undefined ? undefined : 'interactive') }, headed);
   const surface = { ...rest, ...cardActivation(onActivate, rest) };

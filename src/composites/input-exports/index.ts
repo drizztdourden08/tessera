@@ -2,6 +2,7 @@
 export { SplitButton, type SplitButtonProps } from '../SplitButton';
 export { AnchorPicker, type Anchor, type AnchorPickerProps, type AnchorPickerSize, type AnchorPickerVariant, type AnchorValue } from '../AnchorPicker';
 export { ChoiceGrid, type ChoiceCell, type ChoiceCellProps, type ChoiceCellState, type ChoiceGridProps, type ChoiceRole, type ChoiceSection } from '../ChoiceGrid';
+export { IconPicker, type IconPickerProps, type IconPickerValue } from '../IconPicker';
 export { SettingsRow } from '../SettingsRow';
 export type {
   SettingsDescription, SettingsInput, SettingsInputKind, SettingsInputOf, SettingsItem, SettingsLoadProblem, SettingsOption, SettingsRowAction,

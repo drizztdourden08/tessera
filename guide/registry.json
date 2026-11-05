@@ -211,6 +211,11 @@
               }
             }
           },
+          "an icon": {
+            "components": [
+              "IconPicker"
+            ]
+          },
           "a range": {
             "components": [
               "ScrubRuler",
@@ -559,6 +564,11 @@
               "Carousel"
             ]
           },
+          "content that changes with a key": {
+            "components": [
+              "ContentSwap"
+            ]
+          },
           "a list beside an editor, with unsaved edits guarded": {
             "components": [
               "ListDetail"
@@ -802,7 +812,19 @@
             ]
           },
           "filters over a collection": {
-            "components": []
+            "components": [
+              "ViewControls"
+            ]
+          },
+          "a menu to group a collection by one field": {
+            "components": [
+              "GroupControl"
+            ]
+          },
+          "a menu to sort a collection by one field and a direction": {
+            "components": [
+              "SortControl"
+            ]
           },
           "a list the user adds to, renames and deletes from": {
             "components": [
@@ -1581,6 +1603,8 @@
         "Give the card a title for a header, or a header node for a custom one; without either it is a bare surface.",
         "onActivate makes the surface focusable and fires on a click and on Enter or Space when the card itself has focus. The look is interactive unless a variant is given.",
         "onActivate never fires from an inner button, link, field, menu or editable text, nor from a menu drawn in a portal.",
+        "Pass surface glass for the translucent acrylic look: a blurred fill, a bright top edge and a soft shadow. It needs something behind it to show; variant stays separate and still sets the tone.",
+        "Glass falls back to an opaque fill where blur is not supported or the user asks for reduced transparency, so text keeps its contrast.",
         "The card gets no button role, since it may hold buttons. Pass aria-label to name it."
       ],
       "a11y": [
@@ -1594,8 +1618,8 @@
         ],
         "rule": "Card is the raised surface that groups related content and can open a detail view when pressed."
       },
-      "example": "import { Button, Card } from '@drizztdourden08/tessera';\n\nconst openDetail = () => undefined;\nconst archive = () => undefined;\n\nconst Task = () => (\n  <Card title=\"Fix the login form\" aria-label=\"Task: Fix the login form\" onActivate={openDetail}>\n    <Button onClick={archive}>Archive</Button>\n  </Card>\n);\n",
-      "propsHash": "c0d4c940b3d1e1c2",
+      "example": "import { Button, Card } from '@drizztdourden08/tessera';\n\nconst openDetail = () => undefined;\nconst archive = () => undefined;\n\nconst Task = () => (\n  <Card title=\"Fix the login form\" aria-label=\"Task: Fix the login form\" onActivate={openDetail}>\n    <Button onClick={archive}>Archive</Button>\n  </Card>\n);\n\nconst Floating = () => (\n  <Card title=\"Now playing\" surface=\"glass\">\n    Over a picture or a map, the card blurs what is behind it.\n  </Card>\n);\n",
+      "propsHash": "e9168d4ef6636ff5",
       "props": {
         "own": [
           {
@@ -1611,6 +1635,15 @@
               "'default'",
               "'interactive'",
               "'danger'"
+            ]
+          },
+          {
+            "name": "surface",
+            "optional": true,
+            "text": "Surface",
+            "literals": [
+              "'solid'",
+              "'glass'"
             ]
           },
           {
@@ -1733,6 +1766,10 @@
         "--c-danger-bright",
         "--c-danger-dim",
         "--c-focus",
+        "--c-glass-border",
+        "--c-glass-edge",
+        "--c-glass-fill",
+        "--c-glass-solid",
         "--c-info",
         "--c-info-bright",
         "--c-primary",
@@ -1742,7 +1779,10 @@
         "--c-surface",
         "--c-warning",
         "--c-warning-bright",
+        "--glass-blur",
+        "--glass-saturate",
         "--radius-lg",
+        "--shadow-glass",
         "--size-4",
         "--size-40",
         "--space-md",
@@ -1900,6 +1940,102 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "ContentSwap",
+      "tier": "primitives",
+      "source": "src/primitives/ContentSwap/ContentSwap.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "Shows its content and, when the key changes, moves from the old content to the new with a fade, a slide or a scale, without the layout jumping.",
+      "useWhen": [
+        "A panel shows one of several views, and the change should read as a change, such as a wizard step or a detail pane.",
+        "The content is replaced in the same place, and the key says when it is a different thing."
+      ],
+      "avoidWhen": [
+        {
+          "case": "A set of slides the user pages through with controls.",
+          "use": "Carousel"
+        },
+        {
+          "case": "Content that only shows or hides in place.",
+          "use": "Disclosure"
+        }
+      ],
+      "rules": [
+        "Give swapKey a value that changes only when the content is a different thing, not on every render.",
+        "Pick the effect by meaning: fade for a replacement, slide for steps with a direction, scale for a detail that opens.",
+        "Set direction to back for a slide that goes to an earlier step.",
+        "The old content stays on screen for the length of the motion, then is dropped; it is a copy, so it does not take input."
+      ],
+      "a11y": [
+        "The leaving content is hidden from assistive tools; only the new content is read.",
+        "Under reduced motion the content swaps at once, with no animation."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "content that changes with a key"
+        ],
+        "rule": "ContentSwap replaces content in place and animates the change when its key changes."
+      },
+      "example": "import { ContentSwap, Text } from '@drizztdourden08/tessera';\n\nconst StepPanel = ({ step }: { step: number }) => (\n  <ContentSwap swapKey={step} effect=\"slide\">\n    <Text>Current step</Text>\n  </ContentSwap>\n);\n",
+      "propsHash": "d872196a9992c2db",
+      "props": {
+        "own": [
+          {
+            "name": "swapKey",
+            "optional": false,
+            "text": "string | number"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "effect",
+            "optional": true,
+            "text": "ContentSwapEffect",
+            "literals": [
+              "'fade'",
+              "'slide'",
+              "'scale'"
+            ],
+            "default": "'fade'"
+          },
+          {
+            "name": "direction",
+            "optional": true,
+            "text": "ContentSwapDirection",
+            "literals": [
+              "'forward'",
+              "'back'"
+            ],
+            "default": "'forward'"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--duration-slow",
+        "--ease-out",
+        "--scale-swap",
+        "--space-lg"
+      ],
+      "parts": []
     },
     {
       "name": "DensityScope",
@@ -9361,6 +9497,7 @@
         "The width follows the content between the min and the max of the size, and never passes the window minus a margin.",
         "The height grows with the content up to the window minus a margin; the header and the buttons stay and only the body scrolls.",
         "Set steady when the width must not move while the content changes, such as an error that appears under a form.",
+        "Set surface glass for the translucent acrylic look over a busy page; it falls back to an opaque fill without blur support or with reduced transparency.",
         "Use variant danger for an action that cannot be undone; focus then starts on cancel."
       ],
       "a11y": [
@@ -9376,7 +9513,7 @@
         "rule": "Dialog holds a message and a confirm and a cancel button, and takes its width from its content within the size."
       },
       "example": "import { Dialog } from '@drizztdourden08/tessera';\n\nconst ReadmeDialog = ({ open, close }: { open: boolean; close: () => void }) => (\n  <Dialog open={open} title=\"README\" message=\"\" size=\"lg\" confirmLabel=\"Close\" hideCancel onConfirm={close} onCancel={close}>\n    Release notes go here.\n  </Dialog>\n);\n",
-      "propsHash": "58f13098eec70cc5",
+      "propsHash": "4a23910ebd7e2dc8",
       "props": {
         "own": [
           {
@@ -9438,6 +9575,15 @@
             "name": "steady",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "surface",
+            "optional": true,
+            "text": "Surface",
+            "literals": [
+              "'solid'",
+              "'glass'"
+            ]
           },
           {
             "name": "onConfirm",
@@ -9511,6 +9657,7 @@
         "The width follows the content between the min and the max, and never passes the window minus a margin.",
         "The height grows with the content up to the window minus a margin; the header and the actions stay and only the body scrolls.",
         "Set steady to pin the width to the max of the size, for a body whose content changes, such as a wizard step or an error line.",
+        "Set surface glass for the translucent acrylic look; it falls back to an opaque fill without blur support or with reduced transparency.",
         "Set dismissable to false while a save runs, so only your own actions close it."
       ],
       "a11y": [
@@ -9526,7 +9673,7 @@
         "rule": "DialogShell gives the frame, the focus and the scrolling body, and leaves the content and the buttons to you."
       },
       "example": "import { Button, DialogShell } from '@drizztdourden08/tessera';\n\nconst DetailsDialog = ({ open, close }: { open: boolean; close: () => void }) => (\n  <DialogShell open={open} onClose={close} title=\"Friday async\" size=\"md\" actions={<Button onClick={close}>Close</Button>}>\n    Eight players are connected.\n  </DialogShell>\n);\n",
-      "propsHash": "80113886b20170a4",
+      "propsHash": "c4ce0c5aa82d431f",
       "props": {
         "own": [
           {
@@ -9581,6 +9728,15 @@
             "text": "boolean"
           },
           {
+            "name": "surface",
+            "optional": true,
+            "text": "Surface",
+            "literals": [
+              "'solid'",
+              "'glass'"
+            ]
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -9625,6 +9781,10 @@
       "tokens": [
         "--border-width-thin",
         "--c-border",
+        "--c-glass-border",
+        "--c-glass-edge",
+        "--c-glass-fill",
+        "--c-glass-solid",
         "--c-scrim",
         "--c-surface",
         "--dialog-fit",
@@ -9635,7 +9795,10 @@
         "--dialog-w-lg",
         "--dialog-w-md",
         "--dialog-w-sm",
+        "--glass-blur",
+        "--glass-saturate",
         "--radius-lg",
+        "--shadow-glass",
         "--shadow-lg",
         "--space-lg",
         "--space-md",
@@ -11011,6 +11174,89 @@
       "parts": []
     },
     {
+      "name": "GroupControl",
+      "tier": "composites",
+      "source": "src/composites/GroupControl/GroupControl.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A menu that picks the one field a list is grouped by, or no grouping.",
+      "useWhen": [
+        "A list or board can be split into sections by one of a few fields, such as status or owner.",
+        "The choice sits in a toolbar beside a filter and a sort."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The list needs a filter, a group and a sort together behind one show button.",
+          "use": "ViewControls"
+        },
+        {
+          "case": "The user picks the field to order rows by.",
+          "use": "SortControl"
+        },
+        {
+          "case": "The user narrows rows by a value.",
+          "use": "FilterBar"
+        }
+      ],
+      "rules": [
+        "Pass options as id and label pairs and keep the chosen id in your state; null means no grouping.",
+        "Change the grouping only in onChange; the control keeps no value of its own.",
+        "Set label to rename the menu title when the list calls its sections something else."
+      ],
+      "a11y": [
+        "The trigger is a button that opens a keyboard menu named by label.",
+        "The options are radio items, and the checked one is the current grouping."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a menu to group a collection by one field"
+        ],
+        "rule": "GroupControl offers one grouping field at a time, with None to turn grouping off, drawn like the other view controls."
+      },
+      "example": "import { useState } from 'react';\nimport { GroupControl } from '@drizztdourden08/tessera';\n\nconst FIELDS = [\n  { id: 'status', label: 'Status' },\n  { id: 'owner', label: 'Owner' },\n];\n\nconst GroupPicker = () => {\n  const [grouping, setGrouping] = useState<string | null>(null);\n  return <GroupControl options={FIELDS} value={grouping} onChange={setGrouping} />;\n};\n",
+      "propsHash": "325dd0615e140e75",
+      "props": {
+        "own": [
+          {
+            "name": "options",
+            "optional": false,
+            "text": "readonly ViewOption[]"
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string | null"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(next: string | null) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [],
+      "parts": []
+    },
+    {
       "name": "GroupTree",
       "tier": "composites",
       "source": "src/composites/GroupTree/GroupTree.tsx",
@@ -11179,6 +11425,118 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "IconPicker",
+      "tier": "composites",
+      "source": "src/composites/IconPicker/IconPicker.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "An icon button that opens a popover to pick one icon from a searchable grid, or to upload an SVG or PNG, and hands back one value.",
+      "useWhen": [
+        "The user gives something an icon, such as a project, a folder or a shortcut.",
+        "The user may bring their own image: leave allowUpload on, so an SVG or PNG can be uploaded."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user picks one cell from a strip or grid you draw yourself.",
+          "use": "ChoiceGrid"
+        },
+        {
+          "case": "The icon is shown, not edited.",
+          "use": "Icon"
+        }
+      ],
+      "rules": [
+        "The app owns the value: pass value and onChange. The value is an icon name, an SVG text or a PNG data URL, told apart by kind.",
+        "Pass label to name the button for assistive tools, such as Project icon.",
+        "Pass icons to limit the grid to a short list of names; without it the grid holds every icon of the family.",
+        "An uploaded SVG must be 64 KB or less and start with an svg element; a PNG must be 256 KB or less. A rejected file shows the reason under the button and leaves the value alone.",
+        "An SVG is drawn as an image, never as markup, so its scripts never run. Store the SVG text as given.",
+        "Pass allowUpload false to hide the upload button."
+      ],
+      "a11y": [
+        "The button reads its label, says it opens a dialog and reports whether it is open.",
+        "The search field has focus on open; Down moves into the grid. The grid is one Tab stop, arrows move, Home and End jump, Enter or Space picks, and Escape closes and returns focus to the button.",
+        "Each icon is an option named after the icon. A rejected file is read as an error under the upload button."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "an icon"
+        ],
+        "rule": "IconPicker is the button that picks an icon from a grid or uploads an SVG or PNG."
+      },
+      "example": "import { useState } from 'react';\nimport { IconPicker } from '@drizztdourden08/tessera';\nimport type { IconPickerValue } from '@drizztdourden08/tessera';\n\nconst ProjectIcon = () => {\n  const [icon, setIcon] = useState<IconPickerValue>({ kind: 'icon', name: 'folder' });\n  return <IconPicker label=\"Project icon\" value={icon} onChange={setIcon} />;\n};\n",
+      "propsHash": "ce42bfd48e78d453",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "IconPickerValue"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(value: IconPickerValue) => void"
+          },
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "icons",
+            "optional": true,
+            "text": "readonly IconName[]",
+            "default": "ALL_ICON_NAMES"
+          },
+          {
+            "name": "allowUpload",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string",
+            "default": "''"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--radius-md",
+        "--shadow-dropdown",
+        "--size-16",
+        "--size-224",
+        "--size-288",
+        "--space-md",
+        "--space-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/IconPicker",
+        "route": "#/story/composites-iconpicker--overview",
+        "file": "stories/composites/IconPicker.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "InfoScreen",
@@ -15184,6 +15542,7 @@
         "Pass title for the heading and children for the body.",
         "The title is always shown above the body without a card surface or border.",
         "Pass sublabel for a muted label right after the title; it shrinks first, then the title, and a clipped one shows in a Tooltip.",
+        "Pass surface glass to draw the section as a translucent acrylic panel with an edge highlight and shadow; the default solid stays unframed.",
         "Pass action for a control in the header.",
         "Pass fill to take the room left in a flex column; the body then has a definite height, so a DataTable inside scrolls on its own."
       ],
@@ -15191,8 +15550,8 @@
         "The title is a heading; the body remains arbitrary content."
       ],
       "buildingBlock": true,
-      "example": "import { PanelContainer } from '@drizztdourden08/tessera';\n\n<PanelContainer title=\"Profiles\" action=\"New\">\n  Profiles go here.\n</PanelContainer>",
-      "propsHash": "4dcec4742a425e1b",
+      "example": "import { PanelContainer } from '@drizztdourden08/tessera';\n\n<>\n<PanelContainer title=\"Profiles\" action=\"New\">\n  Profiles go here.\n</PanelContainer>\n\n<PanelContainer title=\"Now playing\" surface=\"glass\">\n  Blurs what is behind it.\n</PanelContainer>\n</>",
+      "propsHash": "cbb97a845ee1bf7d",
       "props": {
         "own": [
           {
@@ -15231,6 +15590,16 @@
             "default": "false"
           },
           {
+            "name": "surface",
+            "optional": true,
+            "text": "Surface",
+            "literals": [
+              "'solid'",
+              "'glass'"
+            ],
+            "default": "'solid'"
+          },
+          {
             "name": "children",
             "optional": false,
             "text": "ReactNode"
@@ -15248,6 +15617,15 @@
         }
       },
       "tokens": [
+        "--border-width-thin",
+        "--c-glass-border",
+        "--c-glass-edge",
+        "--c-glass-fill",
+        "--c-glass-solid",
+        "--glass-blur",
+        "--glass-saturate",
+        "--radius-lg",
+        "--shadow-glass",
         "--space-md",
         "--space-sm"
       ],
@@ -18884,6 +19262,94 @@
       "parts": []
     },
     {
+      "name": "SortControl",
+      "tier": "composites",
+      "source": "src/composites/SortControl/SortControl.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A menu that picks the field a list is sorted by, with one button that flips the direction.",
+      "useWhen": [
+        "A list or board can be ordered by one of a few fields, such as name or date.",
+        "The choice sits in a toolbar beside a filter and a group."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The list needs a filter, a group and a sort together behind one show button.",
+          "use": "ViewControls"
+        },
+        {
+          "case": "The user sorts by clicking a column header in a table.",
+          "use": "DataTable"
+        },
+        {
+          "case": "The user splits the list into sections.",
+          "use": "GroupControl"
+        }
+      ],
+      "rules": [
+        "Pass options as id and label pairs and keep the value, a key and a direction, in your state.",
+        "A null key means the default order; the direction button still flips the direction.",
+        "Change the sort only in onChange; the control keeps no value of its own."
+      ],
+      "a11y": [
+        "The trigger is a button that opens a keyboard menu; its options are radio items.",
+        "The direction button is named by the sort it switches to, such as Sort descending."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a menu to sort a collection by one field and a direction"
+        ],
+        "rule": "SortControl pairs a field menu with one direction button, drawn like the other view controls."
+      },
+      "example": "import { useState } from 'react';\nimport { SortControl } from '@drizztdourden08/tessera';\nimport type { SortState } from '@drizztdourden08/tessera';\n\nconst FIELDS = [\n  { id: 'name', label: 'Name' },\n  { id: 'updated', label: 'Updated' },\n];\n\nconst SortPicker = () => {\n  const [sort, setSort] = useState<SortState>({ key: 'name', direction: 'asc' });\n  return <SortControl options={FIELDS} value={sort} onChange={setSort} />;\n};\n",
+      "propsHash": "906913cca4a6294c",
+      "props": {
+        "own": [
+          {
+            "name": "options",
+            "optional": false,
+            "text": "readonly ViewOption[]"
+          },
+          {
+            "name": "value",
+            "optional": false,
+            "text": "SortState"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(next: SortState) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--control-h-sm",
+        "--size-224",
+        "--space-sm",
+        "--space-xs"
+      ],
+      "parts": []
+    },
+    {
       "name": "SpanBar",
       "tier": "composites",
       "source": "src/composites/SpanBar/SpanBar.tsx",
@@ -21835,6 +22301,111 @@
         "route": "#/story/composites-video--overview",
         "file": "stories/composites/Video.stories.tsx"
       },
+      "parts": []
+    },
+    {
+      "name": "ViewControls",
+      "tier": "composites",
+      "source": "src/composites/ViewControls/ViewControls.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Filter, group and sort controls in one row, behind a button that shows or hides them.",
+      "useWhen": [
+        "A list, board or table offers any of a filter, a group and a sort, and the controls should be able to fold away.",
+        "Different screens need different parts: each part shows only when its config is passed."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The screen only needs a search box and filter chips, always visible.",
+          "use": "FilterBar"
+        },
+        {
+          "case": "The screen only needs a grouping menu.",
+          "use": "GroupControl"
+        },
+        {
+          "case": "The screen only needs a sort menu.",
+          "use": "SortControl"
+        }
+      ],
+      "rules": [
+        "Pass filter, group and sort with the props of FilterBar, GroupControl and SortControl; leave out a part to hide it.",
+        "Control the row with open and onOpenChange, or leave both out and set defaultOpen; the row starts open.",
+        "Folded, the button shows a count of the search, enabled filters, grouping and sort that are on.",
+        "Set label to rename the button."
+      ],
+      "a11y": [
+        "The button reports aria-expanded and is named Show view controls or Hide view controls.",
+        "The count is a badge named by its number, such as 3 active settings."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "filters over a collection"
+        ],
+        "rule": "ViewControls keeps filter, group and sort in one row with one show button, so every collection view folds its controls the same way."
+      },
+      "example": "import { useState } from 'react';\nimport { ViewControls } from '@drizztdourden08/tessera';\nimport type { SortState } from '@drizztdourden08/tessera';\n\nconst FIELDS = [\n  { id: 'name', label: 'Name' },\n  { id: 'status', label: 'Status' },\n];\n\nconst PlayerControls = () => {\n  const [search, setSearch] = useState('');\n  const [grouping, setGrouping] = useState<string | null>(null);\n  const [sort, setSort] = useState<SortState>({ key: 'name', direction: 'asc' });\n  return (\n    <ViewControls\n      filter={{ search, onSearchChange: setSearch }}\n      group={{ options: FIELDS, value: grouping, onChange: setGrouping }}\n      sort={{ options: FIELDS, value: sort, onChange: setSort }}\n    />\n  );\n};\n",
+      "propsHash": "5a7ecbdea2fc1436",
+      "props": {
+        "own": [
+          {
+            "name": "filter",
+            "optional": true,
+            "text": "FilterBarProps"
+          },
+          {
+            "name": "group",
+            "optional": true,
+            "text": "GroupControlProps"
+          },
+          {
+            "name": "sort",
+            "optional": true,
+            "text": "SortControlProps"
+          },
+          {
+            "name": "open",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "defaultOpen",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "onOpenChange",
+            "optional": true,
+            "text": "(open: boolean) => void"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--control-h-sm",
+        "--size-224",
+        "--space-sm",
+        "--space-xs"
+      ],
       "parts": []
     },
     {

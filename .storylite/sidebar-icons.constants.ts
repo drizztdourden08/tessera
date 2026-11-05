@@ -47,7 +47,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Primitives · Layout': {
     Box: 'square', Flex: 'columns-3', Stack: 'rows-3', Inline: 'align-horizontal-distribute-center', Center: 'align-horizontal-justify-center', Grid: 'grid-3x3',
     Spacer: 'space', Divider: 'separator-horizontal', Card: 'square-stack', ToolFrame: 'app-window', ScrollArea: 'scroll', Portal: 'door-open',
-    Anchored: 'anchor', Overlay: 'layers-2',
+    Anchored: 'anchor', Overlay: 'layers-2', ContentSwap: 'arrow-left-right',
   },
   'Primitives · Display': {
     SectionHeader: 'heading-1', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',
@@ -93,7 +93,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Composites · Settings': { SettingsPage: 'file-cog', SettingsSection: 'settings-2', SettingsRow: 'sliders-horizontal' },
   'Composites · Menus': { DropdownMenu: 'square-chevron-down', CommandPalette: 'command', CommandPaletteRow: 'text-search', ControlMenu: 'sliders-horizontal' },
   'Composites · Data views': {
-    'DataTable': 'table', 'FilterBar': 'filter', 'CompactRecordView': 'id-card', 'KanbanBoard': 'columns-3', 'Field kits': 'toolbox',
+    'DataTable': 'table', 'FilterBar': 'filter', 'GroupControl': 'layers', 'SortControl': 'arrow-up-down', 'ViewControls': 'sliders-horizontal', 'CompactRecordView': 'id-card', 'KanbanBoard': 'columns-3', 'Field kits': 'toolbox',
   },
   'Composites · Content': {
     LogPanel: 'logs', FactsPanel: 'table-properties', Hero: 'mountain-snow',
@@ -114,7 +114,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
     PixelPlayer: 'play',
   },
   'Composites · Inputs': {
-    DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', KeyValueEditor: 'list-plus',
+    DynamicInput: 'braces', VolumeControl: 'volume-2', ColorPicker: 'pipette', ColorPickerPopover: 'paintbrush', IconPicker: 'shapes', KeyValueEditor: 'list-plus',
     CommandInput: 'square-terminal', PasswordInput: 'lock-keyhole', TagInput: 'tag', PathInput: 'folder-input',
     SpanBar: 'ruler',
     ScrubRuler: 'ruler',

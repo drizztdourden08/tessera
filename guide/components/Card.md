@@ -31,6 +31,8 @@ Card is the raised surface that groups related content and can open a detail vie
 - Give the card a title for a header, or a header node for a custom one; without either it is a bare surface.
 - OnActivate makes the surface focusable and fires on a click and on Enter or Space when the card itself has focus. The look is interactive unless a variant is given.
 - OnActivate never fires from an inner button, link, field, menu or editable text, nor from a menu drawn in a portal.
+- Pass surface glass for the translucent acrylic look: a blurred fill, a bright top edge and a soft shadow. It needs something behind it to show; variant stays separate and still sets the tone.
+- Glass falls back to an opaque fill where blur is not supported or the user asks for reduced transparency, so text keeps its contrast.
 - The card gets no button role, since it may hold buttons. Pass aria-label to name it.
 
 ## Accessibility
@@ -51,12 +53,19 @@ const Task = () => (
     <Button onClick={archive}>Archive</Button>
   </Card>
 );
+
+const Floating = () => (
+  <Card title="Now playing" surface="glass">
+    Over a picture or a map, the card blurs what is behind it.
+  </Card>
+);
 ```
 
 ## Props
 
 - `header` (optional): `ReactNode`.
 - `variant` (optional): `CardVariant`, one of `'default'`, `'interactive'`, `'danger'`.
+- `surface` (optional): `Surface`, one of `'solid'`, `'glass'`.
 - `edgeTone` (optional): `CardTone`, one of `'neutral'`, `'primary'`, `'info'`, `'success'`, `'warning'`, `'danger'`.
 - `edge` (optional): `CardEdge`, one of `'left'`, `'border'`.
 - `fill` (optional): `boolean`.
@@ -76,4 +85,4 @@ It also takes the 276 attributes it inherits through `Omit<HTMLAttributes<HTMLDi
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-bright`, `--c-danger-dim`, `--c-focus`, `--c-info`, `--c-info-bright`, `--c-primary`, `--c-primary-bright`, `--c-success`, `--c-success-bright`, `--c-surface`, `--c-warning`, `--c-warning-bright`, `--radius-lg`, `--size-4`, `--size-40`, `--space-md`, `--space-sm`, `--space-xs`, `--transition-normal`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-border-strong`, `--c-danger`, `--c-danger-bright`, `--c-danger-dim`, `--c-focus`, `--c-glass-border`, `--c-glass-edge`, `--c-glass-fill`, `--c-glass-solid`, `--c-info`, `--c-info-bright`, `--c-primary`, `--c-primary-bright`, `--c-success`, `--c-success-bright`, `--c-surface`, `--c-warning`, `--c-warning-bright`, `--glass-blur`, `--glass-saturate`, `--radius-lg`, `--shadow-glass`, `--size-4`, `--size-40`, `--space-md`, `--space-sm`, `--space-xs`, `--transition-normal`.
