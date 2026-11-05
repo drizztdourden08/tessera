@@ -19,3 +19,12 @@
   flex-wrap: wrap;
   overflow: visible;
 }
+
+.avatar.signal-mark-avatar {
+  --avatar-size: var(--size-14);
+  --avatar-text: var(--size-8);
+}
+
+.signal-mark-avatar.avatar--owner {
+  outline-offset: 0;
+}
