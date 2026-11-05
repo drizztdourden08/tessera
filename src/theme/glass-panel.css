@@ -4,7 +4,6 @@
 .panel-container.surface-glass,
 .dialog.surface-glass {
   background: var(--c-glass-fill);
-  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
   border: var(--border-width-thin) solid var(--c-glass-border);
   border-radius: var(--radius-lg);
@@ -32,7 +31,6 @@
   .panel-container.surface-glass,
   .dialog.surface-glass {
     background: var(--c-glass-solid);
-    -webkit-backdrop-filter: none;
     backdrop-filter: none;
   }
 }
