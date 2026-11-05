@@ -1,0 +1,23 @@
+/* @layer stories @kind style */
+.overflow-row-story {
+  max-inline-size: 100%;
+  padding: var(--space-xs);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+}
+
+.overflow-row-story[data-width='256'] {
+  inline-size: var(--size-256);
+}
+
+.overflow-row-story[data-width='384'] {
+  inline-size: var(--size-384);
+}
+
+.overflow-row-story[data-width='512'] {
+  inline-size: var(--size-512);
+}
+
+.overflow-row-story[data-width='768'] {
+  inline-size: var(--size-768);
+}
