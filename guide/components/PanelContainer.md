@@ -28,6 +28,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - Pass title for the heading and children for the body.
 - The title is always shown above the body without a card surface or border.
 - Pass sublabel for a muted label right after the title; it shrinks first, then the title, and a clipped one shows in a Tooltip.
+- Pass surface glass to draw the section as a translucent acrylic panel with an edge highlight and shadow; the default solid stays unframed.
 - Pass action for a control in the header.
 - Pass fill to take the room left in a flex column; the body then has a definite height, so a DataTable inside scrolls on its own.
 
@@ -40,9 +41,15 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 ```tsx
 import { PanelContainer } from '@drizztdourden08/tessera';
 
+<>
 <PanelContainer title="Profiles" action="New">
   Profiles go here.
 </PanelContainer>
+
+<PanelContainer title="Now playing" surface="glass">
+  Blurs what is behind it.
+</PanelContainer>
+</>
 ```
 
 ## Props
@@ -52,9 +59,10 @@ import { PanelContainer } from '@drizztdourden08/tessera';
 - `action` (optional): `ReactNode`.
 - `level` (optional): `HeadingLevel`, one of `1`, `2`, `3`, `4`, `5`, `6`. Default `3`.
 - `fill` (optional): `boolean`. Default `false`.
+- `surface` (optional): `Surface`, one of `'solid'`, `'glass'`. Default `'solid'`.
 - `children`: `ReactNode`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--space-md`, `--space-sm`.
+It draws on `--border-width-thin`, `--c-glass-border`, `--c-glass-edge`, `--c-glass-fill`, `--c-glass-solid`, `--glass-blur`, `--glass-saturate`, `--radius-lg`, `--shadow-glass`, `--space-md`, `--space-sm`.

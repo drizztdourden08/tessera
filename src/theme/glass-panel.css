@@ -1,7 +1,38 @@
 /* @layer renderer-components @kind style */
-.glass-panel {
-  background: var(--c-panel);
-  backdrop-filter: blur(var(--blur));
-  border: var(--border-width-thin) solid var(--c-hairline);
+.glass-panel,
+.card.surface-glass,
+.panel-container.surface-glass,
+.dialog.surface-glass {
+  background: var(--c-glass-fill);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  border: var(--border-width-thin) solid var(--c-glass-border);
   border-radius: var(--radius-lg);
+  box-shadow: inset 0 var(--border-width-thin) 0 var(--c-glass-edge), var(--shadow-glass);
+}
+
+.card--interactive.surface-glass:hover {
+  background: var(--c-glass-fill);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-panel,
+  .card.surface-glass,
+  .card--interactive.surface-glass:hover,
+  .panel-container.surface-glass,
+  .dialog.surface-glass {
+    background: var(--c-glass-solid);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .glass-panel,
+  .card.surface-glass,
+  .card--interactive.surface-glass:hover,
+  .panel-container.surface-glass,
+  .dialog.surface-glass {
+    background: var(--c-glass-solid);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
 }

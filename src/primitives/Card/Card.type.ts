@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { HTMLAttributes, ReactNode } from 'react';
+import type { Surface } from '../dom/surface.type';
 import type { HeadingLevel } from '../Title/Title.type';
 
 type CardVariant = 'default' | 'interactive' | 'danger';
@@ -21,6 +22,7 @@ interface CardHeading {
 interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>, CardHeading {
   header?: ReactNode;
   variant?: CardVariant;
+  surface?: Surface;
   edgeTone?: CardTone;
   edge?: CardEdge;
   fill?: boolean;

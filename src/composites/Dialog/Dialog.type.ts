@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { DataAttributes } from '../../primitives/dom/data-attributes.type';
+import type { Surface } from '../../primitives/dom/surface.type';
 import type { DialogSize } from '../DialogShell/DialogShell.type';
 
 interface DialogProps {
@@ -13,6 +14,7 @@ interface DialogProps {
   variant?: 'danger' | 'default';
   size?: DialogSize;
   steady?: boolean;
+  surface?: Surface;
   onConfirm: () => void;
   onCancel: () => void;
   id?: string;

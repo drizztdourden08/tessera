@@ -16,6 +16,7 @@ const usage = {
     'The width follows the content between the min and the max of the size, and never passes the window minus a margin.',
     'The height grows with the content up to the window minus a margin; the header and the buttons stay and only the body scrolls.',
     'Set steady when the width must not move while the content changes, such as an error that appears under a form.',
+    'Set surface glass for the translucent acrylic look over a busy page; it falls back to an opaque fill without blur support or with reduced transparency.',
     'Use variant danger for an action that cannot be undone; focus then starts on cancel.',
   ],
   a11y: [
@@ -35,7 +36,7 @@ const ReadmeDialog = ({ open, close }: { open: boolean; close: () => void }) => 
   </Dialog>
 );
 `,
-  propsHash: '58f13098eec70cc5',
+  propsHash: '4a23910ebd7e2dc8',
 } satisfies ComponentUsage;
 
 export { usage };
