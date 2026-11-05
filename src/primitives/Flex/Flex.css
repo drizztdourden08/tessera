@@ -31,13 +31,19 @@
 }
 
 .flex[data-align='first-line']:has(> .text) { font-size: var(--text-base); }
+
 .flex[data-align='first-line']:has(> .text--caption),
 .flex[data-align='first-line']:has(> .text--label),
 .flex[data-align='first-line']:has(> .text--overline) { font-size: var(--text-xs); }
+
 .flex[data-align='first-line']:has(> .text--subtitle) { font-size: var(--text-sm); }
+
 .flex[data-align='first-line']:has(> .text--title) { font-size: var(--text-lg); }
+
 .flex[data-align='first-line']:has(> .text--md) { font-size: var(--text-md); }
+
 .flex[data-align='first-line']:has(> .text--lead) { font-size: var(--text-lead); }
+
 .flex[data-align='first-line']:has(> .text--leading-16) { line-height: var(--leading-16); }
 
 .flex[data-justify='start'] { justify-content: flex-start; }
