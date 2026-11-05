@@ -12,7 +12,7 @@ The source is `src/primitives/SegmentedBar/SegmentedBar.tsx`. It has no gallery 
 
 ## Where the questions lead here
 
-What are you placing? Data. What data are you showing? A chart. What should the chart show? Equal segments in a row.
+What are you placing? Data. What data are you showing? A chart. What should the chart show? Progress in equal segments.
 
 SegmentedBar shows a run of equal steps, each in its own colour, in a single bar.
 

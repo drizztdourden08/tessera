@@ -900,6 +900,11 @@
                 "components": [
                   "StackedBar"
                 ]
+              },
+              "progress in equal segments": {
+                "components": [
+                  "SegmentedBar"
+                ]
               }
             }
           },
@@ -3496,7 +3501,7 @@
         "path": [
           "data",
           "a chart",
-          "equal segments in a row"
+          "progress in equal segments"
         ],
         "rule": "SegmentedBar shows a run of equal steps, each in its own colour, in a single bar."
       },

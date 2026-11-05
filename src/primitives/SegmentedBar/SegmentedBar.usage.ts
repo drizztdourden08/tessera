@@ -22,7 +22,7 @@ const usage = {
     'A tooltip is not the only place a state may live; keep the same facts in text near the bar.',
   ],
   tree: {
-    path: ['data', 'a chart', 'equal segments in a row'],
+    path: ['data', 'a chart', 'progress in equal segments'],
     rule: 'SegmentedBar shows a run of equal steps, each in its own colour, in a single bar.',
   },
   example: `import { SegmentedBar } from '@drizztdourden08/tessera';

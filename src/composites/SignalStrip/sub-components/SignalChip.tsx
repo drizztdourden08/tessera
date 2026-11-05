@@ -6,7 +6,8 @@ import { SignalMark } from './SignalMark';
 
 const SignalChip = ({ item }: { item: SignalItem }) => {
   const { icon, count, label, tone, mark2, iconOnly = false, onClick } = item;
-  const text = count === undefined ? (iconOnly ? '' : label) : String(count);
+  const shown = iconOnly ? '' : label;
+  const text = count === undefined ? shown : String(count);
   const body = mark2 === undefined ? text : <><SignalMark mark={mark2} />{text}</>;
   const named = { ...chipLook(tone), icon, title: label, 'aria-label': iconOnly ? label : undefined };
   if (onClick === undefined) return <Tag {...named}>{body}</Tag>;

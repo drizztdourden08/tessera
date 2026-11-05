@@ -155,6 +155,7 @@ const DATA = {
       question: 'What should the chart show?',
       answers: {
         'a trend over recent samples': null, 'one value against its limit': null, 'a headline number with its trend': null, 'a whole split into parts': null,
+        'progress in equal segments': null,
       },
     },
     'a picture or a video': {
