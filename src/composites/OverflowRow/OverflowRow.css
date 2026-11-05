@@ -1,0 +1,52 @@
+/* @layer renderer-components @kind style */
+.overflow-row {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  flex-wrap: nowrap;
+  min-inline-size: 0;
+  overflow: hidden;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.overflow-row > * {
+  flex: none;
+}
+
+.overflow-row__menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-xs);
+  min-inline-size: var(--size-160);
+  max-inline-size: min(var(--size-448), 100vw - 2 * var(--space-xs));
+  padding: var(--space-xs);
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-dropdown);
+  z-index: var(--z-modal);
+  pointer-events: auto;
+}
+
+.overflow-row__measure {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-start: 0;
+  inline-size: 0;
+  block-size: 0;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.overflow-row__measure-row {
+  display: flex;
+  inline-size: max-content;
+  gap: var(--space-xs);
+}
+
+.overflow-row__measure-row > * {
+  flex: none;
+}
