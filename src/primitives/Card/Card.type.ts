@@ -26,6 +26,7 @@ interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, 'title'>, CardH
   fill?: boolean;
   flush?: boolean;
   container?: boolean;
+  onActivate?: () => void;
   children: ReactNode;
 }
 

@@ -23,7 +23,7 @@ ItemCard gives every catalogue the same card, with its media, facts and actions 
 
 ## Use something else when
 
-- A box of content under a header row with its own actions. Use `Card` instead.
+- A box of content under a header row with its own actions. Use [Card](Card.md) instead.
 - Many items read as one line each, in a list. Use `ListItemRow` instead.
 - One headline number with its change and a small chart. Use [StatTile](StatTile.md) instead.
 

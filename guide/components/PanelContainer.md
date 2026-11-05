@@ -21,7 +21,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 
 ## Use something else when
 
-- Content needs a card surface, outline or interactive state. Use `Card` instead.
+- Content needs a card surface, outline or interactive state. Use [Card](Card.md) instead.
 
 ## Rules
 

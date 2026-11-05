@@ -26,7 +26,7 @@ SeatCard gives every lobby the same five seats, with who sits there, the held se
 
 - Items of a catalogue the user browses, with media, tags and details. Use [ItemCard](ItemCard.md) instead.
 - Many items read as one line each, in a list. Use `ListItemRow` instead.
-- A box of content under a header row with its own actions. Use `Card` instead.
+- A box of content under a header row with its own actions. Use [Card](Card.md) instead.
 
 ## Rules
 
