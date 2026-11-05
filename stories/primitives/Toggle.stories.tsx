@@ -168,7 +168,7 @@ const Overview = overviewStory({
     'It can carry a `label`, a line of `description` and a `link` to a page about the setting.',
     'The whole row is one label, so a click flips it; `mixed` parks the thumb mid-way until a press sets on.',
     '`hint` reports a one-line description to a [HintLine] while it is pointed at or focused.',
-    '`aria-label` or `aria-labelledby` names it when it has no `label`, such as the name of a [FormRow].',
+    '`aria-label` names it and wins over a shown `label`; `aria-labelledby` can borrow the name of a [FormRow].',
     '`sm` is the compact switch for dense rows; `labelSize` `sm` or `md` sets the label text apart from `size`.',
     '`help` puts a ? after the label that shows its note on hover, focus or click, without flipping it.',
   ],
