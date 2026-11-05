@@ -14490,8 +14490,7 @@
           {
             "name": "submitDisabled",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "rows",

@@ -109,6 +109,14 @@ interface MarkdownEditorSendProps {
   onSubmit: (value: string) => void;
 }
 
+interface MarkdownEditorSendInput {
+  label: string | undefined;
+  value: string;
+  disabled: boolean;
+  submitDisabled: boolean | undefined;
+  onSubmit: ((value: string) => void) | undefined;
+}
+
 interface MarkdownEditorFootProps {
   value: string;
   maxLength?: number;
@@ -151,5 +159,5 @@ interface MarkdownEditorPreviewProps {
 export type {
   MarkdownEditorActionId, MarkdownEditorActionSpec, MarkdownEditorLayout, MarkdownEditorListStyle,
   MarkdownEditorCounterProps, MarkdownEditorCounterTone, MarkdownEditorFootProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode, MarkdownEditorModeOptions,
-  MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorProps, MarkdownEditorSendProps, MarkdownEditorTabsProps, MarkdownEditorToolbarItemsInput, MarkdownEditorToolbarProps, TextEdit,
+  MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorProps, MarkdownEditorSendInput, MarkdownEditorSendProps, MarkdownEditorTabsProps, MarkdownEditorToolbarItemsInput, MarkdownEditorToolbarProps, TextEdit,
 };

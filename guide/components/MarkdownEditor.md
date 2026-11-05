@@ -104,7 +104,7 @@ const NoteForm = ({ save, cancel }: { save: () => void; cancel: () => void }) =>
 - `toolbarEnd` (optional): `ReactNode`.
 - `actions` (optional): `ReactNode`.
 - `submitLabel` (optional): `string`.
-- `submitDisabled` (optional): `boolean`. Default `false`.
+- `submitDisabled` (optional): `boolean`.
 - `rows` (optional): `number`.
 - `onLink` (optional): `MarkdownLinkHandler`.
 - `images` (optional): `MarkdownImages`.
