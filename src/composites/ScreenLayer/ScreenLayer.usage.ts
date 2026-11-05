@@ -27,7 +27,7 @@ const usage = {
   ],
   a11y: [
     'The card and the floating switcher are one modal dialog. Pass labelledBy with the id of a visible title, or label when there is none.',
-    'On open focus moves to the labelledBy title, or to the first control without one; Tab stays inside, and on close focus returns to the opener.',
+    'On open focus moves to the labelledBy title, or to the frame without one, so no control shows a ring; Tab stays inside, and on close focus returns to the opener.',
     'While open, the siblings of the layer in its parent are inert: put the page it covers beside it, and keep a title bar outside that parent.',
     'hidden takes the layer out of the page and out of the accessibility tree, and keeps its content mounted.',
     'Pass onClose and Escape calls it, after every menu, popover and dialog above the layer; a hidden layer takes no Escape.',

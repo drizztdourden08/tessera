@@ -5,6 +5,7 @@
   position: fixed;
   inset: 0;
   z-index: var(--z-modal);
+  overflow: hidden;
   pointer-events: none;
 }
 
@@ -38,6 +39,7 @@
   border-bottom: var(--border-width-thin) solid var(--c-border);
 }
 
+.drawer__panel:focus,
 .drawer__panel :is(h1, h2, h3, h4, h5, h6)[tabindex='-1']:focus {
   outline: none;
 }
