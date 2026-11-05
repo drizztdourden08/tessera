@@ -3,6 +3,8 @@ export { FilterBar } from '../FilterBar';
 export type { FilterBarProps, FilterTokenParser } from '../FilterBar';
 export { GroupControl } from '../GroupControl';
 export type { GroupControlProps, ViewOption } from '../GroupControl';
+export { RecordCard } from '../RecordCard';
+export type { RecordCardDensity, RecordCardProps } from '../RecordCard';
 export { SortControl } from '../SortControl';
 export type { SortControlProps, SortDirection, SortState } from '../SortControl';
 export { ViewControls } from '../ViewControls';
