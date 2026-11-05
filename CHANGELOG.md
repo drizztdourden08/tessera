@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.107.1
+
+### Patch Changes
+
+- Regenerated tokens.css, tokens.json and splash-tokens.css. They now carry the ChronoType font face, --font-chrono and the darker ChronoKi surfaces. Lint fails when these files no longer match their sources.
+
 ## 0.107.0
 
 ### Minor Changes
