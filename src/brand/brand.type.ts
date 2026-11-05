@@ -54,6 +54,12 @@ interface BrandWordmarkSpec {
 
 type BrandAppIcon = 'straight' | 'tile';
 
+interface BrandIconOutline {
+  colour: string;
+  ratio: number;
+  minPx: number;
+}
+
 type ScenePoint = readonly [x: number, y: number];
 
 interface BrandPiece {
@@ -131,7 +137,7 @@ interface BrandInfo {
   placement: string;
   mark: BrandMarkData;
   iconMark?: BrandMarkData;
-  iconOutline?: string;
+  iconOutline?: BrandIconOutline;
   twin?: BrandMarkData;
   fileTypes?: BrandFileTypes;
   mascot?: BrandMascot;
@@ -141,7 +147,7 @@ interface BrandInfo {
 }
 
 export type {
-  BrandApp, BrandAppIcon, BrandCurrentInk, BrandGradient, BrandGradientStops, BrandInfo, BrandInkTone, BrandInks, BrandMarkData, BrandMarkDetailLevel, BrandMarkGround, BrandMarkPath,
+  BrandApp, BrandAppIcon, BrandIconOutline, BrandCurrentInk, BrandGradient, BrandGradientStops, BrandInfo, BrandInkTone, BrandInks, BrandMarkData, BrandMarkDetailLevel, BrandMarkGround, BrandMarkPath,
   BrandMascot, BrandMascotVariant, BrandPiece, BrandSceneData, BrandWordmarkSpec, MascotPose, SceneGroupNode, SceneNode, ScenePieceNode,
   ScenePoint, SceneTurn,
 };

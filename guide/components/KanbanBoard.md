@@ -35,6 +35,9 @@ KanbanBoard keeps the move, the keys, the counts and the fold the same in every 
 - Read to.index as the place the card has after the move, in its new column; moveCard applies a move to the columns for you.
 - Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.
 - Pass onCardOpen to open a card: it gets the card id on a plain click of the card, never after a drag and never for a click inside a button, link, input, textarea, select or an element with role menu, menuitem or button, so controls inside renderCard keep their own click.
+- Give cards a group key (group on the card data) to frame them: consecutive cards in one column with the same key sit inside one frame with a slim top bar, such as the subtasks of one parent. Cards with no key look as before.
+- Pass renderGroupHeader to draw the bar from the key, such as the parent icon and title: it gets the group key and the column, and a long header is cut with an ellipsis.
+- The board never changes a card group. A move reports the neighbours the card has after it, above and below (card ids, left out at an end), so the app sets the group of the moved card and the frame forms again from the new order and keys.
 - Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.
 - Pass cardEdgeTone to draw a coloured edge on some cards, such as danger for a card that needs the user; return undefined for a card with no edge.
 - Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.
@@ -71,10 +74,15 @@ interface Task {
   id: string;
   title: string;
   tag: string;
+  group?: string;
 }
 
 const START: KanbanColumn<Task>[] = [
-  { id: 'todo', title: 'To do', cards: [{ id: 't1', title: 'Fix login', tag: 'bug' }] },
+  { id: 'todo', title: 'To do', cards: [
+    { id: 't1', title: 'Fix login', tag: 'bug', group: 'auth' },
+    { id: 't2', title: 'Add reset link', tag: 'feature', group: 'auth' },
+    { id: 't3', title: 'Update docs', tag: 'chore' },
+  ] },
   { id: 'doing', title: 'Doing', cards: [] },
   { id: 'done', title: 'Done', cards: [] },
 ];
@@ -86,6 +94,7 @@ const Tasks = () => {
       label="Sprint"
       columns={columns}
       cardLabel={(task) => task.title}
+      renderGroupHeader={(group) => group}
       renderCard={(task) => (
         <>
           <Text>{task.title}</Text>
@@ -104,6 +113,7 @@ const Tasks = () => {
 - `renderCard`: `(card: Card) => ReactNode`.
 - `onMove`: `(move: KanbanMove) => void`.
 - `onCardOpen` (optional): `(cardId: string) => void`.
+- `renderGroupHeader` (optional): `(group: string, column: KanbanColumn<Card>) => ReactNode`.
 - `cardLabel` (optional): `(card: Card) => string`.
 - `cardEdgeTone` (optional): `(card: Card) => CardTone | undefined`.
 - `columnWidth` (optional): `KanbanColumnWidth`, one of `'fixed'`, `'fill'`. Default `'fixed'`.
@@ -119,7 +129,7 @@ const Tasks = () => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-focus`, `--c-primary-bright`, `--c-primary-soft`, `--c-text-dim`, `--c-text-muted`, `--opacity-muted`, `--size-1`, `--size-2`, `--size-224`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-focus`, `--c-primary-bright`, `--c-primary-soft`, `--c-surface`, `--c-text-dim`, `--c-text-muted`, `--opacity-muted`, `--radius-lg`, `--size-1`, `--size-2`, `--size-224`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
 
 ## Also exported from this folder
 
