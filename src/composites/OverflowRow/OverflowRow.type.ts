@@ -1,9 +1,15 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode, RefObject } from 'react';
 
+interface OverflowRowNodeState {
+  tight: boolean;
+}
+
+type OverflowRowNode = ReactNode | ((state: OverflowRowNodeState) => ReactNode);
+
 interface OverflowRowItem {
   id: string;
-  node: ReactNode;
+  node: OverflowRowNode;
   priority?: number;
   pinned?: boolean;
   menuNode?: ReactNode;
@@ -13,6 +19,11 @@ interface OverflowRowProps {
   items: readonly OverflowRowItem[];
   moreLabel?: string;
   className?: string;
+}
+
+interface FoldResult {
+  folded: readonly string[];
+  tight: boolean;
 }
 
 interface FoldParams {
@@ -40,4 +51,4 @@ interface OverflowRowMoreProps {
   label: string;
 }
 
-export type { FoldInput, FoldParams, OverflowRowItem, OverflowRowMeasureProps, OverflowRowMoreProps, OverflowRowProps };
+export type { FoldInput, FoldParams, FoldResult, OverflowRowItem, OverflowRowMeasureProps, OverflowRowMoreProps, OverflowRowNode, OverflowRowNodeState, OverflowRowProps };

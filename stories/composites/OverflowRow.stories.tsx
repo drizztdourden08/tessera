@@ -5,7 +5,7 @@ import { Box } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import type { StateProps } from '../_template/states/states.type';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
-import { headerItems } from './_samples/overflow-row-items';
+import { headerItems, tightItems } from './_samples/overflow-row-items';
 import './OverflowRow.stories.css';
 
 type OverflowRowArgs = {
@@ -44,6 +44,11 @@ const Wide = {
   render: () => <Box className="overflow-row-story" data-width="768"><OverflowRow items={headerItems()} /></Box>,
 } satisfies StoryLiteStoryDefinition<OverflowRowArgs>;
 
+const Tight = {
+  name: 'Pinned item shrinks when tight',
+  render: () => <Box className="overflow-row-story" data-width="256"><OverflowRow items={tightItems()} /></Box>,
+} satisfies StoryLiteStoryDefinition<OverflowRowArgs>;
+
 const CODE = `import { OverflowRow } from '@drizztdourden08/tessera';
 
 <OverflowRow
@@ -62,12 +67,13 @@ const Overview = overviewStory({
     '`items` keep their order; each has an `id` and a `node`.',
     'A higher `priority` stays longer; the lowest priority unpinned item folds first.',
     '`pinned` items never fold.',
+    '`node` may be a function of `{ tight }`; tight is true when the pinned items alone overflow.',
     '`menuNode` is how an item looks inside the popover; it defaults to `node`.',
     'The More button shows only when something is folded; Escape or a press outside closes the popover and focus goes back to the button.',
   ],
   instead: '[ActionBar] for actions on one item, or [Toolbar] for tools.',
   playground: Playground,
-  variants: [Narrow, Wide],
+  variants: [Narrow, Wide, Tight],
   states: {
     render: (props: StateProps) => <Box className="overflow-row-story" data-width="384"><OverflowRow items={headerItems()} {...props} /></Box>,
     list: [
@@ -78,4 +84,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Narrow, Overview, Playground, Wide };
+export { Narrow, Overview, Playground, Tight, Wide };

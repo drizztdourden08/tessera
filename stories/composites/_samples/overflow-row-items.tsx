@@ -19,4 +19,10 @@ const headerItems = (): readonly OverflowRowItem[] => [
   { id: 'gear', pinned: true, node: <IconButton label="Settings" variant="ghost"><Icon name="settings" /></IconButton> },
 ];
 
-export { headerItems };
+const tightItems = (): readonly OverflowRowItem[] => [
+  { id: 'name', pinned: true, node: ({ tight }) => <Text as="span" variant="title">{tight ? 'Keysanity' : 'Keysanity multiworld board'}</Text> },
+  { id: 'status', priority: 5, node: <Tag variant="urgency" color="success">Running</Tag> },
+  { id: 'gear', pinned: true, node: <IconButton label="Settings" variant="ghost"><Icon name="settings" /></IconButton> },
+];
+
+export { headerItems, tightItems };

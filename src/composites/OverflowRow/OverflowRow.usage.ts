@@ -17,6 +17,7 @@ const usage = {
     'Give each item a stable id; the id decides what is folded.',
     'Give a higher priority to what must stay longer; the lowest priority unpinned item folds first, and the later one on a tie.',
     'Set pinned on what must always show, such as the name and the settings button.',
+    'Give node as a function of { tight } when a pinned item must shrink: tight is true only when the pinned items alone overflow, after every unpinned item is folded. The hidden measure copy and the menu always get tight false.',
     'Set menuNode when an item needs another look inside the popover, such as a label next to an icon button; it defaults to node.',
     'Set moreLabel only when the default More does not fit the screen.',
   ],
@@ -47,6 +48,12 @@ const BoardHeader = ({ name, players, onSettings }: BoardHeaderProps) => {
     { id: 'settings', pinned: true, node: <IconButton label="Settings" onClick={onSettings}><Icon name="settings" /></IconButton> },
   ];
   return <OverflowRow items={items} />;
+};
+
+const tabsItem: OverflowRowItem = {
+  id: 'tabs',
+  pinned: true,
+  node: ({ tight }) => <Tabs items={tabs} value={tab} onChange={setTab} iconOnly={tight} />,
 };
 `,
   propsHash: '71b7979a54068661',

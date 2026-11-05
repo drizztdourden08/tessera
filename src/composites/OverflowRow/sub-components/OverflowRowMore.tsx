@@ -4,6 +4,7 @@ import { Anchored } from '../../../primitives/Anchored';
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
+import { renderNode } from '../behavior/render-node';
 import type { OverflowRowMoreProps } from '../OverflowRow.type';
 
 const OverflowRowMore = (props: OverflowRowMoreProps) => {
@@ -22,7 +23,7 @@ const OverflowRowMore = (props: OverflowRowMoreProps) => {
       </IconButton>
       {open && (
         <Anchored anchorRef={buttonRef} placement="bottom-end" className="overflow-row__menu" role="group" aria-label={label} onDismiss={close}>
-          {folded.map((item) => <Box key={item.id}>{item.menuNode ?? item.node}</Box>)}
+          {folded.map((item) => <Box key={item.id}>{item.menuNode ?? renderNode(item.node, false)}</Box>)}
         </Anchored>
       )}
     </>
