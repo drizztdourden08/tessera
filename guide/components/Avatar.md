@@ -35,6 +35,7 @@ Avatar answers who an item belongs to with a small round mark.
 - Set shape square for a rounded square instead of a circle, for a team or a workspace.
 - Set color to one of the category colours so a person keeps one colour on every screen.
 - Set size xs for 16 px on a card, sm for 24 px in a pane and lg for 48 px on a profile or detail header.
+- Set status running, quiet or fault to draw a dot in the bottom right corner; the status word joins the label, and none draws nothing.
 - Set variant owner for the signed-in person; it draws a ring around the circle.
 
 ## Accessibility
@@ -66,6 +67,7 @@ const Assignees = () => (
 - `size` (optional): `AvatarSize`, one of `'xs'`, `'sm'`, `'lg'`.
 - `variant` (optional): `AvatarVariant`, one of `'default'`, `'owner'`.
 - `shape` (optional): `AvatarShape`, one of `'circle'`, `'square'`.
+- `status` (optional): `AvatarStatus`, one of `'running'`, `'quiet'`, `'fault'`, `'none'`.
 - `className` (optional): `string`.
 - `initials` (optional): `string`.
 - `icon` (optional): `IconName`.
@@ -73,4 +75,4 @@ const Assignees = () => (
 
 ## Tokens
 
-It draws on `--border-width-thin`, `--c-primary`, `--c-tag-amber`, `--c-tag-amber-soft`, `--c-tag-blue`, `--c-tag-blue-soft`, `--c-tag-cyan`, `--c-tag-cyan-soft`, `--c-tag-green`, `--c-tag-green-soft`, `--c-tag-lime`, `--c-tag-lime-soft`, `--c-tag-orange`, `--c-tag-orange-soft`, `--c-tag-pink`, `--c-tag-pink-soft`, `--c-tag-rose`, `--c-tag-rose-soft`, `--c-tag-teal`, `--c-tag-teal-soft`, `--c-tag-violet`, `--c-tag-violet-soft`, `--c-text-dim`, `--c-text-dim-soft`, `--c-text-muted`, `--radius-round`, `--radius-sm`, `--size-1`, `--size-10`, `--size-16`, `--size-20`, `--size-24`, `--size-48`, `--size-8`, `--weight-semi`.
+It draws on `--border-width-thin`, `--c-danger`, `--c-primary`, `--c-success`, `--c-surface`, `--c-tag-amber`, `--c-tag-amber-soft`, `--c-tag-blue`, `--c-tag-blue-soft`, `--c-tag-cyan`, `--c-tag-cyan-soft`, `--c-tag-green`, `--c-tag-green-soft`, `--c-tag-lime`, `--c-tag-lime-soft`, `--c-tag-orange`, `--c-tag-orange-soft`, `--c-tag-pink`, `--c-tag-pink-soft`, `--c-tag-rose`, `--c-tag-rose-soft`, `--c-tag-teal`, `--c-tag-teal-soft`, `--c-tag-violet`, `--c-tag-violet-soft`, `--c-text-dim`, `--c-text-dim-soft`, `--c-text-muted`, `--radius-round`, `--radius-sm`, `--size-1`, `--size-10`, `--size-12`, `--size-16`, `--size-20`, `--size-24`, `--size-48`, `--size-6`, `--size-8`, `--weight-semi`.
