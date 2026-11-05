@@ -27,6 +27,11 @@
   --avatar-text: var(--size-10);
 }
 
+.avatar--lg {
+  --avatar-size: var(--size-48);
+  --avatar-text: var(--size-20);
+}
+
 .avatar--square {
   border-radius: var(--radius-sm);
 }

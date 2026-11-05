@@ -2,7 +2,7 @@
 import type { IconName } from '../Icon/Icon.type';
 import type { TagCategoryColor } from '../Tag/Tag.type';
 
-type AvatarSize = 'xs' | 'sm';
+type AvatarSize = 'xs' | 'sm' | 'lg';
 
 type AvatarVariant = 'default' | 'owner';
 
