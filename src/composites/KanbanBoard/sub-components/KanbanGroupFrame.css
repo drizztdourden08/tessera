@@ -1,0 +1,46 @@
+/* @layer renderer-components @kind style */
+.kanban__item[data-group] {
+  padding-inline: var(--space-xs);
+  border-inline: var(--border-width-thin) solid var(--c-border-strong);
+}
+
+.kanban__item[data-group='middle'],
+.kanban__item[data-group='last'] {
+  margin-block-start: calc(-1 * var(--space-sm));
+  padding-block-start: var(--space-sm);
+}
+
+.kanban__item[data-group='first'],
+.kanban__item[data-group='only'] {
+  padding-block-start: 0;
+  border-start-start-radius: var(--radius-lg);
+  border-start-end-radius: var(--radius-lg);
+  border-block-start: var(--border-width-thin) solid var(--c-border-strong);
+}
+
+.kanban__item[data-group='last'],
+.kanban__item[data-group='only'] {
+  padding-block-end: var(--space-xs);
+  border-end-start-radius: var(--radius-lg);
+  border-end-end-radius: var(--radius-lg);
+  border-block-end: var(--border-width-thin) solid var(--c-border-strong);
+}
+
+.kanban__group-bar {
+  margin-inline: calc(-1 * var(--space-xs));
+  margin-block-end: var(--space-xs);
+  padding: var(--space-2xs) var(--space-xs);
+  overflow: hidden;
+  background: var(--c-surface);
+  border-start-start-radius: var(--radius-lg);
+  border-start-end-radius: var(--radius-lg);
+  color: var(--c-text-dim);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semi);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kanban__group-bar:empty {
+  display: none;
+}

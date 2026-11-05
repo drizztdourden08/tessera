@@ -11,13 +11,14 @@ import { boardMove } from './board-move';
 import { cardPlace } from './card-place';
 import { inColumnMove } from './in-column-move';
 import { listOfColumn } from './list-of-column';
+import { moveNeighbours } from './move-neighbours';
 import { sideMove } from './side-move';
 import { slotAt } from './slot-at';
 import { useCardOpen } from './useCardOpen';
 import { useCollapsedColumns } from './useCollapsedColumns';
 
 const useKanbanBoard = <Card extends KanbanCardData>(props: KanbanBoardProps<Card>) => {
-  const { columns, renderCard, onMove, cardLabel = (card: Card) => card.id, cardEdgeTone, grip = true, foldable = true, onCardOpen } = props;
+  const { columns, renderCard, onMove, cardLabel = (card: Card) => card.id, cardEdgeTone, grip = true, foldable = true, onCardOpen, renderGroupHeader } = props;
   const { kanbanBoard } = useTesseraStrings();
   const boardRef = useRef<HTMLElement>(null);
   const landingRef = useRef<HTMLElement | null>(null);
@@ -36,7 +37,7 @@ const useKanbanBoard = <Card extends KanbanCardData>(props: KanbanBoardProps<Car
       landingRef.current = listOfColumn(boardRef.current, target.id);
       focus.expect(move.cardId);
     }
-    onMove(move);
+    onMove(moveNeighbours(columns, move));
   };
 
   const drag = useReorderDrag({
@@ -71,7 +72,7 @@ const useKanbanBoard = <Card extends KanbanCardData>(props: KanbanBoardProps<Car
 
   const onCardClick = useCardOpen<Card>(drag.dragging, onCardOpen);
 
-  const shared: KanbanShared<Card> = { columns, renderCard, cardLabel, cardEdgeTone, grip, foldable, drag, onCardKeyDown, onCardClick, onToggle: fold.toggle };
+  const shared: KanbanShared<Card> = { columns, renderCard, renderGroupHeader, cardLabel, cardEdgeTone, grip, foldable, drag, onCardKeyDown, onCardClick, onToggle: fold.toggle };
   return { boardRef, shared, collapsed: folded, message: focus.message };
 };
 

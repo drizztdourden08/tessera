@@ -4,6 +4,8 @@ import { Badge } from '../../../primitives/Badge';
 import { Box } from '../../../primitives/Box';
 import { Span } from '../../../primitives/text-elements';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
+import { framePart } from '../behavior/frame-part';
+import { groupRuns } from '../behavior/group-runs';
 import { sizesOf } from '../behavior/sizes-of';
 import { slotOf } from '../behavior/slot-of';
 import { NO_END } from '../KanbanBoard.constants';
@@ -36,9 +38,18 @@ const KanbanLane = <Item extends KanbanCardData>({ column, index, collapsed, sha
       <KanbanLaneHead column={column} toggle={toggle} />
       {top != null && <Box className="kanban__top">{top}</Box>}
       <Box as="ul" id={listId} aria-label={title} className="kanban__list" data-board-list={id} data-drop={endMark && cards.length === 0 ? 'before' : undefined}>
-        {cards.map((card, at) => (
-          <KanbanCard key={card.id} card={card} slot={start + at} last={endMark && at === cards.length - 1} shared={shared} />
-        ))}
+        {groupRuns(cards).flatMap(({ group, cards: run }) =>
+          run.map(({ card, at }, place) => (
+            <KanbanCard
+              key={card.id}
+              card={card}
+              frame={group === undefined ? undefined : { group, column, part: framePart(place, run.length) }}
+              slot={start + at}
+              last={endMark && at === cards.length - 1}
+              shared={shared}
+            />
+          )),
+        )}
         {cards.length === 0 && <Box as="li" className="kanban__empty">{kanbanBoard.empty}</Box>}
       </Box>
     </Box>
