@@ -19,6 +19,7 @@ const usage = {
     'Set shape square for a rounded square instead of a circle, for a team or a workspace.',
     'Set color to one of the category colours so a person keeps one colour on every screen.',
     'Set size xs for 16 px on a card, sm for 24 px in a pane and lg for 48 px on a profile or detail header.',
+    'Set status running, quiet or fault to draw a dot in the bottom right corner; the status word joins the label, and none draws nothing.',
     'Set variant owner for the signed-in person; it draws a ring around the circle.',
   ],
   a11y: [

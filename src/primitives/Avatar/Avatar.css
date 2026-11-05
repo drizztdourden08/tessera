@@ -4,6 +4,7 @@
   flex: none;
   align-items: center;
   justify-content: center;
+  position: relative;
   box-sizing: border-box;
   width: var(--avatar-size);
   height: var(--avatar-size);
@@ -20,16 +21,19 @@
 .avatar--xs {
   --avatar-size: var(--size-16);
   --avatar-text: var(--size-8);
+  --avatar-dot: var(--size-6);
 }
 
 .avatar--sm {
   --avatar-size: var(--size-24);
   --avatar-text: var(--size-10);
+  --avatar-dot: var(--size-8);
 }
 
 .avatar--lg {
   --avatar-size: var(--size-48);
   --avatar-text: var(--size-20);
+  --avatar-dot: var(--size-12);
 }
 
 .avatar--square {
@@ -52,4 +56,27 @@
 .avatar--unassigned {
   border: var(--border-width-thin) dashed var(--c-text-muted);
   background: none;
+}
+
+.avatar__status {
+  --avatar-status-ink: var(--c-text-muted);
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  box-sizing: content-box;
+  width: var(--avatar-dot);
+  height: var(--avatar-dot);
+  border: var(--size-1) solid var(--c-surface);
+  border-radius: var(--radius-round);
+  background: var(--avatar-status-ink);
+  transform: translate(25%, 25%);
+}
+
+.avatar__status--running {
+  --avatar-status-ink: var(--c-success);
+}
+
+.avatar__status--fault {
+  --avatar-status-ink: var(--c-danger);
 }
