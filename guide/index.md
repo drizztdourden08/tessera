@@ -20,7 +20,7 @@ One line per component. 140 of 249 have their usage written; a linked name opens
 - `Checkbox`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorSwatch`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Combobox`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- [ContentSwap](components/ContentSwap.md): Shows its content and, when the key changes, moves from the old content to the new with a fade, a slide or a scale, without the layout jumping. Import from `@drizztdourden08/tessera`.
+- [ContentSwap](components/ContentSwap.md): Shows its content and, when the key changes, moves from the old content to the new with a fade, a slide, a scale or a reflow of its items, without the layout jumping. Import from `@drizztdourden08/tessera`.
 - [DensityScope](components/DensityScope.md): Sets how dense the form parts inside it are, once for a whole panel, such as an inspector beside a canvas. Import from `@drizztdourden08/tessera`.
 - [Disclosure](components/Disclosure.md): A line, such as Details or Show log, that shows or hides the content under it when clicked. Import from `@drizztdourden08/tessera`.
 - `Divider`: usage not written yet. Import from `@drizztdourden08/tessera`.

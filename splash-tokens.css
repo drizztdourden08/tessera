@@ -469,6 +469,10 @@
   --duration-volume-morph: calc(0.26s * 1.5);
   --duration-armed-loop: 1.4s;
   --duration-hero-pan: 60s;
+  --duration-reflow: 0.16s;
+  --duration-reflow-step: 0.02s;
+  --duration-reflow-span: calc(0.16s + 0.02s * 7);
+  --duration-reflow-total: calc(calc(0.16s + 0.02s * 7) * 2);
   --duration-step-skip: calc(calc(0.52s * 0.4) + calc(0.38s * 0.4) + calc(0.46s * 0.4));
   --ease-standard: ease;
   --ease-in-out: ease-in-out;

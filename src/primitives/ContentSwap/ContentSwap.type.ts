@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
 
-type ContentSwapEffect = 'fade' | 'slide' | 'scale';
+type ContentSwapEffect = 'fade' | 'slide' | 'scale' | 'reflow';
 
 type ContentSwapDirection = 'forward' | 'back';
 

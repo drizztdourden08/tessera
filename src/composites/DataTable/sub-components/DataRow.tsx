@@ -33,6 +33,7 @@ const DataRow = <T,>(props: DataRowProps<T>) => {
       {...placeProps(selected ? 'data-table__row data-table__row--selected' : 'data-table__row', index, true)}
       ref={ref}
       role="row"
+      data-swap-item=""
       aria-selected={selected}
       onClick={handleClick}
       onMouseDown={handleMouseDown}
