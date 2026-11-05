@@ -4,12 +4,7 @@ import type { ReactNode, RefObject } from 'react';
 import { useReducedMotion } from '../../dom/useReducedMotion';
 import type { ContentSwapLayer, ContentSwapSequence } from '../ContentSwap.type';
 import { nextLeaving } from './next-leaving';
-
-interface LeavingLayer {
-  leaving: ContentSwapLayer | null;
-  entering: boolean;
-  finish: () => void;
-}
+import type { LeavingLayer } from './useLeavingLayer.type';
 
 const useLeavingLayer = (
   swapKey: string | number,
