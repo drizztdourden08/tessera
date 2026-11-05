@@ -18,6 +18,12 @@
   margin-inline-start: auto;
 }
 
+.overflow-row > .overflow-row__shrink {
+  display: flex;
+  flex: 0 1 auto;
+  min-inline-size: 0;
+}
+
 .overflow-row__menu {
   display: flex;
   flex-direction: column;

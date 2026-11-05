@@ -13,6 +13,7 @@ interface OverflowRowItem {
   priority?: number;
   pinned?: boolean;
   end?: boolean;
+  shrink?: boolean;
   menuNode?: ReactNode;
 }
 
