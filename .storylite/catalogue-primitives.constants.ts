@@ -22,6 +22,7 @@ const PRIMITIVES_TIER: CatalogueTier = {
         { name: 'Portal', summary: 'Renders into a shared layer, for overlays not tied to a trigger.' },
         { name: 'Anchored', summary: 'A popup the browser pins to its trigger, with no scroll lag.' },
         { name: 'Overlay', summary: 'A dimmed layer over a panel or the window, with content on top.' },
+        { name: 'ContentSwap', summary: 'Content that fades, slides or scales from the old to the new when its key changes.' },
       ],
     },
     {

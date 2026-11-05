@@ -140,6 +140,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - A side panel with a heading that folds to a rail: [SidePanel](components/SidePanel.md). SidePanel is the one side panel of a work screen: the sunken surface, neutral heading, dashed outside border with its overlapping fold button, the rail and the drag to resize or fold.
   - The button that folds a panel to its edge: [CollapseToggle](components/CollapseToggle.md). CollapseToggle is the one fold button of every Tessera panel: SideNav, SidePanel, StudioLayout and ListDetailLayout all draw it.
   - One slide at a time from a set: [Carousel](components/Carousel.md). Carousel shows one slide at a time with dots and arrows, and can turn by itself.
+  - Content that changes with a key: no component yet.
   - A list beside an editor, with unsaved edits guarded: [ListDetail](components/ListDetail.md). ListDetail joins ItemList and ListDetailLayout and asks the same question before edits are lost in every app.
   - A list, an editor and an inspector side by side: [StudioLayout](components/StudioLayout.md). StudioLayout draws every studio screen the same way: a raised bar, two SidePanels and a ToolFrame for the editor.
   - A frame with a toolbar on its top edge: [ToolFrame](components/ToolFrame.md). ToolFrame is the one frame with tools on its top edge: StudioLayout holds its editor in it and LogPanel its lines.

@@ -100,6 +100,7 @@ const LAYOUT = {
     'content that scrolls': null, 'a full-height page that scrolls inside one frame': null, 'more content behind a line that shows or hides it': null, 'a list beside its detail': null, 'two panes the user resizes': null,
     'a side panel the user drags wider': null, 'a side panel with a heading that folds to a rail': null, 'the button that folds a panel to its edge': null,
     'one slide at a time from a set': null,
+    'content that changes with a key': null,
     'a list beside an editor, with unsaved edits guarded': null, 'a list, an editor and an inspector side by side': null, 'a frame with a toolbar on its top edge': null,
     'an app frame with its navigation': null, 'panels the user docks and moves': null, 'toolbars the user docks on the edges of a work area': null,
     'a header with an icon and a title over a block': null, 'a picture, a colour or a scene behind a block': null,

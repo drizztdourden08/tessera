@@ -566,6 +566,8 @@ input, select {
   --duration-fast:   0.1s;
   --duration-normal: 0.15s;
   --duration-slow:   0.26s;
+  --duration-palette: 0.32s;
+  --scale-swap: 0.96;
   --duration-drawer: 0.38s;
   --duration-twinkle: 3.5s;
   --duration-status-breathe: 3s;
