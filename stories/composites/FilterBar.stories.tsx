@@ -4,7 +4,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { FilterBar } from '../../src/composites';
 import { createClause } from '../../src/data';
 import type { FilterClause } from '../../src/data';
-import { Box } from '../../src/primitives';
+import { Box, Select } from '../../src/primitives';
 import { overviewStory } from '../_template/overview-story';
 import { STATE } from '../_template/states/states.constants';
 import type { StateProps } from '../_template/states/states.type';
@@ -70,6 +70,26 @@ const TypedTokens = {
   render: () => <FilterDemo withClauses parseToken placeholder="Try status:playing or deathLink:yes" startWith={NO_CLAUSES} />,
 } satisfies StoryLiteStoryDefinition<FilterBarArgs>;
 
+const SORT_OPTIONS = [{ value: 'name', label: 'Sort by name' }, { value: 'checked', label: 'Sort by checks' }];
+const GROUP_OPTIONS = [{ value: 'none', label: 'No grouping' }, { value: 'game', label: 'Group by game' }];
+
+const NarrowExtra = {
+  name: 'extra: its fields wrap inside a narrow bar',
+  render: () => (
+    <Box className="filter-bar-story filter-bar-story--narrow">
+      <FilterBar
+        search=""
+        onSearchChange={() => undefined}
+        searchLabel="Search players"
+        extra={[
+          <Select key="sort" aria-label="Sort" size="sm" value="name" options={SORT_OPTIONS} onChange={() => undefined} />,
+          <Select key="group" aria-label="Group" size="sm" value="none" options={GROUP_OPTIONS} onChange={() => undefined} />,
+        ]}
+      />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<FilterBarArgs>;
+
 const ON_CLAUSES: readonly FilterClause[] = [createClause('status', 'anyOf', ['playing']), createClause('checked', 'gte', 100)];
 const OFF_CLAUSES: readonly FilterClause[] = ON_CLAUSES.map((clause) => ({ ...clause, enabled: false }));
 
@@ -113,7 +133,7 @@ const Overview = overviewStory({
     '**It filters nothing itself:** `onChange` reports the `clauses`, and `compile` turns them into a row test.',
   ],
   playground: Playground,
-  variants: [SearchOnly, Empty, EveryKind, FoldedChips, TypedTokens],
+  variants: [SearchOnly, Empty, EveryKind, FoldedChips, TypedTokens, NarrowExtra],
   states: {
     render: renderState,
     list: [
@@ -127,4 +147,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { Empty, EveryKind, FoldedChips, Overview, Playground, SearchOnly, TypedTokens };
+export { Empty, EveryKind, FoldedChips, NarrowExtra, Overview, Playground, SearchOnly, TypedTokens };
