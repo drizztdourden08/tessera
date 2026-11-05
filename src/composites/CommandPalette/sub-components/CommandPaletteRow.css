@@ -21,6 +21,7 @@
 
 .command-palette-row__icon {
   display: inline-flex;
+  align-items: center;
   flex: none;
   justify-content: center;
   width: var(--size-24);
