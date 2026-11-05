@@ -15,6 +15,7 @@ import { IconEffectSpecimen } from './IconEffectSpecimen';
 import { IconEffectsGallery } from './IconEffectsGallery';
 import { IconGallery } from './IconGallery';
 import { IconOwnPaths } from './IconOwnPaths';
+import { IconTextRows } from './IconTextRows';
 import { PixelIconGallery } from './PixelIconGallery';
 import { PixelIconGuide } from './PixelIconGuide';
 import './icons.stories.css';
@@ -129,6 +130,11 @@ const Transforms = {
   ),
 } satisfies StoryLiteStoryDefinition<IconArgs>;
 
+const WithText = {
+  name: 'Icon and text rows',
+  render: () => <IconTextRows />,
+} satisfies StoryLiteStoryDefinition<IconArgs>;
+
 const Effects = {
   name: 'Effects',
   render: () => <IconEffectsGallery />,
@@ -179,10 +185,10 @@ const Overview = overviewStory({
   ],
   instead: '[EmojiIcon] for a colour emoji.',
   playground: Playground,
-  variants: [NamedSet, PixelSet, Transforms, Effects, Hues, AnyIcon, OwnPaths],
+  variants: [NamedSet, PixelSet, Transforms, WithText, Effects, Hues, AnyIcon, OwnPaths],
   sections: [{ title: 'Pixel icon style guide', node: <PixelIconGuide /> }],
   code: CODE,
 });
 
 export default meta;
-export { AnyIcon, Effects, Hues, NamedSet, Overview, OwnPaths, PixelSet, Playground, Transforms };
+export { AnyIcon, Effects, Hues, NamedSet, Overview, OwnPaths, PixelSet, Playground, Transforms, WithText };

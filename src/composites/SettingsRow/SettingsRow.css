@@ -104,6 +104,7 @@
 
 .settings-row__control {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
   min-width: 0;
   max-width: 100%;
@@ -165,6 +166,7 @@
 
 .settings-row__actions {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
   gap: var(--space-xs);
   justify-content: flex-end;
@@ -222,6 +224,7 @@
 
 .settings-row__value {
   display: inline-flex;
+  align-items: center;
   justify-content: flex-end;
   max-width: var(--settings-row-control-w);
   color: var(--c-text);

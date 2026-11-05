@@ -12,6 +12,7 @@
 
 .signal-strip__item {
   display: flex;
+  align-items: center;
   flex: none;
 }
 
