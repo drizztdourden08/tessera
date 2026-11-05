@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.127.2
+
+### Patch Changes
+
+- SignalStrip mark2 avatars and brand marks show at the 12 px chip icon size, with the owner ring and brand rim inside.
+
 ## 0.127.1
 
 ### Patch Changes
