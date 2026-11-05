@@ -24,10 +24,12 @@
 .flex[data-align='stretch'] { align-items: stretch; }
 .flex[data-align='baseline'] { align-items: baseline; }
 .flex[data-align='first-line'] { align-items: flex-start; }
+
 .flex[data-align='first-line'] > :not(.text) {
   min-block-size: 1lh;
   align-content: center;
 }
+
 .flex[data-align='first-line']:has(> .text) { font-size: var(--text-base); }
 .flex[data-align='first-line']:has(> .text--caption),
 .flex[data-align='first-line']:has(> .text--label),
