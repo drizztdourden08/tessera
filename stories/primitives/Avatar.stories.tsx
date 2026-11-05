@@ -19,7 +19,7 @@ type AvatarArgs = {
 
 const COLORS: readonly TagCategoryColor[] = ['rose', 'orange', 'amber', 'lime', 'green', 'teal', 'cyan', 'blue', 'violet', 'pink'];
 
-const SIZES: readonly AvatarSize[] = ['xs', 'sm'];
+const SIZES: readonly AvatarSize[] = ['xs', 'sm', 'lg'];
 
 const SHAPES: readonly AvatarShape[] = ['circle', 'square'];
 

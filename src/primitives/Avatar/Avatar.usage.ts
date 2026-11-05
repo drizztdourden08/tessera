@@ -18,7 +18,7 @@ const usage = {
     'A picture fills the shape and is cropped to it, named once by label on the avatar, with the picture itself hidden from screen readers; if it fails to load, the initials of the label show instead.',
     'Set shape square for a rounded square instead of a circle, for a team or a workspace.',
     'Set color to one of the category colours so a person keeps one colour on every screen.',
-    'Set size xs for 16 px on a card and sm for 24 px in a pane.',
+    'Set size xs for 16 px on a card, sm for 24 px in a pane and lg for 48 px on a profile or detail header.',
     'Set variant owner for the signed-in person; it draws a ring around the circle.',
   ],
   a11y: [
@@ -37,11 +37,12 @@ const Assignees = () => (
     <Avatar label="You" icon="user" color="violet" variant="owner" size="sm" />
     <Avatar label="Wren Archer" src="/people/wren.png" size="sm" />
     <Avatar label="Platform team" src="/teams/platform.png" shape="square" size="sm" />
+    <Avatar label="Wren Archer" src="/people/wren.png" size="lg" />
     <Avatar label="Unassigned" />
   </>
 );
 `,
-  propsHash: '1a99b8d85560ce48',
+  propsHash: '7c3ad6544fe16d98',
 } satisfies ComponentUsage;
 
 export { usage };
