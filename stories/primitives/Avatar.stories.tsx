@@ -2,7 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { Avatar, Flex } from '../../src/primitives';
-import type { AvatarShape, AvatarSize, AvatarVariant, TagCategoryColor } from '../../src/primitives';
+import type { AvatarShape, AvatarSize, AvatarStatus, AvatarVariant, TagCategoryColor } from '../../src/primitives';
 import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
@@ -20,6 +20,8 @@ type AvatarArgs = {
 const COLORS: readonly TagCategoryColor[] = ['rose', 'orange', 'amber', 'lime', 'green', 'teal', 'cyan', 'blue', 'violet', 'pink'];
 
 const SIZES: readonly AvatarSize[] = ['xs', 'sm', 'lg'];
+
+const STATUSES: readonly AvatarStatus[] = ['running', 'quiet', 'fault', 'none'];
 
 const SHAPES: readonly AvatarShape[] = ['circle', 'square'];
 
@@ -97,6 +99,22 @@ const Picture = {
   ),
 } satisfies StoryLiteStoryDefinition<AvatarArgs>;
 
+const Status = {
+  name: 'Status: a dot in the bottom right corner',
+  render: () => (
+    <Demonstrator
+      rows={axis(STATUSES)}
+      cell={(status) => (
+        <Flex gap="md" align="center">
+          <Avatar label="Wren Archer" initials="WA" color="teal" size="xs" status={status} />
+          <Avatar label="Wren Archer" initials="WA" color="teal" size="sm" status={status} />
+          <Avatar label="Wren Archer" initials="WA" color="teal" size="lg" status={status} />
+        </Flex>
+      )}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<AvatarArgs>;
+
 const Square = {
   name: 'Square: a rounded square',
   render: () => (
@@ -125,13 +143,13 @@ const Overview = overviewStory({
     '`label` is the name of the person; it is the tooltip on hover and the text a screen reader reads.',
     "`initials`, `icon` or a `src` picture: give one. A picture that fails to load shows the label's initials.",
     'With neither it draws a dashed outline circle, the unassigned state.',
-    '`color` picks one of the ten category colours; `size` is `xs` at 16 px or `sm` at 24 px.',
-    '`variant="owner"` draws a ring around the circle so the signed-in person stands out.',
-    '`shape` is `circle` by default or `square`, which takes the small radius token.',
+    '`status` is `running`, `quiet` or `fault`; it draws a dot in the corner and adds the word to the label.',
+    '`color` picks one of the ten category colours; `size` is `xs`, `sm` or `lg`.',
+    '`variant="owner"` draws a ring so the signed-in person stands out; `shape` can be `square`.',
   ],
   instead: '[TypeMark] for the kind of an item, or [Tag] for a value that sorts it into a group.',
   playground: Playground,
-  variants: [Sizes, EveryColor, Owner, Picture, Square, Unassigned],
+  variants: [Sizes, EveryColor, Owner, Picture, Status, Square, Unassigned],
   states: {
     render: () => <Avatar label="Wren Archer" initials="WA" color="teal" size="sm" />,
     list: [
@@ -150,4 +168,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { EveryColor, Overview, Owner, Picture, Playground, Sizes, Square, Unassigned };
+export { EveryColor, Overview, Owner, Picture, Playground, Sizes, Square, Status, Unassigned };

@@ -6,6 +6,8 @@ type AvatarSize = 'xs' | 'sm' | 'lg';
 
 type AvatarVariant = 'default' | 'owner';
 
+type AvatarStatus = 'running' | 'quiet' | 'fault' | 'none';
+
 type AvatarShape = 'circle' | 'square';
 
 type AvatarFace =
@@ -20,6 +22,7 @@ interface AvatarBase {
   size?: AvatarSize;
   variant?: AvatarVariant;
   shape?: AvatarShape;
+  status?: AvatarStatus;
   className?: string;
 }
 
@@ -31,4 +34,4 @@ interface AvatarFaceValue {
   icon?: IconName;
 }
 
-export type { AvatarFaceValue, AvatarProps, AvatarShape, AvatarSize, AvatarVariant };
+export type { AvatarFaceValue, AvatarProps, AvatarShape, AvatarSize, AvatarStatus, AvatarVariant };

@@ -28,7 +28,7 @@ export { Canvas } from '../Canvas';
 export type { CanvasProps } from '../Canvas';
 export { Svg, SvgLine, SvgCircle, SvgRect, SvgPath, SvgText, SvgPolygon, SvgGroup, SvgClipPath } from '../Svg';
 export { Avatar } from '../Avatar';
-export type { AvatarProps, AvatarShape, AvatarSize, AvatarVariant } from '../Avatar';
+export type { AvatarProps, AvatarShape, AvatarSize, AvatarStatus, AvatarVariant } from '../Avatar';
 export { TypeMark } from '../TypeMark';
 export type { TypeMarkProps, TypeMarkSize, TypeMarkTone, TypeMarkVariant } from '../TypeMark';
 export { PixelThumbnail } from '../PixelThumbnail';

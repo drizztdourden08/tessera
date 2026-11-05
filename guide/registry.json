@@ -1080,6 +1080,7 @@
         "Set shape square for a rounded square instead of a circle, for a team or a workspace.",
         "Set color to one of the category colours so a person keeps one colour on every screen.",
         "Set size xs for 16 px on a card, sm for 24 px in a pane and lg for 48 px on a profile or detail header.",
+        "Set status running, quiet or fault to draw a dot in the bottom right corner; the status word joins the label, and none draws nothing.",
         "Set variant owner for the signed-in person; it draws a ring around the circle."
       ],
       "a11y": [
@@ -1094,7 +1095,7 @@
         "rule": "Avatar answers who an item belongs to with a small round mark."
       },
       "example": "import { Avatar } from '@drizztdourden08/tessera';\n\nconst Assignees = () => (\n  <>\n    <Avatar label=\"Wren Archer\" initials=\"WA\" color=\"teal\" />\n    <Avatar label=\"You\" icon=\"user\" color=\"violet\" variant=\"owner\" size=\"sm\" />\n    <Avatar label=\"Wren Archer\" src=\"/people/wren.png\" size=\"sm\" />\n    <Avatar label=\"Platform team\" src=\"/teams/platform.png\" shape=\"square\" size=\"sm\" />\n    <Avatar label=\"Wren Archer\" src=\"/people/wren.png\" size=\"lg\" />\n    <Avatar label=\"Unassigned\" />\n  </>\n);\n",
-      "propsHash": "7c3ad6544fe16d98",
+      "propsHash": "77149adfbfed1e13",
       "props": {
         "own": [
           {
@@ -1148,6 +1149,17 @@
             ]
           },
           {
+            "name": "status",
+            "optional": true,
+            "text": "AvatarStatus",
+            "literals": [
+              "'running'",
+              "'quiet'",
+              "'fault'",
+              "'none'"
+            ]
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -1176,7 +1188,10 @@
       },
       "tokens": [
         "--border-width-thin",
+        "--c-danger",
         "--c-primary",
+        "--c-success",
+        "--c-surface",
         "--c-tag-amber",
         "--c-tag-amber-soft",
         "--c-tag-blue",
@@ -1204,10 +1219,12 @@
         "--radius-sm",
         "--size-1",
         "--size-10",
+        "--size-12",
         "--size-16",
         "--size-20",
         "--size-24",
         "--size-48",
+        "--size-6",
         "--size-8",
         "--weight-semi"
       ],
