@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind logic */
-import { BOM, PROLOG, SVG_ROOT } from './is-svg-text.constants';
+import { PROLOG, SVG_ROOT } from './is-svg-text.constants';
+import { stripBom } from './strip-bom';
 
-const isSvgText = (text: string): boolean => SVG_ROOT.test(text.replace(BOM, '').trim().replace(PROLOG, ''));
+const isSvgText = (text: string): boolean => SVG_ROOT.test(stripBom(text).trim().replace(PROLOG, ''));
 
 export { isSvgText };
