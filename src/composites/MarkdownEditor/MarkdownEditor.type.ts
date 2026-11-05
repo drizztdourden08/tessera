@@ -24,6 +24,7 @@ interface MarkdownEditorProps {
   preview?: boolean;
   toolbarEnd?: ReactNode;
   actions?: ReactNode;
+  submitLabel?: string;
   rows?: number;
   onLink?: MarkdownLinkHandler;
   images?: MarkdownImages;
@@ -99,11 +100,19 @@ interface MarkdownEditorToolbarItemsInput {
   onPickImages?: () => void;
 }
 
+interface MarkdownEditorSendProps {
+  label: string;
+  value: string;
+  disabled: boolean;
+  onSubmit: (value: string) => void;
+}
+
 interface MarkdownEditorFootProps {
   value: string;
   maxLength?: number;
   count?: (text: string) => number;
   actions?: ReactNode;
+  send?: MarkdownEditorSendProps;
 }
 
 interface MarkdownEditorMode {
@@ -140,5 +149,5 @@ interface MarkdownEditorPreviewProps {
 export type {
   MarkdownEditorActionId, MarkdownEditorActionSpec, MarkdownEditorLayout, MarkdownEditorListStyle,
   MarkdownEditorCounterProps, MarkdownEditorCounterTone, MarkdownEditorFootProps, MarkdownEditorKeyEvent, MarkdownEditorKeyIntent, MarkdownEditorKeysInput, MarkdownEditorMode, MarkdownEditorModeOptions,
-  MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorProps, MarkdownEditorTabsProps, MarkdownEditorToolbarItemsInput, MarkdownEditorToolbarProps, TextEdit,
+  MarkdownEditorPreviewProps, MarkdownEditorPreviewToggle, MarkdownEditorProps, MarkdownEditorSendProps, MarkdownEditorTabsProps, MarkdownEditorToolbarItemsInput, MarkdownEditorToolbarProps, TextEdit,
 };
