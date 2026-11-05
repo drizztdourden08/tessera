@@ -119,7 +119,7 @@ const Overview = overviewStory({
     'Drag the grip, or press [[Up]] and [[Down]] to move within a column and [[Left]] and [[Right]] to change column.',
     'Each move is announced, and focus stays on the card, even in its new column.',
     'A head has the count, `badge`, `action`, a fold button and an optional `header` node in place of the title.',
-    '`renderCard` draws the inside of a card; `cardEdgeTone` gives it a coloured edge; `cardFrame="none"` drops the frame.',
+    '`renderCard` draws a card; `cardEdgeTone` gives it a coloured edge; `cardFrame="none"` drops the board frame.',
     'Opt-in looks: `columnWidth="fill"`, `columnHeight="fit"`, `grip={false}`, `foldable={false}` and `stack`.',
   ],
   instead: '[RowGrid] for one list edited in place, or [DataTable] for many records to sort and filter.',
