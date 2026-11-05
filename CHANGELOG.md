@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.121.0
+
+### Minor Changes
+
+- MarkdownEditor takes submitDisabled to turn off only the send button and Mod+Enter while the text stays editable.
+
 ## 0.120.0
 
 ### Minor Changes
