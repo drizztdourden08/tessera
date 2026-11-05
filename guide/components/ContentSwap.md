@@ -40,6 +40,7 @@ ContentSwap replaces content in place and animates the change when its key chang
 
 - The leaving content is hidden from assistive tools; only the new content is read.
 - Under reduced motion the content swaps at once in both sequences, with no animation.
+- The old layer leaves on animationend or after its computed animation time, whichever comes first, so a hidden tab or a test with no styles still shows the new content.
 
 ## Example
 
