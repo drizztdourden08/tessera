@@ -21,6 +21,7 @@ interface RecordCardProps {
   edge?: CardEdge;
   edgeTone?: CardTone;
   variant?: CardVariant;
+  fill?: boolean;
   'aria-label'?: string;
 }
 

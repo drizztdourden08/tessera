@@ -4,6 +4,7 @@ import type { RecordCardDensity } from '../../src/composites';
 import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/playground.type';
 import { overviewStory } from '../_template/overview-story';
 import { RecordCardDemo } from './_samples/RecordCardDemo';
+import { RecordCardGrid } from './_samples/RecordCardGrid';
 import { RecordCardList } from './_samples/RecordCardList';
 import './RecordCard.stories.css';
 
@@ -51,6 +52,11 @@ const Rows = {
   render: () => <RecordCardList />,
 } satisfies StoryLiteStoryDefinition<RecordCardArgs>;
 
+const Fill = {
+  name: 'fill: three open cards in a grid row share one height',
+  render: () => <RecordCardGrid />,
+} satisfies StoryLiteStoryDefinition<RecordCardArgs>;
+
 const Controlled = {
   name: 'Controlled: open and onOpenChange, with a button outside',
   render: () => <RecordCardDemo controlled />,
@@ -80,12 +86,13 @@ const Overview = overviewStory({
     'Folded, the title is in the header; open, the title moves above the children.',
     '`open` with `onOpenChange` controls it; `defaultOpen` starts it open and the card keeps its own state.',
     '`density` is `card` for roomy items or `row` for a compact single line.',
+    '`fill` stretches the card to its grid cell, so a row of cards shares one height.',
   ],
   instead: '[Card] for a plain surface, [ItemCard] for a catalogue tile with media, [Disclosure] for a plain show or hide line.',
   playground: Playground,
-  variants: [Folded, Open, Brand, Rows, Controlled],
+  variants: [Folded, Open, Brand, Rows, Fill, Controlled],
   code: CODE,
 });
 
 export default meta;
-export { Brand, Controlled, Folded, Open, Overview, Playground, Rows };
+export { Brand, Controlled, Fill, Folded, Open, Overview, Playground, Rows };

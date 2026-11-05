@@ -20,6 +20,7 @@ const usage = {
     'Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.',
     'Use density row for a compact list and card for roomy items.',
     'Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.',
+    'Pass fill when cards sit in a grid, so every card of a row takes the full cell height.',
   ],
   a11y: [
     'The chevron is a button with aria-expanded, and aria-controls pointing at the body while it is open.',
@@ -43,7 +44,7 @@ const TaskCard = () => (
   </RecordCard>
 );
 `,
-  propsHash: '4311d56a89744f12',
+  propsHash: 'e3d90a3afb688deb',
 } satisfies ComponentUsage;
 
 export { usage };

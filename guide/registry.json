@@ -17030,7 +17030,8 @@
         "Folded, the title sits in the header and the body is not rendered; open, the title moves above the children, so it shows once.",
         "Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.",
         "Use density row for a compact list and card for roomy items.",
-        "Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card."
+        "Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.",
+        "Pass fill when cards sit in a grid, so every card of a row takes the full cell height."
       ],
       "a11y": [
         "The chevron is a button with aria-expanded, and aria-controls pointing at the body while it is open.",
@@ -17045,7 +17046,7 @@
         "rule": "RecordCard is the shared card of every list item: header slots in a fixed order, a body that folds away."
       },
       "example": "import { Badge, Icon, IconButton, RecordCard, Text } from '@drizztdourden08/tessera';\n\nconst TaskCard = () => (\n  <RecordCard\n    title=\"Fix the login redirect\"\n    code=\"ARG-12\"\n    content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n    menu={<IconButton variant=\"ghost\" size=\"sm\" label=\"Actions\"><Icon name=\"ellipsis\" /></IconButton>}\n  >\n    <Text>The redirect drops the return path after sign in.</Text>\n  </RecordCard>\n);\n",
-      "propsHash": "4311d56a89744f12",
+      "propsHash": "e3d90a3afb688deb",
       "props": {
         "own": [
           {
@@ -17145,6 +17146,11 @@
               "'interactive'",
               "'danger'"
             ]
+          },
+          {
+            "name": "fill",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "aria-label",

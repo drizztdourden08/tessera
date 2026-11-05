@@ -12,7 +12,7 @@ import type { RecordCardProps } from './RecordCard.type';
 import './RecordCard.css';
 
 const RecordCard = (props: RecordCardProps) => {
-  const { title, icon, code, content, menu, children, open, defaultOpen = false, onOpenChange, density = 'card', className, name, edge, edgeTone, variant, 'aria-label': label } = props;
+  const { title, icon, code, content, menu, children, open, defaultOpen = false, onOpenChange, density = 'card', className, name, edge, edgeTone, variant, fill, 'aria-label': label } = props;
   const { navigation } = useTesseraStrings();
   const state = useOpenState(open, defaultOpen, onOpenChange);
   const bodyId = useId();
@@ -22,7 +22,7 @@ const RecordCard = (props: RecordCardProps) => {
   const chevron = recordCardChevron({ expandable, expanded, bodyId, name: name ?? label, named, onToggle: () => state.setOpen(!state.open) });
 
   return (
-    <Card flush variant={variant} edge={edge} edgeTone={edgeTone} className={recordCardClass(density, className)} aria-label={label} role={label ? 'group' : undefined}>
+    <Card flush fill={fill} variant={variant} edge={edge} edgeTone={edgeTone} className={recordCardClass(density, className)} aria-label={label} role={label ? 'group' : undefined}>
       <Box className="record-card__inner">
         <RecordHeader title={expanded ? undefined : title} icon={icon} code={code} content={content} menu={menu} density={density} chevron={chevron} />
         {expanded && (

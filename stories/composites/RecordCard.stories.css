@@ -19,3 +19,11 @@
 .record-card-story__one > .record-card {
   align-self: stretch;
 }
+
+.record-card-story__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--size-192), 1fr));
+  gap: var(--space-sm);
+  inline-size: var(--size-640);
+  max-inline-size: 100%;
+}
