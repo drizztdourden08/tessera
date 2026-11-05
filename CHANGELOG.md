@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.126.0
+
+### Minor Changes
+
+- RecordHeader content at the inline end, a bare chevron, and a header row that toggles.
+
 ## 0.125.0
 
 ### Minor Changes
