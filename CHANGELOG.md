@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.122.0
+
+### Minor Changes
+
+- New GroupBar composite: group by with an Add group menu and removable chips, drawn like FilterBar.
+
 ## 0.121.1
 
 ### Patch Changes
