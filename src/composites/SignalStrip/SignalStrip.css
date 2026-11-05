@@ -22,7 +22,7 @@
 }
 
 .avatar.signal-mark-avatar {
-  --avatar-size: var(--size-12);
+  --avatar-size: var(--signal-mark);
   --avatar-text: var(--size-8);
 }
 
@@ -31,10 +31,11 @@
 }
 
 .brand-mark.signal-mark-brand {
-  --brand-mark-size: var(--size-12);
+  --brand-mark-size: var(--signal-mark);
 }
 
 .brand-mark.brand-mark--rimmed.signal-mark-brand {
-  --brand-mark-size: calc(var(--size-12) - 2 * var(--brand-rim-width));
-  margin: var(--brand-rim-width);
+  --brand-mark-size: var(--signal-mark-rimmed);
+
+  margin: var(--brand-rim-sm);
 }
