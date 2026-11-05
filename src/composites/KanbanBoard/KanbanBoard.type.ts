@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind types */
-import type { KeyboardEvent, ReactNode } from 'react';
+import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { CardTone } from '../../primitives/Card';
 import type { ReorderDrag } from '../reorder/reorder.type';
 
@@ -9,6 +9,7 @@ type KanbanColumnHeight = 'stretch' | 'fit';
 
 interface KanbanCardData {
   id: string;
+  group?: string;
 }
 
 interface KanbanColumn<Card extends KanbanCardData = KanbanCardData> {
@@ -30,12 +31,16 @@ interface KanbanMove {
   cardId: string;
   from: KanbanPlace;
   to: KanbanPlace;
+  above?: string;
+  below?: string;
 }
 
 interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
   columns: readonly KanbanColumn<Card>[];
   renderCard: (card: Card) => ReactNode;
   onMove: (move: KanbanMove) => void;
+  onCardOpen?: (cardId: string) => void;
+  renderGroupHeader?: (group: string, column: KanbanColumn<Card>) => ReactNode;
   cardLabel?: (card: Card) => string;
   cardEdgeTone?: (card: Card) => CardTone | undefined;
   columnWidth?: KanbanColumnWidth;
@@ -53,12 +58,14 @@ interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
 interface KanbanShared<Card extends KanbanCardData> {
   columns: readonly KanbanColumn<Card>[];
   renderCard: (card: Card) => ReactNode;
+  renderGroupHeader: ((group: string, column: KanbanColumn<Card>) => ReactNode) | undefined;
   cardLabel: (card: Card) => string;
   cardEdgeTone: ((card: Card) => CardTone | undefined) | undefined;
   grip: boolean;
   foldable: boolean;
   drag: ReorderDrag;
   onCardKeyDown: (event: KeyboardEvent<HTMLElement>, card: Card) => void;
+  onCardClick: (event: MouseEvent<HTMLElement>, card: Card) => void;
   onToggle: (columnId: string) => void;
 }
 
@@ -74,8 +81,22 @@ interface KanbanLaneHeadProps<Card extends KanbanCardData> {
   toggle: ReactNode;
 }
 
+interface KanbanRun<Card extends KanbanCardData> {
+  group: string | undefined;
+  cards: { card: Card; at: number }[];
+}
+
+type KanbanFramePart = 'first' | 'middle' | 'last' | 'only';
+
+interface KanbanGroupFrameProps<Card extends KanbanCardData> {
+  group: string;
+  column: KanbanColumn<Card>;
+  shared: KanbanShared<Card>;
+}
+
 interface KanbanCardProps<Card extends KanbanCardData> {
   card: Card;
+  frame?: { group: string; part: KanbanFramePart; column: KanbanColumn<Card> } | undefined;
   slot: number;
   last: boolean;
   shared: KanbanShared<Card>;
@@ -95,6 +116,6 @@ interface CardPlace {
 }
 
 export type {
-  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardProps, KanbanColumn, KanbanColumnHeight, KanbanColumnProps, KanbanColumnWidth, KanbanLaneHeadProps, KanbanMove, KanbanPlace, KanbanShared,
+  CardPlace, KanbanBoardProps, KanbanCardData, KanbanCardProps, KanbanColumn, KanbanColumnHeight, KanbanColumnProps, KanbanColumnWidth, KanbanFramePart, KanbanGroupFrameProps, KanbanLaneHeadProps, KanbanMove, KanbanPlace, KanbanRun, KanbanShared,
   KanbanToggleProps,
 };

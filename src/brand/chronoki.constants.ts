@@ -10,7 +10,7 @@ const CHRONOKI_BRAND: BrandInfo = {
   colourName: 'Aged gold, its primary',
   tile: '#1a1008',
   appIcon: 'straight',
-  iconOutline: '#000000',
+  iconOutline: { colour: '#000000', ratio: 0.06, minPx: 2 },
   summary: 'ChronoKi is a native port project. Its look is aged gold and oxblood around a clock.',
   placement: 'Last in the row, after Argus.',
   mark: CHRONOKI_MARK,

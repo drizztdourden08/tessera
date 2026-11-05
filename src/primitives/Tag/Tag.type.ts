@@ -65,7 +65,7 @@ type TagFill = 'solid' | 'tint';
 
 type TagEdge = 'solid' | 'dashed';
 
-type TagData = Partial<Record<`data-${string}`, string | number>>;
+type TagData = Partial<Record<`data-${string}`, string | number>> & { 'aria-label'?: string };
 
 interface TagBase {
   pill?: boolean;

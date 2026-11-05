@@ -1,7 +1,7 @@
 /* @layer tooling-scripts @kind logic */
 import { rmSync } from 'node:fs';
 import { join } from 'node:path';
-import { ICON_OUTLINE, OUTPUT_FOLDERS } from './app-icons.constants.mjs';
+import { OUTPUT_FOLDERS } from './app-icons.constants.mjs';
 import { appArt } from './app-art.mjs';
 import { buildApp, ladder, writer } from './app-files.mjs';
 import { artFile, markArt, sceneArt } from './art.mjs';
@@ -26,7 +26,7 @@ const buildMascot = (write, id, brand, loaded) => brand.mascot.variants.flatMap(
   ];
 });
 
-const outlined = (brand, mark, fraction) => (brand.iconOutline ? rimmedArt(mark, brand.mark, brand.iconOutline, fraction) : mark);
+const outlined = (brand, mark, size) => (brand.iconOutline ? rimmedArt(mark, brand.mark, brand.iconOutline.colour, rimFraction(brand.iconOutline, size)) : mark);
 
 const buildBrand = async (root, id, loaded) => {
   const brand = loaded.family[id];
@@ -36,9 +36,9 @@ const buildBrand = async (root, id, loaded) => {
   const dark = groundArt(loaded.drawn[id], loaded, 'dark');
   const face = brand.iconMark ? markArt(brand.iconMark) : undefined;
   const written = [write(`${id}.svg`, artFile(mark, brand.name))];
-  if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, outlined(brand, mark, ICON_OUTLINE.ratio), dark.mark, face)));
+  if (brand.appIcon) written.push(...buildApp(write, id, appArt(brand, outlined(brand, mark, Number.POSITIVE_INFINITY), dark.mark, face)));
   if (brand.mascot) written.push(...buildMascot(write, id, brand, loaded));
-  const iconAt = (size) => { const m = outlined(brand, mark, rimFraction(ICON_OUTLINE, size)); return appArt(brand, m, m, face).icon; };
+  const iconAt = (size) => { const m = outlined(brand, mark, size); return appArt(brand, m, m, face).icon; };
   const artFor = { icon: () => iconAt, mark: () => () => mark, mascot: () => { const art = variantArt(brand.mascot.variants[0], loaded); return () => art; } };
   for (const files of loaded.iconFiles(id)) written.push(...await ladder(write, artFor[files.kind](), files, loaded.sizes));
   written.push(...await buildFileTypes(write, id, loaded));

@@ -1,0 +1,48 @@
+/* @layer renderer-components @kind style */
+.segmented-bar {
+  display: flex;
+  gap: var(--size-2);
+  width: 100%;
+  height: var(--size-6);
+}
+
+.segmented-bar[data-pressable='yes'] {
+  cursor: pointer;
+}
+
+.segmented-bar .segmented-bar__segment {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.segmented-bar__fill {
+  flex: 1;
+  min-width: 0;
+  border-radius: var(--radius-sm);
+  background: var(--segmented-bar-ink);
+}
+
+.segmented-bar[data-pressable='yes'] .segmented-bar__segment:hover .segmented-bar__fill {
+  filter: brightness(1.25);
+}
+
+.segmented-bar [data-tone='track'] { --segmented-bar-ink: var(--c-hover); }
+.segmented-bar [data-tone='primary'] { --segmented-bar-ink: var(--c-primary); }
+.segmented-bar [data-tone='secondary'] { --segmented-bar-ink: var(--c-secondary); }
+.segmented-bar [data-tone='tertiary'] { --segmented-bar-ink: var(--c-tertiary); }
+.segmented-bar [data-tone='neutral'] { --segmented-bar-ink: var(--c-text-muted); }
+.segmented-bar [data-tone='success'] { --segmented-bar-ink: var(--c-success); }
+.segmented-bar [data-tone='warning'] { --segmented-bar-ink: var(--c-warning); }
+.segmented-bar [data-tone='danger'] { --segmented-bar-ink: var(--c-danger); }
+.segmented-bar [data-tone='info'] { --segmented-bar-ink: var(--c-info); }
+.segmented-bar [data-tone='rose'] { --segmented-bar-ink: var(--c-tag-rose); }
+.segmented-bar [data-tone='orange'] { --segmented-bar-ink: var(--c-tag-orange); }
+.segmented-bar [data-tone='amber'] { --segmented-bar-ink: var(--c-tag-amber); }
+.segmented-bar [data-tone='lime'] { --segmented-bar-ink: var(--c-tag-lime); }
+.segmented-bar [data-tone='green'] { --segmented-bar-ink: var(--c-tag-green); }
+.segmented-bar [data-tone='teal'] { --segmented-bar-ink: var(--c-tag-teal); }
+.segmented-bar [data-tone='cyan'] { --segmented-bar-ink: var(--c-tag-cyan); }
+.segmented-bar [data-tone='blue'] { --segmented-bar-ink: var(--c-tag-blue); }
+.segmented-bar [data-tone='violet'] { --segmented-bar-ink: var(--c-tag-violet); }
+.segmented-bar [data-tone='pink'] { --segmented-bar-ink: var(--c-tag-pink); }

@@ -221,6 +221,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - One value against its limit: [Gauge](components/Gauge.md). Gauge shows where one reading sits between its bounds, in the tone of its zone.
     - A headline number with its trend: [StatTile](components/StatTile.md). StatTile puts one reading, its change and its trend together in a tile sized for a widget grid.
     - A whole split into parts: [StackedBar](components/StackedBar.md). StackedBar shows how one total splits into named parts, in a single bar.
+    - Progress in equal segments: [SegmentedBar](components/SegmentedBar.md). SegmentedBar shows a run of equal steps, each in its own colour, in a single bar.
   - A picture or a video. **Which one?**
     - A picture that holds its box: no component yet.
     - A small framed picture: [MediaGrid](components/MediaGrid.md). MediaGrid shows many pictures as thumbnails that each open large, in the same way in every app.

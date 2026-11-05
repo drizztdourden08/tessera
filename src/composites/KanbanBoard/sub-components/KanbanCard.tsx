@@ -6,20 +6,25 @@ import { IconButton } from '../../../primitives/IconButton';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { GRIP_ICON_SIZE, MOVE_KEYS, NO_END } from '../KanbanBoard.constants';
 import type { KanbanCardData, KanbanCardProps } from '../KanbanBoard.type';
+import { KanbanGroupFrame } from './KanbanGroupFrame';
 import './KanbanCard.css';
 
-const KanbanCard = <Item extends KanbanCardData>({ card, slot, last, shared }: KanbanCardProps<Item>) => {
+const KanbanCard = <Item extends KanbanCardData>({ card, frame, slot, last, shared }: KanbanCardProps<Item>) => {
   const { kanbanBoard } = useTesseraStrings();
-  const { drag, grip, cardLabel, cardEdgeTone, renderCard, onCardKeyDown } = shared;
+  const { drag, grip, cardLabel, cardEdgeTone, renderCard, onCardKeyDown, onCardClick } = shared;
   return (
     <Box
       as="li"
       className="kanban__item"
       data-reorder-index={slot}
       data-reorder-key={card.id}
+      data-group={frame?.part}
       data-drop={last ? 'after' : drag.dropMark(slot, NO_END)}
     >
-      <Card className="kanban__card" edgeTone={cardEdgeTone?.(card)} data-dragging={drag.dragging === slot ? 'yes' : undefined}>
+      {(frame?.part === 'first' || frame?.part === 'only') && <KanbanGroupFrame group={frame.group} column={frame.column} shared={shared} />}
+      <Card className="kanban__card" edgeTone={cardEdgeTone?.(card)} data-dragging={drag.dragging === slot ? 'yes' : undefined}
+        onClick={(event) => onCardClick(event, card)}
+      >
         <Box className="kanban__card-row">
           <IconButton
             label={kanbanBoard.move(cardLabel(card))}

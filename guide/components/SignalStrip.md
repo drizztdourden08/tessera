@@ -34,6 +34,9 @@ SignalStrip is the one-line row of attention chips that folds the overflow into 
 - An item with onClick is a button chip. An item without it is a static chip.
 - The row never wraps. It measures the chips and the room, and what does not fit folds into a +N chip. The tooltip of +N lists the hidden labels.
 - Max keeps at most that many chips before the +N chip, even when there is room for more.
+- IconOnly on the strip, or on one item, hides the chip text. The label stays as the title of the chip and the count still shows.
+- Mark2 on an item adds a second mark inside the chip, after the icon: { icon } for an icon or { avatar } with the Avatar props for an avatar.
+- Wrap shows every item over several lines and never folds into a +N chip. Without it the row stays on one line. max is ignored in wrap mode.
 - An empty items list renders nothing.
 
 ## Accessibility
@@ -57,12 +60,23 @@ const items = [
 ] as const;
 
 const Signals = () => <SignalStrip aria-label="Attention" items={items} />;
+
+const withMarks = [
+  { id: 'mine', icon: 'circle-help', count: 3, label: 'Asked of Ana', tone: 'info', mark2: { avatar: { label: 'Ana', initials: 'A' } } },
+  { id: 'late', icon: 'flask', count: 1, label: 'Late', tone: 'danger', mark2: { icon: 'moon' } },
+] as const;
+
+const IconOnly = () => <SignalStrip aria-label="Attention" items={withMarks} iconOnly />;
+
+const Wrapped = () => <SignalStrip aria-label="Attention" items={[...items, ...withMarks]} wrap />;
 ```
 
 ## Props
 
 - `items`: `readonly SignalItem[]`.
 - `max` (optional): `number`.
+- `iconOnly` (optional): `boolean`. Default `false`.
+- `wrap` (optional): `boolean`. Default `false`.
 - `aria-label` (optional): `string`.
 - `className` (optional): `string`.
 

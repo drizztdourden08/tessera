@@ -10,12 +10,14 @@ import { SignalMore } from './sub-components/SignalMore';
 import './SignalStrip.css';
 
 const SignalStrip = (props: SignalStripProps) => {
-  const { items, max, className, 'aria-label': label } = props;
+  const { items: given, max, iconOnly = false, wrap = false, className, 'aria-label': label } = props;
+  const items = given.map((item) => ({ ...item, iconOnly: item.iconOnly ?? iconOnly }));
   const rowRef = useRef<HTMLElement>(null);
-  const shown = useSignalFit(rowRef, items, max);
+  const fit = useSignalFit(rowRef, items, max);
+  const shown = wrap ? items.length : fit;
   if (items.length === 0) return null;
   const hidden = items.slice(shown);
-  const classes = ['signal-strip', className].filter(Boolean).join(' ');
+  const classes = ['signal-strip', wrap && 'signal-strip--wrap', className].filter(Boolean).join(' ');
 
   return (
     <Box ref={rowRef} role={label === undefined ? undefined : 'group'} aria-label={label} className={classes}>

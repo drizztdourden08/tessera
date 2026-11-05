@@ -5,3 +5,5 @@ export { Gauge } from '../Gauge';
 export type { GaugeProps, GaugeSize, GaugeThresholds } from '../Gauge';
 export { StackedBar } from '../StackedBar';
 export type { StackedBarColor, StackedBarOrientation, StackedBarProps, StackedBarSegment, StackedBarSize } from '../StackedBar';
+export { SegmentedBar } from '../SegmentedBar';
+export type { SegmentedBarProps, SegmentedBarSegment, SegmentedBarTone } from '../SegmentedBar';
