@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.107.0
+
+### Minor Changes
+
+- SignalStrip mark2 takes a brand mark and a chip count takes a short string. Card gets onActivate, which fires on the surface and never from inner controls or portals. The interactive target check is shared under primitives/dom.
+
 ## 0.106.0
 
 ### Minor Changes
