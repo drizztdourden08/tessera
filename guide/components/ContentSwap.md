@@ -8,7 +8,7 @@ Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdour
 import { ContentSwap } from '@drizztdourden08/tessera';
 ```
 
-The source is `src/primitives/ContentSwap/ContentSwap.tsx`. It has no gallery page yet.
+The source is `src/primitives/ContentSwap/ContentSwap.tsx`. Its gallery page is Primitives · Layout/ContentSwap (`#/story/primitives-contentswap--overview`).
 
 ## Where the questions lead here
 
@@ -32,12 +32,14 @@ ContentSwap replaces content in place and animates the change when its key chang
 - Pick the effect by meaning: fade for a replacement, slide for steps with a direction, scale for a detail that opens.
 - Use reflow around a list: the items inside collapse and fade, then the new items grow in. Items take part when they carry data-swap-item; KanbanBoard cards, ItemList rows, ListItemRow and DataTable rows already do. The frame around the items does not move.
 - Set direction to back for a slide that goes to an earlier step.
+- Set sequence to out-in for tab panels whose contents should never mix: the old content fades out and is removed, then the new content shows. The default overlap crossfades both at once.
+- In out-in a quick second change shows only the newest content; the one that never appeared is skipped.
 - The old content stays on screen for the length of the motion, then is dropped; it is a copy, so it does not take input.
 
 ## Accessibility
 
 - The leaving content is hidden from assistive tools; only the new content is read.
-- Under reduced motion the content swaps at once, with no animation.
+- Under reduced motion the content swaps at once in both sequences, with no animation.
 
 ## Example
 
@@ -47,6 +49,12 @@ import { ContentSwap, ItemList, Text } from '@drizztdourden08/tessera';
 const StepPanel = ({ step }: { step: number }) => (
   <ContentSwap swapKey={step} effect="slide">
     <Text>Current step</Text>
+  </ContentSwap>
+);
+
+const TabPanel = ({ tab }: { tab: string }) => (
+  <ContentSwap swapKey={tab} sequence="out-in">
+    <Text>{tab}</Text>
   </ContentSwap>
 );
 
@@ -68,6 +76,7 @@ const ReflowList = ({ view, tasks }: { view: string; tasks: Task[] }) => (
 - `children` (optional): `ReactNode`.
 - `effect` (optional): `ContentSwapEffect`, one of `'fade'`, `'slide'`, `'scale'`, `'reflow'`. Default `'fade'`.
 - `direction` (optional): `ContentSwapDirection`, one of `'forward'`, `'back'`. Default `'forward'`.
+- `sequence` (optional): `ContentSwapSequence`, one of `'overlap'`, `'out-in'`. Default `'overlap'`.
 - `className` (optional): `string`.
 
 ## Tokens
