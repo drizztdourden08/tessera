@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.106.0
+
+### Minor Changes
+
+- New SegmentedBar primitive. KanbanBoard opens a card on click and frames grouped cards under a header. SignalStrip shows icon-only chips, a second mark and wrapping. Brand iconOutline carries its own ratio and minimum; ChronoKi draws a 6 percent, 2 px minimum black outline.
+
 ## 0.105.0
 
 ### Minor Changes
