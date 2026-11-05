@@ -506,7 +506,9 @@
             "components": []
           },
           "one raised item": {
-            "components": []
+            "components": [
+              "Card"
+            ]
           },
           "empty space": {
             "components": []
@@ -1559,7 +1561,201 @@
         "@drizztdourden08/tessera",
         "@drizztdourden08/tessera/primitives"
       ],
-      "usage": false
+      "usage": true,
+      "job": "One raised surface that groups related content, with an optional header, and that can act as one target when pressed.",
+      "useWhen": [
+        "Related content sits together on a raised surface, with or without a title and actions.",
+        "The whole card opens a detail view when pressed, while buttons and menus inside it keep their own jobs."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The whole surface is one button with no inner controls.",
+          "use": "Pressable"
+        },
+        {
+          "case": "A plain block with no raised look.",
+          "use": "Box"
+        }
+      ],
+      "rules": [
+        "Give the card a title for a header, or a header node for a custom one; without either it is a bare surface.",
+        "onActivate makes the surface focusable and fires on a click and on Enter or Space when the card itself has focus. The look is interactive unless a variant is given.",
+        "onActivate never fires from an inner button, link, field, menu or editable text, nor from a menu drawn in a portal.",
+        "The card gets no button role, since it may hold buttons. Pass aria-label to name it."
+      ],
+      "a11y": [
+        "With onActivate the card is a Tab stop; Enter and Space activate it only while the card itself has focus.",
+        "Every action reachable by pressing the card is also reachable by a real button or link inside it."
+      ],
+      "tree": {
+        "path": [
+          "layout",
+          "one raised item"
+        ],
+        "rule": "Card is the raised surface that groups related content and can open a detail view when pressed."
+      },
+      "example": "import { Button, Card } from '@drizztdourden08/tessera';\n\nconst openDetail = () => undefined;\nconst archive = () => undefined;\n\nconst Task = () => (\n  <Card title=\"Fix the login form\" aria-label=\"Task: Fix the login form\" onActivate={openDetail}>\n    <Button onClick={archive}>Archive</Button>\n  </Card>\n);\n",
+      "propsHash": "c0d4c940b3d1e1c2",
+      "props": {
+        "own": [
+          {
+            "name": "header",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "variant",
+            "optional": true,
+            "text": "CardVariant",
+            "literals": [
+              "'default'",
+              "'interactive'",
+              "'danger'"
+            ]
+          },
+          {
+            "name": "edgeTone",
+            "optional": true,
+            "text": "CardTone",
+            "literals": [
+              "'neutral'",
+              "'primary'",
+              "'info'",
+              "'success'",
+              "'warning'",
+              "'danger'"
+            ]
+          },
+          {
+            "name": "edge",
+            "optional": true,
+            "text": "CardEdge",
+            "literals": [
+              "'left'",
+              "'border'"
+            ]
+          },
+          {
+            "name": "fill",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "flush",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "container",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onActivate",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          },
+          {
+            "name": "title",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "subtitle",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "actions",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "count",
+            "optional": true,
+            "text": "number"
+          },
+          {
+            "name": "hideZero",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "tone",
+            "optional": true,
+            "text": "CardTone",
+            "literals": [
+              "'neutral'",
+              "'primary'",
+              "'info'",
+              "'success'",
+              "'warning'",
+              "'danger'"
+            ]
+          },
+          {
+            "name": "level",
+            "optional": true,
+            "text": "HeadingLevel",
+            "literals": [
+              "1",
+              "2",
+              "3",
+              "4",
+              "5",
+              "6"
+            ]
+          }
+        ],
+        "inherited": {
+          "count": 276,
+          "from": [
+            "AriaAttributes",
+            "DOMAttributes",
+            "HTMLAttributes"
+          ],
+          "extends": [
+            "Omit<HTMLAttributes<HTMLDivElement>, 'title'>"
+          ]
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-danger",
+        "--c-danger-bright",
+        "--c-danger-dim",
+        "--c-focus",
+        "--c-info",
+        "--c-info-bright",
+        "--c-primary",
+        "--c-primary-bright",
+        "--c-success",
+        "--c-success-bright",
+        "--c-surface",
+        "--c-warning",
+        "--c-warning-bright",
+        "--radius-lg",
+        "--size-4",
+        "--size-40",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--transition-normal"
+      ],
+      "gallery": {
+        "title": "Primitives · Layout/Card",
+        "route": "#/story/primitives-card--overview",
+        "file": "stories/primitives/Card.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Center",
@@ -18365,14 +18561,14 @@
         }
       ],
       "rules": [
-        "Pass items. An item has an id, an icon, a label, a tone and optionally a count and an onClick. The strip keeps no state.",
+        "Pass items. An item has an id, an icon, a label, a tone and optionally a count and an onClick. count is a number or a short text such as \"42h\". The strip keeps no state.",
         "tone is danger, warning, info, success or neutral and sets the colour of the chip.",
         "A chip shows its icon and its count. An item without a count shows its label as text. The label is also the title of the chip.",
         "An item with onClick is a button chip. An item without it is a static chip.",
         "The row never wraps. It measures the chips and the room, and what does not fit folds into a +N chip. The tooltip of +N lists the hidden labels.",
         "max keeps at most that many chips before the +N chip, even when there is room for more.",
         "iconOnly on the strip, or on one item, hides the chip text. The label stays as the title of the chip and the count still shows.",
-        "mark2 on an item adds a second mark inside the chip, after the icon: { icon } for an icon or { avatar } with the Avatar props for an avatar.",
+        "mark2 on an item adds a second mark inside the chip, after the icon: { icon } for an icon, { avatar } with the Avatar props for an avatar (an Avatar with src shows a plain image), or { brand } with a brand app name for its brand mark.",
         "wrap shows every item over several lines and never folds into a +N chip. Without it the row stays on one line. max is ignored in wrap mode.",
         "An empty items list renders nothing."
       ],
@@ -18388,7 +18584,7 @@
         ],
         "rule": "SignalStrip is the one-line row of attention chips that folds the overflow into a +N chip with a tooltip."
       },
-      "example": "import { SignalStrip } from '@drizztdourden08/tessera';\n\nconst openQuestions = () => undefined;\nconst openTests = () => undefined;\n\nconst items = [\n  { id: 'questions', icon: 'circle-help', count: 2, label: 'Open questions', tone: 'warning', onClick: openQuestions },\n  { id: 'tests', icon: 'flask', count: 1, label: 'Failing tests', tone: 'danger', onClick: openTests },\n  { id: 'quiet', icon: 'moon', label: 'Quiet', tone: 'neutral' },\n] as const;\n\nconst Signals = () => <SignalStrip aria-label=\"Attention\" items={items} />;\n\nconst withMarks = [\n  { id: 'mine', icon: 'circle-help', count: 3, label: 'Asked of Ana', tone: 'info', mark2: { avatar: { label: 'Ana', initials: 'A' } } },\n  { id: 'late', icon: 'flask', count: 1, label: 'Late', tone: 'danger', mark2: { icon: 'moon' } },\n] as const;\n\nconst IconOnly = () => <SignalStrip aria-label=\"Attention\" items={withMarks} iconOnly />;\n\nconst Wrapped = () => <SignalStrip aria-label=\"Attention\" items={[...items, ...withMarks]} wrap />;\n",
+      "example": "import { SignalStrip } from '@drizztdourden08/tessera';\n\nconst openQuestions = () => undefined;\nconst openTests = () => undefined;\n\nconst items = [\n  { id: 'questions', icon: 'circle-help', count: 2, label: 'Open questions', tone: 'warning', onClick: openQuestions },\n  { id: 'tests', icon: 'flask', count: 1, label: 'Failing tests', tone: 'danger', onClick: openTests },\n  { id: 'quiet', icon: 'moon', label: 'Quiet', tone: 'neutral' },\n] as const;\n\nconst Signals = () => <SignalStrip aria-label=\"Attention\" items={items} />;\n\nconst withMarks = [\n  { id: 'mine', icon: 'circle-help', count: 3, label: 'Asked of Ana', tone: 'info', mark2: { avatar: { label: 'Ana', initials: 'A' } } },\n  { id: 'late', icon: 'flask', count: 1, label: 'Late', tone: 'danger', mark2: { icon: 'moon' } },\n  { id: 'lead', icon: 'flask', count: '42h', label: 'Waiting on Brock', tone: 'warning', mark2: { brand: 'brock' } },\n] as const;\n\nconst IconOnly = () => <SignalStrip aria-label=\"Attention\" items={withMarks} iconOnly />;\n\nconst Wrapped = () => <SignalStrip aria-label=\"Attention\" items={[...items, ...withMarks]} wrap />;\n",
       "propsHash": "1232cb06b3432c7b",
       "props": {
         "own": [

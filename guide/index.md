@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 133 of 243 have their usage written; a linked name opens its page.
+One line per component. 134 of 243 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -15,7 +15,7 @@ One line per component. 133 of 243 have their usage written; a linked name opens
 - `ButtonRow`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [Callout](components/Callout.md): A short note set apart from the text around it, such as a pre-release notice, a banner with a title and an action, or the fine print of a dialog. Import from `@drizztdourden08/tessera`.
 - `Canvas`: usage not written yet. Import from `@drizztdourden08/tessera`.
-- `Card`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Card](components/Card.md): One raised surface that groups related content, with an optional header, and that can act as one target when pressed. Import from `@drizztdourden08/tessera`.
 - [Center](components/Center.md): Puts its children in the middle on both axes, such as initials in an avatar, an icon in a tile or a message in an empty pane. Import from `@drizztdourden08/tessera`.
 - `Checkbox`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ColorSwatch`: usage not written yet. Import from `@drizztdourden08/tessera`.

@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import type { MouseEvent } from 'react';
 import type { KanbanCardData } from '../KanbanBoard.type';
-import { isInteractiveTarget } from './is-interactive-target';
+import { isInteractiveTarget } from '../../../primitives/dom/is-interactive-target';
 
 const useCardOpen = <Card extends KanbanCardData>(dragging: number | null, onCardOpen: ((cardId: string) => void) | undefined) => {
   const wasDragged = useRef(false);

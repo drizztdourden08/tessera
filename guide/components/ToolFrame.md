@@ -24,7 +24,7 @@ ToolFrame is the one frame with tools on its top edge: StudioLayout holds its ed
 ## Use something else when
 
 - A well with no tools of its own. Use [Box](Box.md) instead.
-- A raised item with a heading and actions. Use `Card` instead.
+- A raised item with a heading and actions. Use [Card](Card.md) instead.
 - A stream of log lines with a filter and Copy. Use [LogPanel](LogPanel.md) instead.
 
 ## Rules

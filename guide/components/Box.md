@@ -25,7 +25,7 @@ Box is the plain element; surface="sunken" makes it a well and surface="raised" 
 ## Use something else when
 
 - The children line up in a row or a column with a gap. Use `Flex` instead.
-- One self-contained item with a title, a count and actions. Use `Card` instead.
+- One self-contained item with a title, a count and actions. Use [Card](Card.md) instead.
 
 ## Rules
 

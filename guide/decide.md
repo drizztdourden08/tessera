@@ -128,7 +128,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Blocks stacked in a column: no component yet.
   - Items on a grid: [Grid](components/Grid.md). Grid lays out equal columns from a count or a minimum width, with Grid.Cell spans and dense packing for dashboards.
   - One item in the centre: no component yet.
-  - One raised item: no component yet.
+  - One raised item: [Card](components/Card.md). Card is the raised surface that groups related content and can open a detail view when pressed.
   - Empty space: no component yet.
   - A line between sections: no component yet.
   - Content that scrolls: [ScrollArea](components/ScrollArea.md). ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content.
