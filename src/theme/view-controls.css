@@ -1,0 +1,33 @@
+/* @layer renderer-components @kind style */
+.sort-control {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.view-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.view-controls__toggle {
+  flex: none;
+  height: var(--control-h-sm);
+}
+
+.view-controls__row {
+  display: flex;
+  flex: 1 1 var(--size-224);
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  min-width: 0;
+}
+
+.view-controls__row > .filter-bar {
+  flex: 1 1 var(--size-224);
+}

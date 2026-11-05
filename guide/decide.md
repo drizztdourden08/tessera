@@ -196,7 +196,9 @@ Start at the first question and pick the answer that fits. Each answer leads to 
   - Rows and columns to sort and filter: [DataTable](components/DataTable.md). DataTable gives every collection the same columns, menus and grouping, and draws only the rows in view when the collection is long.
   - A small table of facts that is only read: [Table](components/Table.md). Table draws a static table from TableSection, TableRow and TableCell; DataTable is the table the user sorts and filters.
   - A flat table of rows that drops columns as it narrows: [TrackTable](components/TrackTable.md). TrackTable shares the width by fractions and drops the least needed columns by the width of the table, not the window.
-  - Filters over a collection: no component yet.
+  - Filters over a collection: [ViewControls](components/ViewControls.md). ViewControls keeps filter, group and sort in one row with one show button, so every collection view folds its controls the same way.
+  - A menu to group a collection by one field: [GroupControl](components/GroupControl.md). GroupControl offers one grouping field at a time, with None to turn grouping off, drawn like the other view controls.
+  - A menu to sort a collection by one field and a direction: [SortControl](components/SortControl.md). SortControl pairs a field menu with one direction button, drawn like the other view controls.
   - A list the user adds to, renames and deletes from: [ItemList](components/ItemList.md). ItemList draws the count, New, the filter, the groups, rename, delete and every state of such a list the same way in every app.
   - A list the user reorders, with on and off icons on each row: no component yet.
   - One record, compact and read only: no component yet.
