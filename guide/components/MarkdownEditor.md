@@ -39,9 +39,10 @@ MarkdownEditor writes Markdown with a toolbar and a live preview, the same way i
 - Pass preview={false} for a write only editor: no preview button, no Write and Preview tabs and no preview pane in any layout; the toolbar and toolbarEnd stay.
 - Pass label, hint, error, placeholder and disabled as for any other field; set rows to change the height of the text, 12 by default.
 - Pass toolbarEnd to draw a node, such as a Decide button, at the right end of the toolbar; the formatting buttons stay as they are.
-- The toolbar, the text and the preview sit in one frame with a single border and radius; a hairline separates the toolbar from the text. The frame takes the focus ring, and the danger colour when error is set.
+- The toolbar, the text and the preview sit in one frame with a single border and radius; the toolbar sits on the frame and the text and preview sit on a sunken surface. The frame takes the focus ring, and the danger colour when error is set.
 - The toolbar is the family Toolbar, so each button carries a hint with its name and shortcut and the preview toggle shows its pressed state.
 - Pass actions, such as Save and Cancel buttons, to draw them in a row under the frame, right aligned; the counter, when shown, sits on the left of the same row.
+- Pass onSubmit with submitLabel to draw a primary send button at the right end of the row under the frame; its tooltip shows the shortcut, such as Ctrl+Enter, so the editor needs no hint line.
 - The toolbar acts on the selection: it wraps it, or puts a prefix on each line it touches, and a second press removes the mark.
 - Enter at the end of a list item starts the next one: a bullet, a number that counts up, or an open task; on an empty item it ends the list.
 - Tab indents a list line by two spaces and Shift+Tab takes them back; outside a list Tab moves the focus as usual.
@@ -101,6 +102,7 @@ const NoteForm = ({ save, cancel }: { save: () => void; cancel: () => void }) =>
 - `preview` (optional): `boolean`.
 - `toolbarEnd` (optional): `ReactNode`.
 - `actions` (optional): `ReactNode`.
+- `submitLabel` (optional): `string`.
 - `rows` (optional): `number`.
 - `onLink` (optional): `MarkdownLinkHandler`.
 - `images` (optional): `MarkdownImages`.
@@ -116,4 +118,4 @@ const NoteForm = ({ save, cancel }: { save: () => void; cancel: () => void }) =>
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-soft`, `--c-primary`, `--c-primary-soft`, `--c-surface`, `--radius-md`, `--size-192`, `--size-384`, `--size-96`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--transition-normal`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-soft`, `--c-primary`, `--c-primary-soft`, `--c-sunken`, `--c-surface`, `--radius-md`, `--size-192`, `--size-384`, `--size-96`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--transition-normal`.
