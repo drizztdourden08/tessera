@@ -43,7 +43,7 @@ const Assignees = () => (
   </>
 );
 `,
-  propsHash: '7c3ad6544fe16d98',
+  propsHash: '77149adfbfed1e13',
 } satisfies ComponentUsage;
 
 export { usage };
