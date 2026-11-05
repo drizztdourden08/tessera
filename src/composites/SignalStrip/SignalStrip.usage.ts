@@ -54,7 +54,7 @@ const IconOnly = () => <SignalStrip aria-label="Attention" items={withMarks} ico
 
 const Wrapped = () => <SignalStrip aria-label="Attention" items={[...items, ...withMarks]} wrap />;
 `,
-  propsHash: 'abf57c227fe044fe',
+  propsHash: '1232cb06b3432c7b',
 } satisfies ComponentUsage;
 
 export { usage };

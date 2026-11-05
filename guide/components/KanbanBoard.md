@@ -34,6 +34,7 @@ KanbanBoard keeps the move, the keys, the counts and the fold the same in every 
 - Keep the columns in the app: onMove gets { cardId, from, to } with a columnId and an index each, and the app changes its data.
 - Read to.index as the place the card has after the move, in its new column; moveCard applies a move to the columns for you.
 - Draw the inside of a card with renderCard, such as a title and tag badges; the board draws the frame and the grip.
+- Pass onCardOpen to open a card: it gets the card id on a plain click of the card, never after a drag and never for a click inside a button, link, input, textarea, select or an element with role menu, menuitem or button, so controls inside renderCard keep their own click.
 - Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.
 - Pass cardEdgeTone to draw a coloured edge on some cards, such as danger for a card that needs the user; return undefined for a card with no edge.
 - Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.
@@ -54,6 +55,7 @@ KanbanBoard keeps the move, the keys, the counts and the fold the same in every 
 
 - The board and each column are named groups, and each column holds a named list of cards.
 - The grip is a button on each card: drag it, or press Up and Down to move within the column and Left and Right to move to the next column.
+- OnCardOpen has no key of its own: Enter and Space on the grip button press it, so the grip keeps the keyboard and a keyboard user opens a card with a button the app puts inside renderCard.
 - Keys skip a folded column, and focus stays on the moved card.
 - Each move is announced in a polite live region with the card, the column and the place, such as Fix login moved to Doing, position 2 of 4.
 - Every control is at least 24 pixels, and the fold button names its column and says if it is expanded.
@@ -101,6 +103,7 @@ const Tasks = () => {
 - `columns`: `readonly KanbanColumn<Card>[]`.
 - `renderCard`: `(card: Card) => ReactNode`.
 - `onMove`: `(move: KanbanMove) => void`.
+- `onCardOpen` (optional): `(cardId: string) => void`.
 - `cardLabel` (optional): `(card: Card) => string`.
 - `cardEdgeTone` (optional): `(card: Card) => CardTone | undefined`.
 - `columnWidth` (optional): `KanbanColumnWidth`, one of `'fixed'`, `'fill'`. Default `'fixed'`.

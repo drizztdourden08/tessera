@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 132 of 242 have their usage written; a linked name opens its page.
+One line per component. 133 of 243 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -60,6 +60,7 @@ One line per component. 132 of 242 have their usage written; a linked name opens
 - [ScrollArea](components/ScrollArea.md): A box that scrolls its content, with a styled scrollbar, such as a changelog, a list of cards or a pane body. Import from `@drizztdourden08/tessera`.
 - `SearchInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `SectionHeader`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [SegmentedBar](components/SegmentedBar.md): One bar of equal segments with a gap between them, each in its own colour, with a tooltip per segment and no text inside. Import from `@drizztdourden08/tessera`.
 - [SegmentedControl](components/SegmentedControl.md): A row of joined buttons that picks one value out of a few, with a highlight that slides to the active one. Import from `@drizztdourden08/tessera`.
 - [Select](components/Select.md): A field that opens a list and picks one option, or several, from plain options, from options in labelled groups, or from your own items. Import from `@drizztdourden08/tessera`.
 - `Shortcut`: usage not written yet. Import from `@drizztdourden08/tessera`.

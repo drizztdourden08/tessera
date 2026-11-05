@@ -34,7 +34,7 @@ const RunBar = () => (
   />
 );
 `,
-  propsHash: '',
+  propsHash: 'a1e71a5d7caef083',
 } satisfies ComponentUsage;
 
 export { usage };
