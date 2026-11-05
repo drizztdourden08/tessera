@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.123.0
+
+### Minor Changes
+
+- New RecordCard composite: a collapsible card with one centred header for every item of a list.
+
 ## 0.122.0
 
 ### Minor Changes
