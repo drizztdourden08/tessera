@@ -47,7 +47,7 @@ const PAGE_ICONS: Record<string, Record<string, string>> = {
   'Primitives · Layout': {
     Box: 'square', Flex: 'columns-3', Stack: 'rows-3', Inline: 'align-horizontal-distribute-center', Center: 'align-horizontal-justify-center', Grid: 'grid-3x3',
     Spacer: 'space', Divider: 'separator-horizontal', Card: 'square-stack', ToolFrame: 'app-window', ScrollArea: 'scroll', Portal: 'door-open',
-    Anchored: 'anchor', Overlay: 'layers-2',
+    Anchored: 'anchor', Overlay: 'layers-2', ContentSwap: 'arrow-left-right',
   },
   'Primitives · Display': {
     SectionHeader: 'heading-1', StatRow: 'chart-bar', Badge: 'badge', Status: 'activity', Tag: 'tag',

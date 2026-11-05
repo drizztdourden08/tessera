@@ -150,6 +150,7 @@ An app that draws some parts its own way hands them to `TesseraProvider` once, a
 | `emptyArt` | the art of `EmptyState` |
 | `portalDocument` | the document portals render into |
 | `icons` | the icon set behind `Icon` names |
+| `paletteTransition` | `false` turns off the cross-fade of `useSwitchPalette`; call the hook with the palette change inside `flushSync` |
 
 Keep the overrides object a module constant. A new object on each render makes every Tessera component below it render again.
 
