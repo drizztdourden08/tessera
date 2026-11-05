@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.124.0
+
+### Minor Changes
+
+- RecordHeader, a named RecordCard chevron, an open-only body, RecordCard edge props and KanbanBoard cardFrame none.
+
 ## 0.123.0
 
 ### Minor Changes
