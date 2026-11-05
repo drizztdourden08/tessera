@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.109.0
+
+### Minor Changes
+
+- ViewControls with GroupControl and SortControl, IconPicker, useSwitchPalette and ContentSwap, and a glass surface on Card, PanelContainer, Dialog and DialogShell.
+
 ## 0.108.0
 
 ### Minor Changes
