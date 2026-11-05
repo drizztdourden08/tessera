@@ -33,7 +33,6 @@
 
 .markdown-editor__toolbar {
   padding: var(--space-2xs) var(--space-xs);
-  border-block-end: var(--border-width-thin) solid var(--c-border);
 }
 
 .markdown-editor__toolbar .toolbar {
@@ -46,6 +45,7 @@
 }
 
 .markdown-editor .markdown-editor__frame .textarea {
+  background: var(--c-sunken);
   border: 0;
   border-radius: 0;
   box-shadow: none;
@@ -94,6 +94,7 @@
   max-block-size: var(--size-384);
   overflow: auto;
   padding: var(--space-md);
+  background: var(--c-sunken);
 }
 
 .markdown-editor[data-layout='split'] .markdown-editor__preview {
