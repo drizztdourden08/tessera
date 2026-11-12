@@ -29,3 +29,5 @@ CLAUDE.md
 AGENTS.md
 .codex/config.toml
 .github/copilot-instructions.md
+
+.mcp.json
