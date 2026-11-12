@@ -2,8 +2,9 @@
 import type { TableRowProps } from '../Table.type';
 
 const TableRow = (props: TableRowProps) => {
-  const { className, children, ...rest } = props;
-  return <tr className={className ? `table__row ${className}` : 'table__row'} {...rest}>{children}</tr>;
+  const { tone, className, children, ...rest } = props;
+  const classes = ['table__row', tone && `table__row--${tone}`, className].filter(Boolean).join(' ');
+  return <tr className={classes} {...rest}>{children}</tr>;
 };
 
 export { TableRow };

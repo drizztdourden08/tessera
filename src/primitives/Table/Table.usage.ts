@@ -16,6 +16,8 @@ const usage = {
     'Pass head on the first TableSection for the header rows; the other TableSection is the body.',
     'Pass header on a TableCell of the head so it is a column heading; pass align left, center or right for the side its text sits on.',
     'Pass striped to shade every second body row.',
+    'Pass tone on a TableRow (accent, success, warning, danger or info) to tint a body row with the soft surface of that tone, such as a running step or a failed one.',
+    'Pass width on a head TableCell (xs, sm, md or lg for a fixed column, fill for the leftover width, auto for the content) to size its column.',
     'Pass aria-label to Table to name it. The other table attributes pass through.',
     'A table wider than its box scrolls sideways inside its border; keep the cells to short text.',
   ],

@@ -56,4 +56,15 @@ const Clamped = {
   ),
 } satisfies StoryLiteStoryDefinition;
 
-export { Clamped, Figures, Sizes, TitleFace };
+const Indent = {
+  name: 'Indent: the depth of a tree row, 0 to 8',
+  render: () => (
+    <Stack gap="xs">
+      {[0, 1, 2, 3, 8].map((depth) => (
+        <Text key={depth} as="div" indent={depth}>Step at depth {depth}</Text>
+      ))}
+    </Stack>
+  ),
+} satisfies StoryLiteStoryDefinition;
+
+export { Clamped, Figures, Indent, Sizes, TitleFace };

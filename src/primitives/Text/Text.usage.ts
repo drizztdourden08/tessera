@@ -22,6 +22,7 @@ const usage = {
     'Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.',
     'Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.',
     'Set clamp to a line count to cut longer text with an ellipsis; the full text shows in a tooltip only when it is cut.',
+    'Set indent to a depth from 0 to 8 to pad the start of a tree row by that many indent steps; a depth above 8 counts as 8. A span has no box of its own, so pair indent with as="div" or put it inside a cell.',
     'Set mono for file names, seeds and addresses, and numeric for times and counts that line up.',
   ],
   a11y: [
@@ -41,7 +42,7 @@ const SyncLine = () => (
   </Text.P>
 );
 `,
-  propsHash: '0b004b2a700f0b3d',
+  propsHash: '6959ec76ee231729',
 } satisfies ComponentUsage;
 
 export { usage };

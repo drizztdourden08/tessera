@@ -22,6 +22,9 @@ import redo2Icon from '@iconify-icons/lucide/redo-2';
 import filterIcon from '@iconify-icons/lucide/filter';
 import funnelIcon from '@iconify-icons/lucide/funnel';
 import arrowUpDownIcon from '@iconify-icons/lucide/arrow-up-down';
+import cornerDownRightIcon from '@iconify-icons/lucide/corner-down-right';
+import moreVerticalIcon from '@iconify-icons/lucide/more-vertical';
+import loaderIcon from '@iconify-icons/lucide/loader';
 import gripVerticalIcon from '@iconify-icons/lucide/grip-vertical';
 import gripHorizontalIcon from '@iconify-icons/lucide/grip-horizontal';
 import moveIcon from '@iconify-icons/lucide/move';
@@ -111,6 +114,9 @@ const INTERFACE_ICONS = {
   'pin': pinIcon,
   'pin-off': pinOffIcon,
   'ellipsis': ellipsisIcon,
+  'corner-down-right': cornerDownRightIcon,
+  'more-vertical': moreVerticalIcon,
+  'loader': loaderIcon,
   'list': listIcon,
   'layout-list': layoutListIcon,
   'columns-3': columns3Icon,
