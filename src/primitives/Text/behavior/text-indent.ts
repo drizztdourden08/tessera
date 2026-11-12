@@ -1,5 +1,5 @@
 /* @layer renderer-components @kind logic */
-const INDENT_MAX = 8;
+import { INDENT_MAX } from './text-indent.constants';
 
 const textIndent = (indent: number | undefined): number | undefined => {
   if (indent === undefined || !Number.isFinite(indent)) return undefined;
