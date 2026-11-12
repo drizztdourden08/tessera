@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.128.0
+
+### Minor Changes
+
+- New PairedTree composite; icons corner-down-right, more-vertical and loader; Text indent; TableRow tone; TableCell width.
+
 ## 0.127.2
 
 ### Patch Changes
