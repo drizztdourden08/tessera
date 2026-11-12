@@ -1,4 +1,6 @@
 /* @layer renderer-components @kind barrel */
+export { PairedTree } from '../PairedTree';
+export type { PairedTreeColumn, PairedTreeProps, PairedTreeRow } from '../PairedTree';
 export { DataTable, groupUid } from '../DataTable';
 export type {
   ColumnActions, ColumnDragBinding, DataTableBind, DataTableHandle, DataTableProps, RowMoveTarget, RowState, RowTone, IdRefDefaultResolver, IdRefDisplayResolver, IdRefHrefResolver,

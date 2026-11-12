@@ -901,6 +901,11 @@
               "FileList"
             ]
           },
+          "trees side by side on one row axis": {
+            "components": [
+              "PairedTree"
+            ]
+          },
           "a headline number that does one thing": {
             "components": [
               "ActionTile"
@@ -16125,6 +16130,96 @@
         "title": "Composites · Actions/OverflowRow",
         "route": "#/story/composites-overflowrow--overview",
         "file": "stories/composites/OverflowRow.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "PairedTree",
+      "tier": "composites",
+      "source": "src/composites/PairedTree/PairedTree.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Two or more trees side by side on one shared row axis, such as a source plan and its live run, so row 5 of every column is the same step.",
+      "useWhen": [
+        "A plan and its run, or a before and an after, must be compared step by step.",
+        "Each column draws the same tree, and a step that one side lacks stays as an empty slot so the rows still line up."
+      ],
+      "avoidWhen": [
+        {
+          "case": "One tree the user opens and closes.",
+          "use": "GroupTree"
+        },
+        {
+          "case": "Rows of flat records the user sorts or filters.",
+          "use": "DataTable"
+        }
+      ],
+      "rules": [
+        "Give each column an id and a title; set width on a column that needs a fixed size, with fill for the one that takes the leftover.",
+        "Give each row an id, a depth from 0 to 8 and a cells record keyed by column id; the depth indents every cell of that row.",
+        "Leave a column out of cells, or set it to undefined, when that side has no such step; the cell draws the ghost.",
+        "Pass ghost to change what a missing cell shows; it defaults to a faint dash.",
+        "Pass tone on a row (accent, success, warning, danger or info) to tint the whole row, such as accent for the step that runs now.",
+        "Pass label to name the table for a screen reader."
+      ],
+      "a11y": [
+        "It is a real table, so each cell reads with its column title.",
+        "A ghost cell is only a placeholder; do not put text in it that a reader must act on."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "trees side by side on one row axis"
+        ],
+        "rule": "PairedTree draws N trees from Table parts on a shared row axis, with a ghost where one side has no step."
+      },
+      "example": "import { PairedTree } from '@drizztdourden08/tessera';\n\nconst PlanAndRun = () => (\n  <PairedTree\n    label=\"Plan and run\"\n    columns={[\n      { id: 'plan', title: 'Plan', width: 'lg' },\n      { id: 'run', title: 'Run', width: 'fill' },\n    ]}\n    rows={[\n      { id: 'a', depth: 0, cells: { plan: 'Build', run: 'Build' }, tone: 'success' },\n      { id: 'b', depth: 1, cells: { plan: 'Compile', run: undefined } },\n    ]}\n  />\n);\n",
+      "propsHash": "1db58850d24a2250",
+      "props": {
+        "own": [
+          {
+            "name": "columns",
+            "optional": false,
+            "text": "readonly PairedTreeColumn[]"
+          },
+          {
+            "name": "rows",
+            "optional": false,
+            "text": "readonly PairedTreeRow[]"
+          },
+          {
+            "name": "ghost",
+            "optional": true,
+            "text": "ReactNode",
+            "default": "DEFAULT_GHOST"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-inset"
+      ],
+      "gallery": {
+        "title": "Composites · Data/PairedTree",
+        "route": "#/story/composites-pairedtree--overview",
+        "file": "stories/composites/PairedTree.stories.tsx"
       },
       "parts": []
     },

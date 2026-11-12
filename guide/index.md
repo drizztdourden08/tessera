@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 145 of 253 have their usage written; a linked name opens its page.
+One line per component. 146 of 254 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -176,6 +176,7 @@ One line per component. 145 of 253 have their usage written; a linked name opens
 - [OptionsPanel](components/OptionsPanel.md): The panel of a game preset editor: a small title with a toolbar, a row of tabs, the groups of the open tab, and an optional panel beside them. Import from `@drizztdourden08/tessera`.
 - [OutcomeStrip](components/OutcomeStrip.md): A row of small cells, one per step of a test plan, each toned by its outcome, with the current step outlined and its label on hover. Import from `@drizztdourden08/tessera`.
 - [OverflowRow](components/OverflowRow.md): One row of any nodes that never wraps: when the width runs out, the least important ones fold into a popover behind a More button. Import from `@drizztdourden08/tessera`.
+- [PairedTree](components/PairedTree.md): Two or more trees side by side on one shared row axis, such as a source plan and its live run, so row 5 of every column is the same step. Import from `@drizztdourden08/tessera`.
 - [PanelContainer](components/PanelContainer.md): A plain stacked section with a heading, optional action and a body. A building block. Import from `@drizztdourden08/tessera`.
 - `PasswordInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [PathInput](components/PathInput.md): A file or folder path the user can type, drop from the desktop or pick with Browse in one box, with copy, reveal and clear. Import from `@drizztdourden08/tessera`.
