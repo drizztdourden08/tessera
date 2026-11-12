@@ -1,0 +1,8 @@
+/* @layer renderer-components @kind style */
+.paired-tree .paired-tree__cell {
+  vertical-align: middle;
+}
+
+.paired-tree .paired-tree__cell--ghost {
+  background: var(--c-inset);
+}

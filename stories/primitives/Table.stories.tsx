@@ -62,6 +62,32 @@ const Aligned = {
   ),
 } satisfies StoryLiteStoryDefinition<TableArgs>;
 
+const TONES = ['accent', 'success', 'warning', 'danger', 'info'] as const;
+
+const Toned = {
+  name: 'Row tones and sized columns',
+  render: () => (
+    <Table aria-label="Row tones">
+      <TableSection head>
+        <TableRow>
+          <TableCell header width="lg">Step</TableCell>
+          <TableCell header width="fill">Tone</TableCell>
+          <TableCell header width="xs" align="right">Rank</TableCell>
+        </TableRow>
+      </TableSection>
+      <TableSection>
+        {TONES.map((tone, index) => (
+          <TableRow key={tone} tone={tone}>
+            <TableCell>Step {index + 1}</TableCell>
+            <TableCell>{tone}</TableCell>
+            <TableCell align="right">{index + 1}</TableCell>
+          </TableRow>
+        ))}
+      </TableSection>
+    </Table>
+  ),
+} satisfies StoryLiteStoryDefinition<TableArgs>;
+
 const CODE = `import { Table, TableCell, TableRow, TableSection } from '@drizztdourden08/tessera';
 
 <Table striped aria-label="Keys">
@@ -87,13 +113,14 @@ const Overview = overviewStory({
     '`Table` holds `TableSection` parts: `head` draws the header rows, the other draws the body.',
     '`TableRow` holds `TableCell` parts; `header` makes a cell a column heading and `align` sets its text side.',
     '`striped` shades every second body row.',
+    '`tone` on a `TableRow` tints it with a soft tone surface; `width` on a head `TableCell` sizes its column.',
     'A table wider than its box scrolls sideways inside its border.',
     'Name the table with `aria-label`; it takes the other table attributes too.',
   ],
   instead: '[DataTable] for rows the user sorts, filters, selects or resizes.',
-  variants: [Plain, Aligned],
+  variants: [Plain, Aligned, Toned],
   code: CODE,
 });
 
 export default meta;
-export { Aligned, Overview, Plain };
+export { Aligned, Overview, Plain, Toned };

@@ -901,6 +901,11 @@
               "FileList"
             ]
           },
+          "trees side by side on one row axis": {
+            "components": [
+              "PairedTree"
+            ]
+          },
           "a headline number that does one thing": {
             "components": [
               "ActionTile"
@@ -5566,6 +5571,8 @@
         "Pass head on the first TableSection for the header rows; the other TableSection is the body.",
         "Pass header on a TableCell of the head so it is a column heading; pass align left, center or right for the side its text sits on.",
         "Pass striped to shade every second body row.",
+        "Pass tone on a TableRow (accent, success, warning, danger or info) to tint a body row with the soft surface of that tone, such as a running step or a failed one.",
+        "Pass width on a head TableCell (xs, sm, md or lg for a fixed column, fill for the leftover width, auto for the content) to size its column.",
         "Pass aria-label to Table to name it. The other table attributes pass through.",
         "A table wider than its box scrolls sideways inside its border; keep the cells to short text."
       ],
@@ -5613,10 +5620,19 @@
         "--border-width-thin",
         "--c-bg",
         "--c-border",
+        "--c-danger-soft",
         "--c-hairline",
         "--c-hover",
+        "--c-info-soft",
+        "--c-primary-soft",
+        "--c-success-soft",
         "--c-surface",
         "--c-text",
+        "--c-warning-soft",
+        "--column-lg",
+        "--column-md",
+        "--column-sm",
+        "--column-xs",
         "--leading-normal",
         "--radius-md",
         "--space-sm",
@@ -5710,6 +5726,7 @@
         "Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.",
         "Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.",
         "Set clamp to a line count to cut longer text with an ellipsis; the full text shows in a tooltip only when it is cut.",
+        "Set indent to a depth from 0 to 8 to pad the start of a tree row by that many indent steps; a depth above 8 counts as 8. A span has no box of its own, so pair indent with as=\"div\" or put it inside a cell.",
         "Set mono for file names, seeds and addresses, and numeric for times and counts that line up."
       ],
       "a11y": [
@@ -5724,7 +5741,7 @@
         "rule": "Text sets interface copy in a role from the scale, and its members draw each text element."
       },
       "example": "import { Text } from '@drizztdourden08/tessera';\n\nconst SyncLine = () => (\n  <Text.P>\n    <Text variant=\"caption\" tone=\"muted\">Last synced 12 seconds ago</Text>\n    <Text variant=\"caption\" tone=\"faint\"> · Hold Shift to snap</Text>\n  </Text.P>\n);\n",
-      "propsHash": "0b004b2a700f0b3d",
+      "propsHash": "6959ec76ee231729",
       "props": {
         "own": [
           {
@@ -5802,6 +5819,11 @@
             "text": "number"
           },
           {
+            "name": "indent",
+            "optional": true,
+            "text": "number"
+          },
+          {
             "name": "children",
             "optional": true,
             "text": "ReactNode"
@@ -5853,6 +5875,14 @@
         "--c-warning",
         "--font-mono",
         "--font-title",
+        "--indent-1",
+        "--indent-2",
+        "--indent-3",
+        "--indent-4",
+        "--indent-5",
+        "--indent-6",
+        "--indent-7",
+        "--indent-8",
         "--leading-16",
         "--text-base",
         "--text-lead",
@@ -16100,6 +16130,96 @@
         "title": "Composites · Actions/OverflowRow",
         "route": "#/story/composites-overflowrow--overview",
         "file": "stories/composites/OverflowRow.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "PairedTree",
+      "tier": "composites",
+      "source": "src/composites/PairedTree/PairedTree.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "Two or more trees side by side on one shared row axis, such as a source plan and its live run, so row 5 of every column is the same step.",
+      "useWhen": [
+        "A plan and its run, or a before and an after, must be compared step by step.",
+        "Each column draws the same tree, and a step that one side lacks stays as an empty slot so the rows still line up."
+      ],
+      "avoidWhen": [
+        {
+          "case": "One tree the user opens and closes.",
+          "use": "GroupTree"
+        },
+        {
+          "case": "Rows of flat records the user sorts or filters.",
+          "use": "DataTable"
+        }
+      ],
+      "rules": [
+        "Give each column an id and a title; set width on a column that needs a fixed size, with fill for the one that takes the leftover.",
+        "Give each row an id, a depth from 0 to 8 and a cells record keyed by column id; the depth indents every cell of that row.",
+        "Leave a column out of cells, or set it to undefined, when that side has no such step; the cell draws the ghost.",
+        "Pass ghost to change what a missing cell shows; it defaults to a faint dash.",
+        "Pass tone on a row (accent, success, warning, danger or info) to tint the whole row, such as accent for the step that runs now.",
+        "Pass label to name the table for a screen reader."
+      ],
+      "a11y": [
+        "It is a real table, so each cell reads with its column title.",
+        "A ghost cell is only a placeholder; do not put text in it that a reader must act on."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "trees side by side on one row axis"
+        ],
+        "rule": "PairedTree draws N trees from Table parts on a shared row axis, with a ghost where one side has no step."
+      },
+      "example": "import { PairedTree } from '@drizztdourden08/tessera';\n\nconst PlanAndRun = () => (\n  <PairedTree\n    label=\"Plan and run\"\n    columns={[\n      { id: 'plan', title: 'Plan', width: 'lg' },\n      { id: 'run', title: 'Run', width: 'fill' },\n    ]}\n    rows={[\n      { id: 'a', depth: 0, cells: { plan: 'Build', run: 'Build' }, tone: 'success' },\n      { id: 'b', depth: 1, cells: { plan: 'Compile', run: undefined } },\n    ]}\n  />\n);\n",
+      "propsHash": "1db58850d24a2250",
+      "props": {
+        "own": [
+          {
+            "name": "columns",
+            "optional": false,
+            "text": "readonly PairedTreeColumn[]"
+          },
+          {
+            "name": "rows",
+            "optional": false,
+            "text": "readonly PairedTreeRow[]"
+          },
+          {
+            "name": "ghost",
+            "optional": true,
+            "text": "ReactNode",
+            "default": "DEFAULT_GHOST"
+          },
+          {
+            "name": "label",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--c-inset"
+      ],
+      "gallery": {
+        "title": "Composites · Data/PairedTree",
+        "route": "#/story/composites-pairedtree--overview",
+        "file": "stories/composites/PairedTree.stories.tsx"
       },
       "parts": []
     },

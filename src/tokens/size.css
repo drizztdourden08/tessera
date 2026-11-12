@@ -3,6 +3,10 @@
 @layer ds.semantic {
 :root {
   --titlebar-height: var(--size-40);
+  --column-xs: var(--size-64);
+  --column-sm: var(--size-96);
+  --column-md: var(--size-160);
+  --column-lg: var(--size-256);
   --status-bar-h: var(--size-24);
   --status-bar-swatch: var(--size-12);
   --checker-size: var(--size-8);

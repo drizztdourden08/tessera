@@ -151,6 +151,7 @@ const DATA = {
     'the title line of an item, with icon, code, badges and actions': null, 'a stream of log lines': null,
     'items of a catalogue, as cards': null, 'one item as a tile with a picture, a name and corner marks': null, 'the seats of a lobby, taken, open or to add': null, 'cards in columns the user drags between, such as tasks by state': null,
     'files, with their size, date, open and reveal': null,
+    'trees side by side on one row axis': null,
     'a headline number that does one thing': null, 'a long list drawn only where it is in view': null, 'a long grid of equal tiles drawn only where it is in view': null, 'a rectangle dragged over items to pick them': null,
     'a drawing': { question: 'How is it drawn?', answers: { 'in pixels': null, 'in shapes': null } },
     'a chart': {

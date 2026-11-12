@@ -2,7 +2,7 @@
 export { List, ListItem } from '../List';
 export type { ListItemProps, ListProps } from '../List';
 export { Table, TableCell, TableRow, TableSection } from '../Table';
-export type { TableAlign, TableCellProps, TableProps, TableRowProps, TableSectionProps } from '../Table';
+export type { TableAlign, TableCellProps, TableCellWidth, TableProps, TableRowProps, TableRowTone, TableSectionProps } from '../Table';
 export { Badge } from '../Badge';
 export type { BadgeAnchor, BadgeColor, BadgeProps, BadgeText, BadgeValue, BadgeVariant } from '../Badge';
 export { defineStatuses, Status } from '../Status';

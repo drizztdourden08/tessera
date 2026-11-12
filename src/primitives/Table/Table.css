@@ -52,3 +52,43 @@
 .table__cell--right {
   text-align: end;
 }
+
+.table .table__body .table__row.table__row--accent {
+  background: var(--c-primary-soft);
+}
+
+.table .table__body .table__row.table__row--success {
+  background: var(--c-success-soft);
+}
+
+.table .table__body .table__row.table__row--warning {
+  background: var(--c-warning-soft);
+}
+
+.table .table__body .table__row.table__row--danger {
+  background: var(--c-danger-soft);
+}
+
+.table .table__body .table__row.table__row--info {
+  background: var(--c-info-soft);
+}
+
+.table__cell--w-xs {
+  inline-size: var(--column-xs);
+}
+
+.table__cell--w-sm {
+  inline-size: var(--column-sm);
+}
+
+.table__cell--w-md {
+  inline-size: var(--column-md);
+}
+
+.table__cell--w-lg {
+  inline-size: var(--column-lg);
+}
+
+.table__cell--w-fill {
+  inline-size: 100%;
+}

@@ -9,5 +9,14 @@
   --space-lg:   var(--size-16);
   --space-xl:   var(--size-24);
   --space-2xl:  var(--size-32);
+  --indent-step: var(--space-lg);
+  --indent-1: calc(1 * var(--indent-step));
+  --indent-2: calc(2 * var(--indent-step));
+  --indent-3: calc(3 * var(--indent-step));
+  --indent-4: calc(4 * var(--indent-step));
+  --indent-5: calc(5 * var(--indent-step));
+  --indent-6: calc(6 * var(--indent-step));
+  --indent-7: calc(7 * var(--indent-step));
+  --indent-8: calc(8 * var(--indent-step));
 }
 }

@@ -219,6 +219,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - [SeatGrid](components/SeatGrid.md). SeatGrid gives every lobby the same wrapping grid of seats, with the sizes set by tokens.
   - Cards in columns the user drags between, such as tasks by state: [KanbanBoard](components/KanbanBoard.md). KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards.
   - Files, with their size, date, open and reveal: [FileList](components/FileList.md). FileList gives every file the same row, with the size, the date and the two ways to reach it.
+  - Trees side by side on one row axis: [PairedTree](components/PairedTree.md). PairedTree draws N trees from Table parts on a shared row axis, with a ghost where one side has no step.
   - A headline number that does one thing: [ActionTile](components/ActionTile.md). ActionTile reads like a StatTile and adds one action, tools and a way to the full view, laid out the same in every app.
   - A long list drawn only where it is in view: [VirtualList](components/VirtualList.md). VirtualList draws only the rows in view, so a list of any length opens at once and scrolls smoothly.
   - A long grid of equal tiles drawn only where it is in view: [VirtualGrid](components/VirtualGrid.md). VirtualGrid draws only the rows of tiles in view, so a grid of any size opens at once and scrolls smoothly.

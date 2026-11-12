@@ -7,7 +7,7 @@ import { axis } from '../_template/axis';
 import { Demonstrator } from '../_template/Demonstrator';
 import { overviewStory } from '../_template/overview-story';
 import { CardHeadRow } from '../primitives/_samples/CardHeadRow';
-import { Clamped, Figures, Sizes, TitleFace } from './text-type-examples';
+import { Clamped, Figures, Indent, Sizes, TitleFace } from './text-type-examples';
 
 type TextVariantChoice = TextVariant | 'none';
 type TextToneChoice = NonNullable<TextProps['tone']>;
@@ -181,8 +181,8 @@ const Overview = overviewStory({
   ],
   instead: '[Title] for headings.',
   playground: Playground,
-  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Clamped, Composed, HeadRow],
+  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Clamped, Indent, Composed, HeadRow],
 });
 
 export default meta;
-export { AllVariants, Clamped, Composed, Figures, HeadRow, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };
+export { AllVariants, Clamped, Composed, Figures, HeadRow, Indent, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };
