@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.128.1
+
+### Patch Changes
+
+- ScrollArea takes gutter both. The SideNavLayout pane uses it, and hover-only actions show under .platform-mobile.
+
 ## 0.128.0
 
 ### Minor Changes
