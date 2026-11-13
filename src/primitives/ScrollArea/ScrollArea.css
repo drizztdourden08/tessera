@@ -23,6 +23,10 @@
   scrollbar-gutter: stable;
 }
 
+.scroll-area--both-gutter {
+  scrollbar-gutter: stable both-edges;
+}
+
 .scroll-area[data-overflow~='x'] {
   overscroll-behavior-x: contain;
 }

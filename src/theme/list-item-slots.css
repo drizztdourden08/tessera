@@ -49,7 +49,8 @@
   transition: opacity var(--transition-fast);
 }
 
-.list-item-row:is(:hover, :focus-within) > .list-item-row__name-action {
+.list-item-row:is(:hover, :focus-within) > .list-item-row__name-action,
+.platform-mobile .list-item-row__name-action {
   opacity: 1;
 }
 
