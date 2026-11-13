@@ -35,7 +35,7 @@ const AccountPage = () => (
   </PageFrame>
 );
 `,
-  propsHash: 'ce5e2bb0fb4c95ba',
+  propsHash: 'c2e976d5452fb7a4',
 } satisfies ComponentUsage;
 
 export { usage };

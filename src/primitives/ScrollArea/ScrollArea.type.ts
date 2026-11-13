@@ -5,7 +5,7 @@ type ScrollAxis = 'y' | 'x' | 'both';
 
 type ScrollAreaScrollbar = 'native' | 'slim';
 
-type ScrollAreaGutter = 'auto' | 'stable';
+type ScrollAreaGutter = 'auto' | 'stable' | 'both';
 
 type ScrollAreaThumb = 'always' | 'auto';
 

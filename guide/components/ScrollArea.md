@@ -33,7 +33,7 @@ ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar
 - Thumb auto, on a slim area, hides the line at rest and shows it under the pointer, while it scrolls and a moment after, and while focus is inside. It defaults to always.
 - A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.
 - Set fade to false when the edges of the content must not melt away.
-- Gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows.
+- Gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows. gutter both reserves the same room on both edges, so a centred or padded pane keeps equal margins left and right.
 - Give the box a height, through a class or its parent, or it grows with its content and never scrolls.
 
 ## Accessibility
@@ -62,7 +62,7 @@ const Library = ({ cards }: { cards: ReactNode[] }) => (
 - `fade` (optional): `boolean`. Default `true`.
 - `scrollbar` (optional): `ScrollAreaScrollbar`, one of `'native'`, `'slim'`. Default `'native'`.
 - `thumb` (optional): `ScrollAreaThumb`, one of `'always'`, `'auto'`.
-- `gutter` (optional): `ScrollAreaGutter`, one of `'auto'`, `'stable'`. Default `'auto'`.
+- `gutter` (optional): `ScrollAreaGutter`, one of `'auto'`, `'stable'`, `'both'`. Default `'auto'`.
 - `onScroll` (optional): `(position: ScrollPosition) => void`.
 - `scrollTo` (optional): `Partial<ScrollPosition>`.
 

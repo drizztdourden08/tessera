@@ -180,7 +180,8 @@
 
 .tree[data-trail='hover'] .tree__row:hover .tree__trail,
 .tree[data-trail='hover'] .tree__row:focus-within .tree__trail,
-.tree[data-trail='hover'] .tree__row--selected .tree__trail {
+.tree[data-trail='hover'] .tree__row--selected .tree__trail,
+.platform-mobile .tree[data-trail='hover'] .tree__trail {
   opacity: 1;
 }
 

@@ -39,8 +39,15 @@
 }
 
 .inline-edit__view:hover .inline-edit__pen,
-.inline-edit__view:focus-visible .inline-edit__pen {
+.inline-edit__view:focus-visible .inline-edit__pen,
+.platform-mobile .inline-edit__pen {
   opacity: 1;
+}
+
+@media (hover: none) {
+  .inline-edit__pen {
+    opacity: 1;
+  }
 }
 
 .inline-edit__view--link .inline-edit__text {
