@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.128.2
+
+### Patch Changes
+
+- The no-tessera-internals rule allows the .platform-mobile root marker. New icon chevrons-down-up.
+
 ## 0.128.1
 
 ### Patch Changes
