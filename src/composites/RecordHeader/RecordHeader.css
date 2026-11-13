@@ -2,6 +2,7 @@
 .record-header {
   display: flex;
   flex: 1 1 auto;
+  flex-wrap: wrap;
   align-items: center;
   min-inline-size: 0;
 }
@@ -26,8 +27,9 @@
 }
 
 .record-header__slot--main {
-  flex: 1;
+  flex: 1 1 var(--record-header-title-min);
   gap: inherit;
+  min-inline-size: var(--record-header-title-min);
 }
 
 .record-header__title {
