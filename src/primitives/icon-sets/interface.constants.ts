@@ -6,6 +6,7 @@ import chevronUpIcon from '@iconify-icons/lucide/chevron-up';
 import chevronLeftIcon from '@iconify-icons/lucide/chevron-left';
 import chevronRightIcon from '@iconify-icons/lucide/chevron-right';
 import chevronsUpDownIcon from '@iconify-icons/lucide/chevrons-up-down';
+import chevronsDownUpIcon from '@iconify-icons/lucide/chevrons-down-up';
 import arrowUpIcon from '@iconify-icons/lucide/arrow-up';
 import arrowDownIcon from '@iconify-icons/lucide/arrow-down';
 import arrowLeftIcon from '@iconify-icons/lucide/arrow-left';
@@ -92,6 +93,7 @@ const INTERFACE_ICONS = {
   'chevron-left': chevronLeftIcon,
   'chevron-right': chevronRightIcon,
   'chevrons-up-down': chevronsUpDownIcon,
+  'chevrons-down-up': chevronsDownUpIcon,
   'arrow-up': arrowUpIcon,
   'arrow-down': arrowDownIcon,
   'arrow-left': arrowLeftIcon,
