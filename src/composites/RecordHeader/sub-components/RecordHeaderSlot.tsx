@@ -2,9 +2,10 @@
 import { Box } from '../../../primitives/Box';
 import type { RecordHeaderSlotProps } from './RecordHeaderSlot.type';
 
-const RecordHeaderSlot = ({ when = true, main = false, children }: RecordHeaderSlotProps) => {
+const RecordHeaderSlot = ({ when = true, main = false, content = false, children }: RecordHeaderSlotProps) => {
   if (!when) return null;
-  return <Box className={main ? 'record-header__slot record-header__slot--main' : 'record-header__slot'}>{children}</Box>;
+  const className = ['record-header__slot', main && 'record-header__slot--main', content && 'record-header__slot--content'].filter(Boolean).join(' ');
+  return <Box className={className}>{children}</Box>;
 };
 
 export { RecordHeaderSlot };

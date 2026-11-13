@@ -4,6 +4,7 @@ import type { ReactNode } from 'react';
 interface RecordHeaderSlotProps {
   when?: boolean;
   main?: boolean;
+  content?: boolean;
   children?: ReactNode;
 }
 
