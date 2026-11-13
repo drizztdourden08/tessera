@@ -26,6 +26,11 @@
   min-inline-size: 0;
 }
 
+.record-header__slot--content {
+  flex-shrink: 1;
+  flex-wrap: wrap;
+}
+
 .record-header__slot--main {
   flex: 1 1 var(--record-header-title-min);
   gap: inherit;

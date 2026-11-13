@@ -25,7 +25,7 @@ const RecordHeader = (props: RecordHeaderProps) => {
       <RecordHeaderSlot main>
         {title != null && <Text variant="label" className="record-header__title">{title}</Text>}
       </RecordHeaderSlot>
-      <RecordHeaderSlot when={content != null}>{content}</RecordHeaderSlot>
+      <RecordHeaderSlot when={content != null} content>{content}</RecordHeaderSlot>
       <RecordHeaderSlot when={menu != null}>{menu}</RecordHeaderSlot>
     </Box>
   );

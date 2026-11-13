@@ -22,7 +22,7 @@ const usage = {
   ],
   a11y: [
     'The chevron is a bare button with aria-expanded and, when controls is set, aria-controls; Enter and Space on it toggle. The row has no role of its own.',
-    'A long title is cut with an ellipsis. The title keeps a minimum width; when the row is too narrow for it, the content and the menu drop to their own line under the title.',
+    'A long title is cut with an ellipsis. The title keeps a minimum width; when the row is too narrow for it, the content and the menu drop to their own line under the title. The content slot shrinks and wraps its own children when even that line is too narrow.',
   ],
   tree: {
     path: ['data', 'the title line of an item, with icon, code, badges and actions'],
