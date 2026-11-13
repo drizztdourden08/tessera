@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.128.4
+
+### Patch Changes
+
+- RecordHeader content slot shrinks and wraps its children on a narrow row.
+
 ## 0.128.3
 
 ### Patch Changes
