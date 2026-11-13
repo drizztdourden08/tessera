@@ -39,7 +39,7 @@ RecordHeader is the shared title line of every item: slots in a fixed order, cen
 ## Accessibility
 
 - The chevron is a bare button with aria-expanded and, when controls is set, aria-controls; Enter and Space on it toggle. The row has no role of its own.
-- A long title is cut with an ellipsis and the slots never wrap.
+- A long title is cut with an ellipsis. The title keeps a minimum width; when the row is too narrow for it, the content and the menu drop to their own line under the title.
 
 ## Example
 
@@ -74,4 +74,4 @@ const TaskLine = () => {
 
 ## Tokens
 
-It draws on `--duration-fast`, `--ease-standard`, `--record-header-gap-card`, `--record-header-gap-row`.
+It draws on `--duration-fast`, `--ease-standard`, `--record-header-gap-card`, `--record-header-gap-row`, `--record-header-title-min`.

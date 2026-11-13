@@ -51,5 +51,6 @@
   --record-card-gap-card: var(--space-sm);
   --record-header-gap-row: var(--space-xs);
   --record-header-gap-card: var(--space-sm);
+  --record-header-title-min: var(--size-128);
 }
 }

@@ -49,6 +49,7 @@
   --record-card-gap-card: 8px;
   --record-header-gap-row: 4px;
   --record-header-gap-card: 8px;
+  --record-header-title-min: 128px;
   --p-primary: #8a8a96;
   --p-secondary: #6e6e7a;
   --p-tertiary: #9a9aa4;
