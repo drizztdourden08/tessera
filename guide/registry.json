@@ -3559,7 +3559,7 @@
         "rule": "PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document."
       },
       "example": "import { PageFrame, Title } from '@drizztdourden08/tessera';\n\nconst AccountPage = () => (\n  <PageFrame width=\"md\">\n    <Title>Account</Title>\n  </PageFrame>\n);\n",
-      "propsHash": "ce5e2bb0fb4c95ba",
+      "propsHash": "c2e976d5452fb7a4",
       "props": {
         "own": [
           {
@@ -4018,7 +4018,7 @@
         "rule": "ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content."
       },
       "example": "import type { ReactNode } from 'react';\nimport { Grid, ScrollArea } from '@drizztdourden08/tessera';\n\nconst Library = ({ cards }: { cards: ReactNode[] }) => (\n  <ScrollArea scrollbar=\"slim\" className=\"library\">\n    <Grid minColWidth={224} gap=\"sm\">\n      {cards}\n    </Grid>\n  </ScrollArea>\n);\n",
-      "propsHash": "5a425e0b9e3bf718",
+      "propsHash": "862d7ae27d9fd5bc",
       "props": {
         "own": [
           {
