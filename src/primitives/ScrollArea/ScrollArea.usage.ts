@@ -39,7 +39,7 @@ const Library = ({ cards }: { cards: ReactNode[] }) => (
   </ScrollArea>
 );
 `,
-  propsHash: '5a425e0b9e3bf718',
+  propsHash: '862d7ae27d9fd5bc',
 } satisfies ComponentUsage;
 
 export { usage };
