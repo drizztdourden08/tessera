@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.128.3
+
+### Patch Changes
+
+- RecordHeader wraps on narrow rows: the title keeps a minimum width and the content and menu drop to their own line.
+
 ## 0.128.2
 
 ### Patch Changes
