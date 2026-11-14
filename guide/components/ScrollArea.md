@@ -66,7 +66,7 @@ const Library = ({ cards }: { cards: ReactNode[] }) => (
 - `gutter` (optional): `ScrollAreaGutter`, one of `'auto'`, `'stable'`, `'both'`. Default `'auto'`.
 - `onScroll` (optional): `(position: ScrollPosition) => void`.
 - `scrollTo` (optional): `Partial<ScrollPosition>`.
-- `follow` (optional): `boolean`. Default `false`.
+- `follow` (optional): `boolean`.
 
 It also takes the 279 attributes it inherits through `Omit<ComponentPropsWithRef<'div'>, 'onScroll'>`.
 
