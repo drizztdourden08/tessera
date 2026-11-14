@@ -64,6 +64,7 @@ const AccountPage = () => (
 - `thumb` (optional): `ScrollAreaThumb`, one of `'always'`, `'auto'`.
 - `gutter` (optional): `ScrollAreaGutter`, one of `'auto'`, `'stable'`, `'both'`.
 - `scrollTo` (optional): `Partial<ScrollPosition>`.
+- `follow` (optional): `boolean`.
 
 It also takes the 278 attributes it inherits through `Omit<ScrollAreaProps, 'axis' | 'children'>`, `Omit<ComponentPropsWithRef<'div'>, 'onScroll'>`.
 

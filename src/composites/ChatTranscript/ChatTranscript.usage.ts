@@ -45,7 +45,7 @@ const Chat = () => (
   />
 );
 `,
-  propsHash: 'PLACEHOLDER',
+  propsHash: 'a0097d36889feeae',
 } satisfies ComponentUsage;
 
 export { usage };
