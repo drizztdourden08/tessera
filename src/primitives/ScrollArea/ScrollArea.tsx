@@ -4,6 +4,7 @@ import { createScrollSyncController } from './behavior/create-scroll-sync-contro
 import { scrollAreaClass } from './behavior/scroll-area-class';
 import { scrollAreaMarks } from './behavior/scroll-area-marks';
 import { setNodeOnRef } from './behavior/set-node-on-ref';
+import { useFollowBottom } from './behavior/useFollowBottom';
 import { useScrollEdges } from './behavior/useScrollEdges';
 import { useSlimThumbAutoHide } from './behavior/useSlimThumbAutoHide';
 import { useSlimThumbDrag } from './behavior/useSlimThumbDrag';
@@ -12,7 +13,7 @@ import type { UIEvent } from 'react';
 import './ScrollArea.css';
 
 const ScrollArea = (props: ScrollAreaProps) => {
-  const { axis = 'y', fade = true, scrollbar = 'native', thumb, gutter = 'auto', className = '', children, onScroll, scrollTo, ref, ...rest } = props;
+  const { axis = 'y', fade = true, scrollbar = 'native', thumb, gutter = 'auto', className = '', children, onScroll, scrollTo, follow = false, ref, ...rest } = props;
 
   const nodeRef = useRef<HTMLDivElement | null>(null);
   const controller = useMemo(() => createScrollSyncController(() => nodeRef.current), []);
@@ -21,6 +22,7 @@ const ScrollArea = (props: ScrollAreaProps) => {
   useScrollEdges(nodeRef, axis, fade, slim);
   useSlimThumbDrag(nodeRef, axis, slim);
   useSlimThumbAutoHide(nodeRef, autoHide);
+  useFollowBottom(nodeRef, follow);
 
   useEffect(() => {
     controller.applyScrollTo(scrollTo ?? {});

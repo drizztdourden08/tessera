@@ -22,6 +22,7 @@ interface ScrollAreaProps extends Omit<ComponentPropsWithRef<'div'>, 'onScroll'>
   gutter?: ScrollAreaGutter;
   onScroll?: (position: ScrollPosition) => void;
   scrollTo?: Partial<ScrollPosition>;
+  follow?: boolean;
 }
 
 export type { ScrollAreaGutter, ScrollAreaProps, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAxis, ScrollPosition };
