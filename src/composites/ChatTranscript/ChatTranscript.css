@@ -1,0 +1,43 @@
+/* @layer renderer-components @kind style */
+.chat-transcript {
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.chat-transcript__rows {
+  padding: var(--space-sm) var(--space-md);
+}
+
+.chat-transcript__row {
+  min-inline-size: 0;
+}
+
+.chat-transcript__row[data-role='user'] {
+  padding-inline-start: var(--space-md);
+  border-inline-start: var(--border-width-thick) solid var(--c-border);
+}
+
+.chat-transcript__content {
+  min-inline-size: 0;
+  overflow-wrap: anywhere;
+}
+
+.chat-transcript__tools {
+  padding-inline-start: var(--space-md);
+}
+
+.chat-transcript__tool {
+  min-inline-size: 0;
+}
+
+.chat-transcript__tool-summary {
+  min-inline-size: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chat-transcript__detail {
+  padding-inline-start: var(--space-md);
+  overflow-wrap: anywhere;
+}

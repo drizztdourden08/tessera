@@ -61,6 +61,7 @@ export { DateText, type DateTextProps } from '../DateText';
 export { Video } from '../Video';
 export type { VideoProps } from '../Video';
 export { CodeBlock, type CodeBlockLanguage, type CodeBlockProps } from '../CodeBlock';
+export { ChatTranscript, type ChatToolStatus, type ChatTranscriptMessage, type ChatTranscriptProps, type ChatTranscriptRole, type ChatTranscriptTool } from '../ChatTranscript';
 export { Markdown, type MarkdownHeadingOffset, type MarkdownImageHandler, type MarkdownImageResolver, type MarkdownImageTarget, type MarkdownImages, type MarkdownLinkHandler, type MarkdownLinkId, type MarkdownProps, type MarkdownSize } from '../Markdown';
 export { Rating, type RatingProps, type RatingSize } from '../Rating';
 export { Carousel, type CarouselProps, type CarouselSlide } from '../Carousel';
