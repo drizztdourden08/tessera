@@ -18,6 +18,7 @@ const usage = {
     'A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.',
     'Set fade to false when the edges of the content must not melt away.',
     'gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows. gutter both reserves the same room on both edges, so a centred or padded pane keeps equal margins left and right.',
+    'follow keeps the box scrolled to the end as its content grows, such as a chat or a live feed; it stops when the reader scrolls up and resumes when they return to the end.',
     'Give the box a height, through a class or its parent, or it grows with its content and never scrolls.',
   ],
   a11y: [
@@ -39,7 +40,7 @@ const Library = ({ cards }: { cards: ReactNode[] }) => (
   </ScrollArea>
 );
 `,
-  propsHash: '862d7ae27d9fd5bc',
+  propsHash: '56861f2002a3c77f',
 } satisfies ComponentUsage;
 
 export { usage };

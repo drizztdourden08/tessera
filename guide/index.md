@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 146 of 254 have their usage written; a linked name opens its page.
+One line per component. 147 of 255 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -105,6 +105,7 @@ One line per component. 146 of 254 have their usage written; a linked name opens
 - [ArmedIconButton](components/ArmedIconButton.md): An icon button pressed twice: the first press arms it and its icon loops a short motion, the second press acts. Import from `@drizztdourden08/tessera`.
 - [Breadcrumbs](components/Breadcrumbs.md): The trail of places that leads to the one the user is in, each a button, with a menu of its neighbours, a fold for the middle and a click at the end that turns it into a path box. Import from `@drizztdourden08/tessera`.
 - [Carousel](components/Carousel.md): Shows one slide at a time from a set, with dots and arrows to move between them, and can turn to the next slide by itself. Import from `@drizztdourden08/tessera`.
+- [ChatTranscript](components/ChatTranscript.md): A scrolling chat transcript: messages grouped in rows by speaker, with the tool calls of each message folded away. Import from `@drizztdourden08/tessera`.
 - [CheckList](components/CheckList.md): The results of a list of checks, such as a connection test or a diagnostics report, each with its state, what was found and an optional fix. Import from `@drizztdourden08/tessera`.
 - [ChoiceGrid](components/ChoiceGrid.md): A row or grid of any cells where the user picks one, as a radio group or a listbox, with one Tab stop, arrow keys and optional sections. Import from `@drizztdourden08/tessera`.
 - `CodeBlock`: usage not written yet. Import from `@drizztdourden08/tessera`.

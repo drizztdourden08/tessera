@@ -875,6 +875,11 @@
               "LogPanel"
             ]
           },
+          "a conversation of messages and tool calls": {
+            "components": [
+              "ChatTranscript"
+            ]
+          },
           "items of a catalogue, as cards": {
             "components": [
               "ItemCard"
@@ -3559,7 +3564,7 @@
         "rule": "PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document."
       },
       "example": "import { PageFrame, Title } from '@drizztdourden08/tessera';\n\nconst AccountPage = () => (\n  <PageFrame width=\"md\">\n    <Title>Account</Title>\n  </PageFrame>\n);\n",
-      "propsHash": "c2e976d5452fb7a4",
+      "propsHash": "a183d89d8c067d37",
       "props": {
         "own": [
           {
@@ -3635,6 +3640,11 @@
             "name": "scrollTo",
             "optional": true,
             "text": "Partial<ScrollPosition>"
+          },
+          {
+            "name": "follow",
+            "optional": true,
+            "text": "boolean"
           }
         ],
         "inherited": {
@@ -4004,6 +4014,7 @@
         "A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.",
         "Set fade to false when the edges of the content must not melt away.",
         "gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows. gutter both reserves the same room on both edges, so a centred or padded pane keeps equal margins left and right.",
+        "follow keeps the box scrolled to the end as its content grows, such as a chat or a live feed; it stops when the reader scrolls up and resumes when they return to the end.",
         "Give the box a height, through a class or its parent, or it grows with its content and never scrolls."
       ],
       "a11y": [
@@ -4018,7 +4029,7 @@
         "rule": "ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content."
       },
       "example": "import type { ReactNode } from 'react';\nimport { Grid, ScrollArea } from '@drizztdourden08/tessera';\n\nconst Library = ({ cards }: { cards: ReactNode[] }) => (\n  <ScrollArea scrollbar=\"slim\" className=\"library\">\n    <Grid minColWidth={224} gap=\"sm\">\n      {cards}\n    </Grid>\n  </ScrollArea>\n);\n",
-      "propsHash": "862d7ae27d9fd5bc",
+      "propsHash": "56861f2002a3c77f",
       "props": {
         "own": [
           {
@@ -4077,6 +4088,11 @@
             "name": "scrollTo",
             "optional": true,
             "text": "Partial<ScrollPosition>"
+          },
+          {
+            "name": "follow",
+            "optional": true,
+            "text": "boolean"
           }
         ],
         "inherited": {
@@ -7581,6 +7597,95 @@
         "title": "Composites · Content/Carousel",
         "route": "#/story/composites-carousel--overview",
         "file": "stories/composites/Carousel.stories.tsx"
+      },
+      "parts": []
+    },
+    {
+      "name": "ChatTranscript",
+      "tier": "composites",
+      "source": "src/composites/ChatTranscript/ChatTranscript.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A scrolling chat transcript: messages grouped in rows by speaker, with the tool calls of each message folded away.",
+      "useWhen": [
+        "A conversation with a person or an agent shows its messages in order, and new ones arrive while it is open.",
+        "A message ran tools, and the reader only needs the count until they open it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The lines are log output with search, filters and selection.",
+          "use": "LogPanel"
+        },
+        {
+          "case": "The list is a fixed set of records, not a conversation.",
+          "use": "ItemList"
+        }
+      ],
+      "rules": [
+        "Pass messages in order. Each has an id, a speaker and optional role, time, content and tools.",
+        "Consecutive messages from the same speaker form one row. The name and time show once at the top of the row.",
+        "role tints the speaker name: user, assistant or system. It defaults to assistant.",
+        "The tools of a message fold into one line that reads, for example, 3 tool calls. It shows a running state while any tool runs and a failed state when one failed.",
+        "Open, each tool shows its name, summary and status. A tool with detail folds that detail under its own line.",
+        "The transcript scrolls and follows the end as messages arrive, until the reader scrolls up. Set follow to false to turn that off.",
+        "Give the transcript a height, through a class or its parent. empty shows in place of the list when there are no messages."
+      ],
+      "a11y": [
+        "Folds are native details elements, so Enter and Space open them.",
+        "The list keeps the reading order of the messages."
+      ],
+      "tree": {
+        "path": [
+          "data",
+          "a conversation of messages and tool calls"
+        ],
+        "rule": "ChatTranscript lists chat messages by speaker, folds their tool calls and stays at the newest message."
+      },
+      "example": "import { ChatTranscript } from '@drizztdourden08/tessera';\n\nconst Chat = () => (\n  <ChatTranscript\n    messages={[\n      { id: '1', speaker: 'You', role: 'user', content: 'Check the build.' },\n      {\n        id: '2',\n        speaker: 'Agent',\n        content: 'Running it now.',\n        tools: [{ id: 't1', name: 'build', summary: 'all packages', status: 'running' }],\n      },\n    ]}\n    empty=\"No messages yet.\"\n  />\n);\n",
+      "propsHash": "a0097d36889feeae",
+      "props": {
+        "own": [
+          {
+            "name": "messages",
+            "optional": false,
+            "text": "ChatTranscriptMessage[]"
+          },
+          {
+            "name": "follow",
+            "optional": true,
+            "text": "boolean",
+            "default": "true"
+          },
+          {
+            "name": "empty",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--c-border",
+        "--space-md",
+        "--space-sm"
+      ],
+      "gallery": {
+        "title": "Composites · Content/ChatTranscript",
+        "route": "#/story/composites-chattranscript--overview",
+        "file": "stories/composites/ChatTranscript.stories.tsx"
       },
       "parts": []
     },
