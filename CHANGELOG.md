@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.129.0
+
+### Minor Changes
+
+- ScrollArea gets follow, and a new ChatTranscript composite.
+
 ## 0.128.4
 
 ### Patch Changes
