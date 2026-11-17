@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.130.0
+
+### Minor Changes
+
+- Fields sit one step off the surface (new token --c-field) and placeholders are italic in a brighter muted tone (new token --c-placeholder). DropZone variant="inline" now shows status.message after its label.
+
 ## 0.129.0
 
 ### Minor Changes
