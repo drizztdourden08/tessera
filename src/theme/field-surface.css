@@ -5,7 +5,7 @@
 .text-input,
 .textarea {
   width: 100%;
-  background: var(--c-surface);
+  background: var(--c-field);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
   color: var(--c-text);
@@ -47,7 +47,7 @@
 .number-input {
   display: inline-flex;
   align-items: stretch;
-  background: var(--c-surface);
+  background: var(--c-field);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
   overflow: hidden;
@@ -99,7 +99,8 @@
 
 .text-input::placeholder,
 .textarea::placeholder {
-  color: var(--c-text-muted);
+  color: var(--c-placeholder);
+  font-style: italic;
 }
 
 .number-input--disabled {

@@ -47,6 +47,7 @@
 }
 
 .text-input[data-mixed]::placeholder {
+  color: var(--c-placeholder);
   font-style: italic;
 }
 

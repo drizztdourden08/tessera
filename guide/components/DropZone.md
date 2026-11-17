@@ -31,7 +31,7 @@ DropZone is the visible area that takes files dragged in, pasted or picked.
 - Pass accept as extensions such as .png or media types such as image/*; onDrop gets only the files that pass.
 - Pass onReject to hear about the files accept refused, and tell the user why, for example through status.
 - Set status after a check, success or error with a message, to show the result under the label.
-- Set variant inline for a one line box in a header row; block is the tall target with a glyph and a hint.
+- Set variant inline for a one line box in a header row; block is the tall target with a glyph and a hint. The inline box shows the status message after the label and drops the hint.
 - Set disabled to show the not allowed pointer and swallow drops.
 
 ## Accessibility

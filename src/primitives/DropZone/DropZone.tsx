@@ -44,7 +44,9 @@ const DropZone = (props: DropZoneProps) => {
     >
       <span className="dropzone__icon" aria-hidden={inline || undefined}>{icon ?? <Glyph name="box" />}</span>
       <Span className="dropzone__label">{label}</Span>
-      {!inline && <DropZoneHints hint={hint} status={status} />}
+      {inline
+        ? status && <Span role="status" className={`dropzone__status dropzone__status--${status.tone}`}>{status.message}</Span>
+        : <DropZoneHints hint={hint} status={status} />}
       <input
         ref={zone.inputRef}
         type="file"
