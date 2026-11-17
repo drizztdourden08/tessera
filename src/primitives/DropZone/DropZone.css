@@ -87,6 +87,10 @@
   font-size: var(--control-font);
 }
 
+.dropzone--inline .dropzone__status {
+  font-size: var(--control-font);
+}
+
 .dropzone--inline:focus-visible {
   outline: var(--border-width-thin) solid var(--c-primary-bright);
   outline-offset: var(--border-width-thin);
