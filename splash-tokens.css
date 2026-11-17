@@ -136,6 +136,7 @@
   --c-bg: #000;
   --c-surface: #17171a;
   --c-sunken: #050506;
+  --c-field: #0e0e10;
   --c-layer: #0e0e12;
   --c-gradient-dark-from: #202026;
   --c-gradient-dark-to: #0b0b0e;
@@ -156,6 +157,7 @@
   --c-text-dim: #9a9aa4;
   --c-text-dim-soft: #9a9aa424;
   --c-text-muted: #8d8d97;
+  --c-placeholder: #a0a0a9;
   --c-text-faint: #81818a;
   --c-text-disabled: #3c3c41;
   --c-danger: #ec6279;
@@ -632,6 +634,7 @@
   --p-surface-950: #060609;
   --c-surface: #1a1821;
   --c-sunken: #060609;
+  --c-field: #100f16;
   --c-layer: #0d0b14;
   --c-gradient-dark-from: #1c1438;
   --c-gradient-dark-to: #0b0912;
@@ -648,6 +651,7 @@
   --c-text-dim: #a79fc8;
   --c-text-dim-soft: #a79fc824;
   --c-text-muted: #9a92b8;
+  --c-placeholder: #aba4c5;
   --c-text-faint: #8c85a8;
   --c-text-disabled: #423e50;
   --c-danger: #f2655f;
@@ -778,6 +782,7 @@
   --p-surface-950: #040404;
   --c-surface: #141414;
   --c-sunken: #040404;
+  --c-field: #0c0c0c;
   --c-layer: #121314;
   --c-gradient-dark-from: #2e1d0c;
   --c-gradient-dark-to: #0f0a06;
@@ -794,6 +799,7 @@
   --c-text-dim: #9b9c9e;
   --c-text-dim-soft: #9b9c9e24;
   --c-text-muted: #8e8f91;
+  --c-placeholder: #a1a2a3;
   --c-text-faint: #828385;
   --c-text-disabled: #3d3d3e;
   --c-danger: #ef5a6e;
@@ -924,6 +930,7 @@
   --c-bg: #050506;
   --c-surface: #202022;
   --c-sunken: #070708;
+  --c-field: #141416;
   --c-layer: #140b26;
   --c-gradient-dark-from: #130926;
   --c-gradient-dark-to: #080410;
@@ -940,6 +947,7 @@
   --c-text-dim: #d4d4d7;
   --c-text-dim-soft: #d4d4d724;
   --c-text-muted: #b5b5b9;
+  --c-placeholder: #c1c1c5;
   --c-text-faint: #a6a6aa;
   --c-text-disabled: #48484a;
   --c-danger: #fa90a1;
@@ -1080,6 +1088,7 @@
   --c-bg: #060403;
   --c-surface: #1b140e;
   --c-sunken: #040200;
+  --c-field: #0f0a04;
   --c-layer: #1a1008;
   --c-gradient-dark-from: #2a1d0e;
   --c-gradient-dark-to: #0e0905;
@@ -1096,6 +1105,7 @@
   --c-text-dim: #d8c9aa;
   --c-text-dim-soft: #d8c9aa24;
   --c-text-muted: #b8a888;
+  --c-placeholder: #c4b597;
   --c-text-faint: #a39373;
   --c-text-disabled: #36270c;
   --c-danger: #f0786c;
