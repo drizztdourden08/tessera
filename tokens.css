@@ -229,6 +229,7 @@ input, select {
     --c-bg:            var(--p-bg, var(--p-pure-black));
     --c-surface:       var(--p-surface-fill, var(--p-surface-900));
     --c-sunken:        var(--p-sunken, var(--p-surface-950));
+    --c-field:          color-mix(in oklab, var(--c-surface) 55%, var(--c-sunken));
     --c-layer:         var(--p-black);
     --c-gradient-dark-from: var(--p-gradient-dark-from);
     --c-gradient-dark-to:   var(--p-gradient-dark-to);
@@ -249,6 +250,7 @@ input, select {
     --c-text-dim:      var(--p-text-dim, var(--p-tertiary-500));
     --c-text-dim-soft: color-mix(in srgb, var(--c-text-dim) 14%, transparent);
     --c-text-muted:    var(--p-text-muted, var(--p-tertiary-550));
+    --c-placeholder:    color-mix(in oklab, var(--c-text-muted) 80%, var(--c-text));
     --c-text-faint:    var(--p-text-faint, var(--p-tertiary-600));
     --c-text-disabled: var(--p-tertiary-800);
     --c-danger:        var(--p-danger);

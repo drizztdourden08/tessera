@@ -64,7 +64,8 @@
 }
 
 .path-input__input::placeholder {
-  color: var(--c-text-muted);
+  color: var(--c-placeholder);
+  font-style: italic;
   font-family: var(--font-sans);
 }
 

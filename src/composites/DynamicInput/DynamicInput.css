@@ -13,7 +13,7 @@
   min-width: 0;
   min-height: var(--control-height);
   padding-inline: var(--control-pad-inline);
-  background: var(--c-surface);
+  background: var(--c-field);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
   color: var(--c-text);
@@ -112,7 +112,8 @@
 }
 
 .dynamic-input .dynamic-input__slot::placeholder {
-  color: var(--c-text-muted);
+  color: var(--c-placeholder);
+  font-style: italic;
   font-weight: var(--weight-normal);
 }
 
@@ -183,7 +184,8 @@
 }
 
 .dynamic-input__placeholder {
-  color: var(--c-text-muted);
+  color: var(--c-placeholder);
+  font-style: italic;
   font-weight: var(--weight-normal);
 }
 

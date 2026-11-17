@@ -43,7 +43,8 @@
 }
 
 .number-input__field::placeholder {
-  color: var(--c-text-muted);
+  color: var(--c-placeholder);
+  font-style: italic;
 }
 
 .number-input__spin {
@@ -128,6 +129,6 @@
 }
 
 .number-input__field[data-mixed]::placeholder {
-  color: var(--c-text-muted);
+  color: var(--c-placeholder);
   font-style: italic;
 }
