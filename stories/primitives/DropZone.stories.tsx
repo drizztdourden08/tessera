@@ -124,10 +124,11 @@ const Sizes = {
   ),
 } satisfies StoryLiteStoryDefinition<DropZoneArgs>;
 
-const STATUS_ROWS: readonly DemonstratorAxis<'image' | 'success' | 'error'>[] = [
+const STATUS_ROWS: readonly DemonstratorAxis<'image' | 'success' | 'error' | 'inline'>[] = [
   { key: 'image', label: 'pictures by media type, pasted or dropped' },
   { key: 'success', label: 'status: success' },
   { key: 'error', label: 'status: error' },
+  { key: 'inline', label: 'status on the inline box' },
 ];
 
 const PictureZone = () => {
@@ -152,6 +153,7 @@ const Status = {
       cell={(kind) => {
         if (kind === 'image') return <PictureZone />;
         if (kind === 'success') return <DropZone accept={ROM_EXTENSIONS} label="Drop a ROM here" status={{ tone: 'success', message: 'Chrono Trigger (US) is ready' }} onDrop={ignoreDrop} />;
+        if (kind === 'inline') return <DropZone variant="inline" accept={['.json']} label="Import a session file" status={{ tone: 'error', message: 'Not a session file' }} onDrop={ignoreDrop} />;
         return <DropZone accept={ROM_EXTENSIONS} label="Drop a ROM here" status={{ tone: 'error', message: 'This file is not a ROM the game knows' }} onDrop={ignoreDrop} />;
       }}
     />

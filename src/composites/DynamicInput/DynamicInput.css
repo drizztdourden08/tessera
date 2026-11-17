@@ -13,10 +13,10 @@
   min-width: 0;
   min-height: var(--control-height);
   padding-inline: var(--control-pad-inline);
+  color: var(--c-text);
   background: var(--c-field);
   border: var(--border-width-thin) solid var(--c-border);
   border-radius: var(--radius-md);
-  color: var(--c-text);
   font-size: var(--control-font);
   line-height: var(--leading-normal);
   cursor: text;
