@@ -2,22 +2,14 @@
 import type { ReactNode } from 'react';
 import { formatValue } from './format-value';
 import { valueText } from './value-text';
-import type { ValueFormats } from './format-value.type';
-import type { ColumnRule, ItemContext, ListboxColumn } from './listbox.type';
+import type { ColumnContentInput } from './column-content.type';
+import type { ItemContext, ListboxColumn } from './listbox.type';
 
 const mappedContent = <T>(column: ListboxColumn<T>, value: unknown, context: ItemContext<T>): ReactNode => {
   const { map } = column;
   if (map === undefined) return undefined;
   return typeof map === 'function' ? map(value, context) : map[valueText(value)];
 };
-
-interface ColumnContentInput<T> {
-  column: ListboxColumn<T>;
-  rule: ColumnRule<T> | undefined;
-  value: unknown;
-  context: ItemContext<T>;
-  formats: ValueFormats;
-}
 
 const columnContent = <T>(input: ColumnContentInput<T>): ReactNode => {
   const { column, rule, value, context, formats } = input;

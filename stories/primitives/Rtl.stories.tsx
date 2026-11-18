@@ -1,6 +1,7 @@
 /* @layer stories @kind story */
 import { useState } from 'react';
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
+import { overviewStory } from '../_template/overview-story';
 import { Box, Callout, Flex, Icon, IconButton, SegmentedControl, Tabs, Text, TextInput } from '../../src/primitives';
 
 type RtlArgs = Record<string, never>;
@@ -33,7 +34,7 @@ const RtlSample = ({ dir }: { dir: Direction }) => {
         <Text>A list row with actions at the end</Text>
         <Flex align="center" gap="xs">
           <IconButton size="sm" label="Edit"><Icon name="pencil" size={14} /></IconButton>
-          <IconButton size="sm" label="Delete" tone="danger"><Icon name="trash" size={14} /></IconButton>
+          <IconButton size="sm" label="Delete" tone="danger"><Icon name="trash-2" size={14} /></IconButton>
         </Flex>
       </Flex>
       <Tabs tabs={TABS} activeTab={tab} onTabChange={setTab} />
@@ -58,5 +59,17 @@ const Both = {
   ),
 } satisfies StoryLiteStoryDefinition<RtlArgs>;
 
+const Overview = overviewStory({
+  component: 'Box',
+  description: 'Set dir="rtl" on any container and every Tessera component inside mirrors its inline layout.',
+  points: [
+    'Spacing, borders, corners and text alignment use logical properties, so start and end follow the direction.',
+    'Placement that follows a pointer, an anchor or a value axis stays physical: tooltips, sliders, resize handles.',
+    'Box passes `dir` through to its element.',
+  ],
+  code: '<Box dir="rtl">...</Box>',
+  variants: [Both],
+});
+
 export default meta;
-export { Both };
+export { Both, Overview };
