@@ -27,7 +27,7 @@
 .side-nav__toggle {
   position: absolute;
   top: calc(var(--space-sm) + (var(--side-nav-item-h) - var(--collapse-toggle-d)) / 2);
-  right: calc(var(--collapse-toggle-d) / -2);
+  inset-inline-end: calc(var(--collapse-toggle-d) / -2);
   z-index: var(--z-base);
   transition: top var(--transition-fast);
 }
@@ -113,7 +113,8 @@
 
 .side-nav--overlay .side-nav__panel {
   position: absolute;
-  inset: 0 auto 0 0;
+  inset-block: 0;
+  inset-inline: 0 auto;
   z-index: var(--z-popover);
   width: var(--side-nav-w);
   transition: width var(--transition-fast), box-shadow var(--transition-fast);

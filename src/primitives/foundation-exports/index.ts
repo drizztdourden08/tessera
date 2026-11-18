@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind barrel */
-export { TesseraProvider, useCopy, useSwitchPalette, useTesseraStrings } from '../TesseraProvider';
+export { TesseraProvider, useCopy, useSwitchPalette, useTesseraLocale, useTesseraStrings } from '../TesseraProvider';
 export type {
   ClipboardWriter, ErrorFallbackProps, TesseraOverrides, TesseraPart, TesseraProviderProps,
 } from '../TesseraProvider';
-export { TESSERA_STRINGS } from '../strings';
-export type { TesseraStringGroup, TesseraStrings, TesseraStringsOverride } from '../strings';
+export { TESSERA_STRING_PARAMS, TESSERA_STRINGS } from '../strings';
+export type { TesseraStringGroup, TesseraStringParams, TesseraStrings, TesseraStringsOverride } from '../strings';
 export { APP_REGION_ATTRIBUTE, POPUP_OPEN_ATTRIBUTE } from '../dom/app-region.constants';
 export type { DataAttributes } from '../dom/data-attributes.type';
 export { REVIEW_MASK_ATTRIBUTE } from '../dom/review-mask.constants';

@@ -20,7 +20,7 @@
 }
 
 .screen-layer__corner:has(> .screen-window__corner-title) {
-  left: calc(var(--collapse-toggle-d) / -2 + var(--space-xs));
+  inset-inline-start: calc(var(--collapse-toggle-d) / -2 + var(--space-xs));
   align-items: center;
   pointer-events: none;
 }
@@ -111,7 +111,7 @@
   }
 
   .screen-layer__corner:has(> .screen-window__corner-title) {
-    left: var(--space-sm);
+    inset-inline-start: var(--space-sm);
   }
 }
 
@@ -120,7 +120,7 @@
 }
 
 .platform-mobile .screen-layer__corner:has(> .screen-window__corner-title) {
-  left: var(--space-sm);
+  inset-inline-start: var(--space-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {

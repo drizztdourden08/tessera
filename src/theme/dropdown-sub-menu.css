@@ -21,7 +21,7 @@
 }
 
 .dropdown__submenu-trigger:has(> .dropdown-menu--sub[data-join-side='left']) > .dropdown__item {
-  border-left-color: transparent;
+  border-inline-start-color: transparent;
   box-shadow: inset calc(-1 * var(--border-width-thick)) 0 0 var(--menu-tone, var(--c-primary-dim));
 }
 

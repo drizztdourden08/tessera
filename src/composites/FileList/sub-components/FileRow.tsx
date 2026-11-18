@@ -2,6 +2,7 @@
 import { Box } from '../../../primitives/Box';
 import { Icon } from '../../../primitives/Icon';
 import { formatValue } from '../../../primitives/listbox/format-value';
+import { useValueFormats } from '../../../primitives/listbox/useValueFormats';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { Span } from '../../../primitives/text-elements';
 import { DateText } from '../../DateText';
@@ -13,13 +14,14 @@ import { FileButton } from './FileButton';
 const FileRow = (props: FileRowProps) => {
   const { file, onOpen, onReveal } = props;
   const { items, navigation } = useTesseraStrings();
+  const formats = useValueFormats();
   const name = fileName(file);
   const { path, size, modified } = file;
   return (
     <Box as="li" className="file-list__row row-inset">
       <Icon name={fileIcon(name, file.icon)} size={18} className="file-list__icon" aria-hidden />
       <Span className="file-list__name">{name}</Span>
-      <Span className="file-list__size">{size === undefined ? null : formatValue(size, 'bytes')}</Span>
+      <Span className="file-list__size">{size === undefined ? null : formatValue(size, 'bytes', formats)}</Span>
       <Span className="file-list__date">
         {modified === undefined ? null : <DateText value={modified} />}
       </Span>

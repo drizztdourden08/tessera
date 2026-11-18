@@ -2,7 +2,8 @@
 import type { ReactNode } from 'react';
 import { formatValue } from './format-value';
 import { valueText } from './value-text';
-import type { ColumnRule, ItemContext, ListboxColumn } from './listbox.type';
+import type { ColumnContentInput } from './column-content.type';
+import type { ItemContext, ListboxColumn } from './listbox.type';
 
 const mappedContent = <T>(column: ListboxColumn<T>, value: unknown, context: ItemContext<T>): ReactNode => {
   const { map } = column;
@@ -10,17 +11,13 @@ const mappedContent = <T>(column: ListboxColumn<T>, value: unknown, context: Ite
   return typeof map === 'function' ? map(value, context) : map[valueText(value)];
 };
 
-const columnContent = <T>(
-  column: ListboxColumn<T>,
-  rule: ColumnRule<T> | undefined,
-  value: unknown,
-  context: ItemContext<T>,
-): ReactNode => {
+const columnContent = <T>(input: ColumnContentInput<T>): ReactNode => {
+  const { column, rule, value, context, formats } = input;
   if (rule?.show !== undefined) return rule.show;
   if (column.render) return column.render(value, context);
   const mapped = mappedContent(column, value, context);
   if (mapped !== undefined && mapped !== null) return mapped;
-  return typeof column.format === 'function' ? column.format(value, context) : formatValue(value, column.format);
+  return typeof column.format === 'function' ? column.format(value, context) : formatValue(value, column.format, formats);
 };
 
 export { columnContent };

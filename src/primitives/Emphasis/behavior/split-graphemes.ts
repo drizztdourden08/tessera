@@ -1,6 +1,16 @@
 /* @layer renderer-components @kind logic */
-const segmenter = new Intl.Segmenter(undefined, { granularity: 'grapheme' });
+const segmenters = new Map<string, Intl.Segmenter>();
 
-const splitGraphemes = (text: string): string[] => Array.from(segmenter.segment(text), (part) => part.segment);
+const segmenterFor = (locale: string | undefined): Intl.Segmenter => {
+  const key = locale ?? '';
+  const found = segmenters.get(key);
+  if (found) return found;
+  const made = new Intl.Segmenter(locale, { granularity: 'grapheme' });
+  segmenters.set(key, made);
+  return made;
+};
+
+const splitGraphemes = (text: string, locale: string | undefined): string[] =>
+  Array.from(segmenterFor(locale).segment(text), (part) => part.segment);
 
 export { splitGraphemes };

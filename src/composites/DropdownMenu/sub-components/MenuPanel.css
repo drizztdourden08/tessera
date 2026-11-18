@@ -55,7 +55,7 @@
 
 .dropdown__menu .dropdown__item:is(:hover, :focus-visible, :has(:focus-visible)):not(:disabled),
 .dropdown__menu .dropdown__item[aria-expanded='true'] {
-  border-left-color: var(--menu-tone, var(--c-primary-dim));
+  border-inline-start-color: var(--menu-tone, var(--c-primary-dim));
 }
 
 .dropdown__menu .dropdown__item[aria-checked='true'] {
@@ -67,12 +67,12 @@
 }
 
 .dropdown__menu .dropdown__item.dropdown__item--danger:is(:hover, :focus-visible):not(:disabled) {
-  border-left-color: var(--c-danger);
+  border-inline-start-color: var(--c-danger);
 }
 
 .dropdown__menu .dropdown__item.dropdown__item--asking,
 .dropdown__menu .dropdown__item.dropdown__item--asking:is(:hover, :focus-visible):not(:disabled) {
-  border-left-color: var(--c-danger);
+  border-inline-start-color: var(--c-danger);
   background: var(--c-danger-soft);
   color: var(--c-danger-bright);
 }

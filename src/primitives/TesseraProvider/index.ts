@@ -2,6 +2,7 @@
 export { TesseraProvider } from './TesseraProvider';
 export { useCopy } from './behavior/useCopy';
 export { useSwitchPalette } from './behavior/useSwitchPalette';
+export { useTesseraLocale } from './behavior/useTesseraLocale';
 export { useTesseraStrings } from './behavior/useTesseraStrings';
 export type {
   ClipboardWriter, ErrorFallbackProps, TesseraOverrides, TesseraPart, TesseraProviderProps,

@@ -1,12 +1,13 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../Box';
+import { useTesseraLocale } from '../../TesseraProvider/behavior/useTesseraLocale';
 import { letterDelay } from '../behavior/letter-delay';
 import { letterRanks } from '../behavior/letter-ranks';
 import { splitGraphemes } from '../behavior/split-graphemes';
 import type { EmphasisLettersProps } from './EmphasisLetters.type';
 
 const EmphasisLetters = ({ text, stagger, anchor, order, seed }: EmphasisLettersProps) => {
-  const letters = splitGraphemes(text);
+  const letters = splitGraphemes(text, useTesseraLocale());
   const ranks = letterRanks({ letters, anchor, order, seed });
   return (
     <>

@@ -7,7 +7,7 @@
   padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-md);
   color: var(--c-text);
-  text-align: left;
+  text-align: start;
   transition: background var(--transition-fast);
 }
 

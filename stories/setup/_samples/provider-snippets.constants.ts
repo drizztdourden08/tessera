@@ -41,6 +41,7 @@ const PART_SNIPPETS: Readonly<Record<TesseraPart, ProviderSnippet>> = {
     entry: 'icons: APP_ICONS',
   },
   paletteTransition: { entry: 'paletteTransition: false' },
+  locale: { entry: "locale: 'fr-CA'" },
 };
 
 const SETUP_IMPORTS = `import { createRoot } from 'react-dom/client';

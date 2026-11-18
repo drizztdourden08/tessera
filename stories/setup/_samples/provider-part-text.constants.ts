@@ -43,10 +43,14 @@ const PART_TEXT: Readonly<Record<TesseraPart, ProviderPartText>> = {
     title: 'Palette transition',
     note: 'useSwitchPalette cross-fades a palette change. False turns the fade off, so the palette switches at once.',
   },
+  locale: {
+    title: 'Locale',
+    note: 'Dates, numbers and text segmenting follow this language tag. Without it they follow the wording locale, then the browser.',
+  },
 };
 
 const PROVIDER_PARTS: readonly TesseraPart[] = [
-  'spinner', 'writeText', 'imagePlaceholder', 'strings', 'errorFallback', 'emptyArt', 'portalDocument', 'icons', 'paletteTransition',
+  'spinner', 'writeText', 'imagePlaceholder', 'strings', 'errorFallback', 'emptyArt', 'portalDocument', 'icons', 'paletteTransition', 'locale',
 ];
 
 export { PART_TEXT, PROVIDER_PARTS };

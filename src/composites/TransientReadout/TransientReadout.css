@@ -18,23 +18,23 @@
 }
 
 .transient-readout--bottom-end {
-  right: var(--space-sm);
+  inset-inline-end: var(--space-sm);
   bottom: var(--space-sm);
 }
 
 .transient-readout--bottom-start {
   bottom: var(--space-sm);
-  left: var(--space-sm);
+  inset-inline-start: var(--space-sm);
 }
 
 .transient-readout--top-end {
   top: var(--space-sm);
-  right: var(--space-sm);
+  inset-inline-end: var(--space-sm);
 }
 
 .transient-readout--top-start {
   top: var(--space-sm);
-  left: var(--space-sm);
+  inset-inline-start: var(--space-sm);
 }
 
 @media (prefers-reduced-motion: reduce) {

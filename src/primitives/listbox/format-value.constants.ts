@@ -6,31 +6,36 @@ import { asNumber } from './as-number';
 import { formatBytes } from './format-bytes';
 import { valueText } from './value-text';
 import type { DatePreset } from '../date-format/date-format.type';
+import type { ValueFormatter, ValueFormats } from './format-value.type';
 import type { ColumnFormat } from './listbox.type';
 
-const numberWith = (options: Intl.NumberFormatOptions) => (value: unknown): string =>
-  asNumber(value)?.toLocaleString(undefined, options) ?? valueText(value);
+const numberWith = (options: Intl.NumberFormatOptions): ValueFormatter => (value, { locale }) =>
+  asNumber(value)?.toLocaleString(locale, options) ?? valueText(value, locale);
 
-const dateAs = (preset: DatePreset) => (value: unknown): string => {
+const dateAs = (preset: DatePreset): ValueFormatter => (value, { locale }) => {
   const at = asDate(value);
-  return at ? formatDate(at, preset) : valueText(value);
+  return at ? formatDate(at, preset, { locale }) : valueText(value, locale);
 };
 
-const YES_NO: Readonly<Record<string, string>> = { true: 'Yes', false: 'No' };
+const DATE_FORMATTERS = Object.fromEntries(DATE_PRESETS.map((preset) => [preset, dateAs(preset)])) as Record<DatePreset, ValueFormatter>;
 
-const DATE_FORMATTERS = Object.fromEntries(DATE_PRESETS.map((preset) => [preset, dateAs(preset)])) as Record<DatePreset, (value: unknown) => string>;
-
-const FORMATTERS: Readonly<Record<ColumnFormat, (value: unknown) => string>> = {
-  text: valueText,
+const FORMATTERS: Readonly<Record<ColumnFormat, ValueFormatter>> = {
+  text: (value, { locale }) => valueText(value, locale),
   number: numberWith({}),
   integer: numberWith({ maximumFractionDigits: 0 }),
   percent: numberWith({ style: 'percent', maximumFractionDigits: 1 }),
-  bytes: (value) => {
+  bytes: (value, { locale }) => {
     const bytes = asNumber(value);
-    return bytes === undefined ? valueText(value) : formatBytes(bytes);
+    return bytes === undefined ? valueText(value, locale) : formatBytes(bytes, locale);
   },
-  yesno: (value) => YES_NO[valueText(value)] ?? valueText(value),
+  yesno: (value, { locale, yes, no }) => {
+    const text = valueText(value, locale);
+    if (text === 'true') return yes;
+    return text === 'false' ? no : text;
+  },
   ...DATE_FORMATTERS,
 };
 
-export { FORMATTERS };
+const DEFAULT_VALUE_FORMATS: ValueFormats = { locale: undefined, yes: 'Yes', no: 'No' };
+
+export { DEFAULT_VALUE_FORMATS, FORMATTERS };
