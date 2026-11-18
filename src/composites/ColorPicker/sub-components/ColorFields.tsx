@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useCallback } from 'react';
 import { Box } from '../../../primitives/Box';
+import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { Span } from '../../../primitives/text-elements';
 import { TextInput } from '../../../primitives/TextInput';
 import { ChannelInput } from './ChannelInput';
@@ -10,6 +11,7 @@ import type { Channel, ColorFieldsProps } from './ColorFields.type';
 
 const ColorFields = (props: ColorFieldsProps) => {
   const { value, onChange, hexInput, onHexInput, alpha, onAlphaChange, disableAlpha, hexOnly = false } = props;
+  const { colorPicker } = useTesseraStrings();
   const rgb = hexToRgb(value);
 
   const commitChannel = useCallback((key: Channel) => (n: number) => {
@@ -23,7 +25,7 @@ const ColorFields = (props: ColorFieldsProps) => {
           <Span tone="muted" className="color-picker__hex-sigil" aria-hidden>#</Span>
           <TextInput
             className="color-picker__hex"
-            aria-label="Hex"
+            aria-label={colorPicker.hex}
             value={hexInput}
             maxLength={6}
             spellCheck={false}

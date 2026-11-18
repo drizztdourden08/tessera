@@ -6,6 +6,7 @@ const COLOR_PICKER_STRINGS = {
   original: (hex: string) => `Original ${hex}`,
   current: (hex: string) => `Current colour, ${hex}`,
   modes: 'Colour model',
+  hex: 'Hex',
   red: 'Red',
   green: 'Green',
   blue: 'Blue',

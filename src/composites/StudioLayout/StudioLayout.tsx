@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { Box } from '../../primitives/Box';
 import { HintScope } from '../../primitives/HintScope';
 import { ToolFrame } from '../../primitives/ToolFrame';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { ToolGroups } from '../../primitives/ToolGroups';
 import { SidePanel } from '../SidePanel';
 import type { SidePanelSide } from '../SidePanel/SidePanel.type';
@@ -12,15 +13,16 @@ import { DEFAULT_EDITOR_MIN_WIDTH, STACKED_CLASS } from './StudioLayout.constant
 import type { StudioLayoutPanel, StudioLayoutProps } from './StudioLayout.type';
 import './StudioLayout.css';
 
-const sideOf = (side: SidePanelSide, panel: StudioLayoutPanel | undefined) => {
+const sideOf = (side: SidePanelSide, panel: StudioLayoutPanel | undefined, contents: string) => {
   if (!panel) return null;
   const { content, title, ...rest } = panel;
-  return <SidePanel side={side} title={title} {...rest} containers={[{ title: 'Contents', content }]} />;
+  return <SidePanel side={side} title={title} {...rest} containers={[{ title: contents, content }]} />;
 };
 
 const StudioLayout = (props: StudioLayoutProps) => {
   const { editorLabel, children, bar, banner, start, end, toolbar, compactToolbar, className } = props;
   const { editorMinWidth = DEFAULT_EDITOR_MIN_WIDTH } = props;
+  const { panels } = useTesseraStrings();
   const refs = { root: useRef<HTMLElement>(null), body: useRef<HTMLElement>(null), editor: useRef<HTMLElement>(null) };
   const stacked = useStudioStack(refs, editorMinWidth, `${start !== undefined}:${end !== undefined}`);
   const rootClass = ['studio-layout', stacked && STACKED_CLASS, className].filter(Boolean).join(' ');
@@ -30,7 +32,7 @@ const StudioLayout = (props: StudioLayoutProps) => {
         {bar && <StudioLayoutHeader bar={bar} />}
         {banner}
         <Box ref={refs.body} className="studio-layout__body">
-          {sideOf('start', start)}
+          {sideOf('start', start, panels.contents)}
           <ToolFrame
             ref={refs.editor}
             as="section"
@@ -41,7 +43,7 @@ const StudioLayout = (props: StudioLayoutProps) => {
           >
             {children}
           </ToolFrame>
-          {sideOf('end', end)}
+          {sideOf('end', end, panels.contents)}
         </Box>
       </Box>
     </HintScope>

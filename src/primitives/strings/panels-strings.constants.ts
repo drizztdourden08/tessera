@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind data */
 const PANEL_STRINGS = {
   copyAll: 'Copy all',
+  contents: 'Contents',
   logNoun: (total: number) => (total === 1 ? 'entry' : 'entries'),
   logCount: (shown: number, total: number, noun: string) => (shown === total ? `${total} ${noun}` : `${shown} of ${total} ${noun}`),
   logEmpty: 'No entries.',
