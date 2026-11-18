@@ -39,6 +39,8 @@ import cameraIcon from '@iconify-icons/lucide/camera';
 import joystickIcon from '@iconify-icons/lucide/joystick';
 import smartphoneIcon from '@iconify-icons/lucide/smartphone';
 import wrenchIcon from '@iconify-icons/lucide/wrench';
+import bandageIcon from '@iconify-icons/lucide/bandage';
+import { CARTRIDGE_ICON } from './app-custom.constants';
 import dicesIcon from '@iconify-icons/lucide/dices';
 import listChecksIcon from '@iconify-icons/lucide/list-checks';
 import scrollTextIcon from '@iconify-icons/lucide/scroll-text';
@@ -99,6 +101,9 @@ const APP_ICONS = {
   'joystick': joystickIcon,
   'smartphone': smartphoneIcon,
   'wrench': wrenchIcon,
+  'patch': bandageIcon,
+  'bandage': bandageIcon,
+  'cartridge': CARTRIDGE_ICON,
   'dices': dicesIcon,
   'list-checks': listChecksIcon,
   'scroll-text': scrollTextIcon,
