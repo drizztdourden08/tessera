@@ -40,7 +40,7 @@
 
 .toggle__link {
   display: inline-flex;
-  margin-left: var(--space-xs);
+  margin-inline-start: var(--space-xs);
   color: var(--c-primary-text);
   text-decoration: none;
   font-size: var(--text-sm);

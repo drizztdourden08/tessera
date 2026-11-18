@@ -66,12 +66,12 @@
 
 .pixel-player__zoom {
   top: var(--space-sm);
-  right: var(--space-sm);
+  inset-inline-end: var(--space-sm);
 }
 
 .pixel-player__caption {
   bottom: var(--space-sm);
-  left: var(--space-sm);
+  inset-inline-start: var(--space-sm);
 }
 
 .pixel-player__bar {
@@ -82,6 +82,6 @@
 }
 
 .pixel-player__counter {
-  margin-left: auto;
+  margin-inline-start: auto;
   color: var(--c-text-dim);
 }

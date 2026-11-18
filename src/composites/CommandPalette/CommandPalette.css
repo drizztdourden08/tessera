@@ -57,8 +57,7 @@
 .command-palette__edge {
   position: absolute;
   top: 0;
-  right: 0;
-  left: 0;
+  inset-inline: 0;
   height: var(--size-2);
   background: linear-gradient(90deg, transparent, var(--c-primary), transparent);
   opacity: 0;

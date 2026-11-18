@@ -12,7 +12,7 @@
   background: none;
   color: var(--c-text-dim);
   font-family: inherit;
-  text-align: left;
+  text-align: start;
   cursor: pointer;
   transition: background var(--transition-fast), border-color var(--transition-fast);
 }

@@ -34,7 +34,7 @@
   display: flex;
   gap: var(--space-xs);
   align-items: center;
-  padding-left: var(--space-sm);
+  padding-inline-start: var(--space-sm);
   -webkit-app-region: no-drag;
 }
 

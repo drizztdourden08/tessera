@@ -37,12 +37,12 @@
   color: var(--c-text);
   cursor: text;
   user-select: text;
-  text-align: right;
+  text-align: end;
   overflow-wrap: break-word;
 }
 
 .stat-row[data-align='start'] .stat-row__value {
-  text-align: left;
+  text-align: start;
 }
 
 .stat-row__value[data-mono] {

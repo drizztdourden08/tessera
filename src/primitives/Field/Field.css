@@ -40,7 +40,7 @@
 }
 
 .field__required {
-  margin-left: var(--space-xs);
+  margin-inline-start: var(--space-xs);
 }
 
 .field__hint,

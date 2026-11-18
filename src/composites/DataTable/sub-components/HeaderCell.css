@@ -15,11 +15,11 @@
 .data-table__header-chrome {
   position: absolute;
   top: 0;
-  right: 0;
+  inset-inline-end: 0;
   bottom: 0;
   display: flex;
   align-items: center;
-  padding-left: var(--space-lg);
+  padding-inline-start: var(--space-lg);
   background: linear-gradient(to right, transparent, var(--c-surface) var(--space-lg));
   opacity: 0;
   transition: opacity var(--transition-fast);

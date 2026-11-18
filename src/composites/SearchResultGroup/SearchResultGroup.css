@@ -36,5 +36,5 @@
 }
 
 .search-result-group__open {
-  margin-left: auto;
+  margin-inline-start: auto;
 }

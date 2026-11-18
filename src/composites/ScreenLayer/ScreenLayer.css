@@ -48,7 +48,7 @@ html.booting .screen-layer {
 .screen-layer__floating {
   position: absolute;
   top: 0;
-  left: 50%;
+  inset-inline-start: 50%;
   z-index: var(--z-sticky);
   transform: translate(-50%, -50%);
 }
@@ -56,7 +56,7 @@ html.booting .screen-layer {
 .screen-layer__corner {
   position: absolute;
   top: calc(var(--collapse-toggle-d) / -2 + var(--space-xs));
-  right: calc(var(--collapse-toggle-d) / -2 + var(--space-xs));
+  inset-inline-end: calc(var(--collapse-toggle-d) / -2 + var(--space-xs));
   z-index: var(--z-sticky);
   display: flex;
   gap: var(--space-xs);
@@ -113,7 +113,7 @@ html.booting .screen-layer {
 
   .screen-layer__corner {
     top: var(--space-sm);
-    right: var(--space-sm);
+    inset-inline-end: var(--space-sm);
   }
 
   .screen-layer__card {
@@ -177,7 +177,7 @@ html.booting .screen-layer {
 
 .platform-mobile .screen-layer__corner {
   top: var(--space-sm);
-  right: var(--space-sm);
+  inset-inline-end: var(--space-sm);
 }
 
 .platform-mobile .screen-layer__card {
