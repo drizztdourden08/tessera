@@ -2,6 +2,7 @@
 import type { ReactNode } from 'react';
 import { formatValue } from './format-value';
 import { valueText } from './value-text';
+import type { ValueFormats } from './format-value.type';
 import type { ColumnRule, ItemContext, ListboxColumn } from './listbox.type';
 
 const mappedContent = <T>(column: ListboxColumn<T>, value: unknown, context: ItemContext<T>): ReactNode => {
@@ -15,12 +16,13 @@ const columnContent = <T>(
   rule: ColumnRule<T> | undefined,
   value: unknown,
   context: ItemContext<T>,
+  formats: ValueFormats,
 ): ReactNode => {
   if (rule?.show !== undefined) return rule.show;
   if (column.render) return column.render(value, context);
   const mapped = mappedContent(column, value, context);
   if (mapped !== undefined && mapped !== null) return mapped;
-  return typeof column.format === 'function' ? column.format(value, context) : formatValue(value, column.format);
+  return typeof column.format === 'function' ? column.format(value, context) : formatValue(value, formats, column.format);
 };
 
 export { columnContent };

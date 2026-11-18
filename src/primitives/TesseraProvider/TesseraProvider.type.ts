@@ -25,6 +25,7 @@ interface TesseraOverrides {
   portalDocument?: Document;
   icons?: IconSet;
   paletteTransition?: boolean;
+  locale?: string;
 }
 
 type TesseraPart = keyof TesseraOverrides;

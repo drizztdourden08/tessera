@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { useRef } from 'react';
 import { Box } from '../../../primitives/Box';
+import { useTesseraLocale } from '../../../primitives/TesseraProvider/behavior/useTesseraLocale';
 import { maskCount } from '../behavior/mask-count';
 import type { MaskOverlayProps } from '../behavior/mask.type';
 import { useNativeMaskUnit } from '../behavior/useNativeMaskUnit';
@@ -9,7 +10,7 @@ import { useScrollSync } from '../behavior/useScrollSync';
 const MaskOverlay = (props: MaskOverlayProps) => {
   const { inputRef, maskChar, value } = props;
   const stripRef = useRef<HTMLSpanElement>(null);
-  const count = maskCount(value, useNativeMaskUnit(inputRef));
+  const count = maskCount(value, useNativeMaskUnit(inputRef), useTesseraLocale());
   useScrollSync(inputRef, stripRef, count);
   return (
     <Box as="span" className="password-input__mask" aria-hidden="true">

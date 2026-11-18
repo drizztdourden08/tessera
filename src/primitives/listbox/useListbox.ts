@@ -4,12 +4,13 @@ import { entryState } from './entry-state';
 import { filterItems } from './filter-items';
 import { nextValues } from './next-values';
 import { useActiveEntry } from './useActiveEntry';
+import { useValueFormats } from './useValueFormats';
 import type { ListboxEntry } from './listbox-model.type';
 import type { ListboxModel, UseListboxParams } from './listbox-state.type';
 
 const useListbox = <T, V>(params: UseListboxParams<T, V>): ListboxModel<T> => {
   const { setup, query, filter, idBase } = params;
-  const rows = buildRows(filterItems(setup, query, filter), setup);
+  const rows = buildRows(filterItems(setup, query, filter, useValueFormats()), setup);
   const selectedIds = new Set(setup.selected.map(setup.identityOfValue));
   const count = selectedIds.size;
   const states = rows.entries.map((entry) => entryState(entry, selectedIds, count, setup));
