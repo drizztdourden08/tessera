@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.131.0
+
+### Minor Changes
+
+- TesseraOverrides.locale drives every Intl call, TESSERA_STRING_PARAMS names the params of every function string, Hex, Contents, Yes and No come from strings, component CSS uses logical inline properties for right to left layouts, and the icons cartridge, patch and bandage are new.
+
 ## 0.130.0
 
 ### Minor Changes
