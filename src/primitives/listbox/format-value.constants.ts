@@ -6,7 +6,7 @@ import { asNumber } from './as-number';
 import { formatBytes } from './format-bytes';
 import { valueText } from './value-text';
 import type { DatePreset } from '../date-format/date-format.type';
-import type { ValueFormatter } from './format-value.type';
+import type { ValueFormatter, ValueFormats } from './format-value.type';
 import type { ColumnFormat } from './listbox.type';
 
 const numberWith = (options: Intl.NumberFormatOptions): ValueFormatter => (value, { locale }) =>
@@ -36,4 +36,6 @@ const FORMATTERS: Readonly<Record<ColumnFormat, ValueFormatter>> = {
   ...DATE_FORMATTERS,
 };
 
-export { FORMATTERS };
+const DEFAULT_VALUE_FORMATS: ValueFormats = { locale: undefined, yes: 'Yes', no: 'No' };
+
+export { DEFAULT_VALUE_FORMATS, FORMATTERS };

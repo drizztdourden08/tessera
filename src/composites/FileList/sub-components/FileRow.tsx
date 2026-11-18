@@ -21,7 +21,7 @@ const FileRow = (props: FileRowProps) => {
     <Box as="li" className="file-list__row row-inset">
       <Icon name={fileIcon(name, file.icon)} size={18} className="file-list__icon" aria-hidden />
       <Span className="file-list__name">{name}</Span>
-      <Span className="file-list__size">{size === undefined ? null : formatValue(size, formats, 'bytes')}</Span>
+      <Span className="file-list__size">{size === undefined ? null : formatValue(size, 'bytes', formats)}</Span>
       <Span className="file-list__date">
         {modified === undefined ? null : <DateText value={modified} />}
       </Span>

@@ -12,7 +12,7 @@ import type { ListboxCell } from './listbox-model.type';
 const columnCell = <T>(column: ListboxColumn<T>, context: ItemContext<T>, formats: ValueFormats): ListboxCell => {
   const value = columnValue(column, context.item);
   const rule = column.rules?.find((candidate) => matchCondition(candidate.when, value, context));
-  const content = columnContent(column, rule, value, context, formats);
+  const content = columnContent({ column, rule, value, context, formats });
   const shown = typeof content === 'string' || typeof content === 'number';
   return {
     content: isBlank(content) ? column.empty ?? null : content,

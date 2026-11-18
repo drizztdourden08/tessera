@@ -11,18 +11,21 @@ const mappedContent = <T>(column: ListboxColumn<T>, value: unknown, context: Ite
   return typeof map === 'function' ? map(value, context) : map[valueText(value)];
 };
 
-const columnContent = <T>(
-  column: ListboxColumn<T>,
-  rule: ColumnRule<T> | undefined,
-  value: unknown,
-  context: ItemContext<T>,
-  formats: ValueFormats,
-): ReactNode => {
+interface ColumnContentInput<T> {
+  column: ListboxColumn<T>;
+  rule: ColumnRule<T> | undefined;
+  value: unknown;
+  context: ItemContext<T>;
+  formats: ValueFormats;
+}
+
+const columnContent = <T>(input: ColumnContentInput<T>): ReactNode => {
+  const { column, rule, value, context, formats } = input;
   if (rule?.show !== undefined) return rule.show;
   if (column.render) return column.render(value, context);
   const mapped = mappedContent(column, value, context);
   if (mapped !== undefined && mapped !== null) return mapped;
-  return typeof column.format === 'function' ? column.format(value, context) : formatValue(value, formats, column.format);
+  return typeof column.format === 'function' ? column.format(value, context) : formatValue(value, column.format, formats);
 };
 
 export { columnContent };
