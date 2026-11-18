@@ -1,12 +1,12 @@
 /* @layer renderer-components @kind style */
 .settings-page__tabs {
-  margin-left: var(--space-sm);
-  padding-left: var(--space-lg);
-  border-left: var(--border-width-thin) solid var(--c-border-strong);
+  margin-inline-start: var(--space-sm);
+  padding-inline-start: var(--space-lg);
+  border-inline-start: var(--border-width-thin) solid var(--c-border-strong);
 }
 
 .screen-page__header--stacked .settings-page__tabs {
-  margin-left: 0;
-  padding-left: 0;
-  border-left: 0;
+  margin-inline-start: 0;
+  padding-inline-start: 0;
+  border-inline-start: 0;
 }

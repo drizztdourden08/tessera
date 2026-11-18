@@ -65,8 +65,7 @@
 .gauge__reading {
   position: absolute;
   top: 50%;
-  right: 0;
-  left: 0;
+  inset-inline: 0;
   color: var(--c-text);
   line-height: 1;
   text-align: center;
@@ -81,7 +80,7 @@
 }
 
 .gauge__unit {
-  margin-left: var(--space-2xs);
+  margin-inline-start: var(--space-2xs);
   color: var(--c-text-muted);
   font-size: var(--gauge-unit);
 }

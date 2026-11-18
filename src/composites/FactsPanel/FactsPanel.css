@@ -122,7 +122,7 @@
 }
 
 .facts-panel--terms[data-align='end'] .facts-panel__term-value {
-  text-align: right;
+  text-align: end;
 }
 
 .facts-panel__term-value[data-mono] {

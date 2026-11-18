@@ -1,7 +1,7 @@
 /* @layer renderer-components @kind style */
 .btn {
   gap: var(--space-sm);
-  text-align: left;
+  text-align: start;
   text-decoration: none;
 }
 

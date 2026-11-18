@@ -79,7 +79,7 @@
 
 .utility-screen__notes-body :is(ul, ol) {
   margin: var(--space-xs) 0;
-  padding-left: var(--space-xl);
+  padding-inline-start: var(--space-xl);
 }
 
 .utility-screen__notes-body li {

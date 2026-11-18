@@ -132,11 +132,11 @@
   padding: var(--space-xs) var(--space-md);
   background: none;
   border: none;
-  border-left: var(--border-width-thick) solid transparent;
+  border-inline-start: var(--border-width-thick) solid transparent;
   color: var(--c-text-dim);
   font-size: var(--text-sm);
   cursor: pointer;
-  text-align: left;
+  text-align: start;
   transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
   white-space: nowrap;
 }
@@ -144,7 +144,7 @@
 .dropdown__item:is(:hover, :focus-visible, :has(:focus-visible)):not(:disabled),
 .dropdown__item[aria-expanded='true'] {
   background: var(--c-hover);
-  border-left-color: var(--c-primary-dim);
+  border-inline-start-color: var(--c-primary-dim);
   color: var(--c-text);
 }
 
@@ -179,7 +179,7 @@
 }
 
 .dropdown__chevron {
-  margin-left: auto;
+  margin-inline-start: auto;
   font-size: var(--text-base);
   color: var(--c-text-muted);
 }
