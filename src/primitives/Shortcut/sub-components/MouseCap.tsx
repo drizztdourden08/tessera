@@ -1,11 +1,13 @@
 /* @layer renderer-components @kind component */
 import { Icon } from '../../Icon';
+import { useTesseraStrings } from '../../TesseraProvider/behavior/useTesseraStrings';
 import { DRAG_ICON, MOUSE_SPECS } from './MouseCap.constants';
 import type { MouseCapProps } from './MouseCap.type';
 
 const MouseCap = (props: MouseCapProps) => {
   const { button } = props;
-  const { name, icon } = MOUSE_SPECS[button];
+  const { icon } = MOUSE_SPECS[button];
+  const name = useTesseraStrings().keys[`mouse-${button}`];
   const drag = button === 'drag';
   return (
     <span className={drag ? 'shortcut__mouse shortcut__mouse--drag' : 'shortcut__mouse'}>

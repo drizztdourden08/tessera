@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
+import { useTesseraStrings } from '../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { KeyboardLayout, cssVars } from '../KeyboardLayout';
 import { tourLabel } from './behavior/tour-label';
 import { useShortcutTour } from './behavior/useShortcutTour';
@@ -10,6 +11,7 @@ import './ShortcutTour.css';
 
 const ShortcutTour = (props: ShortcutTourProps) => {
   const { keys, mouse, zoomOut = true, loop = true, speed = 1, size = 'full', className, style, ...rest } = props;
+  const { keys: names } = useTesseraStrings();
   const { viewportRef, worldRef, mouseRef, onKeyRects, view, heldKeys, mouseHeld } = useShortcutTour({ keys, mouse, zoomOut, loop, size });
 
   return (
@@ -17,7 +19,7 @@ const ShortcutTour = (props: ShortcutTourProps) => {
       ref={viewportRef}
       surface="raised"
       role="img"
-      aria-label={tourLabel(keys, mouse)}
+      aria-label={tourLabel(keys, mouse, names)}
       className={className ? `shortcut-tour ${className}` : 'shortcut-tour'}
       style={{ ...style, ...cssVars({ '--shortcut-tour-speed': speed }) }}
       {...rest}

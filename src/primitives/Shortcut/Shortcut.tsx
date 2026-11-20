@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Fragment } from 'react';
 import type { ReactNode } from 'react';
+import { useTesseraStrings } from '../TesseraProvider/behavior/useTesseraStrings';
 import { keyFace } from './behavior/key-face';
 import { shortcutClass } from './behavior/shortcut-class';
 import { Keycap } from './sub-components/Keycap';
@@ -10,8 +11,9 @@ import './Shortcut.css';
 
 const Shortcut = (props: ShortcutProps) => {
   const { keys = [], mouse, legend = 'label', width, animate = false, state, fill = false, size = 'md', className, ...rest } = props;
+  const { keys: names } = useTesseraStrings();
   const list: readonly ShortcutKey[] = typeof keys === 'string' ? [keys] : keys;
-  const caps: ReactNode[] = list.map((key) => <Keycap face={keyFace(key, legend, width)} />);
+  const caps: ReactNode[] = list.map((key) => <Keycap face={keyFace(key, legend, names, width)} />);
   if (mouse) caps.push(<MouseCap button={mouse} />);
   return (
     <kbd className={shortcutClass({ animate, state, fill, size, className })} {...rest}>
