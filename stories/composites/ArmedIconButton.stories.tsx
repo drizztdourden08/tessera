@@ -74,7 +74,7 @@ const Overview = overviewStory({
   points: [
     'The first press morphs the icon and loops it until a second press runs `onConfirm`.',
     'It disarms after 4 s, on blur, on [[Esc]] or when focus moves to another button, and runs `onCancel`.',
-    'Armed, its name and tooltip read Click again to and the label; a status region says it once.',
+    'Armed, its name and tooltip read Click again and the label; a status region says it once.',
     '`icon` picks the drawing and its loop: `load-state`, `save-state` or `trash-2`.',
     '`tone` colours the icon, such as `info` or `danger`; without it the icon takes currentColor.',
     '`timeout={false}` keeps it armed until blur or [[Esc]]. Reduced motion shows the armed pose still.',

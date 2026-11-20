@@ -16,7 +16,7 @@ const ScrubTrack = ({ cells, total, current, readOnly, tickLabel = plusOne, tick
       aria-valuemin={1}
       aria-valuemax={total}
       aria-valuenow={current + 1}
-      aria-valuetext={(valueText ?? scrubRuler.valueText)(current, total)}
+      aria-valuetext={valueText ? valueText(current, total) : scrubRuler.valueText(current + 1, total)}
       aria-readonly={readOnly || undefined}
       className="scrub-ruler__track focus-ring-inset"
       onPointerDown={onPress}

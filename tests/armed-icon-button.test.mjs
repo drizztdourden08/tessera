@@ -103,9 +103,9 @@ describe('S1 ArmedIconButton disarms and speaks', { tags: ['standard'] }, () => 
     expect(status().props.role).toBe('status');
     expect(status().props.children).toBe('');
     press();
-    expect(button().props.label).toBe('Click again to load Slot 1');
-    expect(tooltip().props.content).toBe('Click again to load Slot 1');
-    expect(status().props.children).toBe('Click again to load Slot 1');
+    expect(button().props.label).toBe('Click again: Load Slot 1');
+    expect(tooltip().props.content).toBe('Click again: Load Slot 1');
+    expect(status().props.children).toBe('Click again: Load Slot 1');
     const own = mount({ armedLabel: 'Press again to load' });
     own.press();
     expect(own.button().props.label).toBe('Press again to load');

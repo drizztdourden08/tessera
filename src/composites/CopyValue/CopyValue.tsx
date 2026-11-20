@@ -19,7 +19,7 @@ const CopyValue = (props: CopyValueProps) => {
       {copied !== undefined && (
         <CopyButton
           text={copied}
-          label={copyLabel ?? common.copyNamed(label ?? '')}
+          label={copyLabel ?? (label ? common.copyNamed(label) : common.copy)}
           copiedLabel={copiedLabel}
           size={size === 'md' ? 'sm' : 'xs'}
           onCopied={onCopied}

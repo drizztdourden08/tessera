@@ -74,7 +74,7 @@ const WIDGET_STRINGS = {
   shortcutDragGap: 'Drag gap',
   shortcutResizeDoes: 'Resize neighbours; double-click evens them',
   gripLabel: 'Main',
-  moveMainHint: (mainLabel: string) => `Drag to move the ${mainLabel.toLowerCase()}`,
+  moveMainHint: (mainLabel: string) => `Drag to move ${mainLabel}`,
   dragSwapLabel: (label: string) => `${label} · swap`,
   dragOverlayLabel: (label: string) => `${label} · overlay`,
   hintSwap: 'Swap',
