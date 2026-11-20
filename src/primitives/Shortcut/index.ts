@@ -7,6 +7,6 @@ export { shortcutKeys } from './behavior/shortcut-keys';
 export { shortcutRows } from './behavior/shortcut-rows';
 export { MOUSE_SPECS } from './sub-components/MouseCap.constants';
 export type {
-  CapWidth, FunctionKey, KeyName, LabelledShortcut, MouseButton, PrintableKey, ShortcutKey, ShortcutKeys, ShortcutLegend, ShortcutProps,
+  CapWidth, FunctionKey, KeyName, KeysStrings, LabelledShortcut, MouseButton, PrintableKey, ShortcutKey, ShortcutKeys, ShortcutLegend, ShortcutProps,
   ShortcutRow, ShortcutSize, ShortcutSpec, ShortcutState,
 } from './Shortcut.type';

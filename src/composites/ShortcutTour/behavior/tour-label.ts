@@ -1,14 +1,14 @@
 /* @layer renderer-components @kind util */
-import { KEY_SPECS, MOUSE_SPECS } from '../../../primitives/Shortcut';
-import type { KeyName, MouseButton, ShortcutKey } from '../../../primitives/Shortcut';
+import { KEY_SPECS } from '../../../primitives/Shortcut';
+import type { KeyName, KeysStrings, MouseButton, ShortcutKey } from '../../../primitives/Shortcut';
 
 const isKeyName = (key: string): key is KeyName => Object.hasOwn(KEY_SPECS, key);
 
-const spokenName = (key: ShortcutKey): string => (isKeyName(key) ? KEY_SPECS[key].name : key.toUpperCase());
+const spokenName = (key: ShortcutKey, names: KeysStrings): string => (isKeyName(key) ? names[key] : key.toUpperCase());
 
-const tourLabel = (keys: readonly ShortcutKey[], mouse: MouseButton | undefined): string => {
-  const names = keys.map(spokenName);
-  return (mouse ? [...names, MOUSE_SPECS[mouse].name] : names).join(' + ');
+const tourLabel = (keys: readonly ShortcutKey[], mouse: MouseButton | undefined, names: KeysStrings): string => {
+  const spoken = keys.map((key) => spokenName(key, names));
+  return (mouse ? [...spoken, names[`mouse-${mouse}`]] : spoken).join(' + ');
 };
 
 export { tourLabel };

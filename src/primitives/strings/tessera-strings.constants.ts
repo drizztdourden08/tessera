@@ -46,6 +46,7 @@ import { VIEW_STRINGS } from './views-strings.constants';
 import { WIZARD_STRINGS } from './wizard-strings.constants';
 import { ZOOM_FIELD_STRINGS } from './zoom-field-strings.constants';
 import { ICON_PICKER_STRINGS } from './icon-picker-strings.constants';
+import { KEYS_STRINGS } from './keys-strings.constants';
 
 const TESSERA_STRINGS = {
   common: COMMON_STRINGS,
@@ -95,6 +96,7 @@ const TESSERA_STRINGS = {
   commandInput: COMMAND_INPUT_STRINGS,
   zoomField: ZOOM_FIELD_STRINGS,
   iconPicker: ICON_PICKER_STRINGS,
+  keys: KEYS_STRINGS,
 };
 
 export { TESSERA_STRINGS };

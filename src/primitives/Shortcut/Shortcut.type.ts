@@ -22,6 +22,12 @@ type ShortcutKey = KeyName | PrintableKey | FunctionKey;
 
 type MouseButton = keyof typeof MOUSE_SPECS;
 
+type LabelledKeyName = { [K in KeyName]: (typeof KEY_SPECS)[K] extends { label: true } ? K : never }[KeyName];
+
+type KeyStringId = KeyName | `${LabelledKeyName}Label` | `mouse-${MouseButton}`;
+
+type KeysStrings = Record<KeyStringId, string>;
+
 type ShortcutLegend = (typeof SHORTCUT_LEGENDS)[number];
 
 type CapWidth = (typeof CAP_WIDTHS)[number];
@@ -35,8 +41,7 @@ type KeySymbolName = keyof typeof KEY_SYMBOLS;
 type KeyWidth = CapWidth | 'space';
 
 interface KeySpec {
-  name: string;
-  label?: string;
+  label?: true;
   symbol?: KeySymbolName;
   arrow?: KeySymbolName;
   width?: KeyWidth;
@@ -85,6 +90,6 @@ interface ShortcutRow {
 }
 
 export type {
-  CapWidth, FunctionKey, KeyFace, KeyName, KeySpec, LabelledShortcut, MouseButton, PrintableKey, ShortcutClassParams, ShortcutKey,
+  CapWidth, FunctionKey, KeyFace, KeyName, KeySpec, KeysStrings, KeyStringId, LabelledKeyName, LabelledShortcut, MouseButton, PrintableKey, ShortcutClassParams, ShortcutKey,
   ShortcutKeys, ShortcutLegend, ShortcutProps, ShortcutRow, ShortcutSize, ShortcutSpec, ShortcutState,
 };
