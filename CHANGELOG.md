@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.131.1
+
+### Patch Changes
+
+- String functions take display-ready params and never change the case of a param: scrubRuler.valueText takes the 1-based frame, and the lists, items and widgets strings keep names as written. common.copy is the Copy label with no name.
+
 ## 0.131.0
 
 ### Minor Changes
