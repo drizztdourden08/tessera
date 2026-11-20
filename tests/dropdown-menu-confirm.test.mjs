@@ -15,8 +15,8 @@ describe('K1 a confirm item', { tags: ['critical'] }, () => {
 });
 
 describe('K1 the words of the question', { tags: ['critical'] }, () => {
-  it('lower the first letter of the label and keep a short capital word', () => {
-    expect(ITEM_STRINGS.confirmAgain('Reset layout')).toBe('Click again to reset layout');
-    expect(ITEM_STRINGS.confirmAgain('API keys reset')).toBe('Click again to API keys reset');
+  it('keep the label as written, with no case change', () => {
+    expect(ITEM_STRINGS.confirmAgain('Reset layout')).toBe('Click again: Reset layout');
+    expect(ITEM_STRINGS.confirmAgain('API keys reset')).toBe('Click again: API keys reset');
   });
 });

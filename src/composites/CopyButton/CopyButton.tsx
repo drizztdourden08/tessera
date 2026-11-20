@@ -17,7 +17,7 @@ const CopyButton = (props: CopyButtonProps) => {
   };
   return (
     <Box as="span" className={className ? `copy-button ${className}` : 'copy-button'}>
-      <CopyButtonControl {...props} name={copied ? done : (label ?? common.copyNamed(''))} copied={copied} onClick={onClick} />
+      <CopyButtonControl {...props} name={copied ? done : (label ?? common.copy)} copied={copied} onClick={onClick} />
       <Box as="span" className="visually-hidden" role="status">{copied ? done : ''}</Box>
     </Box>
   );
