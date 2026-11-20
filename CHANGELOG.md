@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.132.0
+
+### Minor Changes
+
+- Key and mouse names come from the new keys strings group, so Shortcut, MouseCap and ShortcutTour show translated names. KEY_SPECS and MOUSE_SPECS no longer carry name text, keyFace and tourLabel take the keys strings, and aria-keyshortcuts uses the standard key values.
+
 ## 0.131.1
 
 ### Patch Changes
