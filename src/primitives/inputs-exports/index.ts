@@ -6,7 +6,7 @@ export type { TextInputProps } from '../TextInput';
 export { SearchInput } from '../SearchInput';
 export type { SearchInputProps } from '../SearchInput';
 export { Textarea } from '../Textarea';
-export type { TextareaProps, TextareaResize } from '../Textarea';
+export type { TextareaLook, TextareaProps, TextareaResize } from '../Textarea';
 export { Select, NativeSelect } from '../Select';
 export type { MultiDisplay, SelectOption, SelectGroup, SelectItemsProps, SelectOptionsProps, SelectProps } from '../Select';
 export { Combobox } from '../Combobox';

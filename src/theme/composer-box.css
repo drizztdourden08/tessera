@@ -1,0 +1,37 @@
+/* @layer renderer-components @kind style */
+.composer-box {
+  box-sizing: border-box;
+  min-inline-size: 0;
+  overflow: hidden;
+  background: var(--c-surface);
+  border: var(--border-width-thin) solid var(--c-border);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.composer-box:focus-within {
+  border-color: var(--c-primary);
+  box-shadow: 0 0 0 var(--border-width-thick) var(--c-primary-soft);
+}
+
+.composer-box:has([aria-invalid='true']) {
+  border-color: var(--c-danger);
+}
+
+.composer-box:has([aria-invalid='true']):focus-within {
+  box-shadow: 0 0 0 var(--border-width-thick) var(--c-danger-soft);
+}
+
+.composer-box__foot {
+  padding: var(--space-2xs) var(--space-xs) var(--space-xs);
+}
+
+.composer-box__bar {
+  flex: 1 1 auto;
+  min-inline-size: 0;
+}
+
+.composer-box__send {
+  flex: none;
+  margin-inline-start: auto;
+}

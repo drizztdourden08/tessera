@@ -7,6 +7,7 @@ import { useAutoFocus } from './behavior/useAutoFocus';
 import { useEditorKeys } from './behavior/useEditorKeys';
 import { useEditorMode } from './behavior/useEditorMode';
 import { useImageInsert } from './behavior/useImageInsert';
+import { areaLook } from './behavior/area-look';
 import { rowsOf } from './behavior/rows-of';
 import { sendProps } from './behavior/send-props';
 import { useMarkdownActions } from './behavior/useMarkdownActions';
@@ -15,6 +16,7 @@ import { MarkdownEditorFoot } from './sub-components/MarkdownEditorFoot';
 import { MarkdownEditorPreview } from './sub-components/MarkdownEditorPreview';
 import { MarkdownEditorTabs } from './sub-components/MarkdownEditorTabs';
 import { MarkdownEditorToolbar } from './sub-components/MarkdownEditorToolbar';
+import '../../theme/composer-box.css';
 import './MarkdownEditor.css';
 
 const MarkdownEditor = (props: MarkdownEditorProps) => {
@@ -30,10 +32,13 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   const image = useImageInsert(areaRef, { onImageFiles, disabled: off });
   const onKeyDown = useEditorKeys({ value, onSubmit, submitDisabled: submitDisabled === true, onEscape, onShortcut });
 
+  const composer = mode === 'composer';
+  const foot = <MarkdownEditorFoot value={value} maxLength={maxLength} count={count} actions={actions} send={sendProps({ label: submitLabel, value, disabled, submitDisabled, onSubmit })} />;
+
   return (
     <Field label={label} hint={hint} error={error} width="full">
       <Box ref={rootRef} className={['markdown-editor', className].filter(Boolean).join(' ')} data-layout={mode}>
-        <Box className="markdown-editor__frame">
+        <Box className={composer ? 'composer-box' : 'markdown-editor__frame'}>
           <MarkdownEditorToolbar disabled={off} onAction={run} toggle={toggle} end={toolbarEnd} onImages={image.insertFiles} />
           {tabbed && <MarkdownEditorTabs pane={pane} onPane={setPane} />}
           <Box className="markdown-editor__panes">
@@ -42,7 +47,8 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
                 ref={areaRef}
                 aria-label={props['aria-label']}
                 value={value}
-                rows={rowsOf(rows, compact)}
+                rows={rowsOf(rows, compact === true || composer)}
+                {...areaLook(composer)}
                 maxLength={count ? undefined : maxLength}
                 placeholder={placeholder}
                 disabled={disabled}
@@ -53,8 +59,9 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
             </Box>
             {previewDrawn && <MarkdownEditorPreview value={value} onLink={onLink} images={images} linkIds={linkIds} hidden={!previewShown} />}
           </Box>
+          {composer && foot}
         </Box>
-        <MarkdownEditorFoot value={value} maxLength={maxLength} count={count} actions={actions} send={sendProps({ label: submitLabel, value, disabled, submitDisabled, onSubmit })} />
+        {!composer && foot}
       </Box>
     </Field>
   );

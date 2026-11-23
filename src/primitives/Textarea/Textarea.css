@@ -19,3 +19,16 @@
 .textarea--resize-both {
   resize: both;
 }
+
+.textarea.textarea--bare,
+.textarea.textarea--bare:focus {
+  background: transparent;
+  border-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+}
+
+.textarea--grow {
+  overflow-y: auto;
+}
