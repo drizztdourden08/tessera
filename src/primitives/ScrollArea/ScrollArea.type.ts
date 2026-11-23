@@ -7,6 +7,8 @@ type ScrollAreaScrollbar = 'native' | 'slim';
 
 type ScrollAreaGutter = 'auto' | 'stable' | 'both';
 
+type ScrollAreaFollowBehavior = 'instant' | 'smooth';
+
 type ScrollAreaThumb = 'always' | 'auto';
 
 interface ScrollPosition {
@@ -23,6 +25,7 @@ interface ScrollAreaProps extends Omit<ComponentPropsWithRef<'div'>, 'onScroll'>
   onScroll?: (position: ScrollPosition) => void;
   scrollTo?: Partial<ScrollPosition>;
   follow?: boolean;
+  followBehavior?: ScrollAreaFollowBehavior;
 }
 
-export type { ScrollAreaGutter, ScrollAreaProps, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAxis, ScrollPosition };
+export type { ScrollAreaFollowBehavior, ScrollAreaGutter, ScrollAreaProps, ScrollAreaScrollbar, ScrollAreaThumb, ScrollAxis, ScrollPosition };

@@ -1,17 +1,23 @@
 /* @layer renderer-components @kind hook */
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import type { RefObject } from 'react';
+import type { ScrollAreaFollowBehavior } from '../ScrollArea.type';
 import { observeResize } from '../../dom/observe-resize';
 import { FOLLOW_SLACK_PX } from '../ScrollArea.constants';
 import { isAtBottom } from './is-at-bottom';
 
-const useFollowBottom = (nodeRef: RefObject<HTMLDivElement | null>, follow: boolean): void => {
+const useFollowBottom = (nodeRef: RefObject<HTMLDivElement | null>, follow: boolean, behavior: ScrollAreaFollowBehavior): void => {
+  const behaviorRef = useRef(behavior);
+  behaviorRef.current = behavior;
   useEffect(() => {
     const node = nodeRef.current;
     if (!follow || !node) return undefined;
     let pinned = true;
+    let settled = false;
     const stick = (): void => {
-      if (pinned) node.scrollTop = node.scrollHeight;
+      if (!pinned) return;
+      node.scrollTo({ top: node.scrollHeight, behavior: settled ? behaviorRef.current : 'instant' });
+      if (node.scrollHeight > node.clientHeight) settled = true;
     };
     const onScroll = (): void => {
       pinned = isAtBottom(node, FOLLOW_SLACK_PX);
