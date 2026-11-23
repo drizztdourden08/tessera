@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /* @layer tooling-scripts @kind entry */
-import { execFileSync } from 'node:child_process';
+import { execSync } from 'node:child_process';
 import { chmodSync, existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { ENTRY, NAME } from './link-shim.constants.mjs';
@@ -12,7 +12,7 @@ const WIN_ENTRY = ENTRY.replace(/\//g, '\\');
 const say = (line) => process.stderr.write(`${line}\n`);
 
 const globalPrefix = () => process.env.BROCK_GLOBAL_PREFIX
-  || execFileSync(IS_WINDOWS ? 'npm.cmd' : 'npm', ['prefix', '-g'], { encoding: 'utf8', shell: IS_WINDOWS, windowsHide: true }).trim();
+  || execSync('npm prefix -g', { encoding: 'utf8', windowsHide: true }).trim();
 
 const binDir = (prefix) => (IS_WINDOWS ? prefix : join(prefix, 'bin'));
 
