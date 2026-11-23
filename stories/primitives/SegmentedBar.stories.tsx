@@ -82,9 +82,9 @@ const Overview = overviewStory({
 <SegmentedBar
   label="Checklist progress"
   segments={[
-    { tone: 'success', label: 'Step 1: done' },
-    { tone: 'success', label: 'Step 2: done' },
-    { tone: 'track', label: 'Step 3: to do' },
+    { tone: 'success', label: 'Plan done' },
+    { tone: 'success', label: 'Build done' },
+    { tone: 'track', label: 'Review to do' },
   ]}
   onClick={openChecklist}
 />`,
