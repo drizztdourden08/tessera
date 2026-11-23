@@ -16,6 +16,7 @@ const usage = {
     'Enter sends and Shift+Enter starts a new line. Enter while typing with an input method does not send.',
     'The input grows from one line to maxRows lines, 8 by default, then scrolls.',
     'The default send button is disabled while the text is blank or the composer is disabled. Pass sendSlot to put your own.',
+    'busy shows a spinner on the default send button and stops Enter and the button from sending. The input stays editable.',
     'bar sits on the left of the bottom row, beside the send button: attachments, a model picker, a hint.',
     'Give the composer an aria-label when no visible label names it.',
   ],

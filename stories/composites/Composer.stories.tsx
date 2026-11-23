@@ -8,13 +8,15 @@ import './Composer.stories.css';
 type ComposerArgs = {
   maxRows: number;
   disabled: boolean;
+  busy: boolean;
 };
 
-const ARGS: Partial<ComposerArgs> = { maxRows: 8, disabled: false };
+const ARGS: Partial<ComposerArgs> = { maxRows: 8, disabled: false, busy: false };
 
 const ARG_TYPES: PlaygroundArgTypes<ComposerArgs> = {
   maxRows: { group: 'Layout', control: 'number', description: 'The box grows to this many lines, then the text scrolls.' },
   disabled: { group: 'State', control: 'boolean' },
+  busy: { group: 'State', control: 'boolean', description: 'Shows a spinner on the send button and blocks sending.' },
 };
 
 const meta = {
@@ -26,7 +28,7 @@ const Playground = {
   name: 'Playground',
   args: ARGS,
   argTypes: ARG_TYPES,
-  render: ({ maxRows = 8, disabled = false }) => <ComposerDemo maxRows={maxRows} disabled={disabled} />,
+  render: ({ maxRows = 8, disabled = false, busy = false }) => <ComposerDemo maxRows={maxRows} disabled={disabled} busy={busy} />,
 } satisfies PlaygroundStory<ComposerArgs>;
 
 const WithBar = {
@@ -37,6 +39,11 @@ const WithBar = {
 const ThreeRows = {
   name: 'Three rows at most, then it scrolls',
   render: () => <ComposerDemo maxRows={3} />,
+} satisfies StoryLiteStoryDefinition<ComposerArgs>;
+
+const Busy = {
+  name: 'Busy',
+  render: () => <ComposerDemo busy />,
 } satisfies StoryLiteStoryDefinition<ComposerArgs>;
 
 const CODE = `import { useState } from 'react';
@@ -54,14 +61,15 @@ const Overview = overviewStory({
   points: [
     'The text is controlled with `value` and `onChange`; Enter calls `onSubmit`, Shift+Enter adds a line.',
     '`maxRows` caps the growth; past it the text scrolls.',
+    '`busy` puts a spinner on the send button and stops Enter from sending.',
     '`bar` fills the left of the bottom row; `sendSlot` replaces the default send button.',
     'The box shows the focus ring, not the text area.',
   ],
   instead: '[MarkdownEditor] when the text needs a toolbar and a preview, or [Textarea] for a plain field in a form.',
   playground: Playground,
-  variants: [WithBar, ThreeRows],
+  variants: [WithBar, ThreeRows, Busy],
   code: CODE,
 });
 
 export default meta;
-export { Overview, Playground, ThreeRows, WithBar };
+export { Busy, Overview, Playground, ThreeRows, WithBar };
