@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.134.0
+
+### Minor Changes
+
+- `Composer` takes `busy`: the send button shows a spinner, and Enter does not send until it ends.
+
 ## 0.133.0
 
 ### Minor Changes
