@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.133.0
+
+### Minor Changes
+
+- Argus batch: BrandMark activity, Drawer split look, Composer, TickerText, RecordCard compact, Kanban group box and accent, ScrollArea followBehavior.
+
 ## 0.132.0
 
 ### Minor Changes
