@@ -13,6 +13,7 @@ const BrandPaths = (props: BrandPathsProps) => {
           fill={p.ink}
           fillRule={p.evenOdd ? 'evenodd' : undefined}
           fillOpacity={p.opacity}
+          className={p.part ? `brand-mark__${p.part}` : undefined}
         />
       ))}
     </>

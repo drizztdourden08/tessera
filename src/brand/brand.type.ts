@@ -8,6 +8,8 @@ import type { BrandFileTypes } from './file-types/file-type.type';
 
 type BrandApp = 'tessera' | 'brock' | 'archipelia' | 'rotp' | 'bxel' | 'argus' | 'chronoki';
 
+type BrandMarkPart = 'eye' | 'mouth';
+
 interface BrandMarkPath {
   d: string;
   ink: string;
@@ -16,6 +18,7 @@ interface BrandMarkPath {
   group?: BrandApp;
   evenOdd?: boolean;
   opacity?: number;
+  part?: BrandMarkPart;
 }
 
 type BrandInks = 'drawn' | 'onDark';
@@ -147,7 +150,7 @@ interface BrandInfo {
 }
 
 export type {
-  BrandApp, BrandAppIcon, BrandIconOutline, BrandCurrentInk, BrandGradient, BrandGradientStops, BrandInfo, BrandInkTone, BrandInks, BrandMarkData, BrandMarkDetailLevel, BrandMarkGround, BrandMarkPath,
+  BrandApp, BrandAppIcon, BrandIconOutline, BrandCurrentInk, BrandGradient, BrandGradientStops, BrandInfo, BrandInkTone, BrandInks, BrandMarkData, BrandMarkDetailLevel, BrandMarkGround, BrandMarkPart, BrandMarkPath,
   BrandMascot, BrandMascotVariant, BrandPiece, BrandSceneData, BrandWordmarkSpec, MascotPose, SceneGroupNode, SceneNode, ScenePieceNode,
   ScenePoint, SceneTurn,
 };

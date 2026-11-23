@@ -25,7 +25,7 @@ const SIZES: readonly BrandMarkSize[] = ['sm', 'md', 'lg', 'xl'];
 
 const ALL_SIZES: readonly BrandMarkSize[] = [...SIZES, 'xxl'];
 
-const HEIGHT_SIZES: readonly BrandMarkSize[] = ['h26', 'h39'];
+const HEIGHT_SIZES: readonly BrandMarkSize[] = ['h26', 'h39', 'h52'];
 
 const PLAYGROUND_SIZES: readonly BrandMarkSize[] = [...ALL_SIZES, ...HEIGHT_SIZES, 'fill'];
 
@@ -40,7 +40,7 @@ const TWINS = ['stone', 'emerald'] as const;
 
 const ARG_TYPES: PlaygroundArgTypes<LogoArgs> = {
   brand: { group: 'Content', control: 'select', options: [...BRAND_APPS] },
-  size: { group: 'Appearance', control: 'select', options: [...PLAYGROUND_SIZES], description: '`fill` makes the mark fill the width of its parent and stay square. `h26` and `h39` are 26 and 39 px tall.' },
+  size: { group: 'Appearance', control: 'select', options: [...PLAYGROUND_SIZES], description: '`fill` makes the mark fill the width of its parent and stay square. `h26`, `h39` and `h52` are 26, 39 and 52 px tall.' },
   fit: { group: 'Appearance', control: 'select', options: ['square', 'height'], description: '`height` makes `size` the height and the width follows the mark, so a wide mark is not shrunk into a square.' },
   variant: { group: 'Appearance', control: 'select', options: ['mark', 'app-icon'], description: 'The app icon as the brand data describes it: straight or on its tile. A brand with no app icon draws its mark.' },
   twin: { group: 'Appearance', control: 'boolean', description: 'The second drawing of a brand that has one. Argus has an emerald twin of its stone shield; other brands draw their mark.' },
@@ -150,7 +150,7 @@ const Overview = overviewStory({
     '`variant="app-icon"` draws the app icon; Tessera has none, because it is not an app.',
     '`rim="light"` outlines the silhouette for a dark bar; inside Splash a mark takes its dark look by itself.',
     '`twin` draws the second mark of a brand that has one: Argus has a stone shield and an emerald twin.',
-    'A mark with detail levels draws the small cut at `sm`, the medium at `md`, `h26` and `h39`, the full from `lg`.',
+    'A mark with detail levels draws the small cut at `sm`, the medium at `md`, `h26`, `h39` and `h52`, the full from `lg`.',
     '`pnpm icons` writes every mark and app icon as PNG files and a `.ico`; `brand/dark-ground` holds the dark ones.',
   ],
   instead: '[Combined] for the mark with the app name.',

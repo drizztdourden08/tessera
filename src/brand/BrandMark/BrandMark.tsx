@@ -2,6 +2,7 @@
 import { Svg, SvgGroup, SvgRect } from '../../primitives/Svg';
 import { BrandPaths } from '../BrandPaths';
 import { BRAND_FAMILY } from '../family.constants';
+import { markActivity } from './behavior/mark-activity';
 import { markBox } from './behavior/mark-box';
 import { markClass } from './behavior/mark-class';
 import { markFit } from './behavior/mark-fit';
@@ -16,7 +17,7 @@ import { BrandMarkRim } from './sub-components/BrandMarkRim';
 import './BrandMark.css';
 
 const BrandMark = (props: BrandMarkProps) => {
-  const { app, size = 'md', variant = 'mark', twin = false, rim = 'none', title, className = '' } = props;
+  const { app, size = 'md', variant = 'mark', twin = false, rim = 'none', activity, title, className = '' } = props;
   const shape = markFit(size, props.fit);
   const brand = BRAND_FAMILY[app];
   const { tile, drawn, scale } = tileFace(brand, variant, twin, size);
@@ -27,7 +28,7 @@ const BrandMark = (props: BrandMarkProps) => {
 
   return (
     <Svg
-      className={markClass(size, shape, look.rim, className)}
+      className={markClass(size, shape, look.rim, [markActivity(drawn.paths, activity), className].filter(Boolean).join(' '))}
       viewBox={`${x} ${y} ${w} ${h}`}
       {...markLabelProps(title ?? brand.name)}
       shapeRendering={pixelArt ? 'crispEdges' : undefined}

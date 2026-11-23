@@ -2,7 +2,7 @@
 import type { StoryLiteMeta, StoryLiteStoryDefinition } from '@storylite/storylite';
 import { Box, Card, Flex, Stack, Tag, Text } from '../../src/primitives';
 import { BRAND_APPS, BRAND_FAMILY, BrandMark, BrandWordmark } from '../../src/brand';
-import type { BrandApp } from '../../src/brand';
+import type { BrandApp, BrandMarkActivity } from '../../src/brand';
 import { overviewStory } from '../_template/overview-story';
 import { BrandMascotRow } from './_samples/BrandMascotRow';
 import { FamilyMascots } from './_samples/FamilyMascots';
@@ -66,6 +66,22 @@ const Rims = {
   render: () => <RimGrid draw={(app, rim) => <BrandMark app={app} size="xl" rim={rim} title="" />} />,
 } satisfies StoryLiteStoryDefinition;
 
+const ACTIVITIES: readonly BrandMarkActivity[] = ['idle', 'thinking', 'working', 'talking'];
+
+const Activity = {
+  name: 'Activity',
+  render: () => (
+    <Flex gap="xl" align="center" wrap>
+      {ACTIVITIES.map((activity) => (
+        <Stack key={activity} gap="xs" align="center">
+          <BrandMark app="argus" size="xl" activity={activity} title="" />
+          <Text variant="caption">{activity}</Text>
+        </Stack>
+      ))}
+    </Flex>
+  ),
+} satisfies StoryLiteStoryDefinition;
+
 const Overview = overviewStory({
   component: 'Brand',
   description: 'Every app and package in the family on one page: its mark at each size, its app icon, its mascot and its wordmark.',
@@ -73,11 +89,12 @@ const Overview = overviewStory({
     'Each row says what the app is, with its mascot small beside its marks and the import line for its parts.',
     'Mascots shows one mascot at a time: the tabs pick it, and the [Mascot] page shares the pick.',
     '[Logo], [WordMark], [Combined] and [Mascot] show each part on its own, with a playground.',
+    'Activity shows the Argus mask idle, thinking, working and talking: the eyes glow and the mouth opens.',
     'Rims shows every mark with no rim and with a light rim, on a dark ground.',
     'Each brand\'s gradient is on the [Gradients] page under Colours.',
   ],
-  variants: [Family, Mascots, Rims],
+  variants: [Family, Mascots, Rims, Activity],
 });
 
 export default meta;
-export { Family, Mascots, Overview, Rims };
+export { Activity, Family, Mascots, Overview, Rims };
