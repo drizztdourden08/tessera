@@ -3,13 +3,14 @@ import type { ReactNode } from 'react';
 import type { CardEdge, CardTone, CardVariant } from '../../primitives/Card';
 import type { RecordHeaderDensity } from '../RecordHeader';
 
-type RecordCardDensity = RecordHeaderDensity;
+type RecordCardDensity = RecordHeaderDensity | 'compact';
 
 interface RecordCardProps {
   title: ReactNode;
   icon?: ReactNode;
   code?: ReactNode;
   content?: ReactNode;
+  end?: ReactNode;
   menu?: ReactNode;
   children?: ReactNode;
   open?: boolean;
