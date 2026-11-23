@@ -107,6 +107,7 @@
     "review": "node scripts/review/review.mjs",
     "guide": "node scripts/guide/build-guide.mjs",
     "tessera": "node scripts/cli/tessera.mjs",
+    "prepare": "node scripts/thread/link-shim.mjs",
     "release:version": "changeset version && node scripts/renames/stamp-renames.mjs",
     "fonts": "node scripts/fonts/build-ttf.mjs"
   },
