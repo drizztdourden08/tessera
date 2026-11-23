@@ -12,6 +12,7 @@
 }
 
 .record-header--card {
+  flex: none;
   gap: var(--record-header-gap-card);
 }
 

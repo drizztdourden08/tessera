@@ -23,3 +23,11 @@
   gap: var(--record-card-gap);
   min-inline-size: 0;
 }
+
+.record-card--card .record-card__body {
+  flex: 1 1 auto;
+}
+
+.record-card--card .record-card__body > :last-child {
+  margin-block-start: auto;
+}
