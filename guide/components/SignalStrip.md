@@ -77,9 +77,9 @@ const Wrapped = () => <SignalStrip aria-label="Attention" items={[...items, ...w
 
 - `items`: `readonly SignalItem[]`.
 - `max` (optional): `number`.
-- `iconOnly` (optional): `boolean`. Default `false`.
-- `wrap` (optional): `boolean`. Default `false`.
-- `overflow` (optional): `SignalOverflow`, one of `'more'`, `'scroll'`. Default `'more'`.
+- `iconOnly` (optional): `boolean`.
+- `wrap` (optional): `boolean`.
+- `overflow` (optional): `SignalOverflow`, one of `'more'`, `'scroll'`.
 - `aria-label` (optional): `string`.
 - `className` (optional): `string`.
 

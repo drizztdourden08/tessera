@@ -98,7 +98,7 @@ const NoteForm = ({ save, cancel }: { save: () => void; cancel: () => void }) =>
 - `hint` (optional): `ReactNode`.
 - `error` (optional): `ReactNode`.
 - `placeholder` (optional): `string`.
-- `disabled` (optional): `boolean`. Default `false`.
+- `disabled` (optional): `boolean`.
 - `layout` (optional): `MarkdownEditorLayout`, one of `'split'`, `'tabs'`, `'composer'`.
 - `compact` (optional): `boolean`.
 - `preview` (optional): `boolean`.
@@ -115,7 +115,7 @@ const NoteForm = ({ save, cancel }: { save: () => void; cancel: () => void }) =>
 - `maxLength` (optional): `number`.
 - `count` (optional): `(text: string) => number`.
 - `onImageFiles` (optional): `(files: File[]) => Promise<string>`.
-- `autoFocus` (optional): `boolean`. Default `false`.
+- `autoFocus` (optional): `boolean`.
 - `className` (optional): `string`.
 - `aria-label` (optional): `string`.
 

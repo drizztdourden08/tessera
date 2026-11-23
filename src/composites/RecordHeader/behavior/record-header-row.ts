@@ -1,8 +1,7 @@
 /* @layer renderer-components @kind logic */
 import type { MouseEvent } from 'react';
 import { isInteractiveTarget } from '../../../primitives/dom/is-interactive-target';
-
-type RecordHeaderRow = { onClick?: (event: MouseEvent<HTMLElement>) => void; 'data-row-toggle'?: string };
+import type { RecordHeaderRow } from './record-header-row.type';
 
 const recordHeaderRow = (toggle: (() => void) | undefined): RecordHeaderRow => {
   if (!toggle) return {};

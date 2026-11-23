@@ -74,9 +74,9 @@ const TaskCard = () => (
 - `menu` (optional): `ReactNode`.
 - `children` (optional): `ReactNode`.
 - `open` (optional): `boolean`.
-- `defaultOpen` (optional): `boolean`. Default `false`.
+- `defaultOpen` (optional): `boolean`.
 - `onOpenChange` (optional): `(open: boolean) => void`.
-- `density` (optional): `RecordCardDensity`, one of `'card'`, `'compact'`, `'row'`. Default `'card'`.
+- `density` (optional): `RecordCardDensity`, one of `'card'`, `'compact'`, `'row'`.
 - `chevronOnIcon` (optional): `boolean`.
 - `className` (optional): `string`.
 - `name` (optional): `string`.

@@ -15011,8 +15011,7 @@
           {
             "name": "disabled",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "layout",
@@ -15102,8 +15101,7 @@
           {
             "name": "autoFocus",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "className",
@@ -17607,8 +17605,7 @@
           {
             "name": "defaultOpen",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "onOpenChange",
@@ -17623,8 +17620,7 @@
               "'card'",
               "'compact'",
               "'row'"
-            ],
-            "default": "'card'"
+            ]
           },
           {
             "name": "chevronOnIcon",
@@ -17801,8 +17797,7 @@
           {
             "name": "chevronOnIcon",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "density",
@@ -17811,8 +17806,7 @@
             "literals": [
               "'row'",
               "'card'"
-            ],
-            "default": "'card'"
+            ]
           },
           {
             "name": "className",
@@ -20399,14 +20393,12 @@
           {
             "name": "iconOnly",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "wrap",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "overflow",
@@ -20415,8 +20407,7 @@
             "literals": [
               "'more'",
               "'scroll'"
-            ],
-            "default": "'more'"
+            ]
           },
           {
             "name": "aria-label",

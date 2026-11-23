@@ -70,8 +70,8 @@ const TaskLine = () => {
 - `content` (optional): `ReactNode`.
 - `menu` (optional): `ReactNode`.
 - `chevron` (optional): `RecordHeaderChevron`.
-- `chevronOnIcon` (optional): `boolean`. Default `false`.
-- `density` (optional): `RecordHeaderDensity`, one of `'row'`, `'card'`. Default `'card'`.
+- `chevronOnIcon` (optional): `boolean`.
+- `density` (optional): `RecordHeaderDensity`, one of `'row'`, `'card'`.
 - `className` (optional): `string`.
 
 ## Tokens

@@ -1,25 +1,9 @@
 /* @layer renderer-components @kind component */
-import type { Ref } from 'react';
 import { Box } from '../../../primitives/Box';
 import { Textarea } from '../../../primitives/Textarea';
-import type { TextareaProps } from '../../../primitives/Textarea';
 import { areaLook } from '../behavior/area-look';
 import { rowsOf } from '../behavior/rows-of';
-
-type MarkdownEditorWriteProps = {
-  areaRef: Ref<HTMLTextAreaElement>;
-  hidden: boolean;
-  composer: boolean;
-  compact: boolean;
-  rows: number | undefined;
-  value: string;
-  label: string | undefined;
-  placeholder: string | undefined;
-  disabled: boolean;
-  maxLength: number | undefined;
-  onChange: (value: string) => void;
-  extra: Pick<TextareaProps, 'onKeyDown' | 'onPaste' | 'onDragOver' | 'onDrop'>;
-};
+import type { MarkdownEditorWriteProps } from './MarkdownEditorWrite.type';
 
 const MarkdownEditorWrite = (props: MarkdownEditorWriteProps) => {
   const { areaRef, hidden, composer, compact, rows, value, label, placeholder, disabled, maxLength, onChange, extra } = props;
