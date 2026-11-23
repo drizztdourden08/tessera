@@ -13,7 +13,7 @@ import type { UIEvent } from 'react';
 import './ScrollArea.css';
 
 const ScrollArea = (props: ScrollAreaProps) => {
-  const { axis = 'y', fade = true, scrollbar = 'native', thumb, gutter = 'auto', className = '', children, onScroll, scrollTo, follow, ref, ...rest } = props;
+  const { axis = 'y', fade = true, scrollbar = 'native', thumb, gutter = 'auto', className = '', children, onScroll, scrollTo, follow, followBehavior = 'smooth', ref, ...rest } = props;
 
   const nodeRef = useRef<HTMLDivElement | null>(null);
   const controller = useMemo(() => createScrollSyncController(() => nodeRef.current), []);
@@ -22,7 +22,7 @@ const ScrollArea = (props: ScrollAreaProps) => {
   useScrollEdges(nodeRef, axis, fade, slim);
   useSlimThumbDrag(nodeRef, axis, slim);
   useSlimThumbAutoHide(nodeRef, autoHide);
-  useFollowBottom(nodeRef, follow === true);
+  useFollowBottom(nodeRef, follow === true, followBehavior);
 
   useEffect(() => {
     controller.applyScrollTo(scrollTo ?? {});

@@ -6,7 +6,7 @@ type DrawerSide = 'left' | 'right' | 'top';
 
 type DrawerSize = 'md' | 'lg' | 'wide' | 'xl';
 
-type DrawerLook = 'default' | 'record';
+type DrawerLook = 'default' | 'record' | 'split';
 
 interface DrawerProps {
   open: boolean;
