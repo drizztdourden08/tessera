@@ -1,0 +1,49 @@
+/* @layer renderer-components @kind style */
+.ticker-text {
+  display: block;
+  min-inline-size: 0;
+  max-inline-size: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-text__track {
+  display: inline-block;
+}
+
+.ticker-text--sliding .ticker-text__track {
+  animation: ticker-text-slide var(--duration-ticker) var(--ease-in-out) infinite;
+}
+
+.ticker-text--sliding:hover .ticker-text__track,
+.ticker-text--sliding:focus-within .ticker-text__track {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-text-slide {
+  0%,
+  15% {
+    transform: translateX(0);
+  }
+
+  50%,
+  65% {
+    transform: translateX(calc(-1 * var(--ticker-distance)));
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ticker-text__track {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .ticker-text--sliding .ticker-text__track {
+    animation: none;
+  }
+}

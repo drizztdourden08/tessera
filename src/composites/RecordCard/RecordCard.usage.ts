@@ -45,7 +45,7 @@ const TaskCard = () => (
   </RecordCard>
 );
 `,
-  propsHash: 'e3d90a3afb688deb',
+  propsHash: '927bcd08396d82c5',
 } satisfies ComponentUsage;
 
 export { usage };

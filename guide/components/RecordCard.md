@@ -36,6 +36,7 @@ RecordCard is the shared card of every list item: header slots in a fixed order,
 - Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.
 - Use density row for a compact list and card for roomy items.
 - Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.
+- Pass chevronOnIcon with an icon so the icon shows the fold chevron on hover and focus, with no separate chevron slot.
 - Pass fill when cards sit in a grid, so every card of a row takes the full cell height.
 
 ## Accessibility
@@ -73,6 +74,7 @@ const TaskCard = () => (
 - `defaultOpen` (optional): `boolean`. Default `false`.
 - `onOpenChange` (optional): `(open: boolean) => void`.
 - `density` (optional): `RecordCardDensity`, one of `'card'`, `'row'`. Default `'card'`.
+- `chevronOnIcon` (optional): `boolean`.
 - `className` (optional): `string`.
 - `name` (optional): `string`.
 - `edge` (optional): `CardEdge`, one of `'left'`, `'border'`.

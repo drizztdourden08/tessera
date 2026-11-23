@@ -45,7 +45,7 @@ const TaskLine = () => {
   );
 };
 `,
-  propsHash: '58903893b66e56b8',
+  propsHash: 'b33fde331c72dae0',
 } satisfies ComponentUsage;
 
 export { usage };
