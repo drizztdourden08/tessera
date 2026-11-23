@@ -102,3 +102,57 @@
 .drawer--open.drawer--top .drawer__panel {
   transform: translateY(0);
 }
+
+.drawer--split .drawer__panel {
+  gap: var(--space-lg);
+  background: transparent;
+  border: none;
+  box-shadow: none;
+}
+
+.drawer--split.drawer--right .drawer__panel {
+  inset: var(--space-md) var(--space-lg) var(--space-lg) auto;
+  transform: translateX(calc(100% + var(--space-lg)));
+}
+
+.drawer--split.drawer--left .drawer__panel {
+  inset: var(--space-md) auto var(--space-lg) var(--space-lg);
+  transform: translateX(calc(-100% - var(--space-lg)));
+}
+
+.drawer--split.drawer--top .drawer__panel {
+  inset: var(--space-md) var(--space-lg) auto;
+  transform: translateY(calc(-100% - var(--space-md)));
+}
+
+.drawer--split.drawer--open .drawer__panel {
+  transform: none;
+}
+
+.drawer--split .drawer__head-card {
+  flex: none;
+  display: flex;
+  align-items: center;
+  min-height: var(--size-64);
+  padding: var(--space-md) var(--space-lg);
+}
+
+.drawer--split .drawer__head-card > .drawer__header {
+  flex: 1 1 auto;
+  align-items: center;
+  padding: 0;
+  border-bottom: none;
+}
+
+.drawer--split .drawer__body-card {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  min-height: 0;
+}
+
+@container drawer (width < 480px) {
+  .drawer--split .drawer__panel {
+    width: calc(100% - 2 * var(--space-lg));
+  }
+}
