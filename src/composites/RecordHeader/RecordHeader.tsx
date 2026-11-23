@@ -19,14 +19,14 @@ const RecordHeader = (props: RecordHeaderProps) => {
     <Box className={recordHeaderClass(density, className, toggle != null)} onClick={toggle ? onRowClick : undefined} data-row-toggle={toggle ? '' : undefined}>
       <RecordHeaderSlot when={chevron != null}>{chevron && <RecordHeaderChevron {...chevron} />}</RecordHeaderSlot>
       <RecordHeaderSlot when={icon != null}>{icon}</RecordHeaderSlot>
-      <RecordHeaderSlot when={code != null}>
-        <Text variant="caption" mono>{code}</Text>
+      <RecordHeaderSlot when={code != null} code>
+        <Text variant="caption" mono className="record-header__code">{code}</Text>
       </RecordHeaderSlot>
-      <RecordHeaderSlot main>
-        {title != null && <Text variant="label" className="record-header__title">{title}</Text>}
+      <RecordHeaderSlot when={title != null} main>
+        <Text variant="label" className="record-header__title">{title}</Text>
       </RecordHeaderSlot>
       <RecordHeaderSlot when={content != null} content>{content}</RecordHeaderSlot>
-      <RecordHeaderSlot when={menu != null}>{menu}</RecordHeaderSlot>
+      <RecordHeaderSlot when={menu != null} menu>{menu}</RecordHeaderSlot>
     </Box>
   );
 };
