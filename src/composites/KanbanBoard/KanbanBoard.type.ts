@@ -1,6 +1,7 @@
 /* @layer renderer-components @kind types */
 import type { KeyboardEvent, MouseEvent, ReactNode } from 'react';
 import type { CardTone } from '../../primitives/Card';
+import type { TagCategoryColor } from '../../primitives/Tag';
 import type { ReorderDrag } from '../reorder/reorder.type';
 
 type KanbanColumnWidth = 'fixed' | 'fill';
@@ -20,6 +21,7 @@ interface KanbanColumn<Card extends KanbanCardData = KanbanCardData> {
   badge?: ReactNode;
   action?: ReactNode;
   top?: ReactNode;
+  accent?: TagCategoryColor;
 }
 
 interface KanbanPlace {
@@ -65,6 +67,8 @@ interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
   collapsed?: readonly string[];
   defaultCollapsed?: readonly string[];
   onCollapsedChange?: (columnId: string, collapsed: boolean) => void;
+  foldedGroups?: ReadonlySet<string> | readonly string[];
+  onFoldedGroupsChange?: (foldedGroups: readonly string[]) => void;
   className?: string;
 }
 
