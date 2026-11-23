@@ -44,7 +44,7 @@ const ChatInput = () => {
   );
 };
 `,
-  propsHash: '4d1f6c91cf88a334',
+  propsHash: '0e0822f8e7df0e37',
 } satisfies ComponentUsage;
 
 export { usage };
