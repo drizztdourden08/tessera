@@ -84,6 +84,11 @@ const GroupFold = {
   render: () => <KanbanGroupDemo />,
 } satisfies StoryLiteStoryDefinition<KanbanArgs>;
 
+const GroupFoldControlled = {
+  name: 'foldedGroups and onFoldedGroupsChange: the app holds which groups are folded; accent tints each column head',
+  render: () => <KanbanGroupDemo controlled />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
 const FitHeight = {
   name: 'columnHeight fit: each column is as tall as its cards',
   render: () => <KanbanDemo columnHeight="fit" />,
@@ -124,7 +129,7 @@ const Overview = overviewStory({
   ],
   instead: '[RowGrid] for one list edited in place, or [DataTable] for many records to sort and filter.',
   playground: Playground,
-  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, NodeHeads, GroupFold, AddForm, CardEdges, RecordCards, Folded, Narrow, Empty],
+  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, NodeHeads, GroupFold, GroupFoldControlled, AddForm, CardEdges, RecordCards, Folded, Narrow, Empty],
   states: {
     render: (props: StateProps) => <KanbanDemo folded={(props.folded as FoldedColumn | undefined) ?? 'none'} />,
     list: FOLDS.map((folded) => ({ name: folded === 'none' ? 'all open' : 'one folded', props: { folded } })),
@@ -133,4 +138,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, GroupFold, HeaderSlots, Live, Narrow, NoFold, NoGrip, NodeHeads, Overview, Playground, RecordCards, Stacked };
+export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, GroupFold, GroupFoldControlled, HeaderSlots, Live, Narrow, NoFold, NoGrip, NodeHeads, Overview, Playground, RecordCards, Stacked };

@@ -25,7 +25,7 @@ const useKanbanBoard = <Card extends KanbanCardData>(props: KanbanBoardProps<Car
   const landingRef = useRef<HTMLElement | null>(null);
   const focus = useMoveFocus(landingRef);
   const fold = useCollapsedColumns(boardRef, props);
-  const groups = useFoldedGroups();
+  const groups = useFoldedGroups(props);
   const folded = foldable ? fold.shown : [];
 
   const commit = (move: KanbanMove, follow: boolean): void => {
