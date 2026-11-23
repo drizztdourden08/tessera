@@ -11,7 +11,7 @@ const ARGUS_INK = {
     deep: '#767680',
     emerald: '#12a06e',
     eye: '#3fcf9a',
-    mouth: '#4a4a52',
+    mouth: '#7c7c88',
   },
   twin: {
     light: '#5fd6a6',
