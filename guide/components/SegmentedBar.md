@@ -8,7 +8,7 @@ Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdour
 import { SegmentedBar } from '@drizztdourden08/tessera';
 ```
 
-The source is `src/primitives/SegmentedBar/SegmentedBar.tsx`. It has no gallery page yet.
+The source is `src/primitives/SegmentedBar/SegmentedBar.tsx`. Its gallery page is Primitives · Charts/SegmentedBar (`#/story/primitives-segmentedbar--overview`).
 
 ## Where the questions lead here
 

@@ -4287,6 +4287,11 @@
         "--size-2",
         "--size-6"
       ],
+      "gallery": {
+        "title": "Primitives · Charts/SegmentedBar",
+        "route": "#/story/primitives-segmentedbar--overview",
+        "file": "stories/primitives/SegmentedBar.stories.tsx"
+      },
       "parts": []
     },
     {
@@ -20764,6 +20769,11 @@
         "--space-sm",
         "--space-xs"
       ],
+      "gallery": {
+        "title": "Composites · Data views/SortControl",
+        "route": "#/story/composites-sortcontrol--overview",
+        "file": "stories/composites/SortControl.stories.tsx"
+      },
       "parts": []
     },
     {

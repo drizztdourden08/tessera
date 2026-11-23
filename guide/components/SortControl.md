@@ -8,7 +8,7 @@ Import it from `@drizztdourden08/tessera`. It is also exported from `@drizztdour
 import { SortControl } from '@drizztdourden08/tessera';
 ```
 
-The source is `src/composites/SortControl/SortControl.tsx`. It has no gallery page yet.
+The source is `src/composites/SortControl/SortControl.tsx`. Its gallery page is Composites · Data views/SortControl (`#/story/composites-sortcontrol--overview`).
 
 ## Where the questions lead here
 
