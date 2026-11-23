@@ -2,9 +2,11 @@
 import type { BrandApp } from '../brand.type';
 import type { BrandRim } from '../rim.type';
 
-type BrandMarkSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'h26' | 'h39' | 'fill';
+type BrandMarkSize = 'sm' | 'md' | 'lg' | 'xl' | 'xxl' | 'h26' | 'h39' | 'h52' | 'fill';
 
 type BrandMarkFit = 'square' | 'height';
+
+type BrandMarkActivity = 'idle' | 'thinking' | 'working' | 'talking';
 
 type BrandMarkVariant = 'mark' | 'app-icon';
 
@@ -15,8 +17,9 @@ interface BrandMarkProps {
   variant?: BrandMarkVariant;
   twin?: boolean;
   rim?: BrandRim;
+  activity?: BrandMarkActivity;
   title?: string;
   className?: string;
 }
 
-export type { BrandMarkFit, BrandMarkProps, BrandMarkSize, BrandMarkVariant };
+export type { BrandMarkActivity, BrandMarkFit, BrandMarkProps, BrandMarkSize, BrandMarkVariant };

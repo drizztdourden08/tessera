@@ -6,7 +6,7 @@ interface MascotProps {
   brand?: BrandApp;
   variant?: string;
   pose?: MascotPose;
-  size?: Exclude<BrandMarkSize, 'h26' | 'h39'>;
+  size?: Exclude<BrandMarkSize, 'h26' | 'h39' | 'h52'>;
   scale?: number;
   title?: string;
   className?: string;

@@ -13,6 +13,9 @@ const ARGUS_STONE_FULL: readonly BrandMarkPath[] = [
   { ink: ARGUS_INK.stone.dim, evenOdd: true, d: 'M18 48L32 36L32 60Z' },
   { ink: ARGUS_INK.stone.dark, evenOdd: true, d: 'M32 36L60 36L46 48Z' },
   { ink: ARGUS_INK.stone.deep, evenOdd: true, d: 'M32 36L46 48L32 60Z' },
+  { ink: ARGUS_INK.stone.eye, part: 'eye', d: 'M14 24L22 24L22 32L14 32Z' },
+  { ink: ARGUS_INK.stone.eye, part: 'eye', d: 'M42 24L50 24L50 32L42 32Z' },
+  { ink: ARGUS_INK.stone.mouth, part: 'mouth', d: 'M26 41L38 41L38 45L26 45Z' },
 ];
 
 const ARGUS_STONE_MEDIUM: readonly BrandMarkPath[] = [
@@ -23,12 +26,17 @@ const ARGUS_STONE_MEDIUM: readonly BrandMarkPath[] = [
   { ink: ARGUS_INK.stone.base, evenOdd: true, d: 'M22 7L30 14L30 18L16 18L16 12ZM21 12L25 12L25 16L21 16Z' },
   { ink: ARGUS_INK.stone.shade, evenOdd: true, d: 'M2 18L16 18L16 30Z' },
   { ink: ARGUS_INK.stone.dark, evenOdd: true, d: 'M16 18L30 18L16 30Z' },
+  { ink: ARGUS_INK.stone.eye, part: 'eye', d: 'M7 12L11 12L11 16L7 16Z' },
+  { ink: ARGUS_INK.stone.eye, part: 'eye', d: 'M21 12L25 12L25 16L21 16Z' },
+  { ink: ARGUS_INK.stone.mouth, part: 'mouth', d: 'M13 21L19 21L19 23L13 23Z' },
 ];
 
 const ARGUS_STONE_SMALL: readonly BrandMarkPath[] = [
   { ink: ARGUS_INK.stone.light, evenOdd: true, d: 'M1 4L9 1L11 4L8 6L8 15L1 9ZM4 6L6 6L6 8L4 8Z' },
   { ink: ARGUS_INK.stone.emerald, evenOdd: true, d: 'M9 1L15 3L15 7L11 4Z' },
   { ink: ARGUS_INK.stone.dim, evenOdd: true, d: 'M11 4L15 7L15 9L8 15L8 6ZM10 6L12 6L12 8L10 8Z' },
+  { ink: ARGUS_INK.stone.eye, part: 'eye', d: 'M4 6L6 6L6 8L4 8Z' },
+  { ink: ARGUS_INK.stone.eye, part: 'eye', d: 'M10 6L12 6L12 8L10 8Z' },
 ];
 
 export { ARGUS_STONE_FULL, ARGUS_STONE_MEDIUM, ARGUS_STONE_SMALL };

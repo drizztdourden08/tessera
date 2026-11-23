@@ -10,6 +10,10 @@
   --duration-drawer: 0.38s;
   --duration-twinkle: 3.5s;
   --duration-status-breathe: 3s;
+  --duration-mask-thinking: 3.2s;
+  --duration-mask-working: 1.1s;
+  --duration-mask-talking: 0.5s;
+  --scale-mouth-closed: 0.15;
   --duration-icon-pop: 0.6s;
   --duration-float:   1.6s;
   --duration-scrollbar-idle: 0.9s;

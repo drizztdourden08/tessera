@@ -16,6 +16,7 @@ const MARK_DETAIL: Readonly<Record<BrandMarkSize, BrandMarkDetailLevel | null>> 
   xxl: null,
   h26: 'medium',
   h39: 'medium',
+  h52: 'medium',
   fill: null,
 };
 
