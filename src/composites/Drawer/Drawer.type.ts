@@ -6,7 +6,7 @@ type DrawerSide = 'left' | 'right' | 'top';
 
 type DrawerSize = 'md' | 'lg' | 'wide' | 'xl';
 
-type DrawerLook = 'default' | 'record';
+type DrawerLook = 'default' | 'record' | 'split';
 
 interface DrawerProps {
   open: boolean;
@@ -30,4 +30,8 @@ type DrawerHeaderProps = Pick<DrawerProps, 'look' | 'eyebrow' | 'title' | 'title
   titleId: string;
 };
 
-export type { DrawerHeaderProps, DrawerLook, DrawerProps, DrawerSize };
+type DrawerBodyProps = Pick<DrawerProps, 'actions' | 'children'> & {
+  split: boolean;
+};
+
+export type { DrawerBodyProps, DrawerHeaderProps, DrawerLook, DrawerProps, DrawerSize };

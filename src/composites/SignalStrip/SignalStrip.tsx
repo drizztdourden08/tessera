@@ -1,31 +1,29 @@
 /* @layer renderer-components @kind component */
 import { useRef } from 'react';
 import { Box } from '../../primitives/Box';
-import { SIGNAL_KEY_ATTRIBUTE } from './SignalStrip.constants';
+import { TickerText } from '../../primitives/TickerText';
 import type { SignalStripProps } from './SignalStrip.type';
-import { chipKey } from './behavior/chip-key';
+import { signalStripClass } from './behavior/signal-strip-class';
 import { useSignalFit } from './behavior/useSignalFit';
-import { SignalChip } from './sub-components/SignalChip';
+import { SignalRun } from './sub-components/SignalRun';
 import { SignalMore } from './sub-components/SignalMore';
 import './SignalStrip.css';
 
 const SignalStrip = (props: SignalStripProps) => {
-  const { items: given, max, iconOnly = false, wrap = false, className, 'aria-label': label } = props;
-  const items = given.map((item) => ({ ...item, iconOnly: item.iconOnly ?? iconOnly }));
+  const { items: given, max, iconOnly, overflow, className, 'aria-label': label } = props;
+  const wrap = props.wrap === true;
+  const items = given.map((item) => ({ ...item, iconOnly: item.iconOnly ?? iconOnly === true }));
   const rowRef = useRef<HTMLElement>(null);
   const fit = useSignalFit(rowRef, items, max);
-  const shown = wrap ? items.length : fit;
+  const scroll = overflow === 'scroll' && !wrap;
+  const shown = wrap || scroll ? items.length : fit;
   if (items.length === 0) return null;
   const hidden = items.slice(shown);
-  const classes = ['signal-strip', wrap && 'signal-strip--wrap', className].filter(Boolean).join(' ');
+  const chips = <SignalRun items={items.slice(0, shown)} />;
 
   return (
-    <Box ref={rowRef} role={label === undefined ? undefined : 'group'} aria-label={label} className={classes}>
-      {items.slice(0, shown).map((item) => (
-        <Box key={item.id} className="signal-strip__item" {...{ [SIGNAL_KEY_ATTRIBUTE]: chipKey(item) }}>
-          <SignalChip item={item} />
-        </Box>
-      ))}
+    <Box ref={rowRef} role={label === undefined ? undefined : 'group'} aria-label={label} className={signalStripClass(wrap, scroll, className)}>
+      {scroll ? <TickerText>{chips}</TickerText> : chips}
       {hidden.length > 0 && <SignalMore hidden={hidden} />}
     </Box>
   );

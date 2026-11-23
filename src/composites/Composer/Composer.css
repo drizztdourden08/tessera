@@ -1,0 +1,12 @@
+/* @layer renderer-components @kind style */
+.composer {
+  display: flex;
+  flex-direction: column;
+}
+
+.composer .textarea {
+  flex: 1 1 auto;
+  min-block-size: 0;
+  padding-block: var(--space-sm) var(--space-2xs);
+  padding-inline: var(--space-md);
+}

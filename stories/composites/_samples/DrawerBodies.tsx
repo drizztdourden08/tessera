@@ -11,7 +11,7 @@ type SampleDrawerProps = {
   side: 'left' | 'right' | 'top';
   size?: 'md' | 'lg' | 'wide' | 'xl';
   label?: string;
-  look?: 'default' | 'record';
+  look?: 'default' | 'record' | 'split';
   stackNarrow?: boolean;
   headerActionsRow?: 'title' | 'eyebrow';
 };

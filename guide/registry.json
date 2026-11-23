@@ -150,6 +150,11 @@
                   "CommandInput"
                 ]
               },
+              "a chat message, sent with Enter": {
+                "components": [
+                  "Composer"
+                ]
+              },
               "text shown as text, edited in place on click": {
                 "components": [
                   "InlineEdit"
@@ -804,6 +809,11 @@
           "long text clamped to a few lines": {
             "components": [
               "FoldText"
+            ]
+          },
+          "one line that slides when it is too long": {
+            "components": [
+              "TickerText"
             ]
           }
         }
@@ -3564,7 +3574,7 @@
         "rule": "PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document."
       },
       "example": "import { PageFrame, Title } from '@drizztdourden08/tessera';\n\nconst AccountPage = () => (\n  <PageFrame width=\"md\">\n    <Title>Account</Title>\n  </PageFrame>\n);\n",
-      "propsHash": "a183d89d8c067d37",
+      "propsHash": "aa58b9fe88b41308",
       "props": {
         "own": [
           {
@@ -3645,6 +3655,15 @@
             "name": "follow",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "followBehavior",
+            "optional": true,
+            "text": "ScrollAreaFollowBehavior",
+            "literals": [
+              "'instant'",
+              "'smooth'"
+            ]
           }
         ],
         "inherited": {
@@ -4014,7 +4033,7 @@
         "A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.",
         "Set fade to false when the edges of the content must not melt away.",
         "gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows. gutter both reserves the same room on both edges, so a centred or padded pane keeps equal margins left and right.",
-        "follow keeps the box scrolled to the end as its content grows, such as a chat or a live feed; it stops when the reader scrolls up and resumes when they return to the end.",
+        "follow keeps the box scrolled to the end as its content grows, such as a chat or a live feed; it stops when the reader scrolls up and resumes when they return to the end. The first jump to the end is always instant; followBehavior picks how later jumps for new content move, smooth by default or instant.",
         "Give the box a height, through a class or its parent, or it grows with its content and never scrolls."
       ],
       "a11y": [
@@ -4029,7 +4048,7 @@
         "rule": "ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content."
       },
       "example": "import type { ReactNode } from 'react';\nimport { Grid, ScrollArea } from '@drizztdourden08/tessera';\n\nconst Library = ({ cards }: { cards: ReactNode[] }) => (\n  <ScrollArea scrollbar=\"slim\" className=\"library\">\n    <Grid minColWidth={224} gap=\"sm\">\n      {cards}\n    </Grid>\n  </ScrollArea>\n);\n",
-      "propsHash": "56861f2002a3c77f",
+      "propsHash": "fcb9aced2a40c467",
       "props": {
         "own": [
           {
@@ -4093,6 +4112,16 @@
             "name": "follow",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "followBehavior",
+            "optional": true,
+            "text": "ScrollAreaFollowBehavior",
+            "literals": [
+              "'instant'",
+              "'smooth'"
+            ],
+            "default": "'smooth'"
           }
         ],
         "inherited": {
@@ -5952,6 +5981,91 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "TickerText",
+      "tier": "primitives",
+      "source": "src/primitives/TickerText/TickerText.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "One line of text that slides back and forth when it is wider than its room, so a long title or a row of chips stays on one line and is still readable.",
+      "useWhen": [
+        "A single line, such as a card title or a strip of chips, must keep its height and can be longer than the space it gets.",
+        "The reader may wait a moment to see the end of the text, and can stop the slide by pointing at it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The text may wrap onto a few lines and fold with a More control.",
+          "use": "FoldText"
+        },
+        {
+          "case": "A file path or a name must keep its end visible with a cut in the middle.",
+          "use": "FoldText"
+        },
+        {
+          "case": "The text is short and always fits.",
+          "use": "Text"
+        }
+      ],
+      "rules": [
+        "Put the text, or a short inline run such as a row of chips, as the children. It keeps to one line and never wraps.",
+        "When the children fit, nothing moves and nothing is added. When they are wider than the box, they slide to the end and back, pausing at each end.",
+        "The slide stops while the pointer is over the text or focus is inside it.",
+        "Under reduced motion the slide is off and the text is cut with an ellipsis.",
+        "The full text shows in the title of the box while it overflows: a string child is used as it is, and title replaces it for any other child.",
+        "The box takes the width its parent gives it, so put it in a parent that sets one."
+      ],
+      "a11y": [
+        "The text stays in the page whole, so a screen reader reads all of it while it slides.",
+        "The slide is paused by hover and focus and is off under reduced motion, so it never has to be read in motion."
+      ],
+      "tree": {
+        "path": [
+          "text",
+          "one line that slides when it is too long"
+        ],
+        "rule": "TickerText is the one line that slides. A strip of chips or a card title uses it instead of folding or wrapping."
+      },
+      "example": "import { TickerText } from '@drizztdourden08/tessera';\n\nconst CardTitle = ({ text }: { text: string }) => (\n  <TickerText>{text}</TickerText>\n);\n",
+      "propsHash": "23ab016c62b87531",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--duration-ticker",
+        "--ease-in-out",
+        "--ticker-distance"
+      ],
+      "gallery": {
+        "title": "Primitives · Display/TickerText",
+        "route": "#/story/primitives-tickertext--overview",
+        "file": "stories/primitives/TickerText.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Title",
@@ -8490,6 +8604,136 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "Composer",
+      "tier": "composites",
+      "source": "src/composites/Composer/Composer.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A chat composer: one rounded box with a growing text input, a send button and an optional bar of tools.",
+      "useWhen": [
+        "A person writes a message to a chat or an agent and sends it with Enter.",
+        "The input should start on one line and grow with the text up to a limit."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The text needs a formatting toolbar and a preview.",
+          "use": "MarkdownEditor"
+        },
+        {
+          "case": "The field is part of a form with a label and a hint.",
+          "use": "Textarea"
+        }
+      ],
+      "rules": [
+        "Pass value and onChange to control the text. onSubmit receives the text when the person sends it.",
+        "Enter sends and Shift+Enter starts a new line. Enter while typing with an input method does not send.",
+        "The input grows from one line to maxRows lines, 8 by default, then scrolls.",
+        "The default send button is disabled while the text is blank or the composer is disabled. Pass sendSlot to put your own.",
+        "bar sits on the left of the bottom row, beside the send button: attachments, a model picker, a hint.",
+        "Give the composer an aria-label when no visible label names it."
+      ],
+      "a11y": [
+        "Focus inside the box shows the focus ring on the whole box.",
+        "The send button carries a text label from the Tessera strings."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "free text or a number",
+          "a chat message, sent with Enter"
+        ],
+        "rule": "Composer writes and sends one chat message in a rounded box."
+      },
+      "example": "import { useState } from 'react';\nimport { Composer } from '@drizztdourden08/tessera';\n\nconst ChatInput = () => {\n  const [text, setText] = useState('');\n  return (\n    <Composer\n      value={text}\n      onChange={setText}\n      onSubmit={() => setText('')}\n      placeholder=\"Write a message\"\n      aria-label=\"Message\"\n    />\n  );\n};\n",
+      "propsHash": "4d1f6c91cf88a334",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(value: string) => void"
+          },
+          {
+            "name": "onSubmit",
+            "optional": false,
+            "text": "(value: string) => void"
+          },
+          {
+            "name": "placeholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "maxRows",
+            "optional": true,
+            "text": "number",
+            "default": "COMPOSER_MAX_ROWS"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "sendSlot",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "bar",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-danger",
+        "--c-danger-soft",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-surface",
+        "--radius-lg",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--transition-normal"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/Composer",
+        "route": "#/story/composites-composer--overview",
+        "file": "stories/composites/Composer.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "ConfirmIconButton",
@@ -13202,7 +13446,9 @@
         "Pass grip={false} to hide the drag grip: the cards no longer drag by pointer, and the arrow keys still move a card from a hidden grip button that shows a focus ring on the card.",
         "Pass foldable={false} to remove the fold chevron from every column; a column listed in collapsed or defaultCollapsed then stays open.",
         "Pass stack to stack the columns top to bottom when the board is under 420 px wide, through a container query on a wrapper; the default board scrolls sideways at any width.",
-        "Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids."
+        "Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids.",
+        "Fold groups from outside with foldedGroups (a set or an array of group ids) and onFoldedGroupsChange, which gets the next list of folded group ids; leave foldedGroups out and the board keeps the folding itself.",
+        "Give a column an accent, one of the tag category colours, to tint its head."
       ],
       "a11y": [
         "The board and each column are named groups, and each column holds a named list of cards.",
@@ -13220,7 +13466,7 @@
         "rule": "KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards."
       },
       "example": "import { useState } from 'react';\nimport { Badge, KanbanBoard, Text, moveCard } from '@drizztdourden08/tessera';\nimport type { KanbanColumn } from '@drizztdourden08/tessera';\n\ninterface Task {\n  id: string;\n  title: string;\n  tag: string;\n  group?: string;\n}\n\nconst START: KanbanColumn<Task>[] = [\n  { id: 'todo', title: 'To do', cards: [\n    { id: 't1', title: 'Fix login', tag: 'bug', group: 'auth' },\n    { id: 't2', title: 'Add reset link', tag: 'feature', group: 'auth' },\n    { id: 't3', title: 'Update docs', tag: 'chore' },\n  ] },\n  { id: 'doing', title: 'Doing', cards: [] },\n  { id: 'done', title: 'Done', cards: [] },\n];\n\nconst Tasks = () => {\n  const [columns, setColumns] = useState(START);\n  return (\n    <KanbanBoard\n      label=\"Sprint\"\n      columns={columns}\n      cardLabel={(task) => task.title}\n      renderGroupHeader={(group) => group}\n      renderCard={(task) => (\n        <>\n          <Text>{task.title}</Text>\n          <Badge variant=\"inline\" value={task.tag} color=\"info\" />\n        </>\n      )}\n      onMove={(move) => setColumns((now) => moveCard(now, move))}\n    />\n  );\n};\n",
-      "propsHash": "9d3c6814048aced1",
+      "propsHash": "57d14080480ed1f8",
       "props": {
         "own": [
           {
@@ -13325,6 +13571,16 @@
             "text": "(columnId: string, collapsed: boolean) => void"
           },
           {
+            "name": "foldedGroups",
+            "optional": true,
+            "text": "ReadonlySet<string> | readonly string[]"
+          },
+          {
+            "name": "onFoldedGroupsChange",
+            "optional": true,
+            "text": "(foldedGroups: readonly string[]) => void"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -13346,8 +13602,11 @@
         "--c-surface",
         "--c-text-dim",
         "--c-text-muted",
+        "--hue-fill",
+        "--hue-ink",
         "--opacity-muted",
         "--radius-lg",
+        "--radius-md",
         "--size-1",
         "--size-2",
         "--size-224",
@@ -14674,6 +14933,7 @@
         "Own the text in the app and pass it as value, with onChange; the editor keeps no copy of it.",
         "Leave layout out to get split on a wide container and Write and Preview tabs on a narrow one.",
         "Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.",
+        "Set layout to composer for a chat box: one rounded box with the toolbar on top, a borderless input that grows with the text, and the submit button inside at the bottom right. For a plain chat input with no toolbar, use Composer.",
         "Pass onLink in a desktop app so a link in the preview opens in the system browser.",
         "Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.",
         "Pass compact for a note box inside a card: a slim toolbar, a 3 row textarea that grows with its text up to a cap, and no split or tabs; rows still sets the starting height.",
@@ -14715,7 +14975,7 @@
         "rule": "MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app."
       },
       "example": "import { useState } from 'react';\nimport { Button, MarkdownEditor } from '@drizztdourden08/tessera';\n\nconst NoteField = ({ openExternal }: { openExternal: (href: string) => void }) => {\n  const [note, setNote] = useState('');\n  return <MarkdownEditor label=\"Note\" value={note} onChange={setNote} onLink={openExternal} />;\n};\n\nconst NoteForm = ({ save, cancel }: { save: () => void; cancel: () => void }) => {\n  const [note, setNote] = useState('');\n  return (\n    <MarkdownEditor\n      label=\"Note\"\n      value={note}\n      onChange={setNote}\n      actions={<><Button onClick={cancel}>Cancel</Button><Button variant=\"primary\" onClick={save}>Save</Button></>}\n    />\n  );\n};\n",
-      "propsHash": "5e2e1f911f25f0e3",
+      "propsHash": "3fe6dc84068df369",
       "props": {
         "own": [
           {
@@ -14751,8 +15011,7 @@
           {
             "name": "disabled",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "layout",
@@ -14760,7 +15019,8 @@
             "text": "MarkdownEditorLayout",
             "literals": [
               "'split'",
-              "'tabs'"
+              "'tabs'",
+              "'composer'"
             ]
           },
           {
@@ -14841,8 +15101,7 @@
           {
             "name": "autoFocus",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "className",
@@ -14871,6 +15130,7 @@
         "--c-primary-soft",
         "--c-sunken",
         "--c-surface",
+        "--radius-lg",
         "--radius-md",
         "--size-192",
         "--size-384",
@@ -17279,8 +17539,11 @@
         "The chevron shows only when there are children, and a click on the header row toggles the card, but never a click in the menu or a control.",
         "Folded, the title sits in the header and the body is not rendered; open, the title moves above the children, so it shows once.",
         "Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.",
-        "Use density row for a compact list and card for roomy items.",
+        "Use density row for a compact list, card for roomy items and compact for a fixed two line card.",
+        "Use density compact for a fixed two line card with no body: line one is the icon, the code, content in a ticker and the end and menu slots, and line two is the title in a ticker. children are ignored, so it never folds.",
+        "Pass end for a small item at the end of line one of a compact card, such as an assignee, before the menu.",
         "Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.",
+        "Pass chevronOnIcon with an icon so the icon shows the fold chevron on hover and focus, with no separate chevron slot.",
         "Pass fill when cards sit in a grid, so every card of a row takes the full cell height."
       ],
       "a11y": [
@@ -17296,7 +17559,7 @@
         "rule": "RecordCard is the shared card of every list item: header slots in a fixed order, a body that folds away."
       },
       "example": "import { Badge, Icon, IconButton, RecordCard, Text } from '@drizztdourden08/tessera';\n\nconst TaskCard = () => (\n  <RecordCard\n    title=\"Fix the login redirect\"\n    code=\"ARG-12\"\n    content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n    menu={<IconButton variant=\"ghost\" size=\"sm\" label=\"Actions\"><Icon name=\"ellipsis\" /></IconButton>}\n  >\n    <Text>The redirect drops the return path after sign in.</Text>\n  </RecordCard>\n);\n",
-      "propsHash": "e3d90a3afb688deb",
+      "propsHash": "4143adb7898ba6ae",
       "props": {
         "own": [
           {
@@ -17320,6 +17583,11 @@
             "text": "ReactNode"
           },
           {
+            "name": "end",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
             "name": "menu",
             "optional": true,
             "text": "ReactNode"
@@ -17337,8 +17605,7 @@
           {
             "name": "defaultOpen",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "onOpenChange",
@@ -17351,9 +17618,14 @@
             "text": "RecordCardDensity",
             "literals": [
               "'card'",
+              "'compact'",
               "'row'"
-            ],
-            "default": "'card'"
+            ]
+          },
+          {
+            "name": "chevronOnIcon",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "className",
@@ -17416,8 +17688,11 @@
       },
       "tokens": [
         "--record-card-gap-card",
+        "--record-card-gap-compact",
         "--record-card-gap-row",
+        "--record-card-height-compact",
         "--record-card-pad-card",
+        "--record-card-pad-compact",
         "--record-card-pad-row"
       ],
       "gallery": {
@@ -17468,6 +17743,7 @@
       "rules": [
         "Pass icon, code, title, content and menu to fill the slots; they sit in that order after the chevron, and content sits at the end, next to the menu.",
         "Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. That row counts as a control, so its click never opens a Kanban card or a clickable Card around it. controls names the folded element and label replaces the default name.",
+        "Pass chevronOnIcon with an icon to drop the separate chevron slot: the icon shows the fold chevron, open or closed, on hover and focus, and a click there folds.",
         "The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.",
         "Use density row for a compact line and card for a roomy one; it only changes the gap between the slots.",
         "In a Kanban group bar, pass the fold of renderGroupHeader to chevron: { expanded: fold.open, onToggle: fold.toggle, controls: fold.controls }.",
@@ -17475,7 +17751,7 @@
       ],
       "a11y": [
         "The chevron is a bare button with aria-expanded and, when controls is set, aria-controls; Enter and Space on it toggle. The row has no role of its own.",
-        "A long title is cut with an ellipsis. The title keeps a minimum width; when the row is too narrow for it, the content and the menu drop to their own line under the title. The content slot shrinks and wraps its own children when even that line is too narrow."
+        "The header never wraps. A long title and a long code are cut with an ellipsis, and the content slot shrinks and clips; the chevron, icon and menu keep their size."
       ],
       "tree": {
         "path": [
@@ -17485,7 +17761,7 @@
         "rule": "RecordHeader is the shared title line of every item: slots in a fixed order, centred, with no frame of its own."
       },
       "example": "import { useState } from 'react';\nimport { Badge, RecordHeader, TypeMark } from '@drizztdourden08/tessera';\n\nconst TaskLine = () => {\n  const [open, setOpen] = useState(true);\n  return (\n    <RecordHeader\n      icon={<TypeMark icon=\"bug\" label=\"Bug\" color=\"violet\" variant=\"outline\" />}\n      code=\"ARG-12\"\n      title=\"Fix the login redirect\"\n      content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n      chevron={{ expanded: open, onToggle: () => setOpen(!open), controls: 'task-body' }}\n    />\n  );\n};\n",
-      "propsHash": "58903893b66e56b8",
+      "propsHash": "b33fde331c72dae0",
       "props": {
         "own": [
           {
@@ -17519,14 +17795,18 @@
             "text": "RecordHeaderChevron"
           },
           {
+            "name": "chevronOnIcon",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
             "name": "density",
             "optional": true,
             "text": "RecordHeaderDensity",
             "literals": [
               "'row'",
               "'card'"
-            ],
-            "default": "'card'"
+            ]
           },
           {
             "name": "className",
@@ -20081,6 +20361,7 @@
         "iconOnly on the strip, or on one item, hides the chip text. The label stays as the title of the chip and the count still shows.",
         "mark2 on an item adds a second mark inside the chip, after the icon: { icon } for an icon, { avatar } with the Avatar props for an avatar (an Avatar with src shows a plain image), or { brand } with a brand app name for its brand mark. Every mark2 shows at the 12 px of the chip icon, with an owner ring or brand rim drawn inside that box.",
         "wrap shows every item over several lines and never folds into a +N chip. Without it the row stays on one line. max is ignored in wrap mode.",
+        "overflow scroll keeps every chip in the row and slides the row back and forth when it is wider than its room, through TickerText, instead of folding into +N. It stops on hover and focus and shows a plain cut under reduced motion. wrap wins over it.",
         "An empty items list renders nothing."
       ],
       "a11y": [
@@ -20096,7 +20377,7 @@
         "rule": "SignalStrip is the one-line row of attention chips that folds the overflow into a +N chip with a tooltip."
       },
       "example": "import { SignalStrip } from '@drizztdourden08/tessera';\n\nconst openQuestions = () => undefined;\nconst openTests = () => undefined;\n\nconst items = [\n  { id: 'questions', icon: 'circle-help', count: 2, label: 'Open questions', tone: 'warning', onClick: openQuestions },\n  { id: 'tests', icon: 'flask', count: 1, label: 'Failing tests', tone: 'danger', onClick: openTests },\n  { id: 'quiet', icon: 'moon', label: 'Quiet', tone: 'neutral' },\n] as const;\n\nconst Signals = () => <SignalStrip aria-label=\"Attention\" items={items} />;\n\nconst withMarks = [\n  { id: 'mine', icon: 'circle-help', count: 3, label: 'Asked of Ana', tone: 'info', mark2: { avatar: { label: 'Ana', initials: 'A' } } },\n  { id: 'late', icon: 'flask', count: 1, label: 'Late', tone: 'danger', mark2: { icon: 'moon' } },\n  { id: 'lead', icon: 'flask', count: '42h', label: 'Waiting on Brock', tone: 'warning', mark2: { brand: 'brock' } },\n] as const;\n\nconst IconOnly = () => <SignalStrip aria-label=\"Attention\" items={withMarks} iconOnly />;\n\nconst Wrapped = () => <SignalStrip aria-label=\"Attention\" items={[...items, ...withMarks]} wrap />;\n",
-      "propsHash": "1232cb06b3432c7b",
+      "propsHash": "2d34f9e10bcfcd7c",
       "props": {
         "own": [
           {
@@ -20112,14 +20393,21 @@
           {
             "name": "iconOnly",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
           },
           {
             "name": "wrap",
             "optional": true,
-            "text": "boolean",
-            "default": "false"
+            "text": "boolean"
+          },
+          {
+            "name": "overflow",
+            "optional": true,
+            "text": "SignalOverflow",
+            "literals": [
+              "'more'",
+              "'scroll'"
+            ]
           },
           {
             "name": "aria-label",

@@ -32,7 +32,7 @@ const VALUES = {
       answers: {
         'one line of text': null, 'several lines of text': null, 'a number typed in': null,
         'a number stepped up or down': null, 'text that follows a pattern': null, 'free words, as tags': null, 'structured data, as JSON': null, 'Markdown text, with a live preview': null,
-        'a command, with its history': null, 'text shown as text, edited in place on click': null,
+        'a command, with its history': null, 'a chat message, sent with Enter': null, 'text shown as text, edited in place on click': null,
       },
     },
     'one choice': {
@@ -138,7 +138,7 @@ const TEXT = {
   question: 'What kind of text?',
   answers: {
     'a heading': null, 'a section heading with an action': null, 'running text': null, 'a quotation': null,
-    'a block of code': null, 'words that draw the eye, animated': null, 'formatted text from Markdown, such as release notes': null, 'a bulleted or numbered list of short items': null, 'long text clamped to a few lines': null,
+    'a block of code': null, 'words that draw the eye, animated': null, 'formatted text from Markdown, such as release notes': null, 'a bulleted or numbered list of short items': null, 'long text clamped to a few lines': null, 'one line that slides when it is too long': null,
   },
 } as const;
 

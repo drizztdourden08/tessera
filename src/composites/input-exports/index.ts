@@ -34,7 +34,8 @@ export {
 } from '../CommandInput';
 export { PasswordInput, type PasswordInputProps, type PasswordMode, type PasswordRule, type PasswordScore, type PasswordStrength, type PasswordStrengthLevel } from '../PasswordInput';
 export { namespacedTag, TagInput, type TagAdvice, type TagInputProps, type TagValidationResult, type TagValidator } from '../TagInput';
-export { MarkdownEditor, type MarkdownEditorActionId, type MarkdownEditorLayout, type MarkdownEditorProps } from '../MarkdownEditor';
+export { Composer, type ComposerProps } from '../Composer';
+export { MarkdownEditor,type MarkdownEditorActionId, type MarkdownEditorLayout, type MarkdownEditorProps } from '../MarkdownEditor';
 export { PathInput,type PathBrowse, type PathInputProps, type PathKind } from '../PathInput';
 export { NumberField } from '../NumberField';
 export type { NumberFieldProps, NumberPreset, NumberPresetInput } from '../NumberField';

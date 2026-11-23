@@ -15,7 +15,7 @@ type DrawerArgs = {
   side: DrawerSide;
   size: 'md' | 'lg' | 'wide' | 'xl';
   label: string;
-  look: 'default' | 'record';
+  look: 'default' | 'record' | 'split';
 };
 
 type DrawerDemoProps = DrawerArgs & { stackNarrow?: boolean; headerActionsRow?: 'title' | 'eyebrow'; openLabel: string; Sample: ComponentType<SampleDrawerProps> };
@@ -43,7 +43,7 @@ const ARGS: Partial<DrawerArgs> = { side: 'right', size: 'md', look: 'default', 
 const ARG_TYPES: PlaygroundArgTypes<DrawerArgs> = {
   label: { group: 'Content', control: 'text' },
   side: { group: 'Layout', control: 'select', options: ['left', 'right', 'top'] },
-  look: { group: 'Layout', control: 'select', options: ['default', 'record'], description: 'record keeps chips in the eyebrow as authored and draws the title in the text colour, in sentence case.' },
+  look: { group: 'Layout', control: 'select', options: ['default', 'record', 'split'], description: 'split floats the header and the body as two glass cards over the scrim. record keeps chips in the eyebrow as authored and draws the title in the text colour, in sentence case.' },
   size: { group: 'Layout', control: 'select', options: ['md', 'lg', 'wide', 'xl'], description: 'md is 384 px, lg 640 px, wide 768 px, xl 1024 px, each capped by the window; under 480 px every size is full width. A top drawer ignores it.' },
 };
 
@@ -103,6 +103,15 @@ const RecordLook = {
   ),
 } satisfies PlaygroundStory<DrawerArgs>;
 
+const SplitLook = {
+  name: 'look="split": the header and the body float as two glass cards',
+  args: { ...ARGS, size: 'wide', look: 'split', label: 'Incident' },
+  argTypes: ARG_TYPES,
+  render: (args) => (
+    <DrawerDemo {...args} openLabel="Open record" Sample={RecordDrawer} />
+  ),
+} satisfies PlaygroundStory<DrawerArgs>;
+
 const StackedHeader = {
   name: 'stackNarrow: the header tools drop under the title when the drawer is narrow',
   args: { ...ARGS, label: 'Incident' },
@@ -149,15 +158,15 @@ const Overview = overviewStory({
     '`side` picks the edge: `right` by default, `left` or `top`.',
     '`title`, `subtitle` and `eyebrow` fill the header and wrap when long; `actions` sit in a footer row.',
     '`look="record"` keeps eyebrow chips as written and a plain sentence-case title.',
+    '`look="split"` floats the header and the body as two glass cards, spaced like the app shell bar.',
     '`stackNarrow` moves the header tools under a long title; `headerActionsRow="eyebrow"` puts them beside the id.',
-    '`size` runs `md`, `lg`, `wide` and `xl`; any size is full width under 480 px.',
-    '[[Esc]], the scrim or the close button calls `onClose`; focus stays inside. `label` names a panel with no `title`.',
+    '`size` runs `md`, `lg`, `wide` and `xl`, full width under 480 px. [[Esc]], the scrim or the close button calls `onClose`.',
   ],
   instead: '[DialogShell] for a modal that waits for an answer.',
   playground: Playground,
-  variants: [Record, RecordLook, EyebrowActions, StackedHeader, FilterPanel, Notifications, SearchSheet],
+  variants: [Record, RecordLook, SplitLook, EyebrowActions, StackedHeader, FilterPanel, Notifications, SearchSheet],
   code: CODE,
 });
 
 export default meta;
-export { EyebrowActions, FilterPanel, Notifications, Overview, Playground, Record, RecordLook, SearchSheet, StackedHeader };
+export { EyebrowActions, FilterPanel, Notifications, Overview, Playground, Record, RecordLook, SearchSheet, SplitLook, StackedHeader };

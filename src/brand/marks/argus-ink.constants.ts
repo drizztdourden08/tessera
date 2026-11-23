@@ -10,6 +10,8 @@ const ARGUS_INK = {
     dark: '#8c8c94',
     deep: '#767680',
     emerald: '#12a06e',
+    eye: '#3fcf9a',
+    mouth: '#7c7c88',
   },
   twin: {
     light: '#5fd6a6',
@@ -21,6 +23,8 @@ const ARGUS_INK = {
     dim: '#12906a',
     dark: '#0e8760',
     deep: '#0a6f4b',
+    eye: '#b8f0d8',
+    mouth: '#064a33',
   },
 } as const;
 

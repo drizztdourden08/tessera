@@ -55,6 +55,8 @@ KanbanBoard keeps the move, the keys, the counts and the fold the same in every 
 - Pass foldable={false} to remove the fold chevron from every column; a column listed in collapsed or defaultCollapsed then stays open.
 - Pass stack to stack the columns top to bottom when the board is under 420 px wide, through a container query on a wrapper; the default board scrolls sideways at any width.
 - Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids.
+- Fold groups from outside with foldedGroups (a set or an array of group ids) and onFoldedGroupsChange, which gets the next list of folded group ids; leave foldedGroups out and the board keeps the folding itself.
+- Give a column an accent, one of the tag category colours, to tint its head.
 
 ## Accessibility
 
@@ -128,11 +130,13 @@ const Tasks = () => {
 - `collapsed` (optional): `readonly string[]`.
 - `defaultCollapsed` (optional): `readonly string[]`.
 - `onCollapsedChange` (optional): `(columnId: string, collapsed: boolean) => void`.
+- `foldedGroups` (optional): `ReadonlySet<string> | readonly string[]`.
+- `onFoldedGroupsChange` (optional): `(foldedGroups: readonly string[]) => void`.
 - `className` (optional): `string`.
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-focus`, `--c-primary-bright`, `--c-primary-soft`, `--c-surface`, `--c-text-dim`, `--c-text-muted`, `--opacity-muted`, `--radius-lg`, `--size-1`, `--size-2`, `--size-224`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-focus`, `--c-primary-bright`, `--c-primary-soft`, `--c-surface`, `--c-text-dim`, `--c-text-muted`, `--hue-fill`, `--hue-ink`, `--opacity-muted`, `--radius-lg`, `--radius-md`, `--size-1`, `--size-2`, `--size-224`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
 
 ## Also exported from this folder
 

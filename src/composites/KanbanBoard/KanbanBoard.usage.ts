@@ -39,6 +39,8 @@ const usage = {
     'Pass foldable={false} to remove the fold chevron from every column; a column listed in collapsed or defaultCollapsed then stays open.',
     'Pass stack to stack the columns top to bottom when the board is under 420 px wide, through a container query on a wrapper; the default board scrolls sideways at any width.',
     'Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids.',
+    'Fold groups from outside with foldedGroups (a set or an array of group ids) and onFoldedGroupsChange, which gets the next list of folded group ids; leave foldedGroups out and the board keeps the folding itself.',
+    'Give a column an accent, one of the tag category colours, to tint its head.',
   ],
   a11y: [
     'The board and each column are named groups, and each column holds a named list of cards.',
@@ -92,7 +94,7 @@ const Tasks = () => {
   );
 };
 `,
-  propsHash: '9d3c6814048aced1',
+  propsHash: '57d14080480ed1f8',
 } satisfies ComponentUsage;
 
 export { usage };

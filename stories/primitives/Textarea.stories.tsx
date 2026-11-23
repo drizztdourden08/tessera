@@ -82,6 +82,16 @@ const Resize = {
   ),
 } satisfies StoryLiteStoryDefinition<TextareaArgs>;
 
+const AutoGrow = {
+  name: 'Auto grow: from 2 rows up to 6, then it scrolls',
+  render: () => <Textarea autoGrow maxRows={6} rows={2} look="bare" placeholder="Type, and press Enter for new lines" defaultValue={SESSION_NOTES} />,
+} satisfies StoryLiteStoryDefinition<TextareaArgs>;
+
+const Bare = {
+  name: 'Bare look: no border and no background, the container shows the focus',
+  render: () => <Textarea look="bare" rows={3} placeholder="Notes for this session" />,
+} satisfies StoryLiteStoryDefinition<TextareaArgs>;
+
 const InField = {
   name: 'In a field',
   render: () => (
@@ -106,11 +116,13 @@ const Overview = overviewStory({
     'It takes every native textarea attribute, including `rows`, and forwards its ref.',
     '`resize` sets which way the corner handle drags: `vertical` by default, or `none` to lock the size.',
     '`invalid`, or a [Field] with an error, draws the error look.',
+    '`look="bare"` drops the border and background, for a box that draws its own focus.',
+    '`autoGrow` follows the text from `rows` up to `maxRows`, then scrolls.',
     'At one row, `md` and `sm` match the standard and compact control heights.',
   ],
   instead: '[TextInput] for one line.',
   playground: Playground,
-  variants: [Sizes, Resize, InField],
+  variants: [Sizes, Resize, Bare, AutoGrow, InField],
   states: {
     render: renderState,
     list: [
@@ -126,4 +138,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { InField, Overview, Playground, Resize, Sizes };
+export { AutoGrow, Bare, InField, Overview, Playground, Resize, Sizes };

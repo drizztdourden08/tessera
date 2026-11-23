@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 147 of 255 have their usage written; a linked name opens its page.
+One line per component. 149 of 257 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -86,6 +86,7 @@ One line per component. 147 of 255 have their usage written; a linked name opens
 - `Textarea`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TextElement`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TextInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [TickerText](components/TickerText.md): One line of text that slides back and forth when it is wider than its room, so a long title or a row of chips stays on one line and is still readable. Import from `@drizztdourden08/tessera`.
 - `Title`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Toggle`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ToggleGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.
@@ -115,6 +116,7 @@ One line per component. 147 of 255 have their usage written; a linked name opens
 - [CommandInput](components/CommandInput.md): A command line on a free text Combobox: Enter sends the command, Up and Down walk the past commands, Tab completes a known one and Escape clears the line. Import from `@drizztdourden08/tessera`.
 - `CommandPalette`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `CompactRecordView`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [Composer](components/Composer.md): A chat composer: one rounded box with a growing text input, a send button and an optional bar of tools. Import from `@drizztdourden08/tessera`.
 - `ConfirmIconButton`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [ContentHeader](components/ContentHeader.md): The big header of a content container: an icon and a title over a fading backdrop, with a strip of controls after the title and actions at the end. Import from `@drizztdourden08/tessera`.
 - [ContextMenu](components/ContextMenu.md): A menu that opens where the user right-clicks, long presses or presses the menu key, built from the same data as DropdownMenu. Import from `@drizztdourden08/tessera`.

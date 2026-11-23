@@ -12,6 +12,16 @@
   flex: none;
 }
 
+.kanban__head--accent {
+  padding: var(--space-2xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  background: var(--hue-fill);
+}
+
+.kanban__head--accent .section-header__title {
+  color: var(--hue-ink);
+}
+
 .kanban__head--node .section-header__text,
 .kanban__head--node .section-header__title {
   min-inline-size: 0;
@@ -32,12 +42,15 @@
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: var(--space-sm);
   min-block-size: 0;
   margin: 0;
   padding: var(--space-2xs);
   list-style: none;
   overflow-y: auto;
+}
+
+.kanban__list > .kanban__item {
+  margin-block-end: var(--space-sm);
 }
 
 .kanban__list[data-drop='before'] {

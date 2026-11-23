@@ -23,6 +23,7 @@
   --brand-mark-xxl: var(--size-256);
   --brand-mark-h26: calc(26 * var(--size-1));
   --brand-mark-h39: calc(39 * var(--size-1));
+  --brand-mark-h52: calc(52 * var(--size-1));
   --brand-rim-sm: var(--size-1);
   --signal-mark: var(--size-12);
   --signal-mark-rimmed: calc(var(--size-12) - 2 * var(--brand-rim-sm));

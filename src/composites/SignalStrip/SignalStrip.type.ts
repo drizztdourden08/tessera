@@ -21,13 +21,16 @@ interface SignalItem {
   onClick?: () => void;
 }
 
+type SignalOverflow = 'more' | 'scroll';
+
 interface SignalStripProps {
   items: readonly SignalItem[];
   max?: number;
   iconOnly?: boolean;
   wrap?: boolean;
+  overflow?: SignalOverflow;
   'aria-label'?: string;
   className?: string;
 }
 
-export type { SignalItem, SignalMark, SignalStripProps, SignalTone };
+export type { SignalItem, SignalOverflow, SignalMark, SignalStripProps, SignalTone };

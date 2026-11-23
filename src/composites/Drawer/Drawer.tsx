@@ -1,19 +1,18 @@
 /* @layer renderer-components @kind component */
 import { useId } from 'react';
 import { Box } from '../../primitives/Box';
-import { ButtonRow } from '../../primitives/ButtonRow';
 import { Overlay } from '../../primitives/Overlay';
 import { Portal } from '../../primitives/Portal';
-import { ScrollArea } from '../../primitives/ScrollArea';
 import { useDialogEscape } from '../DialogShell/behavior/useDialogEscape';
 import { useDialogFocus } from '../DialogShell/behavior/useDialogFocus';
 import './Drawer.css';
 import { drawerClass } from './behavior/drawer-class';
+import { DrawerBody } from './sub-components/DrawerBody';
 import { DrawerHeader } from './sub-components/DrawerHeader';
 import type { DrawerProps } from './Drawer.type';
 
 const Drawer = (props: DrawerProps) => {
-  const { open, onClose, side = 'right', size, look, label, eyebrow, title, titleWrap, stackNarrow, subtitle, headerActions, headerActionsRow, actions, children } = props;
+  const { open, onClose, side, size, look, label, eyebrow, title, titleWrap, stackNarrow, subtitle, headerActions, headerActionsRow, actions, children } = props;
   const titleId = useId();
   const labelledBy = label === undefined && title !== undefined ? titleId : undefined;
   const focus = useDialogFocus({ open, initialFocus: 'first', headingId: title === undefined ? undefined : titleId });
@@ -21,7 +20,7 @@ const Drawer = (props: DrawerProps) => {
 
   return (
     <Portal layer="modal">
-      <Box className={drawerClass(side, size, open)} aria-hidden={!open} inert={!open}>
+      <Box className={drawerClass(side ?? 'right', size, open, look)} aria-hidden={!open} inert={!open}>
         <Overlay visible={open} keepMounted tone="scrim" onClick={onClose} className="drawer__scrim" />
         <Box
           ref={focus.ref}
@@ -45,8 +44,7 @@ const Drawer = (props: DrawerProps) => {
             headerActionsRow={headerActionsRow}
             onClose={onClose}
           />
-          <ScrollArea className="drawer__body">{children}</ScrollArea>
-          {actions !== undefined && <ButtonRow className="drawer__actions">{actions}</ButtonRow>}
+          <DrawerBody split={look === 'split'} actions={actions}>{children}</DrawerBody>
         </Box>
       </Box>
     </Portal>

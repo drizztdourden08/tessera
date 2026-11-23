@@ -61,6 +61,15 @@ const Capped = {
   render: () => <Frame max={3} />,
 } satisfies StoryLiteStoryDefinition<SignalStripArgs>;
 
+const Scrolling = {
+  name: 'overflow scroll: a narrow row slides instead of folding',
+  render: () => (
+    <Box className="signal-story signal-story--narrow">
+      <SignalStrip aria-label="Attention" items={ITEMS} overflow="scroll" />
+    </Box>
+  ),
+} satisfies StoryLiteStoryDefinition<SignalStripArgs>;
+
 const Empty = {
   name: 'No items: nothing is rendered',
   render: () => <Frame items={[]} />,
@@ -85,13 +94,14 @@ const Overview = overviewStory({
     '`tone` is danger, warning, info, success or neutral; each chip shows its icon and count.',
     'An item with `onClick` is a button chip; without it the chip is static.',
     'What does not fit the width, or goes past `max`, folds into a +N chip; its tooltip lists the hidden labels.',
+    '`overflow="scroll"` keeps every chip and slides the row back and forth instead of folding into +N.',
     'An empty `items` list renders nothing.',
   ],
   instead: '[Tag] for one label or state.',
   playground: Playground,
-  variants: [Clickable, Folded, Capped, Empty],
+  variants: [Clickable, Folded, Capped, Scrolling, Empty],
   code: CODE,
 });
 
 export default meta;
-export { Capped, Clickable, Empty, Folded, Overview, Playground };
+export { Capped, Clickable, Empty, Folded, Overview, Playground, Scrolling };
