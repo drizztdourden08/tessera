@@ -10,8 +10,8 @@ import '../../theme/composer-box.css';
 import './Composer.css';
 
 const Composer = (props: ComposerProps) => {
-  const { value, onChange, onSubmit, placeholder, maxRows = COMPOSER_MAX_ROWS, disabled = false, sendSlot, bar, className, 'aria-label': ariaLabel } = props;
-  const onKeyDown = useComposerKeys({ value, disabled, onSubmit });
+  const { value, onChange, onSubmit, placeholder, maxRows = COMPOSER_MAX_ROWS, disabled = false, busy = false, sendSlot, bar, className, 'aria-label': ariaLabel } = props;
+  const onKeyDown = useComposerKeys({ value, disabled, busy, onSubmit });
 
   return (
     <Box className={['composer', 'composer-box', className].filter(Boolean).join(' ')}>
@@ -30,7 +30,7 @@ const Composer = (props: ComposerProps) => {
       <Flex className="composer-box__foot" gap="xs" align="center">
         <Flex className="composer-box__bar" gap="xs" align="center">{bar}</Flex>
         <Flex className="composer-box__send" gap="xs" align="center">
-          {sendSlot ?? <ComposerSend value={value} disabled={disabled} onSubmit={onSubmit} />}
+          {sendSlot ?? <ComposerSend value={value} disabled={disabled} busy={busy} onSubmit={onSubmit} />}
         </Flex>
       </Flex>
     </Box>

@@ -8,6 +8,7 @@ interface ComposerProps {
   placeholder?: string;
   maxRows?: number;
   disabled?: boolean;
+  busy?: boolean;
   sendSlot?: ReactNode;
   bar?: ReactNode;
   className?: string;
@@ -17,6 +18,7 @@ interface ComposerProps {
 interface ComposerKeysInput {
   value: string;
   disabled: boolean;
+  busy: boolean;
   onSubmit: (value: string) => void;
 }
 
@@ -25,6 +27,7 @@ type ComposerKeyEvent = Pick<KeyboardEvent<HTMLTextAreaElement>, 'key' | 'shiftK
 interface ComposerSendProps {
   value: string;
   disabled: boolean;
+  busy: boolean;
   onSubmit: (value: string) => void;
 }
 
