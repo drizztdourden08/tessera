@@ -34,8 +34,11 @@ RecordCard is the shared card of every list item: header slots in a fixed order,
 - The chevron shows only when there are children, and a click on the header row toggles the card, but never a click in the menu or a control.
 - Folded, the title sits in the header and the body is not rendered; open, the title moves above the children, so it shows once.
 - Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.
-- Use density row for a compact list and card for roomy items.
+- Use density row for a compact list, card for roomy items and compact for a fixed two line card.
+- Use density compact for a fixed two line card with no body: line one is the icon, the code, content in a ticker and the end and menu slots, and line two is the title in a ticker. children are ignored, so it never folds.
+- Pass end for a small item at the end of line one of a compact card, such as an assignee, before the menu.
 - Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.
+- Pass chevronOnIcon with an icon so the icon shows the fold chevron on hover and focus, with no separate chevron slot.
 - Pass fill when cards sit in a grid, so every card of a row takes the full cell height.
 
 ## Accessibility
@@ -67,12 +70,14 @@ const TaskCard = () => (
 - `icon` (optional): `ReactNode`.
 - `code` (optional): `ReactNode`.
 - `content` (optional): `ReactNode`.
+- `end` (optional): `ReactNode`.
 - `menu` (optional): `ReactNode`.
 - `children` (optional): `ReactNode`.
 - `open` (optional): `boolean`.
 - `defaultOpen` (optional): `boolean`. Default `false`.
 - `onOpenChange` (optional): `(open: boolean) => void`.
-- `density` (optional): `RecordCardDensity`, one of `'card'`, `'row'`. Default `'card'`.
+- `density` (optional): `RecordCardDensity`, one of `'card'`, `'compact'`, `'row'`. Default `'card'`.
+- `chevronOnIcon` (optional): `boolean`.
 - `className` (optional): `string`.
 - `name` (optional): `string`.
 - `edge` (optional): `CardEdge`, one of `'left'`, `'border'`.
@@ -83,4 +88,4 @@ const TaskCard = () => (
 
 ## Tokens
 
-It draws on `--record-card-gap-card`, `--record-card-gap-row`, `--record-card-pad-card`, `--record-card-pad-row`.
+It draws on `--record-card-gap-card`, `--record-card-gap-compact`, `--record-card-gap-row`, `--record-card-height-compact`, `--record-card-pad-card`, `--record-card-pad-compact`, `--record-card-pad-row`.

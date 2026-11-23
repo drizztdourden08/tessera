@@ -5,6 +5,7 @@ import type { PlaygroundArgTypes, PlaygroundStory } from '../_template/controls/
 import { overviewStory } from '../_template/overview-story';
 import { RecordCardDemo } from './_samples/RecordCardDemo';
 import { RecordCardGrid } from './_samples/RecordCardGrid';
+import { RecordCardCompactList } from './_samples/RecordCardCompactList';
 import { RecordCardList } from './_samples/RecordCardList';
 import './RecordCard.stories.css';
 
@@ -16,7 +17,7 @@ type RecordCardArgs = {
 const ARGS: Partial<RecordCardArgs> = { density: 'card', open: false };
 
 const ARG_TYPES: PlaygroundArgTypes<RecordCardArgs> = {
-  density: { group: 'Appearance', control: 'select', options: ['card', 'row'], description: 'Row is one compact line; card has the card padding.' },
+  density: { group: 'Appearance', control: 'select', options: ['card', 'row', 'compact'], description: 'Row is one compact line; card has the card padding; compact is two fixed lines with no body.' },
   open: { group: 'Behaviour', control: 'boolean', description: 'Shows the body. Needs children, or there is nothing to open.' },
 };
 
@@ -52,9 +53,19 @@ const Rows = {
   render: () => <RecordCardList />,
 } satisfies StoryLiteStoryDefinition<RecordCardArgs>;
 
+const Compact = {
+  name: 'Compact density: two fixed lines, long text slides',
+  render: () => <RecordCardCompactList />,
+} satisfies StoryLiteStoryDefinition<RecordCardArgs>;
+
 const Fill = {
   name: 'fill: three open cards in a grid row share one height',
   render: () => <RecordCardGrid />,
+} satisfies StoryLiteStoryDefinition<RecordCardArgs>;
+
+const ChevronOnIcon = {
+  name: 'chevronOnIcon: the icon turns into the fold chevron on hover',
+  render: () => <RecordCardDemo chevronOnIcon />,
 } satisfies StoryLiteStoryDefinition<RecordCardArgs>;
 
 const Controlled = {
@@ -86,13 +97,14 @@ const Overview = overviewStory({
     'Folded, the title is in the header; open, the title moves above the children.',
     '`open` with `onOpenChange` controls it; `defaultOpen` starts it open and the card keeps its own state.',
     '`density` is `card` for roomy items or `row` for a compact single line.',
+    '`density="compact"` is two fixed lines with no body: the icon, code, `content` and `end` and `menu` on line one, the title on line two, long text sliding.',
     '`fill` stretches the card to its grid cell, so a row of cards shares one height.',
   ],
   instead: '[Card] for a plain surface, [ItemCard] for a catalogue tile with media, [Disclosure] for a plain show or hide line.',
   playground: Playground,
-  variants: [Folded, Open, Brand, Rows, Fill, Controlled],
+  variants: [Folded, Open, Brand, Rows, Compact, Fill, ChevronOnIcon, Controlled],
   code: CODE,
 });
 
 export default meta;
-export { Brand, Controlled, Fill, Folded, Open, Overview, Playground, Rows };
+export { Brand, ChevronOnIcon, Compact, Controlled, Fill, Folded, Open, Overview, Playground, Rows };

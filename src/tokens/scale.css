@@ -49,6 +49,9 @@
   --record-card-pad-card: var(--space-sm) var(--space-md);
   --record-card-gap-row: var(--space-xs);
   --record-card-gap-card: var(--space-sm);
+  --record-card-pad-compact: var(--space-xs) var(--space-sm);
+  --record-card-gap-compact: var(--space-2xs);
+  --record-card-height-compact: calc(var(--size-56) + var(--size-8));
   --record-header-gap-row: var(--space-xs);
   --record-header-gap-card: var(--space-sm);
   --record-header-title-min: var(--size-128);

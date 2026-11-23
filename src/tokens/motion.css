@@ -37,6 +37,7 @@
   --duration-volume-morph: calc(var(--duration-slow) * 1.5);
   --duration-armed-loop: 1.4s;
   --duration-hero-pan: 60s;
+  --duration-ticker: 10s;
   --duration-reflow: 0.16s;
   --duration-reflow-step: 0.02s;
   --duration-reflow-span: calc(var(--duration-reflow) + var(--duration-reflow-step) * 7);

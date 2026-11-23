@@ -16,6 +16,7 @@ export type { ScaleLabelEntry, ScaleLabelSource, ScaleLabelsProps, ScaleOrientat
 export { SectionHeader } from '../SectionHeader';
 export type { SectionHeaderProps } from '../SectionHeader';
 export { FoldText, type FoldOverflow, type FoldTextProps, type FoldTruncate } from '../FoldText';
+export { TickerText, type TickerTextProps } from '../TickerText';
 export { Disclosure } from '../Disclosure';
 export type { DisclosureProps, DisclosureSize } from '../Disclosure';
 export { EmptyState } from '../EmptyState';

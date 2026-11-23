@@ -805,6 +805,11 @@
             "components": [
               "FoldText"
             ]
+          },
+          "one line that slides when it is too long": {
+            "components": [
+              "TickerText"
+            ]
           }
         }
       },
@@ -5952,6 +5957,91 @@
         "@drizztdourden08/tessera/primitives"
       ],
       "usage": false
+    },
+    {
+      "name": "TickerText",
+      "tier": "primitives",
+      "source": "src/primitives/TickerText/TickerText.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/primitives"
+      ],
+      "usage": true,
+      "job": "One line of text that slides back and forth when it is wider than its room, so a long title or a row of chips stays on one line and is still readable.",
+      "useWhen": [
+        "A single line, such as a card title or a strip of chips, must keep its height and can be longer than the space it gets.",
+        "The reader may wait a moment to see the end of the text, and can stop the slide by pointing at it."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The text may wrap onto a few lines and fold with a More control.",
+          "use": "FoldText"
+        },
+        {
+          "case": "A file path or a name must keep its end visible with a cut in the middle.",
+          "use": "FoldText"
+        },
+        {
+          "case": "The text is short and always fits.",
+          "use": "Text"
+        }
+      ],
+      "rules": [
+        "Put the text, or a short inline run such as a row of chips, as the children. It keeps to one line and never wraps.",
+        "When the children fit, nothing moves and nothing is added. When they are wider than the box, they slide to the end and back, pausing at each end.",
+        "The slide stops while the pointer is over the text or focus is inside it.",
+        "Under reduced motion the slide is off and the text is cut with an ellipsis.",
+        "The full text shows in the title of the box while it overflows: a string child is used as it is, and title replaces it for any other child.",
+        "The box takes the width its parent gives it, so put it in a parent that sets one."
+      ],
+      "a11y": [
+        "The text stays in the page whole, so a screen reader reads all of it while it slides.",
+        "The slide is paused by hover and focus and is off under reduced motion, so it never has to be read in motion."
+      ],
+      "tree": {
+        "path": [
+          "text",
+          "one line that slides when it is too long"
+        ],
+        "rule": "TickerText is the one line that slides. A strip of chips or a card title uses it instead of folding or wrapping."
+      },
+      "example": "import { TickerText } from '@drizztdourden08/tessera';\n\nconst CardTitle = ({ text }: { text: string }) => (\n  <TickerText>{text}</TickerText>\n);\n",
+      "propsHash": "23ab016c62b87531",
+      "props": {
+        "own": [
+          {
+            "name": "title",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "children",
+            "optional": false,
+            "text": "ReactNode"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--duration-ticker",
+        "--ease-in-out",
+        "--ticker-distance"
+      ],
+      "gallery": {
+        "title": "Primitives · Display/TickerText",
+        "route": "#/story/primitives-tickertext--overview",
+        "file": "stories/primitives/TickerText.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "Title",
@@ -17279,8 +17369,11 @@
         "The chevron shows only when there are children, and a click on the header row toggles the card, but never a click in the menu or a control.",
         "Folded, the title sits in the header and the body is not rendered; open, the title moves above the children, so it shows once.",
         "Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.",
-        "Use density row for a compact list and card for roomy items.",
+        "Use density row for a compact list, card for roomy items and compact for a fixed two line card.",
+        "Use density compact for a fixed two line card with no body: line one is the icon, the code, content in a ticker and the end and menu slots, and line two is the title in a ticker. children are ignored, so it never folds.",
+        "Pass end for a small item at the end of line one of a compact card, such as an assignee, before the menu.",
         "Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.",
+        "Pass chevronOnIcon with an icon so the icon shows the fold chevron on hover and focus, with no separate chevron slot.",
         "Pass fill when cards sit in a grid, so every card of a row takes the full cell height."
       ],
       "a11y": [
@@ -17296,7 +17389,7 @@
         "rule": "RecordCard is the shared card of every list item: header slots in a fixed order, a body that folds away."
       },
       "example": "import { Badge, Icon, IconButton, RecordCard, Text } from '@drizztdourden08/tessera';\n\nconst TaskCard = () => (\n  <RecordCard\n    title=\"Fix the login redirect\"\n    code=\"ARG-12\"\n    content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n    menu={<IconButton variant=\"ghost\" size=\"sm\" label=\"Actions\"><Icon name=\"ellipsis\" /></IconButton>}\n  >\n    <Text>The redirect drops the return path after sign in.</Text>\n  </RecordCard>\n);\n",
-      "propsHash": "e3d90a3afb688deb",
+      "propsHash": "4143adb7898ba6ae",
       "props": {
         "own": [
           {
@@ -17316,6 +17409,11 @@
           },
           {
             "name": "content",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "end",
             "optional": true,
             "text": "ReactNode"
           },
@@ -17351,9 +17449,15 @@
             "text": "RecordCardDensity",
             "literals": [
               "'card'",
+              "'compact'",
               "'row'"
             ],
             "default": "'card'"
+          },
+          {
+            "name": "chevronOnIcon",
+            "optional": true,
+            "text": "boolean"
           },
           {
             "name": "className",
@@ -17416,8 +17520,11 @@
       },
       "tokens": [
         "--record-card-gap-card",
+        "--record-card-gap-compact",
         "--record-card-gap-row",
+        "--record-card-height-compact",
         "--record-card-pad-card",
+        "--record-card-pad-compact",
         "--record-card-pad-row"
       ],
       "gallery": {
@@ -17468,6 +17575,7 @@
       "rules": [
         "Pass icon, code, title, content and menu to fill the slots; they sit in that order after the chevron, and content sits at the end, next to the menu.",
         "Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. That row counts as a control, so its click never opens a Kanban card or a clickable Card around it. controls names the folded element and label replaces the default name.",
+        "Pass chevronOnIcon with an icon to drop the separate chevron slot: the icon shows the fold chevron, open or closed, on hover and focus, and a click there folds.",
         "The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.",
         "Use density row for a compact line and card for a roomy one; it only changes the gap between the slots.",
         "In a Kanban group bar, pass the fold of renderGroupHeader to chevron: { expanded: fold.open, onToggle: fold.toggle, controls: fold.controls }.",
@@ -17475,7 +17583,7 @@
       ],
       "a11y": [
         "The chevron is a bare button with aria-expanded and, when controls is set, aria-controls; Enter and Space on it toggle. The row has no role of its own.",
-        "A long title is cut with an ellipsis. The title keeps a minimum width; when the row is too narrow for it, the content and the menu drop to their own line under the title. The content slot shrinks and wraps its own children when even that line is too narrow."
+        "The header never wraps. A long title and a long code are cut with an ellipsis, and the content slot shrinks and clips; the chevron, icon and menu keep their size."
       ],
       "tree": {
         "path": [
@@ -17485,7 +17593,7 @@
         "rule": "RecordHeader is the shared title line of every item: slots in a fixed order, centred, with no frame of its own."
       },
       "example": "import { useState } from 'react';\nimport { Badge, RecordHeader, TypeMark } from '@drizztdourden08/tessera';\n\nconst TaskLine = () => {\n  const [open, setOpen] = useState(true);\n  return (\n    <RecordHeader\n      icon={<TypeMark icon=\"bug\" label=\"Bug\" color=\"violet\" variant=\"outline\" />}\n      code=\"ARG-12\"\n      title=\"Fix the login redirect\"\n      content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n      chevron={{ expanded: open, onToggle: () => setOpen(!open), controls: 'task-body' }}\n    />\n  );\n};\n",
-      "propsHash": "58903893b66e56b8",
+      "propsHash": "b33fde331c72dae0",
       "props": {
         "own": [
           {
@@ -17517,6 +17625,12 @@
             "name": "chevron",
             "optional": true,
             "text": "RecordHeaderChevron"
+          },
+          {
+            "name": "chevronOnIcon",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
           },
           {
             "name": "density",
@@ -20081,6 +20195,7 @@
         "iconOnly on the strip, or on one item, hides the chip text. The label stays as the title of the chip and the count still shows.",
         "mark2 on an item adds a second mark inside the chip, after the icon: { icon } for an icon, { avatar } with the Avatar props for an avatar (an Avatar with src shows a plain image), or { brand } with a brand app name for its brand mark. Every mark2 shows at the 12 px of the chip icon, with an owner ring or brand rim drawn inside that box.",
         "wrap shows every item over several lines and never folds into a +N chip. Without it the row stays on one line. max is ignored in wrap mode.",
+        "overflow scroll keeps every chip in the row and slides the row back and forth when it is wider than its room, through TickerText, instead of folding into +N. It stops on hover and focus and shows a plain cut under reduced motion. wrap wins over it.",
         "An empty items list renders nothing."
       ],
       "a11y": [
@@ -20096,7 +20211,7 @@
         "rule": "SignalStrip is the one-line row of attention chips that folds the overflow into a +N chip with a tooltip."
       },
       "example": "import { SignalStrip } from '@drizztdourden08/tessera';\n\nconst openQuestions = () => undefined;\nconst openTests = () => undefined;\n\nconst items = [\n  { id: 'questions', icon: 'circle-help', count: 2, label: 'Open questions', tone: 'warning', onClick: openQuestions },\n  { id: 'tests', icon: 'flask', count: 1, label: 'Failing tests', tone: 'danger', onClick: openTests },\n  { id: 'quiet', icon: 'moon', label: 'Quiet', tone: 'neutral' },\n] as const;\n\nconst Signals = () => <SignalStrip aria-label=\"Attention\" items={items} />;\n\nconst withMarks = [\n  { id: 'mine', icon: 'circle-help', count: 3, label: 'Asked of Ana', tone: 'info', mark2: { avatar: { label: 'Ana', initials: 'A' } } },\n  { id: 'late', icon: 'flask', count: 1, label: 'Late', tone: 'danger', mark2: { icon: 'moon' } },\n  { id: 'lead', icon: 'flask', count: '42h', label: 'Waiting on Brock', tone: 'warning', mark2: { brand: 'brock' } },\n] as const;\n\nconst IconOnly = () => <SignalStrip aria-label=\"Attention\" items={withMarks} iconOnly />;\n\nconst Wrapped = () => <SignalStrip aria-label=\"Attention\" items={[...items, ...withMarks]} wrap />;\n",
-      "propsHash": "1232cb06b3432c7b",
+      "propsHash": "2d34f9e10bcfcd7c",
       "props": {
         "own": [
           {
@@ -20120,6 +20235,16 @@
             "optional": true,
             "text": "boolean",
             "default": "false"
+          },
+          {
+            "name": "overflow",
+            "optional": true,
+            "text": "SignalOverflow",
+            "literals": [
+              "'more'",
+              "'scroll'"
+            ],
+            "default": "'more'"
           },
           {
             "name": "aria-label",

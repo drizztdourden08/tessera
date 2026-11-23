@@ -5,6 +5,8 @@ interface RecordHeaderSlotProps {
   when?: boolean;
   main?: boolean;
   content?: boolean;
+  code?: boolean;
+  menu?: boolean;
   children?: ReactNode;
 }
 

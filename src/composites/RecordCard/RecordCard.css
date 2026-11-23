@@ -4,6 +4,18 @@
   --record-card-gap: var(--record-card-gap-row);
 }
 
+.record-card--compact {
+  --record-card-pad: var(--record-card-pad-compact);
+  --record-card-gap: var(--record-card-gap-compact);
+
+  block-size: var(--record-card-height-compact);
+}
+
+.record-card--compact .record-card__inner {
+  block-size: 100%;
+  overflow: hidden;
+}
+
 .record-card--card {
   --record-card-pad: var(--record-card-pad-card);
   --record-card-gap: var(--record-card-gap-card);
@@ -22,4 +34,12 @@
   flex-direction: column;
   gap: var(--record-card-gap);
   min-inline-size: 0;
+}
+
+.record-card--card .record-card__body {
+  flex: 1 1 auto;
+}
+
+.record-card--card .record-card__body > :last-child {
+  margin-block-start: auto;
 }

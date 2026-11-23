@@ -15,6 +15,7 @@ const usage = {
   rules: [
     'Pass icon, code, title, content and menu to fill the slots; they sit in that order after the chevron, and content sits at the end, next to the menu.',
     'Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. That row counts as a control, so its click never opens a Kanban card or a clickable Card around it. controls names the folded element and label replaces the default name.',
+    'Pass chevronOnIcon with an icon to drop the separate chevron slot: the icon shows the fold chevron, open or closed, on hover and focus, and a click there folds.',
     'The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.',
     'Use density row for a compact line and card for a roomy one; it only changes the gap between the slots.',
     'In a Kanban group bar, pass the fold of renderGroupHeader to chevron: { expanded: fold.open, onToggle: fold.toggle, controls: fold.controls }.',
@@ -22,7 +23,7 @@ const usage = {
   ],
   a11y: [
     'The chevron is a bare button with aria-expanded and, when controls is set, aria-controls; Enter and Space on it toggle. The row has no role of its own.',
-    'A long title is cut with an ellipsis. The title keeps a minimum width; when the row is too narrow for it, the content and the menu drop to their own line under the title. The content slot shrinks and wraps its own children when even that line is too narrow.',
+    'The header never wraps. A long title and a long code are cut with an ellipsis, and the content slot shrinks and clips; the chevron, icon and menu keep their size.',
   ],
   tree: {
     path: ['data', 'the title line of an item, with icon, code, badges and actions'],
@@ -44,7 +45,7 @@ const TaskLine = () => {
   );
 };
 `,
-  propsHash: '58903893b66e56b8',
+  propsHash: 'b33fde331c72dae0',
 } satisfies ComponentUsage;
 
 export { usage };

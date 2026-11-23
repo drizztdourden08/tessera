@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 147 of 255 have their usage written; a linked name opens its page.
+One line per component. 148 of 256 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -86,6 +86,7 @@ One line per component. 147 of 255 have their usage written; a linked name opens
 - `Textarea`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TextElement`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `TextInput`: usage not written yet. Import from `@drizztdourden08/tessera`.
+- [TickerText](components/TickerText.md): One line of text that slides back and forth when it is wider than its room, so a long title or a row of chips stays on one line and is still readable. Import from `@drizztdourden08/tessera`.
 - `Title`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `Toggle`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `ToggleGroup`: usage not written yet. Import from `@drizztdourden08/tessera`.

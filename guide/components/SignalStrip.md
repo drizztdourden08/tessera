@@ -37,6 +37,7 @@ SignalStrip is the one-line row of attention chips that folds the overflow into 
 - IconOnly on the strip, or on one item, hides the chip text. The label stays as the title of the chip and the count still shows.
 - Mark2 on an item adds a second mark inside the chip, after the icon: { icon } for an icon, { avatar } with the Avatar props for an avatar (an Avatar with src shows a plain image), or { brand } with a brand app name for its brand mark. Every mark2 shows at the 12 px of the chip icon, with an owner ring or brand rim drawn inside that box.
 - Wrap shows every item over several lines and never folds into a +N chip. Without it the row stays on one line. max is ignored in wrap mode.
+- Overflow scroll keeps every chip in the row and slides the row back and forth when it is wider than its room, through TickerText, instead of folding into +N. It stops on hover and focus and shows a plain cut under reduced motion. wrap wins over it.
 - An empty items list renders nothing.
 
 ## Accessibility
@@ -78,6 +79,7 @@ const Wrapped = () => <SignalStrip aria-label="Attention" items={[...items, ...w
 - `max` (optional): `number`.
 - `iconOnly` (optional): `boolean`. Default `false`.
 - `wrap` (optional): `boolean`. Default `false`.
+- `overflow` (optional): `SignalOverflow`, one of `'more'`, `'scroll'`. Default `'more'`.
 - `aria-label` (optional): `string`.
 - `className` (optional): `string`.
 
