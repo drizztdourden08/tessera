@@ -6,6 +6,7 @@ interface RecordCardDemoProps {
   open?: boolean;
   defaultOpen?: boolean;
   brand?: boolean;
+  chevronOnIcon?: boolean;
   controlled?: boolean;
 }
 

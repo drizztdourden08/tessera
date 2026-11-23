@@ -57,6 +57,11 @@ const Fill = {
   render: () => <RecordCardGrid />,
 } satisfies StoryLiteStoryDefinition<RecordCardArgs>;
 
+const ChevronOnIcon = {
+  name: 'chevronOnIcon: the icon turns into the fold chevron on hover',
+  render: () => <RecordCardDemo chevronOnIcon />,
+} satisfies StoryLiteStoryDefinition<RecordCardArgs>;
+
 const Controlled = {
   name: 'Controlled: open and onOpenChange, with a button outside',
   render: () => <RecordCardDemo controlled />,
@@ -90,9 +95,9 @@ const Overview = overviewStory({
   ],
   instead: '[Card] for a plain surface, [ItemCard] for a catalogue tile with media, [Disclosure] for a plain show or hide line.',
   playground: Playground,
-  variants: [Folded, Open, Brand, Rows, Fill, Controlled],
+  variants: [Folded, Open, Brand, Rows, Fill, ChevronOnIcon, Controlled],
   code: CODE,
 });
 
 export default meta;
-export { Brand, Controlled, Fill, Folded, Open, Overview, Playground, Rows };
+export { Brand, ChevronOnIcon, Controlled, Fill, Folded, Open, Overview, Playground, Rows };
