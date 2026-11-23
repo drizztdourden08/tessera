@@ -40,6 +40,7 @@ Start at the first question and pick the answer that fits. Each answer leads to 
     - Structured data, as JSON: no component yet.
     - Markdown text, with a live preview: [MarkdownEditor](components/MarkdownEditor.md). MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app.
     - A command, with its history: [CommandInput](components/CommandInput.md). CommandInput gives every command line the same keys: Enter to send, Up and Down for history and Escape to clear.
+    - A chat message, sent with Enter: [Composer](components/Composer.md). Composer writes and sends one chat message in a rounded box.
     - Text shown as text, edited in place on click: [InlineEdit](components/InlineEdit.md). InlineEdit starts, commits and cancels an edit in place with the same keys in every app.
   - One choice. **How many options are there?**
     - A few, all in view: no component yet.

@@ -150,6 +150,11 @@
                   "CommandInput"
                 ]
               },
+              "a chat message, sent with Enter": {
+                "components": [
+                  "Composer"
+                ]
+              },
               "text shown as text, edited in place on click": {
                 "components": [
                   "InlineEdit"
@@ -3569,7 +3574,7 @@
         "rule": "PageFrame is the page of an app that keeps the root locked; PageRoot is the page of a site that scrolls the document."
       },
       "example": "import { PageFrame, Title } from '@drizztdourden08/tessera';\n\nconst AccountPage = () => (\n  <PageFrame width=\"md\">\n    <Title>Account</Title>\n  </PageFrame>\n);\n",
-      "propsHash": "a183d89d8c067d37",
+      "propsHash": "aa58b9fe88b41308",
       "props": {
         "own": [
           {
@@ -3650,6 +3655,15 @@
             "name": "follow",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "followBehavior",
+            "optional": true,
+            "text": "ScrollAreaFollowBehavior",
+            "literals": [
+              "'instant'",
+              "'smooth'"
+            ]
           }
         ],
         "inherited": {
@@ -4019,7 +4033,7 @@
         "A slim area reserves its own gutter on the inline end, so opaque children such as cards never cover the line.",
         "Set fade to false when the edges of the content must not melt away.",
         "gutter stable keeps room for a native scrollbar even when nothing overflows. Set it on a page body whose content reflows with width, such as a Grid with fit or minColWidth or a responsive RowGrid, so the scrollbar cannot come and go and flip the layout. It defaults to auto, which takes no room until the content overflows. gutter both reserves the same room on both edges, so a centred or padded pane keeps equal margins left and right.",
-        "follow keeps the box scrolled to the end as its content grows, such as a chat or a live feed; it stops when the reader scrolls up and resumes when they return to the end.",
+        "follow keeps the box scrolled to the end as its content grows, such as a chat or a live feed; it stops when the reader scrolls up and resumes when they return to the end. The first jump to the end is always instant; followBehavior picks how later jumps for new content move, smooth by default or instant.",
         "Give the box a height, through a class or its parent, or it grows with its content and never scrolls."
       ],
       "a11y": [
@@ -4034,7 +4048,7 @@
         "rule": "ScrollArea scrolls content that can outgrow its box and keeps the slim scrollbar clear of the content."
       },
       "example": "import type { ReactNode } from 'react';\nimport { Grid, ScrollArea } from '@drizztdourden08/tessera';\n\nconst Library = ({ cards }: { cards: ReactNode[] }) => (\n  <ScrollArea scrollbar=\"slim\" className=\"library\">\n    <Grid minColWidth={224} gap=\"sm\">\n      {cards}\n    </Grid>\n  </ScrollArea>\n);\n",
-      "propsHash": "56861f2002a3c77f",
+      "propsHash": "fcb9aced2a40c467",
       "props": {
         "own": [
           {
@@ -4098,6 +4112,16 @@
             "name": "follow",
             "optional": true,
             "text": "boolean"
+          },
+          {
+            "name": "followBehavior",
+            "optional": true,
+            "text": "ScrollAreaFollowBehavior",
+            "literals": [
+              "'instant'",
+              "'smooth'"
+            ],
+            "default": "'smooth'"
           }
         ],
         "inherited": {
@@ -8580,6 +8604,136 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": false
+    },
+    {
+      "name": "Composer",
+      "tier": "composites",
+      "source": "src/composites/Composer/Composer.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A chat composer: one rounded box with a growing text input, a send button and an optional bar of tools.",
+      "useWhen": [
+        "A person writes a message to a chat or an agent and sends it with Enter.",
+        "The input should start on one line and grow with the text up to a limit."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The text needs a formatting toolbar and a preview.",
+          "use": "MarkdownEditor"
+        },
+        {
+          "case": "The field is part of a form with a label and a hint.",
+          "use": "Textarea"
+        }
+      ],
+      "rules": [
+        "Pass value and onChange to control the text. onSubmit receives the text when the person sends it.",
+        "Enter sends and Shift+Enter starts a new line. Enter while typing with an input method does not send.",
+        "The input grows from one line to maxRows lines, 8 by default, then scrolls.",
+        "The default send button is disabled while the text is blank or the composer is disabled. Pass sendSlot to put your own.",
+        "bar sits on the left of the bottom row, beside the send button: attachments, a model picker, a hint.",
+        "Give the composer an aria-label when no visible label names it."
+      ],
+      "a11y": [
+        "Focus inside the box shows the focus ring on the whole box.",
+        "The send button carries a text label from the Tessera strings."
+      ],
+      "tree": {
+        "path": [
+          "a value the user sets",
+          "free text or a number",
+          "a chat message, sent with Enter"
+        ],
+        "rule": "Composer writes and sends one chat message in a rounded box."
+      },
+      "example": "import { useState } from 'react';\nimport { Composer } from '@drizztdourden08/tessera';\n\nconst ChatInput = () => {\n  const [text, setText] = useState('');\n  return (\n    <Composer\n      value={text}\n      onChange={setText}\n      onSubmit={() => setText('')}\n      placeholder=\"Write a message\"\n      aria-label=\"Message\"\n    />\n  );\n};\n",
+      "propsHash": "4d1f6c91cf88a334",
+      "props": {
+        "own": [
+          {
+            "name": "value",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "onChange",
+            "optional": false,
+            "text": "(value: string) => void"
+          },
+          {
+            "name": "onSubmit",
+            "optional": false,
+            "text": "(value: string) => void"
+          },
+          {
+            "name": "placeholder",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "maxRows",
+            "optional": true,
+            "text": "number",
+            "default": "COMPOSER_MAX_ROWS"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean",
+            "default": "false"
+          },
+          {
+            "name": "sendSlot",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "bar",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "aria-label",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thick",
+        "--border-width-thin",
+        "--c-border",
+        "--c-danger",
+        "--c-danger-soft",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-surface",
+        "--radius-lg",
+        "--space-2xs",
+        "--space-md",
+        "--space-sm",
+        "--space-xs",
+        "--transition-normal"
+      ],
+      "gallery": {
+        "title": "Composites · Inputs/Composer",
+        "route": "#/story/composites-composer--overview",
+        "file": "stories/composites/Composer.stories.tsx"
+      },
+      "parts": []
     },
     {
       "name": "ConfirmIconButton",
@@ -13292,7 +13446,9 @@
         "Pass grip={false} to hide the drag grip: the cards no longer drag by pointer, and the arrow keys still move a card from a hidden grip button that shows a focus ring on the card.",
         "Pass foldable={false} to remove the fold chevron from every column; a column listed in collapsed or defaultCollapsed then stays open.",
         "Pass stack to stack the columns top to bottom when the board is under 420 px wide, through a container query on a wrapper; the default board scrolls sideways at any width.",
-        "Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids."
+        "Fold columns with collapsed and onCollapsedChange, or let defaultCollapsed start them folded; both take column ids.",
+        "Fold groups from outside with foldedGroups (a set or an array of group ids) and onFoldedGroupsChange, which gets the next list of folded group ids; leave foldedGroups out and the board keeps the folding itself.",
+        "Give a column an accent, one of the tag category colours, to tint its head."
       ],
       "a11y": [
         "The board and each column are named groups, and each column holds a named list of cards.",
@@ -13310,7 +13466,7 @@
         "rule": "KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards."
       },
       "example": "import { useState } from 'react';\nimport { Badge, KanbanBoard, Text, moveCard } from '@drizztdourden08/tessera';\nimport type { KanbanColumn } from '@drizztdourden08/tessera';\n\ninterface Task {\n  id: string;\n  title: string;\n  tag: string;\n  group?: string;\n}\n\nconst START: KanbanColumn<Task>[] = [\n  { id: 'todo', title: 'To do', cards: [\n    { id: 't1', title: 'Fix login', tag: 'bug', group: 'auth' },\n    { id: 't2', title: 'Add reset link', tag: 'feature', group: 'auth' },\n    { id: 't3', title: 'Update docs', tag: 'chore' },\n  ] },\n  { id: 'doing', title: 'Doing', cards: [] },\n  { id: 'done', title: 'Done', cards: [] },\n];\n\nconst Tasks = () => {\n  const [columns, setColumns] = useState(START);\n  return (\n    <KanbanBoard\n      label=\"Sprint\"\n      columns={columns}\n      cardLabel={(task) => task.title}\n      renderGroupHeader={(group) => group}\n      renderCard={(task) => (\n        <>\n          <Text>{task.title}</Text>\n          <Badge variant=\"inline\" value={task.tag} color=\"info\" />\n        </>\n      )}\n      onMove={(move) => setColumns((now) => moveCard(now, move))}\n    />\n  );\n};\n",
-      "propsHash": "9d3c6814048aced1",
+      "propsHash": "57d14080480ed1f8",
       "props": {
         "own": [
           {
@@ -13415,6 +13571,16 @@
             "text": "(columnId: string, collapsed: boolean) => void"
           },
           {
+            "name": "foldedGroups",
+            "optional": true,
+            "text": "ReadonlySet<string> | readonly string[]"
+          },
+          {
+            "name": "onFoldedGroupsChange",
+            "optional": true,
+            "text": "(foldedGroups: readonly string[]) => void"
+          },
+          {
             "name": "className",
             "optional": true,
             "text": "string"
@@ -13436,8 +13602,11 @@
         "--c-surface",
         "--c-text-dim",
         "--c-text-muted",
+        "--hue-fill",
+        "--hue-ink",
         "--opacity-muted",
         "--radius-lg",
+        "--radius-md",
         "--size-1",
         "--size-2",
         "--size-224",
@@ -14764,6 +14933,7 @@
         "Own the text in the app and pass it as value, with onChange; the editor keeps no copy of it.",
         "Leave layout out to get split on a wide container and Write and Preview tabs on a narrow one.",
         "Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.",
+        "Set layout to composer for a chat box: one rounded box with the toolbar on top, a borderless input that grows with the text, and the submit button inside at the bottom right. For a plain chat input with no toolbar, use Composer.",
         "Pass onLink in a desktop app so a link in the preview opens in the system browser.",
         "Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.",
         "Pass compact for a note box inside a card: a slim toolbar, a 3 row textarea that grows with its text up to a cap, and no split or tabs; rows still sets the starting height.",
@@ -14805,7 +14975,7 @@
         "rule": "MarkdownEditor writes Markdown with a toolbar and a live preview, the same way in every app."
       },
       "example": "import { useState } from 'react';\nimport { Button, MarkdownEditor } from '@drizztdourden08/tessera';\n\nconst NoteField = ({ openExternal }: { openExternal: (href: string) => void }) => {\n  const [note, setNote] = useState('');\n  return <MarkdownEditor label=\"Note\" value={note} onChange={setNote} onLink={openExternal} />;\n};\n\nconst NoteForm = ({ save, cancel }: { save: () => void; cancel: () => void }) => {\n  const [note, setNote] = useState('');\n  return (\n    <MarkdownEditor\n      label=\"Note\"\n      value={note}\n      onChange={setNote}\n      actions={<><Button onClick={cancel}>Cancel</Button><Button variant=\"primary\" onClick={save}>Save</Button></>}\n    />\n  );\n};\n",
-      "propsHash": "5e2e1f911f25f0e3",
+      "propsHash": "3fe6dc84068df369",
       "props": {
         "own": [
           {
@@ -14850,7 +15020,8 @@
             "text": "MarkdownEditorLayout",
             "literals": [
               "'split'",
-              "'tabs'"
+              "'tabs'",
+              "'composer'"
             ]
           },
           {
@@ -14961,6 +15132,7 @@
         "--c-primary-soft",
         "--c-sunken",
         "--c-surface",
+        "--radius-lg",
         "--radius-md",
         "--size-192",
         "--size-384",

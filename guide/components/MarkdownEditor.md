@@ -32,6 +32,7 @@ MarkdownEditor writes Markdown with a toolbar and a live preview, the same way i
 - Own the text in the app and pass it as value, with onChange; the editor keeps no copy of it.
 - Leave layout out to get split on a wide container and Write and Preview tabs on a narrow one.
 - Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.
+- Set layout to composer for a chat box: one rounded box with the toolbar on top, a borderless input that grows with the text, and the submit button inside at the bottom right. For a plain chat input with no toolbar, use Composer.
 - Pass onLink in a desktop app so a link in the preview opens in the system browser.
 - Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.
 - Pass compact for a note box inside a card: a slim toolbar, a 3 row textarea that grows with its text up to a cap, and no split or tabs; rows still sets the starting height.
@@ -98,7 +99,7 @@ const NoteForm = ({ save, cancel }: { save: () => void; cancel: () => void }) =>
 - `error` (optional): `ReactNode`.
 - `placeholder` (optional): `string`.
 - `disabled` (optional): `boolean`. Default `false`.
-- `layout` (optional): `MarkdownEditorLayout`, one of `'split'`, `'tabs'`.
+- `layout` (optional): `MarkdownEditorLayout`, one of `'split'`, `'tabs'`, `'composer'`.
 - `compact` (optional): `boolean`.
 - `preview` (optional): `boolean`.
 - `toolbarEnd` (optional): `ReactNode`.
@@ -120,4 +121,4 @@ const NoteForm = ({ save, cancel }: { save: () => void; cancel: () => void }) =>
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-soft`, `--c-primary`, `--c-primary-soft`, `--c-sunken`, `--c-surface`, `--radius-md`, `--size-192`, `--size-384`, `--size-96`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--transition-normal`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border`, `--c-danger`, `--c-danger-soft`, `--c-primary`, `--c-primary-soft`, `--c-sunken`, `--c-surface`, `--radius-lg`, `--radius-md`, `--size-192`, `--size-384`, `--size-96`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--transition-normal`.
