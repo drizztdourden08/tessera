@@ -3,7 +3,7 @@ import type { KeyboardEvent, ReactNode } from 'react';
 import type { IconName } from '../../primitives/Icon';
 import type { MarkdownImages, MarkdownLinkHandler, MarkdownLinkId } from '../Markdown/Markdown.type';
 
-type MarkdownEditorLayout = 'split' | 'tabs';
+type MarkdownEditorLayout = 'split' | 'tabs' | 'composer';
 
 type MarkdownEditorPane = 'write' | 'preview';
 

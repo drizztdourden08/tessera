@@ -132,3 +132,21 @@
   min-block-size: var(--size-96);
   max-block-size: var(--size-192);
 }
+
+.markdown-editor[data-layout='composer'] .textarea {
+  padding-inline: var(--space-md);
+}
+
+.markdown-editor[data-layout='composer'] .markdown-editor__foot {
+  padding: var(--space-2xs) var(--space-xs) var(--space-xs);
+}
+
+.markdown-editor[data-layout='composer'] .markdown-editor__counter {
+  padding: var(--space-2xs) var(--space-sm) var(--space-xs);
+}
+
+.markdown-editor[data-layout='composer'] .markdown-editor__preview {
+  min-block-size: var(--size-96);
+  max-block-size: var(--size-192);
+  background: transparent;
+}

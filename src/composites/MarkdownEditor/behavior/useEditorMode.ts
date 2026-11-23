@@ -12,7 +12,7 @@ const useEditorMode = (rootRef: RefObject<HTMLElement | null>, options: Markdown
   const { layout, compact, disabled, preview = true } = options;
   const [pane, setPane] = useState<MarkdownEditorMode['pane']>('write');
   const wide = useWideContainer(rootRef, SPLIT_MIN_WIDTH);
-  const small = compact === true;
+  const small = compact === true || layout === 'composer';
   const writeOnly = !preview;
   const mode = editorLayout(layout, wide, small, writeOnly);
   const tabbed = mode === 'tabs';

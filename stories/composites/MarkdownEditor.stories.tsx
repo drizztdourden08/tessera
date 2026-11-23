@@ -18,7 +18,7 @@ type MarkdownEditorArgs = {
 const ARGS: Partial<MarkdownEditorArgs> = { layout: 'auto', compact: false, disabled: false };
 
 const ARG_TYPES: PlaygroundArgTypes<MarkdownEditorArgs> = {
-  layout: { group: 'Appearance', control: 'select', options: ['auto', 'split', 'tabs'], description: 'auto is split when the container is wide, tabs when it is narrow.' },
+  layout: { group: 'Appearance', control: 'select', options: ['auto', 'split', 'tabs', 'composer'], description: 'auto is split when the container is wide, tabs when it is narrow; composer is one rounded box with the send button inside.' },
   compact: { group: 'Appearance', control: 'boolean', description: 'A slim toolbar and a 3 row box that grows; the preview opens from a toggle.' },
   disabled: { group: 'State', control: 'boolean', description: 'Turns the field and the toolbar off.' },
 };
@@ -50,6 +50,11 @@ const Tabs = {
 const Compact = {
   name: 'Compact: a slim toolbar and a 3 row box that grows, the preview behind a toggle',
   render: () => <MarkdownEditorDemo initial={'A short note for a card.'} compact />,
+} satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
+
+const ComposerLayout = {
+  name: 'Composer: one rounded box, the toolbar on top and the send button inside',
+  render: () => <MarkdownEditorDemo initial="" layout="composer" keys minSend={1} />,
 } satisfies StoryLiteStoryDefinition<MarkdownEditorArgs>;
 
 const WriteOnly = {
@@ -134,9 +139,9 @@ const Overview = overviewStory({
   ],
   instead: '[Textarea] for plain text, or [Markdown] to only show a Markdown text.',
   playground: Playground,
-  variants: [Split, Tabs, Compact, WriteOnly, ToolbarEnd, LongDocument, Limited, TextCounter, ImagePaste, ImageButton, ImageRefused, Keys, ListKeys],
+  variants: [Split, Tabs, ComposerLayout, Compact, WriteOnly, ToolbarEnd, LongDocument, Limited, TextCounter, ImagePaste, ImageButton, ImageRefused, Keys, ListKeys],
   code: CODE,
 });
 
 export default meta;
-export { Compact, ImageButton, ImagePaste, ImageRefused, Keys, Limited, ListKeys, LongDocument, Overview, Playground, SendGate, Split, Tabs, TextCounter, ToolbarEnd, WriteOnly };
+export { Compact, ComposerLayout, ImageButton, ImagePaste, ImageRefused, Keys, Limited, ListKeys, LongDocument, Overview, Playground, SendGate, Split, Tabs, TextCounter, ToolbarEnd, WriteOnly };
