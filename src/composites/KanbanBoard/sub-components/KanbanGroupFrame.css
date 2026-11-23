@@ -15,7 +15,8 @@
 }
 
 .kanban__item[data-group='last'],
-.kanban__item[data-group='only'] {
+.kanban__item[data-group='only'],
+.kanban__item[data-folded='yes'][data-group='first'] {
   margin-block-end: var(--space-sm);
   padding-block-end: var(--space-xs);
   border-block-end: var(--border-width-thin) solid var(--c-border-strong);
@@ -44,14 +45,6 @@
 .kanban__item[data-folded='yes'][data-group='middle'],
 .kanban__item[data-folded='yes'][data-group='last'] {
   display: none;
-}
-
-.kanban__item[data-folded='yes'][data-group='first'] {
-  margin-block-end: var(--space-sm);
-  padding-block-end: var(--space-xs);
-  border-block-end: var(--border-width-thin) solid var(--c-border-strong);
-  border-end-start-radius: var(--radius-lg);
-  border-end-end-radius: var(--radius-lg);
 }
 
 .kanban__item[data-folded='yes'] .kanban__group-bar {

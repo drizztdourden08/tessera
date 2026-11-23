@@ -17,7 +17,7 @@ const RecordCardCompactList = () => (
         icon={<TypeMark icon="bug" label="Bug" tone="danger" />}
         code={row.code}
         content={<Badge variant="inline" value="Open" color="info" />}
-        end={<Badge variant="inline" value="AB" color="neutral" />}
+        end={<Badge variant="inline" value="AB" color="tame" />}
         menu={<RecordCardMenu />}
       />
     ))}

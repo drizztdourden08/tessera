@@ -79,8 +79,7 @@
 
 .record-header__swap {
   display: grid;
-  align-items: center;
-  justify-items: center;
+  place-items: center;
 }
 
 .record-header__swap-icon,

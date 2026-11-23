@@ -1,10 +1,10 @@
 /* @layer renderer-components @kind component */
-import { useEffect, useMemo, useRef } from 'react';
-import { createScrollSyncController } from './behavior/create-scroll-sync-controller';
+import { useRef } from 'react';
 import { scrollAreaClass } from './behavior/scroll-area-class';
 import { scrollAreaMarks } from './behavior/scroll-area-marks';
 import { setNodeOnRef } from './behavior/set-node-on-ref';
 import { useFollowBottom } from './behavior/useFollowBottom';
+import { useScrollController } from './behavior/useScrollController';
 import { useScrollEdges } from './behavior/useScrollEdges';
 import { useSlimThumbAutoHide } from './behavior/useSlimThumbAutoHide';
 import { useSlimThumbDrag } from './behavior/useSlimThumbDrag';
@@ -16,17 +16,13 @@ const ScrollArea = (props: ScrollAreaProps) => {
   const { axis = 'y', fade = true, scrollbar = 'native', thumb, gutter = 'auto', className = '', children, onScroll, scrollTo, follow, followBehavior = 'smooth', ref, ...rest } = props;
 
   const nodeRef = useRef<HTMLDivElement | null>(null);
-  const controller = useMemo(() => createScrollSyncController(() => nodeRef.current), []);
+  const controller = useScrollController(nodeRef, scrollTo);
   const slim = scrollbar === 'slim';
   const autoHide = slim && thumb === 'auto';
   useScrollEdges(nodeRef, axis, fade, slim);
   useSlimThumbDrag(nodeRef, axis, slim);
   useSlimThumbAutoHide(nodeRef, autoHide);
   useFollowBottom(nodeRef, follow === true, followBehavior);
-
-  useEffect(() => {
-    controller.applyScrollTo(scrollTo ?? {});
-  }, [controller, scrollTo?.top, scrollTo?.left]);
 
   const handleScroll = (event: UIEvent<HTMLDivElement>): void => {
     const current = { top: event.currentTarget.scrollTop, left: event.currentTarget.scrollLeft };

@@ -13,7 +13,7 @@ const countIn = (column: TaskColumn, group: string): number => column.cards.filt
 const ACCENTS: Readonly<Record<string, TagCategoryColor>> = { todo: 'blue', doing: 'amber', review: 'violet', done: 'green' };
 
 const KanbanGroupDemo = ({ controlled = false }: { controlled?: boolean }) => {
-  const [columns, setColumns] = useState(() => withGroups(TASK_COLUMNS).map((column) => ({ ...column, accent: ACCENTS[column.id] })));
+  const [columns, setColumns] = useState<TaskColumn[]>(() => withGroups(TASK_COLUMNS).map((column) => ({ ...column, accent: ACCENTS[column.id] })));
   const [folded, setFolded] = useState<readonly string[]>(['auth']);
   const fold = controlled ? { foldedGroups: new Set(folded), onFoldedGroupsChange: setFolded } : {};
   return (

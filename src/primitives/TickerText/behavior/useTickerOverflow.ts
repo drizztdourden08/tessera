@@ -2,8 +2,7 @@
 import { useLayoutEffect, useState } from 'react';
 import type { RefObject } from 'react';
 import { observeResize } from '../../dom/observe-resize';
-
-const DISTANCE_PROPERTY = '--ticker-distance';
+import { DISTANCE_PROPERTY } from './useTickerOverflow.constants';
 
 const useTickerOverflow = (rootRef: RefObject<HTMLElement | null>, trackRef: RefObject<HTMLElement | null>): boolean => {
   const [overflowing, setOverflowing] = useState(false);
