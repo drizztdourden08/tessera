@@ -120,6 +120,7 @@ const COMPOSITES_TIER: CatalogueTier = {
         { name: 'ColorPickerPopover', summary: 'A swatch that opens the picker.' },
         { name: 'IconPicker', summary: 'A button that opens a grid of icons, with a search and an SVG or PNG upload.' },
         { name: 'KeyValueEditor', summary: 'A map of names to values, row by row, with a duplicate check and an add row.' },
+        { name: 'Composer', summary: 'A chat box: one rounded box with a growing text area, a bar and a send button.' },
         { name: 'CommandInput', summary: 'A command line with Enter to send, Up and Down through past commands and Escape to clear.' },
         { name: 'PasswordInput', summary: 'A password with a show button, any mask character, a Caps Lock warning and an optional checklist.' },
         { name: 'TagInput', summary: 'Free tags with suggestions and validation.' },
