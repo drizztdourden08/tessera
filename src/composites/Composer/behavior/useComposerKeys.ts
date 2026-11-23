@@ -4,11 +4,11 @@ import type { ComposerKeysInput } from '../Composer.type';
 import { composerSubmits } from './composer-submits';
 
 const useComposerKeys = (input: ComposerKeysInput): ((event: KeyboardEvent<HTMLTextAreaElement>) => void) => {
-  const { value, disabled, onSubmit } = input;
+  const { value, disabled, busy, onSubmit } = input;
   return (event) => {
     if (!composerSubmits(event, event.nativeEvent.isComposing)) return;
     event.preventDefault();
-    if (!disabled && value.trim() !== '') onSubmit(value);
+    if (!disabled && !busy && value.trim() !== '') onSubmit(value);
   };
 };
 
