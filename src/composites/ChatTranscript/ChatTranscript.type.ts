@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { ScrollPosition } from '../../primitives/ScrollArea/ScrollArea.type';
 
 type ChatTranscriptRole = 'user' | 'assistant' | 'system';
 
@@ -29,6 +30,11 @@ interface ChatTranscriptProps {
   className?: string;
 }
 
+interface ChatWindow {
+  visible: ChatTranscriptRow[];
+  onScroll: (position: ScrollPosition) => void;
+}
+
 interface ChatTranscriptRow {
   id: string;
   speaker: string;
@@ -37,4 +43,4 @@ interface ChatTranscriptRow {
   messages: ChatTranscriptMessage[];
 }
 
-export type { ChatToolStatus, ChatTranscriptMessage, ChatTranscriptProps, ChatTranscriptRole, ChatTranscriptRow, ChatTranscriptTool };
+export type { ChatToolStatus, ChatTranscriptMessage, ChatTranscriptProps, ChatTranscriptRole, ChatTranscriptRow, ChatTranscriptTool, ChatWindow };
