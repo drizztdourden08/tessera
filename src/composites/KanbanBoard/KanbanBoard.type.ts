@@ -47,6 +47,7 @@ type KanbanCardFrameMode = 'card' | 'none';
 
 interface KanbanCardFrame {
   edgeTone: CardTone | undefined;
+  tint: TagCategoryColor | undefined;
 }
 
 interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
@@ -57,6 +58,7 @@ interface KanbanBoardProps<Card extends KanbanCardData = KanbanCardData> {
   renderGroupHeader?: (group: string, column: KanbanColumn<Card>, fold: KanbanGroupFold) => ReactNode;
   cardLabel?: (card: Card) => string;
   cardEdgeTone?: (card: Card) => CardTone | undefined;
+  cardTint?: (card: Card) => TagCategoryColor | undefined;
   cardFrame?: KanbanCardFrameMode;
   columnWidth?: KanbanColumnWidth;
   columnHeight?: KanbanColumnHeight;
@@ -78,6 +80,7 @@ interface KanbanShared<Card extends KanbanCardData> {
   renderGroupHeader: ((group: string, column: KanbanColumn<Card>, fold: KanbanGroupFold) => ReactNode) | undefined;
   cardLabel: (card: Card) => string;
   cardEdgeTone: ((card: Card) => CardTone | undefined) | undefined;
+  cardTint: ((card: Card) => TagCategoryColor | undefined) | undefined;
   cardFrame: KanbanCardFrameMode;
   grip: boolean;
   foldable: boolean;

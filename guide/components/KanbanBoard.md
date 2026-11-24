@@ -120,6 +120,7 @@ const Tasks = () => {
 - `renderGroupHeader` (optional): `(group: string, column: KanbanColumn<Card>, fold: KanbanGroupFold) => ReactNode`.
 - `cardLabel` (optional): `(card: Card) => string`.
 - `cardEdgeTone` (optional): `(card: Card) => CardTone | undefined`.
+- `cardTint` (optional): `(card: Card) => TagCategoryColor | undefined`.
 - `cardFrame` (optional): `KanbanCardFrameMode`, one of `'card'`, `'none'`.
 - `columnWidth` (optional): `KanbanColumnWidth`, one of `'fixed'`, `'fill'`. Default `'fixed'`.
 - `columnHeight` (optional): `KanbanColumnHeight`, one of `'stretch'`, `'fit'`. Default `'stretch'`.

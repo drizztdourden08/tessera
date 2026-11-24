@@ -3,6 +3,7 @@ import { useId } from 'react';
 import { Badge } from '../../../primitives/Badge';
 import { Box } from '../../../primitives/Box';
 import { Span } from '../../../primitives/text-elements';
+import { tagHueClass } from '../../../primitives/tag-hue/tag-hue-class';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { framePart } from '../behavior/frame-part';
 import { groupRuns } from '../behavior/group-runs';
@@ -18,7 +19,7 @@ import './KanbanLane.css';
 const KanbanLane = <Item extends KanbanCardData>({ column, index, collapsed, shared }: KanbanColumnProps<Item>) => {
   const { kanbanBoard } = useTesseraStrings();
   const listId = useId();
-  const { id, title, cards, badge, top } = column;
+  const { id, title, cards, badge, top, accent } = column;
   const start = slotOf(sizesOf(shared.columns), index, 0);
   const toggle = !shared.foldable ? null : <KanbanToggle columnId={id} title={title} collapsed={collapsed} controls={collapsed ? undefined : listId} onToggle={shared.onToggle} />;
   const name = kanbanBoard.column(title, cards.length);
@@ -34,7 +35,7 @@ const KanbanLane = <Item extends KanbanCardData>({ column, index, collapsed, sha
   }
   const endMark = shared.drag.dropMark(start + cards.length, NO_END) === 'before';
   return (
-    <Box role="group" aria-label={name} surface="sunken" className="kanban__column">
+    <Box role="group" aria-label={name} surface="sunken" className={accent === undefined ? 'kanban__column' : `kanban__column ${tagHueClass(accent)}`}>
       <KanbanLaneHead column={column} toggle={toggle} />
       {top != null && <Box className="kanban__top">{top}</Box>}
       <Box as="ul" id={listId} aria-label={title} className="kanban__list" data-board-list={id} data-drop={endMark && cards.length === 0 ? 'before' : undefined}>

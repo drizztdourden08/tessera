@@ -8,6 +8,22 @@
   padding: var(--space-sm);
 }
 
+.kanban .kanban__column {
+  background: color-mix(in srgb, var(--lane-tint, transparent) 7%, var(--c-glass-fill));
+  border: var(--border-width-thin) solid var(--c-glass-border);
+  border-radius: var(--radius-lg);
+}
+
+.kanban__column.tag-hue {
+  --lane-tint: var(--hue-ink);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .kanban .kanban__column {
+    background: color-mix(in srgb, var(--lane-tint, transparent) 7%, var(--c-glass-solid));
+  }
+}
+
 .kanban__head {
   flex: none;
 }
