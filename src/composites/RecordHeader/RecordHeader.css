@@ -25,14 +25,17 @@
   display: flex;
   flex: none;
   align-items: center;
+  justify-content: center;
+  block-size: var(--record-header-slot-height);
   min-inline-size: 0;
 }
 
 .record-header__slot--content {
   flex: 0 1 auto;
   flex-wrap: nowrap;
+  gap: inherit;
+  justify-content: flex-end;
   margin-inline-start: auto;
-  overflow: hidden;
 }
 
 .record-header__slot--content ~ .record-header__slot--menu {
@@ -58,6 +61,7 @@
 .record-header__slot--main {
   flex: 1 1 var(--record-header-title-min);
   gap: inherit;
+  justify-content: flex-start;
   min-inline-size: 0;
 }
 

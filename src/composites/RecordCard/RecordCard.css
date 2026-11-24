@@ -8,12 +8,16 @@
   --record-card-pad: var(--record-card-pad-compact);
   --record-card-gap: var(--record-card-gap-compact);
 
-  block-size: var(--record-card-height-compact);
+  min-block-size: var(--record-card-height-compact);
 }
 
 .record-card--compact .record-card__inner {
-  block-size: 100%;
-  overflow: hidden;
+  min-block-size: 100%;
+}
+
+.record-card__compact-title {
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .record-card--card {
