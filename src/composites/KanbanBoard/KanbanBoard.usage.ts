@@ -96,7 +96,7 @@ const Tasks = () => {
   );
 };
 `,
-  propsHash: 'bba09c8e8f7d4431',
+  propsHash: '76ec6ecfbca6e995',
 } satisfies ComponentUsage;
 
 export { usage };

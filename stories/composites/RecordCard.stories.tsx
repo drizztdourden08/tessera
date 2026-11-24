@@ -109,8 +109,7 @@ const Overview = overviewStory({
   points: [
     'Header slots in order: chevron, `icon`, `code`, the title, then `content` and `menu` at the end.',
     'The chevron shows only when there are children, and a click on the header toggles it, not the menu.',
-    'Folded, the title is in the header; open, the title moves above the children.',
-    '`open` with `onOpenChange` controls it; `defaultOpen` starts it open and the card keeps its own state.',
+    'Folded, the title is in the header; open, it moves above the children. `open` with `onOpenChange` controls it.',
     '`density` is `card`, `row` for one line, or `compact` for two fixed lines with no body.',
     '`tint` takes a tag colour and gives the card a subtle tinted surface on every density.',
     '`fill` stretches the card to its grid cell, so a row of cards shares one height.',
