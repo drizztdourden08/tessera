@@ -68,12 +68,26 @@
   transform: scaleY(var(--scale-mouth-closed));
 }
 
-.brand-mark--thinking .brand-mark__eye {
-  animation: brand-mark-eye-think var(--duration-mask-thinking) var(--ease-in-out) infinite;
+.brand-mark--thinking,
+.brand-mark--working {
+  animation: brand-mark-bob var(--duration-mark-bob) var(--ease-in-out) infinite;
 }
 
+.brand-mark--thinking { --mark-sweep: var(--duration-mark-sweep); }
+
+.brand-mark--working { --mark-sweep: calc(var(--duration-mark-sweep) / 2); }
+
+.brand-mark__eye[data-eye='0'] { --eye-index: 0; }
+
+.brand-mark__eye[data-eye='1'] { --eye-index: 1; }
+
+.brand-mark__eye[data-eye='2'] { --eye-index: 2; }
+
+.brand-mark__eye[data-eye='3'] { --eye-index: 3; }
+
+.brand-mark--thinking .brand-mark__eye,
 .brand-mark--working .brand-mark__eye {
-  animation: brand-mark-eye-work var(--duration-mask-working) var(--ease-in-out) infinite;
+  animation: brand-mark-eye-sweep var(--mark-sweep) var(--ease-in-out) calc(var(--mark-sweep) * var(--eye-index, 0) * 0.3) infinite;
 }
 
 .brand-mark--talking .brand-mark__mouth {
@@ -81,14 +95,14 @@
   animation: brand-mark-mouth-talk var(--duration-mask-talking) var(--ease-in-out) infinite;
 }
 
-@keyframes brand-mark-eye-think {
-  0%, 100% { opacity: var(--opacity-disabled); }
-  50% { opacity: var(--opacity-glow); }
+@keyframes brand-mark-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(calc(-1 * var(--distance-bob))); }
 }
 
-@keyframes brand-mark-eye-work {
-  0%, 100% { opacity: var(--opacity-muted); }
-  50% { opacity: 1; }
+@keyframes brand-mark-eye-sweep {
+  0%, 55%, 100% { opacity: 0; }
+  15%, 35% { opacity: 1; }
 }
 
 @keyframes brand-mark-mouth-talk {
@@ -97,6 +111,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .brand-mark--thinking,
+  .brand-mark--working { animation: none; }
+
   .brand-mark--thinking .brand-mark__eye,
   .brand-mark--working .brand-mark__eye,
   .brand-mark--talking .brand-mark__mouth { animation: none; }

@@ -45,7 +45,7 @@
   --composer-send-room: var(--size-56);
   --composer-send-room-label: var(--size-96);
   --distance-enter: var(--size-8);
-  --distance-bob: var(--size-2);
+  --distance-bob: var(--size-3);
   --chat-bubble-max: 85%;
   --aside-width-sm: 200px;
   --aside-width-md: 280px;

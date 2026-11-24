@@ -163,6 +163,11 @@ const Composed = {
   ),
 } satisfies StoryLiteStoryDefinition<TextArgs>;
 
+const Busy = {
+  name: 'Busy label with moving dots',
+  render: () => <Text dots>Thinking</Text>,
+} satisfies StoryLiteStoryDefinition<TextArgs>;
+
 const HeadRow = {
   name: 'One 16 px line',
   render: () => <CardHeadRow />,
@@ -177,12 +182,13 @@ const Overview = overviewStory({
     'With no `variant` it takes the size and colour of its parent; `size` sets `md` 13 px or `lead` 15 px.',
     '`leading="16"` sets a 16 px line height, so a caption fits beside a small icon button.',
     '`as` swaps the default `<span>`; `clamp` cuts the text at that many lines, all of it in a tooltip.',
+    '`dots` ends the text with an ellipsis that fills one dot at a time, for a busy label.',
     '`weight`, `italic`, `font`, `mono` and `tone` set the face; `numeric` and `smartTimes` set the figures.',
   ],
   instead: '[Title] for headings.',
   playground: Playground,
-  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Clamped, Indent, Composed, HeadRow],
+  variants: [Passage, Members, AllVariants, Sizes, TitleFace, Tones, Figures, Clamped, Indent, Composed, Busy, HeadRow],
 });
 
 export default meta;
-export { AllVariants, Clamped, Composed, Figures, HeadRow, Indent, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };
+export { AllVariants, Busy, Clamped, Composed, Figures, HeadRow, Indent, Members, Overview, Passage, Playground, Sizes, TitleFace, Tones };

@@ -57,12 +57,13 @@ const [text, setText] = useState('');
 
 const Overview = overviewStory({
   component: 'Composer',
-  description: 'A chat box: one rounded box with a text area that grows with the text, a bar on the left and a send button on the right.',
+  description: 'A chat box: one rounded box with a text area that grows with the text, a send button floating at the bottom right and an optional bar under the text.',
   points: [
     'The text is controlled with `value` and `onChange`; Enter calls `onSubmit`, Shift+Enter adds a line.',
     '`maxRows` caps the growth; past it the text scrolls.',
     '`busy` puts a spinner on the send button and stops Enter from sending.',
-    '`bar` fills the left of the bottom row; `sendSlot` replaces the default send button.',
+    'It starts as one row; the send button floats inside the box and the text keeps room for it.',
+    '`bar` fills a foot row that slides in under the text; `sendSlot` replaces the default send button.',
     'The box shows the focus ring, not the text area.',
   ],
   instead: '[MarkdownEditor] when the text needs a toolbar and a preview, or [Textarea] for a plain field in a form.',

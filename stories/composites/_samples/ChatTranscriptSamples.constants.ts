@@ -18,6 +18,12 @@ const CHAT_SAMPLE_MESSAGES: ChatTranscriptMessage[] = [
   { id: 'm5', speaker: 'Owner', role: 'user', time: '09:14', content: 'Tell me when it ends.' },
 ];
 
+const CHAT_SAMPLE_HISTORY: ChatTranscriptMessage[] = Array.from({ length: 160 }, (_, index) => (
+  index % 2 === 0
+    ? { id: `h${index}`, speaker: 'Owner', role: 'user', time: '09:' + String(index % 60).padStart(2, '0'), content: `Question number ${index + 1}.` }
+    : { id: `h${index}`, speaker: 'Overlord', content: `Answer number ${index + 1}. It is long enough to take more than one line when the frame is narrow.` }
+));
+
 const CHAT_SAMPLE_REPLIES = ['Understood.', 'Still running.', 'One gate failed. I am looking at it.', 'The run ended green.'];
 
-export { CHAT_SAMPLE_MESSAGES, CHAT_SAMPLE_REPLIES };
+export { CHAT_SAMPLE_HISTORY, CHAT_SAMPLE_MESSAGES, CHAT_SAMPLE_REPLIES };

@@ -15,14 +15,14 @@ import { textStyleMerge } from './behavior/text-style-merge';
 import type { TextProps } from './Text.type';
 
 const TextBase = (props: TextProps) => {
-  const { as: Tag = 'span', variant, size, font, leading, tone, mono, numeric, smartTimes, clamp, indent, className, weight, italic, opticalSize, features, style, children, ...rest } = props;
+  const { as: Tag = 'span', variant, size, font, leading, tone, mono, numeric, smartTimes, clamp, indent, dots, className, weight, italic, opticalSize, features, style, children, ...rest } = props;
   const textRef = useRef<HTMLElement>(null);
   const clamped = useClamped(textRef, clamp !== undefined);
   const typeset = typesettingStyle({ weight, italic, opticalSize, features });
   const text = (
     <Tag
       ref={textRef}
-      className={textClassName({ variant, size, font, leading, tone, mono, numeric, clamp: clamp !== undefined, className })}
+      className={textClassName({ variant, size, font, leading, tone, mono, numeric, clamp: clamp !== undefined, dots, className })}
       style={textStyleMerge(typeset, style, clamp)}
       data-indent={textIndent(indent)}
       {...rest}

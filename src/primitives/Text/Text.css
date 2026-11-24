@@ -114,3 +114,19 @@
   min-inline-size: 0;
   max-inline-size: 100%;
 }
+
+.text--dots::after {
+  content: '...';
+  animation: text-dots var(--duration-dots) steps(1) infinite;
+}
+
+@keyframes text-dots {
+  0% { clip-path: inset(0 100% 0 0); }
+  25% { clip-path: inset(0 66% 0 0); }
+  50% { clip-path: inset(0 33% 0 0); }
+  75% { clip-path: inset(0 0 0 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .text--dots::after { animation: none; }
+}
