@@ -123,6 +123,7 @@ interface MarkdownEditorFootProps {
   count?: (text: string) => number;
   actions?: ReactNode;
   send?: MarkdownEditorSendProps;
+  floating?: boolean;
 }
 
 interface MarkdownEditorMode {

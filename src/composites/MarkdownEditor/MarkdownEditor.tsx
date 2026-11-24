@@ -33,11 +33,12 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
   const onKeyDown = useEditorKeys({ value, onSubmit, submitDisabled: submitDisabled === true, onEscape, onShortcut });
 
   const composer = mode === 'composer';
-  const foot = <MarkdownEditorFoot value={value} maxLength={maxLength} count={count} actions={actions} send={sendProps({ label: submitLabel, value, disabled, submitDisabled, onSubmit })} />;
+  const send = sendProps({ label: submitLabel, value, disabled, submitDisabled, onSubmit });
+  const foot = <MarkdownEditorFoot value={value} maxLength={maxLength} count={count} actions={actions} send={send} floating={composer} />;
 
   return (
     <Field label={label} hint={hint} error={error} width="full">
-      <Box ref={rootRef} className={['markdown-editor', className].filter(Boolean).join(' ')} data-layout={mode}>
+      <Box ref={rootRef} className={['markdown-editor', className].filter(Boolean).join(' ')} data-layout={mode} data-send={composer && send ? 'true' : undefined}>
         <Box className={composer ? 'composer-box' : 'composer-box markdown-editor__frame'}>
           <MarkdownEditorToolbar disabled={off} onAction={run} toggle={toggle} end={toolbarEnd} onImages={image.insertFiles} />
           {tabbed && <MarkdownEditorTabs pane={pane} onPane={setPane} />}
