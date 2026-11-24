@@ -17,6 +17,15 @@
   opacity: var(--opacity-muted);
 }
 
+.kanban__list .kanban__card:not([data-dragging='yes']) {
+  background: color-mix(in srgb, var(--card-tint, transparent) 9%, var(--c-glass-fill));
+  border-color: color-mix(in srgb, var(--card-tint, transparent) 22%, var(--c-glass-border));
+}
+
+.kanban__card.tag-hue {
+  --card-tint: var(--hue-ink);
+}
+
 .kanban__card--bare {
   border-radius: var(--radius-lg);
 }

@@ -4,14 +4,17 @@ import { Box } from '../../../primitives/Box';
 import { Card } from '../../../primitives/Card';
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
+import { tagHueClass } from '../../../primitives/tag-hue/tag-hue-class';
 import { useTesseraStrings } from '../../../primitives/TesseraProvider/behavior/useTesseraStrings';
 import { GRIP_ICON_SIZE, MOVE_KEYS } from '../KanbanBoard.constants';
 import type { KanbanCardData, KanbanCardFaceProps } from '../KanbanBoard.type';
 
 const KanbanCardFace = <Item extends KanbanCardData>({ card, slot, shared }: KanbanCardFaceProps<Item>) => {
   const { kanbanBoard } = useTesseraStrings();
-  const { drag, grip, cardLabel, cardEdgeTone, cardFrame, renderCard, onCardKeyDown, onCardClick } = shared;
+  const { drag, grip, cardLabel, cardEdgeTone, cardTint, cardFrame, renderCard, onCardKeyDown, onCardClick } = shared;
   const edgeTone = cardEdgeTone?.(card);
+  const tint = cardTint?.(card);
+  const tinted = tint === undefined ? '' : ` ${tagHueClass(tint)}`;
   const surface = { 'data-dragging': drag.dragging === slot ? 'yes' : undefined, onClick: (event: MouseEvent<HTMLElement>) => onCardClick(event, card) };
   const row = (
     <Box className="kanban__card-row">
@@ -25,11 +28,11 @@ const KanbanCardFace = <Item extends KanbanCardData>({ card, slot, shared }: Kan
       >
         <Icon name="grip-vertical" size={GRIP_ICON_SIZE} />
       </IconButton>
-      <Box className="kanban__card-body">{renderCard(card, { edgeTone })}</Box>
+      <Box className="kanban__card-body">{renderCard(card, { edgeTone, tint })}</Box>
     </Box>
   );
-  if (cardFrame === 'none') return <Box className="kanban__card kanban__card--bare" {...surface}>{row}</Box>;
-  return <Card className="kanban__card" edgeTone={edgeTone} {...surface}>{row}</Card>;
+  if (cardFrame === 'none') return <Box className={`kanban__card kanban__card--bare${tinted}`} {...surface}>{row}</Box>;
+  return <Card className={`kanban__card${tinted}`} edgeTone={edgeTone} {...surface}>{row}</Card>;
 };
 
 export { KanbanCardFace };
