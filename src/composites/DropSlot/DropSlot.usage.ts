@@ -19,6 +19,7 @@ const usage = {
     'The source sets the payload in its onDragStart with event.dataTransfer.setData(type, value); it works with useNativeDragGhost and with plain HTML drag and drop.',
     'onClear shows a clear button on a filled slot; clearLabel names it.',
     'onPick is called on a click and on Enter, empty or filled, so a menu can choose instead of a drag.',
+    'disabled stops drops, picks and the clear button.',
     'size is sm, md or lg and sets the square the slot fills.',
   ],
   a11y: [
@@ -45,7 +46,7 @@ const Source = () => {
   );
 };
 `,
-  propsHash: 'pending-guide-run',
+  propsHash: '348f1a3b4a5f74bb',
 } satisfies ComponentUsage;
 
 export { usage };

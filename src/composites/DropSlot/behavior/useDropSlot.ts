@@ -3,16 +3,9 @@ import { useState } from 'react';
 import type { DragEvent, KeyboardEvent } from 'react';
 import { PICK_KEYS } from '../DropSlot.constants';
 import type { DropSlotProps } from '../DropSlot.type';
-import { carriesAccepted, payloadOf } from './drop-slot-payload';
-
-interface DropSlotBind {
-  over: boolean;
-  onDragEnter: (event: DragEvent<HTMLElement>) => void;
-  onDragOver: (event: DragEvent<HTMLElement>) => void;
-  onDragLeave: (event: DragEvent<HTMLElement>) => void;
-  onDrop: (event: DragEvent<HTMLElement>) => void;
-  onKeyDown: (event: KeyboardEvent<HTMLElement>) => void;
-}
+import { carriesAccepted } from './drop-slot-payload';
+import { payloadOf } from './payload-of';
+import type { DropSlotBind } from './useDropSlot.type';
 
 const useDropSlot = (props: Pick<DropSlotProps, 'accept' | 'disabled' | 'onDrop' | 'onPick'>): DropSlotBind => {
   const { accept, disabled, onDrop, onPick } = props;
@@ -40,5 +33,4 @@ const useDropSlot = (props: Pick<DropSlotProps, 'accept' | 'disabled' | 'onDrop'
   return { over, onDragEnter: enter, onDragOver: enter, onDragLeave: leave, onDrop: drop, onKeyDown: key };
 };
 
-export type { DropSlotBind };
 export { useDropSlot };
