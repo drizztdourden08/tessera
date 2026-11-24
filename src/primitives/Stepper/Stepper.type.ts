@@ -60,7 +60,7 @@ interface StepperStep {
 
 interface StepperProps {
   steps: readonly StepperStep[];
-  currentId?: string;
+  currentId?: string | null;
   complete?: boolean;
   orientation?: StepperOrientation;
   compact?: boolean;

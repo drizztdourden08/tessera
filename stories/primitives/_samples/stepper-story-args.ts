@@ -33,7 +33,7 @@ const ARG_TYPES: PlaygroundArgTypes<StepperArgs> = {
   labelPlacement: { group: 'Layout', control: 'select', options: ['below', 'above', 'hidden'], description: 'Where the step name sits. Above only works with steps on top. Hidden keeps the name for screen readers only.' },
   size: { group: 'Appearance', control: 'select', options: ['md', 'sm'], description: 'A smaller circle, number and gap between steps.' },
   orientation: { group: 'Layout', control: 'select', options: ['horizontal', 'vertical'] },
-  step: { group: 'State', control: 'select', options: STEPPER_STEPS.map((_, index) => index + 1), description: 'The current step, from 1. Change it to watch the sequence.' },
+  step: { group: 'State', control: 'select', options: [0, ...STEPPER_STEPS.map((_, index) => index + 1), STEPPER_STEPS.length + 1], description: 'The current step, from 1. 0 is not started, one past the last is complete.' },
   error: { group: 'State', control: 'boolean', description: 'Mode needs attention.' },
 };
 
