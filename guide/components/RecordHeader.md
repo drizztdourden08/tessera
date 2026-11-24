@@ -32,6 +32,7 @@ RecordHeader is the shared title line of every item: slots in a fixed order, cen
 - Pass icon, code, title, content and menu to fill the slots; they sit in that order after the chevron, and content sits at the end, next to the menu.
 - Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. That row counts as a control, so its click never opens a Kanban card or a clickable Card around it. controls names the folded element and label replaces the default name.
 - Pass chevronOnIcon with an icon to drop the separate chevron slot: the icon shows the fold chevron, open or closed, on hover and focus, and a click there folds.
+- Every slot is --record-header-slot-height tall (24px) and centred, with the header gap between slots and between the children of the content slot. Pass an icon, an avatar and a menu button no taller than that: icon 16px, avatar 20px with its ring, menu button 24px.
 - The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.
 - Use density row for a compact line and card for a roomy one; it only changes the gap between the slots.
 - In a Kanban group bar, pass the fold of renderGroupHeader to chevron: { expanded: fold.open, onToggle: fold.toggle, controls: fold.controls }.
@@ -40,7 +41,7 @@ RecordHeader is the shared title line of every item: slots in a fixed order, cen
 ## Accessibility
 
 - The chevron is a bare button with aria-expanded and, when controls is set, aria-controls; Enter and Space on it toggle. The row has no role of its own.
-- The header never wraps. A long title and a long code are cut with an ellipsis, and the content slot shrinks and clips; the chevron, icon and menu keep their size.
+- The header never wraps. A long title and a long code are cut with an ellipsis, and the content slot shrinks, with only its text cut and never an avatar ring; the chevron, icon and menu keep their size.
 
 ## Example
 
@@ -76,4 +77,4 @@ const TaskLine = () => {
 
 ## Tokens
 
-It draws on `--duration-fast`, `--ease-standard`, `--record-header-gap-card`, `--record-header-gap-row`, `--record-header-title-min`.
+It draws on `--duration-fast`, `--ease-standard`, `--record-header-gap-card`, `--record-header-gap-row`, `--record-header-slot-height`, `--record-header-title-min`.
