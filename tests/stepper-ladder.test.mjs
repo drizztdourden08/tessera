@@ -1,5 +1,7 @@
 /* @layer tooling-scripts @kind test */
 import { describe, expect, it } from 'vitest';
+import { compactPosition } from '../src/primitives/Stepper/behavior/compact-position';
+import { currentIndex } from '../src/primitives/Stepper/behavior/current-index';
 import { lineLit } from '../src/primitives/Stepper/behavior/line-lit';
 import { rootStyle } from '../src/primitives/Stepper/behavior/root-style';
 import { stepStatus } from '../src/primitives/Stepper/behavior/step-status';
@@ -86,5 +88,27 @@ describe('K1 Stepper media below, hidden labels and size', { tags: ['critical'] 
     expect(STEPPER_SIZES.sm.dot).toBe('var(--size-24)');
     expect(STEPPER_SIZES.sm.digit).toBe('var(--text-xs)');
     expect(STEPPER_SIZES.md.digit).toBe('var(--text-base)');
+  });
+});
+
+describe('K1 Stepper not started and complete', { tags: ['critical'] }, () => {
+  it('reads a missing or null currentId as not started', () => {
+    expect(currentIndex({ steps: STEPS })).toBe(-1);
+    expect(currentIndex({ steps: STEPS, currentId: null })).toBe(-1);
+    expect(currentIndex({ steps: STEPS, currentId: 'c' })).toBe(2);
+    expect(currentIndex({ steps: STEPS, currentId: 'c', complete: true })).toBe(STEPS.length);
+  });
+
+  it('shows every step as upcoming when not started and as done when complete', () => {
+    expect(STEPS.map((step, index) => stepStatus(step, index, -1))).toEqual(['upcoming', 'upcoming', 'upcoming', 'upcoming']);
+    expect(STEPS.map((step, index) => stepStatus(step, index, STEPS.length))).toEqual(['done', 'done', 'done', 'done']);
+  });
+
+  it('words the compact position and never goes past the step count', () => {
+    const text = { stepOf: (step, total) => `Step ${step} of ${total}`, complete: 'Complete', notStarted: 'Not started' };
+    expect(compactPosition(-1, 4, text)).toBe('Not started');
+    expect(compactPosition(0, 4, text)).toBe('Step 1 of 4');
+    expect(compactPosition(3, 4, text)).toBe('Step 4 of 4');
+    expect(compactPosition(4, 4, text)).toBe('Complete');
   });
 });

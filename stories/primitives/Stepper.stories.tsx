@@ -23,6 +23,7 @@ const before = (at: number) => (id: string) => STEPPER_STEPS.findIndex((step) =>
 
 const strip = (args: StepperArgs) => {
   const at = Math.max(args.step - 1, 0);
+  const complete = args.step > STEPPER_STEPS.length;
   const look = {
     summaries: args.summaries, subSteps: args.subSteps, long: args.orientation === 'vertical', errorAt: args.error ? 'mode' : undefined,
     tones: args.colour === 'per step', icons: args.doneIcon === 'per step',
@@ -30,7 +31,8 @@ const strip = (args: StepperArgs) => {
   const stepper = (
     <Stepper
       steps={stepperSteps(look, at)}
-      currentId={stepIdAt(at)}
+      currentId={args.step === 0 ? null : stepIdAt(at)}
+      complete={complete}
       orientation={args.orientation}
       compact={args.compact}
       tone={args.colour === 'per step' ? undefined : args.colour}
@@ -72,6 +74,30 @@ const placeOf = (place: string) => Number.parseInt(place.replace('Step ', ''), 1
 const Horizontal = {
   name: 'Steps on top',
   render: () => <Demonstrator rows={axis(PLACES)} align="stretch" cell={(place) => strip({ ...flat, step: placeOf(place) })} />,
+} satisfies StoryLiteStoryDefinition<StepperArgs>;
+
+const ENDS = ['Not started', 'Complete'] as const;
+
+const Ends = {
+  name: 'Not started and complete',
+  render: () => (
+    <Demonstrator
+      rows={axis(ENDS)}
+      align="stretch"
+      cell={(end) => strip({ ...flat, summaries: true, step: end === 'Complete' ? STEPPER_STEPS.length + 1 : 0 })}
+    />
+  ),
+} satisfies StoryLiteStoryDefinition<StepperArgs>;
+
+const EndsCompact = {
+  name: 'Not started and complete, compact',
+  render: () => (
+    <Demonstrator
+      rows={axis(ENDS)}
+      align="stretch"
+      cell={(end) => <Box className="stepper-story__compact">{strip({ ...flat, compact: true, step: end === 'Complete' ? STEPPER_STEPS.length + 1 : 0 })}</Box>}
+    />
+  ),
 } satisfies StoryLiteStoryDefinition<StepperArgs>;
 
 const LOOKS = ['Summaries', 'Sub-steps', 'A step needs attention'] as const;
@@ -166,7 +192,7 @@ const Overview = overviewStory({
   component: 'Stepper',
   description: 'The steps of a task in order, a numbered circle per step joined by lines, that shows where the user is.',
   points: [
-    'Pass `steps` and `currentId`; `orientation="vertical"` runs the steps down the left.',
+    'Pass `steps` and `currentId`; `orientation="vertical"` runs the steps down the left. A null or missing `currentId` is not started, `complete` marks every step done.',
     'A step can carry a `summary`, sub-steps, an `error` state and its own `tone`; `reserve="none"` drops room.',
     '`canSelect` picks the clickable steps; `selectMode="toggle"` makes every step a button with `aria-pressed`.',
     'A ladder uses step `media`, `state`, `struck` and `dotVariant="ring"`; `mediaPlacement="below"` moves media.',
@@ -175,7 +201,7 @@ const Overview = overviewStory({
   ],
   instead: '[NumberInput] for a number with plus and minus buttons.',
   playground: Playground,
-  variants: [StepByStep, StepByStepLeft, Horizontal, SubStepsOnTop, Room, Vertical, IconsAndColours, Compact, LadderPick, LadderLooks, LadderPicturesBelow, LadderNameHidden, Sizes],
+  variants: [StepByStep, StepByStepLeft, Horizontal, Ends, EndsCompact, SubStepsOnTop, Room, Vertical, IconsAndColours, Compact, LadderPick, LadderLooks, LadderPicturesBelow, LadderNameHidden, Sizes],
   states: {
     render: () => strip({ ...flat, step: 3 }),
     list: [
@@ -189,5 +215,5 @@ const Overview = overviewStory({
 
 export default meta;
 export {
-  Compact, Horizontal, IconsAndColours, LadderLooks, LadderNameHidden, LadderPick, LadderPicturesBelow, Overview, Playground, Room, Sizes, StepByStep, StepByStepLeft, SubStepsOnTop, Vertical,
+  Compact, Ends, EndsCompact, Horizontal, IconsAndColours, LadderLooks, LadderNameHidden, LadderPick, LadderPicturesBelow, Overview, Playground, Room, Sizes, StepByStep, StepByStepLeft, SubStepsOnTop, Vertical,
 };
