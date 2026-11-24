@@ -41,6 +41,13 @@
   --duration-dots: 1.2s;
   --duration-mark-bob: 3.6s;
   --duration-mark-sweep: 1.8s;
+  --duration-mark-sweep-fast: 0.9s;
+  --delay-mark-eye-1: 0.54s;
+  --delay-mark-eye-2: 1.08s;
+  --delay-mark-eye-3: 1.62s;
+  --delay-mark-eye-1-fast: 0.27s;
+  --delay-mark-eye-2-fast: 0.54s;
+  --delay-mark-eye-3-fast: 0.81s;
   --duration-reflow: 0.16s;
   --duration-reflow-step: 0.02s;
   --duration-reflow-span: calc(var(--duration-reflow) + var(--duration-reflow-step) * 7);

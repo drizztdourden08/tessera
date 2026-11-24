@@ -20,7 +20,7 @@ const CHAT_SAMPLE_MESSAGES: ChatTranscriptMessage[] = [
 
 const CHAT_SAMPLE_HISTORY: ChatTranscriptMessage[] = Array.from({ length: 160 }, (_, index) => (
   index % 2 === 0
-    ? { id: `h${index}`, speaker: 'Owner', role: 'user', time: '09:' + String(index % 60).padStart(2, '0'), content: `Question number ${index + 1}.` }
+    ? { id: `h${index}`, speaker: 'Owner', role: 'user', time: `09:${String(index % 60).padStart(2, '0')}`, content: `Question number ${index + 1}.` }
     : { id: `h${index}`, speaker: 'Overlord', content: `Answer number ${index + 1}. It is long enough to take more than one line when the frame is narrow.` }
 ));
 

@@ -73,22 +73,25 @@
   animation: brand-mark-bob var(--duration-mark-bob) var(--ease-in-out) infinite;
 }
 
-.brand-mark--thinking { --mark-sweep: var(--duration-mark-sweep); }
-
-.brand-mark--working { --mark-sweep: calc(var(--duration-mark-sweep) / 2); }
-
-.brand-mark__eye[data-eye='0'] { --eye-index: 0; }
-
-.brand-mark__eye[data-eye='1'] { --eye-index: 1; }
-
-.brand-mark__eye[data-eye='2'] { --eye-index: 2; }
-
-.brand-mark__eye[data-eye='3'] { --eye-index: 3; }
-
-.brand-mark--thinking .brand-mark__eye,
-.brand-mark--working .brand-mark__eye {
-  animation: brand-mark-eye-sweep var(--mark-sweep) var(--ease-in-out) calc(var(--mark-sweep) * var(--eye-index, 0) * 0.3) infinite;
+.brand-mark--thinking .brand-mark__eye {
+  animation: brand-mark-eye-sweep var(--duration-mark-sweep) var(--ease-in-out) infinite;
 }
+
+.brand-mark--working .brand-mark__eye {
+  animation: brand-mark-eye-sweep var(--duration-mark-sweep-fast) var(--ease-in-out) infinite;
+}
+
+.brand-mark--thinking .brand-mark__eye[data-eye='1'] { animation-delay: var(--delay-mark-eye-1); }
+
+.brand-mark--thinking .brand-mark__eye[data-eye='2'] { animation-delay: var(--delay-mark-eye-2); }
+
+.brand-mark--thinking .brand-mark__eye[data-eye='3'] { animation-delay: var(--delay-mark-eye-3); }
+
+.brand-mark--working .brand-mark__eye[data-eye='1'] { animation-delay: var(--delay-mark-eye-1-fast); }
+
+.brand-mark--working .brand-mark__eye[data-eye='2'] { animation-delay: var(--delay-mark-eye-2-fast); }
+
+.brand-mark--working .brand-mark__eye[data-eye='3'] { animation-delay: var(--delay-mark-eye-3-fast); }
 
 .brand-mark--talking .brand-mark__mouth {
   opacity: 1;

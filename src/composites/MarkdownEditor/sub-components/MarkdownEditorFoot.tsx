@@ -13,7 +13,7 @@ const MarkdownEditorFoot = ({ value, maxLength, count, actions, send, floating =
   if (actions == null && !inline) return <>{counter}{floated}</>;
   return (
     <>
-      <Flex className="markdown-editor__foot" gap="xs" align="center">
+      <Flex className={floating ? 'markdown-editor__foot composer-box__foot' : 'markdown-editor__foot'} gap="xs" align="center">
         {counter}
         <Flex className="markdown-editor__actions" gap="xs" align="center">
           {actions}

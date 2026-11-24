@@ -38,7 +38,7 @@ const MarkdownEditor = (props: MarkdownEditorProps) => {
 
   return (
     <Field label={label} hint={hint} error={error} width="full">
-      <Box ref={rootRef} className={['markdown-editor', className].filter(Boolean).join(' ')} data-layout={mode} data-send={composer && send ? 'true' : undefined}>
+      <Box ref={rootRef} className={['markdown-editor', className].filter(Boolean).join(' ')} data-layout={mode} data-send={send ? mode : undefined}>
         <Box className={composer ? 'composer-box' : 'composer-box markdown-editor__frame'}>
           <MarkdownEditorToolbar disabled={off} onAction={run} toggle={toggle} end={toolbarEnd} onImages={image.insertFiles} />
           {tabbed && <MarkdownEditorTabs pane={pane} onPane={setPane} />}
