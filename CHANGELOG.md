@@ -1,5 +1,11 @@
 # @drizztdourden08/tessera
 
+## 0.137.0
+
+### Minor Changes
+
+- Composer and MarkdownEditor composer start as one row with the send button inside the box. ChatTranscript puts user messages in end-aligned bubbles, renders a window of rows and slides new rows in. BrandMark bobs and sweeps its eyes while busy. Text gains a dots prop for busy labels.
+
 ## 0.136.0
 
 ### Minor Changes
