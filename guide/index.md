@@ -1,6 +1,6 @@
 # Tessera components
 
-One line per component. 149 of 257 have their usage written; a linked name opens its page.
+One line per component. 150 of 258 have their usage written; a linked name opens its page.
 
 ## Primitives
 
@@ -136,6 +136,7 @@ One line per component. 149 of 257 have their usage written; a linked name opens
 - [DragGhost](components/DragGhost.md): The picture that follows the pointer while items are dragged: a stack of up to three thumbnails and the count of items. A building block. Import from `@drizztdourden08/tessera`.
 - `Drawer`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - [DropdownMenu](components/DropdownMenu.md): A menu of actions, checks, choices and sub-menus, built from data, that hangs from its own button or from an anchor. Import from `@drizztdourden08/tessera`.
+- [DropSlot](components/DropSlot.md): A dashed container that takes one dragged card: it shows a label when empty, holds one node when filled, and clears on a button. A building block. Import from `@drizztdourden08/tessera`.
 - [DynamicInput](components/DynamicInput.md): One field built from a pattern of typed slots, muted text and icons, such as a time, a price with its currency or a lobby code. Import from `@drizztdourden08/tessera`.
 - `ErrorBoundary`: usage not written yet. Import from `@drizztdourden08/tessera`.
 - `FactsPanel`: usage not written yet. Import from `@drizztdourden08/tessera`.

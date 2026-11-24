@@ -11153,6 +11153,144 @@
       ]
     },
     {
+      "name": "DropSlot",
+      "tier": "composites",
+      "source": "src/composites/DropSlot/DropSlot.tsx",
+      "imports": [
+        "@drizztdourden08/tessera",
+        "@drizztdourden08/tessera/composites"
+      ],
+      "usage": true,
+      "job": "A dashed container that takes one dragged card: it shows a label when empty, holds one node when filled, and clears on a button.",
+      "useWhen": [
+        "The user fills a named place by dragging a card onto it, such as the two ends of a transfer.",
+        "The same place can also be filled by a pick, so a keyboard or a click opens a menu instead of a drag."
+      ],
+      "avoidWhen": [
+        {
+          "case": "The user reorders items of a list by dragging.",
+          "use": "DragGhost"
+        },
+        {
+          "case": "The user picks one value from a fixed list with no dragging.",
+          "use": "Select"
+        }
+      ],
+      "rules": [
+        "Pass label, the name of the slot; it is shown while empty and read by assistive tech as the name of the group.",
+        "Pass children, the filled node, or filled to say the slot is full without children; leave both out for the empty state.",
+        "onDrop receives the payload of the drag, the string of dataTransfer.getData(accept), and the drop event; the slot does not change itself, the parent keeps the state and passes children.",
+        "accept is a data type such as application/x-account; only drags that carry it highlight the slot and drop; leave it out to take text/plain.",
+        "The source sets the payload in its onDragStart with event.dataTransfer.setData(type, value); it works with useNativeDragGhost and with plain HTML drag and drop.",
+        "onClear shows a clear button on a filled slot; clearLabel names it.",
+        "onPick is called on a click and on Enter, empty or filled, so a menu can choose instead of a drag.",
+        "size is sm, md or lg and sets the square the slot fills."
+      ],
+      "a11y": [
+        "The slot is a focusable group named by label; Enter calls onPick.",
+        "Dragging is not the only way to fill it: always give onPick a way to choose.",
+        "Announce the new content in a live region when a drop fills the slot."
+      ],
+      "buildingBlock": true,
+      "example": "import { DropSlot } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\nconst Source = () => {\n  const [account, setAccount] = useState<string | undefined>();\n  return (\n    <DropSlot\n      label=\"From\"\n      accept=\"application/x-account\"\n      onDrop={setAccount}\n      onClear={() => setAccount(undefined)}\n      onPick={() => undefined}\n    >\n      {account}\n    </DropSlot>\n  );\n};\n",
+      "propsHash": "pending-guide-run",
+      "props": {
+        "own": [
+          {
+            "name": "label",
+            "optional": false,
+            "text": "string"
+          },
+          {
+            "name": "children",
+            "optional": true,
+            "text": "ReactNode"
+          },
+          {
+            "name": "filled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "size",
+            "optional": true,
+            "text": "DropSlotSize",
+            "literals": [
+              "'sm'",
+              "'md'",
+              "'lg'"
+            ],
+            "default": "'md'"
+          },
+          {
+            "name": "accept",
+            "optional": true,
+            "text": "string"
+          },
+          {
+            "name": "clearLabel",
+            "optional": true,
+            "text": "string",
+            "default": "DEFAULT_CLEAR_LABEL"
+          },
+          {
+            "name": "disabled",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
+            "name": "onDrop",
+            "optional": true,
+            "text": "(payload: string, event: DragEvent<HTMLElement>) => void"
+          },
+          {
+            "name": "onClear",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "onPick",
+            "optional": true,
+            "text": "() => void"
+          },
+          {
+            "name": "className",
+            "optional": true,
+            "text": "string"
+          }
+        ],
+        "inherited": {
+          "count": 0,
+          "from": [],
+          "extends": []
+        }
+      },
+      "tokens": [
+        "--border-width-thin",
+        "--c-border",
+        "--c-border-strong",
+        "--c-focus",
+        "--c-hover",
+        "--c-primary",
+        "--c-primary-soft",
+        "--c-surface",
+        "--opacity-disabled",
+        "--radius-md",
+        "--size-128",
+        "--size-64",
+        "--size-96",
+        "--space-sm",
+        "--space-xs",
+        "--transition-fast"
+      ],
+      "gallery": {
+        "title": "Composites · Data views/DropSlot",
+        "route": "#/story/composites-dropslot--overview",
+        "file": "stories/composites/DropSlot.stories.tsx"
+      },
+      "parts": []
+    },
+    {
       "name": "DynamicInput",
       "tier": "composites",
       "source": "src/composites/DynamicInput/DynamicInput.tsx",
@@ -13445,7 +13583,8 @@
         "The board never changes a card group. A move reports the neighbours the card has after it, above and below (card ids, left out at an end), so the app sets the group of the moved card and the frame forms again from the new order and keys.",
         "Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.",
         "Pass cardEdgeTone to draw a coloured edge on some cards, such as danger for a card that needs the user; return undefined for a card with no edge.",
-        "When renderCard returns its own framed card, such as a RecordCard, pass cardFrame none so the board draws no frame; pass the edgeTone from the second renderCard argument to that card.",
+        "Pass cardTint to give some cards a subtle glass tint from a tag colour, such as rose for bugs; return undefined for an untinted card. A column accent tints the lane the same way, and the group frame takes the lane tint.",
+        "When renderCard returns its own framed card, such as a RecordCard, pass cardFrame none so the board draws no frame; pass the edgeTone and the tint from the second renderCard argument to that card.",
         "Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.",
         "Set columnWidth to fill so the columns share the board width instead of a fixed width; each keeps a minimum, and the board scrolls sideways when the minimums do not fit.",
         "Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.",
@@ -13515,6 +13654,11 @@
             "name": "cardEdgeTone",
             "optional": true,
             "text": "(card: Card) => CardTone | undefined"
+          },
+          {
+            "name": "cardTint",
+            "optional": true,
+            "text": "(card: Card) => TagCategoryColor | undefined"
           },
           {
             "name": "cardFrame",
@@ -13609,9 +13753,11 @@
         "--border-width-thin",
         "--c-border-strong",
         "--c-focus",
+        "--c-glass-border",
+        "--c-glass-fill",
+        "--c-glass-solid",
         "--c-primary-bright",
         "--c-primary-soft",
-        "--c-surface",
         "--c-text-dim",
         "--c-text-muted",
         "--hue-fill",
@@ -17551,8 +17697,8 @@
         "The chevron shows only when there are children, and a click on the header row toggles the card, but never a click in the menu or a control.",
         "Folded, the title sits in the header and the body is not rendered; open, the title moves above the children, so it shows once.",
         "Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.",
-        "Use density row for a compact list, card for roomy items and compact for a fixed two line card.",
-        "Use density compact for a fixed two line card with no body: line one is the icon, the code, content in a ticker and the end and menu slots, and line two is the title in a ticker. children are ignored, so it never folds.",
+        "Use density row for a compact list, card for roomy items and compact for a two line card that grows with its title.",
+        "Use density compact for a two line card with no body: line one is the icon, the code, content (unscrolled, so keep it to small chips, a time and an avatar) and the end and menu slots, and line two is the title, which wraps on every line it needs. The card has a minimum height and grows with the title. children are ignored, so it never folds.",
         "Pass end for a small item at the end of line one of a compact card, such as an assignee, before the menu.",
         "Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.",
         "Pass chevronOnIcon with an icon so the icon shows the fold chevron on hover and focus, with no separate chevron slot.",
@@ -17756,6 +17902,7 @@
         "Pass icon, code, title, content and menu to fill the slots; they sit in that order after the chevron, and content sits at the end, next to the menu.",
         "Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. That row counts as a control, so its click never opens a Kanban card or a clickable Card around it. controls names the folded element and label replaces the default name.",
         "Pass chevronOnIcon with an icon to drop the separate chevron slot: the icon shows the fold chevron, open or closed, on hover and focus, and a click there folds.",
+        "Every slot is --record-header-slot-height tall (24px) and centred, with the header gap between slots and between the children of the content slot. Pass an icon, an avatar and a menu button no taller than that: icon 16px, avatar 20px with its ring, menu button 24px.",
         "The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.",
         "Use density row for a compact line and card for a roomy one; it only changes the gap between the slots.",
         "In a Kanban group bar, pass the fold of renderGroupHeader to chevron: { expanded: fold.open, onToggle: fold.toggle, controls: fold.controls }.",
@@ -17763,7 +17910,7 @@
       ],
       "a11y": [
         "The chevron is a bare button with aria-expanded and, when controls is set, aria-controls; Enter and Space on it toggle. The row has no role of its own.",
-        "The header never wraps. A long title and a long code are cut with an ellipsis, and the content slot shrinks and clips; the chevron, icon and menu keep their size."
+        "The header never wraps. A long title and a long code are cut with an ellipsis, and the content slot shrinks, with only its text cut and never an avatar ring; the chevron, icon and menu keep their size."
       ],
       "tree": {
         "path": [
@@ -17837,6 +17984,7 @@
         "--ease-standard",
         "--record-header-gap-card",
         "--record-header-gap-row",
+        "--record-header-slot-height",
         "--record-header-title-min"
       ],
       "gallery": {
