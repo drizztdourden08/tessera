@@ -1,0 +1,78 @@
+/* @layer renderer-components @kind style */
+.drop-slot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  inline-size: var(--drop-slot-size);
+  block-size: var(--drop-slot-size);
+  padding: var(--space-sm);
+  border: var(--border-width-thin) dashed var(--c-border-strong);
+  border-radius: var(--radius-md);
+  background: transparent;
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+}
+
+.drop-slot--sm {
+  --drop-slot-size: var(--size-64);
+}
+
+.drop-slot--md {
+  --drop-slot-size: var(--size-96);
+}
+
+.drop-slot--lg {
+  --drop-slot-size: var(--size-128);
+}
+
+.drop-slot:hover:not([aria-disabled='true']) {
+  background: var(--c-hover);
+}
+
+.drop-slot:focus-visible {
+  outline: var(--border-width-thin) solid var(--c-focus);
+  outline-offset: var(--space-xs);
+}
+
+.drop-slot[data-filled] {
+  border-style: solid;
+  border-color: var(--c-border);
+  background: var(--c-surface);
+}
+
+.drop-slot[data-over] {
+  border-style: dashed;
+  border-color: var(--c-primary);
+  background: var(--c-primary-soft);
+}
+
+.drop-slot[data-over] > * {
+  pointer-events: none;
+}
+
+.drop-slot[aria-disabled='true'] {
+  opacity: var(--opacity-disabled);
+  cursor: not-allowed;
+}
+
+.drop-slot__label {
+  text-align: center;
+  pointer-events: none;
+}
+
+.drop-slot__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
+  overflow: hidden;
+}
+
+.drop-slot__clear {
+  position: absolute;
+  inset-block-start: var(--space-xs);
+  inset-inline-end: var(--space-xs);
+}
