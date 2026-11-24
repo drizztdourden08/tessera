@@ -13619,7 +13619,7 @@
         "rule": "KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards."
       },
       "example": "import { useState } from 'react';\nimport { Badge, KanbanBoard, Text, moveCard } from '@drizztdourden08/tessera';\nimport type { KanbanColumn } from '@drizztdourden08/tessera';\n\ninterface Task {\n  id: string;\n  title: string;\n  tag: string;\n  group?: string;\n}\n\nconst START: KanbanColumn<Task>[] = [\n  { id: 'todo', title: 'To do', cards: [\n    { id: 't1', title: 'Fix login', tag: 'bug', group: 'auth' },\n    { id: 't2', title: 'Add reset link', tag: 'feature', group: 'auth' },\n    { id: 't3', title: 'Update docs', tag: 'chore' },\n  ] },\n  { id: 'doing', title: 'Doing', cards: [] },\n  { id: 'done', title: 'Done', cards: [] },\n];\n\nconst Tasks = () => {\n  const [columns, setColumns] = useState(START);\n  return (\n    <KanbanBoard\n      label=\"Sprint\"\n      columns={columns}\n      cardLabel={(task) => task.title}\n      renderGroupHeader={(group) => group}\n      renderCard={(task) => (\n        <>\n          <Text>{task.title}</Text>\n          <Badge variant=\"inline\" value={task.tag} color=\"info\" />\n        </>\n      )}\n      onMove={(move) => setColumns((now) => moveCard(now, move))}\n    />\n  );\n};\n",
-      "propsHash": "bba09c8e8f7d4431",
+      "propsHash": "76ec6ecfbca6e995",
       "props": {
         "own": [
           {
@@ -17726,7 +17726,7 @@
         "rule": "RecordCard is the shared card of every list item: header slots in a fixed order, a body that folds away."
       },
       "example": "import { Badge, Icon, IconButton, RecordCard, Text } from '@drizztdourden08/tessera';\n\nconst TaskCard = () => (\n  <RecordCard\n    title=\"Fix the login redirect\"\n    code=\"ARG-12\"\n    content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n    menu={<IconButton variant=\"ghost\" size=\"sm\" label=\"Actions\"><Icon name=\"ellipsis\" /></IconButton>}\n  >\n    <Text>The redirect drops the return path after sign in.</Text>\n  </RecordCard>\n);\n",
-      "propsHash": "4143adb7898ba6ae",
+      "propsHash": "fe4d0a1c95978f52",
       "props": {
         "own": [
           {
@@ -17955,7 +17955,7 @@
         "rule": "RecordHeader is the shared title line of every item: slots in a fixed order, centred, with no frame of its own."
       },
       "example": "import { useState } from 'react';\nimport { Badge, RecordHeader, TypeMark } from '@drizztdourden08/tessera';\n\nconst TaskLine = () => {\n  const [open, setOpen] = useState(true);\n  return (\n    <RecordHeader\n      icon={<TypeMark icon=\"bug\" label=\"Bug\" color=\"violet\" variant=\"outline\" />}\n      code=\"ARG-12\"\n      title=\"Fix the login redirect\"\n      content={<Badge variant=\"inline\" value=\"Open\" color=\"info\" />}\n      chevron={{ expanded: open, onToggle: () => setOpen(!open), controls: 'task-body' }}\n    />\n  );\n};\n",
-      "propsHash": "b33fde331c72dae0",
+      "propsHash": "5fda03b7858f9848",
       "props": {
         "own": [
           {
