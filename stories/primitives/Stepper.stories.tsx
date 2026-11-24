@@ -192,7 +192,8 @@ const Overview = overviewStory({
   component: 'Stepper',
   description: 'The steps of a task in order, a numbered circle per step joined by lines, that shows where the user is.',
   points: [
-    'Pass `steps` and `currentId`; `orientation="vertical"` runs the steps down the left. A null or missing `currentId` is not started, `complete` marks every step done.',
+    'Pass `steps` and `currentId`; `orientation="vertical"` runs the steps down the left.',
+    'A null or missing `currentId` is not started; `complete` marks every step done.',
     'A step can carry a `summary`, sub-steps, an `error` state and its own `tone`; `reserve="none"` drops room.',
     '`canSelect` picks the clickable steps; `selectMode="toggle"` makes every step a button with `aria-pressed`.',
     'A ladder uses step `media`, `state`, `struck` and `dotVariant="ring"`; `mediaPlacement="below"` moves media.',
