@@ -1,5 +1,20 @@
 # @drizztdourden08/tessera
 
+## 0.136.0
+
+### Minor Changes
+
+- RecordCard takes a `tint` prop (`TagCategoryColor`) that gives the card a subtle tinted surface and border on every density. KanbanBoard takes a `groupAccent` prop (`(groupId) => TagCategoryColor | undefined`) that tints the frame and bar of one group with its own colour over the lane tint. RecordHeader and RecordCard take `menuOnHover`, which hides the menu slot until hover or focus inside (always shown on touch) without moving the row.
+
+## 0.135.0
+
+### Minor Changes
+
+- New `DropSlot` composite: a dashed slot that takes one dragged item, with a label, a clear button, a drag-over highlight, `accept` and `onDrop`, and Enter or click for `onPick`.
+- KanbanBoard draws glass layers: lane, group frame and card are slightly transparent, each with a subtle tint from the column accent. The group frame borders run unbroken and the group bar spans the full frame width. New `cardTint` prop (`(card) => TagCategoryColor | undefined`) tints a card, and the `renderCard` frame argument carries `tint`.
+- `RecordHeader` slots share one height token, `--record-header-slot-height`, the content slot keeps the header gap and never clips an avatar ring. `RecordCard` compact wraps its title, drops the tickers and grows from a minimum height.
+- Stepper reads a null or missing `currentId` as not started (no step current, every step upcoming, compact label "Not started"), and `complete` now shows "Complete" in the compact label instead of "Step 4 of 3".
+
 ## 0.134.0
 
 ### Minor Changes

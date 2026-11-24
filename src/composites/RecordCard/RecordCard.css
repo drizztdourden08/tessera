@@ -8,12 +8,16 @@
   --record-card-pad: var(--record-card-pad-compact);
   --record-card-gap: var(--record-card-gap-compact);
 
-  block-size: var(--record-card-height-compact);
+  min-block-size: var(--record-card-height-compact);
 }
 
 .record-card--compact .record-card__inner {
-  block-size: 100%;
-  overflow: hidden;
+  min-block-size: 100%;
+}
+
+.record-card__compact-title {
+  overflow-wrap: anywhere;
+  white-space: normal;
 }
 
 .record-card--card {
@@ -42,4 +46,11 @@
 
 .record-card--card .record-card__body > :last-child {
   margin-block-start: auto;
+}
+
+.record-card.tag-hue {
+  --card-tint: var(--hue-ink);
+
+  background: color-mix(in srgb, var(--card-tint) 9%, var(--c-glass-fill));
+  border-color: color-mix(in srgb, var(--card-tint) 22%, var(--c-glass-border));
 }

@@ -266,6 +266,7 @@ No question leads to these parts. Other components are built on them; reach for 
 
 - [PixelThumbnail](components/PixelThumbnail.md). A small square that draws a pixel picture crisp, from RGBA bytes or palette pixels, with a checker behind clear pixels.
 - [DragGhost](components/DragGhost.md). The picture that follows the pointer while items are dragged: a stack of up to three thumbnails and the count of items.
+- [DropSlot](components/DropSlot.md). A dashed container that takes one dragged card: it shows a label when empty, holds one node when filled, and clears on a button.
 - [MillerColumns](components/MillerColumns.md). Side by side columns for a nested set, such as folders: picking a folder in one column shows its children in the next, and the pick is shared with the app.
 - [OptionGroup](components/OptionGroup.md). A titled group of option rows, with the title in small capitals over the rows.
 - [OptionRow](components/OptionRow.md). One option of a randomizer or game preset: its name, tag and description on the left, its control in the middle, and an optional cell at the end.

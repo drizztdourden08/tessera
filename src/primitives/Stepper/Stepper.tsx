@@ -23,7 +23,7 @@ const Stepper = (props: StepperProps) => {
   const current = currentIndex(props);
   const motion = useStepMotion(current);
   const name = label ?? stepper.steps;
-  if (compact) return <StepperCompact steps={steps} current={Math.max(current, 0)} label={name} className={className} />;
+  if (compact) return <StepperCompact steps={steps} current={current} label={name} className={className} />;
   const statuses = steps.map((step, index) => stepStatus(step, index, current));
   const hasMedia = orientation === 'horizontal' && steps.some((step) => step.media !== undefined);
   return (

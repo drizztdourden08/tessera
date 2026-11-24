@@ -1,4 +1,5 @@
 /* @layer stories @kind types */
+import type { TagCategoryColor } from '../../../src/primitives';
 import type { RecordCardDensity } from '../../../src/composites';
 
 interface RecordCardDemoProps {
@@ -8,6 +9,8 @@ interface RecordCardDemoProps {
   brand?: boolean;
   chevronOnIcon?: boolean;
   controlled?: boolean;
+  menuOnHover?: boolean;
+  tint?: TagCategoryColor;
 }
 
 export type { RecordCardDemoProps };

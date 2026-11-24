@@ -79,6 +79,11 @@ const NodeHeads = {
   render: () => <KanbanDemo heads slots />,
 } satisfies StoryLiteStoryDefinition<KanbanArgs>;
 
+const GroupAccent = {
+  name: 'groupAccent: the epic frame and its bar take their own tag colour over the lane tint',
+  render: () => <KanbanGroupDemo accent />,
+} satisfies StoryLiteStoryDefinition<KanbanArgs>;
+
 const GroupFold = {
   name: 'Group header: a RecordHeader whose chevron folds the group, in every column that holds it',
   render: () => <KanbanGroupDemo />,
@@ -124,12 +129,12 @@ const Overview = overviewStory({
     'Drag the grip, or press [[Up]] and [[Down]] to move within a column and [[Left]] and [[Right]] to change column.',
     'Each move is announced, and focus stays on the card, even in its new column.',
     'A head has the count, `badge`, `action`, a fold button and an optional `header` node in place of the title.',
-    '`renderCard` draws a card; `cardEdgeTone` gives it a coloured edge; `cardFrame="none"` drops the board frame.',
+    '`renderCard` draws a card; `cardEdgeTone` and `cardTint` colour it; `groupAccent` tints one group frame.',
     'Opt-in looks: `columnWidth="fill"`, `columnHeight="fit"`, `grip={false}`, `foldable={false}` and `stack`.',
   ],
   instead: '[RowGrid] for one list edited in place, or [DataTable] for many records to sort and filter.',
   playground: Playground,
-  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, NodeHeads, GroupFold, GroupFoldControlled, AddForm, CardEdges, RecordCards, Folded, Narrow, Empty],
+  variants: [Live, Fill, FitHeight, NoGrip, NoFold, Stacked, HeaderSlots, NodeHeads, GroupFold, GroupAccent, GroupFoldControlled, AddForm, CardEdges, RecordCards, Folded, Narrow, Empty],
   states: {
     render: (props: StateProps) => <KanbanDemo folded={(props.folded as FoldedColumn | undefined) ?? 'none'} />,
     list: FOLDS.map((folded) => ({ name: folded === 'none' ? 'all open' : 'one folded', props: { folded } })),
@@ -138,4 +143,4 @@ const Overview = overviewStory({
 });
 
 export default meta;
-export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, GroupFold, GroupFoldControlled, HeaderSlots, Live, Narrow, NoFold, NoGrip, NodeHeads, Overview, Playground, RecordCards, Stacked };
+export { AddForm, CardEdges, Empty, Fill, FitHeight, Folded, GroupAccent, GroupFold, GroupFoldControlled, HeaderSlots, Live, Narrow, NoFold, NoGrip, NodeHeads, Overview, Playground, RecordCards, Stacked };

@@ -18,11 +18,13 @@ const usage = {
     'The chevron shows only when there are children, and a click on the header row toggles the card, but never a click in the menu or a control.',
     'Folded, the title sits in the header and the body is not rendered; open, the title moves above the children, so it shows once.',
     'Give open and onOpenChange to control it, or defaultOpen to start open and let the card keep its own state.',
-    'Use density row for a compact list, card for roomy items and compact for a fixed two line card.',
-    'Use density compact for a fixed two line card with no body: line one is the icon, the code, content in a ticker and the end and menu slots, and line two is the title in a ticker. children are ignored, so it never folds.',
+    'Use density row for a compact list, card for roomy items and compact for a two line card that grows with its title.',
+    'Use density compact for a two line card with no body: line one is the icon, the code, content (unscrolled, so keep it to small chips, a time and an avatar) and the end and menu slots, and line two is the title, which wraps on every line it needs. The card has a minimum height and grows with the title. children are ignored, so it never folds.',
     'Pass end for a small item at the end of line one of a compact card, such as an assignee, before the menu.',
     'Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.',
     'Pass chevronOnIcon with an icon so the icon shows the fold chevron on hover and focus, with no separate chevron slot.',
+    'Pass tint, a tag colour such as rose, for a subtle tint of the card surface and border on every density, the way a KanbanBoard cardTint does; leave it out for the plain card.',
+    'Pass menuOnHover to show the menu only while the card is hovered or has focus inside; it keeps its space, and touch screens always show it.',
     'Pass fill when cards sit in a grid, so every card of a row takes the full cell height.',
   ],
   a11y: [
@@ -47,7 +49,7 @@ const TaskCard = () => (
   </RecordCard>
 );
 `,
-  propsHash: '4143adb7898ba6ae',
+  propsHash: 'fe4d0a1c95978f52',
 } satisfies ComponentUsage;
 
 export { usage };

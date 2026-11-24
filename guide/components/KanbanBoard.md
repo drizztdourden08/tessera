@@ -39,9 +39,11 @@ KanbanBoard keeps the move, the keys, the counts and the fold the same in every 
 - Pass renderGroupHeader to draw the bar from the key, such as the parent icon and title: it gets the group key and the column, and a long header is cut with an ellipsis.
 - Pass fold, the third argument of renderGroupHeader, to the chevron of a RecordHeader to let the group fold: fold.open says if the cards show, fold.toggle flips it and fold.controls names the list for aria-controls. A folded group hides its cards and keeps its bar; the board keeps the state, and a group key folds in every column that holds it.
 - The board never changes a card group. A move reports the neighbours the card has after it, above and below (card ids, left out at an end), so the app sets the group of the moved card and the frame forms again from the new order and keys.
+- Pass groupAccent, from a group key to a tag colour, to tint the frame and bar of that group alone, over the lane tint, such as violet for epics; return undefined to keep the lane tint.
 - Pass cardLabel to name a card in the grip and in the announcement; it falls back to the card id.
 - Pass cardEdgeTone to draw a coloured edge on some cards, such as danger for a card that needs the user; return undefined for a card with no edge.
-- When renderCard returns its own framed card, such as a RecordCard, pass cardFrame none so the board draws no frame; pass the edgeTone from the second renderCard argument to that card.
+- Pass cardTint to give some cards a subtle glass tint from a tag colour, such as rose for bugs; return undefined for an untinted card. A column accent tints the lane the same way, and the group frame takes the lane tint.
+- When renderCard returns its own framed card, such as a RecordCard, pass cardFrame none so the board draws no frame; pass the edgeTone and the tint from the second renderCard argument to that card.
 - Give the board a height, such as a flex child or a fixed block size: each column scrolls on its own and the board scrolls sideways.
 - Set columnWidth to fill so the columns share the board width instead of a fixed width; each keeps a minimum, and the board scrolls sideways when the minimums do not fit.
 - Put a badge after the count of a column header, such as 2 quiet, with badge on the column; put a control at the header end, such as an Add button, with action.
@@ -120,6 +122,8 @@ const Tasks = () => {
 - `renderGroupHeader` (optional): `(group: string, column: KanbanColumn<Card>, fold: KanbanGroupFold) => ReactNode`.
 - `cardLabel` (optional): `(card: Card) => string`.
 - `cardEdgeTone` (optional): `(card: Card) => CardTone | undefined`.
+- `cardTint` (optional): `(card: Card) => TagCategoryColor | undefined`.
+- `groupAccent` (optional): `(groupId: string) => TagCategoryColor | undefined`.
 - `cardFrame` (optional): `KanbanCardFrameMode`, one of `'card'`, `'none'`.
 - `columnWidth` (optional): `KanbanColumnWidth`, one of `'fixed'`, `'fill'`. Default `'fixed'`.
 - `columnHeight` (optional): `KanbanColumnHeight`, one of `'stretch'`, `'fit'`. Default `'stretch'`.
@@ -136,7 +140,7 @@ const Tasks = () => {
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-focus`, `--c-primary-bright`, `--c-primary-soft`, `--c-surface`, `--c-text-dim`, `--c-text-muted`, `--hue-fill`, `--hue-ink`, `--opacity-muted`, `--radius-lg`, `--radius-md`, `--size-1`, `--size-2`, `--size-224`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
+It draws on `--border-width-thick`, `--border-width-thin`, `--c-border-strong`, `--c-focus`, `--c-glass-border`, `--c-glass-fill`, `--c-glass-solid`, `--c-primary-bright`, `--c-primary-soft`, `--c-text-dim`, `--c-text-muted`, `--hue-fill`, `--hue-ink`, `--opacity-muted`, `--radius-lg`, `--radius-md`, `--size-1`, `--size-2`, `--size-224`, `--size-288`, `--size-48`, `--space-2xs`, `--space-md`, `--space-sm`, `--space-xs`, `--text-xs`, `--weight-semi`.
 
 ## Also exported from this folder
 

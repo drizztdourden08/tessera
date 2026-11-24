@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind types */
 import type { ReactNode } from 'react';
+import type { TagCategoryColor } from '../../primitives/Tag';
 import type { CardEdge, CardTone, CardVariant } from '../../primitives/Card';
 import type { RecordHeaderDensity } from '../RecordHeader';
 
@@ -18,12 +19,14 @@ interface RecordCardProps {
   onOpenChange?: (open: boolean) => void;
   density?: RecordCardDensity;
   chevronOnIcon?: boolean;
+  menuOnHover?: boolean;
   className?: string;
   name?: string;
   edge?: CardEdge;
   edgeTone?: CardTone;
   variant?: CardVariant;
   fill?: boolean;
+  tint?: TagCategoryColor;
   'aria-label'?: string;
 }
 

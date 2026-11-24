@@ -73,6 +73,21 @@ const Controlled = {
   render: () => <RecordCardDemo controlled />,
 } satisfies StoryLiteStoryDefinition<RecordCardArgs>;
 
+const MenuOnHover = {
+  name: 'menuOnHover: the menu shows on hover or focus, and always on touch',
+  render: () => <RecordCardDemo menuOnHover />,
+} satisfies StoryLiteStoryDefinition<RecordCardArgs>;
+
+const Tinted = {
+  name: 'tint: a subtle tag colour on the card surface, here on the compact density',
+  render: () => (
+    <>
+      <RecordCardDemo tint="rose" />
+      <RecordCardDemo density="compact" tint="violet" />
+    </>
+  ),
+} satisfies StoryLiteStoryDefinition<RecordCardArgs>;
+
 const CODE = `import { RecordCard } from '@drizztdourden08/tessera';
 
 <RecordCard
@@ -94,16 +109,16 @@ const Overview = overviewStory({
   points: [
     'Header slots in order: chevron, `icon`, `code`, the title, then `content` and `menu` at the end.',
     'The chevron shows only when there are children, and a click on the header toggles it, not the menu.',
-    'Folded, the title is in the header; open, the title moves above the children.',
-    '`open` with `onOpenChange` controls it; `defaultOpen` starts it open and the card keeps its own state.',
+    'Folded, the title is in the header; open, it moves above the children. `open` with `onOpenChange` controls it.',
     '`density` is `card`, `row` for one line, or `compact` for two fixed lines with no body.',
+    '`tint` takes a tag colour and gives the card a subtle tinted surface on every density.',
     '`fill` stretches the card to its grid cell, so a row of cards shares one height.',
   ],
   instead: '[Card] for a plain surface, [ItemCard] for a catalogue tile with media, [Disclosure] for a plain show or hide line.',
   playground: Playground,
-  variants: [Folded, Open, Brand, Rows, Compact, Fill, ChevronOnIcon, Controlled],
+  variants: [Folded, Open, Brand, Rows, Compact, Fill, ChevronOnIcon, Controlled, Tinted, MenuOnHover],
   code: CODE,
 });
 
 export default meta;
-export { Brand, ChevronOnIcon, Compact, Controlled, Fill, Folded, Open, Overview, Playground, Rows };
+export { Brand, ChevronOnIcon, Compact, Controlled, Fill, Folded, Open, Overview, Playground, MenuOnHover, Rows, Tinted };
