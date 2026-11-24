@@ -39,6 +39,8 @@ RecordCard is the shared card of every list item: header slots in a fixed order,
 - Pass end for a small item at the end of line one of a compact card, such as an assignee, before the menu.
 - Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.
 - Pass chevronOnIcon with an icon so the icon shows the fold chevron on hover and focus, with no separate chevron slot.
+- Pass tint, a tag colour such as rose, for a subtle tint of the card surface and border on every density, the way a KanbanBoard cardTint does; leave it out for the plain card.
+- Pass menuOnHover to show the menu only while the card is hovered or has focus inside; it keeps its space, and touch screens always show it.
 - Pass fill when cards sit in a grid, so every card of a row takes the full cell height.
 
 ## Accessibility
@@ -78,14 +80,16 @@ const TaskCard = () => (
 - `onOpenChange` (optional): `(open: boolean) => void`.
 - `density` (optional): `RecordCardDensity`, one of `'card'`, `'compact'`, `'row'`.
 - `chevronOnIcon` (optional): `boolean`.
+- `menuOnHover` (optional): `boolean`.
 - `className` (optional): `string`.
 - `name` (optional): `string`.
 - `edge` (optional): `CardEdge`, one of `'left'`, `'border'`.
 - `edgeTone` (optional): `CardTone`, one of `'neutral'`, `'primary'`, `'info'`, `'success'`, `'warning'`, `'danger'`.
 - `variant` (optional): `CardVariant`, one of `'default'`, `'interactive'`, `'danger'`.
 - `fill` (optional): `boolean`.
+- `tint` (optional): `TagCategoryColor`, one of `'rose'`, `'orange'`, `'amber'`, `'lime'`, `'green'`, `'teal'`, `'cyan'`, `'blue'`, `'violet'`, `'pink'`.
 - `aria-label` (optional): `string`.
 
 ## Tokens
 
-It draws on `--record-card-gap-card`, `--record-card-gap-compact`, `--record-card-gap-row`, `--record-card-height-compact`, `--record-card-pad-card`, `--record-card-pad-compact`, `--record-card-pad-row`.
+It draws on `--c-glass-border`, `--c-glass-fill`, `--hue-ink`, `--record-card-gap-card`, `--record-card-gap-compact`, `--record-card-gap-row`, `--record-card-height-compact`, `--record-card-pad-card`, `--record-card-pad-compact`, `--record-card-pad-row`.
