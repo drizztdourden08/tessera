@@ -5780,6 +5780,7 @@
         "Set font title to draw the text in the title face at weight 600 without changing its size, such as a 14 px name in a list; weight still overrides the 600.",
         "Set smartTimes to draw a multiplication sign for an x between two digits, as in a size written 1920x1080; only text children change, and a nested element is left as it is.",
         "Set clamp to a line count to cut longer text with an ellipsis; the full text shows in a tooltip only when it is cut.",
+        "Set dots to end the text with an ellipsis that fills one dot at a time, for a busy label such as Thinking. Write the text without the dots. With reduced motion the three dots stay still.",
         "Set indent to a depth from 0 to 8 to pad the start of a tree row by that many indent steps; a depth above 8 counts as 8. A span has no box of its own, so pair indent with as=\"div\" or put it inside a cell.",
         "Set mono for file names, seeds and addresses, and numeric for times and counts that line up."
       ],
@@ -5795,7 +5796,7 @@
         "rule": "Text sets interface copy in a role from the scale, and its members draw each text element."
       },
       "example": "import { Text } from '@drizztdourden08/tessera';\n\nconst SyncLine = () => (\n  <Text.P>\n    <Text variant=\"caption\" tone=\"muted\">Last synced 12 seconds ago</Text>\n    <Text variant=\"caption\" tone=\"faint\"> · Hold Shift to snap</Text>\n  </Text.P>\n);\n",
-      "propsHash": "6959ec76ee231729",
+      "propsHash": "1e64400a66d779b6",
       "props": {
         "own": [
           {
@@ -5873,6 +5874,11 @@
             "text": "number"
           },
           {
+            "name": "dots",
+            "optional": true,
+            "text": "boolean"
+          },
+          {
             "name": "indent",
             "optional": true,
             "text": "number"
@@ -5927,6 +5933,7 @@
         "--c-text-faint",
         "--c-text-muted",
         "--c-warning",
+        "--duration-dots",
         "--font-mono",
         "--font-title",
         "--indent-1",
@@ -7748,7 +7755,8 @@
       "rules": [
         "Pass messages in order. Each has an id, a speaker and optional role, time, content and tools.",
         "Consecutive messages from the same speaker form one row. The name and time show once at the top of the row.",
-        "role tints the speaker name: user, assistant or system. It defaults to assistant.",
+        "role tints the speaker name: user, assistant or system. It defaults to assistant. A user row sits on the inline end in a bubble, with no name, and its time sits under the bubble.",
+        "Only the last rows render at first. Scroll near the top and the earlier rows load, and the reading position stays put. New rows slide up unless the reader prefers reduced motion.",
         "The tools of a message fold into one line that reads, for example, 3 tool calls. It shows a running state while any tool runs and a failed state when one failed.",
         "Open, each tool shows its name, summary and status. A tool with detail folds that detail under its own line.",
         "The transcript scrolls and follows the end as messages arrive, until the reader scrolls up. Set follow to false to turn that off.",
@@ -7798,10 +7806,15 @@
         }
       },
       "tokens": [
-        "--border-width-thick",
-        "--c-border",
+        "--c-primary-soft",
+        "--chat-bubble-max",
+        "--distance-enter",
+        "--duration-slow",
+        "--ease-emphasized",
+        "--radius-lg",
         "--space-md",
-        "--space-sm"
+        "--space-sm",
+        "--space-xs"
       ],
       "gallery": {
         "title": "Composites · Content/ChatTranscript",
@@ -8619,7 +8632,7 @@
         "@drizztdourden08/tessera/composites"
       ],
       "usage": true,
-      "job": "A chat composer: one rounded box with a growing text input, a send button and an optional bar of tools.",
+      "job": "A chat composer: one rounded box with a growing text input, a floating send button and an optional bar of tools.",
       "useWhen": [
         "A person writes a message to a chat or an agent and sends it with Enter.",
         "The input should start on one line and grow with the text up to a limit."
@@ -8640,7 +8653,8 @@
         "The input grows from one line to maxRows lines, 8 by default, then scrolls.",
         "The default send button is disabled while the text is blank or the composer is disabled. Pass sendSlot to put your own.",
         "busy shows a spinner on the default send button and stops Enter and the button from sending. The input stays editable.",
-        "bar sits on the left of the bottom row, beside the send button: attachments, a model picker, a hint.",
+        "The send button floats at the bottom right inside the box, over the end of the input, which keeps room for it. The box starts as one row.",
+        "bar sits on the left of a foot row under the input: attachments, a model picker, a hint. The row shows, and slides in, only when bar is set.",
         "Give the composer an aria-label when no visible label names it."
       ],
       "a11y": [
@@ -8733,6 +8747,10 @@
         "--c-primary",
         "--c-primary-soft",
         "--c-surface",
+        "--composer-send-room",
+        "--distance-enter",
+        "--duration-slow",
+        "--ease-emphasized",
         "--radius-lg",
         "--space-2xs",
         "--space-md",
@@ -15098,7 +15116,7 @@
         "Own the text in the app and pass it as value, with onChange; the editor keeps no copy of it.",
         "Leave layout out to get split on a wide container and Write and Preview tabs on a narrow one.",
         "Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.",
-        "Set layout to composer for a chat box: one rounded box with the toolbar on top, a borderless input that grows with the text, and the submit button inside at the bottom right. For a plain chat input with no toolbar, use Composer.",
+        "Set layout to composer for a chat box: one rounded box with the toolbar on top, a borderless input that grows with the text, and the submit button floating inside the box at the bottom right, over the end of the input, which keeps room for it. The foot row shows only when there are actions or a counter, and it slides in. For a plain chat input with no toolbar, use Composer.",
         "Pass onLink in a desktop app so a link in the preview opens in the system browser.",
         "Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.",
         "Pass compact for a note box inside a card: a slim toolbar, a 3 row textarea that grows with its text up to a cap, and no split or tabs; rows still sets the starting height.",
@@ -15295,6 +15313,11 @@
         "--c-primary-soft",
         "--c-sunken",
         "--c-surface",
+        "--composer-send-room",
+        "--composer-send-room-label",
+        "--distance-enter",
+        "--duration-slow",
+        "--ease-emphasized",
         "--radius-lg",
         "--radius-md",
         "--size-192",
