@@ -1,12 +1,7 @@
 /* @layer renderer-components @kind component */
 import { Icon } from '../../../primitives/Icon';
 import { IconButton } from '../../../primitives/IconButton';
-
-interface DropSlotClearProps {
-  label: string;
-  disabled?: boolean;
-  onClear: () => void;
-}
+import type { DropSlotClearProps } from './DropSlotClear.type';
 
 const DropSlotClear = ({ label, disabled, onClear }: DropSlotClearProps) => (
   <IconButton

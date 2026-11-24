@@ -1,10 +1,9 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../primitives/Box';
-import { Text } from '../../primitives/Text';
 import { DEFAULT_CLEAR_LABEL } from './DropSlot.constants';
 import { dropSlotClasses } from './behavior/drop-slot-classes';
 import { useDropSlot } from './behavior/useDropSlot';
-import { DropSlotClear } from './sub-components/DropSlotClear';
+import { DropSlotBody } from './sub-components/DropSlotBody';
 import type { DropSlotProps } from './DropSlot.type';
 import './DropSlot.css';
 
@@ -28,8 +27,7 @@ const DropSlot = (props: DropSlotProps) => {
       onDrop={bind.onDrop}
       onKeyDown={bind.onKeyDown}
     >
-      {holds ? <Box className="drop-slot__content">{children}</Box> : <Text variant="caption" tone="faint" className="drop-slot__label">{label}</Text>}
-      {holds && onClear && <DropSlotClear label={clearLabel} disabled={disabled} onClear={onClear} />}
+      <DropSlotBody holds={holds} label={label} clearLabel={clearLabel} disabled={disabled} onClear={onClear}>{children}</DropSlotBody>
     </Box>
   );
 };
