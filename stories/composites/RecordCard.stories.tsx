@@ -73,6 +73,11 @@ const Controlled = {
   render: () => <RecordCardDemo controlled />,
 } satisfies StoryLiteStoryDefinition<RecordCardArgs>;
 
+const MenuOnHover = {
+  name: 'menuOnHover: the menu shows on hover or focus, and always on touch',
+  render: () => <RecordCardDemo menuOnHover />,
+} satisfies StoryLiteStoryDefinition<RecordCardArgs>;
+
 const Tinted = {
   name: 'tint: a subtle tag colour on the card surface, here on the compact density',
   render: () => (
@@ -112,9 +117,9 @@ const Overview = overviewStory({
   ],
   instead: '[Card] for a plain surface, [ItemCard] for a catalogue tile with media, [Disclosure] for a plain show or hide line.',
   playground: Playground,
-  variants: [Folded, Open, Brand, Rows, Compact, Fill, ChevronOnIcon, Controlled, Tinted],
+  variants: [Folded, Open, Brand, Rows, Compact, Fill, ChevronOnIcon, Controlled, Tinted, MenuOnHover],
   code: CODE,
 });
 
 export default meta;
-export { Brand, ChevronOnIcon, Compact, Controlled, Fill, Folded, Open, Overview, Playground, Rows, Tinted };
+export { Brand, ChevronOnIcon, Compact, Controlled, Fill, Folded, Open, Overview, Playground, MenuOnHover, Rows, Tinted };

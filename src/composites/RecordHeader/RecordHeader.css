@@ -116,3 +116,27 @@
     transition: none;
   }
 }
+
+.record-header--menu-hover .record-header__slot--menu {
+  opacity: 0;
+  transition: opacity var(--duration-fast);
+}
+
+.record-header--menu-hover:hover .record-header__slot--menu,
+.record-header--menu-hover:focus-within .record-header__slot--menu,
+.record-card:hover .record-header--menu-hover .record-header__slot--menu,
+.record-card:focus-within .record-header--menu-hover .record-header__slot--menu {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .record-header--menu-hover .record-header__slot--menu {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .record-header--menu-hover .record-header__slot--menu {
+    transition: none;
+  }
+}

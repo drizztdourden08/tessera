@@ -19,6 +19,7 @@ interface RecordCardProps {
   onOpenChange?: (open: boolean) => void;
   density?: RecordCardDensity;
   chevronOnIcon?: boolean;
+  menuOnHover?: boolean;
   className?: string;
   name?: string;
   edge?: CardEdge;

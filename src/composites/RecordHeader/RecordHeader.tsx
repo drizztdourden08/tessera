@@ -10,11 +10,11 @@ import { RecordHeaderSlot } from './sub-components/RecordHeaderSlot';
 import './RecordHeader.css';
 
 const RecordHeader = (props: RecordHeaderProps) => {
-  const { title, icon, code, content, menu, chevron, chevronOnIcon, density, className } = props;
+  const { title, icon, code, content, menu, chevron, chevronOnIcon, menuOnHover, density, className } = props;
   const toggle = chevron?.onToggle;
   const swap = chevronOnIcon === true && chevron != null && icon != null;
   return (
-    <Box className={recordHeaderClass(density ?? 'card', className, toggle != null)} {...recordHeaderRow(toggle)}>
+    <Box className={recordHeaderClass(density ?? 'card', className, toggle != null, menuOnHover === true)} {...recordHeaderRow(toggle)}>
       <RecordHeaderSlot when={chevron != null && !swap}>{chevron && <RecordHeaderChevron {...chevron} />}</RecordHeaderSlot>
       <RecordHeaderSlot when={icon != null}>{swap ? <RecordHeaderIconSwap icon={icon} chevron={chevron} /> : icon}</RecordHeaderSlot>
       <RecordHeaderSlot when={code != null} code>

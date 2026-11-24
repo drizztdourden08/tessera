@@ -15,6 +15,7 @@ const usage = {
   rules: [
     'Pass icon, code, title, content and menu to fill the slots; they sit in that order after the chevron, and content sits at the end, next to the menu.',
     'Pass chevron with expanded and onToggle to show the fold button; leave it out and no button shows. A click anywhere on the row also toggles, except a click on a button, link or field inside it. That row counts as a control, so its click never opens a Kanban card or a clickable Card around it. controls names the folded element and label replaces the default name.',
+    'Pass menuOnHover to hide the menu slot until the header is hovered or has focus inside; it keeps its space so the row does not shift, and it always shows on touch screens.',
     'Pass chevronOnIcon with an icon to drop the separate chevron slot: the icon shows the fold chevron, open or closed, on hover and focus, and a click there folds.',
     'Every slot is --record-header-slot-height tall (24px) and centred, with the header gap between slots and between the children of the content slot. Pass an icon, an avatar and a menu button no taller than that: icon 16px, avatar 20px with its ring, menu button 24px.',
     'The header has no padding and no surface, so the parent gives them: a card, a Kanban group bar or a tree row.',

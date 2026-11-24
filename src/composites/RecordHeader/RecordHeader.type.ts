@@ -18,6 +18,7 @@ interface RecordHeaderProps {
   menu?: ReactNode;
   chevron?: RecordHeaderChevron;
   chevronOnIcon?: boolean;
+  menuOnHover?: boolean;
   density?: RecordHeaderDensity;
   className?: string;
 }

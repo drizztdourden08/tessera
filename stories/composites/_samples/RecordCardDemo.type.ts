@@ -9,6 +9,7 @@ interface RecordCardDemoProps {
   brand?: boolean;
   chevronOnIcon?: boolean;
   controlled?: boolean;
+  menuOnHover?: boolean;
   tint?: TagCategoryColor;
 }
 

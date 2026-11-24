@@ -24,6 +24,7 @@ const usage = {
     'Pass edge, edgeTone and variant as on Card for a coloured edge; never wrap a RecordCard in another Card.',
     'Pass chevronOnIcon with an icon so the icon shows the fold chevron on hover and focus, with no separate chevron slot.',
     'Pass tint, a tag colour such as rose, for a subtle tint of the card surface and border on every density, the way a KanbanBoard cardTint does; leave it out for the plain card.',
+    'Pass menuOnHover to show the menu only while the card is hovered or has focus inside; it keeps its space, and touch screens always show it.',
     'Pass fill when cards sit in a grid, so every card of a row takes the full cell height.',
   ],
   a11y: [
