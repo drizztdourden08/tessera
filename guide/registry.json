@@ -11184,6 +11184,7 @@
         "The source sets the payload in its onDragStart with event.dataTransfer.setData(type, value); it works with useNativeDragGhost and with plain HTML drag and drop.",
         "onClear shows a clear button on a filled slot; clearLabel names it.",
         "onPick is called on a click and on Enter, empty or filled, so a menu can choose instead of a drag.",
+        "disabled stops drops, picks and the clear button.",
         "size is sm, md or lg and sets the square the slot fills."
       ],
       "a11y": [
@@ -11193,7 +11194,7 @@
       ],
       "buildingBlock": true,
       "example": "import { DropSlot } from '@drizztdourden08/tessera';\nimport { useState } from 'react';\n\nconst Source = () => {\n  const [account, setAccount] = useState<string | undefined>();\n  return (\n    <DropSlot\n      label=\"From\"\n      accept=\"application/x-account\"\n      onDrop={setAccount}\n      onClear={() => setAccount(undefined)}\n      onPick={() => undefined}\n    >\n      {account}\n    </DropSlot>\n  );\n};\n",
-      "propsHash": "pending-guide-run",
+      "propsHash": "348f1a3b4a5f74bb",
       "props": {
         "own": [
           {
@@ -13617,7 +13618,7 @@
         "rule": "KanbanBoard keeps the move, the keys, the counts and the fold the same in every board, so an app only draws its cards."
       },
       "example": "import { useState } from 'react';\nimport { Badge, KanbanBoard, Text, moveCard } from '@drizztdourden08/tessera';\nimport type { KanbanColumn } from '@drizztdourden08/tessera';\n\ninterface Task {\n  id: string;\n  title: string;\n  tag: string;\n  group?: string;\n}\n\nconst START: KanbanColumn<Task>[] = [\n  { id: 'todo', title: 'To do', cards: [\n    { id: 't1', title: 'Fix login', tag: 'bug', group: 'auth' },\n    { id: 't2', title: 'Add reset link', tag: 'feature', group: 'auth' },\n    { id: 't3', title: 'Update docs', tag: 'chore' },\n  ] },\n  { id: 'doing', title: 'Doing', cards: [] },\n  { id: 'done', title: 'Done', cards: [] },\n];\n\nconst Tasks = () => {\n  const [columns, setColumns] = useState(START);\n  return (\n    <KanbanBoard\n      label=\"Sprint\"\n      columns={columns}\n      cardLabel={(task) => task.title}\n      renderGroupHeader={(group) => group}\n      renderCard={(task) => (\n        <>\n          <Text>{task.title}</Text>\n          <Badge variant=\"inline\" value={task.tag} color=\"info\" />\n        </>\n      )}\n      onMove={(move) => setColumns((now) => moveCard(now, move))}\n    />\n  );\n};\n",
-      "propsHash": "57d14080480ed1f8",
+      "propsHash": "bba09c8e8f7d4431",
       "props": {
         "own": [
           {

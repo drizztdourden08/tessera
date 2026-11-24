@@ -33,6 +33,7 @@ No question in [decide.md](../decide.md) leads here. Other components are built 
 - The source sets the payload in its onDragStart with event.dataTransfer.setData(type, value); it works with useNativeDragGhost and with plain HTML drag and drop.
 - OnClear shows a clear button on a filled slot; clearLabel names it.
 - OnPick is called on a click and on Enter, empty or filled, so a menu can choose instead of a drag.
+- Disabled stops drops, picks and the clear button.
 - Size is sm, md or lg and sets the square the slot fills.
 
 ## Accessibility
