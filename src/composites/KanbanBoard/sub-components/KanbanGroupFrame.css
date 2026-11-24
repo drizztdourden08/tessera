@@ -8,6 +8,17 @@
   background: color-mix(in srgb, var(--lane-tint, transparent) 6%, var(--c-glass-fill));
 }
 
+.kanban__list > .kanban__item--accent[data-group] {
+  --lane-tint: var(--hue-ink);
+
+  background: color-mix(in srgb, var(--hue-ink) 9%, var(--c-glass-fill));
+  border-color: color-mix(in srgb, var(--hue-ink) 28%, var(--c-glass-border));
+}
+
+.kanban__item--accent > .kanban__group-bar {
+  background: color-mix(in srgb, var(--hue-ink) 16%, var(--c-glass-fill));
+}
+
 .kanban__item[data-group] > :not(.kanban__group-bar) {
   margin-inline: var(--space-xs);
 }

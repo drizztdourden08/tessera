@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind component */
 import { Box } from '../../../primitives/Box';
+import { tagHueClass } from '../../../primitives/tag-hue/tag-hue-class';
 import { NO_END } from '../KanbanBoard.constants';
 import type { KanbanCardData, KanbanCardProps } from '../KanbanBoard.type';
 import { KanbanCardFace } from './KanbanCardFace';
@@ -9,10 +10,11 @@ import './KanbanCard.css';
 const KanbanCard = <Item extends KanbanCardData>({ card, frame, slot, last, shared }: KanbanCardProps<Item>) => {
   const folded = frame !== undefined && shared.foldedGroups.includes(frame.group);
   const head = frame?.part === 'first' || frame?.part === 'only' ? frame : undefined;
+  const accent = frame === undefined ? undefined : shared.groupAccent?.(frame.group);
   return (
     <Box
       as="li"
-      className="kanban__item"
+      className={accent === undefined ? 'kanban__item' : `kanban__item kanban__item--accent ${tagHueClass(accent)}`}
       data-swap-item=""
       data-reorder-index={slot}
       data-reorder-key={card.id}

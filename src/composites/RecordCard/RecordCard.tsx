@@ -11,7 +11,7 @@ import { RecordCardInner } from './sub-components/RecordCardInner';
 import './RecordCard.css';
 
 const RecordCard = (props: RecordCardProps) => {
-  const { title, icon, code, content, end, menu, children, open, defaultOpen, onOpenChange, chevronOnIcon, className, name, edge, edgeTone, variant, fill, 'aria-label': label } = props;
+  const { title, icon, code, content, end, menu, children, open, defaultOpen, onOpenChange, chevronOnIcon, className, name, edge, edgeTone, variant, fill, tint, 'aria-label': label } = props;
   const { navigation } = useTesseraStrings();
   const state = useOpenState(open, defaultOpen === true, onOpenChange);
   const density = props.density ?? 'card';
@@ -22,7 +22,7 @@ const RecordCard = (props: RecordCardProps) => {
   const chevron = recordCardChevron({ expandable, expanded, bodyId, name: name ?? label, named, onToggle: () => state.setOpen(!state.open) });
 
   return (
-    <Card flush fill={fill} variant={variant} edge={edge} edgeTone={edgeTone} className={recordCardClass(density, className)} aria-label={label} role={label ? 'group' : undefined}>
+    <Card flush fill={fill} variant={variant} edge={edge} edgeTone={edgeTone} className={recordCardClass(density, className, tint)} aria-label={label} role={label ? 'group' : undefined}>
       <Box className="record-card__inner">
         <RecordCardInner density={density} expanded={expanded} bodyId={bodyId} chevron={chevron} title={title} icon={icon} code={code} content={content} end={end} menu={menu} chevronOnIcon={chevronOnIcon}>
           {children}

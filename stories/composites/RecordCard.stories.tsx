@@ -73,6 +73,16 @@ const Controlled = {
   render: () => <RecordCardDemo controlled />,
 } satisfies StoryLiteStoryDefinition<RecordCardArgs>;
 
+const Tinted = {
+  name: 'tint: a subtle tag colour on the card surface, here on the compact density',
+  render: () => (
+    <>
+      <RecordCardDemo tint="rose" />
+      <RecordCardDemo density="compact" tint="violet" />
+    </>
+  ),
+} satisfies StoryLiteStoryDefinition<RecordCardArgs>;
+
 const CODE = `import { RecordCard } from '@drizztdourden08/tessera';
 
 <RecordCard
@@ -97,13 +107,14 @@ const Overview = overviewStory({
     'Folded, the title is in the header; open, the title moves above the children.',
     '`open` with `onOpenChange` controls it; `defaultOpen` starts it open and the card keeps its own state.',
     '`density` is `card`, `row` for one line, or `compact` for two fixed lines with no body.',
+    '`tint` takes a tag colour and gives the card a subtle tinted surface on every density.',
     '`fill` stretches the card to its grid cell, so a row of cards shares one height.',
   ],
   instead: '[Card] for a plain surface, [ItemCard] for a catalogue tile with media, [Disclosure] for a plain show or hide line.',
   playground: Playground,
-  variants: [Folded, Open, Brand, Rows, Compact, Fill, ChevronOnIcon, Controlled],
+  variants: [Folded, Open, Brand, Rows, Compact, Fill, ChevronOnIcon, Controlled, Tinted],
   code: CODE,
 });
 
 export default meta;
-export { Brand, ChevronOnIcon, Compact, Controlled, Fill, Folded, Open, Overview, Playground, Rows };
+export { Brand, ChevronOnIcon, Compact, Controlled, Fill, Folded, Open, Overview, Playground, Rows, Tinted };
