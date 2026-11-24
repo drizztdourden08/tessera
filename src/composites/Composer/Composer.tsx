@@ -27,11 +27,13 @@ const Composer = (props: ComposerProps) => {
         onChange={(event) => onChange(event.target.value)}
         onKeyDown={onKeyDown}
       />
-      <Flex className="composer-box__foot" gap="xs" align="center">
-        <Flex className="composer-box__bar" gap="xs" align="center">{bar}</Flex>
-        <Flex className="composer-box__send" gap="xs" align="center">
-          {sendSlot ?? <ComposerSend value={value} disabled={disabled} busy={busy} onSubmit={onSubmit} />}
+      {bar != null && (
+        <Flex className="composer-box__foot" gap="xs" align="center">
+          <Flex className="composer-box__bar" gap="xs" align="center">{bar}</Flex>
         </Flex>
+      )}
+      <Flex className="composer-box__send" gap="xs" align="center">
+        {sendSlot ?? <ComposerSend value={value} disabled={disabled} busy={busy} onSubmit={onSubmit} />}
       </Flex>
     </Box>
   );

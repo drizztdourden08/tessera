@@ -30,7 +30,8 @@ ChatTranscript lists chat messages by speaker, folds their tool calls and stays 
 
 - Pass messages in order. Each has an id, a speaker and optional role, time, content and tools.
 - Consecutive messages from the same speaker form one row. The name and time show once at the top of the row.
-- Role tints the speaker name: user, assistant or system. It defaults to assistant.
+- Role tints the speaker name: user, assistant or system. It defaults to assistant. A user row sits on the inline end in a bubble, with no name, and its time sits under the bubble.
+- Only the last rows render at first. Scroll near the top and the earlier rows load, and the reading position stays put. New rows slide up unless the reader prefers reduced motion.
 - The tools of a message fold into one line that reads, for example, 3 tool calls. It shows a running state while any tool runs and a failed state when one failed.
 - Open, each tool shows its name, summary and status. A tool with detail folds that detail under its own line.
 - The transcript scrolls and follows the end as messages arrive, until the reader scrolls up. Set follow to false to turn that off.
@@ -71,4 +72,4 @@ const Chat = () => (
 
 ## Tokens
 
-It draws on `--border-width-thick`, `--c-border`, `--space-md`, `--space-sm`.
+It draws on `--c-primary-soft`, `--chat-bubble-max`, `--distance-enter`, `--duration-slow`, `--ease-emphasized`, `--radius-lg`, `--space-md`, `--space-sm`, `--space-xs`.

@@ -1,5 +1,6 @@
 /* @layer renderer-components @kind style */
 .composer-box {
+  position: relative;
   box-sizing: border-box;
   min-inline-size: 0;
   overflow: hidden;
@@ -24,6 +25,7 @@
 
 .composer-box__foot {
   padding: var(--space-2xs) var(--space-xs) var(--space-xs);
+  animation: composer-foot-in var(--duration-slow) var(--ease-emphasized) both;
 }
 
 .composer-box__bar {
@@ -32,6 +34,18 @@
 }
 
 .composer-box__send {
-  flex: none;
-  margin-inline-start: auto;
+  position: absolute;
+  inset-block-end: var(--space-xs);
+  inset-inline-end: var(--space-xs);
+}
+
+@keyframes composer-foot-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--distance-enter));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .composer-box__foot { animation: none; }
 }

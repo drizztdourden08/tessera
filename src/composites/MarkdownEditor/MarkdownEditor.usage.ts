@@ -16,7 +16,7 @@ const usage = {
     'Own the text in the app and pass it as value, with onChange; the editor keeps no copy of it.',
     'Leave layout out to get split on a wide container and Write and Preview tabs on a narrow one.',
     'Set layout to split to keep both panes, which stack under a narrow container, or to tabs to keep the preview behind its tab.',
-    'Set layout to composer for a chat box: one rounded box with the toolbar on top, a borderless input that grows with the text, and the submit button inside at the bottom right. For a plain chat input with no toolbar, use Composer.',
+    'Set layout to composer for a chat box: one rounded box with the toolbar on top, a borderless input that grows with the text, and the submit button floating inside the box at the bottom right, over the end of the input, which keeps room for it. The foot row shows only when there are actions or a counter, and it slides in. For a plain chat input with no toolbar, use Composer.',
     'Pass onLink in a desktop app so a link in the preview opens in the system browser.',
     'Pass images and linkIds, the same as for Markdown, so the preview draws images and links ids the way the saved note will; with a slash path, onLink is needed too.',
     'Pass compact for a note box inside a card: a slim toolbar, a 3 row textarea that grows with its text up to a cap, and no split or tabs; rows still sets the starting height.',

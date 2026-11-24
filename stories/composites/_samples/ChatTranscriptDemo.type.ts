@@ -2,6 +2,7 @@
 interface ChatTranscriptDemoProps {
   follow?: boolean;
   empty?: boolean;
+  long?: boolean;
 }
 
 export type { ChatTranscriptDemoProps };

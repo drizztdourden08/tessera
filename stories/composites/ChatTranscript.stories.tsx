@@ -42,6 +42,11 @@ const Empty = {
   render: () => <ChatTranscriptDemo empty />,
 } satisfies StoryLiteStoryDefinition<ChatTranscriptArgs>;
 
+const Long = {
+  name: 'Long history: earlier rows load near the top',
+  render: () => <ChatTranscriptDemo long />,
+} satisfies StoryLiteStoryDefinition<ChatTranscriptArgs>;
+
 const CODE = `import { ChatTranscript } from '@drizztdourden08/tessera';
 
 <ChatTranscript
@@ -60,13 +65,15 @@ const Overview = overviewStory({
     '`role` tints the speaker name: `user`, `assistant` or `system`.',
     'The tools of a message fold into a line such as 3 tool calls, with a running state while one runs.',
     'A tool with `detail` folds that detail under its own line.',
+    'A user row sits on the inline end in a bubble, with its time under it.',
+    'Only the last rows render; scroll near the top and earlier rows load while the position holds. New rows slide up.',
     'It follows the newest message until the reader scrolls up; `follow` turns that off.',
   ],
   instead: '[LogPanel] for log lines with search and filters.',
   playground: Playground,
-  variants: [Following, NotFollowing, Empty],
+  variants: [Following, NotFollowing, Empty, Long],
   code: CODE,
 });
 
 export default meta;
-export { Empty, Following, NotFollowing, Overview, Playground };
+export { Empty, Following, Long, NotFollowing, Overview, Playground };

@@ -15,4 +15,6 @@ const CHAT_TOOL_STATUSES = defineStatuses({
   failed: { label: 'Failed', tone: 'danger' },
 });
 
-export { CHAT_ROLE_TONES, CHAT_TOOL_STATUSES };
+const CHAT_WINDOW_ROWS = 30;
+
+export { CHAT_WINDOW_ROWS, CHAT_ROLE_TONES, CHAT_TOOL_STATUSES };

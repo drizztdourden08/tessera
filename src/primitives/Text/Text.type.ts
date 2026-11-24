@@ -22,6 +22,7 @@ interface TextProps extends HTMLAttributes<HTMLElement>, Typesetting {
   numeric?: boolean;
   smartTimes?: boolean;
   clamp?: number;
+  dots?: boolean;
   indent?: number;
   children?: ReactNode;
 }

@@ -2,7 +2,7 @@
 import type { ComponentUsage } from '../../guide/usage.type';
 
 const usage = {
-  job: 'A chat composer: one rounded box with a growing text input, a send button and an optional bar of tools.',
+  job: 'A chat composer: one rounded box with a growing text input, a floating send button and an optional bar of tools.',
   useWhen: [
     'A person writes a message to a chat or an agent and sends it with Enter.',
     'The input should start on one line and grow with the text up to a limit.',
@@ -17,7 +17,8 @@ const usage = {
     'The input grows from one line to maxRows lines, 8 by default, then scrolls.',
     'The default send button is disabled while the text is blank or the composer is disabled. Pass sendSlot to put your own.',
     'busy shows a spinner on the default send button and stops Enter and the button from sending. The input stays editable.',
-    'bar sits on the left of the bottom row, beside the send button: attachments, a model picker, a hint.',
+    'The send button floats at the bottom right inside the box, over the end of the input, which keeps room for it. The box starts as one row.',
+    'bar sits on the left of a foot row under the input: attachments, a model picker, a hint. The row shows, and slides in, only when bar is set.',
     'Give the composer an aria-label when no visible label names it.',
   ],
   a11y: [

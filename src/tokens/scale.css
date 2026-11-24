@@ -42,6 +42,11 @@
   --size-896:  896px;
   --size-1024: 1024px;
   --log-msg-min: 16ch;
+  --composer-send-room: var(--size-56);
+  --composer-send-room-label: var(--size-96);
+  --distance-enter: var(--size-8);
+  --distance-bob: var(--size-3);
+  --chat-bubble-max: 85%;
   --aside-width-sm: 200px;
   --aside-width-md: 280px;
   --aside-width-lg: 360px;

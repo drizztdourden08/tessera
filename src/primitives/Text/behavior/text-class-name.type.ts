@@ -11,6 +11,7 @@ interface TextClassParams {
   mono?: boolean;
   numeric?: boolean;
   clamp?: boolean;
+  dots?: boolean;
   className?: string;
 }
 

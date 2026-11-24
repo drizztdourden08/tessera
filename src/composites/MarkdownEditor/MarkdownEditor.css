@@ -118,8 +118,8 @@
   padding-inline: var(--space-md);
 }
 
-.markdown-editor[data-layout='composer'] .markdown-editor__foot {
-  padding: var(--space-2xs) var(--space-xs) var(--space-xs);
+.markdown-editor[data-send='composer'] .textarea {
+  padding-inline-end: var(--composer-send-room-label);
 }
 
 .markdown-editor[data-layout='composer'] .markdown-editor__counter {
@@ -130,4 +130,8 @@
   min-block-size: var(--size-96);
   max-block-size: var(--size-192);
   background: transparent;
+}
+
+.markdown-editor[data-send='composer'] .markdown-editor__panes {
+  min-block-size: var(--composer-send-room);
 }

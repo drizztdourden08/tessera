@@ -2,11 +2,12 @@
 .composer {
   display: flex;
   flex-direction: column;
+  min-block-size: var(--composer-send-room);
 }
 
 .composer .textarea {
   flex: 1 1 auto;
   min-block-size: 0;
   padding-block: var(--space-sm) var(--space-2xs);
-  padding-inline: var(--space-md);
+  padding-inline: var(--space-md) var(--composer-send-room);
 }
