@@ -17,6 +17,8 @@ export type {
 } from '../VirtualGrid';
 export { DragGhost, useNativeDragGhost } from '../DragGhost';
 export type { DragGhostPoint, DragGhostProps, NativeDragGhost, NativeDragGhostInput } from '../DragGhost';
+export { DropSlot } from '../DropSlot';
+export type { DropSlotProps, DropSlotSize } from '../DropSlot';
 export { MarqueeBox } from '../MarqueeBox';
 export type { MarqueeBoxProps } from '../MarqueeBox';
 export { Navigator } from '../Navigator';
